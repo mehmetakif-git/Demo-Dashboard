@@ -1,0 +1,229 @@
+import { useState, useMemo } from 'react';
+import { motion } from 'framer-motion';
+import { CalendarCheck, UserCheck, Clock, UserX, Calendar as CalendarIcon } from 'lucide-react';
+import { PageHeader, StatsCard, StatusBadge, Avatar, DataTable } from '@/components/common';
+import { attendanceRecords } from '@/data/hrData';
+import type { AttendanceRecord } from '@/data/hrData';
+
+export const Attendance = () => {
+  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
+
+  const stats = useMemo(() => {
+    const filtered = attendanceRecords.filter((r) => r.date === selectedDate);
+    return {
+      present: filtered.filter((r) => r.status === 'present').length,
+      late: filtered.filter((r) => r.status === 'late').length,
+      absent: filtered.filter((r) => r.status === 'absent').length,
+      onLeave: filtered.filter((r) => r.status === 'on-leave').length,
+    };
+  }, [selectedDate]);
+
+  const filteredRecords = useMemo(() => {
+    return attendanceRecords.filter((r) => r.date === selectedDate);
+  }, [selectedDate]);
+
+  const columns = [
+    {
+      key: 'employee',
+      header: 'Employee',
+      render: (record: AttendanceRecord) => (
+        <div className="flex items-center gap-3">
+          <Avatar name={record.employee} size="sm" />
+          <span className="text-white">{record.employee}</span>
+        </div>
+      ),
+    },
+    {
+      key: 'checkIn',
+      header: 'Check In',
+      render: (record: AttendanceRecord) => (
+        <span className={`font-mono ${
+          record.checkIn && record.checkIn > '09:00' ? 'text-orange-400' : 'text-white/80'
+        }`}>
+          {record.checkIn || '-'}
+        </span>
+      ),
+    },
+    {
+      key: 'checkOut',
+      header: 'Check Out',
+      render: (record: AttendanceRecord) => (
+        <span className="text-white/80 font-mono">{record.checkOut || '-'}</span>
+      ),
+    },
+    {
+      key: 'status',
+      header: 'Status',
+      render: (record: AttendanceRecord) => <StatusBadge status={record.status} />,
+    },
+    {
+      key: 'hoursWorked',
+      header: 'Hours Worked',
+      render: (record: AttendanceRecord) => (
+        <div className="flex items-center gap-2">
+          <div className="flex-1 h-2 bg-[#1a1a24] rounded-full overflow-hidden max-w-[100px]">
+            <div
+              className="h-full bg-[#6366f1] rounded-full"
+              style={{ width: `${Math.min((record.hoursWorked / 9) * 100, 100)}%` }}
+            />
+          </div>
+          <span className="text-white/60 text-sm">{record.hoursWorked}h</span>
+        </div>
+      ),
+    },
+  ];
+
+  return (
+    <div className="p-6 space-y-6">
+      <PageHeader
+        title="Attendance"
+        subtitle="Track employee attendance"
+        icon={CalendarCheck}
+        actions={
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 px-3 py-2 bg-[#12121a] border border-[#1e1e2e] rounded-lg">
+              <CalendarIcon className="w-4 h-4 text-white/40" />
+              <input
+                type="date"
+                value={selectedDate}
+                onChange={(e) => setSelectedDate(e.target.value)}
+                className="bg-transparent text-white text-sm focus:outline-none"
+              />
+            </div>
+          </div>
+        }
+      />
+
+      {/* Stats */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <StatsCard
+          title="Present"
+          value={stats.present}
+          icon={UserCheck}
+          iconColor="#10b981"
+          iconBg="rgba(16, 185, 129, 0.2)"
+          delay={0.1}
+        />
+        <StatsCard
+          title="Late"
+          value={stats.late}
+          icon={Clock}
+          iconColor="#f59e0b"
+          iconBg="rgba(245, 158, 11, 0.2)"
+          delay={0.15}
+        />
+        <StatsCard
+          title="Absent"
+          value={stats.absent}
+          icon={UserX}
+          iconColor="#ef4444"
+          iconBg="rgba(239, 68, 68, 0.2)"
+          delay={0.2}
+        />
+        <StatsCard
+          title="On Leave"
+          value={stats.onLeave}
+          icon={CalendarCheck}
+          iconColor="#6366f1"
+          iconBg="rgba(99, 102, 241, 0.2)"
+          delay={0.25}
+        />
+      </div>
+
+      {/* Attendance Summary */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+        className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6"
+      >
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold text-white">Daily Summary</h3>
+          <p className="text-white/40 text-sm">
+            {new Date(selectedDate).toLocaleDateString('en-US', {
+              weekday: 'long',
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })}
+          </p>
+        </div>
+
+        {/* Progress bars */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="p-4 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-emerald-400 text-sm">Present</span>
+              <span className="text-white font-medium">{stats.present}</span>
+            </div>
+            <div className="h-2 bg-emerald-500/20 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-emerald-500 rounded-full"
+                style={{
+                  width: `${(stats.present / (filteredRecords.length || 1)) * 100}%`,
+                }}
+              />
+            </div>
+          </div>
+          <div className="p-4 rounded-lg bg-orange-500/10 border border-orange-500/20">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-orange-400 text-sm">Late</span>
+              <span className="text-white font-medium">{stats.late}</span>
+            </div>
+            <div className="h-2 bg-orange-500/20 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-orange-500 rounded-full"
+                style={{
+                  width: `${(stats.late / (filteredRecords.length || 1)) * 100}%`,
+                }}
+              />
+            </div>
+          </div>
+          <div className="p-4 rounded-lg bg-red-500/10 border border-red-500/20">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-red-400 text-sm">Absent</span>
+              <span className="text-white font-medium">{stats.absent}</span>
+            </div>
+            <div className="h-2 bg-red-500/20 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-red-500 rounded-full"
+                style={{
+                  width: `${(stats.absent / (filteredRecords.length || 1)) * 100}%`,
+                }}
+              />
+            </div>
+          </div>
+          <div className="p-4 rounded-lg bg-blue-500/10 border border-blue-500/20">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-blue-400 text-sm">On Leave</span>
+              <span className="text-white font-medium">{stats.onLeave}</span>
+            </div>
+            <div className="h-2 bg-blue-500/20 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-blue-500 rounded-full"
+                style={{
+                  width: `${(stats.onLeave / (filteredRecords.length || 1)) * 100}%`,
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Attendance Table */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.35 }}
+        className="bg-[#12121a] border border-[#1e1e2e] rounded-xl overflow-hidden"
+      >
+        <DataTable
+          columns={columns}
+          data={filteredRecords}
+          keyExtractor={(r) => String(r.id)}
+          emptyMessage="No attendance records for this date"
+        />
+      </motion.div>
+    </div>
+  );
+};
