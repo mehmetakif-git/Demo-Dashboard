@@ -184,6 +184,48 @@ const ProjectDetail = lazy(() =>
   }))
 );
 
+// Access Control Pages
+const CCTVMonitoring = lazy(() =>
+  import('@/pages/dashboard/access-control/CCTVMonitoring').then((module) => ({
+    default: module.CCTVMonitoring,
+  }))
+);
+const Cameras = lazy(() =>
+  import('@/pages/dashboard/access-control/Cameras').then((module) => ({
+    default: module.Cameras,
+  }))
+);
+const Recordings = lazy(() =>
+  import('@/pages/dashboard/access-control/Recordings').then((module) => ({
+    default: module.Recordings,
+  }))
+);
+const DoorAccess = lazy(() =>
+  import('@/pages/dashboard/access-control/DoorAccess').then((module) => ({
+    default: module.DoorAccess,
+  }))
+);
+const AccessCards = lazy(() =>
+  import('@/pages/dashboard/access-control/AccessCards').then((module) => ({
+    default: module.AccessCards,
+  }))
+);
+const AccessLogs = lazy(() =>
+  import('@/pages/dashboard/access-control/AccessLogs').then((module) => ({
+    default: module.AccessLogs,
+  }))
+);
+const Parking = lazy(() =>
+  import('@/pages/dashboard/access-control/Parking').then((module) => ({
+    default: module.Parking,
+  }))
+);
+const Visitors = lazy(() =>
+  import('@/pages/dashboard/access-control/Visitors').then((module) => ({
+    default: module.Visitors,
+  }))
+);
+
 // Loading fallback component
 const PageLoader = () => (
   <div className="min-h-screen bg-background-primary flex items-center justify-center">
@@ -355,6 +397,17 @@ const AppRoutes = () => {
         <Route path={ROUTES.tasks.calendar} element={<TaskCalendar />} />
         <Route path={ROUTES.tasks.projects} element={<TaskProjects />} />
         <Route path={ROUTES.tasks.projectDetail} element={<ProjectDetail />} />
+
+        {/* Access Control Routes */}
+        <Route path={ROUTES.accessControl.root} element={<Navigate to={ROUTES.accessControl.cctv} replace />} />
+        <Route path={ROUTES.accessControl.cctv} element={<CCTVMonitoring />} />
+        <Route path={ROUTES.accessControl.cameras} element={<Cameras />} />
+        <Route path={ROUTES.accessControl.recordings} element={<Recordings />} />
+        <Route path={ROUTES.accessControl.doors} element={<DoorAccess />} />
+        <Route path={ROUTES.accessControl.cards} element={<AccessCards />} />
+        <Route path={ROUTES.accessControl.logs} element={<AccessLogs />} />
+        <Route path={ROUTES.accessControl.parking} element={<Parking />} />
+        <Route path={ROUTES.accessControl.visitors} element={<Visitors />} />
       </Route>
 
       {/* Default redirect */}

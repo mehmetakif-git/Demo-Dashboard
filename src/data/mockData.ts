@@ -36,6 +36,14 @@ import {
   FolderKanban,
   CalendarDays,
   Folder,
+  Camera,
+  Video,
+  Film,
+  DoorOpen,
+  CreditCard,
+  ListOrdered,
+  Car,
+  UserCheck,
 } from 'lucide-react';
 import type { MenuGroup, KPICard } from '@/types';
 
@@ -158,7 +166,17 @@ export const menuGroups: MenuGroup[] = [
         id: 'access-control',
         label: 'Access Control',
         icon: Shield,
-        children: [],
+        path: '/dashboard/access-control',
+        children: [
+          { id: 'cctv-monitoring', label: 'CCTV Monitoring', icon: Video, path: '/dashboard/access-control/cctv' },
+          { id: 'cameras', label: 'Cameras', icon: Camera, path: '/dashboard/access-control/cameras' },
+          { id: 'recordings', label: 'Recordings', icon: Film, path: '/dashboard/access-control/recordings' },
+          { id: 'door-access', label: 'Door Access', icon: DoorOpen, path: '/dashboard/access-control/doors' },
+          { id: 'access-cards', label: 'Access Cards', icon: CreditCard, path: '/dashboard/access-control/cards' },
+          { id: 'access-logs', label: 'Access Logs', icon: ListOrdered, path: '/dashboard/access-control/logs' },
+          { id: 'parking', label: 'Parking', icon: Car, path: '/dashboard/access-control/parking' },
+          { id: 'visitors', label: 'Visitors', icon: UserCheck, path: '/dashboard/access-control/visitors' },
+        ],
       },
       {
         id: 'digital-signage',

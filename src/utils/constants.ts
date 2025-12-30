@@ -144,6 +144,17 @@ export const ROUTES = {
     projects: '/dashboard/tasks/projects',
     projectDetail: '/dashboard/tasks/projects/:id',
   },
+  accessControl: {
+    root: '/dashboard/access-control',
+    cctv: '/dashboard/access-control/cctv',
+    cameras: '/dashboard/access-control/cameras',
+    recordings: '/dashboard/access-control/recordings',
+    doors: '/dashboard/access-control/doors',
+    cards: '/dashboard/access-control/cards',
+    logs: '/dashboard/access-control/logs',
+    parking: '/dashboard/access-control/parking',
+    visitors: '/dashboard/access-control/visitors',
+  },
 } as const;
 
 // Toast duration
