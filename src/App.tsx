@@ -253,6 +253,327 @@ const Broadcast = lazy(() =>
   }))
 );
 
+// Communication Pages
+const Chat = lazy(() =>
+  import('@/pages/dashboard/communication/Chat').then((module) => ({
+    default: module.Chat,
+  }))
+);
+const GroupChats = lazy(() =>
+  import('@/pages/dashboard/communication/GroupChats').then((module) => ({
+    default: module.GroupChats,
+  }))
+);
+const CommunicationAnnouncements = lazy(() =>
+  import('@/pages/dashboard/communication/Announcements').then((module) => ({
+    default: module.Announcements,
+  }))
+);
+const CommunicationDirectory = lazy(() =>
+  import('@/pages/dashboard/communication/Directory').then((module) => ({
+    default: module.Directory,
+  }))
+);
+
+// File Management Pages
+const FileMyFiles = lazy(() =>
+  import('@/pages/dashboard/files/MyFiles').then((module) => ({
+    default: module.MyFiles,
+  }))
+);
+const FileSharedFiles = lazy(() =>
+  import('@/pages/dashboard/files/SharedFiles').then((module) => ({
+    default: module.SharedFiles,
+  }))
+);
+const FileProjectFiles = lazy(() =>
+  import('@/pages/dashboard/files/ProjectFiles').then((module) => ({
+    default: module.ProjectFiles,
+  }))
+);
+const FileRecentFiles = lazy(() =>
+  import('@/pages/dashboard/files/RecentFiles').then((module) => ({
+    default: module.RecentFiles,
+  }))
+);
+const FileTrash = lazy(() =>
+  import('@/pages/dashboard/files/Trash').then((module) => ({
+    default: module.Trash,
+  }))
+);
+
+// Reports Pages
+const ReportBuilder = lazy(() =>
+  import('@/pages/dashboard/reports/ReportBuilder').then((module) => ({
+    default: module.ReportBuilder,
+  }))
+);
+const SavedReports = lazy(() =>
+  import('@/pages/dashboard/reports/SavedReports').then((module) => ({
+    default: module.SavedReports,
+  }))
+);
+const ExportCenter = lazy(() =>
+  import('@/pages/dashboard/reports/ExportCenter').then((module) => ({
+    default: module.ExportCenter,
+  }))
+);
+const ImportCenter = lazy(() =>
+  import('@/pages/dashboard/reports/ImportCenter').then((module) => ({
+    default: module.ImportCenter,
+  }))
+);
+const ReportHistory = lazy(() =>
+  import('@/pages/dashboard/reports/History').then((module) => ({
+    default: module.History,
+  }))
+);
+
+// Maintenance Pages
+const MaintenanceAssetList = lazy(() =>
+  import('@/pages/dashboard/maintenance/AssetList').then((module) => ({
+    default: module.AssetList,
+  }))
+);
+const MaintenanceAssetDetail = lazy(() =>
+  import('@/pages/dashboard/maintenance/AssetDetail').then((module) => ({
+    default: module.AssetDetail,
+  }))
+);
+const MaintenanceWorkOrders = lazy(() =>
+  import('@/pages/dashboard/maintenance/WorkOrders').then((module) => ({
+    default: module.WorkOrders,
+  }))
+);
+const MaintenancePreventive = lazy(() =>
+  import('@/pages/dashboard/maintenance/Preventive').then((module) => ({
+    default: module.Preventive,
+  }))
+);
+const MaintenanceRequests = lazy(() =>
+  import('@/pages/dashboard/maintenance/Requests').then((module) => ({
+    default: module.Requests,
+  }))
+);
+const MaintenanceVendors = lazy(() =>
+  import('@/pages/dashboard/maintenance/Vendors').then((module) => ({
+    default: module.Vendors,
+  }))
+);
+const MaintenanceInventory = lazy(() =>
+  import('@/pages/dashboard/maintenance/Inventory').then((module) => ({
+    default: module.Inventory,
+  }))
+);
+const MaintenanceReports = lazy(() =>
+  import('@/pages/dashboard/maintenance/Reports').then((module) => ({
+    default: module.Reports,
+  }))
+);
+
+// QR Code Pages
+const QRCodeList = lazy(() =>
+  import('@/pages/dashboard/qr-codes/QRCodeList').then((module) => ({
+    default: module.QRCodeList,
+  }))
+);
+const CreateQRCode = lazy(() =>
+  import('@/pages/dashboard/qr-codes/CreateQRCode').then((module) => ({
+    default: module.CreateQRCode,
+  }))
+);
+const QRCodeDetail = lazy(() =>
+  import('@/pages/dashboard/qr-codes/QRCodeDetail').then((module) => ({
+    default: module.QRCodeDetail,
+  }))
+);
+const QRTemplates = lazy(() =>
+  import('@/pages/dashboard/qr-codes/Templates').then((module) => ({
+    default: module.Templates,
+  }))
+);
+const QRAnalytics = lazy(() =>
+  import('@/pages/dashboard/qr-codes/Analytics').then((module) => ({
+    default: module.Analytics,
+  }))
+);
+const QRBulkCreate = lazy(() =>
+  import('@/pages/dashboard/qr-codes/BulkCreate').then((module) => ({
+    default: module.BulkCreate,
+  }))
+);
+const QRDynamic = lazy(() =>
+  import('@/pages/dashboard/qr-codes/DynamicQR').then((module) => ({
+    default: module.DynamicQR,
+  }))
+);
+const QRFolders = lazy(() =>
+  import('@/pages/dashboard/qr-codes/Folders').then((module) => ({
+    default: module.Folders,
+  }))
+);
+
+// Settings Pages
+const SettingsCompanyProfile = lazy(() =>
+  import('@/pages/dashboard/settings/CompanyProfile').then((module) => ({
+    default: module.CompanyProfile,
+  }))
+);
+const SettingsUsers = lazy(() =>
+  import('@/pages/dashboard/settings/Users').then((module) => ({
+    default: module.Users,
+  }))
+);
+const SettingsRoles = lazy(() =>
+  import('@/pages/dashboard/settings/Roles').then((module) => ({
+    default: module.Roles,
+  }))
+);
+const SettingsModules = lazy(() =>
+  import('@/pages/dashboard/settings/ModuleSettings').then((module) => ({
+    default: module.ModuleSettings,
+  }))
+);
+const SettingsAPIKeys = lazy(() =>
+  import('@/pages/dashboard/settings/APIKeys').then((module) => ({
+    default: module.APIKeys,
+  }))
+);
+const SettingsIntegrations = lazy(() =>
+  import('@/pages/dashboard/settings/Integrations').then((module) => ({
+    default: module.Integrations,
+  }))
+);
+const SettingsLogs = lazy(() =>
+  import('@/pages/dashboard/settings/SystemLogs').then((module) => ({
+    default: module.SystemLogs,
+  }))
+);
+const SettingsBackup = lazy(() =>
+  import('@/pages/dashboard/settings/Backup').then((module) => ({
+    default: module.Backup,
+  }))
+);
+const SettingsNotifications = lazy(() =>
+  import('@/pages/dashboard/settings/Notifications').then((module) => ({
+    default: module.Notifications,
+  }))
+);
+
+// Gym Pages
+const GymMemberList = lazy(() =>
+  import('@/pages/dashboard/gym/MemberList').then((module) => ({
+    default: module.MemberList,
+  }))
+);
+const GymMemberDetail = lazy(() =>
+  import('@/pages/dashboard/gym/MemberDetail').then((module) => ({
+    default: module.MemberDetail,
+  }))
+);
+const GymMembershipPlans = lazy(() =>
+  import('@/pages/dashboard/gym/MembershipPlans').then((module) => ({
+    default: module.MembershipPlans,
+  }))
+);
+const GymClassSchedule = lazy(() =>
+  import('@/pages/dashboard/gym/ClassSchedule').then((module) => ({
+    default: module.ClassSchedule,
+  }))
+);
+const GymTrainerList = lazy(() =>
+  import('@/pages/dashboard/gym/TrainerList').then((module) => ({
+    default: module.TrainerList,
+  }))
+);
+const GymTrainerDetail = lazy(() =>
+  import('@/pages/dashboard/gym/TrainerDetail').then((module) => ({
+    default: module.TrainerDetail,
+  }))
+);
+const GymEquipment = lazy(() =>
+  import('@/pages/dashboard/gym/Equipment').then((module) => ({
+    default: module.Equipment,
+  }))
+);
+const GymAttendance = lazy(() =>
+  import('@/pages/dashboard/gym/Attendance').then((module) => ({
+    default: module.Attendance,
+  }))
+);
+const GymPTSessions = lazy(() =>
+  import('@/pages/dashboard/gym/PTSessions').then((module) => ({
+    default: module.PTSessions,
+  }))
+);
+const GymAssessments = lazy(() =>
+  import('@/pages/dashboard/gym/Assessments').then((module) => ({
+    default: module.Assessments,
+  }))
+);
+
+// Staffing Pages
+const StaffingCandidateList = lazy(() =>
+  import('@/pages/dashboard/staffing/CandidateList').then((module) => ({
+    default: module.CandidateList,
+  }))
+);
+const StaffingCandidateDetail = lazy(() =>
+  import('@/pages/dashboard/staffing/CandidateDetail').then((module) => ({
+    default: module.CandidateDetail,
+  }))
+);
+const StaffingJobOrders = lazy(() =>
+  import('@/pages/dashboard/staffing/JobOrders').then((module) => ({
+    default: module.JobOrders,
+  }))
+);
+const StaffingJobOrderDetail = lazy(() =>
+  import('@/pages/dashboard/staffing/JobOrderDetail').then((module) => ({
+    default: module.JobOrderDetail,
+  }))
+);
+const StaffingPlacements = lazy(() =>
+  import('@/pages/dashboard/staffing/Placements').then((module) => ({
+    default: module.Placements,
+  }))
+);
+const StaffingClientList = lazy(() =>
+  import('@/pages/dashboard/staffing/ClientList').then((module) => ({
+    default: module.ClientList,
+  }))
+);
+const StaffingClientDetail = lazy(() =>
+  import('@/pages/dashboard/staffing/ClientDetail').then((module) => ({
+    default: module.ClientDetail,
+  }))
+);
+const StaffingTimesheets = lazy(() =>
+  import('@/pages/dashboard/staffing/Timesheets').then((module) => ({
+    default: module.Timesheets,
+  }))
+);
+const StaffingPayroll = lazy(() =>
+  import('@/pages/dashboard/staffing/Payroll').then((module) => ({
+    default: module.Payroll,
+  }))
+);
+const StaffingCompliance = lazy(() =>
+  import('@/pages/dashboard/staffing/Compliance').then((module) => ({
+    default: module.Compliance,
+  }))
+);
+const StaffingInterviews = lazy(() =>
+  import('@/pages/dashboard/staffing/Interviews').then((module) => ({
+    default: module.Interviews,
+  }))
+);
+const StaffingOnboarding = lazy(() =>
+  import('@/pages/dashboard/staffing/Onboarding').then((module) => ({
+    default: module.Onboarding,
+  }))
+);
+
 // Loading fallback component
 const PageLoader = () => (
   <div className="min-h-screen bg-background-primary flex items-center justify-center">
@@ -443,6 +764,91 @@ const AppRoutes = () => {
         <Route path={ROUTES.signage.playlists} element={<SignagePlaylists />} />
         <Route path={ROUTES.signage.schedule} element={<SignageSchedule />} />
         <Route path={ROUTES.signage.broadcast} element={<Broadcast />} />
+
+        {/* Communication Routes */}
+        <Route path={ROUTES.communication.root} element={<Navigate to={ROUTES.communication.chat} replace />} />
+        <Route path={ROUTES.communication.chat} element={<Chat />} />
+        <Route path={ROUTES.communication.groups} element={<GroupChats />} />
+        <Route path={ROUTES.communication.announcements} element={<CommunicationAnnouncements />} />
+        <Route path={ROUTES.communication.directory} element={<CommunicationDirectory />} />
+
+        {/* File Management Routes */}
+        <Route path={ROUTES.files.root} element={<Navigate to={ROUTES.files.myFiles} replace />} />
+        <Route path={ROUTES.files.myFiles} element={<FileMyFiles />} />
+        <Route path={ROUTES.files.shared} element={<FileSharedFiles />} />
+        <Route path={ROUTES.files.projects} element={<FileProjectFiles />} />
+        <Route path={ROUTES.files.recent} element={<FileRecentFiles />} />
+        <Route path={ROUTES.files.trash} element={<FileTrash />} />
+
+        {/* Reports Routes */}
+        <Route path={ROUTES.reports.root} element={<Navigate to={ROUTES.reports.builder} replace />} />
+        <Route path={ROUTES.reports.builder} element={<ReportBuilder />} />
+        <Route path={ROUTES.reports.saved} element={<SavedReports />} />
+        <Route path={ROUTES.reports.export} element={<ExportCenter />} />
+        <Route path={ROUTES.reports.import} element={<ImportCenter />} />
+        <Route path={ROUTES.reports.history} element={<ReportHistory />} />
+
+        {/* Maintenance Routes */}
+        <Route path={ROUTES.maintenance.root} element={<Navigate to={ROUTES.maintenance.assets} replace />} />
+        <Route path={ROUTES.maintenance.assets} element={<MaintenanceAssetList />} />
+        <Route path={ROUTES.maintenance.assetDetail} element={<MaintenanceAssetDetail />} />
+        <Route path={ROUTES.maintenance.workOrders} element={<MaintenanceWorkOrders />} />
+        <Route path={ROUTES.maintenance.preventive} element={<MaintenancePreventive />} />
+        <Route path={ROUTES.maintenance.requests} element={<MaintenanceRequests />} />
+        <Route path={ROUTES.maintenance.vendors} element={<MaintenanceVendors />} />
+        <Route path={ROUTES.maintenance.inventory} element={<MaintenanceInventory />} />
+        <Route path={ROUTES.maintenance.reports} element={<MaintenanceReports />} />
+
+        {/* QR Code Routes */}
+        <Route path={ROUTES.qrCodes.root} element={<Navigate to={ROUTES.qrCodes.list} replace />} />
+        <Route path={ROUTES.qrCodes.list} element={<QRCodeList />} />
+        <Route path={ROUTES.qrCodes.create} element={<CreateQRCode />} />
+        <Route path={ROUTES.qrCodes.detail} element={<QRCodeDetail />} />
+        <Route path={ROUTES.qrCodes.templates} element={<QRTemplates />} />
+        <Route path={ROUTES.qrCodes.analytics} element={<QRAnalytics />} />
+        <Route path={ROUTES.qrCodes.bulk} element={<QRBulkCreate />} />
+        <Route path={ROUTES.qrCodes.dynamic} element={<QRDynamic />} />
+        <Route path={ROUTES.qrCodes.folders} element={<QRFolders />} />
+
+        {/* Settings Routes */}
+        <Route path={ROUTES.settings.root} element={<Navigate to={ROUTES.settings.company} replace />} />
+        <Route path={ROUTES.settings.company} element={<SettingsCompanyProfile />} />
+        <Route path={ROUTES.settings.users} element={<SettingsUsers />} />
+        <Route path={ROUTES.settings.roles} element={<SettingsRoles />} />
+        <Route path={ROUTES.settings.modules} element={<SettingsModules />} />
+        <Route path={ROUTES.settings.api} element={<SettingsAPIKeys />} />
+        <Route path={ROUTES.settings.integrations} element={<SettingsIntegrations />} />
+        <Route path={ROUTES.settings.logs} element={<SettingsLogs />} />
+        <Route path={ROUTES.settings.backup} element={<SettingsBackup />} />
+        <Route path={ROUTES.settings.notifications} element={<SettingsNotifications />} />
+
+        {/* Gym Routes (Sector-specific) */}
+        <Route path={ROUTES.gym.root} element={<Navigate to={ROUTES.gym.members} replace />} />
+        <Route path={ROUTES.gym.members} element={<GymMemberList />} />
+        <Route path={ROUTES.gym.memberDetail} element={<GymMemberDetail />} />
+        <Route path={ROUTES.gym.memberships} element={<GymMembershipPlans />} />
+        <Route path={ROUTES.gym.classes} element={<GymClassSchedule />} />
+        <Route path={ROUTES.gym.trainers} element={<GymTrainerList />} />
+        <Route path={ROUTES.gym.trainerDetail} element={<GymTrainerDetail />} />
+        <Route path={ROUTES.gym.equipment} element={<GymEquipment />} />
+        <Route path={ROUTES.gym.attendance} element={<GymAttendance />} />
+        <Route path={ROUTES.gym.ptSessions} element={<GymPTSessions />} />
+        <Route path={ROUTES.gym.assessments} element={<GymAssessments />} />
+
+        {/* Staffing Routes (Sector-specific) */}
+        <Route path={ROUTES.staffing.root} element={<Navigate to={ROUTES.staffing.candidates} replace />} />
+        <Route path={ROUTES.staffing.candidates} element={<StaffingCandidateList />} />
+        <Route path={ROUTES.staffing.candidateDetail} element={<StaffingCandidateDetail />} />
+        <Route path={ROUTES.staffing.jobs} element={<StaffingJobOrders />} />
+        <Route path={ROUTES.staffing.jobDetail} element={<StaffingJobOrderDetail />} />
+        <Route path={ROUTES.staffing.placements} element={<StaffingPlacements />} />
+        <Route path={ROUTES.staffing.clients} element={<StaffingClientList />} />
+        <Route path={ROUTES.staffing.clientDetail} element={<StaffingClientDetail />} />
+        <Route path={ROUTES.staffing.timesheets} element={<StaffingTimesheets />} />
+        <Route path={ROUTES.staffing.payroll} element={<StaffingPayroll />} />
+        <Route path={ROUTES.staffing.compliance} element={<StaffingCompliance />} />
+        <Route path={ROUTES.staffing.interviews} element={<StaffingInterviews />} />
+        <Route path={ROUTES.staffing.onboarding} element={<StaffingOnboarding />} />
       </Route>
 
       {/* Default redirect */}

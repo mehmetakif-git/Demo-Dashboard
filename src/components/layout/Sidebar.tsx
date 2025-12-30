@@ -1,23 +1,61 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronDown, LogOut } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppStore } from '@/store/appStore';
 import { useAuth } from '@/hooks/useAuth';
 import { menuGroups } from '@/data/mockData';
+import { gymMenuItems } from '@/data/gym/gymData';
+import { staffingMenuItems } from '@/data/staffing/staffingData';
 import { LAYOUT, ROUTES } from '@/utils/constants';
-import type { MenuItem } from '@/types';
+import type { MenuItem, MenuGroup } from '@/types';
 
 export const Sidebar = () => {
-  const { sidebarCollapsed, toggleSidebar } = useAppStore();
+  const { sidebarCollapsed, toggleSidebar, selectedSector } = useAppStore();
   const { logout } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
 
+  // Build dynamic menu groups based on selected sector
+  const dynamicMenuGroups = useMemo((): MenuGroup[] => {
+    const groups = [...menuGroups];
+
+    // Add sector-specific menu groups
+    if (selectedSector === 'gym-fitness') {
+      // Insert gym management group after the MAIN group
+      const gymGroup: MenuGroup = {
+        id: 'gym-management',
+        label: 'GYM MANAGEMENT',
+        items: gymMenuItems.map(item => ({
+          ...item,
+          children: []
+        }))
+      };
+      // Insert after MAIN (index 0)
+      groups.splice(1, 0, gymGroup);
+    }
+
+    if (selectedSector === 'manpower-staffing') {
+      // Insert staffing management group after the MAIN group
+      const staffingGroup: MenuGroup = {
+        id: 'staffing-management',
+        label: 'STAFFING MANAGEMENT',
+        items: staffingMenuItems.map(item => ({
+          ...item,
+          children: []
+        }))
+      };
+      // Insert after MAIN (index 0)
+      groups.splice(1, 0, staffingGroup);
+    }
+
+    return groups;
+  }, [selectedSector]);
+
   // Auto-expand menus based on current route
   const getInitialExpandedMenus = (): string[] => {
     const expanded: string[] = [];
-    menuGroups.forEach((group) => {
+    dynamicMenuGroups.forEach((group) => {
       group.items.forEach((item) => {
         if (item.children && item.children.length > 0) {
           const isChildActive = item.children.some(
@@ -36,7 +74,7 @@ export const Sidebar = () => {
 
   // Update expanded menus when route changes
   useEffect(() => {
-    menuGroups.forEach((group) => {
+    dynamicMenuGroups.forEach((group) => {
       group.items.forEach((item) => {
         if (item.children && item.children.length > 0) {
           const isChildActive = item.children.some(
@@ -48,7 +86,7 @@ export const Sidebar = () => {
         }
       });
     });
-  }, [location.pathname]);
+  }, [location.pathname, dynamicMenuGroups]);
 
   const handleLogout = () => {
     logout();
@@ -128,7 +166,7 @@ export const Sidebar = () => {
 
       {/* Navigation */}
       <nav className="flex-1 overflow-y-auto py-4 no-scrollbar">
-        {menuGroups.map((group) => (
+        {dynamicMenuGroups.map((group) => (
           <div key={group.id} className="mb-6">
             {/* Group Label */}
             <motion.div
