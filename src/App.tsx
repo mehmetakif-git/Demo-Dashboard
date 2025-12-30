@@ -152,6 +152,38 @@ const CRMReports = lazy(() =>
   }))
 );
 
+// Task Pages
+const MyTasks = lazy(() =>
+  import('@/pages/dashboard/tasks/MyTasks').then((module) => ({
+    default: module.MyTasks,
+  }))
+);
+const AllTasks = lazy(() =>
+  import('@/pages/dashboard/tasks/AllTasks').then((module) => ({
+    default: module.AllTasks,
+  }))
+);
+const Kanban = lazy(() =>
+  import('@/pages/dashboard/tasks/Kanban').then((module) => ({
+    default: module.Kanban,
+  }))
+);
+const TaskCalendar = lazy(() =>
+  import('@/pages/dashboard/tasks/Calendar').then((module) => ({
+    default: module.Calendar,
+  }))
+);
+const TaskProjects = lazy(() =>
+  import('@/pages/dashboard/tasks/Projects').then((module) => ({
+    default: module.Projects,
+  }))
+);
+const ProjectDetail = lazy(() =>
+  import('@/pages/dashboard/tasks/ProjectDetail').then((module) => ({
+    default: module.ProjectDetail,
+  }))
+);
+
 // Loading fallback component
 const PageLoader = () => (
   <div className="min-h-screen bg-background-primary flex items-center justify-center">
@@ -314,6 +346,15 @@ const AppRoutes = () => {
         <Route path={ROUTES.crm.contracts} element={<Contracts />} />
         <Route path={ROUTES.crm.activities} element={<CRMActivities />} />
         <Route path={ROUTES.crm.reports} element={<CRMReports />} />
+
+        {/* Task Routes */}
+        <Route path={ROUTES.tasks.root} element={<Navigate to={ROUTES.tasks.myTasks} replace />} />
+        <Route path={ROUTES.tasks.myTasks} element={<MyTasks />} />
+        <Route path={ROUTES.tasks.allTasks} element={<AllTasks />} />
+        <Route path={ROUTES.tasks.kanban} element={<Kanban />} />
+        <Route path={ROUTES.tasks.calendar} element={<TaskCalendar />} />
+        <Route path={ROUTES.tasks.projects} element={<TaskProjects />} />
+        <Route path={ROUTES.tasks.projectDetail} element={<ProjectDetail />} />
       </Route>
 
       {/* Default redirect */}

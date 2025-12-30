@@ -32,6 +32,10 @@ import {
   Target,
   FileSignature,
   Phone,
+  LayoutGrid,
+  FolderKanban,
+  CalendarDays,
+  Folder,
 } from 'lucide-react';
 import type { MenuGroup, KPICard } from '@/types';
 
@@ -111,7 +115,14 @@ export const menuGroups: MenuGroup[] = [
         id: 'tasks',
         label: 'Tasks',
         icon: CheckSquare,
-        children: [],
+        path: '/dashboard/tasks',
+        children: [
+          { id: 'my-tasks', label: 'My Tasks', icon: CheckSquare, path: '/dashboard/tasks/my-tasks' },
+          { id: 'all-tasks', label: 'All Tasks', icon: LayoutGrid, path: '/dashboard/tasks/all-tasks' },
+          { id: 'kanban', label: 'Kanban Board', icon: FolderKanban, path: '/dashboard/tasks/kanban' },
+          { id: 'task-calendar', label: 'Calendar', icon: CalendarDays, path: '/dashboard/tasks/calendar' },
+          { id: 'projects', label: 'Projects', icon: Folder, path: '/dashboard/tasks/projects' },
+        ],
       },
     ],
   },

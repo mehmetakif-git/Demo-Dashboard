@@ -135,6 +135,15 @@ export const ROUTES = {
     activities: '/dashboard/crm/activities',
     reports: '/dashboard/crm/reports',
   },
+  tasks: {
+    root: '/dashboard/tasks',
+    myTasks: '/dashboard/tasks/my-tasks',
+    allTasks: '/dashboard/tasks/all-tasks',
+    kanban: '/dashboard/tasks/kanban',
+    calendar: '/dashboard/tasks/calendar',
+    projects: '/dashboard/tasks/projects',
+    projectDetail: '/dashboard/tasks/projects/:id',
+  },
 } as const;
 
 // Toast duration
