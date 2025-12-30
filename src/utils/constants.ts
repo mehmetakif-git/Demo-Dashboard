@@ -155,6 +155,14 @@ export const ROUTES = {
     parking: '/dashboard/access-control/parking',
     visitors: '/dashboard/access-control/visitors',
   },
+  signage: {
+    root: '/dashboard/signage',
+    displays: '/dashboard/signage/displays',
+    content: '/dashboard/signage/content',
+    playlists: '/dashboard/signage/playlists',
+    schedule: '/dashboard/signage/schedule',
+    broadcast: '/dashboard/signage/broadcast',
+  },
 } as const;
 
 // Toast duration

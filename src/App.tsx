@@ -226,6 +226,33 @@ const Visitors = lazy(() =>
   }))
 );
 
+// Digital Signage Pages
+const Displays = lazy(() =>
+  import('@/pages/dashboard/signage/Displays').then((module) => ({
+    default: module.Displays,
+  }))
+);
+const ContentLibrary = lazy(() =>
+  import('@/pages/dashboard/signage/ContentLibrary').then((module) => ({
+    default: module.ContentLibrary,
+  }))
+);
+const SignagePlaylists = lazy(() =>
+  import('@/pages/dashboard/signage/Playlists').then((module) => ({
+    default: module.Playlists,
+  }))
+);
+const SignageSchedule = lazy(() =>
+  import('@/pages/dashboard/signage/Schedule').then((module) => ({
+    default: module.Schedule,
+  }))
+);
+const Broadcast = lazy(() =>
+  import('@/pages/dashboard/signage/Broadcast').then((module) => ({
+    default: module.Broadcast,
+  }))
+);
+
 // Loading fallback component
 const PageLoader = () => (
   <div className="min-h-screen bg-background-primary flex items-center justify-center">
@@ -408,6 +435,14 @@ const AppRoutes = () => {
         <Route path={ROUTES.accessControl.logs} element={<AccessLogs />} />
         <Route path={ROUTES.accessControl.parking} element={<Parking />} />
         <Route path={ROUTES.accessControl.visitors} element={<Visitors />} />
+
+        {/* Digital Signage Routes */}
+        <Route path={ROUTES.signage.root} element={<Navigate to={ROUTES.signage.displays} replace />} />
+        <Route path={ROUTES.signage.displays} element={<Displays />} />
+        <Route path={ROUTES.signage.content} element={<ContentLibrary />} />
+        <Route path={ROUTES.signage.playlists} element={<SignagePlaylists />} />
+        <Route path={ROUTES.signage.schedule} element={<SignageSchedule />} />
+        <Route path={ROUTES.signage.broadcast} element={<Broadcast />} />
       </Route>
 
       {/* Default redirect */}

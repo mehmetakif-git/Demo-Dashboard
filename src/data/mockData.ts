@@ -44,6 +44,11 @@ import {
   ListOrdered,
   Car,
   UserCheck,
+  MonitorPlay,
+  Image,
+  ListVideo,
+  Calendar,
+  AlertTriangle,
 } from 'lucide-react';
 import type { MenuGroup, KPICard } from '@/types';
 
@@ -182,7 +187,14 @@ export const menuGroups: MenuGroup[] = [
         id: 'digital-signage',
         label: 'Digital Signage',
         icon: Monitor,
-        children: [],
+        path: '/dashboard/signage',
+        children: [
+          { id: 'displays', label: 'Displays', icon: MonitorPlay, path: '/dashboard/signage/displays' },
+          { id: 'content-library', label: 'Content Library', icon: Image, path: '/dashboard/signage/content' },
+          { id: 'playlists', label: 'Playlists', icon: ListVideo, path: '/dashboard/signage/playlists' },
+          { id: 'signage-schedule', label: 'Schedule', icon: Calendar, path: '/dashboard/signage/schedule' },
+          { id: 'broadcast', label: 'Emergency Broadcast', icon: AlertTriangle, path: '/dashboard/signage/broadcast' },
+        ],
       },
     ],
   },
