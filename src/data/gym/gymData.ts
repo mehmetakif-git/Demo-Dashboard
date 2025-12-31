@@ -1565,12 +1565,12 @@ export const formatCurrency = (amount: number): string => {
 
 // Sidebar menu items for gym sector
 export const gymMenuItems = [
-  { id: 'gym-members', label: 'Members', icon: Users, path: '/dashboard/gym/members' },
-  { id: 'gym-memberships', label: 'Memberships', icon: CreditCard, path: '/dashboard/gym/memberships' },
-  { id: 'gym-classes', label: 'Classes', icon: Calendar, path: '/dashboard/gym/classes' },
-  { id: 'gym-trainers', label: 'Trainers', icon: UserCheck, path: '/dashboard/gym/trainers' },
-  { id: 'gym-equipment', label: 'Equipment', icon: Dumbbell, path: '/dashboard/gym/equipment' },
-  { id: 'gym-attendance', label: 'Attendance', icon: Activity, path: '/dashboard/gym/attendance' },
-  { id: 'gym-pt-sessions', label: 'PT Sessions', icon: ClipboardList, path: '/dashboard/gym/pt-sessions' },
-  { id: 'gym-assessments', label: 'Assessments', icon: Heart, path: '/dashboard/gym/assessments' },
+  { id: 'gym-members', label: 'Members', icon: Users, color: '#8b5cf6', path: '/dashboard/gym/members' },
+  { id: 'gym-memberships', label: 'Memberships', icon: CreditCard, color: '#10b981', path: '/dashboard/gym/memberships' },
+  { id: 'gym-classes', label: 'Classes', icon: Calendar, color: '#f59e0b', path: '/dashboard/gym/classes' },
+  { id: 'gym-trainers', label: 'Trainers', icon: UserCheck, color: '#06b6d4', path: '/dashboard/gym/trainers' },
+  { id: 'gym-equipment', label: 'Equipment', icon: Dumbbell, color: '#f97316', path: '/dashboard/gym/equipment' },
+  { id: 'gym-attendance', label: 'Attendance', icon: Activity, color: '#22c55e', path: '/dashboard/gym/attendance' },
+  { id: 'gym-pt-sessions', label: 'PT Sessions', icon: ClipboardList, color: '#3b82f6', path: '/dashboard/gym/pt-sessions' },
+  { id: 'gym-assessments', label: 'Assessments', icon: Heart, color: '#ef4444', path: '/dashboard/gym/assessments' },
 ];

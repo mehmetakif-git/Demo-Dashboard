@@ -7,14 +7,48 @@ import { useAuth } from '@/hooks/useAuth';
 import { menuGroups } from '@/data/mockData';
 import { gymMenuItems } from '@/data/gym/gymData';
 import { staffingMenuItems } from '@/data/staffing/staffingData';
+import { realestateMenuItems } from '@/data/realestate/realestateData';
+import { agencyMenuItems } from '@/data/agency/agencyData';
+import { eventsMenuItems } from '@/data/events/eventsData';
 import { LAYOUT, ROUTES } from '@/utils/constants';
 import type { MenuItem, MenuGroup } from '@/types';
+import AllyncLogo from '@/assets/images/logos/logo-white.svg';
+
+// Module ID mapping for menu items
+const moduleIdMap: Record<string, string> = {
+  dashboard: 'dashboard',
+  hr: 'hr',
+  accounting: 'accounting',
+  crm: 'crm',
+  tasks: 'tasks',
+  'access-control': 'access-control',
+  signage: 'signage',
+  communication: 'communication',
+  files: 'files',
+  reports: 'reports',
+  maintenance: 'maintenance',
+  'qr-codes': 'qr-codes',
+  settings: 'settings',
+  // Sector-specific modules
+  gym: 'gym',
+  staffing: 'staffing',
+  realestate: 'realestate',
+  agency: 'agency',
+  events: 'events',
+};
 
 export const Sidebar = () => {
-  const { sidebarCollapsed, toggleSidebar, selectedSector } = useAppStore();
+  const { sidebarCollapsed, toggleSidebar, selectedSector, isModuleEnabled } = useAppStore();
   const { logout } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
+
+  // Helper function to check if a menu item's module is enabled
+  const isItemModuleEnabled = (itemId: string): boolean => {
+    const moduleId = moduleIdMap[itemId];
+    if (!moduleId) return true; // If no mapping, always show
+    return isModuleEnabled(moduleId);
+  };
 
   // Build dynamic menu groups based on selected sector
   const dynamicMenuGroups = useMemo((): MenuGroup[] => {
@@ -49,8 +83,56 @@ export const Sidebar = () => {
       groups.splice(1, 0, staffingGroup);
     }
 
-    return groups;
-  }, [selectedSector]);
+    if (selectedSector === 'real-estate') {
+      // Insert real estate management group after the MAIN group
+      const realestateGroup: MenuGroup = {
+        id: 'realestate-management',
+        label: 'REAL ESTATE',
+        items: realestateMenuItems.map(item => ({
+          ...item,
+          children: []
+        }))
+      };
+      // Insert after MAIN (index 0)
+      groups.splice(1, 0, realestateGroup);
+    }
+
+    if (selectedSector === 'agency') {
+      // Insert agency management group after the MAIN group
+      const agencyGroup: MenuGroup = {
+        id: 'agency-management',
+        label: 'AGENCY MANAGEMENT',
+        items: agencyMenuItems.map(item => ({
+          ...item,
+          children: []
+        }))
+      };
+      // Insert after MAIN (index 0)
+      groups.splice(1, 0, agencyGroup);
+    }
+
+    if (selectedSector === 'events') {
+      // Insert events management group after the MAIN group
+      const eventsGroup: MenuGroup = {
+        id: 'events-management',
+        label: 'EVENTS MANAGEMENT',
+        items: eventsMenuItems.map(item => ({
+          ...item,
+          children: []
+        }))
+      };
+      // Insert after MAIN (index 0)
+      groups.splice(1, 0, eventsGroup);
+    }
+
+    // Filter menu groups based on enabled modules
+    return groups
+      .map((group) => ({
+        ...group,
+        items: group.items.filter((item) => isItemModuleEnabled(item.id)),
+      }))
+      .filter((group) => group.items.length > 0);
+  }, [selectedSector, isModuleEnabled]);
 
   // Auto-expand menus based on current route
   const getInitialExpandedMenus = (): string[] => {
@@ -123,46 +205,48 @@ export const Sidebar = () => {
   };
 
   return (
-    <motion.aside
-      initial={false}
-      animate={{
-        width: sidebarCollapsed
-          ? LAYOUT.sidebarCollapsedWidth
-          : LAYOUT.sidebarWidth,
+    <aside
+      style={{
+        width: sidebarCollapsed ? LAYOUT.sidebarCollapsedWidth : LAYOUT.sidebarWidth,
       }}
-      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-      className="fixed left-0 top-0 z-40 flex h-screen flex-col border-r border-[#1e1e2e] bg-[#12121a]"
+      className="fixed left-0 top-0 z-40 flex h-screen flex-col border-r border-[#1e1e2e] bg-[#12121a] transition-[width] duration-300 ease-out"
     >
       {/* Logo Section */}
-      <div className="flex h-16 items-center justify-between border-b border-[#1e1e2e] px-4">
-        <div className="flex items-center gap-3 overflow-hidden">
+      <div className={`flex h-16 items-center border-b border-[#1e1e2e] px-3 ${sidebarCollapsed ? 'justify-center' : 'justify-between'}`}>
+        <div className="flex items-center gap-3 min-w-0">
           <div
             className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg"
             style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)' }}
           >
-            <span className="text-lg font-bold text-white">E</span>
+            <img src={AllyncLogo} alt="Allync" className="h-6 w-6" />
           </div>
-          <motion.span
-            initial={false}
-            animate={{
-              opacity: sidebarCollapsed ? 0 : 1,
-              width: sidebarCollapsed ? 0 : 'auto',
-            }}
-            transition={{ duration: 0.2 }}
-            className="whitespace-nowrap text-lg font-semibold text-white overflow-hidden"
-          >
-            Enterprise
-          </motion.span>
+          {!sidebarCollapsed && (
+            <span className="whitespace-nowrap text-lg font-semibold text-white">
+              Allync
+            </span>
+          )}
         </div>
+        {!sidebarCollapsed && (
+          <button
+            onClick={toggleSidebar}
+            className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#2e2e3e] bg-[#1a1a24] text-[#94a3b8] hover:bg-[#252532] hover:text-white hover:border-[#3e3e4e] transition-all cursor-pointer"
+            title="Collapse sidebar"
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </button>
+        )}
+      </div>
+
+      {/* Expand button when collapsed */}
+      {sidebarCollapsed && (
         <button
           onClick={toggleSidebar}
-          className="flex h-8 w-8 items-center justify-center rounded-lg text-[#64748b] hover:bg-[#1a1a24] hover:text-[#94a3b8] transition-colors"
+          className="mx-auto mt-3 flex h-8 w-8 items-center justify-center rounded-lg border border-[#2e2e3e] bg-[#1a1a24] text-[#94a3b8] hover:bg-[#252532] hover:text-white hover:border-[#3e3e4e] transition-all cursor-pointer"
+          title="Expand sidebar"
         >
-          <ChevronLeft
-            className={`h-5 w-5 transition-transform duration-300 ${sidebarCollapsed ? 'rotate-180' : ''}`}
-          />
+          <ChevronLeft className="h-4 w-4 rotate-180" />
         </button>
-      </div>
+      )}
 
       {/* Navigation */}
       <nav className="flex-1 overflow-y-auto py-4 no-scrollbar">
@@ -196,17 +280,28 @@ export const Sidebar = () => {
                       className={`
                         relative flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200
                         ${isActive
-                          ? 'bg-gradient-to-r from-[#6366f1]/20 to-[#8b5cf6]/10 text-white shadow-[inset_0_0_20px_rgba(99,102,241,0.1)]'
+                          ? 'text-white'
                           : 'text-[#94a3b8] hover:bg-[#1a1a24] hover:text-white'
                         }
                       `}
+                      style={isActive ? {
+                        background: `linear-gradient(to right, ${item.color || '#6366f1'}20, ${item.color || '#6366f1'}08)`,
+                        boxShadow: `inset 0 0 20px ${item.color || '#6366f1'}15`
+                      } : undefined}
                     >
                       {/* Active indicator bar */}
                       {isActive && (
-                        <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-gradient-to-b from-[#6366f1] to-[#8b5cf6] rounded-r-full shadow-[0_0_10px_rgba(99,102,241,0.5)]" />
+                        <span
+                          className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 rounded-r-full"
+                          style={{
+                            backgroundColor: item.color || '#6366f1',
+                            boxShadow: `0 0 10px ${item.color || '#6366f1'}80`
+                          }}
+                        />
                       )}
                       <Icon
-                        className={`h-5 w-5 flex-shrink-0 transition-colors ${isActive ? 'text-[#6366f1]' : 'text-[#64748b]'}`}
+                        className="h-5 w-5 flex-shrink-0 transition-colors"
+                        style={{ color: item.color || (isActive ? '#6366f1' : '#64748b') }}
                       />
                       <motion.span
                         initial={false}
@@ -233,7 +328,13 @@ export const Sidebar = () => {
                         </motion.div>
                       )}
                       {item.badge && !sidebarCollapsed && (
-                        <span className="ml-auto rounded bg-[#6366f1]/20 px-1.5 py-0.5 text-[10px] font-semibold text-[#6366f1]">
+                        <span
+                          className="ml-auto rounded px-1.5 py-0.5 text-[10px] font-semibold"
+                          style={{
+                            backgroundColor: `${item.color || '#6366f1'}30`,
+                            color: item.color || '#6366f1'
+                          }}
+                        >
                           {item.badge}
                         </span>
                       )}
@@ -265,17 +366,27 @@ export const Sidebar = () => {
                                     className={`
                                       relative flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-all duration-200
                                       ${isChildActive
-                                        ? 'bg-gradient-to-r from-[#6366f1]/15 to-transparent text-white font-medium'
+                                        ? 'text-white font-medium'
                                         : 'text-[#94a3b8] hover:bg-[#1a1a24] hover:text-white'
                                       }
                                     `}
+                                    style={isChildActive ? {
+                                      background: `linear-gradient(to right, ${child.color || item.color || '#6366f1'}18, transparent)`
+                                    } : undefined}
                                   >
                                     {/* Active dot indicator */}
                                     {isChildActive && (
-                                      <span className="absolute -left-4 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-[#6366f1] rounded-full shadow-[0_0_8px_rgba(99,102,241,0.6)]" />
+                                      <span
+                                        className="absolute -left-4 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full"
+                                        style={{
+                                          backgroundColor: child.color || item.color || '#6366f1',
+                                          boxShadow: `0 0 8px ${child.color || item.color || '#6366f1'}99`
+                                        }}
+                                      />
                                     )}
                                     <ChildIcon
-                                      className={`h-4 w-4 transition-colors ${isChildActive ? 'text-[#6366f1]' : 'text-[#64748b]'}`}
+                                      className="h-4 w-4 transition-colors"
+                                      style={{ color: child.color || item.color || (isChildActive ? '#6366f1' : '#64748b') }}
                                     />
                                     <span className="truncate">{child.label}</span>
                                   </button>
@@ -315,6 +426,6 @@ export const Sidebar = () => {
           </motion.span>
         </button>
       </div>
-    </motion.aside>
+    </aside>
   );
 };

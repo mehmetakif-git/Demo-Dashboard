@@ -2,8 +2,9 @@ import { Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useAuthStore } from '@/store/authStore';
 import { useAppStore } from '@/store/appStore';
-import { Layout } from '@/components/layout';
+import { Layout, OnboardingLayout } from '@/components/layout';
 import { ToastContainer, Skeleton } from '@/components/common';
+import { LeadCaptureWidget } from '@/components/widgets';
 import { ROUTES } from '@/utils/constants';
 
 // Lazy load pages for performance
@@ -20,6 +21,7 @@ const AccountTypeSelect = lazy(() =>
     default: module.AccountTypeSelect,
   }))
 );
+const ModuleSelection = lazy(() => import('@/pages/auth/ModuleSelection'));
 const Dashboard = lazy(() =>
   import('@/pages/dashboard/Dashboard').then((module) => ({
     default: module.Dashboard,
@@ -574,6 +576,179 @@ const StaffingOnboarding = lazy(() =>
   }))
 );
 
+// Real Estate Pages
+const RealEstatePropertyList = lazy(() =>
+  import('@/pages/dashboard/realestate/PropertyList').then((module) => ({
+    default: module.PropertyList,
+  }))
+);
+const RealEstatePropertyDetail = lazy(() =>
+  import('@/pages/dashboard/realestate/PropertyDetail').then((module) => ({
+    default: module.PropertyDetail,
+  }))
+);
+const RealEstateLeadList = lazy(() =>
+  import('@/pages/dashboard/realestate/LeadList').then((module) => ({
+    default: module.LeadList,
+  }))
+);
+const RealEstateLeadDetail = lazy(() =>
+  import('@/pages/dashboard/realestate/LeadDetail').then((module) => ({
+    default: module.LeadDetail,
+  }))
+);
+const RealEstateShowings = lazy(() =>
+  import('@/pages/dashboard/realestate/Showings').then((module) => ({
+    default: module.Showings,
+  }))
+);
+const RealEstateTransactions = lazy(() =>
+  import('@/pages/dashboard/realestate/Transactions').then((module) => ({
+    default: module.Transactions,
+  }))
+);
+const RealEstateOwners = lazy(() =>
+  import('@/pages/dashboard/realestate/Owners').then((module) => ({
+    default: module.Owners,
+  }))
+);
+const RealEstateAgents = lazy(() =>
+  import('@/pages/dashboard/realestate/Agents').then((module) => ({
+    default: module.Agents,
+  }))
+);
+const RealEstateCommissions = lazy(() =>
+  import('@/pages/dashboard/realestate/Commissions').then((module) => ({
+    default: module.Commissions,
+  }))
+);
+const RealEstateListingsPortal = lazy(() =>
+  import('@/pages/dashboard/realestate/ListingsPortal').then((module) => ({
+    default: module.ListingsPortal,
+  }))
+);
+
+// Agency Pages
+const AgencyCampaignList = lazy(() =>
+  import('@/pages/dashboard/agency/CampaignList').then((module) => ({
+    default: module.CampaignList,
+  }))
+);
+const AgencyCampaignDetail = lazy(() =>
+  import('@/pages/dashboard/agency/CampaignDetail').then((module) => ({
+    default: module.CampaignDetail,
+  }))
+);
+const AgencyClientList = lazy(() =>
+  import('@/pages/dashboard/agency/ClientList').then((module) => ({
+    default: module.ClientList,
+  }))
+);
+const AgencyClientDetail = lazy(() =>
+  import('@/pages/dashboard/agency/ClientDetail').then((module) => ({
+    default: module.ClientDetail,
+  }))
+);
+const AgencyProjectList = lazy(() =>
+  import('@/pages/dashboard/agency/ProjectList').then((module) => ({
+    default: module.ProjectList,
+  }))
+);
+const AgencyProjectDetail = lazy(() =>
+  import('@/pages/dashboard/agency/ProjectDetail').then((module) => ({
+    default: module.ProjectDetail,
+  }))
+);
+const AgencyMediaPlanning = lazy(() =>
+  import('@/pages/dashboard/agency/MediaPlanning').then((module) => ({
+    default: module.MediaPlanning,
+  }))
+);
+const AgencyCreatives = lazy(() =>
+  import('@/pages/dashboard/agency/Creatives').then((module) => ({
+    default: module.Creatives,
+  }))
+);
+const AgencyTalent = lazy(() =>
+  import('@/pages/dashboard/agency/Talent').then((module) => ({
+    default: module.Talent,
+  }))
+);
+const AgencyAnalytics = lazy(() =>
+  import('@/pages/dashboard/agency/Analytics').then((module) => ({
+    default: module.Analytics,
+  }))
+);
+const AgencyInvoicing = lazy(() =>
+  import('@/pages/dashboard/agency/Invoicing').then((module) => ({
+    default: module.Invoicing,
+  }))
+);
+
+// Events Pages
+const EventList = lazy(() =>
+  import('@/pages/dashboard/events/EventList').then((module) => ({
+    default: module.EventList,
+  }))
+);
+const EventDetail = lazy(() =>
+  import('@/pages/dashboard/events/EventDetail').then((module) => ({
+    default: module.EventDetail,
+  }))
+);
+const EventsCalendar = lazy(() =>
+  import('@/pages/dashboard/events/EventsCalendar').then((module) => ({
+    default: module.EventsCalendar,
+  }))
+);
+const EventsVenues = lazy(() =>
+  import('@/pages/dashboard/events/Venues').then((module) => ({
+    default: module.Venues,
+  }))
+);
+const EventsVendors = lazy(() =>
+  import('@/pages/dashboard/events/Vendors').then((module) => ({
+    default: module.Vendors,
+  }))
+);
+const EventsTicketing = lazy(() =>
+  import('@/pages/dashboard/events/Ticketing').then((module) => ({
+    default: module.Ticketing,
+  }))
+);
+const EventsRegistrations = lazy(() =>
+  import('@/pages/dashboard/events/Registrations').then((module) => ({
+    default: module.Registrations,
+  }))
+);
+const EventsGuests = lazy(() =>
+  import('@/pages/dashboard/events/Guests').then((module) => ({
+    default: module.Guests,
+  }))
+);
+const EventsCatering = lazy(() =>
+  import('@/pages/dashboard/events/Catering').then((module) => ({
+    default: module.Catering,
+  }))
+);
+const EventsEquipment = lazy(() =>
+  import('@/pages/dashboard/events/Equipment').then((module) => ({
+    default: module.Equipment,
+  }))
+);
+const EventsBudget = lazy(() =>
+  import('@/pages/dashboard/events/Budget').then((module) => ({
+    default: module.Budget,
+  }))
+);
+
+// Error Pages
+const NotFound = lazy(() =>
+  import('@/pages/errors/NotFound').then((module) => ({
+    default: module.NotFound,
+  }))
+);
+
 // Loading fallback component
 const PageLoader = () => (
   <div className="min-h-screen bg-background-primary flex items-center justify-center">
@@ -660,39 +835,49 @@ const PublicRoute = ({ children }: { children: React.ReactNode }) => {
 const AppRoutes = () => {
   return (
     <Routes>
-      {/* Public routes with their own Suspense */}
-      <Route
-        path={ROUTES.login}
-        element={
-          <PublicRoute>
-            <Suspense fallback={<PageLoader />}>
-              <Login />
-            </Suspense>
-          </PublicRoute>
-        }
-      />
-
-      {/* Onboarding routes */}
-      <Route
-        path={ROUTES.selectSector}
-        element={
-          <RequireAuth>
-            <Suspense fallback={<PageLoader />}>
-              <SectorSelect />
-            </Suspense>
-          </RequireAuth>
-        }
-      />
-      <Route
-        path={ROUTES.selectAccount}
-        element={
-          <RequireSector>
-            <Suspense fallback={<PageLoader />}>
-              <AccountTypeSelect />
-            </Suspense>
-          </RequireSector>
-        }
-      />
+      {/* Onboarding routes with shared layout for smooth transitions */}
+      <Route element={<OnboardingLayout />}>
+        <Route
+          path={ROUTES.login}
+          element={
+            <PublicRoute>
+              <Suspense fallback={<PageLoader />}>
+                <Login />
+              </Suspense>
+            </PublicRoute>
+          }
+        />
+        <Route
+          path={ROUTES.selectSector}
+          element={
+            <RequireAuth>
+              <Suspense fallback={<PageLoader />}>
+                <SectorSelect />
+              </Suspense>
+            </RequireAuth>
+          }
+        />
+        <Route
+          path={ROUTES.selectAccount}
+          element={
+            <RequireSector>
+              <Suspense fallback={<PageLoader />}>
+                <AccountTypeSelect />
+              </Suspense>
+            </RequireSector>
+          }
+        />
+        <Route
+          path={ROUTES.moduleSelection}
+          element={
+            <RequireAccountType>
+              <Suspense fallback={<PageLoader />}>
+                <ModuleSelection />
+              </Suspense>
+            </RequireAccountType>
+          }
+        />
+      </Route>
 
       {/* Protected routes with layout - Layout handles Suspense and animations */}
       <Route
@@ -849,11 +1034,61 @@ const AppRoutes = () => {
         <Route path={ROUTES.staffing.compliance} element={<StaffingCompliance />} />
         <Route path={ROUTES.staffing.interviews} element={<StaffingInterviews />} />
         <Route path={ROUTES.staffing.onboarding} element={<StaffingOnboarding />} />
+
+        {/* Real Estate Routes (Sector-specific) */}
+        <Route path={ROUTES.realestate.root} element={<Navigate to={ROUTES.realestate.properties} replace />} />
+        <Route path={ROUTES.realestate.properties} element={<RealEstatePropertyList />} />
+        <Route path={ROUTES.realestate.propertyDetail} element={<RealEstatePropertyDetail />} />
+        <Route path={ROUTES.realestate.leads} element={<RealEstateLeadList />} />
+        <Route path={ROUTES.realestate.leadDetail} element={<RealEstateLeadDetail />} />
+        <Route path={ROUTES.realestate.showings} element={<RealEstateShowings />} />
+        <Route path={ROUTES.realestate.transactions} element={<RealEstateTransactions />} />
+        <Route path={ROUTES.realestate.owners} element={<RealEstateOwners />} />
+        <Route path={ROUTES.realestate.agents} element={<RealEstateAgents />} />
+        <Route path={ROUTES.realestate.commissions} element={<RealEstateCommissions />} />
+        <Route path={ROUTES.realestate.listingsPortal} element={<RealEstateListingsPortal />} />
+
+        {/* Agency Routes (Sector-specific) */}
+        <Route path={ROUTES.agency.root} element={<Navigate to={ROUTES.agency.campaigns} replace />} />
+        <Route path={ROUTES.agency.campaigns} element={<AgencyCampaignList />} />
+        <Route path={ROUTES.agency.campaignDetail} element={<AgencyCampaignDetail />} />
+        <Route path={ROUTES.agency.clients} element={<AgencyClientList />} />
+        <Route path={ROUTES.agency.clientDetail} element={<AgencyClientDetail />} />
+        <Route path={ROUTES.agency.projects} element={<AgencyProjectList />} />
+        <Route path={ROUTES.agency.projectDetail} element={<AgencyProjectDetail />} />
+        <Route path={ROUTES.agency.media} element={<AgencyMediaPlanning />} />
+        <Route path={ROUTES.agency.creatives} element={<AgencyCreatives />} />
+        <Route path={ROUTES.agency.talent} element={<AgencyTalent />} />
+        <Route path={ROUTES.agency.analytics} element={<AgencyAnalytics />} />
+        <Route path={ROUTES.agency.invoicing} element={<AgencyInvoicing />} />
+
+        {/* Events Routes (Sector-specific) */}
+        <Route path={ROUTES.events.root} element={<Navigate to={ROUTES.events.events} replace />} />
+        <Route path={ROUTES.events.events} element={<EventList />} />
+        <Route path={ROUTES.events.eventDetail} element={<EventDetail />} />
+        <Route path={ROUTES.events.calendar} element={<EventsCalendar />} />
+        <Route path={ROUTES.events.venues} element={<EventsVenues />} />
+        <Route path={ROUTES.events.vendors} element={<EventsVendors />} />
+        <Route path={ROUTES.events.tickets} element={<EventsTicketing />} />
+        <Route path={ROUTES.events.registrations} element={<EventsRegistrations />} />
+        <Route path={ROUTES.events.guests} element={<EventsGuests />} />
+        <Route path={ROUTES.events.catering} element={<EventsCatering />} />
+        <Route path={ROUTES.events.equipment} element={<EventsEquipment />} />
+        <Route path={ROUTES.events.budget} element={<EventsBudget />} />
       </Route>
 
       {/* Default redirect */}
       <Route path="/" element={<Navigate to={ROUTES.login} replace />} />
-      <Route path="*" element={<Navigate to={ROUTES.login} replace />} />
+
+      {/* 404 Not Found */}
+      <Route
+        path="*"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <NotFound />
+          </Suspense>
+        }
+      />
     </Routes>
   );
 };
@@ -863,6 +1098,7 @@ function App() {
     <BrowserRouter>
       <AppRoutes />
       <ToastContainer />
+      <LeadCaptureWidget />
     </BrowserRouter>
   );
 }

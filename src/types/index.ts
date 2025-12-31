@@ -13,6 +13,7 @@ export interface Sector {
   name: string;
   description: string;
   icon: LucideIcon;
+  color: string;
   isActive: boolean;
 }
 
@@ -34,6 +35,7 @@ export interface MenuItem {
   id: string;
   label: string;
   icon: LucideIcon;
+  color?: string;
   path?: string;
   badge?: string | number;
   children?: MenuItem[];

@@ -27,6 +27,7 @@ export const sectors: Sector[] = [
     name: 'Gym & Fitness',
     description: 'Gym and fitness center management',
     icon: Dumbbell,
+    color: '#ef4444', // Red - energy, power
     isActive: true,
   },
   {
@@ -34,6 +35,7 @@ export const sectors: Sector[] = [
     name: 'Manpower & Staffing',
     description: 'Recruitment and staffing solutions',
     icon: Users,
+    color: '#3b82f6', // Blue - trust, professionalism
     isActive: true,
   },
   {
@@ -41,6 +43,7 @@ export const sectors: Sector[] = [
     name: 'Real Estate',
     description: 'Property and real estate management',
     icon: Building,
+    color: '#8b5cf6', // Purple - luxury, premium
     isActive: true,
   },
   {
@@ -48,6 +51,7 @@ export const sectors: Sector[] = [
     name: 'Advertising Agency',
     description: 'Creative and media agency operations',
     icon: Megaphone,
+    color: '#f97316', // Orange - creativity, energy
     isActive: true,
   },
   {
@@ -55,6 +59,7 @@ export const sectors: Sector[] = [
     name: 'Event Company',
     description: 'Event planning and management',
     icon: Calendar,
+    color: '#ec4899', // Pink - celebration, events
     isActive: true,
   },
   // Coming soon sectors
@@ -63,6 +68,7 @@ export const sectors: Sector[] = [
     name: 'E-Commerce',
     description: 'Online retail management',
     icon: ShoppingCart,
+    color: '#10b981', // Emerald - commerce, growth
     isActive: false,
   },
   {
@@ -70,6 +76,7 @@ export const sectors: Sector[] = [
     name: 'Restaurant',
     description: 'Restaurant and cafe operations',
     icon: Utensils,
+    color: '#f59e0b', // Amber - food, warmth
     isActive: false,
   },
   {
@@ -77,6 +84,7 @@ export const sectors: Sector[] = [
     name: 'Healthcare',
     description: 'Clinic and hospital management',
     icon: Heart,
+    color: '#ef4444', // Red - health, care
     isActive: false,
   },
   {
@@ -84,6 +92,7 @@ export const sectors: Sector[] = [
     name: 'Education',
     description: 'School and course management',
     icon: GraduationCap,
+    color: '#6366f1', // Indigo - knowledge, wisdom
     isActive: false,
   },
   {
@@ -91,6 +100,7 @@ export const sectors: Sector[] = [
     name: 'Hotel',
     description: 'Hospitality management',
     icon: Hotel,
+    color: '#14b8a6', // Teal - hospitality, calm
     isActive: false,
   },
   {
@@ -98,6 +108,7 @@ export const sectors: Sector[] = [
     name: 'Construction',
     description: 'Construction project tracking',
     icon: HardHat,
+    color: '#f59e0b', // Amber - construction, safety
     isActive: false,
   },
   {
@@ -105,6 +116,7 @@ export const sectors: Sector[] = [
     name: 'Logistics',
     description: 'Fleet and shipment management',
     icon: Truck,
+    color: '#06b6d4', // Cyan - transport, movement
     isActive: false,
   },
   {
@@ -112,6 +124,7 @@ export const sectors: Sector[] = [
     name: 'Manufacturing',
     description: 'Production operations',
     icon: Factory,
+    color: '#64748b', // Slate - industrial
     isActive: false,
   },
   {
@@ -119,6 +132,7 @@ export const sectors: Sector[] = [
     name: 'Legal',
     description: 'Law firm management',
     icon: Scale,
+    color: '#8b5cf6', // Purple - authority, justice
     isActive: false,
   },
   {
@@ -126,6 +140,7 @@ export const sectors: Sector[] = [
     name: 'Retail',
     description: 'Retail store operations',
     icon: Store,
+    color: '#22c55e', // Green - retail, fresh
     isActive: false,
   },
   {
@@ -133,6 +148,7 @@ export const sectors: Sector[] = [
     name: 'Finance',
     description: 'Financial services',
     icon: TrendingUp,
+    color: '#10b981', // Emerald - money, growth
     isActive: false,
   },
   {
@@ -140,6 +156,7 @@ export const sectors: Sector[] = [
     name: 'Beauty Salon',
     description: 'Salon and spa management',
     icon: Scissors,
+    color: '#ec4899', // Pink - beauty, elegance
     isActive: false,
   },
   {
@@ -147,6 +164,7 @@ export const sectors: Sector[] = [
     name: 'Print Shop',
     description: 'Print production management',
     icon: Printer,
+    color: '#64748b', // Slate - print, ink
     isActive: false,
   },
 ];

@@ -33,7 +33,7 @@ export const TasksChart = () => {
 
       {/* Chart */}
       <div className="h-[220px] relative">
-        <ResponsiveContainer width="100%" height="100%">
+        <ResponsiveContainer width="99%" height={220}>
           <PieChart>
             <Pie
               data={taskStatusData}
