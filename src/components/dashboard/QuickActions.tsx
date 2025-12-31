@@ -16,15 +16,18 @@ export const QuickActions = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.6, duration: 0.4 }}
-      className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6"
+      className="relative bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6 overflow-hidden"
     >
+      {/* Glass shimmer overlay */}
+      <div className="absolute inset-0 rounded-xl bg-gradient-to-b from-white/[0.05] to-transparent pointer-events-none" />
+
       {/* Header */}
-      <div className="mb-5">
+      <div className="relative z-10 mb-5">
         <h3 className="text-lg font-semibold text-white">Quick Actions</h3>
       </div>
 
       {/* Actions Grid */}
-      <div className="grid grid-cols-2 gap-3">
+      <div className="relative z-10 grid grid-cols-2 gap-3">
         {actions.map((action, index) => {
           const Icon = action.icon;
           return (

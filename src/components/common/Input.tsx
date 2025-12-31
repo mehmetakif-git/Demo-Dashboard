@@ -44,14 +44,15 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             type={inputType}
             className={cn(
-              'w-full rounded-lg border bg-background-secondary px-4 py-2.5 text-sm text-text-primary',
-              'placeholder:text-text-muted',
+              'w-full rounded-lg border bg-white/[0.03] backdrop-blur-xl px-4 py-2.5 text-sm text-white',
+              'placeholder:text-white/40',
               'transition-all duration-200',
-              'focus:outline-none focus:ring-2 focus:ring-accent-primary focus:ring-offset-2 focus:ring-offset-background-primary',
+              'focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-white/20',
+              'hover:bg-white/[0.05] hover:border-white/[0.12]',
               'disabled:cursor-not-allowed disabled:opacity-50',
               error
-                ? 'border-error focus:ring-error'
-                : 'border-border-default hover:border-border-hover',
+                ? 'border-red-500/50 focus:ring-red-500/50'
+                : 'border-white/[0.08]',
               leftIcon ? 'pl-10' : '',
               (rightIcon || isPassword) ? 'pr-10' : '',
               className

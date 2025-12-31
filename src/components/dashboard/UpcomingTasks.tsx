@@ -14,15 +14,18 @@ export const UpcomingTasks = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.55, duration: 0.4 }}
-      className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6"
+      className="relative bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6 overflow-hidden"
     >
+      {/* Glass shimmer overlay */}
+      <div className="absolute inset-0 rounded-xl bg-gradient-to-b from-white/[0.05] to-transparent pointer-events-none" />
+
       {/* Header */}
-      <div className="flex items-center justify-between mb-5">
+      <div className="relative z-10 flex items-center justify-between mb-5">
         <h3 className="text-lg font-semibold text-white">Upcoming Tasks</h3>
       </div>
 
       {/* Tasks List */}
-      <div className="space-y-3">
+      <div className="relative z-10 space-y-3">
         {upcomingTasks.map((task, index) => (
           <motion.div
             key={task.id}
@@ -49,7 +52,7 @@ export const UpcomingTasks = () => {
       </div>
 
       {/* View All */}
-      <button className="flex items-center gap-1 text-[#6366f1] text-sm font-medium mt-5 hover:text-[#8b5cf6] transition-colors group">
+      <button className="relative z-10 flex items-center gap-1 text-[#6366f1] text-sm font-medium mt-5 hover:text-[#8b5cf6] transition-colors group">
         View All
         <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
       </button>

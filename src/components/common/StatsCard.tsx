@@ -20,7 +20,7 @@ export const StatsCard = ({
   value,
   icon: Icon,
   iconColor = '#6366f1',
-  iconBg = 'rgba(99, 102, 241, 0.2)',
+  iconBg = 'rgba(99, 102, 241, 0.15)',
   subtitle,
   trend,
   delay = 0,
@@ -30,9 +30,12 @@ export const StatsCard = ({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay, duration: 0.3 }}
-      className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-4"
+      className="relative bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-4 hover:bg-white/[0.05] hover:border-white/[0.12] transition-all duration-300 overflow-hidden group"
     >
-      <div className="flex items-center justify-between">
+      {/* Glass shimmer overlay */}
+      <div className="absolute inset-0 rounded-xl bg-gradient-to-b from-white/[0.05] to-transparent pointer-events-none" />
+
+      <div className="relative z-10 flex items-center justify-between">
         <div className="flex-1">
           <p className="text-white/60 text-xs font-medium mb-1">{title}</p>
           <p className="text-2xl font-bold text-white">{value}</p>
@@ -51,7 +54,7 @@ export const StatsCard = ({
         </div>
         {Icon && (
           <div
-            className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0"
+            className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 backdrop-blur-sm border border-white/[0.08]"
             style={{ backgroundColor: iconBg }}
           >
             <Icon className="w-6 h-6" style={{ color: iconColor }} />

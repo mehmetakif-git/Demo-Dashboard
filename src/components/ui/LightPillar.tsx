@@ -15,6 +15,10 @@ interface LightPillarProps {
   noiseIntensity?: number;
   mixBlendMode?: React.CSSProperties['mixBlendMode'];
   pillarRotation?: number;
+  /** When true, renders only once without animation for better performance */
+  isStatic?: boolean;
+  /** Fixed time value for static mode (controls the "frozen" state of animation) */
+  staticTime?: number;
 }
 
 const LightPillar = ({
@@ -29,7 +33,9 @@ const LightPillar = ({
   pillarHeight = 0.4,
   noiseIntensity = 0.5,
   mixBlendMode = 'screen',
-  pillarRotation = 0
+  pillarRotation = 0,
+  isStatic = false,
+  staticTime = 2.5
 }: LightPillarProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number | null>(null);
@@ -269,26 +275,33 @@ const LightPillar = ({
       container.addEventListener('mousemove', handleMouseMove, { passive: true });
     }
 
-    // Animation loop with fixed timestep
-    let lastTime = performance.now();
-    const targetFPS = 60;
-    const frameTime = 1000 / targetFPS;
+    // Static mode: render once and stop
+    if (isStatic) {
+      materialRef.current.uniforms.uTime.value = staticTime;
+      renderer.render(scene, camera);
+      // No animation loop - just one render for maximum performance
+    } else {
+      // Animation loop with fixed timestep
+      let lastTime = performance.now();
+      const targetFPS = 60;
+      const frameTime = 1000 / targetFPS;
 
-    const animate = (currentTime: number) => {
-      if (!materialRef.current || !rendererRef.current || !sceneRef.current || !cameraRef.current) return;
+      const animate = (currentTime: number) => {
+        if (!materialRef.current || !rendererRef.current || !sceneRef.current || !cameraRef.current) return;
 
-      const deltaTime = currentTime - lastTime;
+        const deltaTime = currentTime - lastTime;
 
-      if (deltaTime >= frameTime) {
-        timeRef.current += 0.016 * rotationSpeed;
-        materialRef.current.uniforms.uTime.value = timeRef.current;
-        rendererRef.current.render(sceneRef.current, cameraRef.current);
-        lastTime = currentTime - (deltaTime % frameTime);
-      }
+        if (deltaTime >= frameTime) {
+          timeRef.current += 0.016 * rotationSpeed;
+          materialRef.current.uniforms.uTime.value = timeRef.current;
+          rendererRef.current.render(sceneRef.current, cameraRef.current);
+          lastTime = currentTime - (deltaTime % frameTime);
+        }
 
+        rafRef.current = requestAnimationFrame(animate);
+      };
       rafRef.current = requestAnimationFrame(animate);
-    };
-    rafRef.current = requestAnimationFrame(animate);
+    }
 
     // Handle resize with debouncing
     let resizeTimeout: ReturnType<typeof setTimeout> | null = null;
@@ -298,11 +311,15 @@ const LightPillar = ({
       }
 
       resizeTimeout = setTimeout(() => {
-        if (!rendererRef.current || !materialRef.current || !containerRef.current) return;
+        if (!rendererRef.current || !materialRef.current || !containerRef.current || !sceneRef.current || !cameraRef.current) return;
         const newWidth = containerRef.current.clientWidth;
         const newHeight = containerRef.current.clientHeight;
         rendererRef.current.setSize(newWidth, newHeight);
         materialRef.current.uniforms.uResolution.value.set(newWidth, newHeight);
+        // Re-render for static mode since there's no animation loop
+        if (isStatic) {
+          rendererRef.current.render(sceneRef.current, cameraRef.current);
+        }
       }, 150);
     };
 
@@ -349,7 +366,9 @@ const LightPillar = ({
     pillarHeight,
     noiseIntensity,
     pillarRotation,
-    webGLSupported
+    webGLSupported,
+    isStatic,
+    staticTime
   ]);
 
   if (!webGLSupported) {

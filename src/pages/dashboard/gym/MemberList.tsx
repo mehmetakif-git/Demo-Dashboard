@@ -148,7 +148,7 @@ export const MemberList = () => {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value as StatusFilter)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-lg text-white focus:outline-none focus:border-white/20 hover:bg-white/[0.05] transition-all cursor-pointer"
             >
               <option value="all">All Status</option>
               <option value="active">Active</option>
@@ -161,7 +161,7 @@ export const MemberList = () => {
             <select
               value={planFilter}
               onChange={(e) => setPlanFilter(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-lg text-white focus:outline-none focus:border-white/20 hover:bg-white/[0.05] transition-all cursor-pointer"
             >
               <option value="all">All Plans</option>
               {membershipPlans.map((plan) => (
@@ -175,7 +175,7 @@ export const MemberList = () => {
             <select
               value={trainerFilter}
               onChange={(e) => setTrainerFilter(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-lg text-white focus:outline-none focus:border-white/20 hover:bg-white/[0.05] transition-all cursor-pointer"
             >
               <option value="all">All Trainers</option>
               <option value="unassigned">Unassigned</option>
@@ -188,7 +188,7 @@ export const MemberList = () => {
           </div>
 
           {/* View Toggle */}
-          <div className="flex items-center gap-2 bg-background-tertiary rounded-lg p-1">
+          <div className="flex items-center gap-2 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-lg p-1">
             <button
               onClick={() => setViewMode('grid')}
               className={`p-2 rounded-md transition-colors ${

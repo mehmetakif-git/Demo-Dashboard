@@ -30,16 +30,19 @@ export const RevenueChart = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.3, duration: 0.4 }}
-      className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6"
+      className="relative bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6 overflow-hidden"
     >
+      {/* Glass shimmer overlay */}
+      <div className="absolute inset-0 rounded-xl bg-gradient-to-b from-white/[0.05] to-transparent pointer-events-none" />
+
       {/* Header */}
-      <div className="mb-6">
+      <div className="relative z-10 mb-6">
         <h3 className="text-lg font-semibold text-white mb-1">Revenue Overview</h3>
         <p className="text-white/40 text-sm">Monthly revenue for the current year</p>
       </div>
 
       {/* Chart */}
-      <div className="h-[300px]">
+      <div className="relative z-10 h-[300px]">
         <ResponsiveContainer width="99%" height={300}>
           <AreaChart data={revenueData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
             <defs>

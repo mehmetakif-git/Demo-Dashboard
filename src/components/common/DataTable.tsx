@@ -67,14 +67,14 @@ export const DataTable = <T,>({
       <div className="overflow-x-auto">
         <table className="w-full border-collapse">
           <thead>
-            <tr className="bg-[#1a1a24]">
+            <tr className="bg-white/[0.03]">
               {selectable && (
                 <th className="px-4 py-3 text-left w-12">
                   <input
                     type="checkbox"
                     checked={data.length > 0 && selectedItems.length === data.length}
                     onChange={handleSelectAll}
-                    className="w-4 h-4 rounded border-[#2e2e3e] bg-[#12121a] text-[#6366f1] focus:ring-[#6366f1] focus:ring-offset-0 cursor-pointer"
+                    className="w-4 h-4 rounded border-white/[0.08] bg-white/[0.03] text-[#6366f1] focus:ring-[#6366f1] focus:ring-offset-0 cursor-pointer"
                   />
                 </th>
               )}
@@ -97,12 +97,12 @@ export const DataTable = <T,>({
                 <tr key={index} className="border-b border-[#1e1e2e]">
                   {selectable && (
                     <td className="px-4 py-4">
-                      <div className="w-4 h-4 bg-[#1a1a24] rounded animate-pulse" />
+                      <div className="w-4 h-4 bg-white/[0.05] rounded animate-pulse" />
                     </td>
                   )}
                   {columns.map((column) => (
                     <td key={column.key} className="px-4 py-4">
-                      <div className="h-4 bg-[#1a1a24] rounded animate-pulse" style={{ width: `${Math.random() * 40 + 60}%` }} />
+                      <div className="h-4 bg-white/[0.05] rounded animate-pulse" style={{ width: `${Math.random() * 40 + 60}%` }} />
                     </td>
                   ))}
                 </tr>
@@ -130,7 +130,7 @@ export const DataTable = <T,>({
                     className={cn(
                       'border-b border-[#1e1e2e] transition-colors',
                       onRowClick && 'cursor-pointer',
-                      isSelected ? 'bg-[#6366f1]/10' : 'hover:bg-[#1a1a24]'
+                      isSelected ? 'bg-[#6366f1]/10' : 'hover:bg-white/[0.03]'
                     )}
                   >
                     {selectable && (
@@ -139,7 +139,7 @@ export const DataTable = <T,>({
                           type="checkbox"
                           checked={isSelected}
                           onChange={() => handleSelectItem(id)}
-                          className="w-4 h-4 rounded border-[#2e2e3e] bg-[#12121a] text-[#6366f1] focus:ring-[#6366f1] focus:ring-offset-0 cursor-pointer"
+                          className="w-4 h-4 rounded border-white/[0.08] bg-white/[0.03] text-[#6366f1] focus:ring-[#6366f1] focus:ring-offset-0 cursor-pointer"
                         />
                       </td>
                     )}
@@ -176,14 +176,14 @@ export const DataTable = <T,>({
             <button
               onClick={() => pagination.onPageChange(1)}
               disabled={pagination.currentPage === 1}
-              className="p-2 rounded-lg text-white/40 hover:text-white hover:bg-[#1a1a24] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              className="p-2 rounded-lg text-white/40 hover:text-white hover:bg-white/[0.05] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
             >
               <ChevronsLeft className="w-4 h-4" />
             </button>
             <button
               onClick={() => pagination.onPageChange(pagination.currentPage - 1)}
               disabled={pagination.currentPage === 1}
-              className="p-2 rounded-lg text-white/40 hover:text-white hover:bg-[#1a1a24] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              className="p-2 rounded-lg text-white/40 hover:text-white hover:bg-white/[0.05] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
@@ -204,7 +204,7 @@ export const DataTable = <T,>({
                       'w-8 h-8 rounded-lg text-sm font-medium transition-colors',
                       page === pagination.currentPage
                         ? 'bg-[#6366f1] text-white'
-                        : 'text-white/60 hover:text-white hover:bg-[#1a1a24]'
+                        : 'text-white/60 hover:text-white hover:bg-white/[0.05]'
                     )}
                   >
                     {page}
@@ -215,14 +215,14 @@ export const DataTable = <T,>({
             <button
               onClick={() => pagination.onPageChange(pagination.currentPage + 1)}
               disabled={pagination.currentPage === pagination.totalPages}
-              className="p-2 rounded-lg text-white/40 hover:text-white hover:bg-[#1a1a24] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              className="p-2 rounded-lg text-white/40 hover:text-white hover:bg-white/[0.05] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
             >
               <ChevronRight className="w-4 h-4" />
             </button>
             <button
               onClick={() => pagination.onPageChange(pagination.totalPages)}
               disabled={pagination.currentPage === pagination.totalPages}
-              className="p-2 rounded-lg text-white/40 hover:text-white hover:bg-[#1a1a24] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              className="p-2 rounded-lg text-white/40 hover:text-white hover:bg-white/[0.05] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
             >
               <ChevronsRight className="w-4 h-4" />
             </button>

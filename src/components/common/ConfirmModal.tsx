@@ -75,12 +75,12 @@ export const ConfirmModal = ({
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-              className="w-full max-w-md rounded-xl bg-[#12121a] border border-[#1e1e2e] shadow-2xl"
+              className="w-full max-w-md rounded-xl bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] shadow-2xl overflow-hidden"
             >
               {/* Close button */}
               <button
                 onClick={onClose}
-                className="absolute top-4 right-4 rounded-lg p-1 text-[#64748b] hover:bg-[#1a1a24] hover:text-white transition-colors"
+                className="absolute top-4 right-4 rounded-lg p-1 text-white/40 hover:bg-white/[0.05] hover:text-white transition-colors"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -108,7 +108,7 @@ export const ConfirmModal = ({
                   <button
                     onClick={onClose}
                     disabled={loading}
-                    className="flex-1 rounded-lg border border-[#1e1e2e] bg-[#1a1a24] px-4 py-2.5 text-sm font-medium text-white hover:bg-[#252532] transition-colors disabled:opacity-50"
+                    className="flex-1 rounded-lg border border-white/[0.08] bg-white/[0.03] px-4 py-2.5 text-sm font-medium text-white hover:bg-white/[0.08] transition-colors disabled:opacity-50"
                   >
                     {cancelText}
                   </button>

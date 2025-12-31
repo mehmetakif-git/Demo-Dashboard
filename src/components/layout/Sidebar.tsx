@@ -278,7 +278,7 @@ export const Sidebar = () => {
                     <button
                       onClick={() => handleMenuClick(item)}
                       className={`
-                        relative flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200
+                        relative flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200 cursor-pointer
                         ${isActive
                           ? 'text-white'
                           : 'text-[#94a3b8] hover:bg-[#1a1a24] hover:text-white'
@@ -364,7 +364,7 @@ export const Sidebar = () => {
                                   <button
                                     onClick={() => child.path && navigate(child.path)}
                                     className={`
-                                      relative flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-all duration-200
+                                      relative flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-all duration-200 cursor-pointer
                                       ${isChildActive
                                         ? 'text-white font-medium'
                                         : 'text-[#94a3b8] hover:bg-[#1a1a24] hover:text-white'
@@ -409,7 +409,7 @@ export const Sidebar = () => {
       <div className="border-t border-[#1e1e2e] p-4">
         <button
           onClick={handleLogout}
-          className="flex w-full items-center justify-center gap-3 rounded-lg px-3 py-2.5 text-[#ef4444] hover:bg-[#ef4444]/10 transition-colors"
+          className="flex w-full items-center justify-center gap-3 rounded-lg px-3 py-2.5 text-[#ef4444] hover:bg-[#ef4444]/10 transition-colors cursor-pointer"
           title="Logout"
         >
           <LogOut className="h-5 w-5" />

@@ -45,7 +45,7 @@ export const FilterBar = ({
           value={searchValue}
           onChange={(e) => onSearchChange(e.target.value)}
           placeholder={searchPlaceholder}
-          className="w-full pl-10 pr-4 py-2.5 bg-[#12121a] border border-[#1e1e2e] rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-[#6366f1]/50 transition-colors text-sm"
+          className="w-full pl-10 pr-4 py-2.5 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-white/20 hover:bg-white/[0.05] transition-all text-sm"
         />
       </div>
 
@@ -56,10 +56,10 @@ export const FilterBar = ({
             <select
               value={filter.value}
               onChange={(e) => filter.onChange(e.target.value)}
-              className="appearance-none pl-3 pr-8 py-2.5 bg-[#12121a] border border-[#1e1e2e] rounded-lg text-white text-sm focus:outline-none focus:border-[#6366f1]/50 transition-colors cursor-pointer"
+              className="appearance-none pl-3 pr-8 py-2.5 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-lg text-white text-sm focus:outline-none focus:border-white/20 hover:bg-white/[0.05] transition-all cursor-pointer"
             >
               {filter.options.map((option) => (
-                <option key={option.value} value={option.value} className="bg-[#12121a]">
+                <option key={option.value} value={option.value} className="bg-[#1a1a24]">
                   {option.label}
                 </option>
               ))}
@@ -70,7 +70,7 @@ export const FilterBar = ({
 
         {/* View Toggle */}
         {showViewToggle && onViewModeChange && (
-          <div className="flex items-center bg-[#12121a] border border-[#1e1e2e] rounded-lg p-1">
+          <div className="flex items-center bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-lg p-1">
             <button
               onClick={() => onViewModeChange('table')}
               className={`p-2 rounded-md transition-colors ${

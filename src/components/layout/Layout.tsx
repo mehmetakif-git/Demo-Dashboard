@@ -6,6 +6,7 @@ import { Header } from './Header';
 import { useAppStore } from '@/store/appStore';
 import { LAYOUT } from '@/utils/constants';
 import { Skeleton } from '@/components/common';
+import LightPillar from '@/components/ui/LightPillar';
 
 // Page loading skeleton
 const PageLoader = () => (
@@ -26,13 +27,32 @@ export const Layout = () => {
   const location = useLocation();
 
   return (
-    <div className="flex h-screen bg-[#0a0a0f]">
+    <div className="flex h-screen bg-[#0a0a0f] relative">
+      {/* Static Light Pillar Background - Same as OnboardingLayout but static for performance */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <LightPillar
+          topColor="#5227FF"
+          bottomColor="#FF9FFC"
+          intensity={1}
+          rotationSpeed={0.3}
+          glowAmount={0.002}
+          pillarWidth={3}
+          pillarHeight={0.4}
+          noiseIntensity={0.5}
+          pillarRotation={25}
+          interactive={false}
+          mixBlendMode="normal"
+          isStatic
+          staticTime={2.5}
+        />
+      </div>
+
       {/* Sidebar - stays mounted */}
       <Sidebar />
 
       {/* Main content area */}
       <main
-        className="flex flex-1 flex-col overflow-hidden transition-all duration-300"
+        className="relative z-10 flex flex-1 flex-col overflow-hidden transition-all duration-300"
         style={{
           marginLeft: sidebarCollapsed ? LAYOUT.sidebarCollapsedWidth : LAYOUT.sidebarWidth,
         }}

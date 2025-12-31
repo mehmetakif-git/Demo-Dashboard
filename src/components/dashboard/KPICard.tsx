@@ -43,18 +43,21 @@ export const KPICard = ({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay, duration: 0.4 }}
-      className="relative bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6 hover:border-[#2e2e3e] hover:shadow-lg hover:shadow-[#6366f1]/5 transition-all duration-300 group overflow-hidden"
+      className="relative bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6 hover:bg-white/[0.05] hover:border-white/[0.12] hover:shadow-lg hover:shadow-purple-500/10 transition-all duration-300 group overflow-hidden"
     >
-      {/* Background sparkline effect */}
+      {/* Glass shimmer overlay */}
+      <div className="absolute inset-0 rounded-xl bg-gradient-to-b from-white/[0.05] to-transparent pointer-events-none" />
+
+      {/* Background glow effect on hover */}
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#6366f1]/5 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-purple-500/10 to-transparent" />
       </div>
 
       <div className="relative z-10">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <div
-            className="w-12 h-12 rounded-lg flex items-center justify-center"
+            className="w-12 h-12 rounded-xl flex items-center justify-center backdrop-blur-sm border border-white/[0.08]"
             style={{ backgroundColor: iconBg }}
           >
             <Icon className="w-6 h-6" style={{ color: iconColor }} />
