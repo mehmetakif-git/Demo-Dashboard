@@ -409,21 +409,15 @@ export const Sidebar = () => {
       <div className="border-t border-white/[0.08] p-4">
         <button
           onClick={handleLogout}
-          className="flex w-full items-center justify-center gap-3 rounded-lg px-3 py-2.5 text-[#ef4444] hover:bg-[#ef4444]/10 transition-colors cursor-pointer"
+          className={`flex w-full items-center rounded-lg px-3 py-2.5 text-[#ef4444] hover:bg-[#ef4444]/10 transition-colors cursor-pointer ${sidebarCollapsed ? 'justify-center' : 'justify-center gap-3'}`}
           title="Logout"
         >
-          <LogOut className="h-5 w-5" />
-          <motion.span
-            initial={false}
-            animate={{
-              opacity: sidebarCollapsed ? 0 : 1,
-              width: sidebarCollapsed ? 0 : 'auto',
-            }}
-            transition={{ duration: 0.2 }}
-            className="text-sm font-medium whitespace-nowrap overflow-hidden"
-          >
-            Logout
-          </motion.span>
+          <LogOut className="h-5 w-5 flex-shrink-0" />
+          {!sidebarCollapsed && (
+            <span className="text-sm font-medium whitespace-nowrap">
+              Logout
+            </span>
+          )}
         </button>
       </div>
     </aside>
