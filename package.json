@@ -10,10 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@lordicon/react": "^1.11.0",
+    "@lottiefiles/dotlottie-react": "^0.17.12",
     "@radix-ui/react-hover-card": "^1.1.15",
     "@types/three": "^0.182.0",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.26",
+    "lottie-react": "^2.4.1",
+    "lottie-web": "^5.13.0",
     "lucide-react": "^0.562.0",
     "qss": "^3.0.0",
     "react": "^19.2.0",
