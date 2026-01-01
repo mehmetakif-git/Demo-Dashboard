@@ -32,7 +32,7 @@ export const SectorSelect = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             onClick={handleLogout}
-            className="absolute top-0 right-0 flex items-center gap-2 px-4 py-2 bg-red-500/10 backdrop-blur-xl border border-red-500/20 rounded-lg text-red-400 cursor-pointer hover:bg-red-500/20 hover:border-red-500/30 hover:scale-105 active:scale-95 transition-all"
+            className="absolute top-8 right-8 flex items-center gap-2 px-4 py-2 bg-red-500/10 backdrop-blur-xl border border-red-500/20 rounded-lg text-red-400 cursor-pointer hover:bg-red-500/20 hover:border-red-500/30 hover:scale-105 active:scale-95 transition-all"
           >
             <LogOut className="w-4 h-4" />
             <span className="text-sm font-medium">Logout</span>
