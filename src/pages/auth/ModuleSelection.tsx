@@ -523,7 +523,7 @@ const ModuleSelection = () => {
         >
           <button
             onClick={handleContinue}
-            className="px-8 py-3 bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] text-white font-semibold rounded-xl hover:opacity-90 transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2"
+            className="px-8 py-3 bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] text-white font-semibold rounded-xl hover:opacity-90 transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2 cursor-pointer"
           >
             Continue to Dashboard
             <ChevronRight size={20} />

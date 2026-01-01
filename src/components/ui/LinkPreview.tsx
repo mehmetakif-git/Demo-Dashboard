@@ -29,11 +29,14 @@ export const LinkPreview = ({
   className,
   width = 200,
   height = 125,
-  quality = 50,
-  layout = "fixed",
+  quality: _quality = 50,
+  layout: _layout = "fixed",
   isStatic = false,
   imageSrc = "",
 }: LinkPreviewProps) => {
+  // These props are accepted for API compatibility but not currently used
+  void _quality;
+  void _layout;
   let src;
   if (!isStatic) {
     const params = encode({

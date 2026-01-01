@@ -1,6 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
 import { ChevronRight, Home } from 'lucide-react';
-import { cn } from '@/utils/helpers';
 
 interface BreadcrumbItem {
   label: string;
@@ -43,7 +42,7 @@ export const Breadcrumb = () => {
     <nav aria-label="Breadcrumb" className="flex items-center gap-2">
       <Link
         to="/dashboard"
-        className="flex items-center text-text-muted hover:text-text-secondary transition-colors"
+        className="flex items-center text-[#64748b] hover:text-white transition-colors"
       >
         <Home className="h-4 w-4" />
       </Link>
@@ -53,17 +52,15 @@ export const Breadcrumb = () => {
 
         return (
           <div key={item.path} className="flex items-center gap-2">
-            <ChevronRight className="h-4 w-4 text-text-muted" />
+            <ChevronRight className="h-4 w-4 text-[#64748b]" />
             {isLast ? (
-              <span className="text-sm font-medium text-text-primary">
+              <span className="text-sm font-medium text-white">
                 {item.label}
               </span>
             ) : (
               <Link
                 to={item.path}
-                className={cn(
-                  'text-sm text-text-muted hover:text-text-secondary transition-colors'
-                )}
+                className="text-sm text-[#64748b] hover:text-white transition-colors"
               >
                 {item.label}
               </Link>

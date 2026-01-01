@@ -50,16 +50,16 @@ export const Layout = () => {
       {/* Sidebar - stays mounted */}
       <Sidebar />
 
+      {/* Header - fixed at top, outside main for proper backdrop-blur */}
+      <Header />
+
       {/* Main content area */}
       <main
-        className="relative z-10 flex flex-1 flex-col overflow-hidden transition-all duration-300"
+        className="relative z-10 flex flex-1 flex-col overflow-hidden transition-all duration-300 pt-16"
         style={{
           marginLeft: sidebarCollapsed ? LAYOUT.sidebarCollapsedWidth : LAYOUT.sidebarWidth,
         }}
       >
-        {/* Header - stays mounted */}
-        <Header />
-
         {/* Content - only this part animates on route change */}
         <div className="flex-1 overflow-auto">
           <AnimatePresence mode="wait">

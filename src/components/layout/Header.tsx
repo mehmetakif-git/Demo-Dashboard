@@ -47,19 +47,19 @@ export const Header = () => {
     <motion.header
       initial={false}
       animate={{
-        marginLeft: sidebarCollapsed
+        left: sidebarCollapsed
           ? LAYOUT.sidebarCollapsedWidth
           : LAYOUT.sidebarWidth,
       }}
       transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-      className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-[#1e1e2e] bg-[#0a0a0f]/80 backdrop-blur-lg px-6"
+      className="fixed top-0 right-0 z-30 flex h-16 items-center justify-between bg-white/[0.03] backdrop-blur-xl border-b border-white/[0.08] px-6"
     >
       {/* Left Section */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center">
         {/* Mobile menu toggle (hidden on desktop) */}
         <button
           onClick={toggleSidebar}
-          className="flex h-9 w-9 items-center justify-center rounded-lg text-[#64748b] hover:bg-[#1a1a24] hover:text-[#94a3b8] transition-colors lg:hidden"
+          className="flex h-9 w-9 mr-4 items-center justify-center rounded-lg text-[#64748b] hover:bg-white/[0.05] hover:text-white transition-colors lg:hidden cursor-pointer"
         >
           <Menu className="h-5 w-5" />
         </button>
@@ -71,12 +71,12 @@ export const Header = () => {
       {/* Right Section */}
       <div className="flex items-center gap-2">
         {/* Search Button */}
-        <button className="flex h-9 w-9 items-center justify-center rounded-lg text-[#64748b] hover:bg-[#1a1a24] hover:text-[#94a3b8] transition-colors">
+        <button className="flex h-9 w-9 items-center justify-center rounded-lg text-[#64748b] hover:bg-white/[0.05] hover:text-white transition-colors cursor-pointer">
           <Search className="h-5 w-5" />
         </button>
 
         {/* Notifications */}
-        <button className="relative flex h-9 w-9 items-center justify-center rounded-lg text-[#64748b] hover:bg-[#1a1a24] hover:text-[#94a3b8] transition-colors">
+        <button className="relative flex h-9 w-9 items-center justify-center rounded-lg text-[#64748b] hover:bg-white/[0.05] hover:text-white transition-colors cursor-pointer">
           <Bell className="h-5 w-5" />
           {/* Notification badge */}
           <span className="absolute right-1.5 top-1.5 flex h-2 w-2">
@@ -86,14 +86,14 @@ export const Header = () => {
         </button>
 
         {/* Messages */}
-        <button className="relative flex h-9 w-9 items-center justify-center rounded-lg text-[#64748b] hover:bg-[#1a1a24] hover:text-[#94a3b8] transition-colors">
+        <button className="relative flex h-9 w-9 items-center justify-center rounded-lg text-[#64748b] hover:bg-white/[0.05] hover:text-white transition-colors cursor-pointer">
           <Mail className="h-5 w-5" />
         </button>
 
         {/* Profile Dropdown */}
         <Dropdown
           trigger={
-            <div className="flex items-center gap-2 rounded-lg py-1 pl-1 pr-3 hover:bg-[#1a1a24] transition-colors">
+            <div className="flex items-center gap-2 rounded-lg py-1 pl-1 pr-3 hover:bg-white/[0.05] transition-colors cursor-pointer">
               <Avatar name={user?.name || 'User'} size="sm" />
               <div className="hidden sm:block text-left">
                 <p className="text-sm font-medium text-white leading-tight">

@@ -209,10 +209,10 @@ export const Sidebar = () => {
       style={{
         width: sidebarCollapsed ? LAYOUT.sidebarCollapsedWidth : LAYOUT.sidebarWidth,
       }}
-      className="fixed left-0 top-0 z-40 flex h-screen flex-col border-r border-[#1e1e2e] bg-[#12121a] transition-[width] duration-300 ease-out"
+      className="fixed left-0 top-0 z-40 flex h-screen flex-col bg-white/[0.03] backdrop-blur-xl border-r border-white/[0.08] transition-[width] duration-300 ease-out"
     >
       {/* Logo Section */}
-      <div className={`flex h-16 items-center border-b border-[#1e1e2e] px-3 ${sidebarCollapsed ? 'justify-center' : 'justify-between'}`}>
+      <div className={`flex h-16 items-center border-b border-white/[0.08] px-3 ${sidebarCollapsed ? 'justify-center' : 'justify-between'}`}>
         <div className="flex items-center gap-3 min-w-0">
           <div
             className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg"
@@ -229,7 +229,7 @@ export const Sidebar = () => {
         {!sidebarCollapsed && (
           <button
             onClick={toggleSidebar}
-            className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#2e2e3e] bg-[#1a1a24] text-[#94a3b8] hover:bg-[#252532] hover:text-white hover:border-[#3e3e4e] transition-all cursor-pointer"
+            className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/[0.05] border border-white/[0.08] text-[#94a3b8] hover:bg-white/[0.1] hover:text-white hover:border-white/[0.15] transition-all cursor-pointer"
             title="Collapse sidebar"
           >
             <ChevronLeft className="h-4 w-4" />
@@ -241,7 +241,7 @@ export const Sidebar = () => {
       {sidebarCollapsed && (
         <button
           onClick={toggleSidebar}
-          className="mx-auto mt-3 flex h-8 w-8 items-center justify-center rounded-lg border border-[#2e2e3e] bg-[#1a1a24] text-[#94a3b8] hover:bg-[#252532] hover:text-white hover:border-[#3e3e4e] transition-all cursor-pointer"
+          className="mx-auto mt-3 flex h-8 w-8 items-center justify-center rounded-lg bg-white/[0.05] border border-white/[0.08] text-[#94a3b8] hover:bg-white/[0.1] hover:text-white hover:border-white/[0.15] transition-all cursor-pointer"
           title="Expand sidebar"
         >
           <ChevronLeft className="h-4 w-4 rotate-180" />
@@ -281,7 +281,7 @@ export const Sidebar = () => {
                         relative flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200 cursor-pointer
                         ${isActive
                           ? 'text-white'
-                          : 'text-[#94a3b8] hover:bg-[#1a1a24] hover:text-white'
+                          : 'text-[#94a3b8] hover:bg-white/[0.05] hover:text-white'
                         }
                       `}
                       style={isActive ? {
@@ -350,7 +350,7 @@ export const Sidebar = () => {
                           transition={{ duration: 0.2 }}
                           className="overflow-hidden"
                         >
-                          <div className="mt-1 ml-4 pl-4 border-l border-[#1e1e2e] space-y-1">
+                          <div className="mt-1 ml-4 pl-4 border-l border-white/[0.08] space-y-1">
                             {item.children!.map((child) => {
                               const isChildActive = isSubmenuActive(child.path);
                               const ChildIcon = child.icon;
@@ -367,7 +367,7 @@ export const Sidebar = () => {
                                       relative flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-all duration-200 cursor-pointer
                                       ${isChildActive
                                         ? 'text-white font-medium'
-                                        : 'text-[#94a3b8] hover:bg-[#1a1a24] hover:text-white'
+                                        : 'text-[#94a3b8] hover:bg-white/[0.05] hover:text-white'
                                       }
                                     `}
                                     style={isChildActive ? {
@@ -406,7 +406,7 @@ export const Sidebar = () => {
       </nav>
 
       {/* Logout Section */}
-      <div className="border-t border-[#1e1e2e] p-4">
+      <div className="border-t border-white/[0.08] p-4">
         <button
           onClick={handleLogout}
           className="flex w-full items-center justify-center gap-3 rounded-lg px-3 py-2.5 text-[#ef4444] hover:bg-[#ef4444]/10 transition-colors cursor-pointer"
