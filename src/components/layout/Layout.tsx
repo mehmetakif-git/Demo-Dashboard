@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+import { Suspense, useState, useEffect, useCallback } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Sidebar } from './Sidebar';
@@ -22,9 +22,166 @@ const PageLoader = () => (
   </div>
 );
 
+// Tour step titles and descriptions
+const tourSteps = [
+  {
+    title: 'Navigation Sidebar',
+    description: 'Access all your modules, manage your business areas, and navigate through different sections from here.',
+  },
+  {
+    title: 'Top Header',
+    description: 'Quick access to search, notifications, messages, and your profile settings.',
+  },
+  {
+    title: 'Main Content Area',
+    description: 'This is where all your dashboard data, charts, and widgets are displayed.',
+  },
+  {
+    title: 'Logout Button',
+    description: 'Click here when you want to safely log out of your account.',
+  },
+];
+
+// Element IDs for each tour step
+const tourElementIds = [
+  'dashboard-sidebar',
+  'dashboard-header',
+  'dashboard-content',
+  'dashboard-logout',
+];
+
 export const Layout = () => {
   const { sidebarCollapsed } = useAppStore();
   const location = useLocation();
+
+  // Spotlight tour state
+  const [showSpotlight, setShowSpotlight] = useState(false);
+  const [spotlightStep, setSpotlightStep] = useState(0);
+  const [spotlightPosition, setSpotlightPosition] = useState({ x: 0, y: 0, width: 0, height: 0 });
+  const [hasSeenTour, setHasSeenTour] = useState(false);
+
+  // Tour resets on every page refresh (no persistence)
+
+  // Show spotlight tour only on dashboard page and if not seen
+  useEffect(() => {
+    if (location.pathname === '/dashboard' && !hasSeenTour) {
+      const timer = setTimeout(() => {
+        setShowSpotlight(true);
+      }, 2500);
+      return () => clearTimeout(timer);
+    }
+  }, [location.pathname, hasSeenTour]);
+
+  // Update spotlight position based on current step
+  const updateSpotlightPosition = useCallback(() => {
+    const elementId = tourElementIds[spotlightStep];
+    const element = document.getElementById(elementId);
+    if (element) {
+      const rect = element.getBoundingClientRect();
+      setSpotlightPosition({
+        x: rect.left,
+        y: rect.top,
+        width: rect.width,
+        height: rect.height,
+      });
+    }
+  }, [spotlightStep]);
+
+  // Update position when spotlight is shown or step changes
+  useEffect(() => {
+    if (showSpotlight) {
+      // Small delay to ensure DOM is ready
+      const timer = setTimeout(() => {
+        updateSpotlightPosition();
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [showSpotlight, spotlightStep, updateSpotlightPosition]);
+
+  // Handle window resize
+  useEffect(() => {
+    if (!showSpotlight) return;
+
+    const handleResize = () => {
+      updateSpotlightPosition();
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [showSpotlight, updateSpotlightPosition]);
+
+  // Disable scroll when spotlight is active
+  useEffect(() => {
+    if (showSpotlight) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [showSpotlight]);
+
+  // Handle next step
+  const handleNextStep = () => {
+    if (spotlightStep < tourSteps.length - 1) {
+      setSpotlightStep(prev => prev + 1);
+    } else {
+      // Tour completed
+      dismissSpotlight();
+    }
+  };
+
+  // Dismiss spotlight
+  const dismissSpotlight = () => {
+    setShowSpotlight(false);
+    setSpotlightStep(0);
+    setHasSeenTour(true);
+  };
+
+  // Get tooltip position based on current step
+  const getTooltipPosition = () => {
+    switch (spotlightStep) {
+      case 0: // Sidebar - tooltip on the right
+        return {
+          left: spotlightPosition.x + spotlightPosition.width + 20,
+          top: spotlightPosition.y + spotlightPosition.height / 2 - 80,
+        };
+      case 1: // Header - tooltip below
+        return {
+          left: spotlightPosition.x + spotlightPosition.width / 2 - 140,
+          top: spotlightPosition.y + spotlightPosition.height + 20,
+        };
+      case 2: // Content - tooltip in center
+        return {
+          left: spotlightPosition.x + spotlightPosition.width / 2 - 140,
+          top: spotlightPosition.y + spotlightPosition.height / 2 - 80,
+        };
+      case 3: // Logout - tooltip on the right
+        return {
+          left: spotlightPosition.x + spotlightPosition.width + 20,
+          top: spotlightPosition.y - 120,
+        };
+      default:
+        return { left: 0, top: 0 };
+    }
+  };
+
+  // Get arrow direction based on step
+  const getArrowClass = () => {
+    switch (spotlightStep) {
+      case 0: // Pointing left (to sidebar)
+        return 'absolute -left-2 top-16 w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-r-8 border-r-white/10';
+      case 1: // Pointing up (to header)
+        return 'absolute -top-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-b-8 border-b-white/10';
+      case 2: // No arrow for center tooltip
+        return 'hidden';
+      case 3: // Pointing left (to logout)
+        return 'absolute -left-2 top-8 w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-r-8 border-r-white/10';
+      default:
+        return '';
+    }
+  };
 
   return (
     <div className="flex h-screen bg-[#0a0a0f] relative">
@@ -48,14 +205,19 @@ export const Layout = () => {
       </div>
 
       {/* Sidebar - stays mounted */}
-      <Sidebar />
+      <div className={showSpotlight && spotlightStep === 0 ? 'relative z-60' : ''}>
+        <Sidebar />
+      </div>
 
       {/* Header - fixed at top, outside main for proper backdrop-blur */}
-      <Header />
+      <div className={showSpotlight && spotlightStep === 1 ? 'relative z-60' : ''}>
+        <Header />
+      </div>
 
       {/* Main content area */}
       <main
-        className="relative z-10 flex flex-1 flex-col overflow-hidden transition-all duration-300 pt-16"
+        id="dashboard-content"
+        className={`relative flex flex-1 flex-col overflow-hidden transition-all duration-300 pt-16 ${showSpotlight && spotlightStep === 2 ? 'z-60' : 'z-10'}`}
         style={{
           marginLeft: sidebarCollapsed ? LAYOUT.sidebarCollapsedWidth : LAYOUT.sidebarWidth,
         }}
@@ -78,6 +240,103 @@ export const Layout = () => {
           </AnimatePresence>
         </div>
       </main>
+
+      {/* Spotlight Tour Overlay */}
+      <AnimatePresence mode="sync">
+        {showSpotlight && spotlightPosition.width > 0 && (
+          <motion.div
+            key="spotlight-container"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            className="fixed inset-0 z-[70]"
+          >
+            {/* Dark Overlay with Spotlight Cutout */}
+            <div
+              className="absolute inset-0 pointer-events-auto"
+              onClick={handleNextStep}
+              style={{
+                background: `radial-gradient(ellipse ${spotlightPosition.width + 40}px ${spotlightPosition.height + 40}px at ${spotlightPosition.x + spotlightPosition.width / 2}px ${spotlightPosition.y + spotlightPosition.height / 2}px, transparent 0%, rgba(0, 0, 0, 0.85) 100%)`
+              }}
+            />
+
+            {/* Pulsing Ring around highlighted element */}
+            <motion.div
+              key={`ring-${spotlightStep}`}
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              className="absolute pointer-events-none"
+              style={{
+                left: spotlightPosition.x - 4,
+                top: spotlightPosition.y - 4,
+                width: spotlightPosition.width + 8,
+                height: spotlightPosition.height + 8,
+              }}
+            >
+              <div className="absolute inset-0 rounded-xl border-2 border-indigo-500/50 animate-pulse" />
+              <div className="absolute inset-0 rounded-xl border border-indigo-400/30 animate-ping" style={{ animationDuration: '2s' }} />
+            </motion.div>
+
+            {/* Tooltip */}
+            <motion.div
+              key={`tooltip-${spotlightStep}`}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.3, delay: 0.1, ease: "easeOut" }}
+              className="absolute pointer-events-none"
+              style={getTooltipPosition()}
+            >
+              {/* Arrow */}
+              <div className={getArrowClass()} />
+
+              {/* Tooltip Content */}
+              <div className="relative bg-white/[0.05] backdrop-blur-2xl border border-white/[0.12] rounded-2xl p-5 w-[280px] shadow-2xl before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-b before:from-white/[0.1] before:to-transparent before:pointer-events-none">
+                {/* Step indicator */}
+                <div className="relative z-10 flex items-center gap-2 mb-3">
+                  {tourSteps.map((_, index) => (
+                    <div
+                      key={index}
+                      className={`h-1.5 rounded-full transition-all ${
+                        index === spotlightStep
+                          ? 'w-6 bg-indigo-500'
+                          : index < spotlightStep
+                          ? 'w-1.5 bg-indigo-500/50'
+                          : 'w-1.5 bg-white/20'
+                      }`}
+                    />
+                  ))}
+                  <span className="ml-auto text-xs text-white/40">
+                    {spotlightStep + 1}/{tourSteps.length}
+                  </span>
+                </div>
+
+                <div className="relative z-10 mb-2">
+                  <span className="text-white text-lg font-bold">{tourSteps[spotlightStep].title}</span>
+                </div>
+                <p className="relative z-10 text-white/90 text-sm font-medium leading-relaxed mb-4">
+                  {tourSteps[spotlightStep].description}
+                </p>
+                <div className="relative z-10 flex items-center justify-between">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      dismissSpotlight();
+                    }}
+                    className="text-white/40 text-xs hover:text-white/60 transition-colors pointer-events-auto cursor-pointer"
+                  >
+                    Skip tour
+                  </button>
+                  <span className="text-indigo-400 text-xs font-medium">
+                    Click anywhere to continue
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

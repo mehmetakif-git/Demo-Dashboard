@@ -23,6 +23,36 @@ import {
 import { PageHeader, Card, StatsCard, Input, Button } from '@/components/common';
 import { contentLibrary, contentFolders, type ContentItem } from '@/data/signageData';
 
+// Content thumbnail images (reusing display images)
+import display1 from '@/assets/images/displays/display-1.webp';
+import display2 from '@/assets/images/displays/display-2.webp';
+import display3 from '@/assets/images/displays/display-3.webp';
+import display4 from '@/assets/images/displays/display-4.webp';
+import display5 from '@/assets/images/displays/display-5.webp';
+import display6 from '@/assets/images/displays/display-6.webp';
+import display7 from '@/assets/images/displays/display-7.webp';
+import display8 from '@/assets/images/displays/display-8.webp';
+import display9 from '@/assets/images/displays/display-9.webp';
+import display10 from '@/assets/images/displays/display-10.webp';
+import display11 from '@/assets/images/displays/display-11.webp';
+import display12 from '@/assets/images/displays/display-12.webp';
+
+// Map content names to thumbnail images
+const contentImages: Record<string, string> = {
+  'Product Launch Teaser': display9,
+  'Cafeteria Menu - Monday': display12,
+  'Cafeteria Menu - Tuesday': display3,
+  'Q4 Results Presentation': display11,
+  'Holiday Announcement': display4,
+  'Employee of the Month': display7,
+  'Welcome Video': display1,
+  'Company Logo': display2,
+  'Safety Guidelines': display8,
+  'Company Values': display5,
+  'Meeting Room Instructions': display6,
+  'Parking Rules': display10,
+};
+
 export const ContentLibrary = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedType, setSelectedType] = useState<string>('all');
@@ -314,8 +344,14 @@ export const ContentLibrary = () => {
                 >
                   <Card className="p-0 overflow-hidden hover:shadow-lg transition-all group">
                     {/* Thumbnail */}
-                    <div className="relative aspect-video bg-background-tertiary flex items-center justify-center">
-                      {content.type === 'image' ? (
+                    <div className="relative aspect-video bg-background-tertiary flex items-center justify-center overflow-hidden">
+                      {contentImages[content.name] ? (
+                        <img
+                          src={contentImages[content.name]}
+                          alt={content.name}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : content.type === 'image' ? (
                         <Image size={32} className="text-text-muted/30" />
                       ) : (
                         <Video size={32} className="text-text-muted/30" />
@@ -430,8 +466,14 @@ export const ContentLibrary = () => {
                         </td>
                         <td className="py-3 px-4">
                           <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded bg-background-tertiary flex items-center justify-center">
-                              {content.type === 'image' ? (
+                            <div className="w-10 h-10 rounded bg-background-tertiary flex items-center justify-center overflow-hidden">
+                              {contentImages[content.name] ? (
+                                <img
+                                  src={contentImages[content.name]}
+                                  alt={content.name}
+                                  className="w-full h-full object-cover"
+                                />
+                              ) : content.type === 'image' ? (
                                 <Image size={16} className="text-text-muted" />
                               ) : (
                                 <Video size={16} className="text-text-muted" />

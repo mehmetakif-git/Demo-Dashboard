@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Mail, Lock, Eye, EyeOff, ArrowRight, Copy, Check,
   LayoutDashboard, Calculator, Target, CheckSquare,
-  Shield, FolderOpen, Star, ChevronLeft, ChevronRight, Loader2, Users
+  Shield, FolderOpen, Star, ChevronLeft, ChevronRight, Loader2, Users,
+  Clock, TrendingUp
 } from 'lucide-react';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { useAuthStore } from '@/store/authStore';
@@ -134,6 +135,11 @@ export const Login = () => {
   const [currentModuleIndex, setCurrentModuleIndex] = useState(0);
   const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0);
 
+  // Spotlight tour state
+  const [showSpotlight, setShowSpotlight] = useState(false);
+  const [spotlightPosition, setSpotlightPosition] = useState({ x: 0, y: 0, width: 0, height: 0 });
+  const demoButtonRef = useRef<HTMLButtonElement>(null);
+
   // Auto-rotate modules (every 4 seconds)
   useEffect(() => {
     const timer = setInterval(() => {
@@ -149,6 +155,63 @@ export const Login = () => {
     }, 5000);
     return () => clearInterval(timer);
   }, []);
+
+  // Show spotlight after 5 seconds delay
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSpotlight(true);
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Disable scroll when spotlight is active
+  useEffect(() => {
+    if (showSpotlight) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [showSpotlight]);
+
+  // Update spotlight position when shown
+  useEffect(() => {
+    if (showSpotlight && demoButtonRef.current) {
+      const rect = demoButtonRef.current.getBoundingClientRect();
+      setSpotlightPosition({
+        x: rect.left,
+        y: rect.top,
+        width: rect.width,
+        height: rect.height
+      });
+    }
+  }, [showSpotlight]);
+
+  // Handle window resize
+  useEffect(() => {
+    if (!showSpotlight) return;
+
+    const handleResize = () => {
+      if (demoButtonRef.current) {
+        const rect = demoButtonRef.current.getBoundingClientRect();
+        setSpotlightPosition({
+          x: rect.left,
+          y: rect.top,
+          width: rect.width,
+          height: rect.height
+        });
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [showSpotlight]);
+
+  const dismissSpotlight = () => {
+    setShowSpotlight(false);
+  };
 
   // Copy to clipboard
   const copyToClipboard = (text: string, field: 'email' | 'password') => {
@@ -528,22 +591,30 @@ export const Login = () => {
                 </div>
 
                 {/* Demo Login Button */}
-                <motion.button
-                  type="button"
-                  onClick={handleDemoLogin}
-                  disabled={isLoading}
-                  whileHover={{ scale: 1.01 }}
-                  whileTap={{ scale: 0.99 }}
-                  className="w-full py-3.5 bg-white/[0.05] border border-white/[0.08] text-white rounded-xl font-medium flex items-center justify-center gap-2 hover:bg-white/[0.08] transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  <DotLottieReact
-                    src="/src/assets/lotties-icon/rocket.lottie"
-                    loop
-                    autoplay
-                    style={{ width: 20, height: 20 }}
-                  />
-                  Quick Demo Login
-                </motion.button>
+                <div className={`relative ${showSpotlight ? 'z-60' : ''}`}>
+                  <motion.button
+                    ref={demoButtonRef}
+                    type="button"
+                    onClick={() => {
+                      if (showSpotlight) {
+                        dismissSpotlight();
+                      }
+                      handleDemoLogin();
+                    }}
+                    disabled={isLoading}
+                    whileHover={{ scale: 1.01 }}
+                    whileTap={{ scale: 0.99 }}
+                    className="w-full py-3.5 bg-white/[0.05] border border-white/[0.08] text-white rounded-xl font-medium flex items-center justify-center gap-2 hover:bg-white/[0.08] transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <DotLottieReact
+                      src="/src/assets/lotties-icon/rocket.lottie"
+                      loop
+                      autoplay
+                      style={{ width: 20, height: 20 }}
+                    />
+                    Quick Demo Login
+                  </motion.button>
+                </div>
               </form>
             </div>
 
@@ -699,30 +770,15 @@ export const Login = () => {
             <div className="relative z-10 flex-shrink-0 mt-4 pt-4 border-t border-white/[0.05]">
               <div className="flex items-center justify-center gap-4 text-white/30 text-xs">
                 <div className="flex items-center gap-1.5 group cursor-default">
-                  <DotLottieReact
-                    src="/src/assets/lotties-icon/shield.lottie"
-                    loop
-                    autoplay
-                    style={{ width: 14, height: 14 }}
-                  />
+                  <Shield size={14} className="group-hover:text-white/50 transition-colors" />
                   <span className="group-hover:text-white/50 transition-colors">GDPR</span>
                 </div>
                 <div className="flex items-center gap-1.5 group cursor-default">
-                  <DotLottieReact
-                    src="/src/assets/lotties-icon/clock.lottie"
-                    loop
-                    autoplay
-                    style={{ width: 14, height: 14 }}
-                  />
+                  <Clock size={14} className="group-hover:text-white/50 transition-colors" />
                   <span className="group-hover:text-white/50 transition-colors">24/7</span>
                 </div>
                 <div className="flex items-center gap-1.5 group cursor-default">
-                  <DotLottieReact
-                    src="/src/assets/lotties-icon/trending-up.lottie"
-                    loop
-                    autoplay
-                    style={{ width: 14, height: 14 }}
-                  />
+                  <TrendingUp size={14} className="group-hover:text-white/50 transition-colors" />
                   <span className="group-hover:text-white/50 transition-colors">99.9%</span>
                 </div>
               </div>
@@ -731,6 +787,74 @@ export const Login = () => {
         </motion.div>
 
       </div>
+
+      {/* Spotlight Tour Overlay */}
+      <AnimatePresence mode="sync">
+        {showSpotlight && spotlightPosition.width > 0 && (
+          <motion.div
+            key="spotlight-container"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            className="fixed inset-0 z-50"
+          >
+            {/* Dark Overlay with Spotlight Cutout */}
+            <div
+              className="absolute inset-0 pointer-events-auto"
+              onClick={dismissSpotlight}
+              style={{
+                background: `radial-gradient(ellipse ${spotlightPosition.width + 40}px ${spotlightPosition.height + 40}px at ${spotlightPosition.x + spotlightPosition.width / 2}px ${spotlightPosition.y + spotlightPosition.height / 2}px, transparent 0%, rgba(0, 0, 0, 0.85) 100%)`
+              }}
+            />
+
+            {/* Pulsing Ring around highlighted button */}
+            <motion.div
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              className="absolute pointer-events-none"
+              style={{
+                left: spotlightPosition.x - 4,
+                top: spotlightPosition.y - 4,
+                width: spotlightPosition.width + 8,
+                height: spotlightPosition.height + 8,
+              }}
+            >
+              <div className="absolute inset-0 rounded-xl border-2 border-indigo-500/50 animate-pulse" />
+              <div className="absolute inset-0 rounded-xl border border-indigo-400/30 animate-ping" style={{ animationDuration: '2s' }} />
+            </motion.div>
+
+            {/* Tooltip */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
+              className="absolute pointer-events-none"
+              style={{
+                left: spotlightPosition.x + spotlightPosition.width / 2 - 140,
+                top: spotlightPosition.y - 160,
+              }}
+            >
+              {/* Arrow pointing down */}
+              <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-t-8 border-t-white/10" />
+
+              {/* Tooltip Content */}
+              <div className="relative bg-white/[0.05] backdrop-blur-2xl border border-white/[0.12] rounded-2xl p-5 w-[280px] shadow-2xl before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-b before:from-white/[0.1] before:to-transparent before:pointer-events-none">
+                <div className="relative z-10 mb-2">
+                  <span className="text-white text-lg font-bold">Start Here!</span>
+                </div>
+                <p className="relative z-10 text-white/90 text-sm font-medium leading-relaxed mb-3">
+                  Click this button to instantly login with demo credentials and explore the platform.
+                </p>
+                <p className="relative z-10 text-red-400 text-xs font-medium">
+                  Click anywhere to dismiss
+                </p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

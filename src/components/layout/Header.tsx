@@ -45,6 +45,7 @@ export const Header = () => {
 
   return (
     <motion.header
+      id="dashboard-header"
       initial={false}
       animate={{
         left: sidebarCollapsed

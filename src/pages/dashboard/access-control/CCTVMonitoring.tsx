@@ -16,6 +16,32 @@ import {
 import { PageHeader, Card, Button } from '@/components/common';
 import { cameras, getCameraStatusColor } from '@/data/accessControlData';
 
+// Camera images
+import cam1 from '@/assets/images/cameras/cam-1.webp';
+import cam2 from '@/assets/images/cameras/cam-2.webp';
+import cam3 from '@/assets/images/cameras/cam-3.webp';
+import cam4 from '@/assets/images/cameras/cam-4.webp';
+import cam5 from '@/assets/images/cameras/cam-5.webp';
+import cam6 from '@/assets/images/cameras/cam-6.webp';
+import cam7 from '@/assets/images/cameras/cam-7.webp';
+import cam8 from '@/assets/images/cameras/cam-8.webp';
+import cam9 from '@/assets/images/cameras/cam-9.webp';
+import cam10 from '@/assets/images/cameras/cam-10.webp';
+
+// Map camera names to images
+const cameraImages: Record<string, string> = {
+  'Emergency Exit B': cam1,
+  'HR Department': cam2,
+  'Loading Dock': cam3,
+  'Parking Lot B': cam4,
+  'Warehouse Entry': cam5,
+  'Executive Floor': cam6,
+  'Server Room': cam7,
+  'Parking Lot A': cam8,
+  'Lobby Area': cam9,
+  'Main Entrance': cam10,
+};
+
 type GridLayout = '2x2' | '3x3' | '4x4';
 
 export const CCTVMonitoring = () => {
@@ -209,16 +235,57 @@ export const CCTVMonitoring = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: index * 0.05 }}
           >
-            <Card className={`overflow-hidden ${selectedCamera ? 'h-[600px]' : 'h-[200px] md:h-[240px]'}`}>
+            <Card padding="none" className={`overflow-hidden ${selectedCamera ? 'h-[600px]' : 'h-[200px] md:h-[240px]'}`}>
               {/* Camera Feed (Simulated) */}
-              <div className="relative h-full bg-background-tertiary">
-                {/* Simulated Video Feed */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center">
-                    <Video size={48} className="text-text-muted mx-auto mb-2" />
-                    <p className="text-sm text-text-muted">Live Feed</p>
-                    <p className="text-xs text-text-muted mt-1">{camera.resolution}</p>
-                  </div>
+              <div className="relative h-full bg-[#0d1117]">
+                {/* Camera Image or Placeholder */}
+                <div className="absolute inset-0">
+                  {cameraImages[camera.name] ? (
+                    <>
+                      {/* Actual camera image */}
+                      <img
+                        src={cameraImages[camera.name]}
+                        alt={camera.name}
+                        className="w-full h-full object-cover"
+                      />
+                      {/* Subtle overlay for CCTV effect */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+                    </>
+                  ) : (
+                    <>
+                      {/* Gradient background simulating night vision / low light */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#1a1f2e] via-[#0d1117] to-[#151b28]" />
+
+                      {/* Scan lines effect */}
+                      <div
+                        className="absolute inset-0 opacity-[0.03]"
+                        style={{
+                          backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.1) 2px, rgba(255,255,255,0.1) 4px)',
+                        }}
+                      />
+
+                      {/* Vignette effect */}
+                      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)]" />
+
+                      {/* Camera icon placeholder */}
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="relative">
+                          {/* Outer glow ring */}
+                          <div className="absolute inset-0 w-20 h-20 -m-2 rounded-full bg-white/[0.03] blur-xl" />
+                          {/* Icon container */}
+                          <div className="w-16 h-16 rounded-full bg-white/[0.05] border border-white/[0.08] flex items-center justify-center backdrop-blur-sm">
+                            <Video size={28} className="text-white/30" />
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  )}
+
+                  {/* Corner brackets for camera effect */}
+                  <div className="absolute top-3 left-3 w-4 h-4 border-l-2 border-t-2 border-white/20 rounded-tl" />
+                  <div className="absolute top-3 right-3 w-4 h-4 border-r-2 border-t-2 border-white/20 rounded-tr" />
+                  <div className="absolute bottom-3 left-3 w-4 h-4 border-l-2 border-b-2 border-white/20 rounded-bl" />
+                  <div className="absolute bottom-3 right-3 w-4 h-4 border-r-2 border-b-2 border-white/20 rounded-br" />
                 </div>
 
                 {/* Overlay Controls */}

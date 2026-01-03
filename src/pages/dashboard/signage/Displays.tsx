@@ -20,6 +20,32 @@ import {
 import { PageHeader, Card, StatsCard, Input, Button } from '@/components/common';
 import { displays, displayGroups, type Display } from '@/data/signageData';
 
+// Display images
+import display1 from '@/assets/images/displays/display-1.webp';
+import display2 from '@/assets/images/displays/display-2.webp';
+import display3 from '@/assets/images/displays/display-3.webp';
+import display4 from '@/assets/images/displays/display-4.webp';
+import display5 from '@/assets/images/displays/display-5.webp';
+import display6 from '@/assets/images/displays/display-6.webp';
+import display7 from '@/assets/images/displays/display-7.webp';
+import display8 from '@/assets/images/displays/display-8.webp';
+import display9 from '@/assets/images/displays/display-9.webp';
+import display10 from '@/assets/images/displays/display-10.webp';
+
+// Map display IDs to images
+const displayImages: Record<string, string> = {
+  'DSP001': display1,  // Lobby Main Screen
+  'DSP002': display2,  // Lobby Side Screen
+  'DSP003': display3,  // Cafeteria Display
+  'DSP004': display4,  // Floor 1 Info Board
+  'DSP005': display5,  // Floor 2 Info Board
+  'DSP006': display6,  // Meeting Room A Display
+  'DSP007': display7,  // Meeting Room B Display
+  'DSP008': display8,  // Warehouse Display
+  'DSP009': display9,  // Reception Desk
+  'DSP010': display10, // Parking Entrance Sign
+};
+
 export const Displays = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
@@ -221,10 +247,18 @@ export const Displays = () => {
             >
               <Card className="p-0 overflow-hidden hover:shadow-lg transition-all group">
                 {/* Display Preview */}
-                <div className={`relative bg-background-tertiary flex items-center justify-center ${
+                <div className={`relative bg-background-tertiary flex items-center justify-center overflow-hidden ${
                   display.orientation === 'landscape' ? 'aspect-video' : 'aspect-[9/16] max-h-48'
                 }`}>
-                  <Monitor size={48} className="text-text-muted/30" />
+                  {displayImages[display.id] ? (
+                    <img
+                      src={displayImages[display.id]}
+                      alt={display.name}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <Monitor size={48} className="text-text-muted/30" />
+                  )}
                   {/* Status Indicator */}
                   <div className={`absolute top-3 right-3 w-3 h-3 rounded-full ${
                     display.status === 'online' ? 'bg-green-500 animate-pulse' : 'bg-red-500'

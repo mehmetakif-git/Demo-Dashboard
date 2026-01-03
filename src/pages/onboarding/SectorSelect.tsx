@@ -1,5 +1,6 @@
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { LogOut } from 'lucide-react';
 import { useAppStore } from '@/store/appStore';
 import { useAuthStore } from '@/store/authStore';
@@ -13,8 +14,86 @@ export const SectorSelect = () => {
   const { setSector } = useAppStore();
   const logout = useAuthStore((state) => state.logout);
 
+  // Spotlight tour state
+  const [showSpotlight, setShowSpotlight] = useState(false);
+  const [spotlightPosition, setSpotlightPosition] = useState({ x: 0, y: 0, width: 0, height: 0 });
+  const firstActiveCardRef = useRef<HTMLDivElement>(null);
+
+  // Find first active sector index
+  const firstActiveIndex = sectors.findIndex(s => s.isActive);
+
+  // Show spotlight on every page load
+  useEffect(() => {
+    // Delay to allow user to see the page first
+    const timer = setTimeout(() => {
+      setShowSpotlight(true);
+    }, 2500); // 2.5 seconds delay
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Disable scroll when spotlight is active
+  useEffect(() => {
+    if (showSpotlight) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [showSpotlight]);
+
+  // Update spotlight position when shown
+  useEffect(() => {
+    if (showSpotlight && firstActiveCardRef.current) {
+      // Scroll to element first
+      firstActiveCardRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      // Wait for scroll to complete, then update position
+      setTimeout(() => {
+        if (firstActiveCardRef.current) {
+          const rect = firstActiveCardRef.current.getBoundingClientRect();
+          setSpotlightPosition({
+            x: rect.left,
+            y: rect.top,
+            width: rect.width,
+            height: rect.height
+          });
+        }
+      }, 300);
+    }
+  }, [showSpotlight]);
+
+  // Handle window resize
+  useEffect(() => {
+    if (!showSpotlight) return;
+
+    const handleResize = () => {
+      if (firstActiveCardRef.current) {
+        const rect = firstActiveCardRef.current.getBoundingClientRect();
+        setSpotlightPosition({
+          x: rect.left,
+          y: rect.top,
+          width: rect.width,
+          height: rect.height
+        });
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [showSpotlight]);
+
+  const dismissSpotlight = () => {
+    setShowSpotlight(false);
+  };
+
   const handleSectorClick = (sector: Sector) => {
     if (!sector.isActive) return;
+    if (showSpotlight) {
+      dismissSpotlight();
+      return; // Only dismiss tour, don't navigate
+    }
     setSector(sector.id);
     navigate(ROUTES.selectAccount);
   };
@@ -58,13 +137,16 @@ export const SectorSelect = () => {
             {sectors.map((sector, index) => {
               const Icon = sector.icon;
               const isActive = sector.isActive;
+              const isFirstActive = index === firstActiveIndex;
 
               return (
                 <motion.div
                   key={sector.id}
+                  ref={isFirstActive ? firstActiveCardRef : undefined}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.05 }}
+                  className={isFirstActive && showSpotlight ? 'relative z-60' : ''}
                 >
                   <GlareHover
                     glareColor={isActive ? sector.color : '#ffffff'}
@@ -119,6 +201,74 @@ export const SectorSelect = () => {
             })}
           </motion.div>
         </div>
+
+        {/* Spotlight Tour Overlay */}
+        <AnimatePresence mode="sync">
+          {showSpotlight && spotlightPosition.width > 0 && (
+            <motion.div
+              key="spotlight-container"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
+              className="fixed inset-0 z-50"
+            >
+              {/* Dark Overlay with Spotlight Cutout */}
+              <div
+                className="absolute inset-0 pointer-events-auto"
+                onClick={dismissSpotlight}
+                style={{
+                  background: `radial-gradient(ellipse ${spotlightPosition.width + 40}px ${spotlightPosition.height + 40}px at ${spotlightPosition.x + spotlightPosition.width / 2}px ${spotlightPosition.y + spotlightPosition.height / 2}px, transparent 0%, rgba(0, 0, 0, 0.85) 100%)`
+                }}
+              />
+
+              {/* Pulsing Ring around highlighted card */}
+              <motion.div
+                initial={{ scale: 0.9 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                className="absolute pointer-events-none"
+                style={{
+                  left: spotlightPosition.x - 4,
+                  top: spotlightPosition.y - 4,
+                  width: spotlightPosition.width + 8,
+                  height: spotlightPosition.height + 8,
+                }}
+              >
+                <div className="absolute inset-0 rounded-xl border-2 border-indigo-500/50 animate-pulse" />
+                <div className="absolute inset-0 rounded-xl border border-indigo-400/30 animate-ping" style={{ animationDuration: '2s' }} />
+              </motion.div>
+
+              {/* Tooltip */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
+                className="absolute pointer-events-none"
+                style={{
+                  left: spotlightPosition.x + spotlightPosition.width + 20,
+                  top: spotlightPosition.y + spotlightPosition.height / 2 - 60,
+                }}
+              >
+                {/* Arrow pointing left */}
+                <div className="absolute -left-2 top-12 w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-r-8 border-r-white/10" />
+
+                {/* Tooltip Content */}
+                <div className="relative bg-white/[0.05] backdrop-blur-2xl border border-white/[0.12] rounded-2xl p-5 max-w-xs shadow-2xl before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-b before:from-white/[0.1] before:to-transparent before:pointer-events-none">
+                  <div className="relative z-10 mb-2">
+                    <span className="text-white text-lg font-bold">Start Here!</span>
+                  </div>
+                  <p className="relative z-10 text-white/90 text-sm font-medium leading-relaxed mb-3">
+                    Pick your industry to unlock a dashboard customized for your business needs.
+                  </p>
+                  <p className="relative z-10 text-red-400 text-xs font-medium">
+                    Click anywhere to dismiss
+                  </p>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
     </div>
   );
 };

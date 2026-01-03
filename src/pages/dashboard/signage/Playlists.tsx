@@ -21,6 +21,36 @@ import {
 import { PageHeader, Card, StatsCard, Input, Button } from '@/components/common';
 import { playlists, contentLibrary, type Playlist } from '@/data/signageData';
 
+// Content thumbnail images
+import display1 from '@/assets/images/displays/display-1.webp';
+import display2 from '@/assets/images/displays/display-2.webp';
+import display3 from '@/assets/images/displays/display-3.webp';
+import display4 from '@/assets/images/displays/display-4.webp';
+import display5 from '@/assets/images/displays/display-5.webp';
+import display6 from '@/assets/images/displays/display-6.webp';
+import display7 from '@/assets/images/displays/display-7.webp';
+import display8 from '@/assets/images/displays/display-8.webp';
+import display9 from '@/assets/images/displays/display-9.webp';
+import display10 from '@/assets/images/displays/display-10.webp';
+import display11 from '@/assets/images/displays/display-11.webp';
+import display12 from '@/assets/images/displays/display-12.webp';
+
+// Map content names to thumbnail images
+const contentImages: Record<string, string> = {
+  'Product Launch Teaser': display9,
+  'Cafeteria Menu - Monday': display12,
+  'Cafeteria Menu - Tuesday': display3,
+  'Q4 Results Presentation': display11,
+  'Holiday Announcement': display4,
+  'Employee of the Month': display7,
+  'Welcome Video': display1,
+  'Company Logo': display2,
+  'Safety Guidelines': display8,
+  'Company Values': display5,
+  'Meeting Room Instructions': display6,
+  'Parking Rules': display10,
+};
+
 export const Playlists = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
@@ -183,9 +213,15 @@ export const Playlists = () => {
                     return (
                       <div
                         key={i}
-                        className="w-16 h-12 bg-background-tertiary rounded flex items-center justify-center"
+                        className="w-16 h-12 bg-background-tertiary rounded flex items-center justify-center overflow-hidden"
                       >
-                        {content?.type === 'image' ? (
+                        {content && contentImages[content.name] ? (
+                          <img
+                            src={contentImages[content.name]}
+                            alt={content.name}
+                            className="w-full h-full object-cover"
+                          />
+                        ) : content?.type === 'image' ? (
                           <Image size={16} className="text-text-muted" />
                         ) : (
                           <Video size={16} className="text-text-muted" />
@@ -304,8 +340,14 @@ export const Playlists = () => {
                           className="flex items-center gap-3 p-2 bg-background-tertiary rounded-lg group"
                         >
                           <GripVertical size={14} className="text-text-muted cursor-grab" />
-                          <div className="w-12 h-9 bg-background-secondary rounded flex items-center justify-center shrink-0">
-                            {content.type === 'image' ? (
+                          <div className="w-12 h-9 bg-background-secondary rounded flex items-center justify-center shrink-0 overflow-hidden">
+                            {contentImages[content.name] ? (
+                              <img
+                                src={contentImages[content.name]}
+                                alt={content.name}
+                                className="w-full h-full object-cover"
+                              />
+                            ) : content.type === 'image' ? (
                               <Image size={14} className="text-text-muted" />
                             ) : (
                               <Video size={14} className="text-text-muted" />

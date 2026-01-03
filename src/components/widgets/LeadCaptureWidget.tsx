@@ -1,5 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
+import Lottie from 'lottie-react';
+import type { LottieRefCurrentProps } from 'lottie-react';
+import customerSupportAnimation from '@/assets/lotties-icon/Customer Support.json';
 import {
   MessageCircle,
   X,
@@ -18,7 +23,6 @@ import {
   Building2,
   Phone,
 } from 'lucide-react';
-import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 const COMPANY_EMAIL = 'info@allyncai.com';
 const PHONE_NUMBER = '+97451079565';
@@ -504,75 +508,116 @@ const InterestPopup = ({ isOpen, onClose, onOpenWidget }: InterestPopupProps) =>
   );
 };
 
+// Pages where widget should NOT be shown
+const EXCLUDED_PATHS = ['/', '/login', '/select-sector'];
+
+// Popup interval in milliseconds (2 minutes)
+const POPUP_INTERVAL = 2 * 60 * 1000;
+
+// Props interface for LeadCaptureWidget
+interface LeadCaptureWidgetProps {
+  forceShow?: boolean;
+  spotlightActive?: boolean;
+  onSpotlightClick?: () => void;
+  buttonRef?: React.RefObject<HTMLButtonElement | null>;
+}
+
 // Main Lead Capture Widget Component
-export const LeadCaptureWidget = () => {
+export const LeadCaptureWidget = ({
+  forceShow = false,
+  spotlightActive = false,
+  onSpotlightClick,
+  buttonRef
+}: LeadCaptureWidgetProps) => {
+  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<'contact' | 'whatsapp' | 'demo'>('contact');
-  const [hasShownPopup, setHasShownPopup] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const lottieRef = useRef<LottieRefCurrentProps>(null);
+  const internalButtonRef = useRef<HTMLButtonElement>(null);
+  const actualButtonRef = buttonRef || internalButtonRef;
 
-  // Auto-show popup after 30 seconds of browsing (only once)
+  // Check if we're on an excluded path (login, onboarding, etc.)
+  const isModuleSelectionPath = location.pathname === '/module-selection';
+  const isExcludedPath = EXCLUDED_PATHS.some(path => location.pathname === path) || (isModuleSelectionPath && !forceShow);
+
+  // Reset popup timer when popup is closed
+  const handleClosePopup = useCallback(() => {
+    setShowPopup(false);
+  }, []);
+
+  // Show popup every 2 minutes while browsing inside dashboard
   useEffect(() => {
-    // Check if popup was already shown in this session
-    const popupShown = sessionStorage.getItem('leadPopupShown');
-    if (popupShown) {
-      setHasShownPopup(true);
+    // Don't show on excluded paths or when spotlight is active
+    if (isExcludedPath || spotlightActive) {
       return;
     }
 
-    const timer = setTimeout(() => {
-      if (!hasShownPopup) {
+    const timer = setInterval(() => {
+      // Only show if widget is not already open and spotlight is not active
+      if (!isOpen && !spotlightActive) {
         setShowPopup(true);
-        setHasShownPopup(true);
-        sessionStorage.setItem('leadPopupShown', 'true');
       }
-    }, 30000);
-    return () => clearTimeout(timer);
-  }, [hasShownPopup]);
+    }, POPUP_INTERVAL);
 
-  // Track page visits and show popup after 5+ pages
-  useEffect(() => {
-    const visitCount = parseInt(localStorage.getItem('pageVisitCount') || '0', 10);
-    localStorage.setItem('pageVisitCount', String(visitCount + 1));
-
-    if (visitCount >= 5 && !hasShownPopup) {
-      const popupShown = sessionStorage.getItem('leadPopupShown');
-      if (!popupShown) {
-        setShowPopup(true);
-        setHasShownPopup(true);
-        sessionStorage.setItem('leadPopupShown', 'true');
-      }
-    }
-  }, [hasShownPopup]);
+    return () => clearInterval(timer);
+  }, [isExcludedPath, isOpen, spotlightActive]);
 
   const handleClose = () => {
     setIsOpen(false);
   };
 
+  // Ensure widget and popup can NEVER be open when spotlight is active
+  useEffect(() => {
+    if (spotlightActive) {
+      if (isOpen) {
+        setIsOpen(false);
+      }
+      if (showPopup) {
+        setShowPopup(false);
+      }
+    }
+  }, [spotlightActive, isOpen, showPopup]);
+
+  // Don't render anything on excluded paths
+  if (isExcludedPath) {
+    return null;
+  }
+
   return (
     <>
       {/* Floating Button */}
-      <div className="fixed bottom-6 right-6 z-50">
+      <div className={`fixed bottom-4 right-4 ${spotlightActive ? 'z-[70]' : 'z-50'}`}>
         <AnimatePresence mode="wait">
           {!isOpen && (
             <motion.button
+              ref={actualButtonRef}
               key="trigger"
-              onClick={() => setIsOpen(true)}
-              className="relative w-14 h-14 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full shadow-lg shadow-purple-500/30 flex items-center justify-center text-white hover:shadow-xl hover:shadow-purple-500/40 transition-shadow cursor-pointer"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                // If spotlight is active, only dismiss the tour - never open the widget
+                if (spotlightActive) {
+                  onSpotlightClick?.();
+                  return; // Explicitly prevent any further action
+                }
+                setIsOpen(true);
+              }}
+              className="cursor-pointer"
               initial={{ scale: 0, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0, opacity: 0 }}
               transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={spotlightActive ? {} : { scale: 1.1 }}
+              whileTap={spotlightActive ? {} : { scale: 0.95 }}
             >
-              <MessageCircle size={24} />
-              {/* Notification badge */}
-              <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full text-xs flex items-center justify-center font-medium">
-                1
-              </span>
-              {/* Pulse animation */}
-              <span className="absolute inset-0 rounded-full bg-indigo-500 animate-ping opacity-25" />
+              <Lottie
+                lottieRef={lottieRef}
+                animationData={customerSupportAnimation}
+                loop
+                autoplay
+                style={{ width: 80, height: 80 }}
+              />
             </motion.button>
           )}
         </AnimatePresence>
@@ -678,8 +723,9 @@ export const LeadCaptureWidget = () => {
       {/* Popup Modal */}
       <InterestPopup
         isOpen={showPopup}
-        onClose={() => setShowPopup(false)}
+        onClose={handleClosePopup}
         onOpenWidget={() => {
+          setShowPopup(false);
           setIsOpen(true);
           setActiveTab('demo');
         }}

@@ -206,6 +206,7 @@ export const Sidebar = () => {
 
   return (
     <aside
+      id="dashboard-sidebar"
       style={{
         width: sidebarCollapsed ? LAYOUT.sidebarCollapsedWidth : LAYOUT.sidebarWidth,
       }}
@@ -406,7 +407,7 @@ export const Sidebar = () => {
       </nav>
 
       {/* Logout Section - mt-auto ensures it stays at bottom */}
-      <div className="mt-auto border-t border-white/[0.08] p-4">
+      <div id="dashboard-logout" className="mt-auto border-t border-white/[0.08] p-4">
         <button
           onClick={handleLogout}
           className={`flex w-full items-center rounded-lg px-3 py-2.5 text-[#ef4444] hover:bg-[#ef4444]/10 transition-colors cursor-pointer ${sidebarCollapsed ? 'justify-center' : 'justify-center gap-3'}`}
