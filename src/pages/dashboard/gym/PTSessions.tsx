@@ -24,6 +24,7 @@ import {
   formatDate,
   type PTSession,
 } from '@/data/gym/gymData';
+import { profileImages } from '@/utils/profileImages';
 
 export const PTSessions = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -346,8 +347,16 @@ export const PTSessions = () => {
                     </td>
                     <td className="p-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white text-xs font-medium">
-                          {session.memberName.split(' ').map(n => n[0]).join('')}
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white text-xs font-medium overflow-hidden">
+                          {profileImages[session.memberName] ? (
+                            <img
+                              src={profileImages[session.memberName]}
+                              alt={session.memberName}
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            session.memberName.split(' ').map(n => n[0]).join('')
+                          )}
                         </div>
                         <span className="text-text-primary font-medium">{session.memberName}</span>
                       </div>

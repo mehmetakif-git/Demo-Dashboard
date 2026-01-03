@@ -37,6 +37,7 @@ import {
   getSessionStatusColor,
 } from '@/data/gym/gymData';
 import { ROUTES } from '@/utils/constants';
+import { profileImages } from '@/utils/profileImages';
 
 export const MemberDetail = () => {
   const navigate = useNavigate();
@@ -101,8 +102,16 @@ export const MemberDetail = () => {
       <Card className="p-6">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div className="flex items-center gap-4">
-            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white text-2xl font-bold">
-              {getMemberInitials(member.firstName, member.lastName)}
+            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white text-2xl font-bold overflow-hidden">
+              {profileImages[`${member.firstName} ${member.lastName}`] ? (
+                <img
+                  src={profileImages[`${member.firstName} ${member.lastName}`]}
+                  alt={`${member.firstName} ${member.lastName}`}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                getMemberInitials(member.firstName, member.lastName)
+              )}
             </div>
             <div>
               <div className="flex items-center gap-3 mb-1">
@@ -466,8 +475,16 @@ export const MemberDetail = () => {
           {trainer && (
             <Card className="p-4">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white font-semibold">
-                  {trainer.name.split(' ').map((n) => n[0]).join('')}
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white font-semibold overflow-hidden">
+                  {profileImages[trainer.name] ? (
+                    <img
+                      src={profileImages[trainer.name]}
+                      alt={trainer.name}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    trainer.name.split(' ').map((n) => n[0]).join('')
+                  )}
                 </div>
                 <div>
                   <p className="text-sm text-text-secondary">Assigned Trainer</p>

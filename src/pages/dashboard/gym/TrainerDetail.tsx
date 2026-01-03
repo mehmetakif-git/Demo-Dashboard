@@ -24,6 +24,7 @@ import {
   formatDate,
 } from '@/data/gym/gymData';
 import { ROUTES } from '@/utils/constants';
+import { profileImages } from '@/utils/profileImages';
 
 const DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 
@@ -78,8 +79,16 @@ export const TrainerDetail = () => {
       <Card className="p-6">
         <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6">
           <div className="flex items-start gap-6">
-            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white text-2xl font-bold">
-              {trainer.name.split(' ').map((n) => n[0]).join('')}
+            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white text-2xl font-bold overflow-hidden">
+              {profileImages[trainer.name] ? (
+                <img
+                  src={profileImages[trainer.name]}
+                  alt={trainer.name}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                trainer.name.split(' ').map((n) => n[0]).join('')
+              )}
             </div>
             <div>
               <h1 className="text-2xl font-bold text-text-primary mb-1">{trainer.name}</h1>
@@ -325,8 +334,16 @@ export const TrainerDetail = () => {
                 key={client.id}
                 className="p-4 bg-background-tertiary rounded-lg flex items-center gap-3"
               >
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white font-medium">
-                  {client.firstName[0]}{client.lastName[0]}
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white font-medium overflow-hidden">
+                  {profileImages[`${client.firstName} ${client.lastName}`] ? (
+                    <img
+                      src={profileImages[`${client.firstName} ${client.lastName}`]}
+                      alt={`${client.firstName} ${client.lastName}`}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <>{client.firstName[0]}{client.lastName[0]}</>
+                  )}
                 </div>
                 <div>
                   <p className="font-medium text-text-primary">

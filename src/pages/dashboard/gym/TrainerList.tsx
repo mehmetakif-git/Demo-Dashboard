@@ -17,6 +17,7 @@ import {
   type Trainer,
 } from '@/data/gym/gymData';
 import { ROUTES } from '@/utils/constants';
+import { profileImages } from '@/utils/profileImages';
 
 export const TrainerList = () => {
   const navigate = useNavigate();
@@ -96,8 +97,16 @@ const TrainerCard = ({ trainer, onView }: TrainerCardProps) => {
     <Card className="p-6 hover:border-accent-primary/50 transition-colors">
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center gap-4">
-          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white text-xl font-bold">
-            {trainer.name.split(' ').map((n) => n[0]).join('')}
+          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white text-xl font-bold overflow-hidden">
+            {profileImages[trainer.name] ? (
+              <img
+                src={profileImages[trainer.name]}
+                alt={trainer.name}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              trainer.name.split(' ').map((n) => n[0]).join('')
+            )}
           </div>
           <div>
             <h3 className="font-semibold text-text-primary text-lg">{trainer.name}</h3>

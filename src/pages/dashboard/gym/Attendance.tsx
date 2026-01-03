@@ -20,6 +20,7 @@ import {
   type GymMember,
   type AttendanceRecord,
 } from '@/data/gym/gymData';
+import { profileImages } from '@/utils/profileImages';
 
 export const Attendance = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -131,8 +132,16 @@ export const Attendance = () => {
                 className="flex items-center justify-between p-3 border-b border-border-default last:border-b-0 hover:bg-background-tertiary"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white font-medium">
-                    {getMemberInitials(member.firstName, member.lastName)}
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white font-medium overflow-hidden">
+                    {profileImages[`${member.firstName} ${member.lastName}`] ? (
+                      <img
+                        src={profileImages[`${member.firstName} ${member.lastName}`]}
+                        alt={`${member.firstName} ${member.lastName}`}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      getMemberInitials(member.firstName, member.lastName)
+                    )}
                   </div>
                   <div>
                     <p className="font-medium text-text-primary">
@@ -180,10 +189,18 @@ export const Attendance = () => {
                   className="p-4 bg-background-tertiary rounded-lg flex items-center justify-between"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white font-medium">
-                      {member
-                        ? getMemberInitials(member.firstName, member.lastName)
-                        : record.memberName.split(' ').map((n) => n[0]).join('')}
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white font-medium overflow-hidden">
+                      {profileImages[record.memberName] ? (
+                        <img
+                          src={profileImages[record.memberName]}
+                          alt={record.memberName}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : member ? (
+                        getMemberInitials(member.firstName, member.lastName)
+                      ) : (
+                        record.memberName.split(' ').map((n) => n[0]).join('')
+                      )}
                     </div>
                     <div>
                       <p className="font-medium text-text-primary">{record.memberName}</p>
@@ -254,8 +271,16 @@ export const Attendance = () => {
                   <tr key={record.id} className="border-b border-border-default">
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white text-xs font-medium">
-                          {record.memberName.split(' ').map((n) => n[0]).join('')}
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white text-xs font-medium overflow-hidden">
+                          {profileImages[record.memberName] ? (
+                            <img
+                              src={profileImages[record.memberName]}
+                              alt={record.memberName}
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            record.memberName.split(' ').map((n) => n[0]).join('')
+                          )}
                         </div>
                         <span className="text-text-primary font-medium">{record.memberName}</span>
                       </div>
