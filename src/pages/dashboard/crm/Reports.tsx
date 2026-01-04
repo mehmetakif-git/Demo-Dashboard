@@ -222,7 +222,7 @@ export const Reports = () => {
         >
           <h3 className="text-lg font-semibold text-white mb-4">Pipeline by Stage</h3>
           <div className="h-[300px]">
-            <ResponsiveContainer width="100%" height="100%">
+            <ResponsiveContainer width="99%" height={300}>
               <BarChart data={pipelineData} layout="vertical">
                 <CartesianGrid strokeDasharray="3 3" stroke="#1e1e2e" horizontal={false} />
                 <XAxis
@@ -266,7 +266,7 @@ export const Reports = () => {
         >
           <h3 className="text-lg font-semibold text-white mb-4">Lead Sources</h3>
           <div className="h-[300px]">
-            <ResponsiveContainer width="100%" height="100%">
+            <ResponsiveContainer width="99%" height={300}>
               <RechartsPieChart>
                 <Pie
                   data={leadSources as any[]}
@@ -316,7 +316,7 @@ export const Reports = () => {
         >
           <h3 className="text-lg font-semibold text-white mb-4">Monthly Closed Deals</h3>
           <div className="h-[300px]">
-            <ResponsiveContainer width="100%" height="100%">
+            <ResponsiveContainer width="99%" height={300}>
               <BarChart data={monthlyDeals}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#1e1e2e" vertical={false} />
                 <XAxis dataKey="month" stroke="#64748b" fontSize={12} />

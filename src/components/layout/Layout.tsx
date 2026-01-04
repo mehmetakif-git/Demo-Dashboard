@@ -7,6 +7,41 @@ import { useAppStore } from '@/store/appStore';
 import { LAYOUT } from '@/utils/constants';
 import { Skeleton } from '@/components/common';
 import LightPillar from '@/components/ui/LightPillar';
+import { usePerformanceMode } from '@/hooks/usePerformanceMode';
+
+// Hook for responsive zoom scaling
+const useResponsiveZoom = () => {
+  const [zoom, setZoom] = useState(1);
+
+  useEffect(() => {
+    const calculateZoom = () => {
+      const width = window.innerWidth;
+
+      // Base design width (15" laptop ~1440px)
+      const baseWidth = 1440;
+
+      // Only scale down for smaller screens, never scale up
+      if (width >= baseWidth) {
+        setZoom(1);
+      } else if (width >= 1280) {
+        // 13-14" laptops
+        setZoom(0.9);
+      } else if (width >= 1024) {
+        // Small laptops / tablets landscape
+        setZoom(0.8);
+      } else {
+        // Very small screens
+        setZoom(0.75);
+      }
+    };
+
+    calculateZoom();
+    window.addEventListener('resize', calculateZoom);
+    return () => window.removeEventListener('resize', calculateZoom);
+  }, []);
+
+  return zoom;
+};
 
 // Page loading skeleton
 const PageLoader = () => (
@@ -53,6 +88,8 @@ const tourElementIds = [
 export const Layout = () => {
   const { sidebarCollapsed } = useAppStore();
   const location = useLocation();
+  const zoom = useResponsiveZoom();
+  const { shouldOptimize } = usePerformanceMode();
 
   // Spotlight tour state
   const [showSpotlight, setShowSpotlight] = useState(false);
@@ -184,25 +221,39 @@ export const Layout = () => {
   };
 
   return (
-    <div className="flex h-screen bg-[#0a0a0f] relative">
-      {/* Static Light Pillar Background - Same as OnboardingLayout but static for performance */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
-        <LightPillar
-          topColor="#5227FF"
-          bottomColor="#FF9FFC"
-          intensity={1}
-          rotationSpeed={0.3}
-          glowAmount={0.002}
-          pillarWidth={3}
-          pillarHeight={0.4}
-          noiseIntensity={0.5}
-          pillarRotation={25}
-          interactive={false}
-          mixBlendMode="normal"
-          isStatic
-          staticTime={2.5}
-        />
-      </div>
+    <div
+      className="flex h-screen bg-[#0a0a0f] relative"
+      style={{
+        zoom: zoom,
+        // Compensate height for zoom
+        minHeight: zoom < 1 ? `${100 / zoom}vh` : '100vh',
+      }}
+    >
+      {/* Static Light Pillar Background - Disabled in performance mode */}
+      {!shouldOptimize && (
+        <div className="fixed inset-0 z-0 pointer-events-none">
+          <LightPillar
+            topColor="#5227FF"
+            bottomColor="#FF9FFC"
+            intensity={1}
+            rotationSpeed={0.3}
+            glowAmount={0.002}
+            pillarWidth={3}
+            pillarHeight={0.4}
+            noiseIntensity={0.5}
+            pillarRotation={25}
+            interactive={false}
+            mixBlendMode="normal"
+            isStatic
+            staticTime={2.5}
+          />
+        </div>
+      )}
+
+      {/* Simple gradient background in performance mode */}
+      {shouldOptimize && (
+        <div className="fixed inset-0 z-0 pointer-events-none bg-gradient-to-br from-[#0a0a0f] via-[#12121a] to-[#0a0a0f]" />
+      )}
 
       {/* Sidebar - stays mounted */}
       <div className={showSpotlight && spotlightStep === 0 ? 'relative z-60' : ''}>

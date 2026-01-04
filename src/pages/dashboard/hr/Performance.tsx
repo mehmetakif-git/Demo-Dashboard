@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Star, Users, CheckCircle, Clock, AlertCircle, Play } from 'lucide-react';
 import { PageHeader, StatsCard, StatusBadge, Avatar, DataTable } from '@/components/common';
 import { performanceReviews } from '@/data/hrData';
+import { profileImages } from '@/utils/profileImages';
 import type { PerformanceReview } from '@/data/hrData';
 
 export const Performance = () => {
@@ -51,7 +52,7 @@ export const Performance = () => {
       header: 'Employee',
       render: (review: PerformanceReview) => (
         <div className="flex items-center gap-3">
-          <Avatar name={review.employee} size="sm" />
+          <Avatar name={review.employee} src={profileImages[review.employee]} size="sm" />
           <span className="text-white">{review.employee}</span>
         </div>
       ),

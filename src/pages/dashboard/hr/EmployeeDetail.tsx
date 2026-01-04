@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { Avatar, StatusBadge, Tabs } from '@/components/common';
 import { getEmployeeById, leaveRequests, payrollRecords, performanceReviews } from '@/data/hrData';
+import { profileImages } from '@/utils/profileImages';
 
 const tabs = [
   { id: 'overview', label: 'Overview' },
@@ -90,7 +91,7 @@ export const EmployeeDetail = () => {
       >
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div className="flex items-center gap-4">
-            <Avatar name={employee.name} size="xl" />
+            <Avatar name={employee.name} src={profileImages[employee.name]} size="xl" />
             <div>
               <h2 className="text-xl font-semibold text-white">{employee.name}</h2>
               <p className="text-white/60">{employee.position}</p>

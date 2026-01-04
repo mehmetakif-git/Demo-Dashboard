@@ -47,6 +47,9 @@ import pp42 from '@/assets/images/profiles/pp-42.webp';
 import pp43 from '@/assets/images/profiles/pp-43.webp';
 import pp44 from '@/assets/images/profiles/pp-44.webp';
 import pp45 from '@/assets/images/profiles/pp-45.webp';
+import pp46 from '@/assets/images/profiles/pp-46.webp';
+import pp47 from '@/assets/images/profiles/pp-47.webp';
+import pp48 from '@/assets/images/profiles/pp-48.webp';
 
 // Map person full names to their profile pictures
 export const profileImages: Record<string, string> = {
@@ -106,6 +109,11 @@ export const profileImages: Record<string, string> = {
   'Janet Adams': pp43,
   'Susan Lee': pp44,
   'Thomas Brown': pp45,
+
+  // HR Additional (46-48)
+  'Rachel Adams': pp46,
+  'Kevin White': pp47,
+  'Jennifer Taylor': pp48,
 };
 
 // Helper function to get profile image by name

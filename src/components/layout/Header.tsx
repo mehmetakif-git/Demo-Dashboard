@@ -1,16 +1,54 @@
 import { motion } from 'framer-motion';
-import { Search, Bell, Mail, Menu, User, Settings, LogOut } from 'lucide-react';
+import { Search, Bell, Mail, Menu, User, Settings, LogOut, Zap, ZapOff, Gauge } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAppStore } from '@/store/appStore';
+import type { PerformanceMode } from '@/store/appStore';
 import { useAuth } from '@/hooks/useAuth';
 import { Dropdown, Avatar } from '@/components/common';
 import { Breadcrumb } from './Breadcrumb';
 import { LAYOUT, ROUTES } from '@/utils/constants';
+import { usePerformanceMode } from '@/hooks/usePerformanceMode';
 
 export const Header = () => {
-  const { sidebarCollapsed, toggleSidebar, selectedAccountType } = useAppStore();
+  const { sidebarCollapsed, toggleSidebar, selectedAccountType, performanceMode, setPerformanceMode } = useAppStore();
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const { shouldOptimize, isOnBattery } = usePerformanceMode();
+
+  // Cycle through performance modes
+  const cyclePerformanceMode = () => {
+    const modes: PerformanceMode[] = ['auto', 'performance', 'quality'];
+    const currentIndex = modes.indexOf(performanceMode);
+    const nextIndex = (currentIndex + 1) % modes.length;
+    setPerformanceMode(modes[nextIndex]);
+  };
+
+  // Get performance mode icon and tooltip
+  const getPerformanceModeInfo = () => {
+    switch (performanceMode) {
+      case 'performance':
+        return {
+          icon: <ZapOff className="h-5 w-5" />,
+          tooltip: 'Performance Mode (Effects Off)',
+          color: 'text-amber-400',
+        };
+      case 'quality':
+        return {
+          icon: <Zap className="h-5 w-5" />,
+          tooltip: 'Quality Mode (Effects On)',
+          color: 'text-emerald-400',
+        };
+      case 'auto':
+      default:
+        return {
+          icon: <Gauge className="h-5 w-5" />,
+          tooltip: `Auto Mode ${isOnBattery ? '(Battery - Effects Off)' : '(Plugged - Effects On)'}`,
+          color: shouldOptimize ? 'text-amber-400' : 'text-[#64748b]',
+        };
+    }
+  };
+
+  const perfInfo = getPerformanceModeInfo();
 
   const handleLogout = () => {
     logout();
@@ -71,6 +109,15 @@ export const Header = () => {
 
       {/* Right Section */}
       <div className="flex items-center gap-2">
+        {/* Performance Mode Toggle */}
+        <button
+          onClick={cyclePerformanceMode}
+          className={`flex h-9 w-9 items-center justify-center rounded-lg hover:bg-white/[0.05] transition-colors cursor-pointer ${perfInfo.color}`}
+          title={perfInfo.tooltip}
+        >
+          {perfInfo.icon}
+        </button>
+
         {/* Search Button */}
         <button className="flex h-9 w-9 items-center justify-center rounded-lg text-[#64748b] hover:bg-white/[0.05] hover:text-white transition-colors cursor-pointer">
           <Search className="h-5 w-5" />

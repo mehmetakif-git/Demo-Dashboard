@@ -177,7 +177,7 @@ export const Expenses = () => {
       >
         <h3 className="text-lg font-semibold text-white mb-4">Expense by Category</h3>
         <div className="h-[250px]">
-          <ResponsiveContainer width="100%" height="100%">
+          <ResponsiveContainer width="99%" height={250}>
             <PieChart>
               <Pie
                 data={expenseCategories as unknown as Record<string, unknown>[]}

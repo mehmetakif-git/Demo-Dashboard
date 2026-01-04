@@ -107,7 +107,7 @@ export const Overview = () => {
         >
           <h3 className="text-lg font-semibold text-white mb-4">Cash Flow</h3>
           <div className="h-[300px]">
-            <ResponsiveContainer width="100%" height="100%">
+            <ResponsiveContainer width="99%" height={300}>
               <AreaChart data={cashFlowData}>
                 <defs>
                   <linearGradient id="inflowGradient" x1="0" y1="0" x2="0" y2="1">
@@ -161,7 +161,7 @@ export const Overview = () => {
         >
           <h3 className="text-lg font-semibold text-white mb-4">Expense Distribution</h3>
           <div className="h-[300px]">
-            <ResponsiveContainer width="100%" height="100%">
+            <ResponsiveContainer width="99%" height={300}>
               <RechartsPieChart>
                 <Pie
                   data={expenseCategories as unknown as Record<string, unknown>[]}

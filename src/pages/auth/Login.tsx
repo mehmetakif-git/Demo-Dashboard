@@ -338,19 +338,31 @@ export const Login = () => {
                     {currentModule.description}
                   </p>
 
-                  {/* Screenshot Placeholder */}
+                  {/* Screenshot */}
                   <div className="flex-1 bg-white/[0.02] border border-white/[0.05] rounded-2xl overflow-hidden relative group">
-                    {/* Placeholder */}
-                    <div className="absolute inset-0 flex items-center justify-center">
+                    {/* Actual Screenshot Image */}
+                    <img
+                      src={currentModule.screenshot}
+                      alt={`${currentModule.title} screenshot`}
+                      className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                      onError={(e) => {
+                        // Fallback to placeholder if image doesn't exist
+                        const target = e.target as HTMLImageElement;
+                        target.style.display = 'none';
+                        const placeholder = target.nextElementSibling as HTMLElement;
+                        if (placeholder) placeholder.style.display = 'flex';
+                      }}
+                    />
+                    {/* Fallback Placeholder (hidden by default) */}
+                    <div className="absolute inset-0 items-center justify-center hidden">
                       <div className="text-center">
                         <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${currentModule.color} opacity-20 mx-auto mb-3`} />
-                        <p className="text-white/20 text-xs">Screenshot area</p>
-                        <p className="text-white/10 text-[10px]">{currentModule.screenshot}</p>
+                        <p className="text-white/20 text-xs">Screenshot</p>
                       </div>
                     </div>
 
                     {/* Gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-transparent pointer-events-none" />
                   </div>
                 </motion.div>
               </AnimatePresence>

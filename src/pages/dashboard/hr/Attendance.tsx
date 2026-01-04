@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { CalendarCheck, UserCheck, Clock, UserX, Calendar as CalendarIcon } from 'lucide-react';
 import { PageHeader, StatsCard, StatusBadge, Avatar, DataTable } from '@/components/common';
 import { attendanceRecords } from '@/data/hrData';
+import { profileImages } from '@/utils/profileImages';
 import type { AttendanceRecord } from '@/data/hrData';
 
 export const Attendance = () => {
@@ -28,7 +29,7 @@ export const Attendance = () => {
       header: 'Employee',
       render: (record: AttendanceRecord) => (
         <div className="flex items-center gap-3">
-          <Avatar name={record.employee} size="sm" />
+          <Avatar name={record.employee} src={profileImages[record.employee]} size="sm" />
           <span className="text-white">{record.employee}</span>
         </div>
       ),

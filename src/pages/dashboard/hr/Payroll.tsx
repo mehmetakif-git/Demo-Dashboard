@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Wallet, DollarSign, CheckCircle, Clock, Download, Eye, Play } from 'lucide-react';
 import { PageHeader, StatsCard, StatusBadge, Avatar, DataTable } from '@/components/common';
 import { payrollRecords } from '@/data/hrData';
+import { profileImages } from '@/utils/profileImages';
 import type { PayrollRecord } from '@/data/hrData';
 
 export const Payroll = () => {
@@ -28,7 +29,7 @@ export const Payroll = () => {
       header: 'Employee',
       render: (record: PayrollRecord) => (
         <div className="flex items-center gap-3">
-          <Avatar name={record.employee} size="sm" />
+          <Avatar name={record.employee} src={profileImages[record.employee]} size="sm" />
           <span className="text-white">{record.employee}</span>
         </div>
       ),

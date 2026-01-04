@@ -12,6 +12,7 @@ import {
 } from '@/components/common';
 import { employees, departments } from '@/data/hrData';
 import type { Employee } from '@/data/hrData';
+import { profileImages } from '@/utils/profileImages';
 
 const ITEMS_PER_PAGE = 10;
 
@@ -60,7 +61,7 @@ export const EmployeeList = () => {
       header: 'Employee',
       render: (employee: Employee) => (
         <div className="flex items-center gap-3">
-          <Avatar name={employee.name} size="sm" />
+          <Avatar name={employee.name} src={profileImages[employee.name]} size="sm" />
           <div>
             <p className="font-medium text-white">{employee.name}</p>
             <p className="text-xs text-white/40">{employee.email}</p>
@@ -255,7 +256,7 @@ export const EmployeeList = () => {
               className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-4 hover:border-[#6366f1]/30 transition-colors cursor-pointer"
             >
               <div className="flex items-start justify-between mb-4">
-                <Avatar name={employee.name} size="lg" />
+                <Avatar name={employee.name} src={profileImages[employee.name]} size="lg" />
                 <StatusBadge status={employee.status} size="sm" />
               </div>
               <h3 className="font-medium text-white mb-1">{employee.name}</h3>

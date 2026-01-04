@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Building2, Users, DollarSign, Plus, Eye, Pencil } from 'lucide-react';
 import { PageHeader, Avatar, Modal } from '@/components/common';
 import { departments, getEmployeesByDepartment } from '@/data/hrData';
+import { profileImages } from '@/utils/profileImages';
 
 export const Departments = () => {
   const [selectedDepartment, setSelectedDepartment] = useState<number | null>(null);
@@ -73,7 +74,7 @@ export const Departments = () => {
 
             {/* Head */}
             <div className="flex items-center gap-3 mb-4 p-3 rounded-lg bg-white/[0.02]">
-              <Avatar name={dept.head} size="sm" />
+              <Avatar name={dept.head} src={profileImages[dept.head]} size="sm" />
               <div>
                 <p className="text-sm text-white">{dept.head}</p>
                 <p className="text-xs text-white/40">Department Head</p>
@@ -145,7 +146,7 @@ export const Departments = () => {
                     key={emp.id}
                     className="flex items-center gap-3 p-3 rounded-lg bg-[#1a1a24]"
                   >
-                    <Avatar name={emp.name} size="sm" />
+                    <Avatar name={emp.name} src={profileImages[emp.name]} size="sm" />
                     <div className="flex-1">
                       <p className="text-sm text-white">{emp.name}</p>
                       <p className="text-xs text-white/40">{emp.position}</p>

@@ -1,3 +1,15 @@
+/**
+ * ╔═══════════════════════════════════════════════════════════════════════════╗
+ * ║                                                                           ║
+ * ║                              ALLYNC                                       ║
+ * ║                   Enterprise Management Platform                          ║
+ * ║                                                                           ║
+ * ║   Website: https://allyncai.com | https://allync.com.tr                   ║
+ * ║   Copyright (c) 2024-2025 Allync. All rights reserved.                    ║
+ * ║                                                                           ║
+ * ╚═══════════════════════════════════════════════════════════════════════════╝
+ */
+
 import { Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useAuthStore } from '@/store/authStore';

@@ -3,11 +3,15 @@ import { persist } from 'zustand/middleware';
 import type { AccountType } from '@/types';
 import { STORAGE_KEYS } from '@/utils/constants';
 
+// Performance mode: 'auto' detects battery/low-power, 'performance' always on, 'quality' always off
+export type PerformanceMode = 'auto' | 'performance' | 'quality';
+
 interface AppState {
   selectedSector: string | null;
   selectedAccountType: AccountType | null;
   selectedModules: string[];
   sidebarCollapsed: boolean;
+  performanceMode: PerformanceMode;
   setSector: (sector: string | null) => void;
   setAccountType: (type: AccountType | null) => void;
   setSelectedModules: (modules: string[]) => void;
@@ -15,6 +19,7 @@ interface AppState {
   isModuleEnabled: (moduleId: string) => boolean;
   toggleSidebar: () => void;
   setSidebarCollapsed: (collapsed: boolean) => void;
+  setPerformanceMode: (mode: PerformanceMode) => void;
   reset: () => void;
 }
 
@@ -25,6 +30,7 @@ export const useAppStore = create<AppState>()(
       selectedAccountType: null,
       selectedModules: [],
       sidebarCollapsed: false,
+      performanceMode: 'auto' as PerformanceMode,
 
       setSector: (sector: string | null) => {
         set({ selectedSector: sector });
@@ -61,12 +67,17 @@ export const useAppStore = create<AppState>()(
         set({ sidebarCollapsed: collapsed });
       },
 
+      setPerformanceMode: (mode: PerformanceMode) => {
+        set({ performanceMode: mode });
+      },
+
       reset: () => {
         set({
           selectedSector: null,
           selectedAccountType: null,
           selectedModules: [],
           sidebarCollapsed: false,
+          performanceMode: 'auto',
         });
       },
     }),
@@ -77,6 +88,7 @@ export const useAppStore = create<AppState>()(
         selectedAccountType: state.selectedAccountType,
         selectedModules: state.selectedModules,
         sidebarCollapsed: state.sidebarCollapsed,
+        performanceMode: state.performanceMode,
       }),
     }
   )

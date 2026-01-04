@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { CalendarOff, Clock, CheckCircle, XCircle, Calendar, Check, X } from 'lucide-react';
 import { PageHeader, StatsCard, Tabs, StatusBadge, Avatar, DataTable } from '@/components/common';
 import { leaveRequests } from '@/data/hrData';
+import { profileImages } from '@/utils/profileImages';
 import type { LeaveRequest } from '@/data/hrData';
 
 const tabs = [
@@ -37,7 +38,7 @@ export const LeaveManagement = () => {
       header: 'Employee',
       render: (request: LeaveRequest) => (
         <div className="flex items-center gap-3">
-          <Avatar name={request.employee} size="sm" />
+          <Avatar name={request.employee} src={profileImages[request.employee]} size="sm" />
           <span className="text-white">{request.employee}</span>
         </div>
       ),
