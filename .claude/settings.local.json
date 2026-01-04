@@ -20,7 +20,9 @@
       "Bash(git -C \"e:/Demo-Dashboard\" log --oneline -3)",
       "Bash(git -C \"e:/Demo-Dashboard\" add src/assets/images/profiles/ src/pages/dashboard/gym/)",
       "Bash(git -C \"e:/Demo-Dashboard\" commit -m \"$\\(cat <<''EOF''\nAdd profile images to gym module pages\n\n- Add 45 profile pictures \\(pp-1 to pp-45\\) for all people in the system\n- Update MemberList, MemberDetail with member profile images\n- Update TrainerList, TrainerDetail with trainer profile images\n- Update Attendance page with member profile images in all sections\n- Update PTSessions with member profile images in session list\n- Use centralized profileImages utility for consistent image mapping\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
-      "Bash(git -C \"e:/Demo-Dashboard\" push)"
+      "Bash(git -C \"e:/Demo-Dashboard\" push)",
+      "Bash(git -C \"e:/Demo-Dashboard\" add -A)",
+      "Bash(git -C \"e:/Demo-Dashboard\" commit -m \"$\\(cat <<''EOF''\nAdd module screenshots to Login page carousel\n\n- Add 7 webp screenshots for module carousel \\(dashboard, hr, crm, accounting, tasks, access, files\\)\n- Import screenshots from src/assets/screenshots/ for proper Vite bundling\n- Use webp format for optimized file sizes\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
     ]
   }
 }

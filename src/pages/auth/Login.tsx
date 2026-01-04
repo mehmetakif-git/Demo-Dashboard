@@ -11,6 +11,15 @@ import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { useAuthStore } from '@/store/authStore';
 import AllyncLogo from '@/assets/images/logos/logo-white.svg';
 import { DEMO_CREDENTIALS, ROUTES } from '@/utils/constants';
+
+// Screenshot imports
+import screenshotDashboard from '@/assets/screenshots/dashboard.webp';
+import screenshotHR from '@/assets/screenshots/hr.webp';
+import screenshotCRM from '@/assets/screenshots/crm.webp';
+import screenshotAccounting from '@/assets/screenshots/accounting.webp';
+import screenshotTasks from '@/assets/screenshots/tasks.webp';
+import screenshotAccess from '@/assets/screenshots/access.webp';
+import screenshotFiles from '@/assets/screenshots/files.webp';
 import { GlowInput, BottomGradient } from '@/components/common';
 import { LayoutTextFlip } from '@/components/ui/LayoutTextFlip';
 import { LinkPreview } from '@/components/ui/LinkPreview';
@@ -24,7 +33,7 @@ const modules = [
     title: 'Dashboard',
     description: 'View all your KPIs on a single screen. Real-time metrics, charts, and insights to keep your finger on the pulse.',
     color: 'from-blue-500 to-cyan-500',
-    screenshot: '/assets/screenshots/dashboard.png'
+    screenshot: screenshotDashboard
   },
   {
     id: 'hr',
@@ -32,7 +41,7 @@ const modules = [
     title: 'HR Management',
     description: 'Manage employee data, leave tracking, performance reviews, and payroll from a single platform.',
     color: 'from-green-500 to-emerald-500',
-    screenshot: '/assets/screenshots/hr.png'
+    screenshot: screenshotHR
   },
   {
     id: 'crm',
@@ -40,7 +49,7 @@ const modules = [
     title: 'CRM',
     description: 'Strengthen customer relationships. Optimize lead tracking, sales pipeline, and client communication.',
     color: 'from-purple-500 to-pink-500',
-    screenshot: '/assets/screenshots/crm.png'
+    screenshot: screenshotCRM
   },
   {
     id: 'accounting',
@@ -48,7 +57,7 @@ const modules = [
     title: 'Accounting',
     description: 'Invoices, payments, income-expense tracking, and financial reports to keep your finances in control.',
     color: 'from-orange-500 to-amber-500',
-    screenshot: '/assets/screenshots/accounting.png'
+    screenshot: screenshotAccounting
   },
   {
     id: 'tasks',
@@ -56,7 +65,7 @@ const modules = [
     title: 'Task Management',
     description: 'Track projects and tasks with Kanban boards. Boost team productivity and collaboration.',
     color: 'from-indigo-500 to-violet-500',
-    screenshot: '/assets/screenshots/tasks.png'
+    screenshot: screenshotTasks
   },
   {
     id: 'access',
@@ -64,7 +73,7 @@ const modules = [
     title: 'Access Control',
     description: 'CCTV integration, door access cards, and visitor management to ensure security.',
     color: 'from-red-500 to-rose-500',
-    screenshot: '/assets/screenshots/access.png'
+    screenshot: screenshotAccess
   },
   {
     id: 'files',
@@ -72,7 +81,7 @@ const modules = [
     title: 'File Management',
     description: 'Organize, share, and securely store your documents. Version control included.',
     color: 'from-teal-500 to-cyan-500',
-    screenshot: '/assets/screenshots/files.png'
+    screenshot: screenshotFiles
   }
 ];
 
