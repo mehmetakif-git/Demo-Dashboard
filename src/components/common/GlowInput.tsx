@@ -67,14 +67,14 @@ const GlowInput = React.forwardRef<HTMLInputElement, GlowInputProps>(
                 rotate: isTyping ? [0, -5, 5, 0] : focused ? [0, -10, 10, 0] : 0,
                 y: isTyping ? [0, -2, 0] : 0,
                 color: isTyping
-                  ? ['#06b6d4', '#8b5cf6', '#ec4899', '#f97316', '#10b981', '#06b6d4']
+                  ? ['#06b6d4', '#94B4C1', '#ec4899', '#f97316', '#10b981', '#06b6d4']
                   : focused
                     ? 'rgba(255,255,255,0.8)'
                     : 'rgba(255,255,255,0.4)',
                 filter: isTyping
                   ? [
                       'drop-shadow(0 0 4px #06b6d4)',
-                      'drop-shadow(0 0 6px #8b5cf6)',
+                      'drop-shadow(0 0 6px #94B4C1)',
                       'drop-shadow(0 0 4px #ec4899)',
                       'drop-shadow(0 0 6px #f97316)',
                       'drop-shadow(0 0 4px #10b981)',

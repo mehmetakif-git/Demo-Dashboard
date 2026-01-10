@@ -54,15 +54,28 @@ export const AccountTypeSelect = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Disable scroll when spotlight is active
+  // Disable scroll when spotlight is active (but keep scrollbar visible)
   useEffect(() => {
-    if (showSpotlight) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+    if (!showSpotlight) return;
+
+    const preventScroll = (e: Event) => {
+      e.preventDefault();
+    };
+
+    const preventKeyScroll = (e: KeyboardEvent) => {
+      if (['ArrowUp', 'ArrowDown', 'Space', 'PageUp', 'PageDown', 'Home', 'End'].includes(e.key)) {
+        e.preventDefault();
+      }
+    };
+
+    window.addEventListener('wheel', preventScroll, { passive: false });
+    window.addEventListener('touchmove', preventScroll, { passive: false });
+    window.addEventListener('keydown', preventKeyScroll);
+
     return () => {
-      document.body.style.overflow = '';
+      window.removeEventListener('wheel', preventScroll);
+      window.removeEventListener('touchmove', preventScroll);
+      window.removeEventListener('keydown', preventKeyScroll);
     };
   }, [showSpotlight]);
 
@@ -153,7 +166,7 @@ export const AccountTypeSelect = () => {
               </div>
             )}
             <div>
-              <p className="text-xs text-[#64748b]">Selected Industry</p>
+              <p className="text-xs text-text-muted">Selected Industry</p>
               <h2 className="text-sm font-semibold text-white">
                 {sector?.name || 'Unknown Sector'}
               </h2>
@@ -210,8 +223,8 @@ export const AccountTypeSelect = () => {
                     transition-all duration-300 cursor-pointer group
                     before:absolute before:inset-0 before:rounded-xl before:bg-gradient-to-b before:from-white/[0.08] before:to-transparent before:pointer-events-none
                     ${isSelected
-                      ? 'border-[#8b5cf6]/50 scale-[1.02] bg-white/[0.05]'
-                      : 'border-white/[0.08] hover:border-[#8b5cf6]/30 hover:scale-[1.02] hover:bg-white/[0.05]'
+                      ? 'border-[#94B4C1]/50 scale-[1.02] bg-white/[0.05]'
+                      : 'border-white/[0.08] hover:border-[#94B4C1]/30 hover:scale-[1.02] hover:bg-white/[0.05]'
                     }
                   `}
                 >
@@ -252,7 +265,7 @@ export const AccountTypeSelect = () => {
                   </p>
 
                   {/* Hover Glow Effect */}
-                  <div className={`absolute inset-0 rounded-xl bg-gradient-to-br from-[#6366f1]/0 via-[#8b5cf6]/10 to-[#6366f1]/0 transition-opacity pointer-events-none ${isSelected ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`} />
+                  <div className={`absolute inset-0 rounded-xl bg-gradient-to-br from-[#547792]/0 via-[#94B4C1]/10 to-[#547792]/0 transition-opacity pointer-events-none ${isSelected ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`} />
                 </GlareHover>
               </motion.div>
             );
@@ -269,12 +282,12 @@ export const AccountTypeSelect = () => {
           <button
             onClick={handleContinue}
             disabled={!selected}
-            className="relative px-8 py-3 bg-white/[0.03] backdrop-blur-2xl border border-white/[0.08] text-white font-semibold rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center gap-2 cursor-pointer group overflow-hidden before:absolute before:inset-0 before:rounded-xl before:bg-gradient-to-r before:from-[#6366f1]/20 before:to-[#8b5cf6]/20 before:opacity-100 hover:border-[#8b5cf6]/50 hover:bg-white/[0.06] hover:shadow-[0_0_30px_rgba(139,92,246,0.3)]"
+            className="relative px-8 py-3 bg-white/[0.03] backdrop-blur-2xl border border-white/[0.08] text-white font-semibold rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center gap-2 cursor-pointer group overflow-hidden before:absolute before:inset-0 before:rounded-xl before:bg-gradient-to-r before:from-[#547792]/20 before:to-[#94B4C1]/20 before:opacity-100 hover:border-[#94B4C1]/50 hover:bg-white/[0.06] hover:shadow-[0_0_30px_rgba(148,180,193,0.3)]"
           >
             <span className="relative z-10">Continue</span>
             <ChevronRight size={20} className="relative z-10 group-hover:translate-x-1 transition-transform" />
             {/* Animated gradient glow */}
-            <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#6366f1]/0 via-[#8b5cf6]/20 to-[#6366f1]/0 opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#547792]/0 via-[#94B4C1]/20 to-[#547792]/0 opacity-0 group-hover:opacity-100 transition-opacity" />
           </button>
         </motion.div>
       </div>
@@ -312,8 +325,8 @@ export const AccountTypeSelect = () => {
                 height: spotlightPosition.height + 8,
               }}
             >
-              <div className="absolute inset-0 rounded-xl border-2 border-indigo-500/50 animate-pulse" />
-              <div className="absolute inset-0 rounded-xl border border-indigo-400/30 animate-ping" style={{ animationDuration: '2s' }} />
+              <div className="absolute inset-0 rounded-xl border-2 border-[#94B4C1]/50 animate-pulse" />
+              <div className="absolute inset-0 rounded-xl border border-[#94B4C1]/30 animate-ping" style={{ animationDuration: '2s' }} />
             </motion.div>
 
             {/* Tooltip */}

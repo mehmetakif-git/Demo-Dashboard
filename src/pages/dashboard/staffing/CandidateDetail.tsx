@@ -27,6 +27,7 @@ import {
   getCandidateStatusBgColor,
 } from '@/data/staffing/staffingData';
 import { ROUTES } from '@/utils/constants';
+import { getProfileImage } from '@/utils/profileImages';
 
 type TabType = 'overview' | 'applications' | 'interviews' | 'documents' | 'notes';
 
@@ -99,10 +100,18 @@ export const CandidateDetail = () => {
       <Card className="p-6">
         <div className="flex flex-col md:flex-row gap-6">
           <div className="flex items-start gap-4">
-            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white text-2xl font-bold">
-              {candidate.firstName[0]}
-              {candidate.lastName[0]}
-            </div>
+            {getProfileImage(`${candidate.firstName} ${candidate.lastName}`) ? (
+              <img
+                src={getProfileImage(`${candidate.firstName} ${candidate.lastName}`)}
+                alt={`${candidate.firstName} ${candidate.lastName}`}
+                className="w-20 h-20 rounded-full object-cover border border-white/10"
+              />
+            ) : (
+              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white text-2xl font-bold">
+                {candidate.firstName[0]}
+                {candidate.lastName[0]}
+              </div>
+            )}
             <div>
               <div className="flex items-center gap-3 mb-2">
                 <h2 className="text-xl font-bold text-text-primary">
@@ -149,7 +158,7 @@ export const CandidateDetail = () => {
       </Card>
 
       {/* Tabs */}
-      <div className="flex gap-1 border-b border-border-default">
+      <div className="flex gap-1 border-b border-white/[0.08]">
         {tabs.map((tab) => (
           <button
             key={tab.id}
@@ -162,7 +171,7 @@ export const CandidateDetail = () => {
           >
             {tab.label}
             {tab.count !== undefined && (
-              <span className="ml-2 px-1.5 py-0.5 text-xs rounded-full bg-background-tertiary">
+              <span className="ml-2 px-1.5 py-0.5 text-xs rounded-full bg-white/[0.05]">
                 {tab.count}
               </span>
             )}
@@ -282,7 +291,7 @@ export const CandidateDetail = () => {
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-border-default">
+                  <tr className="border-b border-white/[0.08]">
                     <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
                       Job Title
                     </th>
@@ -302,7 +311,7 @@ export const CandidateDetail = () => {
                 </thead>
                 <tbody>
                   {appliedJobs.map((job) => (
-                    <tr key={job.id} className="border-b border-border-default hover:bg-background-secondary/50">
+                    <tr key={job.id} className="border-b border-white/[0.08] hover:bg-white/[0.03] backdrop-blur-xl/50">
                       <td className="py-3 px-4">
                         <p className="font-medium text-text-primary">{job.title}</p>
                         <p className="text-sm text-text-secondary">{job.location}</p>
@@ -391,7 +400,7 @@ export const CandidateDetail = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="bg-background-tertiary rounded-lg p-3">
+                    <div className="bg-white/[0.05] rounded-lg p-3">
                       <p className="text-sm text-text-muted mb-1">Feedback</p>
                       <p className="text-text-secondary">{interview.feedback}</p>
                     </div>
@@ -414,7 +423,7 @@ export const CandidateDetail = () => {
           {candidate.documents.length > 0 ? (
             <div className="divide-y divide-border-default">
               {candidate.documents.map((doc) => (
-                <div key={doc.id} className="p-4 flex items-center justify-between hover:bg-background-secondary/50">
+                <div key={doc.id} className="p-4 flex items-center justify-between hover:bg-white/[0.03] backdrop-blur-xl/50">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-lg bg-accent-primary/10 flex items-center justify-center">
                       <FileText className="h-5 w-5 text-accent-primary" />
@@ -451,7 +460,7 @@ export const CandidateDetail = () => {
               Add Note
             </Button>
           </div>
-          <div className="bg-background-tertiary rounded-lg p-4">
+          <div className="bg-white/[0.05] rounded-lg p-4">
             <p className="text-text-secondary">{candidate.notes || 'No notes available for this candidate.'}</p>
           </div>
         </Card>

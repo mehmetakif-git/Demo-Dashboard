@@ -40,7 +40,7 @@ export const Owners = () => {
         title="Property Owners"
         subtitle="Manage property owners and landlords"
         actions={
-          <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-500 px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
+          <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
             <Plus className="h-4 w-4" />
             Add Owner
           </button>
@@ -80,13 +80,13 @@ export const Owners = () => {
             placeholder="Search owners..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full rounded-lg border border-[#1e1e2e] bg-[#12121a] py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-indigo-500 focus:outline-none"
+            className="w-full rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#547792] focus:outline-none"
           />
         </div>
         <select
           value={typeFilter}
           onChange={(e) => setTypeFilter(e.target.value)}
-          className="rounded-lg border border-[#1e1e2e] bg-[#12121a] px-4 py-2 text-sm text-white focus:border-indigo-500 focus:outline-none"
+          className="rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-4 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
         >
           <option value="all">All Types</option>
           <option value="company">Companies</option>
@@ -102,10 +102,10 @@ export const Owners = () => {
               key={owner.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className={`rounded-xl border bg-[#12121a] p-6 cursor-pointer transition-colors ${
+              className={`rounded-xl border bg-white/[0.03] backdrop-blur-xl p-6 cursor-pointer transition-colors ${
                 selectedOwner === owner.id
-                  ? 'border-indigo-500'
-                  : 'border-[#1e1e2e] hover:border-[#2e2e3e]'
+                  ? 'border-[#547792]'
+                  : 'border-white/[0.08] hover:border-[#2e2e3e]'
               }`}
               onClick={() => setSelectedOwner(owner.id)}
             >
@@ -113,13 +113,13 @@ export const Owners = () => {
                 <div className="flex items-center gap-4">
                   <div className={`h-14 w-14 rounded-lg flex items-center justify-center ${
                     owner.type === 'company'
-                      ? 'bg-indigo-500/20'
-                      : 'bg-purple-500/20'
+                      ? 'bg-[#547792]/20'
+                      : 'bg-[#94B4C1]/20'
                   }`}>
                     {owner.type === 'company' ? (
-                      <Building className="h-7 w-7 text-indigo-400" />
+                      <Building className="h-7 w-7 text-[#547792]" />
                     ) : (
-                      <User className="h-7 w-7 text-purple-400" />
+                      <User className="h-7 w-7 text-[#94B4C1]" />
                     )}
                   </div>
                   <div>
@@ -139,7 +139,7 @@ export const Owners = () => {
                 </div>
               </div>
 
-              <div className="mt-4 pt-4 border-t border-[#1e1e2e] grid grid-cols-2 gap-4">
+              <div className="mt-4 pt-4 border-t border-white/[0.08] grid grid-cols-2 gap-4">
                 <div className="flex items-center gap-2 text-sm text-[#94a3b8]">
                   <Mail className="h-4 w-4 text-[#64748b]" />
                   {owner.email}
@@ -158,17 +158,17 @@ export const Owners = () => {
           {selected ? (
             <>
               {/* Owner Info */}
-              <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+              <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
                 <div className="flex items-center gap-4 mb-4">
                   <div className={`h-16 w-16 rounded-lg flex items-center justify-center ${
                     selected.type === 'company'
-                      ? 'bg-indigo-500/20'
-                      : 'bg-purple-500/20'
+                      ? 'bg-[#547792]/20'
+                      : 'bg-[#94B4C1]/20'
                   }`}>
                     {selected.type === 'company' ? (
-                      <Building className="h-8 w-8 text-indigo-400" />
+                      <Building className="h-8 w-8 text-[#547792]" />
                     ) : (
-                      <User className="h-8 w-8 text-purple-400" />
+                      <User className="h-8 w-8 text-[#94B4C1]" />
                     )}
                   </div>
                   <div>
@@ -199,7 +199,7 @@ export const Owners = () => {
 
               {/* Primary Contact */}
               {selected.primaryContact && (
-                <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+                <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
                   <h3 className="text-lg font-semibold text-white mb-4">Primary Contact</h3>
                   <div className="space-y-2">
                     <div className="text-white font-medium">{selected.primaryContact.name}</div>
@@ -217,7 +217,7 @@ export const Owners = () => {
               )}
 
               {/* Stats */}
-              <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+              <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
                 <h3 className="text-lg font-semibold text-white mb-4">Portfolio</h3>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="p-3 rounded-lg bg-[#1a1a24] text-center">
@@ -225,17 +225,17 @@ export const Owners = () => {
                     <div className="text-xs text-[#64748b]">Total Properties</div>
                   </div>
                   <div className="p-3 rounded-lg bg-[#1a1a24] text-center">
-                    <div className="text-2xl font-bold text-indigo-400">{selected.activeListings}</div>
+                    <div className="text-2xl font-bold text-[#547792]">{selected.activeListings}</div>
                     <div className="text-xs text-[#64748b]">Active Listings</div>
                   </div>
                 </div>
               </div>
 
               {/* Preferred Agent */}
-              <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+              <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
                 <h3 className="text-lg font-semibold text-white mb-4">Preferred Agent</h3>
                 <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold">
+                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-[#547792] to-[#94B4C1] flex items-center justify-center text-white font-bold">
                     {selected.preferredAgent.split(' ').map(n => n.charAt(0)).join('').slice(0, 2)}
                   </div>
                   <span className="text-white">{selected.preferredAgent}</span>
@@ -244,14 +244,14 @@ export const Owners = () => {
 
               {/* Notes */}
               {selected.notes && (
-                <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+                <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
                   <h3 className="text-lg font-semibold text-white mb-4">Notes</h3>
                   <p className="text-sm text-[#94a3b8]">{selected.notes}</p>
                 </div>
               )}
             </>
           ) : (
-            <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-8 text-center">
+            <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-8 text-center">
               <User className="h-12 w-12 text-[#2e2e3e] mx-auto mb-3" />
               <h3 className="text-white font-medium mb-2">Select an Owner</h3>
               <p className="text-sm text-[#64748b]">Click on an owner to view details</p>

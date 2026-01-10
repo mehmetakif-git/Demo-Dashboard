@@ -63,7 +63,7 @@ export const Equipment = () => {
   };
 
   const statCards = [
-    { title: 'Total Equipment', value: stats.total.toString(), icon: Dumbbell, iconColor: '#6366f1' },
+    { title: 'Total Equipment', value: stats.total.toString(), icon: Dumbbell, iconColor: '#547792' },
     { title: 'Operational', value: stats.operational.toString(), icon: CheckCircle, iconColor: '#10b981' },
     { title: 'Under Maintenance', value: stats.maintenance.toString(), icon: AlertTriangle, iconColor: '#f59e0b' },
     { title: 'Out of Order', value: stats.outOfOrder.toString(), icon: XCircle, iconColor: '#ef4444' },
@@ -116,7 +116,7 @@ export const Equipment = () => {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value as StatusFilter)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Status</option>
             <option value="operational">Operational</option>
@@ -127,7 +127,7 @@ export const Equipment = () => {
           <select
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Categories</option>
             {categories.map((cat) => (
@@ -140,7 +140,7 @@ export const Equipment = () => {
           <select
             value={locationFilter}
             onChange={(e) => setLocationFilter(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Locations</option>
             {locations.map((loc) => (
@@ -157,7 +157,7 @@ export const Equipment = () => {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-border-default">
+              <tr className="border-b border-white/[0.08]">
                 <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
                   Equipment
                 </th>
@@ -188,7 +188,7 @@ export const Equipment = () => {
               {filteredEquipment.map((equipment) => (
                 <tr
                   key={equipment.id}
-                  className="border-b border-border-default hover:bg-background-secondary/50 cursor-pointer"
+                  className="border-b border-white/[0.08] hover:bg-white/[0.03] backdrop-blur-xl/50 cursor-pointer"
                   onClick={() => setSelectedEquipment(equipment)}
                 >
                   <td className="py-3 px-4">
@@ -203,7 +203,7 @@ export const Equipment = () => {
                     </div>
                   </td>
                   <td className="py-3 px-4">
-                    <span className="px-2 py-1 rounded-full text-xs font-medium bg-background-tertiary text-text-primary">
+                    <span className="px-2 py-1 rounded-full text-xs font-medium bg-white/[0.05] text-text-primary">
                       {equipment.category}
                     </span>
                   </td>
@@ -297,9 +297,9 @@ export const Equipment = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-background-secondary border border-border-default rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+            className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
           >
-            <div className="p-6 border-b border-border-default">
+            <div className="p-6 border-b border-white/[0.08]">
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-4">
                   <div className="w-14 h-14 rounded-lg bg-accent-primary/10 flex items-center justify-center">
@@ -368,7 +368,7 @@ export const Equipment = () => {
                 </div>
               </div>
 
-              <div className="border-t border-border-default pt-4">
+              <div className="border-t border-white/[0.08] pt-4">
                 <h3 className="text-sm font-semibold text-text-primary mb-3">Purchase Details</h3>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
@@ -392,7 +392,7 @@ export const Equipment = () => {
                 </div>
               </div>
 
-              <div className="border-t border-border-default pt-4">
+              <div className="border-t border-white/[0.08] pt-4">
                 <h3 className="text-sm font-semibold text-text-primary mb-3">Maintenance</h3>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
@@ -411,14 +411,14 @@ export const Equipment = () => {
               </div>
 
               {selectedEquipment.notes && (
-                <div className="border-t border-border-default pt-4">
+                <div className="border-t border-white/[0.08] pt-4">
                   <h3 className="text-sm font-semibold text-text-primary mb-2">Notes</h3>
                   <p className="text-text-secondary">{selectedEquipment.notes}</p>
                 </div>
               )}
             </div>
 
-            <div className="p-6 border-t border-border-default flex gap-2">
+            <div className="p-6 border-t border-white/[0.08] flex gap-2">
               <Button variant="outline" className="flex-1" onClick={() => setSelectedEquipment(null)}>
                 Close
               </Button>

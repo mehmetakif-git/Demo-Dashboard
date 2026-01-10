@@ -50,7 +50,7 @@ export const LeadList = () => {
         title="Leads"
         subtitle="Manage buyer, renter, and seller leads"
         actions={
-          <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-500 px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
+          <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
             <Plus className="h-4 w-4" />
             Add Lead
           </button>
@@ -87,7 +87,7 @@ export const LeadList = () => {
       </div>
 
       {/* Filters */}
-      <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-4">
+      <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-4">
         <div className="flex flex-col lg:flex-row gap-4">
           <div className="flex-1">
             <div className="relative">
@@ -97,7 +97,7 @@ export const LeadList = () => {
                 placeholder="Search by name or email..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full rounded-lg border border-[#1e1e2e] bg-[#0a0a0f] py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-indigo-500 focus:outline-none"
+                className="w-full rounded-lg border border-white/[0.08] bg-[#0a0a0f] py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#547792] focus:outline-none"
               />
             </div>
           </div>
@@ -105,7 +105,7 @@ export const LeadList = () => {
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value)}
-            className="rounded-lg border border-[#1e1e2e] bg-[#0a0a0f] px-4 py-2 text-sm text-white focus:border-indigo-500 focus:outline-none"
+            className="rounded-lg border border-white/[0.08] bg-[#0a0a0f] px-4 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
             <option value="all">All Types</option>
             <option value="buyer">Buyers</option>
@@ -117,7 +117,7 @@ export const LeadList = () => {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="rounded-lg border border-[#1e1e2e] bg-[#0a0a0f] px-4 py-2 text-sm text-white focus:border-indigo-500 focus:outline-none"
+            className="rounded-lg border border-white/[0.08] bg-[#0a0a0f] px-4 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
             <option value="all">All Statuses</option>
             {leadStatuses.map((status) => (
@@ -141,13 +141,13 @@ export const LeadList = () => {
             key={lead.id}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6 hover:border-[#2e2e3e] transition-colors cursor-pointer"
+            className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6 hover:border-[#2e2e3e] transition-colors cursor-pointer"
             onClick={() => navigate(`/dashboard/realestate/leads/${lead.id}`)}
           >
             {/* Header */}
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center gap-3">
-                <div className="h-12 w-12 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold">
+                <div className="h-12 w-12 rounded-full bg-gradient-to-br from-[#547792] to-[#94B4C1] flex items-center justify-center text-white font-bold">
                   {lead.firstName.charAt(0)}{lead.lastName.charAt(0)}
                 </div>
                 <div>
@@ -175,7 +175,7 @@ export const LeadList = () => {
             )}
             {lead.propertyAddress && (
               <div className="flex items-center gap-2 mb-3 text-sm">
-                <Home className="h-4 w-4 text-indigo-400" />
+                <Home className="h-4 w-4 text-[#547792]" />
                 <span className="text-[#94a3b8] truncate">{lead.propertyAddress}</span>
               </div>
             )}
@@ -210,7 +210,7 @@ export const LeadList = () => {
             </div>
 
             {/* Contact Info & Follow-up */}
-            <div className="pt-3 border-t border-[#1e1e2e] space-y-2">
+            <div className="pt-3 border-t border-white/[0.08] space-y-2">
               <div className="flex items-center gap-2 text-xs text-[#64748b]">
                 <Calendar className="h-3.5 w-3.5" />
                 <span>Last Contact: {lead.lastContact}</span>
@@ -222,11 +222,11 @@ export const LeadList = () => {
             </div>
 
             {/* Quick Actions */}
-            <div className="flex items-center gap-2 mt-4 pt-3 border-t border-[#1e1e2e]">
+            <div className="flex items-center gap-2 mt-4 pt-3 border-t border-white/[0.08]">
               <a
                 href={`tel:${lead.phone}`}
                 onClick={(e) => e.stopPropagation()}
-                className="flex-1 flex items-center justify-center gap-2 rounded-lg border border-[#1e1e2e] py-2 text-sm text-[#94a3b8] hover:text-white hover:border-[#2e2e3e] transition-colors"
+                className="flex-1 flex items-center justify-center gap-2 rounded-lg border border-white/[0.08] py-2 text-sm text-[#94a3b8] hover:text-white hover:border-[#2e2e3e] transition-colors"
               >
                 <Phone className="h-4 w-4" />
                 Call
@@ -234,7 +234,7 @@ export const LeadList = () => {
               <a
                 href={`mailto:${lead.email}`}
                 onClick={(e) => e.stopPropagation()}
-                className="flex-1 flex items-center justify-center gap-2 rounded-lg border border-[#1e1e2e] py-2 text-sm text-[#94a3b8] hover:text-white hover:border-[#2e2e3e] transition-colors"
+                className="flex-1 flex items-center justify-center gap-2 rounded-lg border border-white/[0.08] py-2 text-sm text-[#94a3b8] hover:text-white hover:border-[#2e2e3e] transition-colors"
               >
                 <Mail className="h-4 w-4" />
                 Email

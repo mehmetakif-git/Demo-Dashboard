@@ -174,15 +174,28 @@ const ModuleSelection = () => {
     }
   }, [spotlightStep]);
 
-  // Disable scroll when spotlight is active
+  // Disable scroll when spotlight is active (but keep scrollbar visible)
   useEffect(() => {
-    if (spotlightStep >= 0) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+    if (spotlightStep < 0) return;
+
+    const preventScroll = (e: Event) => {
+      e.preventDefault();
+    };
+
+    const preventKeyScroll = (e: KeyboardEvent) => {
+      if (['ArrowUp', 'ArrowDown', 'Space', 'PageUp', 'PageDown', 'Home', 'End'].includes(e.key)) {
+        e.preventDefault();
+      }
+    };
+
+    window.addEventListener('wheel', preventScroll, { passive: false });
+    window.addEventListener('touchmove', preventScroll, { passive: false });
+    window.addEventListener('keydown', preventKeyScroll);
+
     return () => {
-      document.body.style.overflow = '';
+      window.removeEventListener('wheel', preventScroll);
+      window.removeEventListener('touchmove', preventScroll);
+      window.removeEventListener('keydown', preventKeyScroll);
     };
   }, [spotlightStep]);
 
@@ -402,7 +415,7 @@ const ModuleSelection = () => {
               </div>
             )}
             <div>
-              <p className="text-xs text-[#64748b]">Selected Industry</p>
+              <p className="text-xs text-text-muted">Selected Industry</p>
               <h2 className="text-sm font-semibold text-white">
                 {sector?.name || 'Unknown Sector'}
               </h2>
@@ -425,7 +438,7 @@ const ModuleSelection = () => {
               <AccountIcon className="w-4 h-4" />
             </div>
             <div>
-              <p className="text-xs text-[#64748b]">Account Type</p>
+              <p className="text-xs text-text-muted">Account Type</p>
               <h2 className="text-sm font-semibold text-white">
                 {selectedAccountType === 'admin' ? 'Administrator' : 'Staff Member'}
               </h2>
@@ -467,20 +480,20 @@ const ModuleSelection = () => {
             return (
               <GlareHover
                 key={preset.id}
-                glareColor="#8b5cf6"
+                glareColor="#94B4C1"
                 glareOpacity={0.2}
                 glareAngle={-30}
                 glareSize={300}
                 transitionDuration={800}
                 playOnce={false}
-                onClick={() => applyPreset(preset.id)}
+                onClick={() => spotlightStep === 0 ? setSpotlightStep(1) : applyPreset(preset.id)}
                 className={`
                   p-4 rounded-xl text-left transition-all duration-300 group cursor-pointer
                   bg-white/[0.03] backdrop-blur-2xl border
                   before:absolute before:inset-0 before:rounded-xl before:bg-gradient-to-b before:from-white/[0.08] before:to-transparent before:pointer-events-none
                   ${isActive
-                    ? 'border-[#8b5cf6] bg-white/[0.08] shadow-[0_0_20px_rgba(139,92,246,0.3),inset_0_1px_0_rgba(255,255,255,0.1)]'
-                    : 'border-white/[0.08] hover:border-[#8b5cf6]/30 hover:scale-[1.02] hover:bg-white/[0.05]'
+                    ? 'border-[#94B4C1] bg-white/[0.08] shadow-[0_0_20px_rgba(148,180,193,0.3),inset_0_1px_0_rgba(255,255,255,0.1)]'
+                    : 'border-white/[0.08] hover:border-[#94B4C1]/30 hover:scale-[1.02] hover:bg-white/[0.05]'
                   }
                 `}
               >
@@ -498,29 +511,30 @@ const ModuleSelection = () => {
                 </div>
                 <h3 className="relative z-10 text-white font-medium mb-1">{preset.name}</h3>
                 <p className="relative z-10 text-white/50 text-sm">{preset.description}</p>
-                <p className={`relative z-10 text-xs mt-2 ${isActive ? 'text-emerald-400' : 'text-[#8b5cf6]'}`}>{presetModules.length} modules</p>
+                <p className={`relative z-10 text-xs mt-2 ${isActive ? 'text-emerald-400' : 'text-[#94B4C1]'}`}>{presetModules.length} modules</p>
                 {/* Hover Glow Effect */}
-                <div className={`absolute inset-0 rounded-xl bg-gradient-to-br from-[#6366f1]/0 via-[#8b5cf6]/15 to-[#6366f1]/0 transition-opacity pointer-events-none ${isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`} />
+                <div className={`absolute inset-0 rounded-xl bg-gradient-to-br from-[#547792]/0 via-[#94B4C1]/15 to-[#547792]/0 transition-opacity pointer-events-none ${isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`} />
               </GlareHover>
             );
           })}
         </motion.div>
 
-        {/* Common Modules - Glassmorphism Container */}
+        {/* Common Modules */}
         <motion.div
           ref={modulesRef}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className={`relative bg-white/[0.03] backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-6 mb-6 overflow-hidden before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-b before:from-white/[0.08] before:to-transparent before:pointer-events-none ${spotlightStep === 1 ? 'z-60' : ''}`}
+          className={`mb-8 ${spotlightStep === 1 ? 'relative z-60' : ''}`}
         >
-          <div className="relative z-10 flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-white">Common Modules</h2>
             <span className="text-sm text-white/50">
               {commonModules.filter((m) => isModuleSelected(m.id)).length}/{commonModules.length} selected
             </span>
           </div>
-          <div className="relative z-10 grid grid-cols-2 md:grid-cols-3 gap-3">
+          <div className="p-4 rounded-2xl bg-black/35 border border-white/[0.08]">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {commonModules.map((module) => {
               const Icon = module.icon;
               const isSelected = isModuleSelected(module.id);
@@ -535,14 +549,14 @@ const ModuleSelection = () => {
                   glareSize={300}
                   transitionDuration={800}
                   playOnce={false}
-                  onClick={() => !isRequired && toggleModule(module.id)}
+                  onClick={() => spotlightStep === 1 ? setSpotlightStep(2) : (!isRequired && toggleModule(module.id))}
                   className={`
-                    p-3 rounded-xl border text-left transition-all duration-300 group
-                    bg-white/[0.03] backdrop-blur-xl
+                    p-4 rounded-xl text-left transition-all duration-300 group
+                    bg-white/[0.03] backdrop-blur-2xl border
                     before:absolute before:inset-0 before:rounded-xl before:bg-gradient-to-b before:from-white/[0.08] before:to-transparent before:pointer-events-none
                     ${isSelected
-                      ? 'border-[#8b5cf6]/50 bg-white/[0.06]'
-                      : 'border-white/[0.08] hover:border-white/[0.15] hover:bg-white/[0.05]'
+                      ? 'border-[#94B4C1] bg-white/[0.08]'
+                      : 'border-white/[0.08] hover:border-[#94B4C1]/30 hover:scale-[1.02] hover:bg-white/[0.05]'
                     }
                     ${isRequired ? 'cursor-not-allowed opacity-70' : 'cursor-pointer'}
                   `}
@@ -567,28 +581,29 @@ const ModuleSelection = () => {
                   <h3 className="text-white font-medium text-sm mt-3">{module.name}</h3>
                   <p className="text-white/40 text-xs mt-1">{module.description}</p>
                   {isRequired && (
-                    <span className="inline-block mt-2 text-xs text-[#8b5cf6] bg-[#8b5cf6]/10 px-2 py-0.5 rounded">
+                    <span className="inline-block mt-2 text-xs text-[#94B4C1] bg-[#94B4C1]/10 px-2 py-0.5 rounded">
                       Required
                     </span>
                   )}
                 </GlareHover>
               );
             })}
+            </div>
           </div>
         </motion.div>
 
-        {/* Sector-Specific Modules - Glassmorphism Container */}
+        {/* Sector-Specific Modules */}
         {availableSectorModules.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="relative bg-white/[0.03] backdrop-blur-2xl border border-white/[0.08] rounded-2xl p-6 mb-6 overflow-hidden before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-b before:from-white/[0.08] before:to-transparent before:pointer-events-none"
+            className="mb-8"
           >
-            <div className="relative z-10 flex items-center justify-between mb-4">
+            <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
                 <h2 className="text-lg font-semibold text-white">Sector Modules</h2>
-                <span className="text-xs bg-[#8b5cf6]/20 text-[#a78bfa] px-2 py-0.5 rounded capitalize">
+                <span className="text-xs bg-[#94B4C1]/20 text-[#94B4C1] px-2 py-0.5 rounded capitalize">
                   {selectedSector}
                 </span>
               </div>
@@ -597,7 +612,8 @@ const ModuleSelection = () => {
                 {availableSectorModules.length} selected
               </span>
             </div>
-            <div className="relative z-10 grid grid-cols-2 md:grid-cols-3 gap-3">
+            <div className="p-4 rounded-2xl bg-black/35 border border-white/[0.08]">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {availableSectorModules.map((module) => {
                 const Icon = module.icon;
                 const isSelected = isModuleSelected(module.id);
@@ -611,14 +627,14 @@ const ModuleSelection = () => {
                     glareSize={300}
                     transitionDuration={800}
                     playOnce={false}
-                    onClick={() => toggleModule(module.id)}
+                    onClick={() => spotlightStep === 1 ? setSpotlightStep(2) : toggleModule(module.id)}
                     className={`
-                      p-3 rounded-xl border text-left transition-all duration-300 group cursor-pointer
-                      bg-white/[0.03] backdrop-blur-xl
+                      p-4 rounded-xl text-left transition-all duration-300 group cursor-pointer
+                      bg-white/[0.03] backdrop-blur-2xl border
                       before:absolute before:inset-0 before:rounded-xl before:bg-gradient-to-b before:from-white/[0.08] before:to-transparent before:pointer-events-none
                       ${isSelected
-                        ? 'border-[#a78bfa]/50 bg-white/[0.06]'
-                        : 'border-white/[0.08] hover:border-white/[0.15] hover:bg-white/[0.05]'
+                        ? 'border-[#94B4C1] bg-white/[0.08]'
+                        : 'border-white/[0.08] hover:border-[#94B4C1]/30 hover:scale-[1.02] hover:bg-white/[0.05]'
                       }
                     `}
                   >
@@ -644,6 +660,7 @@ const ModuleSelection = () => {
                   </GlareHover>
                 );
               })}
+              </div>
             </div>
           </motion.div>
         )}
@@ -675,12 +692,12 @@ const ModuleSelection = () => {
           <button
             ref={continueButtonRef}
             onClick={handleContinue}
-            className="relative px-8 py-3 bg-white/[0.03] backdrop-blur-2xl border border-white/[0.08] text-white font-semibold rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2 cursor-pointer group overflow-hidden before:absolute before:inset-0 before:rounded-xl before:bg-gradient-to-r before:from-[#6366f1]/20 before:to-[#8b5cf6]/20 before:opacity-100 hover:border-[#8b5cf6]/50 hover:bg-white/[0.06] hover:shadow-[0_0_30px_rgba(139,92,246,0.3)]"
+            className="relative px-8 py-3 bg-white/[0.03] backdrop-blur-2xl border border-white/[0.08] text-white font-semibold rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2 cursor-pointer group overflow-hidden before:absolute before:inset-0 before:rounded-xl before:bg-gradient-to-r before:from-[#547792]/20 before:to-[#94B4C1]/20 before:opacity-100 hover:border-[#94B4C1]/50 hover:bg-white/[0.06] hover:shadow-[0_0_30px_rgba(148,180,193,0.3)]"
           >
             <span className="relative z-10">Continue to Dashboard</span>
             <ChevronRight size={20} className="relative z-10 group-hover:translate-x-1 transition-transform" />
             {/* Animated gradient glow */}
-            <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#6366f1]/0 via-[#8b5cf6]/20 to-[#6366f1]/0 opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#547792]/0 via-[#94B4C1]/20 to-[#547792]/0 opacity-0 group-hover:opacity-100 transition-opacity" />
           </button>
         </motion.div>
       </div>
@@ -732,8 +749,8 @@ const ModuleSelection = () => {
                 height: spotlightPosition.height + 8,
               }}
             >
-              <div className={`absolute inset-0 ${spotlightStep === 4 ? 'rounded-full' : 'rounded-xl'} border-2 border-indigo-500/50 animate-pulse`} />
-              <div className={`absolute inset-0 ${spotlightStep === 4 ? 'rounded-full' : 'rounded-xl'} border border-indigo-400/30 animate-ping`} style={{ animationDuration: '2s' }} />
+              <div className={`absolute inset-0 ${spotlightStep === 4 ? 'rounded-full' : 'rounded-xl'} border-2 border-[#94B4C1]/50 animate-pulse`} />
+              <div className={`absolute inset-0 ${spotlightStep === 4 ? 'rounded-full' : 'rounded-xl'} border border-[#94B4C1]/30 animate-ping`} style={{ animationDuration: '2s' }} />
             </motion.div>
 
             {/* Tooltip */}
@@ -784,7 +801,7 @@ const ModuleSelection = () => {
                     {spotlightConfigs.map((_, i) => (
                       <div
                         key={i}
-                        className={`w-2 h-2 rounded-full transition-colors ${i === spotlightStep ? 'bg-indigo-500' : 'bg-white/20'}`}
+                        className={`w-2 h-2 rounded-full transition-colors ${i === spotlightStep ? 'bg-[#94B4C1]' : 'bg-white/20'}`}
                       />
                     ))}
                   </div>

@@ -168,7 +168,7 @@ export const ImportCenter = () => {
                   {template.optionalFields.map((field) => (
                     <span
                       key={field}
-                      className="px-2 py-0.5 bg-background-tertiary text-text-secondary rounded text-xs"
+                      className="px-2 py-0.5 bg-white/[0.05] text-text-secondary rounded text-xs"
                     >
                       {field}
                     </span>
@@ -177,7 +177,7 @@ export const ImportCenter = () => {
               </div>
 
               {/* Last Import Info */}
-              <div className="text-xs text-text-muted mb-4 pt-4 border-t border-border-default">
+              <div className="text-xs text-text-muted mb-4 pt-4 border-t border-white/[0.08]">
                 <div className="flex items-center justify-between">
                   <span className="flex items-center gap-1">
                     <Clock size={12} />
@@ -219,17 +219,17 @@ export const ImportCenter = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-background-secondary rounded-xl max-w-3xl w-full max-h-[90vh] overflow-hidden flex flex-col"
+            className="bg-white/[0.03] backdrop-blur-xl rounded-xl max-w-3xl w-full max-h-[90vh] overflow-hidden flex flex-col"
           >
             {/* Header */}
-            <div className="p-6 border-b border-border-default">
+            <div className="p-6 border-b border-white/[0.08]">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-lg font-semibold text-text-primary">
                   Import: {selectedTemplate.name}
                 </h2>
                 <button
                   onClick={closeWizard}
-                  className="p-2 hover:bg-background-tertiary rounded-lg"
+                  className="p-2 hover:bg-white/[0.05] rounded-lg"
                 >
                   <X size={20} className="text-text-secondary" />
                 </button>
@@ -244,7 +244,7 @@ export const ImportCenter = () => {
                         className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
                           getStepIndex(currentStep) >= index
                             ? 'bg-accent-primary text-white'
-                            : 'bg-background-tertiary text-text-muted'
+                            : 'bg-white/[0.05] text-text-muted'
                         }`}
                       >
                         {getStepIndex(currentStep) > index ? (
@@ -268,7 +268,7 @@ export const ImportCenter = () => {
                         className={`w-16 h-0.5 mx-4 ${
                           getStepIndex(currentStep) > index
                             ? 'bg-accent-primary'
-                            : 'bg-background-tertiary'
+                            : 'bg-white/[0.05]'
                         }`}
                       />
                     )}
@@ -288,7 +288,7 @@ export const ImportCenter = () => {
                     className={`border-2 border-dashed rounded-xl p-12 text-center transition-colors ${
                       uploadedFile
                         ? 'border-green-500 bg-green-500/5'
-                        : 'border-border-default hover:border-accent-primary'
+                        : 'border-white/[0.08] hover:border-accent-primary'
                     }`}
                   >
                     {uploadedFile ? (
@@ -324,7 +324,7 @@ export const ImportCenter = () => {
                             onChange={handleFileUpload}
                             className="hidden"
                           />
-                          <span className="inline-flex items-center justify-center px-4 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm font-medium text-text-secondary hover:bg-background-secondary transition-colors">
+                          <span className="inline-flex items-center justify-center px-4 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm font-medium text-text-secondary hover:bg-white/[0.03] backdrop-blur-xl transition-colors">
                             Browse Files
                           </span>
                         </label>
@@ -355,7 +355,7 @@ export const ImportCenter = () => {
                   <div className="overflow-x-auto">
                     <table className="w-full">
                       <thead>
-                        <tr className="bg-background-tertiary">
+                        <tr className="bg-white/[0.05]">
                           <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase">
                             Source Column
                           </th>
@@ -375,7 +375,7 @@ export const ImportCenter = () => {
                       </thead>
                       <tbody>
                         {mockFileColumns.map((column, index) => (
-                          <tr key={column} className="border-b border-border-default">
+                          <tr key={column} className="border-b border-white/[0.08]">
                             <td className="px-4 py-3 text-sm text-text-primary">
                               {column}
                             </td>
@@ -383,7 +383,7 @@ export const ImportCenter = () => {
                               <ArrowRight size={16} className="text-text-muted mx-auto" />
                             </td>
                             <td className="px-4 py-3">
-                              <select className="w-full px-3 py-1.5 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary">
+                              <select className="w-full px-3 py-1.5 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary">
                                 <option>
                                   {selectedTemplate.requiredFields[index] ||
                                     selectedTemplate.optionalFields[index - selectedTemplate.requiredFields.length] ||
@@ -470,14 +470,14 @@ export const ImportCenter = () => {
                       <input
                         type="checkbox"
                         defaultChecked
-                        className="w-4 h-4 rounded border-border-default text-accent-primary focus:ring-accent-primary"
+                        className="w-4 h-4 rounded border-white/[0.08] text-accent-primary focus:ring-accent-primary"
                       />
                       <span className="text-sm text-text-secondary">Skip invalid records</span>
                     </label>
                     <label className="flex items-center gap-3 cursor-pointer">
                       <input
                         type="checkbox"
-                        className="w-4 h-4 rounded border-border-default text-accent-primary focus:ring-accent-primary"
+                        className="w-4 h-4 rounded border-white/[0.08] text-accent-primary focus:ring-accent-primary"
                       />
                       <span className="text-sm text-text-secondary">Update existing records</span>
                     </label>
@@ -499,15 +499,15 @@ export const ImportCenter = () => {
                   </p>
 
                   <div className="grid grid-cols-3 gap-4 max-w-md mx-auto mb-8">
-                    <div className="p-4 bg-background-tertiary rounded-lg">
+                    <div className="p-4 bg-white/[0.05] rounded-lg">
                       <p className="text-2xl font-bold text-green-500">{mockValidation.valid}</p>
                       <p className="text-xs text-text-muted">Imported</p>
                     </div>
-                    <div className="p-4 bg-background-tertiary rounded-lg">
+                    <div className="p-4 bg-white/[0.05] rounded-lg">
                       <p className="text-2xl font-bold text-blue-500">0</p>
                       <p className="text-xs text-text-muted">Updated</p>
                     </div>
-                    <div className="p-4 bg-background-tertiary rounded-lg">
+                    <div className="p-4 bg-white/[0.05] rounded-lg">
                       <p className="text-2xl font-bold text-red-500">{mockValidation.invalid}</p>
                       <p className="text-xs text-text-muted">Skipped</p>
                     </div>
@@ -538,7 +538,7 @@ export const ImportCenter = () => {
 
             {/* Footer */}
             {currentStep !== 'complete' && !isProcessing && (
-              <div className="p-6 border-t border-border-default bg-background-tertiary flex justify-between">
+              <div className="p-6 border-t border-white/[0.08] bg-white/[0.05] flex justify-between">
                 <Button
                   variant="secondary"
                   leftIcon={<ArrowLeft size={14} />}

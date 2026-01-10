@@ -45,11 +45,11 @@ export const EmployeeDetail = () => {
   if (!employee) {
     return (
       <div className="p-6">
-        <div className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-12 text-center">
+        <div className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-12 text-center">
           <p className="text-white/60">Employee not found</p>
           <button
             onClick={() => navigate('/dashboard/hr/employees')}
-            className="mt-4 text-[#6366f1] hover:underline cursor-pointer"
+            className="mt-4 text-[#547792] hover:underline cursor-pointer"
           >
             Back to Employees
           </button>
@@ -72,7 +72,7 @@ export const EmployeeDetail = () => {
       >
         <button
           onClick={() => navigate('/dashboard/hr/employees')}
-          className="p-2 rounded-lg bg-[#12121a] border border-[#1e1e2e] text-white/60 hover:text-white hover:border-[#2e2e3e] transition-colors cursor-pointer"
+          className="p-2 rounded-lg bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] text-white/60 hover:text-white hover:border-[#2e2e3e] transition-colors cursor-pointer"
         >
           <ArrowLeft className="w-5 h-5" />
         </button>
@@ -87,7 +87,7 @@ export const EmployeeDetail = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6"
+        className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
       >
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div className="flex items-center gap-4">
@@ -99,8 +99,8 @@ export const EmployeeDetail = () => {
                 <span
                   className="px-2 py-1 rounded-md text-xs font-medium"
                   style={{
-                    backgroundColor: 'rgba(99, 102, 241, 0.2)',
-                    color: '#6366f1',
+                    backgroundColor: 'rgba(84, 119, 146, 0.2)',
+                    color: '#547792',
                   }}
                 >
                   {employee.department}
@@ -110,7 +110,7 @@ export const EmployeeDetail = () => {
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <button className="flex items-center gap-2 px-4 py-2 bg-[#6366f1]/10 text-[#6366f1] rounded-lg hover:bg-[#6366f1]/20 transition-colors cursor-pointer">
+            <button className="flex items-center gap-2 px-4 py-2 bg-[#547792]/10 text-[#547792] rounded-lg hover:bg-[#547792]/20 transition-colors cursor-pointer">
               <Pencil className="w-4 h-4" />
               Edit
             </button>
@@ -133,13 +133,13 @@ export const EmployeeDetail = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6"
+            className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
           >
             <h3 className="text-lg font-semibold text-white mb-4">Personal Information</h3>
             <div className="space-y-4">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-[#6366f1]/10 flex items-center justify-center">
-                  <Mail className="w-4 h-4 text-[#6366f1]" />
+                <div className="w-8 h-8 rounded-lg bg-[#547792]/10 flex items-center justify-center">
+                  <Mail className="w-4 h-4 text-[#547792]" />
                 </div>
                 <div>
                   <p className="text-xs text-white/40">Email</p>
@@ -165,8 +165,8 @@ export const EmployeeDetail = () => {
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-[#8b5cf6]/10 flex items-center justify-center">
-                  <Calendar className="w-4 h-4 text-[#8b5cf6]" />
+                <div className="w-8 h-8 rounded-lg bg-[#94B4C1]/10 flex items-center justify-center">
+                  <Calendar className="w-4 h-4 text-[#94B4C1]" />
                 </div>
                 <div>
                   <p className="text-xs text-white/40">Start Date</p>
@@ -187,13 +187,13 @@ export const EmployeeDetail = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.25 }}
-            className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6"
+            className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
           >
             <h3 className="text-lg font-semibold text-white mb-4">Job Information</h3>
             <div className="space-y-4">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-[#6366f1]/10 flex items-center justify-center">
-                  <Building2 className="w-4 h-4 text-[#6366f1]" />
+                <div className="w-8 h-8 rounded-lg bg-[#547792]/10 flex items-center justify-center">
+                  <Building2 className="w-4 h-4 text-[#547792]" />
                 </div>
                 <div>
                   <p className="text-xs text-white/40">Department</p>
@@ -221,8 +221,8 @@ export const EmployeeDetail = () => {
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-[#8b5cf6]/10 flex items-center justify-center">
-                  <FileText className="w-4 h-4 text-[#8b5cf6]" />
+                <div className="w-8 h-8 rounded-lg bg-[#94B4C1]/10 flex items-center justify-center">
+                  <FileText className="w-4 h-4 text-[#94B4C1]" />
                 </div>
                 <div>
                   <p className="text-xs text-white/40">Employment Type</p>
@@ -237,7 +237,7 @@ export const EmployeeDetail = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6"
+            className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
           >
             <h3 className="text-lg font-semibold text-white mb-4">Quick Stats</h3>
             <div className="space-y-4">
@@ -246,8 +246,8 @@ export const EmployeeDetail = () => {
                 <p className="text-2xl font-bold text-white">12 days</p>
                 <p className="text-xs text-white/40">remaining this year</p>
               </div>
-              <div className="p-4 rounded-lg bg-[#6366f1]/10 border border-[#6366f1]/20">
-                <p className="text-xs text-[#6366f1] mb-1">Attendance Rate</p>
+              <div className="p-4 rounded-lg bg-[#547792]/10 border border-[#547792]/20">
+                <p className="text-xs text-[#547792] mb-1">Attendance Rate</p>
                 <p className="text-2xl font-bold text-white">98%</p>
                 <p className="text-xs text-white/40">last 30 days</p>
               </div>
@@ -265,7 +265,7 @@ export const EmployeeDetail = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-[#12121a] border border-[#1e1e2e] rounded-xl overflow-hidden"
+          className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl overflow-hidden"
         >
           <table className="w-full">
             <thead>
@@ -289,10 +289,10 @@ export const EmployeeDetail = () => {
             </thead>
             <tbody>
               {mockDocuments.map((doc) => (
-                <tr key={doc.id} className="border-t border-[#1e1e2e] hover:bg-[#1a1a24]">
+                <tr key={doc.id} className="border-t border-white/[0.08] hover:bg-[#1a1a24]">
                   <td className="px-4 py-4">
                     <div className="flex items-center gap-3">
-                      <FileText className="w-5 h-5 text-[#6366f1]" />
+                      <FileText className="w-5 h-5 text-[#547792]" />
                       <span className="text-white">{doc.name}</span>
                     </div>
                   </td>
@@ -306,7 +306,7 @@ export const EmployeeDetail = () => {
                       <button className="p-2 rounded-lg text-white/40 hover:text-white hover:bg-white/5 transition-colors cursor-pointer">
                         <Eye className="w-4 h-4" />
                       </button>
-                      <button className="p-2 rounded-lg text-white/40 hover:text-[#6366f1] hover:bg-[#6366f1]/10 transition-colors cursor-pointer">
+                      <button className="p-2 rounded-lg text-white/40 hover:text-[#547792] hover:bg-[#547792]/10 transition-colors cursor-pointer">
                         <Download className="w-4 h-4" />
                       </button>
                     </div>
@@ -322,7 +322,7 @@ export const EmployeeDetail = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-[#12121a] border border-[#1e1e2e] rounded-xl overflow-hidden"
+          className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl overflow-hidden"
         >
           <table className="w-full">
             <thead>
@@ -338,7 +338,7 @@ export const EmployeeDetail = () => {
             <tbody>
               {employeeLeaves.length > 0 ? (
                 employeeLeaves.map((leave) => (
-                  <tr key={leave.id} className="border-t border-[#1e1e2e]">
+                  <tr key={leave.id} className="border-t border-white/[0.08]">
                     <td className="px-4 py-4 text-white">{leave.type}</td>
                     <td className="px-4 py-4 text-white/60">{leave.startDate}</td>
                     <td className="px-4 py-4 text-white/60">{leave.endDate}</td>
@@ -363,7 +363,7 @@ export const EmployeeDetail = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-[#12121a] border border-[#1e1e2e] rounded-xl overflow-hidden"
+          className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl overflow-hidden"
         >
           <table className="w-full">
             <thead>
@@ -379,7 +379,7 @@ export const EmployeeDetail = () => {
             <tbody>
               {employeePayroll.length > 0 ? (
                 employeePayroll.map((record) => (
-                  <tr key={record.id} className="border-t border-[#1e1e2e]">
+                  <tr key={record.id} className="border-t border-white/[0.08]">
                     <td className="px-4 py-4 text-white">{record.month}</td>
                     <td className="px-4 py-4 text-white/60">${record.baseSalary.toLocaleString()}</td>
                     <td className="px-4 py-4 text-emerald-400">+${record.bonus.toLocaleString()}</td>
@@ -410,7 +410,7 @@ export const EmployeeDetail = () => {
             employeeReviews.map((review) => (
               <div
                 key={review.id}
-                className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6"
+                className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
               >
                 <div className="flex items-center justify-between mb-4">
                   <h4 className="font-medium text-white">{review.period}</h4>
@@ -446,7 +446,7 @@ export const EmployeeDetail = () => {
               </div>
             ))
           ) : (
-            <div className="col-span-2 bg-[#12121a] border border-[#1e1e2e] rounded-xl p-12 text-center">
+            <div className="col-span-2 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-12 text-center">
               <p className="text-white/40">No performance reviews found</p>
             </div>
           )}

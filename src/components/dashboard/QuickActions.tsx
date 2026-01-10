@@ -3,9 +3,9 @@ import { UserPlus, FileText, Plus, BarChart3, Send, Calendar } from 'lucide-reac
 
 const actions = [
   { id: 1, label: 'Add Member', icon: UserPlus, color: '#10b981' },
-  { id: 2, label: 'Create Invoice', icon: FileText, color: '#6366f1' },
+  { id: 2, label: 'Create Invoice', icon: FileText, color: '#547792' },
   { id: 3, label: 'New Task', icon: Plus, color: '#f59e0b' },
-  { id: 4, label: 'Generate Report', icon: BarChart3, color: '#8b5cf6' },
+  { id: 4, label: 'Generate Report', icon: BarChart3, color: '#94B4C1' },
   { id: 5, label: 'Send Message', icon: Send, color: '#06b6d4' },
   { id: 6, label: 'Schedule Meeting', icon: Calendar, color: '#ec4899' },
 ];

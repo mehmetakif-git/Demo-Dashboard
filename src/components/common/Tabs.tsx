@@ -28,7 +28,7 @@ export const Tabs = ({ tabs, activeTab, onChange }: TabsProps) => {
           {activeTab === tab.id && (
             <motion.div
               layoutId="activeTab"
-              className="absolute inset-0 bg-[#6366f1]/20 border border-[#6366f1]/30 rounded-md"
+              className="absolute inset-0 bg-[#547792]/20 border border-[#547792]/30 rounded-md"
               transition={{ type: 'spring', stiffness: 500, damping: 30 }}
             />
           )}
@@ -37,7 +37,7 @@ export const Tabs = ({ tabs, activeTab, onChange }: TabsProps) => {
             {tab.count !== undefined && (
               <span className={`px-1.5 py-0.5 text-[10px] rounded-full ${
                 activeTab === tab.id
-                  ? 'bg-[#6366f1]/30 text-[#6366f1]'
+                  ? 'bg-[#547792]/30 text-[#547792]'
                   : 'bg-white/10 text-white/60'
               }`}>
                 {tab.count}

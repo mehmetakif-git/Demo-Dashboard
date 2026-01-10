@@ -13,7 +13,7 @@ import { revenueData } from '@/data/dashboardData';
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-[#1a1a24] border border-[#2e2e3e] rounded-lg px-4 py-3 shadow-xl">
+      <div className="bg-white/[0.08] backdrop-blur-xl border border-white/[0.12] rounded-lg px-4 py-3 shadow-xl">
         <p className="text-white/60 text-sm mb-1">{label}</p>
         <p className="text-white font-semibold text-lg">
           ${payload[0].value.toLocaleString()}
@@ -47,11 +47,11 @@ export const RevenueChart = () => {
           <AreaChart data={revenueData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
             <defs>
               <linearGradient id="revenueGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#6366f1" stopOpacity={0.3} />
-                <stop offset="100%" stopColor="#6366f1" stopOpacity={0} />
+                <stop offset="0%" stopColor="#547792" stopOpacity={0.3} />
+                <stop offset="100%" stopColor="#547792" stopOpacity={0} />
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" stroke="#1e1e2e" vertical={false} />
+            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" vertical={false} />
             <XAxis
               dataKey="month"
               axisLine={false}
@@ -70,7 +70,7 @@ export const RevenueChart = () => {
             <Area
               type="monotone"
               dataKey="value"
-              stroke="#6366f1"
+              stroke="#547792"
               strokeWidth={2}
               fill="url(#revenueGradient)"
             />

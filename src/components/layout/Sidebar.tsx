@@ -97,7 +97,7 @@ export const Sidebar = () => {
       groups.splice(1, 0, realestateGroup);
     }
 
-    if (selectedSector === 'agency') {
+    if (selectedSector === 'advertising-agency') {
       // Insert agency management group after the MAIN group
       const agencyGroup: MenuGroup = {
         id: 'agency-management',
@@ -111,7 +111,7 @@ export const Sidebar = () => {
       groups.splice(1, 0, agencyGroup);
     }
 
-    if (selectedSector === 'events') {
+    if (selectedSector === 'event-company') {
       // Insert events management group after the MAIN group
       const eventsGroup: MenuGroup = {
         id: 'events-management',
@@ -217,7 +217,7 @@ export const Sidebar = () => {
         <div className="flex items-center gap-3 min-w-0">
           <div
             className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg"
-            style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)' }}
+            style={{ background: 'linear-gradient(135deg, #547792, #94B4C1)' }}
           >
             <img src={AllyncLogo} alt="Allync" className="h-6 w-6" />
           </div>
@@ -286,8 +286,8 @@ export const Sidebar = () => {
                         }
                       `}
                       style={isActive ? {
-                        background: `linear-gradient(to right, ${item.color || '#6366f1'}20, ${item.color || '#6366f1'}08)`,
-                        boxShadow: `inset 0 0 20px ${item.color || '#6366f1'}15`
+                        background: `linear-gradient(to right, ${item.color || '#547792'}20, ${item.color || '#547792'}08)`,
+                        boxShadow: `inset 0 0 20px ${item.color || '#547792'}15`
                       } : undefined}
                     >
                       {/* Active indicator bar */}
@@ -295,14 +295,14 @@ export const Sidebar = () => {
                         <span
                           className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 rounded-r-full"
                           style={{
-                            backgroundColor: item.color || '#6366f1',
-                            boxShadow: `0 0 10px ${item.color || '#6366f1'}80`
+                            backgroundColor: item.color || '#547792',
+                            boxShadow: `0 0 10px ${item.color || '#547792'}80`
                           }}
                         />
                       )}
                       <Icon
                         className="h-5 w-5 flex-shrink-0 transition-colors"
-                        style={{ color: item.color || (isActive ? '#6366f1' : '#64748b') }}
+                        style={{ color: item.color || (isActive ? '#547792' : '#64748b') }}
                       />
                       <motion.span
                         initial={false}
@@ -332,8 +332,8 @@ export const Sidebar = () => {
                         <span
                           className="ml-auto rounded px-1.5 py-0.5 text-[10px] font-semibold"
                           style={{
-                            backgroundColor: `${item.color || '#6366f1'}30`,
-                            color: item.color || '#6366f1'
+                            backgroundColor: `${item.color || '#547792'}30`,
+                            color: item.color || '#547792'
                           }}
                         >
                           {item.badge}
@@ -372,7 +372,7 @@ export const Sidebar = () => {
                                       }
                                     `}
                                     style={isChildActive ? {
-                                      background: `linear-gradient(to right, ${child.color || item.color || '#6366f1'}18, transparent)`
+                                      background: `linear-gradient(to right, ${child.color || item.color || '#547792'}18, transparent)`
                                     } : undefined}
                                   >
                                     {/* Active dot indicator */}
@@ -380,14 +380,14 @@ export const Sidebar = () => {
                                       <span
                                         className="absolute -left-4 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full"
                                         style={{
-                                          backgroundColor: child.color || item.color || '#6366f1',
-                                          boxShadow: `0 0 8px ${child.color || item.color || '#6366f1'}99`
+                                          backgroundColor: child.color || item.color || '#547792',
+                                          boxShadow: `0 0 8px ${child.color || item.color || '#547792'}99`
                                         }}
                                       />
                                     )}
                                     <ChildIcon
                                       className="h-4 w-4 transition-colors"
-                                      style={{ color: child.color || item.color || (isChildActive ? '#6366f1' : '#64748b') }}
+                                      style={{ color: child.color || item.color || (isChildActive ? '#547792' : '#64748b') }}
                                     />
                                     <span className="truncate">{child.label}</span>
                                   </button>

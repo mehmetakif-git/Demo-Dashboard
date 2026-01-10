@@ -80,7 +80,7 @@ export const Vendors = () => {
   const getTypeBadge = (type: Vendor['type']) => {
     const config = {
       'Service Provider': { bg: 'bg-blue-500/20', text: 'text-blue-400' },
-      'Supplier': { bg: 'bg-purple-500/20', text: 'text-purple-400' },
+      'Supplier': { bg: 'bg-[#94B4C1]/20', text: 'text-[#94B4C1]' },
     };
     const c = config[type];
     return (
@@ -123,7 +123,7 @@ export const Vendors = () => {
           title="Total Vendors"
           value={stats.total.toString()}
           icon={Truck}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
         <StatsCard
           title="Active Contracts"
@@ -161,7 +161,7 @@ export const Vendors = () => {
             <select
               value={selectedType}
               onChange={(e) => setSelectedType(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Types</option>
               <option value="Service Provider">Service Provider</option>
@@ -171,7 +171,7 @@ export const Vendors = () => {
             <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Status</option>
               <option value="active">Active</option>
@@ -181,7 +181,7 @@ export const Vendors = () => {
           </div>
 
           {/* View Toggle */}
-          <div className="flex gap-1 p-1 bg-background-secondary rounded-lg">
+          <div className="flex gap-1 p-1 bg-white/[0.03] backdrop-blur-xl rounded-lg">
             <button
               onClick={() => setViewMode('grid')}
               className={`p-2 rounded transition-all ${
@@ -235,7 +235,7 @@ export const Vendors = () => {
                         <p className="text-xs text-text-secondary">{vendor.specialty}</p>
                       </div>
                     </div>
-                    <button className="p-1 hover:bg-background-tertiary rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button className="p-1 hover:bg-white/[0.05] rounded opacity-0 group-hover:opacity-100 transition-opacity">
                       <Edit size={16} className="text-text-secondary" />
                     </button>
                   </div>
@@ -269,7 +269,7 @@ export const Vendors = () => {
 
                   {/* Contract Info */}
                   {vendor.contractStart && (
-                    <div className="pt-3 border-t border-border-default space-y-2 text-xs text-text-secondary">
+                    <div className="pt-3 border-t border-white/[0.08] space-y-2 text-xs text-text-secondary">
                       <div className="flex justify-between">
                         <span>Contract Value</span>
                         <span className="text-text-primary font-medium">
@@ -286,7 +286,7 @@ export const Vendors = () => {
                   )}
 
                   {/* Actions */}
-                  <div className="flex items-center gap-2 mt-4 pt-3 border-t border-border-default">
+                  <div className="flex items-center gap-2 mt-4 pt-3 border-t border-white/[0.08]">
                     <button className="flex-1 flex items-center justify-center gap-1 py-2 text-sm text-text-secondary hover:text-accent-primary hover:bg-accent-primary/10 rounded transition-colors">
                       <Eye size={14} />
                       View
@@ -311,7 +311,7 @@ export const Vendors = () => {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-border-default">
+                <tr className="border-b border-white/[0.08]">
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Vendor</th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Type</th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Contact</th>
@@ -329,7 +329,7 @@ export const Vendors = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: index * 0.03 }}
-                    className="hover:bg-background-tertiary transition-colors"
+                    className="hover:bg-white/[0.05] transition-colors"
                   >
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-3">
@@ -357,13 +357,13 @@ export const Vendors = () => {
                     <td className="py-3 px-4">{getStatusBadge(vendor.status)}</td>
                     <td className="py-3 px-4">
                       <div className="flex items-center justify-end gap-1">
-                        <button className="p-2 hover:bg-background-secondary rounded text-text-secondary hover:text-accent-primary">
+                        <button className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-accent-primary">
                           <Eye size={14} />
                         </button>
-                        <button className="p-2 hover:bg-background-secondary rounded text-text-secondary hover:text-blue-400">
+                        <button className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-blue-400">
                           <Edit size={14} />
                         </button>
-                        <button className="p-2 hover:bg-background-secondary rounded text-text-secondary hover:text-red-400">
+                        <button className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-red-400">
                           <Trash2 size={14} />
                         </button>
                       </div>

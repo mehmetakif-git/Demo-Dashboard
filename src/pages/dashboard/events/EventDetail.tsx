@@ -55,7 +55,7 @@ export const EventDetail = () => {
         <p className="text-[#64748b] mb-4">Event not found</p>
         <button
           onClick={() => navigate('/dashboard/events/events')}
-          className="text-[#6366f1] hover:underline"
+          className="text-[#547792] hover:underline"
         >
           Back to Events
         </button>
@@ -117,7 +117,7 @@ export const EventDetail = () => {
               {getStatusIcon(event.status)}
               {event.status.charAt(0).toUpperCase() + event.status.slice(1)}
             </span>
-            <button className="flex items-center gap-2 rounded-lg border border-[#1e1e2e] bg-[#12121a] px-4 py-2 text-sm font-medium text-[#94a3b8] hover:bg-[#1a1a24]">
+            <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-4 py-2 text-sm font-medium text-[#94a3b8] hover:bg-[#1a1a24]">
               <Edit2 className="h-4 w-4" />
               Edit Event
             </button>
@@ -165,9 +165,9 @@ export const EventDetail = () => {
 
       {/* Date and Venue Info */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+        <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
           <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <CalendarDays className="h-5 w-5 text-[#6366f1]" />
+            <CalendarDays className="h-5 w-5 text-[#547792]" />
             Event Dates
           </h3>
           <div className="space-y-3">
@@ -208,9 +208,9 @@ export const EventDetail = () => {
           </div>
         </div>
 
-        <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+        <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
           <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <MapPin className="h-5 w-5 text-[#6366f1]" />
+            <MapPin className="h-5 w-5 text-[#547792]" />
             Venue
           </h3>
           <div className="space-y-3">
@@ -231,7 +231,7 @@ export const EventDetail = () => {
       </div>
 
       {/* Tabs */}
-      <div className="border-b border-[#1e1e2e]">
+      <div className="border-b border-white/[0.08]">
         <nav className="flex gap-8">
           {tabs.map((tab) => (
             <button
@@ -239,7 +239,7 @@ export const EventDetail = () => {
               onClick={() => setActiveTab(tab.id)}
               className={`pb-4 text-sm font-medium transition-colors border-b-2 ${
                 activeTab === tab.id
-                  ? 'text-[#6366f1] border-[#6366f1]'
+                  ? 'text-[#547792] border-[#547792]'
                   : 'text-[#64748b] border-transparent hover:text-white'
               }`}
             >
@@ -255,18 +255,18 @@ export const EventDetail = () => {
           {/* Left Column */}
           <div className="lg:col-span-2 space-y-6">
             {/* Description */}
-            <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+            <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
               <h3 className="text-lg font-semibold text-white mb-4">Description</h3>
               <p className="text-[#94a3b8]">{event.description}</p>
             </div>
 
             {/* Client Info */}
-            <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+            <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
               <h3 className="text-lg font-semibold text-white mb-4">Client Information</h3>
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#1a1a24]">
-                    <Building className="h-5 w-5 text-[#6366f1]" />
+                    <Building className="h-5 w-5 text-[#547792]" />
                   </div>
                   <div>
                     <p className="text-xs text-[#64748b]">Company</p>
@@ -275,7 +275,7 @@ export const EventDetail = () => {
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#1a1a24]">
-                    <User className="h-5 w-5 text-[#6366f1]" />
+                    <User className="h-5 w-5 text-[#547792]" />
                   </div>
                   <div>
                     <p className="text-xs text-[#64748b]">Contact</p>
@@ -284,7 +284,7 @@ export const EventDetail = () => {
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#1a1a24]">
-                    <Mail className="h-5 w-5 text-[#6366f1]" />
+                    <Mail className="h-5 w-5 text-[#547792]" />
                   </div>
                   <div>
                     <p className="text-xs text-[#64748b]">Email</p>
@@ -293,7 +293,7 @@ export const EventDetail = () => {
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#1a1a24]">
-                    <Phone className="h-5 w-5 text-[#6366f1]" />
+                    <Phone className="h-5 w-5 text-[#547792]" />
                   </div>
                   <div>
                     <p className="text-xs text-[#64748b]">Phone</p>
@@ -305,7 +305,7 @@ export const EventDetail = () => {
 
             {/* Ticket Types */}
             {event.ticketTypes.length > 0 && (
-              <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+              <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
                 <h3 className="text-lg font-semibold text-white mb-4">Ticket Sales</h3>
                 <div className="space-y-4">
                   {event.ticketTypes.map((ticket, index) => {
@@ -314,7 +314,7 @@ export const EventDetail = () => {
                       <div key={index} className="p-4 rounded-lg bg-[#1a1a24]">
                         <div className="flex justify-between mb-2">
                           <span className="text-white font-medium">{ticket.name}</span>
-                          <span className="text-[#6366f1] font-semibold">{formatCurrency(ticket.price)}</span>
+                          <span className="text-[#547792] font-semibold">{formatCurrency(ticket.price)}</span>
                         </div>
                         <div className="flex justify-between text-sm text-[#64748b] mb-2">
                           <span>{ticket.sold} sold</span>
@@ -322,7 +322,7 @@ export const EventDetail = () => {
                         </div>
                         <div className="h-2 rounded-full bg-[#1e1e2e]">
                           <div
-                            className="h-full rounded-full bg-gradient-to-r from-[#6366f1] to-[#8b5cf6]"
+                            className="h-full rounded-full bg-gradient-to-r from-[#547792] to-[#94B4C1]"
                             style={{ width: `${progress}%` }}
                           />
                         </div>
@@ -338,7 +338,7 @@ export const EventDetail = () => {
           <div className="space-y-6">
             {/* Sponsors */}
             {event.sponsors.length > 0 && (
-              <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+              <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
                 <h3 className="text-lg font-semibold text-white mb-4">Sponsors</h3>
                 <div className="space-y-3">
                   {event.sponsors.map((sponsor, index) => (
@@ -347,10 +347,10 @@ export const EventDetail = () => {
                         <p className="text-white font-medium">{sponsor.name}</p>
                         <p className="text-xs text-[#64748b]">{sponsor.level}</p>
                       </div>
-                      <span className="text-[#6366f1] font-semibold">{formatCurrency(sponsor.amount)}</span>
+                      <span className="text-[#547792] font-semibold">{formatCurrency(sponsor.amount)}</span>
                     </div>
                   ))}
-                  <div className="pt-3 border-t border-[#1e1e2e] flex justify-between">
+                  <div className="pt-3 border-t border-white/[0.08] flex justify-between">
                     <span className="text-[#64748b]">Total Sponsorship</span>
                     <span className="text-white font-semibold">{formatCurrency(sponsorRevenue)}</span>
                   </div>
@@ -359,15 +359,15 @@ export const EventDetail = () => {
             )}
 
             {/* Quick Actions */}
-            <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+            <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
               <h3 className="text-lg font-semibold text-white mb-4">Quick Actions</h3>
               <div className="grid grid-cols-2 gap-3">
                 <button className="flex flex-col items-center gap-2 rounded-lg bg-[#1a1a24] p-4 hover:bg-[#1e1e2e] transition-colors">
-                  <Users className="h-6 w-6 text-[#6366f1]" />
+                  <Users className="h-6 w-6 text-[#547792]" />
                   <span className="text-xs text-[#94a3b8]">Guest List</span>
                 </button>
                 <button className="flex flex-col items-center gap-2 rounded-lg bg-[#1a1a24] p-4 hover:bg-[#1e1e2e] transition-colors">
-                  <Ticket className="h-6 w-6 text-[#8b5cf6]" />
+                  <Ticket className="h-6 w-6 text-[#94B4C1]" />
                   <span className="text-xs text-[#94a3b8]">Tickets</span>
                 </button>
                 <button className="flex flex-col items-center gap-2 rounded-lg bg-[#1a1a24] p-4 hover:bg-[#1e1e2e] transition-colors">
@@ -383,7 +383,7 @@ export const EventDetail = () => {
 
             {/* Notes */}
             {event.notes && (
-              <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+              <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
                 <h3 className="text-lg font-semibold text-white mb-4">Notes</h3>
                 <p className="text-[#94a3b8]">{event.notes}</p>
               </div>
@@ -393,7 +393,7 @@ export const EventDetail = () => {
       )}
 
       {activeTab === 'agenda' && (
-        <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+        <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
           <h3 className="text-lg font-semibold text-white mb-4">Event Agenda</h3>
           {event.agenda && event.agenda.length > 0 ? (
             <div className="space-y-4">
@@ -425,8 +425,8 @@ export const EventDetail = () => {
             <div className="space-y-3">
               {event.activities.map((activity, index) => (
                 <div key={index} className="flex items-center gap-4 p-3 rounded-lg bg-[#1a1a24]">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#6366f1]/20">
-                    <CalendarDays className="h-5 w-5 text-[#6366f1]" />
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#547792]/20">
+                    <CalendarDays className="h-5 w-5 text-[#547792]" />
                   </div>
                   <div className="flex-1">
                     <p className="text-white font-medium">{activity.name}</p>
@@ -442,8 +442,8 @@ export const EventDetail = () => {
       )}
 
       {activeTab === 'guests' && (
-        <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] overflow-hidden">
-          <div className="p-6 border-b border-[#1e1e2e]">
+        <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl overflow-hidden">
+          <div className="p-6 border-b border-white/[0.08]">
             <h3 className="text-lg font-semibold text-white">Guest List</h3>
             <p className="text-sm text-[#64748b]">{eventGuests.length} guests registered</p>
           </div>
@@ -451,7 +451,7 @@ export const EventDetail = () => {
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-[#1e1e2e]">
+                  <tr className="border-b border-white/[0.08]">
                     <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">Guest</th>
                     <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">Company</th>
                     <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">Ticket</th>
@@ -501,7 +501,7 @@ export const EventDetail = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {eventVendorsList.length > 0 ? (
             eventVendorsList.map((vendor) => (
-              <div key={vendor.id} className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+              <div key={vendor.id} className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
                 <div className="flex items-start justify-between mb-4">
                   <div>
                     <h4 className="text-white font-semibold">{vendor.name}</h4>
@@ -525,7 +525,7 @@ export const EventDetail = () => {
                     <span className="text-[#94a3b8]">{vendor.contact.email}</span>
                   </div>
                 </div>
-                <div className="mt-4 pt-4 border-t border-[#1e1e2e]">
+                <div className="mt-4 pt-4 border-t border-white/[0.08]">
                   <p className="text-xs text-[#64748b] mb-2">Services</p>
                   <div className="flex flex-wrap gap-1">
                     {vendor.services.slice(0, 3).map((service, idx) => (
@@ -554,19 +554,19 @@ export const EventDetail = () => {
         <div className="space-y-6">
           {/* Budget Overview */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+            <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
               <p className="text-[#64748b] text-sm mb-1">Estimated Budget</p>
               <p className="text-2xl font-bold text-white">{formatCurrency(event.budget.estimated)}</p>
             </div>
-            <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+            <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
               <p className="text-[#64748b] text-sm mb-1">Actual Spent</p>
               <p className="text-2xl font-bold text-white">{formatCurrency(event.budget.actual)}</p>
             </div>
-            <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+            <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
               <p className="text-[#64748b] text-sm mb-1">Revenue</p>
               <p className="text-2xl font-bold text-emerald-400">{formatCurrency(event.budget.revenue)}</p>
             </div>
-            <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+            <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
               <p className="text-[#64748b] text-sm mb-1">Profit/Loss</p>
               <p className={`text-2xl font-bold ${event.budget.profit >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
                 {event.budget.profit >= 0 ? '+' : ''}{formatCurrency(event.budget.profit)}
@@ -575,7 +575,7 @@ export const EventDetail = () => {
           </div>
 
           {/* Revenue Breakdown */}
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4">Revenue Breakdown</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="p-4 rounded-lg bg-[#1a1a24]">
@@ -600,9 +600,9 @@ export const EventDetail = () => {
       {activeTab === 'team' && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {event.team.map((member) => (
-            <div key={member.id} className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+            <div key={member.id} className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
               <div className="flex items-center gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-[#6366f1] to-[#8b5cf6] text-white font-semibold">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-[#547792] to-[#94B4C1] text-white font-semibold">
                   {member.name.split(' ').map(n => n[0]).join('')}
                 </div>
                 <div>
@@ -611,7 +611,7 @@ export const EventDetail = () => {
                 </div>
               </div>
               {member.name === event.eventManager && (
-                <span className="mt-4 inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full bg-[#6366f1]/20 text-[#6366f1]">
+                <span className="mt-4 inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full bg-[#547792]/20 text-[#547792]">
                   <CheckCircle className="h-3 w-3" />
                   Event Manager
                 </span>

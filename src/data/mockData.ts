@@ -191,13 +191,6 @@ export const menuGroups: MenuGroup[] = [
         ],
       },
       {
-        id: 'reports',
-        label: 'Reports',
-        icon: BarChart3,
-        color: '#3b82f6',
-        children: [],
-      },
-      {
         id: 'qr-codes',
         label: 'QR Codes',
         icon: QrCode,

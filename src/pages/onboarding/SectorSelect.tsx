@@ -31,15 +31,28 @@ export const SectorSelect = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Disable scroll when spotlight is active
+  // Disable scroll when spotlight is active (but keep scrollbar visible)
   useEffect(() => {
-    if (showSpotlight) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+    if (!showSpotlight) return;
+
+    const preventScroll = (e: Event) => {
+      e.preventDefault();
+    };
+
+    const preventKeyScroll = (e: KeyboardEvent) => {
+      if (['ArrowUp', 'ArrowDown', 'Space', 'PageUp', 'PageDown', 'Home', 'End'].includes(e.key)) {
+        e.preventDefault();
+      }
+    };
+
+    window.addEventListener('wheel', preventScroll, { passive: false });
+    window.addEventListener('touchmove', preventScroll, { passive: false });
+    window.addEventListener('keydown', preventKeyScroll);
+
     return () => {
-      document.body.style.overflow = '';
+      window.removeEventListener('wheel', preventScroll);
+      window.removeEventListener('touchmove', preventScroll);
+      window.removeEventListener('keydown', preventKeyScroll);
     };
   }, [showSpotlight]);
 
@@ -161,7 +174,7 @@ export const SectorSelect = () => {
                       transition-all duration-300 group
                       before:absolute before:inset-0 before:rounded-xl before:bg-gradient-to-b before:from-white/[0.08] before:to-transparent before:pointer-events-none
                       ${isActive
-                        ? 'cursor-pointer hover:border-[#8b5cf6]/50 hover:scale-[1.02] hover:bg-white/[0.05]'
+                        ? 'cursor-pointer hover:border-[#94B4C1]/50 hover:scale-[1.02] hover:bg-white/[0.05]'
                         : 'cursor-not-allowed opacity-50 grayscale'
                       }
                     `}
@@ -193,7 +206,7 @@ export const SectorSelect = () => {
 
                     {/* Hover Glow Effect */}
                     {isActive && (
-                      <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-[#6366f1]/0 via-[#8b5cf6]/10 to-[#6366f1]/0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                      <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-[#547792]/0 via-[#94B4C1]/10 to-[#547792]/0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
                     )}
                   </GlareHover>
                 </motion.div>
@@ -235,8 +248,8 @@ export const SectorSelect = () => {
                   height: spotlightPosition.height + 8,
                 }}
               >
-                <div className="absolute inset-0 rounded-xl border-2 border-indigo-500/50 animate-pulse" />
-                <div className="absolute inset-0 rounded-xl border border-indigo-400/30 animate-ping" style={{ animationDuration: '2s' }} />
+                <div className="absolute inset-0 rounded-xl border-2 border-[#94B4C1]/50 animate-pulse" />
+                <div className="absolute inset-0 rounded-xl border border-[#94B4C1]/30 animate-ping" style={{ animationDuration: '2s' }} />
               </motion.div>
 
               {/* Tooltip */}

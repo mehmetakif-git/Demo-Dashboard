@@ -71,13 +71,13 @@ export const Guests = () => {
               className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
                 checkInMode
                   ? 'bg-emerald-500 text-white'
-                  : 'border border-[#1e1e2e] bg-[#12121a] text-[#94a3b8] hover:bg-[#1a1a24]'
+                  : 'border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl text-[#94a3b8] hover:bg-[#1a1a24]'
               }`}
             >
               <QrCode className="h-4 w-4" />
               Check-In Mode
             </button>
-            <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
+            <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
               <Plus className="h-4 w-4" />
               Add Guest
             </button>
@@ -86,12 +86,12 @@ export const Guests = () => {
       />
 
       {/* Event Selector */}
-      <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-4">
+      <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-4">
         <label className="block text-sm text-[#64748b] mb-2">Select Event</label>
         <select
           value={selectedEvent}
           onChange={(e) => setSelectedEvent(e.target.value)}
-          className="w-full max-w-md rounded-lg border border-[#1e1e2e] bg-[#1a1a24] px-4 py-2 text-white focus:border-[#6366f1] focus:outline-none"
+          className="w-full max-w-md rounded-lg border border-white/[0.08] bg-[#1a1a24] px-4 py-2 text-white focus:border-[#547792] focus:outline-none"
         >
           {events.map((event) => (
             <option key={event.id} value={event.id}>
@@ -148,7 +148,7 @@ export const Guests = () => {
               placeholder="Search by name or email..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full rounded-lg border border-emerald-500/50 bg-[#12121a] py-3 pl-12 pr-4 text-lg text-white placeholder-[#64748b] focus:border-emerald-500 focus:outline-none"
+              className="w-full rounded-lg border border-emerald-500/50 bg-white/[0.03] backdrop-blur-xl py-3 pl-12 pr-4 text-lg text-white placeholder-[#64748b] focus:border-emerald-500 focus:outline-none"
               autoFocus
             />
           </div>
@@ -165,14 +165,14 @@ export const Guests = () => {
               placeholder="Search guests..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full rounded-lg border border-[#1e1e2e] bg-[#12121a] py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#6366f1] focus:outline-none"
+              className="w-full rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#547792] focus:outline-none"
             />
           </div>
           <div className="flex gap-2">
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="rounded-lg border border-[#1e1e2e] bg-[#12121a] px-3 py-2 text-sm text-white focus:border-[#6366f1] focus:outline-none"
+              className="rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
             >
               <option value="all">All Status</option>
               {guestStatuses.map((status) => (
@@ -181,15 +181,15 @@ export const Guests = () => {
                 </option>
               ))}
             </select>
-            <button className="flex items-center gap-2 rounded-lg border border-[#1e1e2e] bg-[#12121a] px-3 py-2 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
+            <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
               <Filter className="h-4 w-4" />
               More Filters
             </button>
-            <button className="flex items-center gap-2 rounded-lg border border-[#1e1e2e] bg-[#12121a] px-3 py-2 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
+            <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
               <Upload className="h-4 w-4" />
               Import
             </button>
-            <button className="flex items-center gap-2 rounded-lg border border-[#1e1e2e] bg-[#12121a] px-3 py-2 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
+            <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
               <Download className="h-4 w-4" />
               Export
             </button>
@@ -198,11 +198,11 @@ export const Guests = () => {
       )}
 
       {/* Guests Table */}
-      <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] overflow-hidden">
+      <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-[#1e1e2e]">
+              <tr className="border-b border-white/[0.08]">
                 <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-[#64748b]">Guest</th>
                 <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-[#64748b]">Company/Title</th>
                 <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-[#64748b]">Ticket</th>
@@ -221,7 +221,7 @@ export const Guests = () => {
                     <tr key={guest.id} className="hover:bg-[#1a1a24]">
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-3">
-                          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#6366f1] to-[#8b5cf6] text-white text-sm font-semibold">
+                          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#547792] to-[#94B4C1] text-white text-sm font-semibold">
                             {guest.firstName[0]}{guest.lastName[0]}
                           </div>
                           <div>
@@ -258,7 +258,7 @@ export const Guests = () => {
                               key={index}
                               className={`rounded-full px-2 py-0.5 text-xs ${
                                 tag === 'vip'
-                                  ? 'bg-[#6366f1]/20 text-[#6366f1]'
+                                  ? 'bg-[#547792]/20 text-[#547792]'
                                   : 'bg-[#1e1e2e] text-[#94a3b8]'
                               }`}
                             >
@@ -311,10 +311,10 @@ export const Guests = () => {
           Showing {filteredGuests.length} of {eventGuests.length} guests
         </p>
         <div className="flex gap-2">
-          <button className="rounded-lg border border-[#1e1e2e] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
+          <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
             Previous
           </button>
-          <button className="rounded-lg border border-[#1e1e2e] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
+          <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
             Next
           </button>
         </div>

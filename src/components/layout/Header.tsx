@@ -128,8 +128,8 @@ export const Header = () => {
           <Bell className="h-5 w-5" />
           {/* Notification badge */}
           <span className="absolute right-1.5 top-1.5 flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#6366f1] opacity-75"></span>
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-[#6366f1]"></span>
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#547792] opacity-75"></span>
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-[#547792]"></span>
           </span>
         </button>
 

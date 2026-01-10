@@ -96,7 +96,7 @@ export const Templates = () => {
           title="Total Templates"
           value={stats.total.toString()}
           icon={QrCode}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
         <StatsCard
           title="Favorite Templates"
@@ -114,7 +114,7 @@ export const Templates = () => {
           title="Default Templates"
           value={stats.default.toString()}
           icon={QrCode}
-          iconColor="#8b5cf6"
+          iconColor="#94B4C1"
         />
       </div>
 
@@ -134,7 +134,7 @@ export const Templates = () => {
             <select
               value={selectedType}
               onChange={(e) => setSelectedType(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Types</option>
               {qrCodeTypes.map(type => (
@@ -147,7 +147,7 @@ export const Templates = () => {
               className={`px-3 py-2 rounded-lg flex items-center gap-2 transition-all ${
                 showFavorites
                   ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30'
-                  : 'bg-background-tertiary border border-border-default text-text-secondary hover:text-text-primary'
+                  : 'bg-white/[0.05] border border-white/[0.08] text-text-secondary hover:text-text-primary'
               }`}
             >
               <Star size={16} className={showFavorites ? 'fill-yellow-400' : ''} />
@@ -156,7 +156,7 @@ export const Templates = () => {
           </div>
 
           {/* View Toggle */}
-          <div className="flex gap-1 p-1 bg-background-secondary rounded-lg">
+          <div className="flex gap-1 p-1 bg-white/[0.03] backdrop-blur-xl rounded-lg">
             <button
               onClick={() => setViewMode('grid')}
               className={`p-2 rounded transition-all ${
@@ -206,7 +206,7 @@ export const Templates = () => {
                     {/* Favorite Button */}
                     <button
                       onClick={() => toggleFavorite(template.id)}
-                      className="absolute top-3 right-3 p-1 hover:bg-background-tertiary rounded transition-colors"
+                      className="absolute top-3 right-3 p-1 hover:bg-white/[0.05] rounded transition-colors"
                     >
                       {isFavorite ? (
                         <Star size={18} className="text-yellow-400 fill-yellow-400" />
@@ -252,11 +252,11 @@ export const Templates = () => {
                     <div className="flex items-center justify-center gap-2 mb-4">
                       <div className="flex items-center gap-1">
                         <div
-                          className="w-4 h-4 rounded border border-border-default"
+                          className="w-4 h-4 rounded border border-white/[0.08]"
                           style={{ backgroundColor: template.style.foregroundColor }}
                         />
                         <div
-                          className="w-4 h-4 rounded border border-border-default"
+                          className="w-4 h-4 rounded border border-white/[0.08]"
                           style={{ backgroundColor: template.style.backgroundColor }}
                         />
                       </div>
@@ -264,7 +264,7 @@ export const Templates = () => {
                     </div>
 
                     {/* Actions */}
-                    <div className="flex items-center gap-2 pt-3 border-t border-border-default">
+                    <div className="flex items-center gap-2 pt-3 border-t border-white/[0.08]">
                       <Button
                         variant="primary"
                         size="sm"
@@ -273,10 +273,10 @@ export const Templates = () => {
                       >
                         Use Template
                       </Button>
-                      <button className="p-2 hover:bg-background-tertiary rounded text-text-secondary hover:text-blue-400">
+                      <button className="p-2 hover:bg-white/[0.05] rounded text-text-secondary hover:text-blue-400">
                         <Edit size={16} />
                       </button>
-                      <button className="p-2 hover:bg-background-tertiary rounded text-text-secondary hover:text-green-400">
+                      <button className="p-2 hover:bg-white/[0.05] rounded text-text-secondary hover:text-green-400">
                         <Copy size={16} />
                       </button>
                     </div>
@@ -292,7 +292,7 @@ export const Templates = () => {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-border-default">
+                <tr className="border-b border-white/[0.08]">
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Template</th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Type</th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Style</th>
@@ -312,13 +312,13 @@ export const Templates = () => {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: index * 0.03 }}
-                      className="hover:bg-background-tertiary transition-colors"
+                      className="hover:bg-white/[0.05] transition-colors"
                     >
                       <td className="py-3 px-4">
                         <div className="flex items-center gap-3">
                           <button
                             onClick={() => toggleFavorite(template.id)}
-                            className="p-1 hover:bg-background-secondary rounded"
+                            className="p-1 hover:bg-white/[0.03] backdrop-blur-xl rounded"
                           >
                             {isFavorite ? (
                               <Star size={16} className="text-yellow-400 fill-yellow-400" />
@@ -349,11 +349,11 @@ export const Templates = () => {
                       <td className="py-3 px-4">
                         <div className="flex items-center gap-2">
                           <div
-                            className="w-5 h-5 rounded border border-border-default"
+                            className="w-5 h-5 rounded border border-white/[0.08]"
                             style={{ backgroundColor: template.style.foregroundColor }}
                           />
                           <div
-                            className="w-5 h-5 rounded border border-border-default"
+                            className="w-5 h-5 rounded border border-white/[0.08]"
                             style={{ backgroundColor: template.style.backgroundColor }}
                           />
                           <span className="text-xs text-text-muted capitalize">{template.style.cornerStyle}</span>
@@ -372,13 +372,13 @@ export const Templates = () => {
                           <Button size="sm" onClick={() => handleUseTemplate(template)}>
                             Use
                           </Button>
-                          <button className="p-2 hover:bg-background-secondary rounded text-text-secondary hover:text-blue-400">
+                          <button className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-blue-400">
                             <Edit size={14} />
                           </button>
-                          <button className="p-2 hover:bg-background-secondary rounded text-text-secondary hover:text-green-400">
+                          <button className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-green-400">
                             <Copy size={14} />
                           </button>
-                          <button className="p-2 hover:bg-background-secondary rounded text-text-secondary hover:text-red-400">
+                          <button className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-red-400">
                             <Trash2 size={14} />
                           </button>
                         </div>

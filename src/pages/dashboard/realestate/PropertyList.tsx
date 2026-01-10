@@ -71,7 +71,7 @@ export const PropertyList = () => {
         title="Properties"
         subtitle="Manage your property listings"
         actions={
-          <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-500 px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
+          <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
             <Plus className="h-4 w-4" />
             Add Listing
           </button>
@@ -107,7 +107,7 @@ export const PropertyList = () => {
       </div>
 
       {/* Filters */}
-      <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-4">
+      <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-4">
         <div className="flex flex-col lg:flex-row gap-4">
           {/* Search */}
           <div className="flex-1">
@@ -118,20 +118,20 @@ export const PropertyList = () => {
                 placeholder="Search by address, MLS#..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full rounded-lg border border-[#1e1e2e] bg-[#0a0a0f] py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-indigo-500 focus:outline-none"
+                className="w-full rounded-lg border border-white/[0.08] bg-[#0a0a0f] py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#547792] focus:outline-none"
               />
             </div>
           </div>
 
           {/* Category Toggle */}
-          <div className="flex items-center gap-1 rounded-lg border border-[#1e1e2e] bg-[#0a0a0f] p-1">
+          <div className="flex items-center gap-1 rounded-lg border border-white/[0.08] bg-[#0a0a0f] p-1">
             {(['all', 'sale', 'rent'] as CategoryFilter[]).map((category) => (
               <button
                 key={category}
                 onClick={() => setCategoryFilter(category)}
                 className={`rounded-md px-4 py-1.5 text-sm font-medium transition-colors ${
                   categoryFilter === category
-                    ? 'bg-indigo-500/20 text-indigo-400'
+                    ? 'bg-[#547792]/20 text-[#547792]'
                     : 'text-[#94a3b8] hover:text-white'
                 }`}
               >
@@ -145,8 +145,8 @@ export const PropertyList = () => {
             onClick={() => setShowFilters(!showFilters)}
             className={`flex items-center gap-2 rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${
               showFilters
-                ? 'border-indigo-500 bg-indigo-500/10 text-indigo-400'
-                : 'border-[#1e1e2e] text-[#94a3b8] hover:text-white'
+                ? 'border-[#547792] bg-[#547792]/10 text-[#547792]'
+                : 'border-white/[0.08] text-[#94a3b8] hover:text-white'
             }`}
           >
             <Filter className="h-4 w-4" />
@@ -154,11 +154,11 @@ export const PropertyList = () => {
           </button>
 
           {/* View Toggle */}
-          <div className="flex items-center gap-1 rounded-lg border border-[#1e1e2e] bg-[#0a0a0f] p-1">
+          <div className="flex items-center gap-1 rounded-lg border border-white/[0.08] bg-[#0a0a0f] p-1">
             <button
               onClick={() => setViewMode('grid')}
               className={`rounded-md p-2 transition-colors ${
-                viewMode === 'grid' ? 'bg-indigo-500/20 text-indigo-400' : 'text-[#64748b] hover:text-white'
+                viewMode === 'grid' ? 'bg-[#547792]/20 text-[#547792]' : 'text-[#64748b] hover:text-white'
               }`}
             >
               <Grid3X3 className="h-4 w-4" />
@@ -166,7 +166,7 @@ export const PropertyList = () => {
             <button
               onClick={() => setViewMode('list')}
               className={`rounded-md p-2 transition-colors ${
-                viewMode === 'list' ? 'bg-indigo-500/20 text-indigo-400' : 'text-[#64748b] hover:text-white'
+                viewMode === 'list' ? 'bg-[#547792]/20 text-[#547792]' : 'text-[#64748b] hover:text-white'
               }`}
             >
               <List className="h-4 w-4" />
@@ -174,7 +174,7 @@ export const PropertyList = () => {
             <button
               onClick={() => setViewMode('map')}
               className={`rounded-md p-2 transition-colors ${
-                viewMode === 'map' ? 'bg-indigo-500/20 text-indigo-400' : 'text-[#64748b] hover:text-white'
+                viewMode === 'map' ? 'bg-[#547792]/20 text-[#547792]' : 'text-[#64748b] hover:text-white'
               }`}
             >
               <MapPin className="h-4 w-4" />
@@ -188,14 +188,14 @@ export const PropertyList = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="mt-4 pt-4 border-t border-[#1e1e2e] grid grid-cols-2 md:grid-cols-4 gap-4"
+            className="mt-4 pt-4 border-t border-white/[0.08] grid grid-cols-2 md:grid-cols-4 gap-4"
           >
             <div>
               <label className="block text-xs font-medium text-[#64748b] mb-1">Property Type</label>
               <select
                 value={typeFilter}
                 onChange={(e) => setTypeFilter(e.target.value)}
-                className="w-full rounded-lg border border-[#1e1e2e] bg-[#0a0a0f] px-3 py-2 text-sm text-white focus:border-indigo-500 focus:outline-none"
+                className="w-full rounded-lg border border-white/[0.08] bg-[#0a0a0f] px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
               >
                 <option value="all">All Types</option>
                 {propertyTypes.map((type) => (
@@ -210,7 +210,7 @@ export const PropertyList = () => {
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="w-full rounded-lg border border-[#1e1e2e] bg-[#0a0a0f] px-3 py-2 text-sm text-white focus:border-indigo-500 focus:outline-none"
+                className="w-full rounded-lg border border-white/[0.08] bg-[#0a0a0f] px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
               >
                 <option value="all">All Statuses</option>
                 {propertyStatuses.map((status) => (
@@ -237,7 +237,7 @@ export const PropertyList = () => {
               key={property.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="group rounded-xl border border-[#1e1e2e] bg-[#12121a] overflow-hidden hover:border-[#2e2e3e] transition-colors cursor-pointer"
+              className="group rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl overflow-hidden hover:border-[#2e2e3e] transition-colors cursor-pointer"
               onClick={() => navigate(`/dashboard/realestate/properties/${property.id}`)}
             >
               {/* Image Placeholder */}
@@ -275,7 +275,7 @@ export const PropertyList = () => {
                 </div>
 
                 {/* Title */}
-                <h3 className="text-sm font-medium text-white mb-1 group-hover:text-indigo-400 transition-colors">
+                <h3 className="text-sm font-medium text-white mb-1 group-hover:text-[#547792] transition-colors">
                   {property.title}
                 </h3>
 
@@ -306,7 +306,7 @@ export const PropertyList = () => {
                 </div>
 
                 {/* Footer */}
-                <div className="flex items-center justify-between pt-3 border-t border-[#1e1e2e]">
+                <div className="flex items-center justify-between pt-3 border-t border-white/[0.08]">
                   <div className="flex items-center gap-2 text-xs text-[#64748b]">
                     <Calendar className="h-3.5 w-3.5" />
                     {property.daysOnMarket} days on market
@@ -340,10 +340,10 @@ export const PropertyList = () => {
 
       {/* List View */}
       {viewMode === 'list' && (
-        <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] overflow-hidden">
+        <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl overflow-hidden">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-[#1e1e2e]">
+              <tr className="border-b border-white/[0.08]">
                 <th className="px-4 py-3 text-left text-xs font-medium text-[#64748b]">Property</th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-[#64748b]">Price</th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-[#64748b]">Type</th>
@@ -357,7 +357,7 @@ export const PropertyList = () => {
               {filteredProperties.map((property) => (
                 <tr
                   key={property.id}
-                  className="border-b border-[#1e1e2e] hover:bg-[#1a1a24] cursor-pointer"
+                  className="border-b border-white/[0.08] hover:bg-[#1a1a24] cursor-pointer"
                   onClick={() => navigate(`/dashboard/realestate/properties/${property.id}`)}
                 >
                   <td className="px-4 py-3">
@@ -413,7 +413,7 @@ export const PropertyList = () => {
 
       {/* Map View Placeholder */}
       {viewMode === 'map' && (
-        <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-8 text-center">
+        <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-8 text-center">
           <MapPin className="h-16 w-16 text-[#2e2e3e] mx-auto mb-4" />
           <h3 className="text-lg font-medium text-white mb-2">Map View</h3>
           <p className="text-sm text-[#64748b]">Interactive map view coming soon. Properties will be displayed on an interactive map with clustering and quick info popups.</p>

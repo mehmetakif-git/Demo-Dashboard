@@ -34,7 +34,7 @@ export const MembershipPlans = () => {
       title: 'Total Plans',
       value: membershipPlans.length.toString(),
       icon: CreditCard,
-      iconColor: '#6366f1',
+      iconColor: '#547792',
     },
     {
       title: 'Active Members',
@@ -101,7 +101,7 @@ export const MembershipPlans = () => {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-border-default">
+              <tr className="border-b border-white/[0.08]">
                 <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
                   Feature
                 </th>
@@ -117,7 +117,7 @@ export const MembershipPlans = () => {
               </tr>
             </thead>
             <tbody>
-              <tr className="border-b border-border-default">
+              <tr className="border-b border-white/[0.08]">
                 <td className="py-3 px-4 text-text-secondary">Price</td>
                 {membershipPlans.slice(0, 4).map((plan) => (
                   <td key={plan.id} className="py-3 px-4 text-center">
@@ -130,7 +130,7 @@ export const MembershipPlans = () => {
                   </td>
                 ))}
               </tr>
-              <tr className="border-b border-border-default">
+              <tr className="border-b border-white/[0.08]">
                 <td className="py-3 px-4 text-text-secondary">Gym Access</td>
                 {membershipPlans.slice(0, 4).map((plan) => (
                   <td key={plan.id} className="py-3 px-4 text-center">
@@ -138,7 +138,7 @@ export const MembershipPlans = () => {
                   </td>
                 ))}
               </tr>
-              <tr className="border-b border-border-default">
+              <tr className="border-b border-white/[0.08]">
                 <td className="py-3 px-4 text-text-secondary">Group Classes</td>
                 {membershipPlans.slice(0, 4).map((plan) => (
                   <td key={plan.id} className="py-3 px-4 text-center">
@@ -150,7 +150,7 @@ export const MembershipPlans = () => {
                   </td>
                 ))}
               </tr>
-              <tr className="border-b border-border-default">
+              <tr className="border-b border-white/[0.08]">
                 <td className="py-3 px-4 text-text-secondary">Pool Access</td>
                 {membershipPlans.slice(0, 4).map((plan) => (
                   <td key={plan.id} className="py-3 px-4 text-center">
@@ -162,7 +162,7 @@ export const MembershipPlans = () => {
                   </td>
                 ))}
               </tr>
-              <tr className="border-b border-border-default">
+              <tr className="border-b border-white/[0.08]">
                 <td className="py-3 px-4 text-text-secondary">PT Sessions</td>
                 {membershipPlans.slice(0, 4).map((plan) => (
                   <td key={plan.id} className="py-3 px-4 text-center">
@@ -200,7 +200,7 @@ const PlanCard = ({ plan, onEdit }: PlanCardProps) => {
 
   return (
     <div
-      className="relative overflow-hidden rounded-lg border border-border-default bg-background-secondary"
+      className="relative overflow-hidden rounded-xl bg-white/[0.03] backdrop-blur-xl border border-white/[0.08]"
       style={{ borderTopColor: plan.color, borderTopWidth: '4px' }}
     >
       {isPopular && (
@@ -241,7 +241,7 @@ const PlanCard = ({ plan, onEdit }: PlanCardProps) => {
         </div>
 
         {plan.restrictions.length > 0 && (
-          <div className="border-t border-border-default pt-4 mb-6">
+          <div className="border-t border-white/[0.08] pt-4 mb-6">
             <p className="text-xs text-text-muted mb-2">Restrictions:</p>
             {plan.restrictions.map((restriction, index) => (
               <div key={index} className="flex items-start gap-2">

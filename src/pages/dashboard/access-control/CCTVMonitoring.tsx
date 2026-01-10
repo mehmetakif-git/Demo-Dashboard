@@ -167,7 +167,7 @@ export const CCTVMonitoring = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <span className="text-sm text-text-secondary">Grid Layout:</span>
-            <div className="flex gap-1 p-1 bg-background-secondary rounded-lg">
+            <div className="flex gap-1 p-1 bg-white/[0.03] backdrop-blur-xl rounded-lg">
               <button
                 onClick={() => { setGridLayout('2x2'); setSelectedCamera(null); }}
                 className={`p-2 rounded transition-all ${
@@ -352,8 +352,8 @@ export const CCTVMonitoring = () => {
                 selectedCamera === camera.id
                   ? 'bg-accent-primary/20 border border-accent-primary'
                   : camera.status === 'online'
-                  ? 'bg-background-tertiary hover:bg-background-secondary'
-                  : 'bg-background-tertiary opacity-50 cursor-not-allowed'
+                  ? 'bg-white/[0.05] hover:bg-white/[0.03] backdrop-blur-xl'
+                  : 'bg-white/[0.05] opacity-50 cursor-not-allowed'
               }`}
             >
               {getStatusIcon(camera.status)}

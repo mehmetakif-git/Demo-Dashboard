@@ -62,8 +62,8 @@ export const CustomerList = () => {
       sortable: true,
       render: (customer: Customer) => (
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#6366f1]/10">
-            <Building2 className="h-5 w-5 text-[#6366f1]" />
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#547792]/10">
+            <Building2 className="h-5 w-5 text-[#547792]" />
           </div>
           <div>
             <p className="font-medium text-white">{customer.name}</p>
@@ -152,12 +152,12 @@ export const CustomerList = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         onClick={() => navigate(`/dashboard/crm/customers/${customer.id}`)}
-        className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-5 hover:border-[#6366f1]/50 transition-colors cursor-pointer"
+        className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-5 hover:border-[#547792]/50 transition-colors cursor-pointer"
       >
         <div className="flex items-start justify-between mb-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-[#6366f1]/10">
-              <Building2 className="h-6 w-6 text-[#6366f1]" />
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-[#547792]/10">
+              <Building2 className="h-6 w-6 text-[#547792]" />
             </div>
             <div>
               <h3 className="font-semibold text-white">{customer.name}</h3>
@@ -178,7 +178,7 @@ export const CustomerList = () => {
           </div>
         </div>
 
-        <div className="flex items-center justify-between pt-4 border-t border-[#1e1e2e]">
+        <div className="flex items-center justify-between pt-4 border-t border-white/[0.08]">
           <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${colors.bg} ${colors.text}`}>
             {customer.segment}
           </span>
@@ -199,7 +199,7 @@ export const CustomerList = () => {
         title="Customers"
         subtitle="Manage your customer relationships"
         actions={
-          <button className="flex items-center gap-2 rounded-lg bg-[#6366f1] px-4 py-2 text-sm font-medium text-white hover:bg-[#5558e3] transition-colors">
+          <button className="flex items-center gap-2 rounded-lg bg-[#547792] px-4 py-2 text-sm font-medium text-white hover:bg-[#5558e3] transition-colors">
             <Plus className="h-4 w-4" />
             Add Customer
           </button>
@@ -212,7 +212,7 @@ export const CustomerList = () => {
           title="Total Customers"
           value={stats.totalCustomers.toString()}
           icon={Building2}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
         <StatsCard
           title="Active Customers"
@@ -225,7 +225,7 @@ export const CustomerList = () => {
           title="Enterprise Segment"
           value={stats.enterpriseCustomers.toString()}
           icon={Building2}
-          iconColor="#8b5cf6"
+          iconColor="#94B4C1"
         />
         <StatsCard
           title="Total Revenue"
@@ -236,7 +236,7 @@ export const CustomerList = () => {
       </div>
 
       {/* Filters */}
-      <div className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-4">
+      <div className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-4">
         <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
           <div className="flex flex-wrap gap-3 items-center">
             {/* Search */}
@@ -247,7 +247,7 @@ export const CustomerList = () => {
                 placeholder="Search customers..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 pr-4 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white placeholder-[#64748b] focus:outline-none focus:border-[#6366f1] w-64"
+                className="pl-10 pr-4 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white placeholder-[#64748b] focus:outline-none focus:border-[#547792] w-64"
               />
             </div>
 
@@ -255,7 +255,7 @@ export const CustomerList = () => {
             <select
               value={segmentFilter}
               onChange={(e) => setSegmentFilter(e.target.value)}
-              className="px-3 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white focus:outline-none focus:border-[#6366f1]"
+              className="px-3 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white focus:outline-none focus:border-[#547792]"
             >
               <option value="all">All Segments</option>
               <option value="Enterprise">Enterprise</option>
@@ -267,7 +267,7 @@ export const CustomerList = () => {
             <select
               value={industryFilter}
               onChange={(e) => setIndustryFilter(e.target.value)}
-              className="px-3 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white focus:outline-none focus:border-[#6366f1]"
+              className="px-3 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white focus:outline-none focus:border-[#547792]"
             >
               <option value="all">All Industries</option>
               {industries.map(industry => (
@@ -279,7 +279,7 @@ export const CustomerList = () => {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="px-3 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white focus:outline-none focus:border-[#6366f1]"
+              className="px-3 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white focus:outline-none focus:border-[#547792]"
             >
               <option value="all">All Status</option>
               <option value="active">Active</option>
@@ -293,7 +293,7 @@ export const CustomerList = () => {
               onClick={() => setViewMode('table')}
               className={`p-2 rounded-md transition-colors ${
                 viewMode === 'table'
-                  ? 'bg-[#6366f1] text-white'
+                  ? 'bg-[#547792] text-white'
                   : 'text-[#64748b] hover:text-white'
               }`}
             >
@@ -303,7 +303,7 @@ export const CustomerList = () => {
               onClick={() => setViewMode('card')}
               className={`p-2 rounded-md transition-colors ${
                 viewMode === 'card'
-                  ? 'bg-[#6366f1] text-white'
+                  ? 'bg-[#547792] text-white'
                   : 'text-[#64748b] hover:text-white'
               }`}
             >

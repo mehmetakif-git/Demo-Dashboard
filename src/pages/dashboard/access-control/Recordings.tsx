@@ -69,7 +69,7 @@ export const Recordings = () => {
     const config: Record<string, { bg: string; text: string }> = {
       continuous: { bg: 'bg-blue-500/20', text: 'text-blue-400' },
       motion: { bg: 'bg-orange-500/20', text: 'text-orange-400' },
-      scheduled: { bg: 'bg-purple-500/20', text: 'text-purple-400' },
+      scheduled: { bg: 'bg-[#94B4C1]/20', text: 'text-[#94B4C1]' },
       manual: { bg: 'bg-green-500/20', text: 'text-green-400' },
     };
     const c = config[type] || { bg: 'bg-gray-500/20', text: 'text-gray-400' };
@@ -127,7 +127,7 @@ export const Recordings = () => {
           title="Total Recordings"
           value={stats.total.toString()}
           icon={Film}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
         <StatsCard
           title="Available"
@@ -164,7 +164,7 @@ export const Recordings = () => {
           <select
             value={selectedCamera}
             onChange={(e) => setSelectedCamera(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Cameras</option>
             {cameras.map(c => (
@@ -175,7 +175,7 @@ export const Recordings = () => {
           <select
             value={selectedType}
             onChange={(e) => setSelectedType(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Types</option>
             <option value="continuous">Continuous</option>
@@ -187,7 +187,7 @@ export const Recordings = () => {
           <select
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Status</option>
             <option value="available">Available</option>
@@ -206,9 +206,9 @@ export const Recordings = () => {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-border-default">
+              <tr className="border-b border-white/[0.08]">
                 <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">
-                  <input type="checkbox" className="rounded border-border-default" />
+                  <input type="checkbox" className="rounded border-white/[0.08]" />
                 </th>
                 <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Camera</th>
                 <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Time</th>
@@ -226,10 +226,10 @@ export const Recordings = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: index * 0.03 }}
-                  className="hover:bg-background-tertiary transition-colors"
+                  className="hover:bg-white/[0.05] transition-colors"
                 >
                   <td className="py-3 px-4">
-                    <input type="checkbox" className="rounded border-border-default" />
+                    <input type="checkbox" className="rounded border-white/[0.08]" />
                   </td>
                   <td className="py-3 px-4">
                     <div className="flex items-center gap-3">
@@ -265,21 +265,21 @@ export const Recordings = () => {
                   <td className="py-3 px-4">
                     <div className="flex items-center justify-end gap-1">
                       <button
-                        className="p-2 hover:bg-background-secondary rounded text-text-secondary hover:text-accent-primary"
+                        className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-accent-primary"
                         title="Play"
                         disabled={recording.status === 'processing'}
                       >
                         <Play size={14} />
                       </button>
                       <button
-                        className="p-2 hover:bg-background-secondary rounded text-text-secondary hover:text-blue-400"
+                        className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-blue-400"
                         title="Download"
                         disabled={recording.status === 'processing'}
                       >
                         <Download size={14} />
                       </button>
                       <button
-                        className="p-2 hover:bg-background-secondary rounded text-text-secondary hover:text-red-400"
+                        className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-red-400"
                         title="Delete"
                       >
                         <Trash2 size={14} />
@@ -293,7 +293,7 @@ export const Recordings = () => {
         </div>
 
         {/* Pagination */}
-        <div className="flex items-center justify-between p-4 border-t border-border-default">
+        <div className="flex items-center justify-between p-4 border-t border-white/[0.08]">
           <p className="text-sm text-text-secondary">
             Showing {filteredRecordings.length} of {recordings.length} recordings
           </p>
@@ -326,7 +326,7 @@ export const Recordings = () => {
             </div>
           </div>
           <div className="flex-1 max-w-md mx-8">
-            <div className="w-full h-2 bg-background-tertiary rounded-full overflow-hidden">
+            <div className="w-full h-2 bg-white/[0.05] rounded-full overflow-hidden">
               <div
                 className="h-full bg-accent-primary rounded-full"
                 style={{ width: '16.5%' }}

@@ -57,7 +57,7 @@ export const RecentActivities = () => {
       </div>
 
       {/* View All */}
-      <button className="relative z-10 flex items-center gap-1 text-[#6366f1] text-sm font-medium mt-5 hover:text-[#8b5cf6] transition-colors group">
+      <button className="relative z-10 flex items-center gap-1 text-[#547792] text-sm font-medium mt-5 hover:text-[#94B4C1] transition-colors group">
         View All
         <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
       </button>

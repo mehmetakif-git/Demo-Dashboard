@@ -171,7 +171,7 @@ export const QRCodeDetail = () => {
               title="Total Scans"
               value={formatNumber(qrCode.scans)}
               icon={Scan}
-              iconColor="#6366f1"
+              iconColor="#547792"
             />
             <StatsCard
               title="Unique Scans"
@@ -189,7 +189,7 @@ export const QRCodeDetail = () => {
               title="Conversion Rate"
               value="68%"
               icon={TrendingUp}
-              iconColor="#8b5cf6"
+              iconColor="#94B4C1"
             />
           </div>
 
@@ -202,7 +202,7 @@ export const QRCodeDetail = () => {
             <Card className="p-6">
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-semibold text-text-primary">Scan Trend</h3>
-                <select className="px-3 py-1 bg-background-tertiary border border-border-default rounded text-sm text-text-primary">
+                <select className="px-3 py-1 bg-white/[0.05] border border-white/[0.08] rounded text-sm text-text-primary">
                   <option>Last 7 days</option>
                   <option>Last 30 days</option>
                   <option>Last 90 days</option>
@@ -248,7 +248,7 @@ export const QRCodeDetail = () => {
                         </div>
                         <span className="text-sm font-medium text-text-primary">{device.value}%</span>
                       </div>
-                      <div className="h-2 bg-background-tertiary rounded-full overflow-hidden">
+                      <div className="h-2 bg-white/[0.05] rounded-full overflow-hidden">
                         <motion.div
                           initial={{ width: 0 }}
                           animate={{ width: `${device.value}%` }}
@@ -272,9 +272,9 @@ export const QRCodeDetail = () => {
                 <h3 className="text-lg font-semibold text-text-primary mb-4">Top Locations</h3>
                 <div className="space-y-3">
                   {mockAnalytics.topLocations.map((location, index) => (
-                    <div key={location.country} className="flex items-center justify-between p-2 hover:bg-background-tertiary rounded transition-colors">
+                    <div key={location.country} className="flex items-center justify-between p-2 hover:bg-white/[0.05] rounded transition-colors">
                       <div className="flex items-center gap-3">
-                        <span className="w-6 h-6 rounded-full bg-background-tertiary flex items-center justify-center text-xs text-text-muted">
+                        <span className="w-6 h-6 rounded-full bg-white/[0.05] flex items-center justify-center text-xs text-text-muted">
                           {index + 1}
                         </span>
                         <div className="flex items-center gap-2">
@@ -301,7 +301,7 @@ export const QRCodeDetail = () => {
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="border-b border-border-default">
+                    <tr className="border-b border-white/[0.08]">
                       <th className="text-left py-2 px-3 text-sm font-medium text-text-secondary">Time</th>
                       <th className="text-left py-2 px-3 text-sm font-medium text-text-secondary">Location</th>
                       <th className="text-left py-2 px-3 text-sm font-medium text-text-secondary">Device</th>
@@ -310,7 +310,7 @@ export const QRCodeDetail = () => {
                   </thead>
                   <tbody className="divide-y divide-border-default">
                     {qrScanLogs.length > 0 ? qrScanLogs.map((log) => (
-                      <tr key={log.id} className="hover:bg-background-tertiary transition-colors">
+                      <tr key={log.id} className="hover:bg-white/[0.05] transition-colors">
                         <td className="py-2 px-3 text-sm text-text-primary">{formatDateTime(log.scannedAt)}</td>
                         <td className="py-2 px-3 text-sm text-text-secondary">
                           <div className="flex items-center gap-1">
@@ -366,7 +366,7 @@ export const QRCodeDetail = () => {
               </div>
               {qrCode.isDynamic && (
                 <div className="flex justify-center mb-4">
-                  <span className="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm font-medium">
+                  <span className="px-3 py-1 bg-[#94B4C1]/20 text-[#94B4C1] rounded-full text-sm font-medium">
                     Dynamic QR Code
                   </span>
                 </div>
@@ -394,12 +394,12 @@ export const QRCodeDetail = () => {
             >
               <Card className="p-6">
                 <h3 className="font-semibold text-text-primary mb-3">Short URL</h3>
-                <div className="flex items-center gap-2 p-3 bg-background-secondary rounded-lg">
+                <div className="flex items-center gap-2 p-3 bg-white/[0.03] backdrop-blur-xl rounded-lg">
                   <ExternalLink size={16} className="text-text-muted flex-shrink-0" />
                   <span className="text-sm text-text-secondary truncate flex-1">{qrCode.shortUrl}</span>
                   <button
                     onClick={handleCopyShortUrl}
-                    className="p-1 hover:bg-background-tertiary rounded"
+                    className="p-1 hover:bg-white/[0.05] rounded"
                   >
                     <Copy size={16} className="text-text-muted hover:text-accent-primary" />
                   </button>
@@ -417,14 +417,14 @@ export const QRCodeDetail = () => {
             <Card className="p-6">
               <h3 className="font-semibold text-text-primary mb-4">Details</h3>
               <div className="space-y-3">
-                <div className="flex justify-between py-2 border-b border-border-default">
+                <div className="flex justify-between py-2 border-b border-white/[0.08]">
                   <span className="text-sm text-text-secondary flex items-center gap-2">
                     <Calendar size={14} />
                     Created
                   </span>
                   <span className="text-sm text-text-primary">{formatDate(qrCode.createdAt)}</span>
                 </div>
-                <div className="flex justify-between py-2 border-b border-border-default">
+                <div className="flex justify-between py-2 border-b border-white/[0.08]">
                   <span className="text-sm text-text-secondary flex items-center gap-2">
                     <Clock size={14} />
                     Last Updated
@@ -432,7 +432,7 @@ export const QRCodeDetail = () => {
                   <span className="text-sm text-text-primary">{formatDate(qrCode.updatedAt)}</span>
                 </div>
                 {qrCode.lastScan && (
-                  <div className="flex justify-between py-2 border-b border-border-default">
+                  <div className="flex justify-between py-2 border-b border-white/[0.08]">
                     <span className="text-sm text-text-secondary flex items-center gap-2">
                       <Scan size={14} />
                       Last Scan
@@ -441,7 +441,7 @@ export const QRCodeDetail = () => {
                   </div>
                 )}
                 {qrCode.expiresAt && (
-                  <div className="flex justify-between py-2 border-b border-border-default">
+                  <div className="flex justify-between py-2 border-b border-white/[0.08]">
                     <span className="text-sm text-text-secondary flex items-center gap-2">
                       <Clock size={14} />
                       Expires
@@ -468,25 +468,25 @@ export const QRCodeDetail = () => {
             <Card className="p-6">
               <h3 className="font-semibold text-text-primary mb-4">Quick Actions</h3>
               <div className="space-y-2">
-                <button className="w-full flex items-center gap-3 p-3 text-left hover:bg-background-tertiary rounded-lg transition-colors">
+                <button className="w-full flex items-center gap-3 p-3 text-left hover:bg-white/[0.05] rounded-lg transition-colors">
                   <Edit size={18} className="text-accent-primary" />
                   <span className="text-sm text-text-primary">Edit QR Code</span>
                 </button>
-                <button className="w-full flex items-center gap-3 p-3 text-left hover:bg-background-tertiary rounded-lg transition-colors">
+                <button className="w-full flex items-center gap-3 p-3 text-left hover:bg-white/[0.05] rounded-lg transition-colors">
                   <BarChart3 size={18} className="text-blue-400" />
                   <span className="text-sm text-text-primary">View Full Analytics</span>
                 </button>
-                <button className="w-full flex items-center gap-3 p-3 text-left hover:bg-background-tertiary rounded-lg transition-colors">
+                <button className="w-full flex items-center gap-3 p-3 text-left hover:bg-white/[0.05] rounded-lg transition-colors">
                   <Copy size={18} className="text-green-400" />
                   <span className="text-sm text-text-primary">Duplicate QR Code</span>
                 </button>
                 {qrCode.status === 'active' ? (
-                  <button className="w-full flex items-center gap-3 p-3 text-left hover:bg-background-tertiary rounded-lg transition-colors">
+                  <button className="w-full flex items-center gap-3 p-3 text-left hover:bg-white/[0.05] rounded-lg transition-colors">
                     <Pause size={18} className="text-yellow-400" />
                     <span className="text-sm text-text-primary">Pause QR Code</span>
                   </button>
                 ) : (
-                  <button className="w-full flex items-center gap-3 p-3 text-left hover:bg-background-tertiary rounded-lg transition-colors">
+                  <button className="w-full flex items-center gap-3 p-3 text-left hover:bg-white/[0.05] rounded-lg transition-colors">
                     <Play size={18} className="text-green-400" />
                     <span className="text-sm text-text-primary">Activate QR Code</span>
                   </button>

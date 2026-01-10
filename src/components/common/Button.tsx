@@ -22,9 +22,9 @@ const variants = {
   secondary:
     'bg-accent-secondary text-white hover:bg-opacity-90',
   outline:
-    'border border-border-default bg-transparent text-text-primary hover:bg-background-tertiary hover:border-border-hover',
+    'border border-white/[0.08] bg-transparent text-text-primary hover:bg-white/[0.05] hover:border-white/[0.12]',
   ghost:
-    'bg-transparent text-text-primary hover:bg-background-tertiary',
+    'bg-transparent text-text-primary hover:bg-white/[0.05]',
 };
 
 const sizes = {
@@ -52,7 +52,7 @@ export const Button = ({
     <motion.button
       type={type}
       className={cn(
-        'inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-all duration-200',
+        'inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-all duration-200 cursor-pointer',
         'focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background-primary',
         'disabled:cursor-not-allowed disabled:opacity-50',
         variants[variant],

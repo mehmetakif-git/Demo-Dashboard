@@ -68,7 +68,7 @@ export const MediaPlanning = () => {
       case 'planned':
         return 'bg-blue-500/20 text-blue-400';
       case 'completed':
-        return 'bg-[#6366f1]/20 text-[#6366f1]';
+        return 'bg-[#547792]/20 text-[#547792]';
       default:
         return 'bg-[#1e1e2e] text-[#94a3b8]';
     }
@@ -85,7 +85,7 @@ export const MediaPlanning = () => {
         title="Media Planning"
         subtitle="Plan and manage media placements across channels"
         actions={
-          <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
+          <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
             <Plus className="h-4 w-4" />
             New Media Plan
           </button>
@@ -129,14 +129,14 @@ export const MediaPlanning = () => {
             placeholder="Search media plans..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full rounded-lg border border-[#1e1e2e] bg-[#12121a] py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#6366f1] focus:outline-none"
+            className="w-full rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#547792] focus:outline-none"
           />
         </div>
         <div className="flex gap-2">
           <select
             value={channelFilter}
             onChange={(e) => setChannelFilter(e.target.value)}
-            className="rounded-lg border border-[#1e1e2e] bg-[#12121a] px-3 py-2 text-sm text-white focus:border-[#6366f1] focus:outline-none"
+            className="rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
             <option value="all">All Channels</option>
             {channels.map((channel) => (
@@ -148,7 +148,7 @@ export const MediaPlanning = () => {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="rounded-lg border border-[#1e1e2e] bg-[#12121a] px-3 py-2 text-sm text-white focus:border-[#6366f1] focus:outline-none"
+            className="rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
             <option value="all">All Status</option>
             {statuses.map((status) => (
@@ -157,7 +157,7 @@ export const MediaPlanning = () => {
               </option>
             ))}
           </select>
-          <button className="flex items-center gap-2 rounded-lg border border-[#1e1e2e] bg-[#12121a] px-3 py-2 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
+          <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
             <Filter className="h-4 w-4" />
             More Filters
           </button>
@@ -177,7 +177,7 @@ export const MediaPlanning = () => {
               key={plan.id}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6 hover:border-[#6366f1]/50 transition-colors"
+              className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6 hover:border-[#547792]/50 transition-colors"
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
@@ -211,14 +211,14 @@ export const MediaPlanning = () => {
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-[#1e1e2e]">
+              <div className="pt-4 border-t border-white/[0.08]">
                 <div className="flex justify-between mb-2">
                   <span className="text-xs text-[#64748b]">Budget Usage</span>
                   <span className="text-xs text-white">{budgetProgress.toFixed(0)}%</span>
                 </div>
                 <div className="h-2 rounded-full bg-[#1e1e2e] mb-3">
                   <div
-                    className="h-full rounded-full bg-gradient-to-r from-[#6366f1] to-[#8b5cf6]"
+                    className="h-full rounded-full bg-gradient-to-r from-[#547792] to-[#94B4C1]"
                     style={{ width: `${Math.min(budgetProgress, 100)}%` }}
                   />
                 </div>
@@ -234,7 +234,7 @@ export const MediaPlanning = () => {
                 </div>
               </div>
 
-              <div className="flex items-center justify-end gap-2 mt-4 pt-4 border-t border-[#1e1e2e]">
+              <div className="flex items-center justify-end gap-2 mt-4 pt-4 border-t border-white/[0.08]">
                 <button className="rounded-lg p-2 text-[#64748b] hover:bg-[#1e1e2e] hover:text-white transition-colors">
                   <Eye className="h-4 w-4" />
                 </button>
@@ -256,10 +256,10 @@ export const MediaPlanning = () => {
           Showing {filteredPlans.length} of {mediaPlans.length} media plans
         </p>
         <div className="flex gap-2">
-          <button className="rounded-lg border border-[#1e1e2e] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
+          <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
             Previous
           </button>
-          <button className="rounded-lg border border-[#1e1e2e] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
+          <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
             Next
           </button>
         </div>

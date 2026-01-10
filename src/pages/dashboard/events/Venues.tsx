@@ -69,7 +69,7 @@ export const Venues = () => {
         title="Venues"
         subtitle="Browse and manage event venues"
         actions={
-          <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
+          <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
             <Plus className="h-4 w-4" />
             Add Venue
           </button>
@@ -113,14 +113,14 @@ export const Venues = () => {
             placeholder="Search venues..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full rounded-lg border border-[#1e1e2e] bg-[#12121a] py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#6366f1] focus:outline-none"
+            className="w-full rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#547792] focus:outline-none"
           />
         </div>
         <div className="flex gap-2">
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value)}
-            className="rounded-lg border border-[#1e1e2e] bg-[#12121a] px-3 py-2 text-sm text-white focus:border-[#6366f1] focus:outline-none"
+            className="rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
             <option value="all">All Types</option>
             {venueTypes.map((type) => (
@@ -132,7 +132,7 @@ export const Venues = () => {
           <select
             value={cityFilter}
             onChange={(e) => setCityFilter(e.target.value)}
-            className="rounded-lg border border-[#1e1e2e] bg-[#12121a] px-3 py-2 text-sm text-white focus:border-[#6366f1] focus:outline-none"
+            className="rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
             <option value="all">All Cities</option>
             {cities.map((city) => (
@@ -141,7 +141,7 @@ export const Venues = () => {
               </option>
             ))}
           </select>
-          <button className="flex items-center gap-2 rounded-lg border border-[#1e1e2e] bg-[#12121a] px-3 py-2 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
+          <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
             <Filter className="h-4 w-4" />
             More Filters
           </button>
@@ -155,7 +155,7 @@ export const Venues = () => {
             key={venue.id}
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="rounded-xl border border-[#1e1e2e] bg-[#12121a] overflow-hidden hover:border-[#6366f1]/50 transition-colors cursor-pointer"
+            className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl overflow-hidden hover:border-[#547792]/50 transition-colors cursor-pointer"
             onClick={() => setSelectedVenue(venue.id)}
           >
             {/* Image Placeholder */}
@@ -165,7 +165,7 @@ export const Venues = () => {
                 <Star className="h-3 w-3 text-amber-400 fill-amber-400" />
                 {venue.rating}
               </span>
-              <span className="absolute top-2 left-2 rounded-full bg-[#6366f1]/20 px-2 py-1 text-xs text-[#6366f1]">
+              <span className="absolute top-2 left-2 rounded-full bg-[#547792]/20 px-2 py-1 text-xs text-[#547792]">
                 {venue.type.charAt(0).toUpperCase() + venue.type.slice(1).replace('-', ' ')}
               </span>
             </div>
@@ -185,7 +185,7 @@ export const Venues = () => {
                 </div>
                 <div className="text-right">
                   <p className="text-xs text-[#64748b]">Starting at</p>
-                  <p className="text-[#6366f1] font-semibold">
+                  <p className="text-[#547792] font-semibold">
                     {formatCurrency(Object.values(venue.pricing)[0] as number || 0)}
                   </p>
                 </div>
@@ -210,7 +210,7 @@ export const Venues = () => {
               </div>
 
               {/* Status */}
-              <div className="pt-3 border-t border-[#1e1e2e] flex justify-between items-center">
+              <div className="pt-3 border-t border-white/[0.08] flex justify-between items-center">
                 <span className={`text-xs px-2 py-1 rounded-full ${
                   venue.status === 'active'
                     ? 'bg-emerald-500/20 text-emerald-400'
@@ -231,10 +231,10 @@ export const Venues = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-xl border border-[#1e1e2e] bg-[#12121a]"
+            className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl"
           >
             {/* Header */}
-            <div className="sticky top-0 z-10 flex items-center justify-between border-b border-[#1e1e2e] bg-[#12121a] p-6">
+            <div className="sticky top-0 z-10 flex items-center justify-between border-b border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
               <div>
                 <h2 className="text-xl font-semibold text-white">{selectedVenueData.name}</h2>
                 <p className="text-sm text-[#64748b]">{selectedVenueData.city}, {selectedVenueData.state}</p>
@@ -252,7 +252,7 @@ export const Venues = () => {
               {/* Key Info */}
               <div className="grid grid-cols-3 gap-4">
                 <div className="rounded-lg bg-[#1a1a24] p-4 text-center">
-                  <Users className="h-6 w-6 text-[#6366f1] mx-auto mb-2" />
+                  <Users className="h-6 w-6 text-[#547792] mx-auto mb-2" />
                   <p className="text-2xl font-bold text-white">{selectedVenueData.capacity.max.toLocaleString()}</p>
                   <p className="text-xs text-[#64748b]">Max Capacity</p>
                 </div>
@@ -271,7 +271,7 @@ export const Venues = () => {
               {/* Address */}
               <div className="rounded-lg bg-[#1a1a24] p-4">
                 <h4 className="text-white font-semibold mb-2 flex items-center gap-2">
-                  <MapPin className="h-4 w-4 text-[#6366f1]" />
+                  <MapPin className="h-4 w-4 text-[#547792]" />
                   Address
                 </h4>
                 <p className="text-[#94a3b8]">{selectedVenueData.address}</p>
@@ -347,7 +347,7 @@ export const Venues = () => {
                   {Object.entries(selectedVenueData.pricing).map(([key, value]) => (
                     <div key={key} className="p-3 rounded-lg bg-[#1a1a24]">
                       <p className="text-[#64748b] text-xs">{key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1')}</p>
-                      <p className="text-[#6366f1] font-semibold">{formatCurrency(value as number)}</p>
+                      <p className="text-[#547792] font-semibold">{formatCurrency(value as number)}</p>
                     </div>
                   ))}
                 </div>
@@ -358,11 +358,11 @@ export const Venues = () => {
                 <h4 className="text-white font-semibold mb-3">Contact Information</h4>
                 <div className="space-y-2">
                   <div className="flex items-center gap-3 p-3 rounded-lg bg-[#1a1a24]">
-                    <Phone className="h-4 w-4 text-[#6366f1]" />
+                    <Phone className="h-4 w-4 text-[#547792]" />
                     <span className="text-[#94a3b8]">{selectedVenueData.contact.phone}</span>
                   </div>
                   <div className="flex items-center gap-3 p-3 rounded-lg bg-[#1a1a24]">
-                    <Mail className="h-4 w-4 text-[#6366f1]" />
+                    <Mail className="h-4 w-4 text-[#547792]" />
                     <span className="text-[#94a3b8]">{selectedVenueData.contact.email}</span>
                   </div>
                 </div>
@@ -386,10 +386,10 @@ export const Venues = () => {
           Showing {filteredVenues.length} of {venues.length} venues
         </p>
         <div className="flex gap-2">
-          <button className="rounded-lg border border-[#1e1e2e] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
+          <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
             Previous
           </button>
-          <button className="rounded-lg border border-[#1e1e2e] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
+          <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
             Next
           </button>
         </div>

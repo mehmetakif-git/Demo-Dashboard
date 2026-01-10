@@ -95,7 +95,7 @@ export const Users = () => {
           title="Total Users"
           value={stats.total.toString()}
           icon={UsersIcon}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
         <StatsCard
           title="Active Users"
@@ -131,7 +131,7 @@ export const Users = () => {
           <select
             value={roleFilter}
             onChange={(e) => setRoleFilter(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Roles</option>
             {roles.map(role => (
@@ -141,7 +141,7 @@ export const Users = () => {
           <select
             value={departmentFilter}
             onChange={(e) => setDepartmentFilter(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Departments</option>
             {departments.map(dept => (
@@ -151,7 +151,7 @@ export const Users = () => {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Status</option>
             <option value="active">Active</option>
@@ -165,7 +165,7 @@ export const Users = () => {
       <Card className="overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-background-tertiary">
+            <thead className="bg-white/[0.05]">
               <tr>
                 <th className="text-left p-4 text-sm font-medium text-text-secondary">User</th>
                 <th className="text-left p-4 text-sm font-medium text-text-secondary">Role</th>
@@ -183,7 +183,7 @@ export const Users = () => {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.03 }}
-                  className="hover:bg-background-tertiary/50 transition-colors"
+                  className="hover:bg-white/[0.05]/50 transition-colors"
                 >
                   <td className="p-4">
                     <div className="flex items-center gap-3">
@@ -199,7 +199,7 @@ export const Users = () => {
                   <td className="p-4">
                     <span className={`px-2 py-1 rounded text-xs font-medium ${
                       user.role === 'Admin'
-                        ? 'bg-purple-500/20 text-purple-400'
+                        ? 'bg-[#94B4C1]/20 text-[#94B4C1]'
                         : user.role === 'Manager'
                         ? 'bg-blue-500/20 text-blue-400'
                         : 'bg-slate-500/20 text-slate-400'
@@ -233,14 +233,14 @@ export const Users = () => {
                     <div className="flex items-center justify-end gap-1">
                       <button
                         onClick={() => setSelectedUser(user)}
-                        className="p-2 hover:bg-background-tertiary rounded transition-colors text-text-secondary hover:text-text-primary"
+                        className="p-2 hover:bg-white/[0.05] rounded transition-colors text-text-secondary hover:text-text-primary"
                       >
                         <Edit size={16} />
                       </button>
-                      <button className="p-2 hover:bg-background-tertiary rounded transition-colors text-text-secondary hover:text-blue-400">
+                      <button className="p-2 hover:bg-white/[0.05] rounded transition-colors text-text-secondary hover:text-blue-400">
                         <Key size={16} />
                       </button>
-                      <button className="p-2 hover:bg-background-tertiary rounded transition-colors text-text-secondary hover:text-red-400">
+                      <button className="p-2 hover:bg-white/[0.05] rounded transition-colors text-text-secondary hover:text-red-400">
                         <Trash2 size={16} />
                       </button>
                     </div>
@@ -278,7 +278,7 @@ export const Users = () => {
                 <h3 className="text-lg font-semibold text-text-primary">Edit User</h3>
                 <button
                   onClick={() => setSelectedUser(null)}
-                  className="p-2 hover:bg-background-tertiary rounded transition-colors"
+                  className="p-2 hover:bg-white/[0.05] rounded transition-colors"
                 >
                   <X size={20} className="text-text-muted" />
                 </button>
@@ -311,7 +311,7 @@ export const Users = () => {
                   <select
                     value={selectedUser.roleId}
                     onChange={() => {}}
-                    className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+                    className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
                   >
                     {roles.map(role => (
                       <option key={role.id} value={role.id}>{role.name}</option>
@@ -323,14 +323,14 @@ export const Users = () => {
                   <select
                     value={selectedUser.department}
                     onChange={() => {}}
-                    className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+                    className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
                   >
                     {departments.map(dept => (
                       <option key={dept} value={dept}>{dept}</option>
                     ))}
                   </select>
                 </div>
-                <div className="flex items-center justify-between py-3 border-t border-border-default">
+                <div className="flex items-center justify-between py-3 border-t border-white/[0.08]">
                   <div>
                     <p className="font-medium text-text-primary">Two-Factor Authentication</p>
                     <p className="text-sm text-text-secondary">
@@ -349,7 +349,7 @@ export const Users = () => {
                 </div>
               </div>
 
-              <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-border-default">
+              <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-white/[0.08]">
                 <Button variant="outline" onClick={() => setSelectedUser(null)}>
                   Cancel
                 </Button>
@@ -381,7 +381,7 @@ export const Users = () => {
                 <h3 className="text-lg font-semibold text-text-primary">Invite User</h3>
                 <button
                   onClick={() => setIsInviteModalOpen(false)}
-                  className="p-2 hover:bg-background-tertiary rounded transition-colors"
+                  className="p-2 hover:bg-white/[0.05] rounded transition-colors"
                 >
                   <X size={20} className="text-text-muted" />
                 </button>
@@ -401,7 +401,7 @@ export const Users = () => {
                   <select
                     value={inviteRole}
                     onChange={(e) => setInviteRole(e.target.value)}
-                    className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+                    className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
                   >
                     {roles.map(role => (
                       <option key={role.id} value={role.id}>{role.name}</option>
@@ -413,7 +413,7 @@ export const Users = () => {
                   <select
                     value={inviteDepartment}
                     onChange={(e) => setInviteDepartment(e.target.value)}
-                    className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+                    className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
                   >
                     {departments.map(dept => (
                       <option key={dept} value={dept}>{dept}</option>
@@ -422,7 +422,7 @@ export const Users = () => {
                 </div>
               </div>
 
-              <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-border-default">
+              <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-white/[0.08]">
                 <Button variant="outline" onClick={() => setIsInviteModalOpen(false)}>
                   Cancel
                 </Button>

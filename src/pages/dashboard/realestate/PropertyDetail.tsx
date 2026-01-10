@@ -49,7 +49,7 @@ export const PropertyDetail = () => {
           <p className="text-[#64748b] mb-4">The property you're looking for doesn't exist.</p>
           <button
             onClick={() => navigate('/dashboard/realestate/properties')}
-            className="text-indigo-400 hover:text-indigo-300"
+            className="text-[#547792] hover:text-indigo-300"
           >
             Back to Properties
           </button>
@@ -81,24 +81,24 @@ export const PropertyDetail = () => {
           <div className="flex items-center gap-2">
             <button
               onClick={() => navigate('/dashboard/realestate/properties')}
-              className="flex items-center gap-2 rounded-lg border border-[#1e1e2e] px-3 py-2 text-sm text-[#94a3b8] hover:text-white hover:border-[#2e2e3e] transition-colors"
+              className="flex items-center gap-2 rounded-lg border border-white/[0.08] px-3 py-2 text-sm text-[#94a3b8] hover:text-white hover:border-[#2e2e3e] transition-colors"
             >
               <ArrowLeft className="h-4 w-4" />
               Back
             </button>
-            <button className="flex items-center gap-2 rounded-lg border border-[#1e1e2e] px-3 py-2 text-sm text-[#94a3b8] hover:text-white hover:border-[#2e2e3e] transition-colors">
+            <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] px-3 py-2 text-sm text-[#94a3b8] hover:text-white hover:border-[#2e2e3e] transition-colors">
               <Edit className="h-4 w-4" />
               Edit
             </button>
-            <button className="flex items-center gap-2 rounded-lg border border-[#1e1e2e] px-3 py-2 text-sm text-[#94a3b8] hover:text-white hover:border-[#2e2e3e] transition-colors">
+            <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] px-3 py-2 text-sm text-[#94a3b8] hover:text-white hover:border-[#2e2e3e] transition-colors">
               <Share2 className="h-4 w-4" />
               Share
             </button>
-            <button className="flex items-center gap-2 rounded-lg border border-[#1e1e2e] px-3 py-2 text-sm text-[#94a3b8] hover:text-white hover:border-[#2e2e3e] transition-colors">
+            <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] px-3 py-2 text-sm text-[#94a3b8] hover:text-white hover:border-[#2e2e3e] transition-colors">
               <Calendar className="h-4 w-4" />
               Schedule Showing
             </button>
-            <button className="flex items-center gap-2 rounded-lg border border-[#1e1e2e] px-3 py-2 text-sm text-[#94a3b8] hover:text-white hover:border-[#2e2e3e] transition-colors">
+            <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] px-3 py-2 text-sm text-[#94a3b8] hover:text-white hover:border-[#2e2e3e] transition-colors">
               <Printer className="h-4 w-4" />
               Print
             </button>
@@ -108,13 +108,13 @@ export const PropertyDetail = () => {
 
       {/* Image Gallery */}
       <div className="grid grid-cols-4 gap-4">
-        <div className="col-span-2 row-span-2 aspect-[4/3] rounded-xl bg-gradient-to-br from-[#1a1a24] to-[#0a0a0f] border border-[#1e1e2e] flex items-center justify-center">
+        <div className="col-span-2 row-span-2 aspect-[4/3] rounded-xl bg-gradient-to-br from-[#1a1a24] to-[#0a0a0f] border border-white/[0.08] flex items-center justify-center">
           <Building className="h-24 w-24 text-[#2e2e3e]" />
         </div>
         {[1, 2, 3, 4].map((i) => (
           <div
             key={i}
-            className="aspect-[4/3] rounded-xl bg-gradient-to-br from-[#1a1a24] to-[#0a0a0f] border border-[#1e1e2e] flex items-center justify-center"
+            className="aspect-[4/3] rounded-xl bg-gradient-to-br from-[#1a1a24] to-[#0a0a0f] border border-white/[0.08] flex items-center justify-center"
           >
             <Building className="h-12 w-12 text-[#2e2e3e]" />
           </div>
@@ -156,43 +156,43 @@ export const PropertyDetail = () => {
       {/* Key Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
         {property.size.bedrooms !== undefined && (
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-4 text-center">
-            <Bed className="h-6 w-6 text-indigo-400 mx-auto mb-2" />
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-4 text-center">
+            <Bed className="h-6 w-6 text-[#547792] mx-auto mb-2" />
             <div className="text-xl font-bold text-white">{property.size.bedrooms}</div>
             <div className="text-xs text-[#64748b]">Bedrooms</div>
           </div>
         )}
         {property.size.bathrooms !== undefined && (
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-4 text-center">
-            <Bath className="h-6 w-6 text-indigo-400 mx-auto mb-2" />
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-4 text-center">
+            <Bath className="h-6 w-6 text-[#547792] mx-auto mb-2" />
             <div className="text-xl font-bold text-white">{property.size.bathrooms}</div>
             <div className="text-xs text-[#64748b]">Bathrooms</div>
           </div>
         )}
-        <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-4 text-center">
-          <Square className="h-6 w-6 text-indigo-400 mx-auto mb-2" />
+        <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-4 text-center">
+          <Square className="h-6 w-6 text-[#547792] mx-auto mb-2" />
           <div className="text-xl font-bold text-white">{property.size.sqft.toLocaleString()}</div>
           <div className="text-xs text-[#64748b]">Sqft</div>
         </div>
-        <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-4 text-center">
-          <Home className="h-6 w-6 text-indigo-400 mx-auto mb-2" />
+        <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-4 text-center">
+          <Home className="h-6 w-6 text-[#547792] mx-auto mb-2" />
           <div className="text-xl font-bold text-white">{property.features.yearBuilt}</div>
           <div className="text-xs text-[#64748b]">Year Built</div>
         </div>
-        <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-4 text-center">
-          <Car className="h-6 w-6 text-indigo-400 mx-auto mb-2" />
+        <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-4 text-center">
+          <Car className="h-6 w-6 text-[#547792] mx-auto mb-2" />
           <div className="text-xl font-bold text-white">{property.features.parking}</div>
           <div className="text-xs text-[#64748b]">Parking</div>
         </div>
-        <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-4 text-center">
-          <Clock className="h-6 w-6 text-indigo-400 mx-auto mb-2" />
+        <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-4 text-center">
+          <Clock className="h-6 w-6 text-[#547792] mx-auto mb-2" />
           <div className="text-xl font-bold text-white">{property.daysOnMarket}</div>
           <div className="text-xs text-[#64748b]">Days on Market</div>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="border-b border-[#1e1e2e]">
+      <div className="border-b border-white/[0.08]">
         <nav className="flex gap-4">
           {tabs.map((tab) => (
             <button
@@ -206,7 +206,7 @@ export const PropertyDetail = () => {
               {activeTab === tab.id && (
                 <motion.div
                   layoutId="activePropertyTab"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-indigo-500 to-purple-500"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#547792] to-[#94B4C1]"
                 />
               )}
             </button>
@@ -220,48 +220,48 @@ export const PropertyDetail = () => {
           {activeTab === 'overview' && (
             <>
               {/* Description */}
-              <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+              <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
                 <h3 className="text-lg font-semibold text-white mb-4">Description</h3>
                 <p className="text-[#94a3b8] leading-relaxed">{property.description}</p>
               </div>
 
               {/* Features */}
-              <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+              <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
                 <h3 className="text-lg font-semibold text-white mb-4">Key Features</h3>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   {property.features.garage && (
                     <div className="flex items-center gap-2 text-sm text-[#94a3b8]">
-                      <Car className="h-4 w-4 text-indigo-400" />
+                      <Car className="h-4 w-4 text-[#547792]" />
                       Garage
                     </div>
                   )}
                   {property.features.pool && (
                     <div className="flex items-center gap-2 text-sm text-[#94a3b8]">
-                      <div className="h-4 w-4 text-indigo-400">🏊</div>
+                      <div className="h-4 w-4 text-[#547792]">🏊</div>
                       Pool
                     </div>
                   )}
                   {property.features.gym && (
                     <div className="flex items-center gap-2 text-sm text-[#94a3b8]">
-                      <div className="h-4 w-4 text-indigo-400">💪</div>
+                      <div className="h-4 w-4 text-[#547792]">💪</div>
                       Gym
                     </div>
                   )}
                   {property.features.doorman && (
                     <div className="flex items-center gap-2 text-sm text-[#94a3b8]">
-                      <Users className="h-4 w-4 text-indigo-400" />
+                      <Users className="h-4 w-4 text-[#547792]" />
                       Doorman
                     </div>
                   )}
                   {property.features.elevator && (
                     <div className="flex items-center gap-2 text-sm text-[#94a3b8]">
-                      <div className="h-4 w-4 text-indigo-400">🛗</div>
+                      <div className="h-4 w-4 text-[#547792]">🛗</div>
                       Elevator
                     </div>
                   )}
                   {property.features.laundry && (
                     <div className="flex items-center gap-2 text-sm text-[#94a3b8]">
-                      <div className="h-4 w-4 text-indigo-400">🧺</div>
+                      <div className="h-4 w-4 text-[#547792]">🧺</div>
                       {property.features.laundry}
                     </div>
                   )}
@@ -269,7 +269,7 @@ export const PropertyDetail = () => {
               </div>
 
               {/* Amenities */}
-              <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+              <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
                 <h3 className="text-lg font-semibold text-white mb-4">Amenities</h3>
                 <div className="flex flex-wrap gap-2">
                   {property.amenities.map((amenity) => (
@@ -284,7 +284,7 @@ export const PropertyDetail = () => {
               </div>
 
               {/* Location Map Placeholder */}
-              <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+              <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
                 <h3 className="text-lg font-semibold text-white mb-4">Location</h3>
                 <div className="aspect-video rounded-lg bg-[#1a1a24] flex items-center justify-center">
                   <div className="text-center">
@@ -299,27 +299,27 @@ export const PropertyDetail = () => {
           {activeTab === 'details' && (
             <>
               {/* Property Specifications */}
-              <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+              <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
                 <h3 className="text-lg font-semibold text-white mb-4">Property Specifications</h3>
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="flex justify-between py-2 border-b border-[#1e1e2e]">
+                  <div className="flex justify-between py-2 border-b border-white/[0.08]">
                     <span className="text-[#64748b]">Property Type</span>
                     <span className="text-white capitalize">{property.type}</span>
                   </div>
-                  <div className="flex justify-between py-2 border-b border-[#1e1e2e]">
+                  <div className="flex justify-between py-2 border-b border-white/[0.08]">
                     <span className="text-[#64748b]">Year Built</span>
                     <span className="text-white">{property.features.yearBuilt}</span>
                   </div>
-                  <div className="flex justify-between py-2 border-b border-[#1e1e2e]">
+                  <div className="flex justify-between py-2 border-b border-white/[0.08]">
                     <span className="text-[#64748b]">Heating</span>
                     <span className="text-white capitalize">{property.features.heating || 'N/A'}</span>
                   </div>
-                  <div className="flex justify-between py-2 border-b border-[#1e1e2e]">
+                  <div className="flex justify-between py-2 border-b border-white/[0.08]">
                     <span className="text-[#64748b]">Cooling</span>
                     <span className="text-white capitalize">{property.features.cooling || 'N/A'}</span>
                   </div>
                   {property.features.flooring && (
-                    <div className="flex justify-between py-2 border-b border-[#1e1e2e]">
+                    <div className="flex justify-between py-2 border-b border-white/[0.08]">
                       <span className="text-[#64748b]">Flooring</span>
                       <span className="text-white capitalize">{property.features.flooring.join(', ')}</span>
                     </div>
@@ -329,7 +329,7 @@ export const PropertyDetail = () => {
 
               {/* HOA Info */}
               {property.hoa && (
-                <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+                <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
                   <h3 className="text-lg font-semibold text-white mb-4">HOA Information</h3>
                   <div className="space-y-3">
                     <div className="flex justify-between">
@@ -346,7 +346,7 @@ export const PropertyDetail = () => {
 
               {/* Tax Info */}
               {property.taxInfo && (
-                <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+                <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
                   <h3 className="text-lg font-semibold text-white mb-4">Tax Information</h3>
                   <div className="space-y-3">
                     <div className="flex justify-between">
@@ -362,11 +362,11 @@ export const PropertyDetail = () => {
               )}
 
               {/* Price History */}
-              <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+              <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
                 <h3 className="text-lg font-semibold text-white mb-4">Price History</h3>
                 <div className="space-y-3">
                   {property.priceHistory.map((history, index) => (
-                    <div key={index} className="flex items-center justify-between py-2 border-b border-[#1e1e2e]">
+                    <div key={index} className="flex items-center justify-between py-2 border-b border-white/[0.08]">
                       <div className="flex items-center gap-3">
                         <TrendingDown className="h-4 w-4 text-[#64748b]" />
                         <span className="text-[#94a3b8]">{history.date}</span>
@@ -384,18 +384,18 @@ export const PropertyDetail = () => {
             <>
               {/* Stats */}
               <div className="grid grid-cols-3 gap-4">
-                <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-4 text-center">
-                  <Eye className="h-6 w-6 text-indigo-400 mx-auto mb-2" />
+                <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-4 text-center">
+                  <Eye className="h-6 w-6 text-[#547792] mx-auto mb-2" />
                   <div className="text-2xl font-bold text-white">{property.views.toLocaleString()}</div>
                   <div className="text-xs text-[#64748b]">Views</div>
                 </div>
-                <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-4 text-center">
-                  <MessageSquare className="h-6 w-6 text-indigo-400 mx-auto mb-2" />
+                <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-4 text-center">
+                  <MessageSquare className="h-6 w-6 text-[#547792] mx-auto mb-2" />
                   <div className="text-2xl font-bold text-white">{property.inquiries}</div>
                   <div className="text-xs text-[#64748b]">Inquiries</div>
                 </div>
-                <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-4 text-center">
-                  <Calendar className="h-6 w-6 text-indigo-400 mx-auto mb-2" />
+                <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-4 text-center">
+                  <Calendar className="h-6 w-6 text-[#547792] mx-auto mb-2" />
                   <div className="text-2xl font-bold text-white">{property.showings}</div>
                   <div className="text-xs text-[#64748b]">Showings</div>
                 </div>
@@ -415,7 +415,7 @@ export const PropertyDetail = () => {
               )}
 
               {/* Activity Placeholder */}
-              <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+              <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
                 <h3 className="text-lg font-semibold text-white mb-4">Recent Activity</h3>
                 <div className="text-center py-8">
                   <Clock className="h-12 w-12 text-[#2e2e3e] mx-auto mb-3" />
@@ -426,13 +426,13 @@ export const PropertyDetail = () => {
           )}
 
           {activeTab === 'documents' && (
-            <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+            <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
               <h3 className="text-lg font-semibold text-white mb-4">Documents</h3>
               <div className="space-y-3">
                 {property.floorPlan && (
                   <div className="flex items-center justify-between p-3 rounded-lg bg-[#1a1a24] hover:bg-[#1e1e2e] transition-colors cursor-pointer">
                     <div className="flex items-center gap-3">
-                      <FileText className="h-5 w-5 text-indigo-400" />
+                      <FileText className="h-5 w-5 text-[#547792]" />
                       <span className="text-white">Floor Plan</span>
                     </div>
                     <ExternalLink className="h-4 w-4 text-[#64748b]" />
@@ -441,7 +441,7 @@ export const PropertyDetail = () => {
                 {property.virtualTour && (
                   <div className="flex items-center justify-between p-3 rounded-lg bg-[#1a1a24] hover:bg-[#1e1e2e] transition-colors cursor-pointer">
                     <div className="flex items-center gap-3">
-                      <Play className="h-5 w-5 text-indigo-400" />
+                      <Play className="h-5 w-5 text-[#547792]" />
                       <span className="text-white">Virtual Tour</span>
                     </div>
                     <ExternalLink className="h-4 w-4 text-[#64748b]" />
@@ -449,14 +449,14 @@ export const PropertyDetail = () => {
                 )}
                 <div className="flex items-center justify-between p-3 rounded-lg bg-[#1a1a24] hover:bg-[#1e1e2e] transition-colors cursor-pointer">
                   <div className="flex items-center gap-3">
-                    <FileText className="h-5 w-5 text-indigo-400" />
+                    <FileText className="h-5 w-5 text-[#547792]" />
                     <span className="text-white">Listing Agreement</span>
                   </div>
                   <ExternalLink className="h-4 w-4 text-[#64748b]" />
                 </div>
                 <div className="flex items-center justify-between p-3 rounded-lg bg-[#1a1a24] hover:bg-[#1e1e2e] transition-colors cursor-pointer">
                   <div className="flex items-center gap-3">
-                    <FileText className="h-5 w-5 text-indigo-400" />
+                    <FileText className="h-5 w-5 text-[#547792]" />
                     <span className="text-white">Property Disclosures</span>
                   </div>
                   <ExternalLink className="h-4 w-4 text-[#64748b]" />
@@ -469,11 +469,11 @@ export const PropertyDetail = () => {
             <>
               {/* Unit Mix */}
               {property.unitMix && (
-                <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+                <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
                   <h3 className="text-lg font-semibold text-white mb-4">Unit Mix</h3>
                   <table className="w-full">
                     <thead>
-                      <tr className="border-b border-[#1e1e2e]">
+                      <tr className="border-b border-white/[0.08]">
                         <th className="py-2 text-left text-xs font-medium text-[#64748b]">Unit</th>
                         <th className="py-2 text-left text-xs font-medium text-[#64748b]">Beds/Baths</th>
                         <th className="py-2 text-left text-xs font-medium text-[#64748b]">Sqft</th>
@@ -483,7 +483,7 @@ export const PropertyDetail = () => {
                     </thead>
                     <tbody>
                       {property.unitMix.map((unit) => (
-                        <tr key={unit.unit} className="border-b border-[#1e1e2e]">
+                        <tr key={unit.unit} className="border-b border-white/[0.08]">
                           <td className="py-3 text-white">{unit.unit}</td>
                           <td className="py-3 text-[#94a3b8]">{unit.bedrooms}BR / {unit.bathrooms}BA</td>
                           <td className="py-3 text-[#94a3b8]">{unit.sqft.toLocaleString()}</td>
@@ -503,7 +503,7 @@ export const PropertyDetail = () => {
               )}
 
               {/* Financials */}
-              <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+              <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
                 <h3 className="text-lg font-semibold text-white mb-4">Financial Summary</h3>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="p-4 rounded-lg bg-[#1a1a24]">
@@ -520,7 +520,7 @@ export const PropertyDetail = () => {
                   </div>
                   <div className="p-4 rounded-lg bg-[#1a1a24]">
                     <div className="text-[#64748b] text-sm mb-1">Cap Rate</div>
-                    <div className="text-xl font-bold text-indigo-400">{property.financials.capRate}%</div>
+                    <div className="text-xl font-bold text-[#547792]">{property.financials.capRate}%</div>
                   </div>
                 </div>
               </div>
@@ -531,10 +531,10 @@ export const PropertyDetail = () => {
         {/* Sidebar */}
         <div className="space-y-6">
           {/* Agent Info */}
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4">Listing Agent</h3>
             <div className="flex items-center gap-4 mb-4">
-              <div className="h-14 w-14 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-lg">
+              <div className="h-14 w-14 rounded-full bg-gradient-to-br from-[#547792] to-[#94B4C1] flex items-center justify-center text-white font-bold text-lg">
                 {property.agent.name.charAt(0)}
               </div>
               <div>
@@ -559,7 +559,7 @@ export const PropertyDetail = () => {
           </div>
 
           {/* Owner Info */}
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4">Property Owner</h3>
             <div className="flex items-center gap-4">
               <div className="h-12 w-12 rounded-lg bg-[#1a1a24] flex items-center justify-center">
@@ -577,7 +577,7 @@ export const PropertyDetail = () => {
           </div>
 
           {/* Quick Stats */}
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4">Quick Stats</h3>
             <div className="space-y-3">
               <div className="flex justify-between">

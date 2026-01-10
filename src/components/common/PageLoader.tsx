@@ -15,8 +15,8 @@ export const PageLoader = ({ message = 'Loading...' }: PageLoaderProps) => {
         {/* Animated Logo/Spinner */}
         <div className="relative">
           <motion.div
-            className="w-16 h-16 rounded-full border-4 border-[#1e1e2e]"
-            style={{ borderTopColor: '#6366f1' }}
+            className="w-16 h-16 rounded-full border-4 border-white/[0.08]"
+            style={{ borderTopColor: '#547792' }}
             animate={{ rotate: 360 }}
             transition={{
               duration: 1,
@@ -25,8 +25,8 @@ export const PageLoader = ({ message = 'Loading...' }: PageLoaderProps) => {
             }}
           />
           <motion.div
-            className="absolute inset-2 rounded-full border-4 border-[#1e1e2e]"
-            style={{ borderTopColor: '#8b5cf6' }}
+            className="absolute inset-2 rounded-full border-4 border-white/[0.08]"
+            style={{ borderTopColor: '#94B4C1' }}
             animate={{ rotate: -360 }}
             transition={{
               duration: 1.5,
@@ -72,8 +72,8 @@ export const InlineLoader = ({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) => 
 
   return (
     <motion.div
-      className={`${sizes[size]} rounded-full border-[#1e1e2e]`}
-      style={{ borderTopColor: '#6366f1' }}
+      className={`${sizes[size]} rounded-full border-white/[0.08]`}
+      style={{ borderTopColor: '#547792' }}
       animate={{ rotate: 360 }}
       transition={{
         duration: 0.8,

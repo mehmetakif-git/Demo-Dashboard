@@ -19,6 +19,7 @@ import {
   getPlacementStatusBgColor,
 } from '@/data/staffing/staffingData';
 import { ROUTES } from '@/utils/constants';
+import { getProfileImage } from '@/utils/profileImages';
 
 export const Placements = () => {
   const navigate = useNavigate();
@@ -57,7 +58,7 @@ export const Placements = () => {
       title: 'Total Placements',
       value: staffingStats.totalPlacements.toString(),
       icon: CheckCircle,
-      iconColor: '#6366f1',
+      iconColor: '#547792',
     },
     {
       title: 'Active Placements',
@@ -75,7 +76,7 @@ export const Placements = () => {
       title: 'Avg Margin',
       value: `${avgMargin}%`,
       icon: TrendingUp,
-      iconColor: '#8b5cf6',
+      iconColor: '#94B4C1',
     },
   ];
 
@@ -120,14 +121,14 @@ export const Placements = () => {
               placeholder="Search placements..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-primary"
+              className="w-full pl-10 pr-4 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-primary"
             />
           </div>
 
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Statuses</option>
             <option value="active">Active</option>
@@ -139,7 +140,7 @@ export const Placements = () => {
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Types</option>
             <option value="permanent">Permanent</option>
@@ -154,7 +155,7 @@ export const Placements = () => {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-border-default">
+              <tr className="border-b border-white/[0.08]">
                 <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
                   Candidate
                 </th>
@@ -185,16 +186,24 @@ export const Placements = () => {
               {filteredPlacements.map((placement) => (
                 <tr
                   key={placement.id}
-                  className="border-b border-border-default hover:bg-background-secondary/50"
+                  className="border-b border-white/[0.08] hover:bg-white/[0.03] backdrop-blur-xl/50"
                 >
                   <td className="py-3 px-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white text-sm font-bold">
-                        {placement.candidateName
-                          .split(' ')
-                          .map((n) => n[0])
-                          .join('')}
-                      </div>
+                      {getProfileImage(placement.candidateName) ? (
+                        <img
+                          src={getProfileImage(placement.candidateName)}
+                          alt={placement.candidateName}
+                          className="w-10 h-10 rounded-full object-cover border border-white/10"
+                        />
+                      ) : (
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white text-sm font-bold">
+                          {placement.candidateName
+                            .split(' ')
+                            .map((n) => n[0])
+                            .join('')}
+                        </div>
+                      )}
                       <p className="font-medium text-text-primary">{placement.candidateName}</p>
                     </div>
                   </td>
@@ -206,7 +215,7 @@ export const Placements = () => {
                     </div>
                   </td>
                   <td className="py-3 px-4">
-                    <span className="px-2 py-1 rounded-full text-xs font-medium bg-background-tertiary text-text-primary capitalize">
+                    <span className="px-2 py-1 rounded-full text-xs font-medium bg-white/[0.05] text-text-primary capitalize">
                       {placement.type.replace('-', ' ')}
                     </span>
                   </td>

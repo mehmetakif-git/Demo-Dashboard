@@ -51,69 +51,88 @@ import pp46 from '@/assets/images/profiles/pp-46.webp';
 import pp47 from '@/assets/images/profiles/pp-47.webp';
 import pp48 from '@/assets/images/profiles/pp-48.webp';
 
+// Company logo imports (comp1 through comp7)
+import comp1 from '@/assets/images/profiles/comp1.webp';
+import comp2 from '@/assets/images/profiles/comp2.webp';
+import comp3 from '@/assets/images/profiles/comp3.webp';
+import comp4 from '@/assets/images/profiles/comp4.webp';
+import comp5 from '@/assets/images/profiles/comp5.webp';
+import comp6 from '@/assets/images/profiles/comp6.webp';
+import comp7 from '@/assets/images/profiles/comp7.webp';
+
 // Map person full names to their profile pictures
 export const profileImages: Record<string, string> = {
+  // Main personas (User specified)
+  'John Smith': pp9,
+  'Emily Chen': pp6,
+  'Michael Johnson': pp21,
+  'Sarah Williams': pp8,
+  'David Brown': pp15,
+  'Jennifer Martinez': pp29,
+  'Robert Taylor': pp30,
+  'Amanda Garcia': pp43,
+
   // HR / Communication (1-15)
   'John Anderson': pp1,
-  'Emily Chen': pp2,
   'Michael Roberts': pp3,
   'Sarah Wilson': pp4,
   'David Kim': pp5,
-  'Jessica Martinez': pp6,
-  'Robert Taylor': pp7,
-  'Amanda Lee': pp8,
-  'Chris Johnson': pp9,
-  'Lisa Park': pp10,
-  'Alex Thompson': pp11,
-  'Maria Garcia': pp12,
-  'James Wilson': pp13,
-  'Sophie Brown': pp14,
-  'Daniel Lee': pp15,
+  'Jessica Martinez': pp7,
+  'Amanda Lee': pp2,
+  'Chris Johnson': pp10,
+  'Lisa Park': pp11,
+  'Alex Thompson': pp12,
+  'Maria Garcia': pp13,
+  'James Wilson': pp14,
+  'Sophie Brown': pp16,
+  'Daniel Lee': pp17,
 
-  // Access Control (16-22)
-  'Jessica Thompson': pp16,
-  'David Chen': pp17,
-  'Emma Williams': pp18,
-  'James Anderson': pp19,
-  'Sophia Garcia': pp20,
-  'Oliver Martinez': pp21,
-  'Michael Brown': pp22,
+  // Access Control (18-22)
+  'Jessica Thompson': pp18,
+  'David Chen': pp19,
+  'Emma Williams': pp20,
+  'James Anderson': pp22,
+  'Sophia Garcia': pp23,
+  'Oliver Martinez': pp24,
+  'Michael Brown': pp25,
 
-  // Gym Members (23-31)
-  'Jessica Williams': pp23,
-  'Marcus Chen': pp24,
-  'Emma Rodriguez': pp25,
-  'James Miller': pp26,
-  'Sophia Lee': pp27,
-  'Robert Brown': pp28,
-  'Olivia Taylor': pp29,
-  'Daniel Kim': pp30,
-  'Amanda Garcia': pp31,
+  // Gym Members (26-34)
+  'Jessica Williams': pp26,
+  'Marcus Chen': pp27,
+  'Emma Rodriguez': pp28,
+  'James Miller': pp31,
+  'Sophia Lee': pp32,
+  'Robert Brown': pp33,
+  'Olivia Taylor': pp34,
+  'Daniel Kim': pp35,
 
-  // Gym Trainers (32-36)
-  'Mike Johnson': pp32,
-  'Sarah Davis': pp33,
-  'David Park': pp34,
-  'Emily Zhang': pp35,
-  'Chris Martinez': pp36,
+  // Gym Trainers (36-40)
+  'Mike Johnson': pp36,
+  'Sarah Davis': pp37,
+  'David Park': pp38,
+  'Emily Zhang': pp39,
+  'Chris Martinez': pp40,
 
-  // Events (37-41)
-  'Jennifer Adams': pp37,
-  'Lisa Rodriguez': pp38,
-  'Rachel Green': pp39,
-  'Thomas Wilson': pp40,
-  'Michael Chen': pp41,
+  // Events (41-45)
+  'Jennifer Adams': pp41,
+  'Lisa Rodriguez': pp42,
+  'Rachel Green': pp44,
+  'Thomas Wilson': pp45,
+  'Michael Chen': pp46,
 
-  // Staffing (42-45)
-  'Robert Martinez': pp42,
-  'Janet Adams': pp43,
-  'Susan Lee': pp44,
-  'Thomas Brown': pp45,
+  // Staffing (47-48)
+  'Robert Martinez': pp47,
+  'Janet Adams': pp48,
+  'Susan Lee': pp4,
+  'Thomas Brown': pp5,
+  'Lisa Anderson': pp35,
+  'Kevin Thomas': pp40,
+  'Peter Kim': pp47,
 
-  // HR Additional (46-48)
-  'Rachel Adams': pp46,
-  'Kevin White': pp47,
-  'Jennifer Taylor': pp48,
+  // HR Additional
+  'Rachel Adams': pp3,
+  'Kevin White': pp1,
+  'Jennifer Taylor': pp4,
 };
 
 // Helper function to get profile image by name
@@ -124,4 +143,20 @@ export const getProfileImage = (name: string): string | undefined => {
 // Helper function to get profile image by first and last name
 export const getProfileImageByParts = (firstName: string, lastName: string): string | undefined => {
   return profileImages[`${firstName} ${lastName}`];
+};
+
+// Map company names to their logos
+export const companyLogos: Record<string, string> = {
+  'TechCorp Solutions': comp1,
+  'DataFlow Inc.': comp2,
+  'StartupXYZ': comp3,
+  'CloudTech Systems': comp4,
+  'AI Innovations': comp5,
+  'MobileFirst Inc.': comp6,
+  'LegacySoft Corp': comp7,
+};
+
+// Helper function to get company logo by name
+export const getCompanyLogo = (companyName: string): string | undefined => {
+  return companyLogos[companyName];
 };

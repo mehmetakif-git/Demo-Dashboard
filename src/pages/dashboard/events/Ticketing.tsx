@@ -59,7 +59,7 @@ export const Ticketing = () => {
         title="Ticketing"
         subtitle="Manage ticket sales and pricing"
         actions={
-          <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
+          <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
             <Plus className="h-4 w-4" />
             Create Ticket Type
           </button>
@@ -67,12 +67,12 @@ export const Ticketing = () => {
       />
 
       {/* Event Selector */}
-      <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-4">
+      <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-4">
         <label className="block text-sm text-[#64748b] mb-2">Select Event</label>
         <select
           value={selectedEvent}
           onChange={(e) => setSelectedEvent(e.target.value)}
-          className="w-full max-w-md rounded-lg border border-[#1e1e2e] bg-[#1a1a24] px-4 py-2 text-white focus:border-[#6366f1] focus:outline-none"
+          className="w-full max-w-md rounded-lg border border-white/[0.08] bg-[#1a1a24] px-4 py-2 text-white focus:border-[#547792] focus:outline-none"
         >
           {events.map((event) => (
             <option key={event.id} value={event.id}>
@@ -112,7 +112,7 @@ export const Ticketing = () => {
 
       {/* Ticket Types */}
       {selectedEventData && selectedEventData.ticketTypes.length > 0 && (
-        <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+        <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
           <h3 className="text-lg font-semibold text-white mb-4">Ticket Types</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {selectedEventData.ticketTypes.map((ticket, index) => {
@@ -123,7 +123,7 @@ export const Ticketing = () => {
                 <div key={index} className="rounded-lg bg-[#1a1a24] p-4">
                   <div className="flex items-center justify-between mb-3">
                     <h4 className="text-white font-semibold">{ticket.name}</h4>
-                    <span className="text-[#6366f1] font-bold">{formatCurrency(ticket.price)}</span>
+                    <span className="text-[#547792] font-bold">{formatCurrency(ticket.price)}</span>
                   </div>
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
@@ -133,7 +133,7 @@ export const Ticketing = () => {
                     <div className="h-2 rounded-full bg-[#1e1e2e]">
                       <div
                         className={`h-full rounded-full ${
-                          progress >= 90 ? 'bg-red-500' : progress >= 70 ? 'bg-amber-500' : 'bg-gradient-to-r from-[#6366f1] to-[#8b5cf6]'
+                          progress >= 90 ? 'bg-red-500' : progress >= 70 ? 'bg-amber-500' : 'bg-gradient-to-r from-[#547792] to-[#94B4C1]'
                         }`}
                         style={{ width: `${progress}%` }}
                       />
@@ -142,7 +142,7 @@ export const Ticketing = () => {
                       <span className="text-[#64748b]">Remaining</span>
                       <span className={remaining <= 50 ? 'text-amber-400' : 'text-emerald-400'}>{remaining}</span>
                     </div>
-                    <div className="flex justify-between text-sm pt-2 border-t border-[#1e1e2e]">
+                    <div className="flex justify-between text-sm pt-2 border-t border-white/[0.08]">
                       <span className="text-[#64748b]">Revenue</span>
                       <span className="text-white font-semibold">{formatCurrency(ticket.price * ticket.sold)}</span>
                     </div>
@@ -155,8 +155,8 @@ export const Ticketing = () => {
       )}
 
       {/* Sales Table */}
-      <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] overflow-hidden">
-        <div className="p-6 border-b border-[#1e1e2e]">
+      <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl overflow-hidden">
+        <div className="p-6 border-b border-white/[0.08]">
           <div className="flex items-center justify-between">
             <h3 className="text-lg font-semibold text-white">Recent Sales</h3>
             <div className="relative">
@@ -166,7 +166,7 @@ export const Ticketing = () => {
                 placeholder="Search orders..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="rounded-lg border border-[#1e1e2e] bg-[#1a1a24] py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#6366f1] focus:outline-none"
+                className="rounded-lg border border-white/[0.08] bg-[#1a1a24] py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#547792] focus:outline-none"
               />
             </div>
           </div>
@@ -174,7 +174,7 @@ export const Ticketing = () => {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-[#1e1e2e]">
+              <tr className="border-b border-white/[0.08]">
                 <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">Order ID</th>
                 <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">Buyer</th>
                 <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">Ticket Type</th>

@@ -87,7 +87,7 @@ export const Creatives = () => {
         title="Creatives"
         subtitle="Manage creative assets and design materials"
         actions={
-          <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
+          <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
             <Plus className="h-4 w-4" />
             Upload Asset
           </button>
@@ -131,14 +131,14 @@ export const Creatives = () => {
             placeholder="Search assets..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full rounded-lg border border-[#1e1e2e] bg-[#12121a] py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#6366f1] focus:outline-none"
+            className="w-full rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#547792] focus:outline-none"
           />
         </div>
         <div className="flex gap-2">
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value)}
-            className="rounded-lg border border-[#1e1e2e] bg-[#12121a] px-3 py-2 text-sm text-white focus:border-[#6366f1] focus:outline-none"
+            className="rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
             <option value="all">All Types</option>
             {types.map((type) => (
@@ -150,7 +150,7 @@ export const Creatives = () => {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="rounded-lg border border-[#1e1e2e] bg-[#12121a] px-3 py-2 text-sm text-white focus:border-[#6366f1] focus:outline-none"
+            className="rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
             <option value="all">All Status</option>
             {statuses.map((status) => (
@@ -159,7 +159,7 @@ export const Creatives = () => {
               </option>
             ))}
           </select>
-          <button className="flex items-center gap-2 rounded-lg border border-[#1e1e2e] bg-[#12121a] px-3 py-2 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
+          <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
             <Filter className="h-4 w-4" />
             More Filters
           </button>
@@ -176,7 +176,7 @@ export const Creatives = () => {
               key={asset.id}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="rounded-xl border border-[#1e1e2e] bg-[#12121a] overflow-hidden hover:border-[#6366f1]/50 transition-colors"
+              className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl overflow-hidden hover:border-[#547792]/50 transition-colors"
             >
               {/* Preview Area */}
               <div className="aspect-video bg-[#1a1a24] flex items-center justify-center relative">
@@ -184,7 +184,7 @@ export const Creatives = () => {
                   asset.type === 'image' ? 'bg-blue-500/20 text-blue-400' :
                   asset.type === 'video' ? 'bg-red-500/20 text-red-400' :
                   asset.type === 'document' ? 'bg-emerald-500/20 text-emerald-400' :
-                  'bg-[#6366f1]/20 text-[#6366f1]'
+                  'bg-[#547792]/20 text-[#547792]'
                 }`}>
                   {getTypeIcon(asset.type)}
                 </div>
@@ -220,7 +220,7 @@ export const Creatives = () => {
                   )}
                 </div>
 
-                <div className="flex items-center justify-between pt-3 border-t border-[#1e1e2e]">
+                <div className="flex items-center justify-between pt-3 border-t border-white/[0.08]">
                   <span className="text-xs text-[#64748b]">{asset.createdAt}</span>
                   <div className="flex gap-1">
                     <button className="rounded-lg p-1.5 text-[#64748b] hover:bg-[#1e1e2e] hover:text-white transition-colors">
@@ -246,10 +246,10 @@ export const Creatives = () => {
           Showing {filteredAssets.length} of {creativeAssets.length} assets
         </p>
         <div className="flex gap-2">
-          <button className="rounded-lg border border-[#1e1e2e] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
+          <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
             Previous
           </button>
-          <button className="rounded-lg border border-[#1e1e2e] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
+          <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
             Next
           </button>
         </div>

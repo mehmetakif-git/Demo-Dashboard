@@ -55,7 +55,7 @@ export const JobOrders = () => {
       title: 'Open Positions',
       value: staffingStats.openJobOrders.toString(),
       icon: Briefcase,
-      iconColor: '#6366f1',
+      iconColor: '#547792',
     },
     {
       title: 'Total Job Orders',
@@ -122,14 +122,14 @@ export const JobOrders = () => {
               placeholder="Search jobs..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-primary"
+              className="w-full pl-10 pr-4 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-primary"
             />
           </div>
 
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Statuses</option>
             <option value="open">Open</option>
@@ -141,7 +141,7 @@ export const JobOrders = () => {
           <select
             value={urgencyFilter}
             onChange={(e) => setUrgencyFilter(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Urgencies</option>
             <option value="critical">Critical</option>
@@ -153,7 +153,7 @@ export const JobOrders = () => {
           <select
             value={clientFilter}
             onChange={(e) => setClientFilter(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Clients</option>
             {clients.map((client) => (
@@ -166,7 +166,7 @@ export const JobOrders = () => {
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Types</option>
             <option value="full-time">Full-Time</option>
@@ -241,7 +241,7 @@ const JobOrderCard = ({ job, onView }: JobOrderCardProps) => {
             </span>
           ))}
           {job.skills.length > 4 && (
-            <span className="px-2 py-0.5 rounded-full text-xs bg-background-tertiary text-text-secondary">
+            <span className="px-2 py-0.5 rounded-full text-xs bg-white/[0.05] text-text-secondary">
               +{job.skills.length - 4}
             </span>
           )}
@@ -268,14 +268,14 @@ const JobOrderCard = ({ job, onView }: JobOrderCardProps) => {
       </div>
 
       {/* Pipeline Stats */}
-      <div className="bg-background-tertiary rounded-lg p-3 mb-4">
+      <div className="bg-white/[0.05] rounded-lg p-3 mb-4">
         <div className="flex items-center justify-between text-sm mb-2">
           <span className="text-text-secondary">Pipeline</span>
           <span className="text-text-primary font-medium">
             {job.filled}/{job.openings} filled
           </span>
         </div>
-        <div className="w-full h-2 bg-background-secondary rounded-full overflow-hidden mb-2">
+        <div className="w-full h-2 bg-white/[0.03] backdrop-blur-xl rounded-full overflow-hidden mb-2">
           <div
             className="h-full rounded-full bg-gradient-to-r from-accent-primary to-accent-secondary"
             style={{ width: `${fillPercentage}%` }}
@@ -301,7 +301,7 @@ const JobOrderCard = ({ job, onView }: JobOrderCardProps) => {
         </div>
       </div>
 
-      <div className="flex items-center justify-between pt-4 border-t border-border-default">
+      <div className="flex items-center justify-between pt-4 border-t border-white/[0.08]">
         <div className="text-sm text-text-secondary">
           <span>Recruiter: </span>
           <span className="text-text-primary">{job.assignedRecruiter}</span>

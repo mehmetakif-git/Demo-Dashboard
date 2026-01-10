@@ -118,7 +118,7 @@ export const Requests = () => {
           title="Total Requests"
           value={stats.total.toString()}
           icon={MessageSquareText}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
         <StatsCard
           title="Open"
@@ -155,7 +155,7 @@ export const Requests = () => {
           <select
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Status</option>
             <option value="open">Open</option>
@@ -167,7 +167,7 @@ export const Requests = () => {
           <select
             value={selectedPriority}
             onChange={(e) => setSelectedPriority(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Priorities</option>
             <option value="critical">Critical</option>
@@ -179,7 +179,7 @@ export const Requests = () => {
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Categories</option>
             {categories.map(cat => (
@@ -213,20 +213,20 @@ export const Requests = () => {
                       <h3 className="font-semibold text-text-primary">{request.title}</h3>
                       {getStatusBadge(request.status)}
                       {getPriorityBadge(request.priority)}
-                      <span className="px-2 py-0.5 bg-background-tertiary rounded text-xs text-text-secondary">
+                      <span className="px-2 py-0.5 bg-white/[0.05] rounded text-xs text-text-secondary">
                         {request.category}
                       </span>
                     </div>
                     <p className="text-sm text-text-secondary">{request.description}</p>
                   </div>
                   <div className="flex items-center gap-2">
-                    <button className="p-2 hover:bg-background-tertiary rounded text-text-secondary hover:text-accent-primary">
+                    <button className="p-2 hover:bg-white/[0.05] rounded text-text-secondary hover:text-accent-primary">
                       <Eye size={16} />
                     </button>
-                    <button className="p-2 hover:bg-background-tertiary rounded text-text-secondary hover:text-blue-400">
+                    <button className="p-2 hover:bg-white/[0.05] rounded text-text-secondary hover:text-blue-400">
                       <Edit size={16} />
                     </button>
-                    <button className="p-2 hover:bg-background-tertiary rounded text-text-secondary hover:text-red-400">
+                    <button className="p-2 hover:bg-white/[0.05] rounded text-text-secondary hover:text-red-400">
                       <Trash2 size={16} />
                     </button>
                   </div>
@@ -262,7 +262,7 @@ export const Requests = () => {
                 </div>
 
                 {/* Footer */}
-                <div className="flex items-center justify-between pt-3 border-t border-border-default">
+                <div className="flex items-center justify-between pt-3 border-t border-white/[0.08]">
                   <div className="flex items-center gap-4 text-sm text-text-secondary">
                     {request.assignedTo && (
                       <div className="flex items-center gap-2">

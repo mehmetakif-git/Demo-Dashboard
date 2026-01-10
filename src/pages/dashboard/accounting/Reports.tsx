@@ -121,7 +121,7 @@ export const Reports = () => {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6"
+        className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
       >
         <h3 className="text-lg font-semibold text-white mb-4">Report Settings</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -131,7 +131,7 @@ export const Reports = () => {
             <select
               value={selectedPeriod}
               onChange={(e) => setSelectedPeriod(e.target.value)}
-              className="w-full px-3 py-2.5 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-white text-sm focus:outline-none focus:border-[#6366f1]/50 cursor-pointer"
+              className="w-full px-3 py-2.5 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-white text-sm focus:outline-none focus:border-[#547792]/50 cursor-pointer"
             >
               <option value="monthly">Monthly</option>
               <option value="quarterly">Quarterly</option>
@@ -147,7 +147,7 @@ export const Reports = () => {
               <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
               <input
                 type="date"
-                className="w-full pl-10 pr-4 py-2.5 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-white text-sm focus:outline-none focus:border-[#6366f1]/50"
+                className="w-full pl-10 pr-4 py-2.5 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-white text-sm focus:outline-none focus:border-[#547792]/50"
                 defaultValue="2024-12-01"
               />
             </div>
@@ -159,7 +159,7 @@ export const Reports = () => {
               <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
               <input
                 type="date"
-                className="w-full pl-10 pr-4 py-2.5 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-white text-sm focus:outline-none focus:border-[#6366f1]/50"
+                className="w-full pl-10 pr-4 py-2.5 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-white text-sm focus:outline-none focus:border-[#547792]/50"
                 defaultValue="2024-12-31"
               />
             </div>
@@ -180,8 +180,8 @@ export const Reports = () => {
             onClick={() => setSelectedCategory(category)}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
               selectedCategory === category
-                ? 'bg-[#6366f1] text-white'
-                : 'bg-[#12121a] text-white/60 hover:text-white border border-[#1e1e2e]'
+                ? 'bg-[#547792] text-white'
+                : 'bg-white/[0.03] backdrop-blur-xl text-white/60 hover:text-white border border-white/[0.08]'
             }`}
           >
             {category}
@@ -201,13 +201,13 @@ export const Reports = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.15 + index * 0.05 }}
-              className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6 hover:border-[#2e2e3e] transition-colors"
+              className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6 hover:border-[#2e2e3e] transition-colors"
             >
               {/* Header */}
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-xl bg-[#6366f1]/20 flex items-center justify-center">
-                    <Icon className="w-6 h-6 text-[#6366f1]" />
+                  <div className="w-12 h-12 rounded-xl bg-[#547792]/20 flex items-center justify-center">
+                    <Icon className="w-6 h-6 text-[#547792]" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-white">{report.name}</h3>
@@ -229,14 +229,14 @@ export const Reports = () => {
               )}
 
               {/* Actions */}
-              <div className="flex items-center gap-2 pt-4 border-t border-[#1e1e2e]">
+              <div className="flex items-center gap-2 pt-4 border-t border-white/[0.08]">
                 <button
                   onClick={() => handleGenerateReport(report.id)}
                   disabled={isGenerating}
                   className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg font-medium text-sm transition-all cursor-pointer ${
                     isGenerating
-                      ? 'bg-[#6366f1]/50 text-white/50 cursor-not-allowed'
-                      : 'bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] text-white hover:opacity-90'
+                      ? 'bg-[#547792]/50 text-white/50 cursor-not-allowed'
+                      : 'bg-gradient-to-r from-[#547792] to-[#94B4C1] text-white hover:opacity-90'
                   }`}
                 >
                   {isGenerating ? (
@@ -268,7 +268,7 @@ export const Reports = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
-        className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6"
+        className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
       >
         <h3 className="text-lg font-semibold text-white mb-4">Quick Actions</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

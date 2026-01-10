@@ -144,7 +144,7 @@ export const SystemLogs = () => {
           title="Total Logs"
           value={stats.total.toString()}
           icon={Activity}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
         <StatsCard
           title="Successful"
@@ -180,7 +180,7 @@ export const SystemLogs = () => {
           <select
             value={userFilter}
             onChange={(e) => setUserFilter(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Users</option>
             {uniqueUsers.map(user => (
@@ -190,7 +190,7 @@ export const SystemLogs = () => {
           <select
             value={actionFilter}
             onChange={(e) => setActionFilter(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Actions</option>
             {uniqueActions.map(action => (
@@ -200,7 +200,7 @@ export const SystemLogs = () => {
           <select
             value={moduleFilter}
             onChange={(e) => setModuleFilter(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Modules</option>
             {uniqueModules.map(mod => (
@@ -210,7 +210,7 @@ export const SystemLogs = () => {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Status</option>
             <option value="success">Success</option>
@@ -224,7 +224,7 @@ export const SystemLogs = () => {
       <Card className="overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-background-tertiary">
+            <thead className="bg-white/[0.05]">
               <tr>
                 <th className="text-left p-4 text-sm font-medium text-text-secondary">Timestamp</th>
                 <th className="text-left p-4 text-sm font-medium text-text-secondary">User</th>
@@ -245,7 +245,7 @@ export const SystemLogs = () => {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.02 }}
-                    className={`hover:bg-background-tertiary/50 transition-colors cursor-pointer ${
+                    className={`hover:bg-white/[0.05]/50 transition-colors cursor-pointer ${
                       log.status === 'failed' ? 'bg-red-500/5' :
                       log.status === 'warning' ? 'bg-amber-500/5' : ''
                     }`}
@@ -271,7 +271,7 @@ export const SystemLogs = () => {
                       </div>
                     </td>
                     <td className="p-4">
-                      <span className="px-2 py-1 bg-background-tertiary rounded text-xs text-text-secondary">
+                      <span className="px-2 py-1 bg-white/[0.05] rounded text-xs text-text-secondary">
                         {log.module}
                       </span>
                     </td>
@@ -290,7 +290,7 @@ export const SystemLogs = () => {
                       </div>
                     </td>
                     <td className="p-4">
-                      <code className="text-xs text-text-muted bg-background-tertiary px-2 py-1 rounded">
+                      <code className="text-xs text-text-muted bg-white/[0.05] px-2 py-1 rounded">
                         {log.ip}
                       </code>
                     </td>
@@ -326,38 +326,38 @@ export const SystemLogs = () => {
                     <h3 className="font-semibold text-text-primary">Log Details</h3>
                     <button
                       onClick={() => setExpandedLog(null)}
-                      className="p-2 hover:bg-background-tertiary rounded transition-colors"
+                      className="p-2 hover:bg-white/[0.05] rounded transition-colors"
                     >
                       <ChevronUp size={18} className="text-text-muted" />
                     </button>
                   </div>
 
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div className="p-3 bg-background-secondary rounded-lg">
+                    <div className="p-3 bg-white/[0.03] backdrop-blur-xl rounded-lg">
                       <p className="text-xs text-text-muted mb-1">Timestamp</p>
                       <p className="text-sm text-text-primary">{formatDateTime(log.timestamp)}</p>
                     </div>
-                    <div className="p-3 bg-background-secondary rounded-lg">
+                    <div className="p-3 bg-white/[0.03] backdrop-blur-xl rounded-lg">
                       <p className="text-xs text-text-muted mb-1">User</p>
                       <p className="text-sm text-text-primary">{log.user}</p>
                     </div>
-                    <div className="p-3 bg-background-secondary rounded-lg">
+                    <div className="p-3 bg-white/[0.03] backdrop-blur-xl rounded-lg">
                       <p className="text-xs text-text-muted mb-1">Action</p>
                       <p className="text-sm text-text-primary capitalize">{log.action.replace('_', ' ')}</p>
                     </div>
-                    <div className="p-3 bg-background-secondary rounded-lg">
+                    <div className="p-3 bg-white/[0.03] backdrop-blur-xl rounded-lg">
                       <p className="text-xs text-text-muted mb-1">Module</p>
                       <p className="text-sm text-text-primary">{log.module}</p>
                     </div>
                   </div>
 
-                  <div className="p-4 bg-background-secondary rounded-lg">
+                  <div className="p-4 bg-white/[0.03] backdrop-blur-xl rounded-lg">
                     <p className="text-xs text-text-muted mb-2">Details</p>
                     <p className="text-text-primary">{log.details}</p>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="p-3 bg-background-secondary rounded-lg">
+                    <div className="p-3 bg-white/[0.03] backdrop-blur-xl rounded-lg">
                       <p className="text-xs text-text-muted mb-1">Status</p>
                       <div className="flex items-center gap-2">
                         {getStatusIcon(log.status)}
@@ -366,7 +366,7 @@ export const SystemLogs = () => {
                         </span>
                       </div>
                     </div>
-                    <div className="p-3 bg-background-secondary rounded-lg">
+                    <div className="p-3 bg-white/[0.03] backdrop-blur-xl rounded-lg">
                       <p className="text-xs text-text-muted mb-1">IP Address</p>
                       <code className="text-sm text-text-primary">{log.ip}</code>
                     </div>

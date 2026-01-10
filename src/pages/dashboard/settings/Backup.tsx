@@ -73,7 +73,7 @@ export const Backup = () => {
           title="Total Backups"
           value={backups.length.toString()}
           icon={Database}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
         <StatsCard
           title="Latest Backup"
@@ -91,7 +91,7 @@ export const Backup = () => {
           title="Encryption"
           value={settings.encryptionEnabled ? 'Enabled' : 'Disabled'}
           icon={Shield}
-          iconColor="#8b5cf6"
+          iconColor="#94B4C1"
         />
       </div>
 
@@ -114,7 +114,7 @@ export const Backup = () => {
 
             <div className="space-y-6">
               {/* Auto Backup Toggle */}
-              <div className="flex items-center justify-between py-3 border-b border-border-default">
+              <div className="flex items-center justify-between py-3 border-b border-white/[0.08]">
                 <div>
                   <p className="text-text-primary font-medium">Auto Backup</p>
                   <p className="text-sm text-text-muted">Enable automatic backups</p>
@@ -122,7 +122,7 @@ export const Backup = () => {
                 <button
                   onClick={() => handleSettingChange('autoBackupEnabled', !settings.autoBackupEnabled)}
                   className={`w-12 h-6 rounded-full transition-colors relative ${
-                    settings.autoBackupEnabled ? 'bg-accent-primary' : 'bg-background-tertiary'
+                    settings.autoBackupEnabled ? 'bg-accent-primary' : 'bg-white/[0.05]'
                   }`}
                 >
                   <div
@@ -143,7 +143,7 @@ export const Backup = () => {
                       type="time"
                       value={settings.dailyBackupTime}
                       onChange={(e) => handleSettingChange('dailyBackupTime', e.target.value)}
-                      className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+                      className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
                     />
                   </div>
                   <div>
@@ -151,7 +151,7 @@ export const Backup = () => {
                     <select
                       value={settings.weeklyBackupDay}
                       onChange={(e) => handleSettingChange('weeklyBackupDay', e.target.value)}
-                      className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+                      className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
                     >
                       {weekDays.map(day => (
                         <option key={day} value={day}>{day}</option>
@@ -200,7 +200,7 @@ export const Backup = () => {
                       <button
                         onClick={() => handleSettingChange(option.key as keyof BackupSettings, !settings[option.key as keyof BackupSettings])}
                         className={`w-10 h-5 rounded-full transition-colors relative ${
-                          settings[option.key as keyof BackupSettings] ? 'bg-accent-primary' : 'bg-background-tertiary'
+                          settings[option.key as keyof BackupSettings] ? 'bg-accent-primary' : 'bg-white/[0.05]'
                         }`}
                       >
                         <div
@@ -223,7 +223,7 @@ export const Backup = () => {
                     <button
                       onClick={() => handleSettingChange('notifyOnComplete', !settings.notifyOnComplete)}
                       className={`w-10 h-5 rounded-full transition-colors relative ${
-                        settings.notifyOnComplete ? 'bg-accent-primary' : 'bg-background-tertiary'
+                        settings.notifyOnComplete ? 'bg-accent-primary' : 'bg-white/[0.05]'
                       }`}
                     >
                       <div
@@ -238,7 +238,7 @@ export const Backup = () => {
                     <button
                       onClick={() => handleSettingChange('notifyOnFailure', !settings.notifyOnFailure)}
                       className={`w-10 h-5 rounded-full transition-colors relative ${
-                        settings.notifyOnFailure ? 'bg-accent-primary' : 'bg-background-tertiary'
+                        settings.notifyOnFailure ? 'bg-accent-primary' : 'bg-white/[0.05]'
                       }`}
                     >
                       <div
@@ -252,7 +252,7 @@ export const Backup = () => {
               </div>
 
               {/* Actions */}
-              <div className="flex gap-3 pt-4 border-t border-border-default">
+              <div className="flex gap-3 pt-4 border-t border-white/[0.08]">
                 <Button
                   variant="outline"
                   leftIcon={isCreatingBackup ? <RefreshCw size={16} className="animate-spin" /> : <Play size={16} />}
@@ -290,7 +290,7 @@ export const Backup = () => {
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.05 }}
-                  className="p-4 bg-background-secondary rounded-lg hover:bg-background-tertiary transition-colors"
+                  className="p-4 bg-white/[0.03] backdrop-blur-xl rounded-lg hover:bg-white/[0.05] transition-colors"
                 >
                   <div className="flex items-start justify-between mb-2">
                     <div>
@@ -299,7 +299,7 @@ export const Backup = () => {
                         <span className={`px-2 py-0.5 rounded text-xs font-medium ${
                           backup.type === 'automatic'
                             ? 'bg-blue-500/20 text-blue-400'
-                            : 'bg-purple-500/20 text-purple-400'
+                            : 'bg-[#94B4C1]/20 text-[#94B4C1]'
                         }`}>
                           {backup.type}
                         </span>
@@ -387,7 +387,7 @@ export const Backup = () => {
 
               <div className="mb-4">
                 <p className="text-sm text-text-muted mb-2">Backup Details:</p>
-                <div className="p-3 bg-background-secondary rounded-lg">
+                <div className="p-3 bg-white/[0.03] backdrop-blur-xl rounded-lg">
                   <p className="font-medium text-text-primary">{restoreBackup.name}</p>
                   <p className="text-sm text-text-secondary">{restoreBackup.size} • {formatDateTime(restoreBackup.createdAt)}</p>
                 </div>
@@ -400,7 +400,7 @@ export const Backup = () => {
                   value={confirmText}
                   onChange={(e) => setConfirmText(e.target.value)}
                   placeholder="RESTORE"
-                  className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-red-500"
+                  className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-red-500"
                 />
               </div>
 
@@ -423,7 +423,7 @@ export const Backup = () => {
       )}
 
       {/* Sticky Save Button */}
-      <div className="fixed bottom-0 left-0 right-0 p-4 bg-background-primary border-t border-border-default">
+      <div className="fixed bottom-0 left-0 right-0 p-4 bg-background-primary border-t border-white/[0.08]">
         <div className="max-w-7xl mx-auto flex justify-end gap-4">
           <Button
             variant="outline"

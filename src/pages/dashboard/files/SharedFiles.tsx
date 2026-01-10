@@ -53,7 +53,7 @@ export const SharedFiles = () => {
 
   const getFileIcon = (item: SharedFile) => {
     if (item.type === 'folder') {
-      return <Folder size={20} style={{ color: item.color || '#6366f1' }} />;
+      return <Folder size={20} style={{ color: item.color || '#547792' }} />;
     }
 
     const iconMap: Record<string, React.ReactNode> = {
@@ -99,7 +99,7 @@ export const SharedFiles = () => {
           className={`px-4 py-2 rounded-lg font-medium transition-colors ${
             activeTab === 'with-me'
               ? 'bg-accent-primary text-white'
-              : 'bg-background-tertiary text-text-secondary hover:bg-background-secondary'
+              : 'bg-white/[0.05] text-text-secondary hover:bg-white/[0.03] backdrop-blur-xl'
           }`}
         >
           Shared with Me
@@ -109,7 +109,7 @@ export const SharedFiles = () => {
           className={`px-4 py-2 rounded-lg font-medium transition-colors ${
             activeTab === 'by-me'
               ? 'bg-accent-primary text-white'
-              : 'bg-background-tertiary text-text-secondary hover:bg-background-secondary'
+              : 'bg-white/[0.05] text-text-secondary hover:bg-white/[0.03] backdrop-blur-xl'
           }`}
         >
           Shared by Me
@@ -131,7 +131,7 @@ export const SharedFiles = () => {
           <select
             value={ownerFilter}
             onChange={(e) => setOwnerFilter(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Owners</option>
             {owners.map(owner => (
@@ -142,7 +142,7 @@ export const SharedFiles = () => {
           <select
             value={permissionFilter}
             onChange={(e) => setPermissionFilter(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Permissions</option>
             <option value="edit">Can Edit</option>
@@ -162,7 +162,7 @@ export const SharedFiles = () => {
             <Card className="p-4 hover:shadow-lg transition-all">
               <div className="flex items-center gap-4">
                 {/* Icon */}
-                <div className="w-10 h-10 rounded-lg bg-background-tertiary flex items-center justify-center">
+                <div className="w-10 h-10 rounded-lg bg-white/[0.05] flex items-center justify-center">
                   {getFileIcon(file)}
                 </div>
 
@@ -196,7 +196,7 @@ export const SharedFiles = () => {
                     {file.sharedWith.slice(0, 3).map((user, index) => (
                       <div
                         key={index}
-                        className="w-7 h-7 rounded-full bg-accent-primary/20 border-2 border-background-secondary flex items-center justify-center"
+                        className="w-7 h-7 rounded-full bg-accent-primary/20 border-2 border-white/[0.08] flex items-center justify-center"
                         title={user}
                       >
                         <span className="text-[10px] font-bold text-accent-primary">
@@ -205,7 +205,7 @@ export const SharedFiles = () => {
                       </div>
                     ))}
                     {file.sharedWith.length > 3 && (
-                      <div className="w-7 h-7 rounded-full bg-background-tertiary border-2 border-background-secondary flex items-center justify-center">
+                      <div className="w-7 h-7 rounded-full bg-white/[0.05] border-2 border-white/[0.08] flex items-center justify-center">
                         <span className="text-[10px] font-bold text-text-muted">
                           +{file.sharedWith.length - 3}
                         </span>
@@ -216,25 +216,25 @@ export const SharedFiles = () => {
 
                 {/* Actions */}
                 <div className="flex items-center gap-1">
-                  <button className="p-2 hover:bg-background-tertiary rounded-lg text-text-secondary hover:text-accent-primary">
+                  <button className="p-2 hover:bg-white/[0.05] rounded-lg text-text-secondary hover:text-accent-primary">
                     <Eye size={16} />
                   </button>
-                  <button className="p-2 hover:bg-background-tertiary rounded-lg text-text-secondary hover:text-accent-primary">
+                  <button className="p-2 hover:bg-white/[0.05] rounded-lg text-text-secondary hover:text-accent-primary">
                     <Download size={16} />
                   </button>
                   {activeTab === 'with-me' ? (
-                    <button className="p-2 hover:bg-background-tertiary rounded-lg text-text-secondary hover:text-red-400">
+                    <button className="p-2 hover:bg-white/[0.05] rounded-lg text-text-secondary hover:text-red-400">
                       <X size={16} />
                     </button>
                   ) : (
                     <button
                       onClick={() => { setSelectedFile(file); setShowShareModal(true); }}
-                      className="p-2 hover:bg-background-tertiary rounded-lg text-text-secondary hover:text-accent-primary"
+                      className="p-2 hover:bg-white/[0.05] rounded-lg text-text-secondary hover:text-accent-primary"
                     >
                       <Users size={16} />
                     </button>
                   )}
-                  <button className="p-2 hover:bg-background-tertiary rounded-lg text-text-secondary">
+                  <button className="p-2 hover:bg-white/[0.05] rounded-lg text-text-secondary">
                     <MoreVertical size={16} />
                   </button>
                 </div>
@@ -262,10 +262,10 @@ export const SharedFiles = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-background-secondary rounded-xl max-w-lg w-full overflow-hidden"
+            className="bg-white/[0.03] backdrop-blur-xl rounded-xl max-w-lg w-full overflow-hidden"
           >
             {/* Header */}
-            <div className="p-6 border-b border-border-default">
+            <div className="p-6 border-b border-white/[0.08]">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   {getFileIcon(selectedFile)}
@@ -273,7 +273,7 @@ export const SharedFiles = () => {
                 </div>
                 <button
                   onClick={() => setShowShareModal(false)}
-                  className="p-2 hover:bg-background-tertiary rounded-lg"
+                  className="p-2 hover:bg-white/[0.05] rounded-lg"
                 >
                   <X size={20} className="text-text-secondary" />
                 </button>
@@ -292,7 +292,7 @@ export const SharedFiles = () => {
                       leftIcon={<UserPlus size={16} />}
                     />
                   </div>
-                  <select className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary">
+                  <select className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary">
                     <option value="edit">Can Edit</option>
                     <option value="view">Can View</option>
                   </select>
@@ -305,7 +305,7 @@ export const SharedFiles = () => {
                 <h4 className="text-sm font-medium text-text-primary mb-3">People with Access</h4>
                 <div className="space-y-2">
                   {selectedFile.sharedWith.map((user, index) => (
-                    <div key={index} className="flex items-center justify-between p-3 bg-background-tertiary rounded-lg">
+                    <div key={index} className="flex items-center justify-between p-3 bg-white/[0.05] rounded-lg">
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 rounded-full bg-accent-primary/20 flex items-center justify-center">
                           <span className="text-xs font-bold text-accent-primary">
@@ -315,11 +315,11 @@ export const SharedFiles = () => {
                         <span className="text-sm text-text-primary">{user}</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <select className="px-2 py-1 bg-background-secondary border border-border-default rounded text-xs text-text-primary">
+                        <select className="px-2 py-1 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded text-xs text-text-primary">
                           <option value="edit">Can Edit</option>
                           <option value="view">Can View</option>
                         </select>
-                        <button className="p-1 hover:bg-background-secondary rounded text-text-muted hover:text-red-400">
+                        <button className="p-1 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-muted hover:text-red-400">
                           <X size={14} />
                         </button>
                       </div>
@@ -331,7 +331,7 @@ export const SharedFiles = () => {
               {/* Get Link */}
               <div>
                 <h4 className="text-sm font-medium text-text-primary mb-3">Get Link</h4>
-                <div className="flex items-center gap-2 p-3 bg-background-tertiary rounded-lg">
+                <div className="flex items-center gap-2 p-3 bg-white/[0.05] rounded-lg">
                   <Link size={16} className="text-text-muted" />
                   <span className="flex-1 text-sm text-text-secondary truncate">
                     https://files.company.com/share/{selectedFile.id}
@@ -342,7 +342,7 @@ export const SharedFiles = () => {
                 </div>
                 <div className="flex items-center gap-2 mt-2">
                   <span className="text-xs text-text-muted">Access:</span>
-                  <select className="px-2 py-1 bg-background-tertiary border border-border-default rounded text-xs text-text-primary">
+                  <select className="px-2 py-1 bg-white/[0.05] border border-white/[0.08] rounded text-xs text-text-primary">
                     <option value="restricted">Restricted</option>
                     <option value="anyone">Anyone with link</option>
                   </select>
@@ -351,7 +351,7 @@ export const SharedFiles = () => {
             </div>
 
             {/* Footer */}
-            <div className="p-6 border-t border-border-default bg-background-tertiary flex justify-end">
+            <div className="p-6 border-t border-white/[0.08] bg-white/[0.05] flex justify-end">
               <Button onClick={() => setShowShareModal(false)}>Done</Button>
             </div>
           </motion.div>

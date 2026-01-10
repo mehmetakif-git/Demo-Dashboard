@@ -45,7 +45,7 @@ export const CustomerDetail = () => {
           <p className="text-[#64748b]">Customer not found</p>
           <button
             onClick={() => navigate('/dashboard/crm/customers')}
-            className="mt-4 text-[#6366f1] hover:underline"
+            className="mt-4 text-[#547792] hover:underline"
           >
             Back to Customers
           </button>
@@ -127,11 +127,11 @@ export const CustomerDetail = () => {
       </button>
 
       {/* Header */}
-      <div className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6">
+      <div className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div className="flex items-center gap-4">
-            <div className="flex h-16 w-16 items-center justify-center rounded-xl bg-[#6366f1]/10">
-              <Building2 className="h-8 w-8 text-[#6366f1]" />
+            <div className="flex h-16 w-16 items-center justify-center rounded-xl bg-[#547792]/10">
+              <Building2 className="h-8 w-8 text-[#547792]" />
             </div>
             <div>
               <div className="flex items-center gap-3">
@@ -153,7 +153,7 @@ export const CustomerDetail = () => {
               <Edit className="h-4 w-4" />
               Edit
             </button>
-            <button className="flex items-center gap-2 rounded-lg bg-[#6366f1] px-4 py-2 text-sm font-medium text-white hover:bg-[#5558e3] transition-colors">
+            <button className="flex items-center gap-2 rounded-lg bg-[#547792] px-4 py-2 text-sm font-medium text-white hover:bg-[#5558e3] transition-colors">
               <Plus className="h-4 w-4" />
               Create Opportunity
             </button>
@@ -171,7 +171,7 @@ export const CustomerDetail = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="lg:col-span-2 bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6"
+            className="lg:col-span-2 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
           >
             <h3 className="text-lg font-semibold text-white mb-4">Company Information</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -180,7 +180,7 @@ export const CustomerDetail = () => {
                   <Mail className="h-5 w-5 text-[#64748b]" />
                   <div>
                     <p className="text-xs text-[#64748b]">Email</p>
-                    <a href={`mailto:${customer.email}`} className="text-[#6366f1] hover:underline">
+                    <a href={`mailto:${customer.email}`} className="text-[#547792] hover:underline">
                       {customer.email}
                     </a>
                   </div>
@@ -196,7 +196,7 @@ export const CustomerDetail = () => {
                   <Globe className="h-5 w-5 text-[#64748b]" />
                   <div>
                     <p className="text-xs text-[#64748b]">Website</p>
-                    <a href={`https://${customer.website}`} target="_blank" rel="noopener noreferrer" className="text-[#6366f1] hover:underline">
+                    <a href={`https://${customer.website}`} target="_blank" rel="noopener noreferrer" className="text-[#547792] hover:underline">
                       {customer.website}
                     </a>
                   </div>
@@ -247,7 +247,7 @@ export const CustomerDetail = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6"
+            className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
           >
             <h3 className="text-lg font-semibold text-white mb-4">Financial Summary</h3>
             <div className="space-y-4">
@@ -284,12 +284,12 @@ export const CustomerDetail = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="lg:col-span-3 bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6"
+            className="lg:col-span-3 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
           >
             <h3 className="text-lg font-semibold text-white mb-4">Notes</h3>
             <textarea
               defaultValue={customer.notes}
-              className="w-full h-32 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg p-4 text-white placeholder-[#64748b] focus:outline-none focus:border-[#6366f1] resize-none"
+              className="w-full h-32 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg p-4 text-white placeholder-[#64748b] focus:outline-none focus:border-[#547792] resize-none"
               placeholder="Add notes about this customer..."
             />
           </motion.div>
@@ -300,11 +300,11 @@ export const CustomerDetail = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6"
+          className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
         >
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-semibold text-white">Contacts</h3>
-            <button className="flex items-center gap-2 rounded-lg bg-[#6366f1] px-3 py-1.5 text-sm font-medium text-white hover:bg-[#5558e3] transition-colors">
+            <button className="flex items-center gap-2 rounded-lg bg-[#547792] px-3 py-1.5 text-sm font-medium text-white hover:bg-[#5558e3] transition-colors">
               <Plus className="h-4 w-4" />
               Add Contact
             </button>
@@ -338,7 +338,7 @@ export const CustomerDetail = () => {
           className="space-y-4"
         >
           {activities.length === 0 ? (
-            <div className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6 text-center text-[#64748b]">
+            <div className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6 text-center text-[#64748b]">
               <Calendar className="h-12 w-12 mx-auto mb-3 opacity-50" />
               <p>No activities recorded</p>
             </div>
@@ -348,10 +348,10 @@ export const CustomerDetail = () => {
               return (
                 <div
                   key={activity.id}
-                  className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-4 flex items-start gap-4"
+                  className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-4 flex items-start gap-4"
                 >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#6366f1]/10">
-                    <Icon className="h-5 w-5 text-[#6366f1]" />
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#547792]/10">
+                    <Icon className="h-5 w-5 text-[#547792]" />
                   </div>
                   <div className="flex-1">
                     <p className="font-medium text-white">{activity.subject}</p>
@@ -374,11 +374,11 @@ export const CustomerDetail = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6"
+          className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
         >
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-semibold text-white">Documents</h3>
-            <button className="flex items-center gap-2 rounded-lg bg-[#6366f1] px-3 py-1.5 text-sm font-medium text-white hover:bg-[#5558e3] transition-colors">
+            <button className="flex items-center gap-2 rounded-lg bg-[#547792] px-3 py-1.5 text-sm font-medium text-white hover:bg-[#5558e3] transition-colors">
               <Plus className="h-4 w-4" />
               Upload Document
             </button>
@@ -391,7 +391,7 @@ export const CustomerDetail = () => {
                   key={contract.id}
                   className="flex items-center gap-4 p-4 bg-[#1a1a24] rounded-lg"
                 >
-                  <FileText className="h-8 w-8 text-[#6366f1]" />
+                  <FileText className="h-8 w-8 text-[#547792]" />
                   <div className="flex-1">
                     <p className="font-medium text-white">{contract.title}</p>
                     <p className="text-sm text-[#64748b]">

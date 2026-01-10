@@ -761,9 +761,9 @@ const NotFound = lazy(() =>
   }))
 );
 
-// Loading fallback component
+// Loading fallback component - transparent background to show LightPillar
 const PageLoader = () => (
-  <div className="min-h-screen bg-background-primary flex items-center justify-center">
+  <div className="min-h-screen flex items-center justify-center">
     <div className="space-y-4 w-full max-w-md px-8">
       <Skeleton width="60%" height={32} className="mx-auto" />
       <Skeleton width="80%" height={16} className="mx-auto" />
@@ -1108,6 +1108,17 @@ const AppRoutes = () => {
 function App() {
   return (
     <BrowserRouter>
+      {/* Global persistent gradient background - prevents flash during layout transitions */}
+      <div
+        className="fixed inset-0 z-0 pointer-events-none"
+        style={{
+          background: `
+            radial-gradient(ellipse 80% 50% at 50% 50%, rgba(84, 119, 146, 0.15) 0%, transparent 70%),
+            radial-gradient(ellipse 60% 40% at 30% 60%, rgba(148, 180, 193, 0.1) 0%, transparent 60%),
+            linear-gradient(180deg, #213448 0%, #1a2a3a 100%)
+          `
+        }}
+      />
       <AppRoutes />
       <ToastContainer />
       <LeadCaptureWidget />

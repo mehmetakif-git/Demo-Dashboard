@@ -118,11 +118,11 @@ export const GroupChats = () => {
   }, [selectedGroup]);
 
   return (
-    <div className="h-[calc(100vh-120px)] flex gap-0 overflow-hidden rounded-lg border border-border-default">
+    <div className="h-[calc(100vh-120px)] flex gap-0 overflow-hidden rounded-lg border border-white/[0.08]">
       {/* Left Panel - Groups List */}
-      <div className="w-80 bg-background-secondary border-r border-border-default flex flex-col shrink-0">
+      <div className="w-80 bg-white/[0.03] backdrop-blur-xl border-r border-white/[0.08] flex flex-col shrink-0">
         {/* Header */}
-        <div className="p-4 border-b border-border-default">
+        <div className="p-4 border-b border-white/[0.08]">
           <h2 className="text-lg font-semibold text-text-primary mb-3">Group Chats</h2>
           <Input
             placeholder="Search groups..."
@@ -138,10 +138,10 @@ export const GroupChats = () => {
             <div
               key={group.id}
               onClick={() => setSelectedGroup(group)}
-              className={`p-4 cursor-pointer border-b border-border-default transition-colors ${
+              className={`p-4 cursor-pointer border-b border-white/[0.08] transition-colors ${
                 selectedGroup?.id === group.id
                   ? 'bg-accent-primary/10'
-                  : 'hover:bg-background-tertiary'
+                  : 'hover:bg-white/[0.05]'
               }`}
             >
               <div className="flex items-start gap-3">
@@ -187,7 +187,7 @@ export const GroupChats = () => {
         </div>
 
         {/* Create Group Button */}
-        <div className="p-4 border-t border-border-default">
+        <div className="p-4 border-t border-white/[0.08]">
           <Button className="w-full" leftIcon={<Plus size={16} />}>
             Create Group
           </Button>
@@ -195,11 +195,11 @@ export const GroupChats = () => {
       </div>
 
       {/* Middle Panel - Chat Area */}
-      <div className="flex-1 flex flex-col bg-background-primary">
+      <div className="flex-1 flex flex-col">
         {selectedGroup ? (
           <>
             {/* Chat Header */}
-            <div className="p-4 border-b border-border-default flex items-center justify-between bg-background-secondary">
+            <div className="p-4 border-b border-white/[0.08] flex items-center justify-between bg-white/[0.03] backdrop-blur-xl">
               <div className="flex items-center gap-3">
                 <div
                   className="w-10 h-10 rounded-full flex items-center justify-center"
@@ -215,16 +215,16 @@ export const GroupChats = () => {
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <button className="p-2 hover:bg-background-tertiary rounded-lg transition-colors">
+                <button className="p-2 hover:bg-white/[0.05] rounded-lg transition-colors">
                   <UserPlus size={18} className="text-text-secondary" />
                 </button>
-                <button className="p-2 hover:bg-background-tertiary rounded-lg transition-colors">
+                <button className="p-2 hover:bg-white/[0.05] rounded-lg transition-colors">
                   <Settings size={18} className="text-text-secondary" />
                 </button>
                 <button
                   onClick={() => setShowGroupInfo(!showGroupInfo)}
                   className={`p-2 rounded-lg transition-colors ${
-                    showGroupInfo ? 'bg-accent-primary/20 text-accent-primary' : 'hover:bg-background-tertiary text-text-secondary'
+                    showGroupInfo ? 'bg-accent-primary/20 text-accent-primary' : 'hover:bg-white/[0.05] text-text-secondary'
                   }`}
                 >
                   <Users size={18} />
@@ -238,7 +238,7 @@ export const GroupChats = () => {
                 <div key={groupIndex}>
                   {/* Date Separator */}
                   <div className="flex items-center justify-center mb-4">
-                    <div className="px-3 py-1 bg-background-tertiary rounded-full">
+                    <div className="px-3 py-1 bg-white/[0.05] rounded-full">
                       <span className="text-xs text-text-muted">{group.date}</span>
                     </div>
                   </div>
@@ -265,8 +265,8 @@ export const GroupChats = () => {
                           <div
                             className={`max-w-[70%] px-4 py-2.5 ${
                               isSent
-                                ? 'bg-accent-primary text-white rounded-lg rounded-br-sm'
-                                : 'bg-background-tertiary text-text-primary rounded-lg rounded-bl-sm'
+                                ? 'bg-[#547792]/80 backdrop-blur-sm text-white rounded-lg rounded-br-sm border border-[#94B4C1]/20'
+                                : 'bg-white/[0.08] backdrop-blur-sm text-text-primary rounded-lg rounded-bl-sm border border-white/[0.08]'
                             }`}
                           >
                             {!isSent && (
@@ -291,9 +291,9 @@ export const GroupChats = () => {
             </div>
 
             {/* Message Input */}
-            <div className="p-4 border-t border-border-default bg-background-secondary">
+            <div className="p-4 border-t border-white/[0.08] bg-white/[0.03] backdrop-blur-xl">
               <div className="flex items-end gap-3">
-                <button className="p-2 hover:bg-background-tertiary rounded-lg transition-colors mb-1">
+                <button className="p-2 hover:bg-white/[0.05] rounded-lg transition-colors mb-1">
                   <Paperclip size={20} className="text-text-secondary" />
                 </button>
                 <div className="flex-1">
@@ -303,11 +303,11 @@ export const GroupChats = () => {
                     onKeyDown={handleKeyPress}
                     placeholder="Type a message..."
                     rows={1}
-                    className="w-full px-4 py-2.5 bg-background-tertiary border border-border-default rounded-lg text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-primary resize-none"
+                    className="w-full px-4 py-2.5 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-primary resize-none"
                   />
                   <p className="text-xs text-text-muted mt-1">Press Enter to send</p>
                 </div>
-                <button className="p-2 hover:bg-background-tertiary rounded-lg transition-colors mb-1">
+                <button className="p-2 hover:bg-white/[0.05] rounded-lg transition-colors mb-1">
                   <Smile size={20} className="text-text-secondary" />
                 </button>
                 <Button
@@ -337,7 +337,7 @@ export const GroupChats = () => {
           initial={{ width: 0, opacity: 0 }}
           animate={{ width: 280, opacity: 1 }}
           exit={{ width: 0, opacity: 0 }}
-          className="border-l border-border-default bg-background-secondary overflow-hidden shrink-0"
+          className="border-l border-white/[0.08] bg-white/[0.03] backdrop-blur-xl overflow-hidden shrink-0"
         >
           <div className="p-4 h-full flex flex-col">
             {/* Header */}
@@ -345,7 +345,7 @@ export const GroupChats = () => {
               <h3 className="font-semibold text-text-primary">Group Info</h3>
               <button
                 onClick={() => setShowGroupInfo(false)}
-                className="p-1 hover:bg-background-tertiary rounded"
+                className="p-1 hover:bg-white/[0.05] rounded"
               >
                 <X size={16} className="text-text-secondary" />
               </button>
@@ -374,7 +374,7 @@ export const GroupChats = () => {
                 <h5 className="text-sm font-medium text-text-secondary">
                   Members ({selectedGroup.memberCount})
                 </h5>
-                <button className="p-1 hover:bg-background-tertiary rounded">
+                <button className="p-1 hover:bg-white/[0.05] rounded">
                   <UserPlus size={14} className="text-text-secondary" />
                 </button>
               </div>
@@ -382,7 +382,7 @@ export const GroupChats = () => {
                 {groupMembers.map((member) => member && (
                   <div
                     key={member.id}
-                    className="flex items-center gap-3 p-2 rounded-lg hover:bg-background-tertiary transition-colors"
+                    className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/[0.05] transition-colors"
                   >
                     <div className="relative">
                       <div className="w-8 h-8 rounded-full bg-accent-primary/20 flex items-center justify-center">
@@ -391,7 +391,7 @@ export const GroupChats = () => {
                         </span>
                       </div>
                       <div
-                        className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full border-2 border-background-secondary"
+                        className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full border-2 border-white/[0.08]"
                         style={{ backgroundColor: getStatusColor(member.status) }}
                       />
                     </div>
@@ -412,7 +412,7 @@ export const GroupChats = () => {
             </div>
 
             {/* Actions */}
-            <div className="pt-4 border-t border-border-default space-y-2">
+            <div className="pt-4 border-t border-white/[0.08] space-y-2">
               <Button variant="secondary" className="w-full justify-start text-red-400 hover:bg-red-500/10" leftIcon={<LogOut size={16} />}>
                 Leave Group
               </Button>

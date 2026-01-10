@@ -77,7 +77,7 @@ export const CampaignList = () => {
         title="Campaigns"
         subtitle="Manage all marketing and advertising campaigns"
         actions={
-          <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
+          <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
             <Plus className="h-4 w-4" />
             New Campaign
           </button>
@@ -121,14 +121,14 @@ export const CampaignList = () => {
             placeholder="Search campaigns..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full rounded-lg border border-[#1e1e2e] bg-[#12121a] py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#6366f1] focus:outline-none"
+            className="w-full rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#547792] focus:outline-none"
           />
         </div>
         <div className="flex gap-2">
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="rounded-lg border border-[#1e1e2e] bg-[#12121a] px-3 py-2 text-sm text-white focus:border-[#6366f1] focus:outline-none"
+            className="rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
             <option value="all">All Status</option>
             {campaignStatuses.map((status) => (
@@ -140,7 +140,7 @@ export const CampaignList = () => {
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value)}
-            className="rounded-lg border border-[#1e1e2e] bg-[#12121a] px-3 py-2 text-sm text-white focus:border-[#6366f1] focus:outline-none"
+            className="rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
             <option value="all">All Types</option>
             {campaignTypes.map((type) => (
@@ -149,7 +149,7 @@ export const CampaignList = () => {
               </option>
             ))}
           </select>
-          <button className="flex items-center gap-2 rounded-lg border border-[#1e1e2e] bg-[#12121a] px-3 py-2 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
+          <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
             <Filter className="h-4 w-4" />
             More Filters
           </button>
@@ -157,11 +157,11 @@ export const CampaignList = () => {
       </div>
 
       {/* Campaigns Table */}
-      <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] overflow-hidden">
+      <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-[#1e1e2e]">
+              <tr className="border-b border-white/[0.08]">
                 <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-[#64748b]">
                   Campaign
                 </th>
@@ -238,7 +238,7 @@ export const CampaignList = () => {
                         </div>
                         <div className="h-1.5 rounded-full bg-[#1e1e2e]">
                           <div
-                            className="h-full rounded-full bg-gradient-to-r from-[#6366f1] to-[#8b5cf6]"
+                            className="h-full rounded-full bg-gradient-to-r from-[#547792] to-[#94B4C1]"
                             style={{ width: `${Math.min(progressPercent, 100)}%` }}
                           />
                         </div>
@@ -287,15 +287,15 @@ export const CampaignList = () => {
         </div>
 
         {/* Pagination */}
-        <div className="flex items-center justify-between border-t border-[#1e1e2e] px-6 py-4">
+        <div className="flex items-center justify-between border-t border-white/[0.08] px-6 py-4">
           <p className="text-sm text-[#64748b]">
             Showing {filteredCampaigns.length} of {campaigns.length} campaigns
           </p>
           <div className="flex gap-2">
-            <button className="rounded-lg border border-[#1e1e2e] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
+            <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
               Previous
             </button>
-            <button className="rounded-lg border border-[#1e1e2e] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
+            <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
               Next
             </button>
           </div>

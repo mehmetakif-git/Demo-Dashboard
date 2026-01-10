@@ -16,6 +16,7 @@ import {
   getTimesheetStatusBgColor,
   type Timesheet,
 } from '@/data/staffing/staffingData';
+import { getProfileImage } from '@/utils/profileImages';
 
 export const Timesheets = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -52,7 +53,7 @@ export const Timesheets = () => {
       title: 'Total Hours',
       value: totalHours.toString(),
       icon: Clock,
-      iconColor: '#6366f1',
+      iconColor: '#547792',
     },
     {
       title: 'Total Billable',
@@ -64,7 +65,7 @@ export const Timesheets = () => {
       title: 'Timesheets',
       value: timesheets.length.toString(),
       icon: FileText,
-      iconColor: '#8b5cf6',
+      iconColor: '#94B4C1',
     },
   ];
 
@@ -111,14 +112,14 @@ export const Timesheets = () => {
               placeholder="Search timesheets..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-primary"
+              className="w-full pl-10 pr-4 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-primary"
             />
           </div>
 
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Statuses</option>
             <option value="draft">Draft</option>
@@ -135,7 +136,7 @@ export const Timesheets = () => {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-border-default">
+              <tr className="border-b border-white/[0.08]">
                 <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
                   Contractor
                 </th>
@@ -163,16 +164,24 @@ export const Timesheets = () => {
               {filteredTimesheets.map((ts) => (
                 <tr
                   key={ts.id}
-                  className="border-b border-border-default hover:bg-background-secondary/50"
+                  className="border-b border-white/[0.08] hover:bg-white/[0.03] backdrop-blur-xl/50"
                 >
                   <td className="py-3 px-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white text-sm font-bold">
-                        {ts.candidateName
-                          .split(' ')
-                          .map((n) => n[0])
-                          .join('')}
-                      </div>
+                      {getProfileImage(ts.candidateName) ? (
+                        <img
+                          src={getProfileImage(ts.candidateName)}
+                          alt={ts.candidateName}
+                          className="w-10 h-10 rounded-full object-cover border border-white/10"
+                        />
+                      ) : (
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white text-sm font-bold">
+                          {ts.candidateName
+                            .split(' ')
+                            .map((n) => n[0])
+                            .join('')}
+                        </div>
+                      )}
                       <p className="font-medium text-text-primary">{ts.candidateName}</p>
                     </div>
                   </td>
@@ -252,9 +261,9 @@ export const Timesheets = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-background-secondary border border-border-default rounded-xl max-w-lg w-full max-h-[90vh] overflow-y-auto"
+            className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl max-w-lg w-full max-h-[90vh] overflow-y-auto"
           >
-            <div className="p-6 border-b border-border-default">
+            <div className="p-6 border-b border-white/[0.08]">
               <div className="flex items-start justify-between">
                 <div>
                   <h2 className="text-xl font-bold text-text-primary">Timesheet Details</h2>
@@ -264,7 +273,7 @@ export const Timesheets = () => {
                 </div>
                 <button
                   onClick={() => setSelectedTimesheet(null)}
-                  className="text-text-secondary hover:text-text-primary"
+                  className="text-text-secondary hover:text-text-primary cursor-pointer"
                 >
                   ×
                 </button>
@@ -273,12 +282,20 @@ export const Timesheets = () => {
 
             <div className="p-6 space-y-4">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white font-bold">
-                  {selectedTimesheet.candidateName
-                    .split(' ')
-                    .map((n) => n[0])
-                    .join('')}
-                </div>
+                {getProfileImage(selectedTimesheet.candidateName) ? (
+                  <img
+                    src={getProfileImage(selectedTimesheet.candidateName)}
+                    alt={selectedTimesheet.candidateName}
+                    className="w-12 h-12 rounded-full object-cover border border-white/10"
+                  />
+                ) : (
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white font-bold">
+                    {selectedTimesheet.candidateName
+                      .split(' ')
+                      .map((n) => n[0])
+                      .join('')}
+                  </div>
+                )}
                 <div>
                   <p className="font-medium text-text-primary">{selectedTimesheet.candidateName}</p>
                   <p className="text-sm text-text-secondary">{selectedTimesheet.clientName}</p>
@@ -286,25 +303,25 @@ export const Timesheets = () => {
               </div>
 
               <div className="grid grid-cols-2 gap-4">
-                <div className="bg-background-tertiary rounded-lg p-4">
+                <div className="bg-white/[0.05] rounded-lg p-4">
                   <p className="text-sm text-text-muted mb-1">Regular Hours</p>
                   <p className="text-xl font-bold text-text-primary">{selectedTimesheet.regularHours}h</p>
                 </div>
-                <div className="bg-background-tertiary rounded-lg p-4">
+                <div className="bg-white/[0.05] rounded-lg p-4">
                   <p className="text-sm text-text-muted mb-1">Overtime Hours</p>
                   <p className="text-xl font-bold text-text-primary">{selectedTimesheet.overtimeHours}h</p>
                 </div>
-                <div className="bg-background-tertiary rounded-lg p-4">
+                <div className="bg-white/[0.05] rounded-lg p-4">
                   <p className="text-sm text-text-muted mb-1">Bill Rate</p>
                   <p className="text-xl font-bold text-text-primary">${selectedTimesheet.billRate}/hr</p>
                 </div>
-                <div className="bg-background-tertiary rounded-lg p-4">
+                <div className="bg-white/[0.05] rounded-lg p-4">
                   <p className="text-sm text-text-muted mb-1">Pay Rate</p>
                   <p className="text-xl font-bold text-text-primary">${selectedTimesheet.payRate}/hr</p>
                 </div>
               </div>
 
-              <div className="bg-background-tertiary rounded-lg p-4">
+              <div className="bg-white/[0.05] rounded-lg p-4">
                 <div className="flex justify-between items-center mb-2">
                   <p className="text-text-secondary">Total Billable</p>
                   <p className="text-xl font-bold text-green-400">
@@ -342,7 +359,7 @@ export const Timesheets = () => {
               </div>
             </div>
 
-            <div className="p-6 border-t border-border-default flex gap-2">
+            <div className="p-6 border-t border-white/[0.08] flex gap-2">
               <Button variant="outline" className="flex-1" onClick={() => setSelectedTimesheet(null)}>
                 Close
               </Button>

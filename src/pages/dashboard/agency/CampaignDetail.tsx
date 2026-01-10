@@ -37,7 +37,7 @@ export const CampaignDetail = () => {
         <p className="text-[#64748b] mb-4">Campaign not found</p>
         <button
           onClick={() => navigate('/dashboard/agency/campaigns')}
-          className="text-[#6366f1] hover:underline"
+          className="text-[#547792] hover:underline"
         >
           Back to Campaigns
         </button>
@@ -94,7 +94,7 @@ export const CampaignDetail = () => {
               {getStatusIcon(campaign.status)}
               {campaign.status.charAt(0).toUpperCase() + campaign.status.slice(1)}
             </span>
-            <button className="flex items-center gap-2 rounded-lg border border-[#1e1e2e] bg-[#12121a] px-4 py-2 text-sm font-medium text-[#94a3b8] hover:bg-[#1a1a24]">
+            <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-4 py-2 text-sm font-medium text-[#94a3b8] hover:bg-[#1a1a24]">
               <Edit2 className="h-4 w-4" />
               Edit Campaign
             </button>
@@ -135,7 +135,7 @@ export const CampaignDetail = () => {
         {/* Left Column - Campaign Details */}
         <div className="space-y-6">
           {/* Campaign Info */}
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4">Campaign Information</h3>
             <div className="space-y-4">
               <div className="flex justify-between">
@@ -173,7 +173,7 @@ export const CampaignDetail = () => {
           </div>
 
           {/* Budget Breakdown */}
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4">Budget Overview</h3>
             <div className="space-y-4">
               <div>
@@ -188,7 +188,7 @@ export const CampaignDetail = () => {
                         ? 'bg-red-500'
                         : budgetProgress > 70
                         ? 'bg-amber-500'
-                        : 'bg-gradient-to-r from-[#6366f1] to-[#8b5cf6]'
+                        : 'bg-gradient-to-r from-[#547792] to-[#94B4C1]'
                     }`}
                     style={{ width: `${Math.min(budgetProgress, 100)}%` }}
                   />
@@ -221,12 +221,12 @@ export const CampaignDetail = () => {
         {/* Right Column - Performance */}
         <div className="space-y-6">
           {/* Performance Metrics */}
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4">Key Performance Indicators</h3>
             <div className="grid grid-cols-2 gap-4">
               <div className="rounded-lg bg-[#1a1a24] p-4">
                 <div className="flex items-center gap-2 mb-2">
-                  <Eye className="h-4 w-4 text-[#6366f1]" />
+                  <Eye className="h-4 w-4 text-[#547792]" />
                   <span className="text-xs text-[#64748b]">Impressions</span>
                 </div>
                 <p className="text-2xl font-semibold text-white">
@@ -238,7 +238,7 @@ export const CampaignDetail = () => {
               </div>
               <div className="rounded-lg bg-[#1a1a24] p-4">
                 <div className="flex items-center gap-2 mb-2">
-                  <Users className="h-4 w-4 text-[#8b5cf6]" />
+                  <Users className="h-4 w-4 text-[#94B4C1]" />
                   <span className="text-xs text-[#64748b]">Reach</span>
                 </div>
                 <p className="text-2xl font-semibold text-white">
@@ -276,7 +276,7 @@ export const CampaignDetail = () => {
           </div>
 
           {/* Channel Performance */}
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4">Channel Performance</h3>
             <div className="space-y-4">
               {campaign.channels.map((channel, index) => (
@@ -285,7 +285,7 @@ export const CampaignDetail = () => {
                   <div className="flex items-center gap-3">
                     <div className="w-32 h-2 rounded-full bg-[#1e1e2e]">
                       <div
-                        className="h-full rounded-full bg-gradient-to-r from-[#6366f1] to-[#8b5cf6]"
+                        className="h-full rounded-full bg-gradient-to-r from-[#547792] to-[#94B4C1]"
                         style={{ width: `${80 - index * 15}%` }}
                       />
                     </div>
@@ -297,12 +297,12 @@ export const CampaignDetail = () => {
           </div>
 
           {/* Team */}
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4">Campaign Team</h3>
             <div className="space-y-3">
               {campaign.team.map((member) => (
                 <div key={member.id} className="flex items-center gap-3 p-3 rounded-lg bg-[#1a1a24]">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#6366f1] to-[#8b5cf6] text-sm font-medium text-white">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#547792] to-[#94B4C1] text-sm font-medium text-white">
                     {member.name.split(' ').map((n) => n[0]).join('')}
                   </div>
                   <div>

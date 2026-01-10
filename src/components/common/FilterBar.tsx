@@ -73,9 +73,9 @@ export const FilterBar = ({
           <div className="flex items-center bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-lg p-1">
             <button
               onClick={() => onViewModeChange('table')}
-              className={`p-2 rounded-md transition-colors ${
+              className={`p-2 rounded-md transition-colors cursor-pointer ${
                 viewMode === 'table'
-                  ? 'bg-[#6366f1]/20 text-[#6366f1]'
+                  ? 'bg-[#547792]/20 text-[#547792]'
                   : 'text-white/40 hover:text-white/60'
               }`}
             >
@@ -83,9 +83,9 @@ export const FilterBar = ({
             </button>
             <button
               onClick={() => onViewModeChange('grid')}
-              className={`p-2 rounded-md transition-colors ${
+              className={`p-2 rounded-md transition-colors cursor-pointer ${
                 viewMode === 'grid'
-                  ? 'bg-[#6366f1]/20 text-[#6366f1]'
+                  ? 'bg-[#547792]/20 text-[#547792]'
                   : 'text-white/40 hover:text-white/60'
               }`}
             >

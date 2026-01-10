@@ -3,8 +3,14 @@ import * as THREE from 'three';
 import './LightPillar.css';
 
 interface LightPillarProps {
-  topColor?: string;
-  bottomColor?: string;
+  /** Color at the bottom (darkest) */
+  color1?: string;
+  /** Second color from bottom */
+  color2?: string;
+  /** Third color from bottom */
+  color3?: string;
+  /** Color at the top (lightest) */
+  color4?: string;
   intensity?: number;
   rotationSpeed?: number;
   interactive?: boolean;
@@ -19,11 +25,15 @@ interface LightPillarProps {
   isStatic?: boolean;
   /** Fixed time value for static mode (controls the "frozen" state of animation) */
   staticTime?: number;
+  /** Glow multiplier for color4 (0.0 to 1.0, default 1.0) */
+  color4GlowMultiplier?: number;
 }
 
 const LightPillar = ({
-  topColor = '#5227FF',
-  bottomColor = '#FF9FFC',
+  color1 = '#213448',
+  color2 = '#547792',
+  color3 = '#94B4C1',
+  color4 = '#EAE0CF',
   intensity = 1.0,
   rotationSpeed = 0.3,
   interactive = false,
@@ -35,7 +45,8 @@ const LightPillar = ({
   mixBlendMode = 'screen',
   pillarRotation = 0,
   isStatic = false,
-  staticTime = 2.5
+  staticTime = 2.5,
+  color4GlowMultiplier = 1.0
 }: LightPillarProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number | null>(null);
@@ -111,8 +122,10 @@ const LightPillar = ({
       uniform float uTime;
       uniform vec2 uResolution;
       uniform vec2 uMouse;
-      uniform vec3 uTopColor;
-      uniform vec3 uBottomColor;
+      uniform vec3 uColor1;
+      uniform vec3 uColor2;
+      uniform vec3 uColor3;
+      uniform vec3 uColor4;
       uniform float uIntensity;
       uniform bool uInteractive;
       uniform float uGlowAmount;
@@ -120,6 +133,7 @@ const LightPillar = ({
       uniform float uPillarHeight;
       uniform float uNoiseIntensity;
       uniform float uPillarRotation;
+      uniform float uColor4GlowMult;
       varying vec2 vUv;
 
       const float PI = 3.141592653589793;
@@ -207,8 +221,21 @@ const LightPillar = ({
           fieldDistance = blendMax(radialBound, fieldDistance, 1.0);
           fieldDistance = abs(fieldDistance) * 0.15 + 0.01;
 
-          vec3 gradient = mix(uBottomColor, uTopColor, smoothstep(15.0, -15.0, pos.y));
-          color += gradient * pow(1.0 / fieldDistance, 1.0);
+          // 4-color gradient: color1 (bottom) -> color2 -> color3 -> color4 (top)
+          float t = smoothstep(15.0, -15.0, pos.y);
+          vec3 gradient;
+          float glowMult = 1.0;
+          if (t < 0.333) {
+            gradient = mix(uColor1, uColor2, t * 3.0);
+          } else if (t < 0.666) {
+            gradient = mix(uColor2, uColor3, (t - 0.333) * 3.0);
+          } else {
+            gradient = mix(uColor3, uColor4, (t - 0.666) * 3.0);
+            // Apply reduced glow for color4 region, smoothly transitioning
+            float color4Blend = (t - 0.666) * 3.0;
+            glowMult = mix(1.0, uColor4GlowMult, color4Blend);
+          }
+          color += gradient * pow(1.0 / fieldDistance, 1.0) * glowMult;
 
           if(fieldDistance < EPSILON || depth > maxDepth) break;
           depth += fieldDistance;
@@ -233,15 +260,18 @@ const LightPillar = ({
         uTime: { value: 0 },
         uResolution: { value: new THREE.Vector2(width, height) },
         uMouse: { value: mouseRef.current },
-        uTopColor: { value: parseColor(topColor) },
-        uBottomColor: { value: parseColor(bottomColor) },
+        uColor1: { value: parseColor(color1) },
+        uColor2: { value: parseColor(color2) },
+        uColor3: { value: parseColor(color3) },
+        uColor4: { value: parseColor(color4) },
         uIntensity: { value: intensity },
         uInteractive: { value: interactive },
         uGlowAmount: { value: glowAmount },
         uPillarWidth: { value: pillarWidth },
         uPillarHeight: { value: pillarHeight },
         uNoiseIntensity: { value: noiseIntensity },
-        uPillarRotation: { value: pillarRotation }
+        uPillarRotation: { value: pillarRotation },
+        uColor4GlowMult: { value: color4GlowMultiplier }
       },
       transparent: true,
       depthWrite: false,
@@ -356,8 +386,10 @@ const LightPillar = ({
       rafRef.current = null;
     };
   }, [
-    topColor,
-    bottomColor,
+    color1,
+    color2,
+    color3,
+    color4,
     intensity,
     rotationSpeed,
     interactive,
@@ -368,7 +400,8 @@ const LightPillar = ({
     pillarRotation,
     webGLSupported,
     isStatic,
-    staticTime
+    staticTime,
+    color4GlowMultiplier
   ]);
 
   if (!webGLSupported) {

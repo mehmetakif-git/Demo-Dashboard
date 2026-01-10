@@ -17,8 +17,8 @@ export const PageHeader = ({ title, subtitle, icon: Icon, actions }: PageHeaderP
     >
       <div className="flex items-center gap-3">
         {Icon && (
-          <div className="w-10 h-10 rounded-lg bg-[#6366f1]/20 flex items-center justify-center">
-            <Icon className="w-5 h-5 text-[#6366f1]" />
+          <div className="w-10 h-10 rounded-lg bg-[#547792]/20 flex items-center justify-center">
+            <Icon className="w-5 h-5 text-[#547792]" />
           </div>
         )}
         <div>

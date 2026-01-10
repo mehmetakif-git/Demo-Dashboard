@@ -78,7 +78,7 @@ export const Quotes = () => {
       header: 'Quote #',
       sortable: true,
       render: (quote: Quote) => (
-        <span className="font-medium text-[#6366f1]">{quote.id}</span>
+        <span className="font-medium text-[#547792]">{quote.id}</span>
       ),
     },
     {
@@ -155,7 +155,7 @@ export const Quotes = () => {
           {quote.status === 'draft' && (
             <button
               onClick={(e) => e.stopPropagation()}
-              className="rounded-lg p-1.5 text-[#64748b] hover:bg-[#1a1a24] hover:text-[#6366f1] transition-colors"
+              className="rounded-lg p-1.5 text-[#64748b] hover:bg-[#1a1a24] hover:text-[#547792] transition-colors"
               title="Send"
             >
               <Send className="h-4 w-4" />
@@ -186,7 +186,7 @@ export const Quotes = () => {
         title="Quotes & Proposals"
         subtitle="Create and manage sales quotes"
         actions={
-          <button className="flex items-center gap-2 rounded-lg bg-[#6366f1] px-4 py-2 text-sm font-medium text-white hover:bg-[#5558e3] transition-colors">
+          <button className="flex items-center gap-2 rounded-lg bg-[#547792] px-4 py-2 text-sm font-medium text-white hover:bg-[#5558e3] transition-colors">
             <Plus className="h-4 w-4" />
             Create Quote
           </button>
@@ -199,7 +199,7 @@ export const Quotes = () => {
           title="Total Quotes"
           value={stats.total.toString()}
           icon={FileText}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
         <StatsCard
           title="Pending"
@@ -217,7 +217,7 @@ export const Quotes = () => {
           title="Total Value"
           value={`$${(stats.totalValue / 1000).toFixed(0)}K`}
           icon={DollarSign}
-          iconColor="#8b5cf6"
+          iconColor="#94B4C1"
         />
       </div>
 
@@ -225,7 +225,7 @@ export const Quotes = () => {
       <Tabs tabs={tabs} activeTab={activeTab} onChange={setActiveTab} />
 
       {/* Search */}
-      <div className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-4">
+      <div className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-4">
         <div className="relative max-w-md">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#64748b]" />
           <input
@@ -233,7 +233,7 @@ export const Quotes = () => {
             placeholder="Search quotes..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white placeholder-[#64748b] focus:outline-none focus:border-[#6366f1]"
+            className="w-full pl-10 pr-4 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white placeholder-[#64748b] focus:outline-none focus:border-[#547792]"
           />
         </div>
       </div>

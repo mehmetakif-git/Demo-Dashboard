@@ -76,7 +76,7 @@ export const Agents = () => {
           placeholder="Search agents or specializations..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full rounded-lg border border-[#1e1e2e] bg-[#12121a] py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-indigo-500 focus:outline-none"
+          className="w-full rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#547792] focus:outline-none"
         />
       </div>
 
@@ -88,15 +88,15 @@ export const Agents = () => {
               key={agent.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className={`rounded-xl border bg-[#12121a] p-6 cursor-pointer transition-colors ${
+              className={`rounded-xl border bg-white/[0.03] backdrop-blur-xl p-6 cursor-pointer transition-colors ${
                 selectedAgent === agent.id
-                  ? 'border-indigo-500'
-                  : 'border-[#1e1e2e] hover:border-[#2e2e3e]'
+                  ? 'border-[#547792]'
+                  : 'border-white/[0.08] hover:border-[#2e2e3e]'
               }`}
               onClick={() => setSelectedAgent(agent.id)}
             >
               <div className="flex items-start gap-4">
-                <div className="h-14 w-14 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-lg">
+                <div className="h-14 w-14 rounded-full bg-gradient-to-br from-[#547792] to-[#94B4C1] flex items-center justify-center text-white font-bold text-lg">
                   {agent.name.split(' ').map(n => n.charAt(0)).join('')}
                 </div>
                 <div className="flex-1">
@@ -132,7 +132,7 @@ export const Agents = () => {
               </div>
 
               {/* Stats */}
-              <div className="grid grid-cols-2 gap-4 mt-4 pt-4 border-t border-[#1e1e2e]">
+              <div className="grid grid-cols-2 gap-4 mt-4 pt-4 border-t border-white/[0.08]">
                 <div>
                   <div className="text-xs text-[#64748b]">Active Listings</div>
                   <div className="text-lg font-semibold text-white">{agent.stats.activeListings}</div>
@@ -153,15 +153,15 @@ export const Agents = () => {
           {selected ? (
             <>
               {/* Profile */}
-              <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+              <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
                 <div className="text-center mb-6">
-                  <div className="h-20 w-20 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4">
+                  <div className="h-20 w-20 rounded-full bg-gradient-to-br from-[#547792] to-[#94B4C1] flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4">
                     {selected.name.split(' ').map(n => n.charAt(0)).join('')}
                   </div>
                   <h3 className="text-xl font-semibold text-white">{selected.name}</h3>
                   <p className="text-[#64748b]">{selected.title}</p>
                   {selected.teamName && (
-                    <p className="text-sm text-indigo-400 mt-1">{selected.teamName}</p>
+                    <p className="text-sm text-[#547792] mt-1">{selected.teamName}</p>
                   )}
                 </div>
 
@@ -185,31 +185,31 @@ export const Agents = () => {
                     href={`tel:${selected.phone}`}
                     className="flex items-center gap-3 p-3 rounded-lg bg-[#1a1a24] hover:bg-[#1e1e2e] transition-colors"
                   >
-                    <Phone className="h-4 w-4 text-indigo-400" />
+                    <Phone className="h-4 w-4 text-[#547792]" />
                     <span className="text-[#94a3b8]">{selected.phone}</span>
                   </a>
                   <a
                     href={`mailto:${selected.email}`}
                     className="flex items-center gap-3 p-3 rounded-lg bg-[#1a1a24] hover:bg-[#1e1e2e] transition-colors"
                   >
-                    <Mail className="h-4 w-4 text-indigo-400" />
+                    <Mail className="h-4 w-4 text-[#547792]" />
                     <span className="text-[#94a3b8]">{selected.email}</span>
                   </a>
                 </div>
               </div>
 
               {/* Bio */}
-              <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+              <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
                 <h3 className="text-lg font-semibold text-white mb-3">About</h3>
                 <p className="text-sm text-[#94a3b8] leading-relaxed">{selected.bio}</p>
               </div>
 
               {/* Stats Dashboard */}
-              <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+              <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
                 <h3 className="text-lg font-semibold text-white mb-4">Performance</h3>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="p-3 rounded-lg bg-[#1a1a24] text-center">
-                    <Building className="h-5 w-5 text-indigo-400 mx-auto mb-1" />
+                    <Building className="h-5 w-5 text-[#547792] mx-auto mb-1" />
                     <div className="text-xl font-bold text-white">{selected.stats.activeListings}</div>
                     <div className="text-xs text-[#64748b]">Active Listings</div>
                   </div>
@@ -226,7 +226,7 @@ export const Agents = () => {
                     <div className="text-xs text-[#64748b]">Avg Days on Market</div>
                   </div>
                   <div className="p-3 rounded-lg bg-[#1a1a24] text-center">
-                    <Award className="h-5 w-5 text-purple-400 mx-auto mb-1" />
+                    <Award className="h-5 w-5 text-[#94B4C1] mx-auto mb-1" />
                     <div className="text-xl font-bold text-white">
                       {selected.stats.listToSaleRatio || selected.stats.clientSatisfaction || 0}%
                     </div>
@@ -236,7 +236,7 @@ export const Agents = () => {
               </div>
 
               {/* Commission */}
-              <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+              <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
                 <h3 className="text-lg font-semibold text-white mb-4">Commission</h3>
                 <div className="space-y-3">
                   <div className="flex justify-between">
@@ -253,7 +253,7 @@ export const Agents = () => {
               </div>
 
               {/* License Info */}
-              <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+              <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
                 <h3 className="text-lg font-semibold text-white mb-4">License</h3>
                 <div className="space-y-3">
                   <div className="flex justify-between">
@@ -273,7 +273,7 @@ export const Agents = () => {
 
               {/* Social Media */}
               {(selected.socialMedia.linkedin || selected.socialMedia.instagram) && (
-                <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+                <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
                   <h3 className="text-lg font-semibold text-white mb-4">Social Media</h3>
                   <div className="space-y-2">
                     {selected.socialMedia.linkedin && (
@@ -303,7 +303,7 @@ export const Agents = () => {
               )}
             </>
           ) : (
-            <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-8 text-center">
+            <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-8 text-center">
               <Briefcase className="h-12 w-12 text-[#2e2e3e] mx-auto mb-3" />
               <h3 className="text-white font-medium mb-2">Select an Agent</h3>
               <p className="text-sm text-[#64748b]">Click on an agent to view their profile</p>

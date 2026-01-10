@@ -279,8 +279,8 @@ export const MemberDetail = () => {
             {member.lockerNumber && (
               <Card className="p-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center">
-                    <CreditCard className="h-5 w-5 text-purple-400" />
+                  <div className="w-10 h-10 rounded-lg bg-[#94B4C1]/10 flex items-center justify-center">
+                    <CreditCard className="h-5 w-5 text-[#94B4C1]" />
                   </div>
                   <div>
                     <p className="text-sm text-text-secondary">Locker Number</p>
@@ -430,7 +430,7 @@ export const MemberDetail = () => {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-border-default">
+                <tr className="border-b border-white/[0.08]">
                   <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
                     Check In
                   </th>
@@ -445,7 +445,7 @@ export const MemberDetail = () => {
               <tbody>
                 {memberAttendance.length > 0 ? (
                   memberAttendance.map((record) => (
-                    <tr key={record.id} className="border-b border-border-default">
+                    <tr key={record.id} className="border-b border-white/[0.08]">
                       <td className="py-3 px-4 text-text-primary">
                         {formatDateTime(record.checkIn)}
                       </td>
@@ -507,7 +507,7 @@ export const MemberDetail = () => {
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-border-default">
+                  <tr className="border-b border-white/[0.08]">
                     <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
                       Date
                     </th>
@@ -528,7 +528,7 @@ export const MemberDetail = () => {
                 <tbody>
                   {memberPTSessions.length > 0 ? (
                     memberPTSessions.map((session) => (
-                      <tr key={session.id} className="border-b border-border-default">
+                      <tr key={session.id} className="border-b border-white/[0.08]">
                         <td className="py-3 px-4 text-text-primary">
                           {formatDate(session.date)}
                         </td>
@@ -573,7 +573,7 @@ export const MemberDetail = () => {
           {memberAssessments.length > 0 ? (
             <div className="space-y-4">
               {memberAssessments.map((assessment) => (
-                <Card key={assessment.id} className="p-4 bg-background-tertiary">
+                <Card key={assessment.id} className="p-4 bg-white/[0.05]">
                   <div className="flex items-center justify-between mb-4">
                     <div>
                       <p className="text-text-primary font-semibold">

@@ -74,7 +74,7 @@ export const DoorAccess = () => {
 
   const getTypeBadge = (type: Door['type']) => {
     const config = {
-      main: { bg: 'bg-purple-500/20', text: 'text-purple-400' },
+      main: { bg: 'bg-[#94B4C1]/20', text: 'text-[#94B4C1]' },
       interior: { bg: 'bg-blue-500/20', text: 'text-blue-400' },
       emergency: { bg: 'bg-orange-500/20', text: 'text-orange-400' },
       restricted: { bg: 'bg-red-500/20', text: 'text-red-400' },
@@ -122,7 +122,7 @@ export const DoorAccess = () => {
           title="Total Doors"
           value={stats.total.toString()}
           icon={DoorOpen}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
         <StatsCard
           title="Locked"
@@ -178,7 +178,7 @@ export const DoorAccess = () => {
             <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Status</option>
               <option value="locked">Locked</option>
@@ -189,7 +189,7 @@ export const DoorAccess = () => {
             <select
               value={selectedType}
               onChange={(e) => setSelectedType(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Types</option>
               <option value="main">Main</option>
@@ -200,7 +200,7 @@ export const DoorAccess = () => {
           </div>
 
           {/* View Toggle */}
-          <div className="flex gap-1 p-1 bg-background-secondary rounded-lg">
+          <div className="flex gap-1 p-1 bg-white/[0.03] backdrop-blur-xl rounded-lg">
             <button
               onClick={() => setViewMode('grid')}
               className={`p-2 rounded transition-all ${
@@ -284,7 +284,7 @@ export const DoorAccess = () => {
                   </div>
 
                   {/* Last Access */}
-                  <div className="p-3 bg-background-tertiary rounded-lg mb-4">
+                  <div className="p-3 bg-white/[0.05] rounded-lg mb-4">
                     <div className="flex items-center gap-2 text-xs text-text-secondary mb-1">
                       <Clock size={12} />
                       Last Access
@@ -301,7 +301,7 @@ export const DoorAccess = () => {
                   </div>
 
                   {/* Actions */}
-                  <div className="flex items-center gap-2 pt-3 border-t border-border-default">
+                  <div className="flex items-center gap-2 pt-3 border-t border-white/[0.08]">
                     <button className={`flex-1 flex items-center justify-center gap-1 py-2 text-sm rounded transition-colors ${
                       door.status === 'locked'
                         ? 'text-blue-400 hover:bg-blue-400/10'
@@ -335,7 +335,7 @@ export const DoorAccess = () => {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-border-default">
+                <tr className="border-b border-white/[0.08]">
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Door</th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Location</th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Status</th>
@@ -352,7 +352,7 @@ export const DoorAccess = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: index * 0.03 }}
-                    className={`hover:bg-background-tertiary transition-colors ${
+                    className={`hover:bg-white/[0.05] transition-colors ${
                       door.status === 'alarm' ? 'bg-red-500/5' : ''
                     }`}
                   >
@@ -389,7 +389,7 @@ export const DoorAccess = () => {
                         }`}>
                           {door.status === 'locked' ? <Unlock size={14} /> : <Lock size={14} />}
                         </button>
-                        <button className="p-2 hover:bg-background-secondary rounded text-text-secondary hover:text-accent-primary">
+                        <button className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-accent-primary">
                           <Settings size={14} />
                         </button>
                       </div>

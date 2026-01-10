@@ -81,7 +81,7 @@ export const Showings = () => {
         title="Showings"
         subtitle="Manage property showings and viewings"
         actions={
-          <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-500 px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
+          <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
             <Plus className="h-4 w-4" />
             Schedule Showing
           </button>
@@ -118,7 +118,7 @@ export const Showings = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Calendar */}
-        <div className="lg:col-span-2 rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+        <div className="lg:col-span-2 rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
           <div className="flex items-center justify-between mb-6">
             <h3 className="text-lg font-semibold text-white">
               {monthNames[selectedDate.getMonth()]} {selectedDate.getFullYear()}
@@ -126,13 +126,13 @@ export const Showings = () => {
             <div className="flex items-center gap-2">
               <button
                 onClick={prevMonth}
-                className="p-2 rounded-lg border border-[#1e1e2e] text-[#94a3b8] hover:text-white hover:border-[#2e2e3e] transition-colors"
+                className="p-2 rounded-lg border border-white/[0.08] text-[#94a3b8] hover:text-white hover:border-[#2e2e3e] transition-colors"
               >
                 <ChevronLeft className="h-4 w-4" />
               </button>
               <button
                 onClick={nextMonth}
-                className="p-2 rounded-lg border border-[#1e1e2e] text-[#94a3b8] hover:text-white hover:border-[#2e2e3e] transition-colors"
+                className="p-2 rounded-lg border border-white/[0.08] text-[#94a3b8] hover:text-white hover:border-[#2e2e3e] transition-colors"
               >
                 <ChevronRight className="h-4 w-4" />
               </button>
@@ -155,13 +155,13 @@ export const Showings = () => {
               return (
                 <div
                   key={index}
-                  className={`min-h-[80px] p-1 border border-[#1e1e2e] rounded-lg ${
+                  className={`min-h-[80px] p-1 border border-white/[0.08] rounded-lg ${
                     day ? 'hover:border-[#2e2e3e] cursor-pointer' : 'bg-[#0a0a0f]'
-                  } ${isToday ? 'border-indigo-500/50' : ''}`}
+                  } ${isToday ? 'border-[#547792]/50' : ''}`}
                 >
                   {day && (
                     <>
-                      <div className={`text-xs text-right p-1 ${isToday ? 'text-indigo-400 font-bold' : 'text-[#64748b]'}`}>
+                      <div className={`text-xs text-right p-1 ${isToday ? 'text-[#547792] font-bold' : 'text-[#64748b]'}`}>
                         {day}
                       </div>
                       <div className="space-y-1">
@@ -193,7 +193,7 @@ export const Showings = () => {
 
         {/* Today's Panel */}
         <div className="space-y-6">
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4">Today's Showings</h3>
             {todayShowings.length > 0 ? (
               <div className="space-y-3">
@@ -216,7 +216,7 @@ export const Showings = () => {
           </div>
 
           {/* Quick Filters */}
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4">Filter</h3>
             <div className="space-y-3">
               <div className="relative">
@@ -226,13 +226,13 @@ export const Showings = () => {
                   placeholder="Search showings..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full rounded-lg border border-[#1e1e2e] bg-[#0a0a0f] py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-indigo-500 focus:outline-none"
+                  className="w-full rounded-lg border border-white/[0.08] bg-[#0a0a0f] py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#547792] focus:outline-none"
                 />
               </div>
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="w-full rounded-lg border border-[#1e1e2e] bg-[#0a0a0f] px-3 py-2 text-sm text-white focus:border-indigo-500 focus:outline-none"
+                className="w-full rounded-lg border border-white/[0.08] bg-[#0a0a0f] px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
               >
                 <option value="all">All Statuses</option>
                 <option value="scheduled">Scheduled</option>
@@ -245,8 +245,8 @@ export const Showings = () => {
       </div>
 
       {/* Showings List */}
-      <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] overflow-hidden">
-        <div className="p-4 border-b border-[#1e1e2e]">
+      <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl overflow-hidden">
+        <div className="p-4 border-b border-white/[0.08]">
           <h3 className="text-lg font-semibold text-white">All Showings</h3>
         </div>
         <div className="divide-y divide-[#1e1e2e]">
@@ -288,7 +288,7 @@ export const Showings = () => {
                     {showing.status}
                   </span>
                   <span className={`px-2 py-1 rounded text-xs ${
-                    showing.type === 'private' ? 'bg-indigo-500/20 text-indigo-400' : 'bg-amber-500/20 text-amber-400'
+                    showing.type === 'private' ? 'bg-[#547792]/20 text-[#547792]' : 'bg-amber-500/20 text-amber-400'
                   }`}>
                     {showing.type === 'private' ? 'Private' : 'Open House'}
                   </span>
@@ -297,7 +297,7 @@ export const Showings = () => {
 
               {/* Feedback (for completed showings) */}
               {showing.feedback && (
-                <div className="mt-4 p-3 rounded-lg bg-[#1a1a24] border-l-2 border-indigo-500">
+                <div className="mt-4 p-3 rounded-lg bg-[#1a1a24] border-l-2 border-[#547792]">
                   <div className="flex items-center gap-2 text-xs text-[#64748b] mb-1">
                     <MessageSquare className="h-3.5 w-3.5" />
                     Feedback
@@ -311,7 +311,7 @@ export const Showings = () => {
                           <div
                             key={level}
                             className={`h-2 w-6 rounded ${
-                              level <= showing.interestLevel! ? 'bg-indigo-500' : 'bg-[#2e2e3e]'
+                              level <= showing.interestLevel! ? 'bg-[#547792]' : 'bg-[#2e2e3e]'
                             }`}
                           />
                         ))}

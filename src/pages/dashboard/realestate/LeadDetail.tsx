@@ -42,7 +42,7 @@ export const LeadDetail = () => {
           <p className="text-[#64748b] mb-4">The lead you're looking for doesn't exist.</p>
           <button
             onClick={() => navigate('/dashboard/realestate/leads')}
-            className="text-indigo-400 hover:text-indigo-300"
+            className="text-[#547792] hover:text-indigo-300"
           >
             Back to Leads
           </button>
@@ -69,16 +69,16 @@ export const LeadDetail = () => {
           <div className="flex items-center gap-2">
             <button
               onClick={() => navigate('/dashboard/realestate/leads')}
-              className="flex items-center gap-2 rounded-lg border border-[#1e1e2e] px-3 py-2 text-sm text-[#94a3b8] hover:text-white hover:border-[#2e2e3e] transition-colors"
+              className="flex items-center gap-2 rounded-lg border border-white/[0.08] px-3 py-2 text-sm text-[#94a3b8] hover:text-white hover:border-[#2e2e3e] transition-colors"
             >
               <ArrowLeft className="h-4 w-4" />
               Back
             </button>
-            <button className="flex items-center gap-2 rounded-lg border border-[#1e1e2e] px-3 py-2 text-sm text-[#94a3b8] hover:text-white hover:border-[#2e2e3e] transition-colors">
+            <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] px-3 py-2 text-sm text-[#94a3b8] hover:text-white hover:border-[#2e2e3e] transition-colors">
               <Edit className="h-4 w-4" />
               Edit
             </button>
-            <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-500 px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
+            <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
               <Calendar className="h-4 w-4" />
               Schedule Showing
             </button>
@@ -87,10 +87,10 @@ export const LeadDetail = () => {
       />
 
       {/* Header */}
-      <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+      <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
           <div className="flex items-center gap-4">
-            <div className="h-16 w-16 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-xl">
+            <div className="h-16 w-16 rounded-full bg-gradient-to-br from-[#547792] to-[#94B4C1] flex items-center justify-center text-white font-bold text-xl">
               {lead.firstName.charAt(0)}{lead.lastName.charAt(0)}
             </div>
             <div>
@@ -109,14 +109,14 @@ export const LeadDetail = () => {
           <div className="flex items-center gap-4">
             <a
               href={`tel:${lead.phone}`}
-              className="flex items-center gap-2 rounded-lg border border-[#1e1e2e] px-4 py-2 text-sm text-[#94a3b8] hover:text-white hover:border-[#2e2e3e] transition-colors"
+              className="flex items-center gap-2 rounded-lg border border-white/[0.08] px-4 py-2 text-sm text-[#94a3b8] hover:text-white hover:border-[#2e2e3e] transition-colors"
             >
               <Phone className="h-4 w-4" />
               {lead.phone}
             </a>
             <a
               href={`mailto:${lead.email}`}
-              className="flex items-center gap-2 rounded-lg border border-[#1e1e2e] px-4 py-2 text-sm text-[#94a3b8] hover:text-white hover:border-[#2e2e3e] transition-colors"
+              className="flex items-center gap-2 rounded-lg border border-white/[0.08] px-4 py-2 text-sm text-[#94a3b8] hover:text-white hover:border-[#2e2e3e] transition-colors"
             >
               <Mail className="h-4 w-4" />
               {lead.email}
@@ -126,7 +126,7 @@ export const LeadDetail = () => {
       </div>
 
       {/* Tabs */}
-      <div className="border-b border-[#1e1e2e]">
+      <div className="border-b border-white/[0.08]">
         <nav className="flex gap-4">
           {tabs.map((tab) => (
             <button
@@ -140,7 +140,7 @@ export const LeadDetail = () => {
               {activeTab === tab.id && (
                 <motion.div
                   layoutId="activeLeadTab"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-indigo-500 to-purple-500"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#547792] to-[#94B4C1]"
                 />
               )}
             </button>
@@ -155,7 +155,7 @@ export const LeadDetail = () => {
             <>
               {/* Preferences */}
               {lead.preferences && (
-                <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+                <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
                   <h3 className="text-lg font-semibold text-white mb-4">Preferences</h3>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
@@ -202,7 +202,7 @@ export const LeadDetail = () => {
 
               {/* Budget */}
               {lead.budget && (
-                <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+                <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
                   <h3 className="text-lg font-semibold text-white mb-4">Budget</h3>
                   <div className="flex items-center gap-4">
                     <div className="flex-1 p-4 rounded-lg bg-[#1a1a24]">
@@ -240,7 +240,7 @@ export const LeadDetail = () => {
 
               {/* Seller Property */}
               {lead.propertyAddress && (
-                <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+                <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
                   <h3 className="text-lg font-semibold text-white mb-4">Property to Sell</h3>
                   <div className="flex items-center gap-4">
                     <div className="h-16 w-24 rounded-lg bg-[#1a1a24] flex items-center justify-center">
@@ -260,7 +260,7 @@ export const LeadDetail = () => {
               )}
 
               {/* Notes */}
-              <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+              <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
                 <h3 className="text-lg font-semibold text-white mb-4">Notes</h3>
                 <p className="text-[#94a3b8] leading-relaxed">{lead.notes}</p>
               </div>
@@ -270,10 +270,10 @@ export const LeadDetail = () => {
           {activeTab === 'properties' && (
             <>
               {/* Viewed Properties */}
-              <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+              <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-semibold text-white flex items-center gap-2">
-                    <Eye className="h-5 w-5 text-indigo-400" />
+                    <Eye className="h-5 w-5 text-[#547792]" />
                     Viewed Properties ({viewedProperties.length})
                   </h3>
                 </div>
@@ -304,7 +304,7 @@ export const LeadDetail = () => {
               </div>
 
               {/* Favorite Properties */}
-              <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+              <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-semibold text-white flex items-center gap-2">
                     <Heart className="h-5 w-5 text-red-400" />
@@ -338,7 +338,7 @@ export const LeadDetail = () => {
               </div>
 
               {/* Schedule Showing */}
-              <button className="w-full flex items-center justify-center gap-2 rounded-xl border border-dashed border-[#2e2e3e] bg-[#12121a] p-6 text-[#94a3b8] hover:text-white hover:border-indigo-500/50 transition-colors">
+              <button className="w-full flex items-center justify-center gap-2 rounded-xl border border-dashed border-[#2e2e3e] bg-white/[0.03] backdrop-blur-xl p-6 text-[#94a3b8] hover:text-white hover:border-[#547792]/50 transition-colors">
                 <Plus className="h-5 w-5" />
                 Schedule a Property Showing
               </button>
@@ -346,10 +346,10 @@ export const LeadDetail = () => {
           )}
 
           {activeTab === 'activity' && (
-            <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+            <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold text-white">Activity Timeline</h3>
-                <button className="flex items-center gap-2 rounded-lg border border-[#1e1e2e] px-3 py-1.5 text-sm text-[#94a3b8] hover:text-white hover:border-[#2e2e3e] transition-colors">
+                <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:text-white hover:border-[#2e2e3e] transition-colors">
                   <Plus className="h-4 w-4" />
                   Add Activity
                 </button>
@@ -358,8 +358,8 @@ export const LeadDetail = () => {
                 {lead.activities.map((activity, index) => (
                   <div key={index} className="flex gap-4">
                     <div className="flex flex-col items-center">
-                      <div className="h-8 w-8 rounded-full bg-indigo-500/20 flex items-center justify-center">
-                        <MessageSquare className="h-4 w-4 text-indigo-400" />
+                      <div className="h-8 w-8 rounded-full bg-[#547792]/20 flex items-center justify-center">
+                        <MessageSquare className="h-4 w-4 text-[#547792]" />
                       </div>
                       {index < lead.activities.length - 1 && (
                         <div className="w-px h-full bg-[#1e1e2e] my-2" />
@@ -379,10 +379,10 @@ export const LeadDetail = () => {
           )}
 
           {activeTab === 'notes' && (
-            <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+            <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold text-white">Notes</h3>
-                <button className="flex items-center gap-2 rounded-lg border border-[#1e1e2e] px-3 py-1.5 text-sm text-[#94a3b8] hover:text-white hover:border-[#2e2e3e] transition-colors">
+                <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:text-white hover:border-[#2e2e3e] transition-colors">
                   <Plus className="h-4 w-4" />
                   Add Note
                 </button>
@@ -398,7 +398,7 @@ export const LeadDetail = () => {
         {/* Sidebar */}
         <div className="space-y-6">
           {/* Quick Info */}
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4">Quick Info</h3>
             <div className="space-y-3">
               <div className="flex justify-between">
@@ -421,10 +421,10 @@ export const LeadDetail = () => {
           </div>
 
           {/* Assigned Agent */}
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4">Assigned Agent</h3>
             <div className="flex items-center gap-3">
-              <div className="h-12 w-12 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold">
+              <div className="h-12 w-12 rounded-full bg-gradient-to-br from-[#547792] to-[#94B4C1] flex items-center justify-center text-white font-bold">
                 {lead.assignedAgent.split(' ').map(n => n.charAt(0)).join('')}
               </div>
               <div>

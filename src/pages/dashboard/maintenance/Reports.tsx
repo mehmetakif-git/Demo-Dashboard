@@ -84,7 +84,7 @@ export const Reports = () => {
             <select
               value={selectedPeriod}
               onChange={(e) => setSelectedPeriod(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="week">This Week</option>
               <option value="month">This Month</option>
@@ -105,7 +105,7 @@ export const Reports = () => {
           value={maintenanceStats.totalAssets.toString()}
           subtitle={`${maintenanceStats.operationalAssets} operational`}
           icon={Box}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
         <StatsCard
           title="Open Work Orders"
@@ -126,7 +126,7 @@ export const Reports = () => {
           value={maintenanceStats.averageResponseTime}
           subtitle="Work order response"
           icon={Clock}
-          iconColor="#8b5cf6"
+          iconColor="#94B4C1"
         />
       </div>
 
@@ -147,7 +147,7 @@ export const Reports = () => {
               {[
                 { label: 'Operational', value: assetStats.byStatus.operational, color: '#10b981', total: assets.length },
                 { label: 'Needs Repair', value: assetStats.byStatus.needsRepair, color: '#f59e0b', total: assets.length },
-                { label: 'Under Maintenance', value: assetStats.byStatus.underMaintenance, color: '#6366f1', total: assets.length },
+                { label: 'Under Maintenance', value: assetStats.byStatus.underMaintenance, color: '#547792', total: assets.length },
                 { label: 'Out of Service', value: assetStats.byStatus.outOfService, color: '#ef4444', total: assets.length },
               ].map((item) => (
                 <div key={item.label}>
@@ -155,7 +155,7 @@ export const Reports = () => {
                     <span className="text-text-secondary">{item.label}</span>
                     <span className="text-text-primary font-medium">{item.value} ({Math.round((item.value / item.total) * 100)}%)</span>
                   </div>
-                  <div className="h-2 bg-background-tertiary rounded-full overflow-hidden">
+                  <div className="h-2 bg-white/[0.05] rounded-full overflow-hidden">
                     <div
                       className="h-full rounded-full transition-all"
                       style={{
@@ -189,7 +189,7 @@ export const Reports = () => {
               ].map((item) => (
                 <div
                   key={item.label}
-                  className="p-4 bg-background-secondary rounded-lg text-center"
+                  className="p-4 bg-white/[0.03] backdrop-blur-xl rounded-lg text-center"
                 >
                   <div
                     className="w-12 h-12 rounded-full mx-auto mb-3 flex items-center justify-center"
@@ -218,12 +218,12 @@ export const Reports = () => {
             <h3 className="text-lg font-semibold text-text-primary mb-4">Work Order Status</h3>
             <div className="space-y-3">
               {[
-                { label: 'Scheduled', value: workOrderStats.byStatus.scheduled, color: '#6366f1' },
+                { label: 'Scheduled', value: workOrderStats.byStatus.scheduled, color: '#547792' },
                 { label: 'In Progress', value: workOrderStats.byStatus.inProgress, color: '#f59e0b' },
-                { label: 'Pending Parts', value: workOrderStats.byStatus.pendingParts, color: '#8b5cf6' },
+                { label: 'Pending Parts', value: workOrderStats.byStatus.pendingParts, color: '#94B4C1' },
                 { label: 'Completed', value: workOrderStats.byStatus.completed, color: '#10b981' },
               ].map((item) => (
-                <div key={item.label} className="flex items-center justify-between p-3 bg-background-secondary rounded-lg">
+                <div key={item.label} className="flex items-center justify-between p-3 bg-white/[0.03] backdrop-blur-xl rounded-lg">
                   <div className="flex items-center gap-3">
                     <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }} />
                     <span className="text-sm text-text-secondary">{item.label}</span>
@@ -245,7 +245,7 @@ export const Reports = () => {
             <h3 className="text-lg font-semibold text-text-primary mb-4">Assets by Category</h3>
             <div className="space-y-3">
               {assetStats.byCategory.filter(c => c.count > 0).map((item) => (
-                <div key={item.name} className="flex items-center justify-between p-3 bg-background-secondary rounded-lg">
+                <div key={item.name} className="flex items-center justify-between p-3 bg-white/[0.03] backdrop-blur-xl rounded-lg">
                   <div className="flex items-center gap-3">
                     <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }} />
                     <span className="text-sm text-text-secondary">{item.name}</span>
@@ -266,7 +266,7 @@ export const Reports = () => {
           <Card className="p-6">
             <h3 className="text-lg font-semibold text-text-primary mb-4">Inventory Status</h3>
             <div className="space-y-4">
-              <div className="p-4 bg-background-secondary rounded-lg">
+              <div className="p-4 bg-white/[0.03] backdrop-blur-xl rounded-lg">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm text-text-secondary">Total Inventory Value</span>
                   <DollarSign size={18} className="text-green-400" />
@@ -302,19 +302,19 @@ export const Reports = () => {
             <Activity size={20} className="text-text-muted" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div className="p-4 bg-background-secondary rounded-lg">
+            <div className="p-4 bg-white/[0.03] backdrop-blur-xl rounded-lg">
               <p className="text-sm text-text-secondary mb-1">Total Work Order Cost</p>
               <p className="text-xl font-bold text-text-primary">{formatCurrency(workOrderStats.totalCost)}</p>
             </div>
-            <div className="p-4 bg-background-secondary rounded-lg">
+            <div className="p-4 bg-white/[0.03] backdrop-blur-xl rounded-lg">
               <p className="text-sm text-text-secondary mb-1">Labor Hours</p>
               <p className="text-xl font-bold text-text-primary">{workOrderStats.totalHours}h</p>
             </div>
-            <div className="p-4 bg-background-secondary rounded-lg">
+            <div className="p-4 bg-white/[0.03] backdrop-blur-xl rounded-lg">
               <p className="text-sm text-text-secondary mb-1">Parts Inventory Value</p>
               <p className="text-xl font-bold text-text-primary">{formatCurrency(inventoryStats.totalValue)}</p>
             </div>
-            <div className="p-4 bg-background-secondary rounded-lg">
+            <div className="p-4 bg-white/[0.03] backdrop-blur-xl rounded-lg">
               <p className="text-sm text-text-secondary mb-1">Total Asset Value</p>
               <p className="text-xl font-bold text-text-primary">
                 {formatCurrency(assets.reduce((sum, a) => sum + a.purchasePrice, 0))}
@@ -341,7 +341,7 @@ export const Reports = () => {
             ].map((report) => (
               <button
                 key={report.label}
-                className="flex flex-col items-center gap-3 p-4 bg-background-secondary hover:bg-background-tertiary rounded-lg transition-colors"
+                className="flex flex-col items-center gap-3 p-4 bg-white/[0.03] backdrop-blur-xl hover:bg-white/[0.05] rounded-lg transition-colors"
               >
                 <report.icon size={24} className="text-accent-primary" />
                 <span className="text-sm text-text-secondary text-center">{report.label}</span>

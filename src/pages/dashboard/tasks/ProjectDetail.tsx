@@ -177,7 +177,7 @@ export const ProjectDetail = () => {
       <div className="flex items-center gap-4">
         <button
           onClick={() => navigate('/dashboard/tasks/projects')}
-          className="p-2 hover:bg-background-tertiary rounded-lg text-text-secondary hover:text-text-primary transition-colors"
+          className="p-2 hover:bg-white/[0.05] rounded-lg text-text-secondary hover:text-text-primary transition-colors"
         >
           <ArrowLeft size={20} />
         </button>
@@ -224,7 +224,7 @@ export const ProjectDetail = () => {
           <span className="text-sm text-text-secondary">Overall Progress</span>
           <span className="text-lg font-semibold text-text-primary">{project.progress}%</span>
         </div>
-        <div className="w-full h-3 bg-background-tertiary rounded-full overflow-hidden">
+        <div className="w-full h-3 bg-white/[0.05] rounded-full overflow-hidden">
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: `${project.progress}%` }}
@@ -239,7 +239,7 @@ export const ProjectDetail = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card className="p-4">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-background-tertiary rounded-lg">
+            <div className="p-2 bg-white/[0.05] rounded-lg">
               <Calendar size={20} className="text-accent-primary" />
             </div>
             <div>
@@ -267,7 +267,7 @@ export const ProjectDetail = () => {
 
         <Card className="p-4">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-background-tertiary rounded-lg">
+            <div className="p-2 bg-white/[0.05] rounded-lg">
               <CheckCircle size={20} className="text-green-400" />
             </div>
             <div>
@@ -281,8 +281,8 @@ export const ProjectDetail = () => {
 
         <Card className="p-4">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-background-tertiary rounded-lg">
-              <Users size={20} className="text-purple-400" />
+            <div className="p-2 bg-white/[0.05] rounded-lg">
+              <Users size={20} className="text-[#94B4C1]" />
             </div>
             <div>
               <p className="text-xs text-text-secondary">Team</p>
@@ -293,7 +293,7 @@ export const ProjectDetail = () => {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 p-1 bg-background-secondary rounded-lg w-fit">
+      <div className="flex gap-1 p-1 bg-white/[0.03] backdrop-blur-xl rounded-lg w-fit">
         {tabs.map(tab => (
           <button
             key={tab.id}
@@ -301,14 +301,14 @@ export const ProjectDetail = () => {
             className={`px-4 py-2 text-sm font-medium rounded-md transition-all flex items-center gap-2 ${
               activeTab === tab.id
                 ? 'bg-accent-primary text-white'
-                : 'text-text-secondary hover:text-text-primary hover:bg-background-tertiary'
+                : 'text-text-secondary hover:text-text-primary hover:bg-white/[0.05]'
             }`}
           >
             {tab.label}
             {tab.count !== undefined && (
               <span
                 className={`px-1.5 py-0.5 rounded-full text-xs ${
-                  activeTab === tab.id ? 'bg-white/20' : 'bg-background-tertiary'
+                  activeTab === tab.id ? 'bg-white/20' : 'bg-white/[0.05]'
                 }`}
               >
                 {tab.count}
@@ -321,7 +321,7 @@ export const ProjectDetail = () => {
       {/* Tab Content */}
       {activeTab === 'tasks' && (
         <Card>
-          <div className="p-4 border-b border-border-default">
+          <div className="p-4 border-b border-white/[0.08]">
             <div className="flex items-center justify-between">
               <div className="flex gap-2">
                 {['all', ...taskStatuses.map(s => s.id)].map(status => (
@@ -331,7 +331,7 @@ export const ProjectDetail = () => {
                     className={`px-3 py-1.5 text-sm rounded-md transition-all ${
                       taskStatusFilter === status
                         ? 'bg-accent-primary text-white'
-                        : 'text-text-secondary hover:bg-background-tertiary'
+                        : 'text-text-secondary hover:bg-white/[0.05]'
                     }`}
                   >
                     {status === 'all' ? 'All' : getStatusName(status)}
@@ -371,7 +371,7 @@ export const ProjectDetail = () => {
                     className={`w-8 h-8 rounded-full flex items-center justify-center z-10 ${
                       milestone.completed
                         ? 'bg-green-500'
-                        : 'bg-background-tertiary border-2 border-border-default'
+                        : 'bg-white/[0.05] border-2 border-white/[0.08]'
                     }`}
                   >
                     {milestone.completed ? (
@@ -423,7 +423,7 @@ export const ProjectDetail = () => {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.05 }}
-                  className="flex items-center justify-between p-4 bg-background-tertiary rounded-lg"
+                  className="flex items-center justify-between p-4 bg-white/[0.05] rounded-lg"
                 >
                   <div className="flex items-center gap-4">
                     <div className="w-10 h-10 rounded-full bg-accent-primary/20 flex items-center justify-center">
@@ -446,7 +446,7 @@ export const ProjectDetail = () => {
                     </div>
                   </div>
                   {!isOwner && (
-                    <button className="p-2 hover:bg-background-secondary rounded-lg text-text-secondary hover:text-red-400">
+                    <button className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded-lg text-text-secondary hover:text-red-400">
                       <UserMinus size={16} />
                     </button>
                   )}
@@ -465,7 +465,7 @@ export const ProjectDetail = () => {
           </div>
 
           {/* Upload Area */}
-          <div className="border-2 border-dashed border-border-default rounded-lg p-8 mb-6 text-center hover:border-accent-primary transition-colors cursor-pointer">
+          <div className="border-2 border-dashed border-white/[0.08] rounded-lg p-8 mb-6 text-center hover:border-accent-primary transition-colors cursor-pointer">
             <Upload size={32} className="mx-auto text-text-muted mb-2" />
             <p className="text-sm text-text-secondary">
               Drag and drop files here, or click to browse
@@ -483,7 +483,7 @@ export const ProjectDetail = () => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
-                className="flex items-center justify-between p-3 bg-background-tertiary rounded-lg hover:bg-background-secondary transition-colors"
+                className="flex items-center justify-between p-3 bg-white/[0.05] rounded-lg hover:bg-white/[0.03] backdrop-blur-xl transition-colors"
               >
                 <div className="flex items-center gap-3">
                   {getFileIcon(file.type)}
@@ -494,7 +494,7 @@ export const ProjectDetail = () => {
                     </p>
                   </div>
                 </div>
-                <button className="p-2 hover:bg-background-tertiary rounded text-text-secondary hover:text-red-400">
+                <button className="p-2 hover:bg-white/[0.05] rounded text-text-secondary hover:text-red-400">
                   <Trash2 size={14} />
                 </button>
               </motion.div>

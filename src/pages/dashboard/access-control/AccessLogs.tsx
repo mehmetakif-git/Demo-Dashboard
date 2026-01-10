@@ -83,9 +83,9 @@ export const AccessLogs = () => {
 
   const getMethodBadge = (method: string) => {
     const config: Record<string, { bg: string; text: string }> = {
-      card: { bg: 'bg-purple-500/20', text: 'text-purple-400' },
+      card: { bg: 'bg-[#94B4C1]/20', text: 'text-[#94B4C1]' },
       pin: { bg: 'bg-blue-500/20', text: 'text-blue-400' },
-      biometric: { bg: 'bg-indigo-500/20', text: 'text-indigo-400' },
+      biometric: { bg: 'bg-[#547792]/20', text: 'text-[#547792]' },
       manual: { bg: 'bg-gray-500/20', text: 'text-gray-400' },
     };
     const c = config[method] || config.card;
@@ -131,7 +131,7 @@ export const AccessLogs = () => {
           title="Total Logs"
           value={stats.total.toString()}
           icon={Clock}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
         <StatsCard
           title="Today's Entries"
@@ -189,7 +189,7 @@ export const AccessLogs = () => {
           <select
             value={selectedAction}
             onChange={(e) => setSelectedAction(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Actions</option>
             <option value="entry">Entry</option>
@@ -201,7 +201,7 @@ export const AccessLogs = () => {
           <select
             value={selectedDoor}
             onChange={(e) => setSelectedDoor(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Doors</option>
             {uniqueDoors.map(d => (
@@ -212,7 +212,7 @@ export const AccessLogs = () => {
           <select
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Status</option>
             <option value="success">Success</option>
@@ -230,7 +230,7 @@ export const AccessLogs = () => {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-border-default">
+              <tr className="border-b border-white/[0.08]">
                 <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Time</th>
                 <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">User</th>
                 <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Card</th>
@@ -251,7 +251,7 @@ export const AccessLogs = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: index * 0.02 }}
-                    className={`hover:bg-background-tertiary transition-colors ${
+                    className={`hover:bg-white/[0.05] transition-colors ${
                       isAlert ? 'bg-red-500/5' : ''
                     }`}
                   >
@@ -315,7 +315,7 @@ export const AccessLogs = () => {
         </div>
 
         {/* Pagination */}
-        <div className="flex items-center justify-between p-4 border-t border-border-default">
+        <div className="flex items-center justify-between p-4 border-t border-white/[0.08]">
           <p className="text-sm text-text-secondary">
             Showing {filteredLogs.length} of {accessLogs.length} logs
           </p>

@@ -92,7 +92,7 @@ export const Directory = () => {
               </span>
             </div>
             <div
-              className="absolute bottom-0 right-0 w-4 h-4 rounded-full border-2 border-background-secondary"
+              className="absolute bottom-0 right-0 w-4 h-4 rounded-full border-2 border-white/[0.08]"
               style={{ backgroundColor: getStatusColor(employee.status) }}
             />
           </div>
@@ -113,22 +113,22 @@ export const Directory = () => {
         </div>
 
         {/* Quick Actions */}
-        <div className="flex items-center justify-center gap-2 mt-4 pt-4 border-t border-border-default">
+        <div className="flex items-center justify-center gap-2 mt-4 pt-4 border-t border-white/[0.08]">
           <button
             onClick={(e) => { e.stopPropagation(); window.location.href = `mailto:${employee.email}`; }}
-            className="p-2 hover:bg-background-tertiary rounded-lg transition-colors"
+            className="p-2 hover:bg-white/[0.05] rounded-lg transition-colors"
           >
             <Mail size={16} className="text-text-secondary hover:text-accent-primary" />
           </button>
           <button
             onClick={(e) => { e.stopPropagation(); window.location.href = `tel:${employee.phone}`; }}
-            className="p-2 hover:bg-background-tertiary rounded-lg transition-colors"
+            className="p-2 hover:bg-white/[0.05] rounded-lg transition-colors"
           >
             <Phone size={16} className="text-text-secondary hover:text-accent-primary" />
           </button>
           <button
             onClick={(e) => { e.stopPropagation(); }}
-            className="p-2 hover:bg-background-tertiary rounded-lg transition-colors"
+            className="p-2 hover:bg-white/[0.05] rounded-lg transition-colors"
           >
             <MessageSquare size={16} className="text-text-secondary hover:text-accent-primary" />
           </button>
@@ -141,7 +141,7 @@ export const Directory = () => {
     <motion.tr
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="border-b border-border-default hover:bg-background-tertiary cursor-pointer"
+      className="border-b border-white/[0.08] hover:bg-white/[0.05] cursor-pointer"
       onClick={() => setSelectedEmployee(employee)}
     >
       <td className="px-4 py-3">
@@ -153,7 +153,7 @@ export const Directory = () => {
               </span>
             </div>
             <div
-              className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-background-secondary"
+              className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-white/[0.08]"
               style={{ backgroundColor: getStatusColor(employee.status) }}
             />
           </div>
@@ -176,13 +176,13 @@ export const Directory = () => {
         <div className="flex items-center gap-1">
           <button
             onClick={(e) => { e.stopPropagation(); window.location.href = `mailto:${employee.email}`; }}
-            className="p-1.5 hover:bg-background-secondary rounded text-text-secondary hover:text-accent-primary"
+            className="p-1.5 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-accent-primary"
           >
             <Mail size={14} />
           </button>
           <button
             onClick={(e) => { e.stopPropagation(); }}
-            className="p-1.5 hover:bg-background-secondary rounded text-text-secondary hover:text-accent-primary"
+            className="p-1.5 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-accent-primary"
           >
             <MessageSquare size={14} />
           </button>
@@ -224,8 +224,8 @@ export const Directory = () => {
         </Card>
         <Card className="p-4">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-purple-500/20 rounded-lg">
-              <Building2 size={20} className="text-purple-500" />
+            <div className="p-2 bg-[#94B4C1]/20 rounded-lg">
+              <Building2 size={20} className="text-[#94B4C1]" />
             </div>
             <div>
               <p className="text-2xl font-bold text-text-primary">{departments.length}</p>
@@ -261,7 +261,7 @@ export const Directory = () => {
           <select
             value={selectedDepartment}
             onChange={(e) => setSelectedDepartment(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Departments</option>
             {departments.map((dept: string) => (
@@ -272,7 +272,7 @@ export const Directory = () => {
           <select
             value={selectedLocation}
             onChange={(e) => setSelectedLocation(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Locations</option>
             {locations.map((loc: string) => (
@@ -283,7 +283,7 @@ export const Directory = () => {
           <select
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Status</option>
             <option value="online">Online</option>
@@ -292,13 +292,13 @@ export const Directory = () => {
             <option value="offline">Offline</option>
           </select>
 
-          <div className="flex items-center border border-border-default rounded-lg overflow-hidden">
+          <div className="flex items-center border border-white/[0.08] rounded-lg overflow-hidden">
             <button
               onClick={() => setViewMode('grid')}
               className={`p-2 transition-colors ${
                 viewMode === 'grid'
                   ? 'bg-accent-primary text-white'
-                  : 'bg-background-tertiary text-text-secondary hover:bg-background-secondary'
+                  : 'bg-white/[0.05] text-text-secondary hover:bg-white/[0.03] backdrop-blur-xl'
               }`}
             >
               <Grid3X3 size={18} />
@@ -308,7 +308,7 @@ export const Directory = () => {
               className={`p-2 transition-colors ${
                 viewMode === 'list'
                   ? 'bg-accent-primary text-white'
-                  : 'bg-background-tertiary text-text-secondary hover:bg-background-secondary'
+                  : 'bg-white/[0.05] text-text-secondary hover:bg-white/[0.03] backdrop-blur-xl'
               }`}
             >
               <List size={18} />
@@ -339,7 +339,7 @@ export const Directory = () => {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="bg-background-tertiary border-b border-border-default">
+                <tr className="bg-white/[0.05] border-b border-white/[0.08]">
                   <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
                     Employee
                   </th>
@@ -387,10 +387,10 @@ export const Directory = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-background-secondary rounded-xl max-w-lg w-full overflow-hidden"
+            className="bg-white/[0.03] backdrop-blur-xl rounded-xl max-w-lg w-full overflow-hidden"
           >
             {/* Modal Header */}
-            <div className="p-6 border-b border-border-default">
+            <div className="p-6 border-b border-white/[0.08]">
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-4">
                   <div className="relative">
@@ -400,7 +400,7 @@ export const Directory = () => {
                       </span>
                     </div>
                     <div
-                      className="absolute bottom-0 right-0 w-4 h-4 rounded-full border-2 border-background-secondary"
+                      className="absolute bottom-0 right-0 w-4 h-4 rounded-full border-2 border-white/[0.08]"
                       style={{ backgroundColor: getStatusColor(selectedEmployee.status) }}
                     />
                   </div>
@@ -414,7 +414,7 @@ export const Directory = () => {
                 </div>
                 <button
                   onClick={() => setSelectedEmployee(null)}
-                  className="p-2 hover:bg-background-tertiary rounded-lg"
+                  className="p-2 hover:bg-white/[0.05] rounded-lg"
                 >
                   <X size={20} className="text-text-secondary" />
                 </button>
@@ -424,14 +424,14 @@ export const Directory = () => {
             {/* Modal Content */}
             <div className="p-6 space-y-4">
               <div className="grid grid-cols-2 gap-4">
-                <div className="flex items-center gap-3 p-3 bg-background-tertiary rounded-lg">
+                <div className="flex items-center gap-3 p-3 bg-white/[0.05] rounded-lg">
                   <Building2 size={18} className="text-text-muted" />
                   <div>
                     <p className="text-xs text-text-muted">Department</p>
                     <p className="text-sm font-medium text-text-primary">{selectedEmployee.department}</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 p-3 bg-background-tertiary rounded-lg">
+                <div className="flex items-center gap-3 p-3 bg-white/[0.05] rounded-lg">
                   <MapPin size={18} className="text-text-muted" />
                   <div>
                     <p className="text-xs text-text-muted">Location</p>
@@ -460,7 +460,7 @@ export const Directory = () => {
             </div>
 
             {/* Modal Footer */}
-            <div className="p-6 border-t border-border-default bg-background-tertiary">
+            <div className="p-6 border-t border-white/[0.08] bg-white/[0.05]">
               <div className="flex items-center gap-3">
                 <Button className="flex-1" leftIcon={<MessageSquare size={16} />}>
                   Send Message

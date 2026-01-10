@@ -28,7 +28,7 @@ export const Departments = () => {
         subtitle={`${departments.length} departments in your organization`}
         icon={Building2}
         actions={
-          <button className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] hover:opacity-90 text-white font-medium rounded-lg transition-opacity cursor-pointer">
+          <button className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#547792] to-[#94B4C1] hover:opacity-90 text-white font-medium rounded-lg transition-opacity cursor-pointer">
             <Plus className="w-4 h-4" />
             Add Department
           </button>
@@ -43,7 +43,7 @@ export const Departments = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.05 }}
-            className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6 hover:border-[#2e2e3e] transition-colors"
+            className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6 hover:border-[#2e2e3e] transition-colors"
           >
             {/* Header */}
             <div className="flex items-start justify-between mb-6">
@@ -66,7 +66,7 @@ export const Departments = () => {
                 >
                   <Eye className="w-4 h-4" />
                 </button>
-                <button className="p-2 rounded-lg text-white/40 hover:text-[#6366f1] hover:bg-[#6366f1]/10 transition-colors cursor-pointer">
+                <button className="p-2 rounded-lg text-white/40 hover:text-[#547792] hover:bg-[#547792]/10 transition-colors cursor-pointer">
                   <Pencil className="w-4 h-4" />
                 </button>
               </div>
@@ -85,7 +85,7 @@ export const Departments = () => {
             <div className="grid grid-cols-2 gap-4">
               <div className="text-center p-3 rounded-lg bg-white/[0.02]">
                 <div className="flex items-center justify-center gap-1 mb-1">
-                  <Users className="w-4 h-4 text-[#6366f1]" />
+                  <Users className="w-4 h-4 text-[#547792]" />
                   <span className="text-xl font-bold text-white">{dept.employeeCount}</span>
                 </div>
                 <p className="text-xs text-white/40">Employees</p>

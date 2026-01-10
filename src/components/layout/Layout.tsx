@@ -5,7 +5,7 @@ import { Sidebar } from './Sidebar';
 import { Header } from './Header';
 import { useAppStore } from '@/store/appStore';
 import { LAYOUT } from '@/utils/constants';
-import { Skeleton } from '@/components/common';
+import { Skeleton, ErrorBoundary } from '@/components/common';
 import LightPillar from '@/components/ui/LightPillar';
 import { usePerformanceMode } from '@/hooks/usePerformanceMode';
 
@@ -147,15 +147,28 @@ export const Layout = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, [showSpotlight, updateSpotlightPosition]);
 
-  // Disable scroll when spotlight is active
+  // Disable scroll when spotlight is active (but keep scrollbar visible)
   useEffect(() => {
-    if (showSpotlight) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+    if (!showSpotlight) return;
+
+    const preventScroll = (e: Event) => {
+      e.preventDefault();
+    };
+
+    const preventKeyScroll = (e: KeyboardEvent) => {
+      if (['ArrowUp', 'ArrowDown', 'Space', 'PageUp', 'PageDown', 'Home', 'End'].includes(e.key)) {
+        e.preventDefault();
+      }
+    };
+
+    window.addEventListener('wheel', preventScroll, { passive: false });
+    window.addEventListener('touchmove', preventScroll, { passive: false });
+    window.addEventListener('keydown', preventKeyScroll);
+
     return () => {
-      document.body.style.overflow = '';
+      window.removeEventListener('wheel', preventScroll);
+      window.removeEventListener('touchmove', preventScroll);
+      window.removeEventListener('keydown', preventKeyScroll);
     };
   }, [showSpotlight]);
 
@@ -222,7 +235,7 @@ export const Layout = () => {
 
   return (
     <div
-      className="flex h-screen bg-[#0a0a0f] relative"
+      className="flex h-screen bg-background-primary relative"
       style={{
         zoom: zoom,
         // Compensate height for zoom
@@ -233,8 +246,10 @@ export const Layout = () => {
       {!shouldOptimize && (
         <div className="fixed inset-0 z-0 pointer-events-none">
           <LightPillar
-            topColor="#5227FF"
-            bottomColor="#FF9FFC"
+            color1="#213448"
+            color2="#547792"
+            color3="#94B4C1"
+            color4="#EAE0CF"
             intensity={1}
             rotationSpeed={0.3}
             glowAmount={0.002}
@@ -246,13 +261,14 @@ export const Layout = () => {
             mixBlendMode="normal"
             isStatic
             staticTime={2.5}
+            color4GlowMultiplier={0.5}
           />
         </div>
       )}
 
-      {/* Simple gradient background in performance mode */}
+      {/* Clean solid background in performance mode */}
       {shouldOptimize && (
-        <div className="fixed inset-0 z-0 pointer-events-none bg-gradient-to-br from-[#0a0a0f] via-[#12121a] to-[#0a0a0f]" />
+        <div className="fixed inset-0 z-0 pointer-events-none bg-background-primary" />
       )}
 
       {/* Sidebar - stays mounted */}
@@ -273,22 +289,21 @@ export const Layout = () => {
           marginLeft: sidebarCollapsed ? LAYOUT.sidebarCollapsedWidth : LAYOUT.sidebarWidth,
         }}
       >
-        {/* Content - only this part animates on route change */}
+        {/* Content - simple fade on route change */}
         <div className="flex-1 overflow-auto">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={location.pathname}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2 }}
-              className="h-full"
-            >
-              <Suspense fallback={<PageLoader />}>
+          <ErrorBoundary key={location.pathname}>
+            <Suspense fallback={<PageLoader />}>
+              <motion.div
+                key={location.pathname}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.15 }}
+                className="h-full"
+              >
                 <Outlet />
-              </Suspense>
-            </motion.div>
-          </AnimatePresence>
+              </motion.div>
+            </Suspense>
+          </ErrorBoundary>
         </div>
       </main>
 
@@ -326,8 +341,8 @@ export const Layout = () => {
                 height: spotlightPosition.height + 8,
               }}
             >
-              <div className="absolute inset-0 rounded-xl border-2 border-indigo-500/50 animate-pulse" />
-              <div className="absolute inset-0 rounded-xl border border-indigo-400/30 animate-ping" style={{ animationDuration: '2s' }} />
+              <div className="absolute inset-0 rounded-xl border-2 border-[#94B4C1]/50 animate-pulse" />
+              <div className="absolute inset-0 rounded-xl border border-[#94B4C1]/30 animate-ping" style={{ animationDuration: '2s' }} />
             </motion.div>
 
             {/* Tooltip */}
@@ -351,9 +366,9 @@ export const Layout = () => {
                       key={index}
                       className={`h-1.5 rounded-full transition-all ${
                         index === spotlightStep
-                          ? 'w-6 bg-indigo-500'
+                          ? 'w-6 bg-[#94B4C1]'
                           : index < spotlightStep
-                          ? 'w-1.5 bg-indigo-500/50'
+                          ? 'w-1.5 bg-[#94B4C1]/50'
                           : 'w-1.5 bg-white/20'
                       }`}
                     />
@@ -379,7 +394,7 @@ export const Layout = () => {
                   >
                     Skip tour
                   </button>
-                  <span className="text-indigo-400 text-xs font-medium">
+                  <span className="text-[#94B4C1] text-xs font-medium">
                     Click anywhere to continue
                   </span>
                 </div>

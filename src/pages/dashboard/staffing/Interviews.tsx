@@ -23,6 +23,7 @@ import {
   type Interview,
 } from '@/data/staffing/staffingData';
 import { ROUTES } from '@/utils/constants';
+import { getProfileImage } from '@/utils/profileImages';
 
 export const Interviews = () => {
   const navigate = useNavigate();
@@ -77,7 +78,7 @@ export const Interviews = () => {
       title: 'Total',
       value: interviews.length.toString(),
       icon: Users,
-      iconColor: '#8b5cf6',
+      iconColor: '#94B4C1',
     },
   ];
 
@@ -158,14 +159,14 @@ export const Interviews = () => {
               placeholder="Search interviews..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-primary"
+              className="w-full pl-10 pr-4 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-primary"
             />
           </div>
 
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Statuses</option>
             <option value="scheduled">Scheduled</option>
@@ -178,7 +179,7 @@ export const Interviews = () => {
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Types</option>
             <option value="phone">Phone</option>
@@ -198,12 +199,20 @@ export const Interviews = () => {
             <Card key={interview.id} className="p-6 hover:border-accent-primary/50 transition-colors">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white font-bold">
-                    {interview.candidateName
-                      .split(' ')
-                      .map((n) => n[0])
-                      .join('')}
-                  </div>
+                  {getProfileImage(interview.candidateName) ? (
+                    <img
+                      src={getProfileImage(interview.candidateName)}
+                      alt={interview.candidateName}
+                      className="w-12 h-12 rounded-full object-cover border border-white/10"
+                    />
+                  ) : (
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white font-bold">
+                      {interview.candidateName
+                        .split(' ')
+                        .map((n) => n[0])
+                        .join('')}
+                    </div>
+                  )}
                   <div>
                     <h3 className="font-semibold text-text-primary">{interview.candidateName}</h3>
                     <p className="text-sm text-text-secondary">{interview.jobTitle}</p>
@@ -245,7 +254,7 @@ export const Interviews = () => {
               </div>
 
               {interview.outcome && (
-                <div className="flex items-center gap-2 mb-4 p-2 bg-background-tertiary rounded-lg">
+                <div className="flex items-center gap-2 mb-4 p-2 bg-white/[0.05] rounded-lg">
                   {getOutcomeIcon(interview.outcome)}
                   <span className="text-sm text-text-primary capitalize">{interview.outcome}</span>
                   {interview.rating && (
@@ -254,7 +263,7 @@ export const Interviews = () => {
                 </div>
               )}
 
-              <div className="flex items-center gap-2 pt-4 border-t border-border-default">
+              <div className="flex items-center gap-2 pt-4 border-t border-white/[0.08]">
                 <Button
                   variant="ghost"
                   size="sm"
@@ -300,9 +309,9 @@ export const Interviews = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-background-secondary border border-border-default rounded-xl max-w-lg w-full max-h-[90vh] overflow-y-auto"
+            className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl max-w-lg w-full max-h-[90vh] overflow-y-auto"
           >
-            <div className="p-6 border-b border-border-default">
+            <div className="p-6 border-b border-white/[0.08]">
               <div className="flex items-start justify-between">
                 <div>
                   <h2 className="text-xl font-bold text-text-primary">Interview Details</h2>
@@ -310,7 +319,7 @@ export const Interviews = () => {
                 </div>
                 <button
                   onClick={() => setSelectedInterview(null)}
-                  className="text-text-secondary hover:text-text-primary"
+                  className="text-text-secondary hover:text-text-primary cursor-pointer"
                 >
                   ×
                 </button>
@@ -403,7 +412,7 @@ export const Interviews = () => {
               </div>
             </div>
 
-            <div className="p-6 border-t border-border-default flex gap-2">
+            <div className="p-6 border-t border-white/[0.08] flex gap-2">
               <Button variant="outline" className="flex-1" onClick={() => setSelectedInterview(null)}>
                 Close
               </Button>

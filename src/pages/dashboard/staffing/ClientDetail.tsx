@@ -25,6 +25,7 @@ import {
   getPlacementStatusBgColor,
 } from '@/data/staffing/staffingData';
 import { ROUTES } from '@/utils/constants';
+import { getCompanyLogo } from '@/utils/profileImages';
 
 type TabType = 'overview' | 'jobs' | 'placements' | 'contacts';
 
@@ -91,9 +92,17 @@ export const ClientDetail = () => {
       <Card className="p-6">
         <div className="flex flex-col md:flex-row gap-6">
           <div className="flex items-start gap-4">
-            <div className="w-20 h-20 rounded-lg bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white text-3xl font-bold">
-              {client.companyName.charAt(0)}
-            </div>
+            {getCompanyLogo(client.companyName) ? (
+              <img
+                src={getCompanyLogo(client.companyName)}
+                alt={client.companyName}
+                className="w-20 h-20 rounded-lg object-cover border border-white/10"
+              />
+            ) : (
+              <div className="w-20 h-20 rounded-lg bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white text-3xl font-bold">
+                {client.companyName.charAt(0)}
+              </div>
+            )}
             <div>
               <div className="flex items-center gap-3 mb-2">
                 <h2 className="text-xl font-bold text-text-primary">{client.companyName}</h2>
@@ -125,19 +134,19 @@ export const ClientDetail = () => {
 
           {/* Quick Stats */}
           <div className="flex-1 grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="bg-background-tertiary rounded-lg p-4 text-center">
+            <div className="bg-white/[0.05] rounded-lg p-4 text-center">
               <p className="text-2xl font-bold text-text-primary">{client.totalPlacements}</p>
               <p className="text-sm text-text-muted">Total Placements</p>
             </div>
-            <div className="bg-background-tertiary rounded-lg p-4 text-center">
+            <div className="bg-white/[0.05] rounded-lg p-4 text-center">
               <p className="text-2xl font-bold text-text-primary">{client.activePositions}</p>
               <p className="text-sm text-text-muted">Open Positions</p>
             </div>
-            <div className="bg-background-tertiary rounded-lg p-4 text-center">
+            <div className="bg-white/[0.05] rounded-lg p-4 text-center">
               <p className="text-2xl font-bold text-text-primary">{formatCurrency(client.totalRevenue / 1000)}k</p>
               <p className="text-sm text-text-muted">Total Revenue</p>
             </div>
-            <div className="bg-background-tertiary rounded-lg p-4 text-center">
+            <div className="bg-white/[0.05] rounded-lg p-4 text-center">
               <p className="text-2xl font-bold text-text-primary">{client.paymentTerms}</p>
               <p className="text-sm text-text-muted">Payment Terms (Days)</p>
             </div>
@@ -146,7 +155,7 @@ export const ClientDetail = () => {
       </Card>
 
       {/* Tabs */}
-      <div className="flex gap-1 border-b border-border-default">
+      <div className="flex gap-1 border-b border-white/[0.08]">
         {tabs.map((tab) => (
           <button
             key={tab.id}
@@ -159,7 +168,7 @@ export const ClientDetail = () => {
           >
             {tab.label}
             {tab.count !== undefined && (
-              <span className="ml-2 px-1.5 py-0.5 text-xs rounded-full bg-background-tertiary">
+              <span className="ml-2 px-1.5 py-0.5 text-xs rounded-full bg-white/[0.05]">
                 {tab.count}
               </span>
             )}
@@ -267,7 +276,7 @@ export const ClientDetail = () => {
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-border-default">
+                  <tr className="border-b border-white/[0.08]">
                     <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
                       Position
                     </th>
@@ -290,7 +299,7 @@ export const ClientDetail = () => {
                 </thead>
                 <tbody>
                   {clientJobs.map((job) => (
-                    <tr key={job.id} className="border-b border-border-default hover:bg-background-secondary/50">
+                    <tr key={job.id} className="border-b border-white/[0.08] hover:bg-white/[0.03] backdrop-blur-xl/50">
                       <td className="py-3 px-4">
                         <p className="font-medium text-text-primary">{job.title}</p>
                         <p className="text-sm text-text-secondary">{job.department}</p>
@@ -345,7 +354,7 @@ export const ClientDetail = () => {
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-border-default">
+                  <tr className="border-b border-white/[0.08]">
                     <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
                       Candidate
                     </th>
@@ -367,14 +376,14 @@ export const ClientDetail = () => {
                   {clientPlacements.map((placement) => (
                     <tr
                       key={placement.id}
-                      className="border-b border-border-default hover:bg-background-secondary/50"
+                      className="border-b border-white/[0.08] hover:bg-white/[0.03] backdrop-blur-xl/50"
                     >
                       <td className="py-3 px-4 text-text-primary font-medium">
                         {placement.candidateName}
                       </td>
                       <td className="py-3 px-4 text-text-secondary">{placement.jobTitle}</td>
                       <td className="py-3 px-4">
-                        <span className="px-2 py-1 rounded-full text-xs font-medium bg-background-tertiary text-text-primary capitalize">
+                        <span className="px-2 py-1 rounded-full text-xs font-medium bg-white/[0.05] text-text-primary capitalize">
                           {placement.type.replace('-', ' ')}
                         </span>
                       </td>

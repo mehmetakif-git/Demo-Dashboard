@@ -16,7 +16,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.1);
-  color: #64748b;
+  background: rgba(33, 52, 72, 0.1);
+  color: #547792;
   font-size: 0.875rem;
 }

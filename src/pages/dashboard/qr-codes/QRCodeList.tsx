@@ -129,7 +129,7 @@ export const QRCodeList = () => {
           title="Total QR Codes"
           value={stats.total.toString()}
           icon={QrCode}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
         <StatsCard
           title="Active QR Codes"
@@ -147,7 +147,7 @@ export const QRCodeList = () => {
           title="Dynamic QR Codes"
           value={stats.dynamic.toString()}
           icon={BarChart3}
-          iconColor="#8b5cf6"
+          iconColor="#94B4C1"
         />
       </div>
 
@@ -167,7 +167,7 @@ export const QRCodeList = () => {
             <select
               value={selectedType}
               onChange={(e) => setSelectedType(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Types</option>
               {qrCodeTypes.map(type => (
@@ -178,7 +178,7 @@ export const QRCodeList = () => {
             <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Status</option>
               <option value="active">Active</option>
@@ -189,7 +189,7 @@ export const QRCodeList = () => {
             <select
               value={selectedFolder}
               onChange={(e) => setSelectedFolder(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Folders</option>
               {qrFolders.map(folder => (
@@ -199,7 +199,7 @@ export const QRCodeList = () => {
           </div>
 
           {/* View Toggle */}
-          <div className="flex gap-1 p-1 bg-background-secondary rounded-lg">
+          <div className="flex gap-1 p-1 bg-white/[0.03] backdrop-blur-xl rounded-lg">
             <button
               onClick={() => setViewMode('grid')}
               className={`p-2 rounded transition-all ${
@@ -270,7 +270,7 @@ export const QRCodeList = () => {
                   {/* Dynamic Badge */}
                   {qr.isDynamic && (
                     <div className="flex justify-center mb-3">
-                      <span className="px-2 py-0.5 bg-purple-500/20 text-purple-400 rounded text-xs font-medium">
+                      <span className="px-2 py-0.5 bg-[#94B4C1]/20 text-[#94B4C1] rounded text-xs font-medium">
                         Dynamic
                       </span>
                     </div>
@@ -290,11 +290,11 @@ export const QRCodeList = () => {
 
                   {/* Short URL */}
                   {qr.shortUrl && (
-                    <div className="flex items-center gap-2 p-2 bg-background-secondary rounded-lg text-xs mb-3">
+                    <div className="flex items-center gap-2 p-2 bg-white/[0.03] backdrop-blur-xl rounded-lg text-xs mb-3">
                       <ExternalLink size={12} className="text-text-muted flex-shrink-0" />
                       <span className="text-text-secondary truncate">{qr.shortUrl}</span>
                       <button
-                        className="p-1 hover:bg-background-tertiary rounded"
+                        className="p-1 hover:bg-white/[0.05] rounded"
                         onClick={(e) => {
                           e.stopPropagation();
                           handleCopyShortUrl(qr.shortUrl);
@@ -306,9 +306,9 @@ export const QRCodeList = () => {
                   )}
 
                   {/* Actions */}
-                  <div className="flex items-center justify-center gap-2 pt-3 border-t border-border-default opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="flex items-center justify-center gap-2 pt-3 border-t border-white/[0.08] opacity-0 group-hover:opacity-100 transition-opacity">
                     <button
-                      className="p-2 hover:bg-background-tertiary rounded text-text-secondary hover:text-accent-primary"
+                      className="p-2 hover:bg-white/[0.05] rounded text-text-secondary hover:text-accent-primary"
                       onClick={(e) => {
                         e.stopPropagation();
                         navigate(`/dashboard/qr-codes/${qr.id}`);
@@ -317,19 +317,19 @@ export const QRCodeList = () => {
                       <Eye size={16} />
                     </button>
                     <button
-                      className="p-2 hover:bg-background-tertiary rounded text-text-secondary hover:text-blue-400"
+                      className="p-2 hover:bg-white/[0.05] rounded text-text-secondary hover:text-blue-400"
                       onClick={(e) => e.stopPropagation()}
                     >
                       <Edit size={16} />
                     </button>
                     <button
-                      className="p-2 hover:bg-background-tertiary rounded text-text-secondary hover:text-green-400"
+                      className="p-2 hover:bg-white/[0.05] rounded text-text-secondary hover:text-green-400"
                       onClick={(e) => e.stopPropagation()}
                     >
                       <Download size={16} />
                     </button>
                     <button
-                      className="p-2 hover:bg-background-tertiary rounded text-text-secondary hover:text-red-400"
+                      className="p-2 hover:bg-white/[0.05] rounded text-text-secondary hover:text-red-400"
                       onClick={(e) => e.stopPropagation()}
                     >
                       <Trash2 size={16} />
@@ -346,7 +346,7 @@ export const QRCodeList = () => {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-border-default">
+                <tr className="border-b border-white/[0.08]">
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">QR Code</th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Type</th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Folder</th>
@@ -364,7 +364,7 @@ export const QRCodeList = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: index * 0.03 }}
-                    className="hover:bg-background-tertiary transition-colors cursor-pointer"
+                    className="hover:bg-white/[0.05] transition-colors cursor-pointer"
                     onClick={() => navigate(`/dashboard/qr-codes/${qr.id}`)}
                   >
                     <td className="py-3 px-4">
@@ -383,7 +383,7 @@ export const QRCodeList = () => {
                           <div className="flex items-center gap-2">
                             <p className="text-xs text-text-secondary font-mono">{qr.id}</p>
                             {qr.isDynamic && (
-                              <span className="px-1.5 py-0.5 bg-purple-500/20 text-purple-400 rounded text-[10px] font-medium">
+                              <span className="px-1.5 py-0.5 bg-[#94B4C1]/20 text-[#94B4C1] rounded text-[10px] font-medium">
                                 Dynamic
                               </span>
                             )}
@@ -393,7 +393,7 @@ export const QRCodeList = () => {
                     </td>
                     <td className="py-3 px-4">{getTypeBadge(qr.type)}</td>
                     <td className="py-3 px-4">
-                      <span className="px-2 py-0.5 bg-background-tertiary rounded text-xs text-text-secondary">
+                      <span className="px-2 py-0.5 bg-white/[0.05] rounded text-xs text-text-secondary">
                         {qr.folder}
                       </span>
                     </td>
@@ -410,7 +410,7 @@ export const QRCodeList = () => {
                     <td className="py-3 px-4">
                       <div className="flex items-center justify-end gap-1">
                         <button
-                          className="p-2 hover:bg-background-secondary rounded text-text-secondary hover:text-accent-primary"
+                          className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-accent-primary"
                           onClick={(e) => {
                             e.stopPropagation();
                             navigate(`/dashboard/qr-codes/${qr.id}`);
@@ -419,19 +419,19 @@ export const QRCodeList = () => {
                           <Eye size={14} />
                         </button>
                         <button
-                          className="p-2 hover:bg-background-secondary rounded text-text-secondary hover:text-blue-400"
+                          className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-blue-400"
                           onClick={(e) => e.stopPropagation()}
                         >
                           <Edit size={14} />
                         </button>
                         <button
-                          className="p-2 hover:bg-background-secondary rounded text-text-secondary hover:text-green-400"
+                          className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-green-400"
                           onClick={(e) => e.stopPropagation()}
                         >
                           <Download size={14} />
                         </button>
                         <button
-                          className="p-2 hover:bg-background-secondary rounded text-text-secondary hover:text-red-400"
+                          className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-red-400"
                           onClick={(e) => e.stopPropagation()}
                         >
                           <Trash2 size={14} />

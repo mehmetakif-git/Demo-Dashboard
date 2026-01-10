@@ -98,7 +98,7 @@ export const Parking = () => {
       regular: { bg: 'bg-gray-500/20', text: 'text-gray-400' },
       handicap: { bg: 'bg-blue-500/20', text: 'text-blue-400' },
       ev: { bg: 'bg-green-500/20', text: 'text-green-400' },
-      reserved: { bg: 'bg-purple-500/20', text: 'text-purple-400' },
+      reserved: { bg: 'bg-[#94B4C1]/20', text: 'text-[#94B4C1]' },
       visitor: { bg: 'bg-orange-500/20', text: 'text-orange-400' },
     };
     const c = config[type];
@@ -153,7 +153,7 @@ export const Parking = () => {
           title="Total Spots"
           value={stats.total.toString()}
           icon={ParkingCircle}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
         <StatsCard
           title="Available"
@@ -189,7 +189,7 @@ export const Parking = () => {
             {Math.round((stats.occupied / stats.total) * 100)}% Full
           </span>
         </div>
-        <div className="w-full h-4 bg-background-tertiary rounded-full overflow-hidden flex">
+        <div className="w-full h-4 bg-white/[0.05] rounded-full overflow-hidden flex">
           <div
             className="h-full bg-red-500 transition-all"
             style={{ width: `${(stats.occupied / stats.total) * 100}%` }}
@@ -239,7 +239,7 @@ export const Parking = () => {
             <select
               value={selectedZone}
               onChange={(e) => setSelectedZone(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Zones</option>
               {zones.map(z => (
@@ -250,7 +250,7 @@ export const Parking = () => {
             <select
               value={selectedType}
               onChange={(e) => setSelectedType(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Types</option>
               <option value="regular">Regular</option>
@@ -263,7 +263,7 @@ export const Parking = () => {
             <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Status</option>
               <option value="available">Available</option>
@@ -274,7 +274,7 @@ export const Parking = () => {
           </div>
 
           {/* View Toggle */}
-          <div className="flex gap-1 p-1 bg-background-secondary rounded-lg">
+          <div className="flex gap-1 p-1 bg-white/[0.03] backdrop-blur-xl rounded-lg">
             <button
               onClick={() => setViewMode('grid')}
               className={`p-2 rounded transition-all ${
@@ -344,7 +344,7 @@ export const Parking = () => {
 
                     {/* Vehicle Info */}
                     {spot.vehiclePlate && (
-                      <div className="mt-3 pt-2 border-t border-border-default">
+                      <div className="mt-3 pt-2 border-t border-white/[0.08]">
                         <p className="text-xs text-text-secondary font-mono">{spot.vehiclePlate}</p>
                         {spot.entryTime && (
                           <p className="text-xs text-text-muted mt-1">
@@ -357,7 +357,7 @@ export const Parking = () => {
 
                     {/* Assigned To */}
                     {spot.assignedTo && !spot.vehiclePlate && (
-                      <div className="mt-3 pt-2 border-t border-border-default">
+                      <div className="mt-3 pt-2 border-t border-white/[0.08]">
                         <p className="text-xs text-text-secondary">{spot.assignedTo}</p>
                       </div>
                     )}
@@ -390,7 +390,7 @@ export const Parking = () => {
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="border-b border-border-default">
+                    <tr className="border-b border-white/[0.08]">
                       <th className="text-left py-2 px-3 text-xs font-medium text-text-secondary">Spot</th>
                       <th className="text-left py-2 px-3 text-xs font-medium text-text-secondary">Type</th>
                       <th className="text-left py-2 px-3 text-xs font-medium text-text-secondary">Status</th>
@@ -401,7 +401,7 @@ export const Parking = () => {
                   </thead>
                   <tbody className="divide-y divide-border-default">
                     {spots.map(spot => (
-                      <tr key={spot.id} className="hover:bg-background-tertiary transition-colors">
+                      <tr key={spot.id} className="hover:bg-white/[0.05] transition-colors">
                         <td className="py-2 px-3 font-medium text-text-primary">{spot.spotNumber}</td>
                         <td className="py-2 px-3">{getTypeBadge(spot.type)}</td>
                         <td className="py-2 px-3">{getStatusBadge(spot.status)}</td>

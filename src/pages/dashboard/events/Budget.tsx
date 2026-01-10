@@ -124,11 +124,11 @@ export const Budget = () => {
         subtitle="Monitor event budgets and expenses"
         actions={
           <div className="flex gap-2">
-            <button className="flex items-center gap-2 rounded-lg border border-[#1e1e2e] bg-[#12121a] px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a24] transition-colors">
+            <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a24] transition-colors">
               <FileDown className="h-4 w-4" />
               Export Report
             </button>
-            <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
+            <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
               <Plus className="h-4 w-4" />
               Add Expense
             </button>
@@ -137,12 +137,12 @@ export const Budget = () => {
       />
 
       {/* Event Selector */}
-      <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-4">
+      <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-4">
         <label className="block text-sm text-[#64748b] mb-2">Select Event</label>
         <select
           value={selectedEvent}
           onChange={(e) => setSelectedEvent(e.target.value)}
-          className="w-full max-w-md rounded-lg border border-[#1e1e2e] bg-[#1a1a24] px-4 py-2 text-white focus:border-[#6366f1] focus:outline-none"
+          className="w-full max-w-md rounded-lg border border-white/[0.08] bg-[#1a1a24] px-4 py-2 text-white focus:border-[#547792] focus:outline-none"
         >
           {events.map((event) => (
             <option key={event.id} value={event.id}>
@@ -199,7 +199,7 @@ export const Budget = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Budget by Category */}
-        <div className="lg:col-span-2 rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+        <div className="lg:col-span-2 rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
           <h3 className="text-lg font-semibold text-white mb-4">Budget by Category</h3>
           {selectedBudget && selectedBudget.categories.length > 0 ? (
             <div className="space-y-4">
@@ -213,7 +213,7 @@ export const Budget = () => {
                   <div key={cat.category} className="p-4 rounded-lg bg-[#1a1a24]">
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#1e1e2e] text-[#6366f1]">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#1e1e2e] text-[#547792]">
                           {getCategoryIcon(cat.category)}
                         </div>
                         <div>
@@ -241,7 +241,7 @@ export const Budget = () => {
                             ? 'bg-red-500'
                             : progress >= 90
                             ? 'bg-amber-500'
-                            : 'bg-gradient-to-r from-[#6366f1] to-[#8b5cf6]'
+                            : 'bg-gradient-to-r from-[#547792] to-[#94B4C1]'
                         }`}
                         style={{ width: `${Math.min(progress, 100)}%` }}
                       />
@@ -264,7 +264,7 @@ export const Budget = () => {
         </div>
 
         {/* Revenue Tracking */}
-        <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+        <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
           <h3 className="text-lg font-semibold text-white mb-4">Revenue</h3>
           {selectedBudget && selectedBudget.revenue ? (
             <div className="space-y-4">
@@ -289,7 +289,7 @@ export const Budget = () => {
 
               <div className="p-4 rounded-lg bg-[#1a1a24]">
                 <div className="flex items-center gap-3 mb-2">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#6366f1]/20 text-[#6366f1]">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#547792]/20 text-[#547792]">
                     <HandshakeIcon className="h-5 w-5" />
                   </div>
                   <div className="flex-1">
@@ -321,7 +321,7 @@ export const Budget = () => {
                 <p className="text-xs text-[#64748b]">Merchandise, concessions, etc.</p>
               </div>
 
-              <div className="border-t border-[#1e1e2e] pt-4">
+              <div className="border-t border-white/[0.08] pt-4">
                 <div className="flex items-center justify-between">
                   <p className="text-[#64748b]">Total Revenue</p>
                   <p className="text-2xl font-bold text-emerald-400">
@@ -331,7 +331,7 @@ export const Budget = () => {
               </div>
 
               {/* Budget vs Revenue Summary */}
-              <div className="p-4 rounded-lg bg-gradient-to-br from-[#6366f1]/10 to-[#8b5cf6]/10 border border-[#6366f1]/20">
+              <div className="p-4 rounded-lg bg-gradient-to-br from-[#547792]/10 to-[#94B4C1]/10 border border-[#547792]/20">
                 <p className="text-sm text-[#64748b] mb-2">Net Position</p>
                 <p
                   className={`text-2xl font-bold ${
@@ -354,8 +354,8 @@ export const Budget = () => {
       </div>
 
       {/* Expenses Table */}
-      <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] overflow-hidden">
-        <div className="p-6 border-b border-[#1e1e2e]">
+      <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl overflow-hidden">
+        <div className="p-6 border-b border-white/[0.08]">
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#64748b]" />
@@ -364,14 +364,14 @@ export const Budget = () => {
                 placeholder="Search expenses..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full rounded-lg border border-[#1e1e2e] bg-[#1a1a24] py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#6366f1] focus:outline-none"
+                className="w-full rounded-lg border border-white/[0.08] bg-[#1a1a24] py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#547792] focus:outline-none"
               />
             </div>
             <div className="flex gap-2">
               <select
                 value={categoryFilter}
                 onChange={(e) => setCategoryFilter(e.target.value)}
-                className="rounded-lg border border-[#1e1e2e] bg-[#1a1a24] px-3 py-2 text-sm text-white focus:border-[#6366f1] focus:outline-none"
+                className="rounded-lg border border-white/[0.08] bg-[#1a1a24] px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
               >
                 <option value="all">All Categories</option>
                 {budgetCategories.map((category) => (
@@ -383,7 +383,7 @@ export const Budget = () => {
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="rounded-lg border border-[#1e1e2e] bg-[#1a1a24] px-3 py-2 text-sm text-white focus:border-[#6366f1] focus:outline-none"
+                className="rounded-lg border border-white/[0.08] bg-[#1a1a24] px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
               >
                 <option value="all">All Status</option>
                 <option value="paid">Paid</option>
@@ -396,7 +396,7 @@ export const Budget = () => {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-[#1e1e2e]">
+              <tr className="border-b border-white/[0.08]">
                 <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-[#64748b]">
                   Date
                 </th>
@@ -428,7 +428,7 @@ export const Budget = () => {
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-2">
-                          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#1e1e2e] text-[#6366f1]">
+                          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#1e1e2e] text-[#547792]">
                             {getCategoryIcon(expense.category)}
                           </div>
                           <span className="text-white">{getCategoryName(expense.category)}</span>
@@ -469,7 +469,7 @@ export const Budget = () => {
 
         {/* Total */}
         {filteredExpenses.length > 0 && (
-          <div className="border-t border-[#1e1e2e] px-6 py-4 flex justify-between items-center">
+          <div className="border-t border-white/[0.08] px-6 py-4 flex justify-between items-center">
             <p className="text-sm text-[#64748b]">
               Showing {filteredExpenses.length} expense{filteredExpenses.length !== 1 ? 's' : ''}
             </p>
@@ -485,7 +485,7 @@ export const Budget = () => {
 
       {/* Budget vs Actual Chart Placeholder */}
       {selectedBudget && (
-        <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+        <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
           <h3 className="text-lg font-semibold text-white mb-4">Budget vs Actual</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {selectedBudget.categories.slice(0, 4).map((cat) => {
@@ -496,7 +496,7 @@ export const Budget = () => {
               return (
                 <div key={cat.category} className="p-4 rounded-lg bg-[#1a1a24]">
                   <div className="flex items-center gap-2 mb-3">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#1e1e2e] text-[#6366f1]">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#1e1e2e] text-[#547792]">
                       {getCategoryIcon(cat.category)}
                     </div>
                     <span className="text-white font-medium">{getCategoryName(cat.category)}</span>
@@ -512,7 +512,7 @@ export const Budget = () => {
                         {formatCurrency(cat.spent + cat.committed)}
                       </span>
                     </div>
-                    <div className="flex justify-between text-sm border-t border-[#1e1e2e] pt-2">
+                    <div className="flex justify-between text-sm border-t border-white/[0.08] pt-2">
                       <span className="text-[#64748b]">Variance</span>
                       <span className={variance >= 0 ? 'text-emerald-400' : 'text-red-400'}>
                         {variance >= 0 ? '+' : ''}

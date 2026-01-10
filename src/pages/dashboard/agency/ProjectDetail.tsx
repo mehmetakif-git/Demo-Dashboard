@@ -35,7 +35,7 @@ export const ProjectDetail = () => {
         <p className="text-[#64748b] mb-4">Project not found</p>
         <button
           onClick={() => navigate('/dashboard/agency/projects')}
-          className="text-[#6366f1] hover:underline"
+          className="text-[#547792] hover:underline"
         >
           Back to Projects
         </button>
@@ -92,7 +92,7 @@ export const ProjectDetail = () => {
               {getStatusIcon(project.status)}
               {project.status.charAt(0).toUpperCase() + project.status.slice(1).replace('-', ' ')}
             </span>
-            <button className="flex items-center gap-2 rounded-lg border border-[#1e1e2e] bg-[#12121a] px-4 py-2 text-sm font-medium text-[#94a3b8] hover:bg-[#1a1a24]">
+            <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-4 py-2 text-sm font-medium text-[#94a3b8] hover:bg-[#1a1a24]">
               <Edit2 className="h-4 w-4" />
               Edit Project
             </button>
@@ -133,7 +133,7 @@ export const ProjectDetail = () => {
         {/* Left Column - Project Info */}
         <div className="space-y-6">
           {/* Project Details */}
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4">Project Details</h3>
             <div className="space-y-4">
               <div className="flex justify-between">
@@ -172,7 +172,7 @@ export const ProjectDetail = () => {
           </div>
 
           {/* Progress Overview */}
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4">Progress Overview</h3>
             <div className="space-y-4">
               <div>
@@ -186,7 +186,7 @@ export const ProjectDetail = () => {
                       progress >= 80
                         ? 'bg-emerald-500'
                         : progress >= 50
-                        ? 'bg-gradient-to-r from-[#6366f1] to-[#8b5cf6]'
+                        ? 'bg-gradient-to-r from-[#547792] to-[#94B4C1]'
                         : 'bg-amber-500'
                     }`}
                     style={{ width: `${progress}%` }}
@@ -210,12 +210,12 @@ export const ProjectDetail = () => {
         {/* Middle Column - Team & Deliverables */}
         <div className="space-y-6">
           {/* Team Members */}
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4">Team Members</h3>
             <div className="space-y-3">
               {project.team.map((member) => (
                 <div key={member.id} className="flex items-center gap-3 p-3 rounded-lg bg-[#1a1a24]">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#6366f1] to-[#8b5cf6] text-sm font-medium text-white">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#547792] to-[#94B4C1] text-sm font-medium text-white">
                     {member.name.split(' ').map((n) => n[0]).join('')}
                   </div>
                   <div>
@@ -228,7 +228,7 @@ export const ProjectDetail = () => {
           </div>
 
           {/* Deliverables */}
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4">Deliverables</h3>
             <div className="space-y-3">
               {project.deliverables.map((deliverable) => (
@@ -272,15 +272,15 @@ export const ProjectDetail = () => {
         {/* Right Column - Activity */}
         <div className="space-y-6">
           {/* Quick Actions */}
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4">Quick Actions</h3>
             <div className="grid grid-cols-2 gap-3">
               <button className="flex flex-col items-center gap-2 rounded-lg bg-[#1a1a24] p-4 hover:bg-[#1e1e2e] transition-colors">
-                <FileText className="h-6 w-6 text-[#6366f1]" />
+                <FileText className="h-6 w-6 text-[#547792]" />
                 <span className="text-xs text-[#94a3b8]">View Files</span>
               </button>
               <button className="flex flex-col items-center gap-2 rounded-lg bg-[#1a1a24] p-4 hover:bg-[#1e1e2e] transition-colors">
-                <MessageSquare className="h-6 w-6 text-[#8b5cf6]" />
+                <MessageSquare className="h-6 w-6 text-[#94B4C1]" />
                 <span className="text-xs text-[#94a3b8]">Messages</span>
               </button>
               <button className="flex flex-col items-center gap-2 rounded-lg bg-[#1a1a24] p-4 hover:bg-[#1e1e2e] transition-colors">
@@ -295,7 +295,7 @@ export const ProjectDetail = () => {
           </div>
 
           {/* Recent Activity */}
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4">Recent Activity</h3>
             <div className="space-y-4">
               {[

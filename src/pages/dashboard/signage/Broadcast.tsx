@@ -158,7 +158,7 @@ export const Broadcast = () => {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   rows={4}
-                  className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-primary resize-none"
+                  className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-primary resize-none"
                 />
               </div>
 
@@ -176,7 +176,7 @@ export const Broadcast = () => {
                         setAllDisplays(e.target.checked);
                         if (e.target.checked) setSelectedDisplays([]);
                       }}
-                      className="rounded border-border-default"
+                      className="rounded border-white/[0.08]"
                     />
                     <span className="text-text-primary font-medium">All Displays</span>
                     <span className="text-text-muted text-sm">({displays.length} displays)</span>
@@ -192,14 +192,14 @@ export const Broadcast = () => {
                             className={`flex items-center gap-2 p-2 rounded-lg border cursor-pointer transition-colors ${
                               selectedDisplays.includes(display.id)
                                 ? 'border-accent-primary bg-accent-primary/10'
-                                : 'border-border-default hover:border-border-hover'
+                                : 'border-white/[0.08] hover:border-white/[0.12]'
                             }`}
                           >
                             <input
                               type="checkbox"
                               checked={selectedDisplays.includes(display.id)}
                               onChange={() => handleDisplaySelect(display.id)}
-                              className="rounded border-border-default"
+                              className="rounded border-white/[0.08]"
                             />
                             <div className="flex-1 min-w-0">
                               <p className="text-sm text-text-primary truncate">{display.name}</p>
@@ -226,7 +226,7 @@ export const Broadcast = () => {
                       className={`flex-1 py-2 px-4 rounded-lg border text-sm font-medium transition-colors ${
                         priority === p
                           ? `${PRIORITY_COLORS[p].bg} text-white border-transparent`
-                          : 'border-border-default text-text-secondary hover:border-border-hover'
+                          : 'border-white/[0.08] text-text-secondary hover:border-white/[0.12]'
                       }`}
                     >
                       {PRIORITY_COLORS[p].label}
@@ -243,7 +243,7 @@ export const Broadcast = () => {
                 <select
                   value={duration}
                   onChange={(e) => setDuration(e.target.value)}
-                  className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+                  className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
                 >
                   {DURATION_OPTIONS.map(opt => (
                     <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -264,7 +264,7 @@ export const Broadcast = () => {
                     className="w-12 h-10 rounded border-0 cursor-pointer"
                   />
                   <div className="flex gap-2">
-                    {['#ef4444', '#f59e0b', '#3b82f6', '#10b981', '#8b5cf6'].map(color => (
+                    {['#ef4444', '#f59e0b', '#3b82f6', '#10b981', '#94B4C1'].map(color => (
                       <button
                         key={color}
                         onClick={() => setBackgroundColor(color)}
@@ -314,7 +314,7 @@ export const Broadcast = () => {
                   <h3 className="font-semibold text-text-primary">Preview</h3>
                   <button
                     onClick={() => setShowPreview(false)}
-                    className="p-1 hover:bg-background-tertiary rounded"
+                    className="p-1 hover:bg-white/[0.05] rounded"
                   >
                     <XCircle size={16} className="text-text-secondary" />
                   </button>
@@ -338,7 +338,7 @@ export const Broadcast = () => {
               {broadcastHistory.map(broadcast => (
                 <div
                   key={broadcast.id}
-                  className="p-3 bg-background-tertiary rounded-lg hover:bg-background-secondary transition-colors cursor-pointer"
+                  className="p-3 bg-white/[0.05] rounded-lg hover:bg-white/[0.03] backdrop-blur-xl transition-colors cursor-pointer"
                 >
                   <div className="flex items-start justify-between mb-2">
                     <h4 className="font-medium text-text-primary text-sm">{broadcast.title}</h4>

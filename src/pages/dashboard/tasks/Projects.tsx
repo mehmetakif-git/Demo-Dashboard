@@ -109,7 +109,7 @@ export const Projects = () => {
           title="Completed This Month"
           value={stats.completed.toString()}
           icon={Clock}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
         <StatsCard
           title="Overdue Tasks"
@@ -121,7 +121,7 @@ export const Projects = () => {
           title="Team Members"
           value={stats.teamMembers.toString()}
           icon={Users}
-          iconColor="#8b5cf6"
+          iconColor="#94B4C1"
         />
       </div>
 
@@ -141,7 +141,7 @@ export const Projects = () => {
             <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Status</option>
               <option value="active">Active</option>
@@ -153,7 +153,7 @@ export const Projects = () => {
             <select
               value={selectedPriority}
               onChange={(e) => setSelectedPriority(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Priorities</option>
               <option value="urgent">Urgent</option>
@@ -164,7 +164,7 @@ export const Projects = () => {
           </div>
 
           {/* View Toggle */}
-          <div className="flex gap-1 p-1 bg-background-secondary rounded-lg">
+          <div className="flex gap-1 p-1 bg-white/[0.03] backdrop-blur-xl rounded-lg">
             <button
               onClick={() => setViewMode('grid')}
               className={`p-2 rounded transition-all ${
@@ -232,7 +232,7 @@ export const Projects = () => {
                       <span className="text-text-secondary">Progress</span>
                       <span className="font-medium text-text-primary">{project.progress}%</span>
                     </div>
-                    <div className="w-full h-2 bg-background-tertiary rounded-full overflow-hidden">
+                    <div className="w-full h-2 bg-white/[0.05] rounded-full overflow-hidden">
                       <div
                         className="h-full rounded-full transition-all"
                         style={{
@@ -252,7 +252,7 @@ export const Projects = () => {
                   </div>
 
                   {/* Meta Row */}
-                  <div className="flex items-center justify-between pt-3 border-t border-border-default">
+                  <div className="flex items-center justify-between pt-3 border-t border-white/[0.08]">
                     <div className="flex items-center gap-2">
                       {/* Owner Avatar */}
                       <div className="w-7 h-7 rounded-full bg-accent-primary/20 flex items-center justify-center">
@@ -265,7 +265,7 @@ export const Projects = () => {
                         {project.team.slice(1, 4).map((member, i) => (
                           <div
                             key={i}
-                            className="w-6 h-6 rounded-full bg-background-tertiary border-2 border-background-secondary flex items-center justify-center"
+                            className="w-6 h-6 rounded-full bg-white/[0.05] border-2 border-white/[0.08] flex items-center justify-center"
                           >
                             <span className="text-[10px] font-medium text-text-secondary">
                               {member.split(' ').map(n => n[0]).join('')}
@@ -273,7 +273,7 @@ export const Projects = () => {
                           </div>
                         ))}
                         {project.team.length > 4 && (
-                          <div className="w-6 h-6 rounded-full bg-background-tertiary border-2 border-background-secondary flex items-center justify-center">
+                          <div className="w-6 h-6 rounded-full bg-white/[0.05] border-2 border-white/[0.08] flex items-center justify-center">
                             <span className="text-[10px] font-medium text-text-secondary">
                               +{project.team.length - 4}
                             </span>
@@ -317,7 +317,7 @@ export const Projects = () => {
                 animate={{ opacity: 1 }}
                 transition={{ delay: index * 0.03 }}
                 onClick={() => handleProjectClick(project.id)}
-                className="p-4 hover:bg-background-tertiary cursor-pointer transition-colors flex items-center gap-6"
+                className="p-4 hover:bg-white/[0.05] cursor-pointer transition-colors flex items-center gap-6"
               >
                 {/* Color Indicator */}
                 <div
@@ -353,7 +353,7 @@ export const Projects = () => {
                     <span className="text-text-secondary">Progress</span>
                     <span className="font-medium text-text-primary">{project.progress}%</span>
                   </div>
-                  <div className="w-full h-1.5 bg-background-tertiary rounded-full overflow-hidden">
+                  <div className="w-full h-1.5 bg-white/[0.05] rounded-full overflow-hidden">
                     <div
                       className="h-full rounded-full"
                       style={{

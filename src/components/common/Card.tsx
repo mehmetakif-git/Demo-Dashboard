@@ -36,18 +36,20 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
       // Default is now glass
       (variant === 'default' || variant === 'glass') &&
         'bg-white/[0.03] backdrop-blur-xl border border-white/[0.08]',
-      variant === 'solid' && 'bg-[#12121a] border border-[#1e1e2e]',
+      variant === 'solid' && 'bg-white/[0.03] backdrop-blur-xl border border-white/[0.08]',
       variant === 'gradient-border' && 'gradient-border rounded-xl'
     );
 
     const hoverStyles = hover
-      ? 'hover:bg-white/[0.05] hover:border-white/[0.12] hover:shadow-lg hover:shadow-purple-500/5 transition-all duration-300'
+      ? 'hover:bg-white/[0.05] hover:border-white/[0.12] hover:shadow-lg hover:shadow-[#94B4C1]/5 transition-all duration-300'
       : '';
+
+    const clickableStyles = onClick ? 'cursor-pointer' : '';
 
     return (
       <motion.div
         ref={ref}
-        className={cn(baseStyles, hoverStyles, className)}
+        className={cn(baseStyles, hoverStyles, clickableStyles, className)}
         whileHover={hover ? { scale: 1.01, y: -2 } : undefined}
         transition={{ type: 'spring', stiffness: 300, damping: 25 }}
         onClick={onClick}

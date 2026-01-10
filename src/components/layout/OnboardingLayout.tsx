@@ -33,12 +33,14 @@ export const OnboardingLayout = () => {
   const location = useLocation();
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] relative overflow-hidden">
-      {/* Persistent Light Pillar Background - Never re-renders */}
+    <div className="min-h-screen bg-background-primary relative overflow-hidden">
+      {/* Persistent Animated Light Pillar Background */}
       <div className="fixed inset-0 z-0">
         <LightPillar
-          topColor="#5227FF"
-          bottomColor="#FF9FFC"
+          color1="#213448"
+          color2="#547792"
+          color3="#94B4C1"
+          color4="#EAE0CF"
           intensity={1}
           rotationSpeed={0.3}
           glowAmount={0.002}
@@ -48,6 +50,7 @@ export const OnboardingLayout = () => {
           pillarRotation={25}
           interactive={false}
           mixBlendMode="normal"
+          color4GlowMultiplier={0.5}
         />
       </div>
 

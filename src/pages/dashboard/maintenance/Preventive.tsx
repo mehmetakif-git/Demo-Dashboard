@@ -69,8 +69,8 @@ export const Preventive = () => {
       weekly: { bg: 'bg-orange-500/20', text: 'text-orange-400' },
       monthly: { bg: 'bg-yellow-500/20', text: 'text-yellow-400' },
       quarterly: { bg: 'bg-blue-500/20', text: 'text-blue-400' },
-      'semi-annual': { bg: 'bg-indigo-500/20', text: 'text-indigo-400' },
-      annual: { bg: 'bg-purple-500/20', text: 'text-purple-400' },
+      'semi-annual': { bg: 'bg-[#547792]/20', text: 'text-[#547792]' },
+      annual: { bg: 'bg-[#94B4C1]/20', text: 'text-[#94B4C1]' },
     };
     const c = config[frequency];
     return (
@@ -129,7 +129,7 @@ export const Preventive = () => {
           title="Total Schedules"
           value={stats.total.toString()}
           icon={CalendarClock}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
         <StatsCard
           title="Active Schedules"
@@ -166,7 +166,7 @@ export const Preventive = () => {
           <select
             value={selectedFrequency}
             onChange={(e) => setSelectedFrequency(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Frequencies</option>
             <option value="daily">Daily</option>
@@ -180,7 +180,7 @@ export const Preventive = () => {
           <select
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Status</option>
             <option value="active">Active</option>
@@ -219,22 +219,22 @@ export const Preventive = () => {
                       <p className="text-sm text-text-secondary">Asset: {schedule.asset}</p>
                     </div>
                     <div className="flex items-center gap-2">
-                      <button className="p-2 hover:bg-background-tertiary rounded text-text-secondary hover:text-accent-primary">
+                      <button className="p-2 hover:bg-white/[0.05] rounded text-text-secondary hover:text-accent-primary">
                         <Eye size={16} />
                       </button>
-                      <button className="p-2 hover:bg-background-tertiary rounded text-text-secondary hover:text-blue-400">
+                      <button className="p-2 hover:bg-white/[0.05] rounded text-text-secondary hover:text-blue-400">
                         <Edit size={16} />
                       </button>
                       {schedule.status === 'active' ? (
-                        <button className="p-2 hover:bg-background-tertiary rounded text-text-secondary hover:text-yellow-400">
+                        <button className="p-2 hover:bg-white/[0.05] rounded text-text-secondary hover:text-yellow-400">
                           <Pause size={16} />
                         </button>
                       ) : (
-                        <button className="p-2 hover:bg-background-tertiary rounded text-text-secondary hover:text-green-400">
+                        <button className="p-2 hover:bg-white/[0.05] rounded text-text-secondary hover:text-green-400">
                           <Play size={16} />
                         </button>
                       )}
-                      <button className="p-2 hover:bg-background-tertiary rounded text-text-secondary hover:text-red-400">
+                      <button className="p-2 hover:bg-white/[0.05] rounded text-text-secondary hover:text-red-400">
                         <Trash2 size={16} />
                       </button>
                     </div>
@@ -272,7 +272,7 @@ export const Preventive = () => {
                       {schedule.checklist.map((item, i) => (
                         <span
                           key={i}
-                          className="px-2 py-1 bg-background-secondary rounded text-xs text-text-secondary"
+                          className="px-2 py-1 bg-white/[0.03] backdrop-blur-xl rounded text-xs text-text-secondary"
                         >
                           {item}
                         </span>
@@ -281,7 +281,7 @@ export const Preventive = () => {
                   </div>
 
                   {/* Footer */}
-                  <div className="flex items-center justify-between pt-3 border-t border-border-default">
+                  <div className="flex items-center justify-between pt-3 border-t border-white/[0.08]">
                     <div className="flex items-center gap-4 text-xs text-text-muted">
                       <span>Last Completed: {formatDate(schedule.lastCompleted)}</span>
                       <span>Next Due: {formatDate(schedule.nextDue)}</span>

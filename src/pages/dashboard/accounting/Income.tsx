@@ -82,7 +82,7 @@ export const Income = () => {
       key: 'category',
       header: 'Category',
       render: (record: IncomeRecord) => (
-        <span className="px-2 py-1 rounded-full bg-[#6366f1]/10 text-[#6366f1] text-xs font-medium">
+        <span className="px-2 py-1 rounded-full bg-[#547792]/10 text-[#547792] text-xs font-medium">
           {record.category}
         </span>
       ),
@@ -116,11 +116,11 @@ export const Income = () => {
         icon={ArrowUpCircle}
         actions={
           <div className="flex items-center gap-3">
-            <button className="flex items-center gap-2 px-4 py-2 bg-[#12121a] border border-[#1e1e2e] rounded-lg text-white hover:bg-[#1a1a24] transition-colors cursor-pointer">
+            <button className="flex items-center gap-2 px-4 py-2 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-lg text-white hover:bg-[#1a1a24] transition-colors cursor-pointer">
               <Download className="w-4 h-4" />
               Export
             </button>
-            <button className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] hover:opacity-90 text-white font-medium rounded-lg transition-opacity cursor-pointer">
+            <button className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#547792] to-[#94B4C1] hover:opacity-90 text-white font-medium rounded-lg transition-opacity cursor-pointer">
               <ArrowUpCircle className="w-4 h-4" />
               Record Income
             </button>
@@ -142,8 +142,8 @@ export const Income = () => {
           title="Received"
           value={`$${(stats.receivedIncome / 1000).toFixed(0)}K`}
           icon={TrendingUp}
-          iconColor="#6366f1"
-          iconBg="rgba(99, 102, 241, 0.2)"
+          iconColor="#547792"
+          iconBg="rgba(84, 119, 146, 0.2)"
           delay={0.15}
         />
         <StatsCard
@@ -158,8 +158,8 @@ export const Income = () => {
           title="Avg. Transaction"
           value={`$${(stats.avgTransaction / 1000).toFixed(1)}K`}
           icon={TrendingUp}
-          iconColor="#8b5cf6"
-          iconBg="rgba(139, 92, 246, 0.2)"
+          iconColor="#94B4C1"
+          iconBg="rgba(148, 180, 193, 0.2)"
           delay={0.25}
         />
       </div>
@@ -178,7 +178,7 @@ export const Income = () => {
             placeholder="Search by description or client..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 bg-[#12121a] border border-[#1e1e2e] rounded-lg text-white placeholder-white/40 focus:outline-none focus:border-[#6366f1]/50"
+            className="w-full pl-10 pr-4 py-2.5 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-lg text-white placeholder-white/40 focus:outline-none focus:border-[#547792]/50"
           />
         </div>
         <div className="flex items-center gap-2">
@@ -186,7 +186,7 @@ export const Income = () => {
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="px-3 py-2.5 bg-[#12121a] border border-[#1e1e2e] rounded-lg text-white text-sm focus:outline-none focus:border-[#6366f1]/50 cursor-pointer"
+            className="px-3 py-2.5 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-lg text-white text-sm focus:outline-none focus:border-[#547792]/50 cursor-pointer"
           >
             {categories.map((category) => (
               <option key={category} value={category}>
@@ -202,7 +202,7 @@ export const Income = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.35 }}
-        className="bg-[#12121a] border border-[#1e1e2e] rounded-xl overflow-hidden"
+        className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl overflow-hidden"
       >
         <DataTable
           columns={columns}

@@ -117,7 +117,7 @@ export const ExportCenter = () => {
                 className={`w-full px-3 py-2 rounded-lg text-left text-sm transition-colors ${
                   selectedCategory === category.id
                     ? 'bg-accent-primary text-white'
-                    : 'text-text-secondary hover:bg-background-tertiary'
+                    : 'text-text-secondary hover:bg-white/[0.05]'
                 }`}
               >
                 {category.name}
@@ -191,7 +191,7 @@ export const ExportCenter = () => {
                   </div>
 
                   {/* Footer */}
-                  <div className="flex items-center justify-between pt-4 border-t border-border-default">
+                  <div className="flex items-center justify-between pt-4 border-t border-white/[0.08]">
                     <span className="flex items-center gap-1 text-xs text-text-muted">
                       <Clock size={12} />
                       Last exported: {formatDateTime(data.lastExported)}
@@ -225,10 +225,10 @@ export const ExportCenter = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-background-secondary rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+            className="bg-white/[0.03] backdrop-blur-xl rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
           >
             {/* Header */}
-            <div className="p-6 border-b border-border-default">
+            <div className="p-6 border-b border-white/[0.08]">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div
@@ -248,7 +248,7 @@ export const ExportCenter = () => {
                 </div>
                 <button
                   onClick={() => setShowExportModal(false)}
-                  className="p-2 hover:bg-background-tertiary rounded-lg"
+                  className="p-2 hover:bg-white/[0.05] rounded-lg"
                 >
                   <X size={20} className="text-text-secondary" />
                 </button>
@@ -272,7 +272,7 @@ export const ExportCenter = () => {
                       : 'Select All'}
                   </button>
                 </div>
-                <div className="grid grid-cols-2 gap-2 p-4 bg-background-tertiary rounded-lg">
+                <div className="grid grid-cols-2 gap-2 p-4 bg-white/[0.05] rounded-lg">
                   {selectedData.fields.map((field) => (
                     <label
                       key={field}
@@ -302,7 +302,7 @@ export const ExportCenter = () => {
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs text-text-muted mb-1">Date Range</label>
-                    <select className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary">
+                    <select className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary">
                       <option value="all">All Time</option>
                       <option value="today">Today</option>
                       <option value="this-week">This Week</option>
@@ -312,7 +312,7 @@ export const ExportCenter = () => {
                   </div>
                   <div>
                     <label className="block text-xs text-text-muted mb-1">Status</label>
-                    <select className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary">
+                    <select className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary">
                       <option value="all">All</option>
                       <option value="active">Active</option>
                       <option value="inactive">Inactive</option>
@@ -334,7 +334,7 @@ export const ExportCenter = () => {
                       className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-colors ${
                         selectedFormat === format
                           ? 'border-accent-primary bg-accent-primary/10 text-accent-primary'
-                          : 'border-border-default text-text-secondary hover:border-accent-primary'
+                          : 'border-white/[0.08] text-text-secondary hover:border-accent-primary'
                       }`}
                     >
                       <span style={{ color: getFormatColor(format) }}>
@@ -356,7 +356,7 @@ export const ExportCenter = () => {
                     <input
                       type="checkbox"
                       defaultChecked
-                      className="w-4 h-4 rounded border-border-default text-accent-primary focus:ring-accent-primary"
+                      className="w-4 h-4 rounded border-white/[0.08] text-accent-primary focus:ring-accent-primary"
                     />
                     <span className="text-sm text-text-secondary">Include headers</span>
                   </label>
@@ -364,7 +364,7 @@ export const ExportCenter = () => {
                     <input
                       type="checkbox"
                       defaultChecked
-                      className="w-4 h-4 rounded border-border-default text-accent-primary focus:ring-accent-primary"
+                      className="w-4 h-4 rounded border-white/[0.08] text-accent-primary focus:ring-accent-primary"
                     />
                     <span className="text-sm text-text-secondary">UTF-8 encoding</span>
                   </label>
@@ -380,7 +380,7 @@ export const ExportCenter = () => {
                 <div className="overflow-x-auto">
                   <table className="w-full text-xs">
                     <thead>
-                      <tr className="bg-background-tertiary">
+                      <tr className="bg-white/[0.05]">
                         {selectedFields.slice(0, 5).map((field) => (
                           <th key={field} className="px-3 py-2 text-left text-text-secondary font-medium">
                             {field}
@@ -390,7 +390,7 @@ export const ExportCenter = () => {
                     </thead>
                     <tbody>
                       {[1, 2, 3].map((row) => (
-                        <tr key={row} className="border-b border-border-default">
+                        <tr key={row} className="border-b border-white/[0.08]">
                           {selectedFields.slice(0, 5).map((field) => (
                             <td key={field} className="px-3 py-2 text-text-muted">
                               Sample data {row}
@@ -405,7 +405,7 @@ export const ExportCenter = () => {
             </div>
 
             {/* Footer */}
-            <div className="p-6 border-t border-border-default bg-background-tertiary flex justify-end gap-3">
+            <div className="p-6 border-t border-white/[0.08] bg-white/[0.05] flex justify-end gap-3">
               <Button variant="secondary" onClick={() => setShowExportModal(false)}>
                 Cancel
               </Button>
@@ -427,7 +427,7 @@ export const ExportCenter = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-background-secondary rounded-xl max-w-md w-full p-6"
+            className="bg-white/[0.03] backdrop-blur-xl rounded-xl max-w-md w-full p-6"
           >
             {isExporting ? (
               <div className="text-center">
@@ -438,7 +438,7 @@ export const ExportCenter = () => {
                   Exporting Data...
                 </h3>
                 <p className="text-sm text-text-secondary mb-4">{selectedData.name}</p>
-                <div className="w-full bg-background-tertiary rounded-full h-2 mb-2">
+                <div className="w-full bg-white/[0.05] rounded-full h-2 mb-2">
                   <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: '100%' }}

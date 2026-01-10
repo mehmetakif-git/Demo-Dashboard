@@ -45,8 +45,8 @@ export const LayoutTextFlip = ({
         layout
         className={cn(
           'relative overflow-hidden rounded-xl px-4 py-2 font-sans text-2xl font-bold tracking-tight md:text-3xl lg:text-4xl',
-          'bg-gradient-to-r from-[#6366f1] via-[#8b5cf6] to-[#06b6d4] bg-[length:200%_100%]',
-          'shadow-lg shadow-purple-500/20',
+          'bg-gradient-to-r from-[#547792] via-[#94B4C1] to-[#547792] bg-[length:200%_100%]',
+          'shadow-lg shadow-[#94B4C1]/20',
           'border border-white/10',
           wordClassName
         )}

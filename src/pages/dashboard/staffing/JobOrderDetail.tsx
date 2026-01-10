@@ -96,7 +96,7 @@ export const JobOrderDetail = () => {
               <span className={`px-3 py-1 rounded-full text-sm font-medium border ${getJobUrgencyBgColor(job.urgency)}`}>
                 {job.urgency.charAt(0).toUpperCase() + job.urgency.slice(1)} Priority
               </span>
-              <span className="px-3 py-1 rounded-full text-sm font-medium bg-background-tertiary text-text-primary capitalize">
+              <span className="px-3 py-1 rounded-full text-sm font-medium bg-white/[0.05] text-text-primary capitalize">
                 {job.employmentType.replace('-', ' ')}
               </span>
             </div>
@@ -135,33 +135,33 @@ export const JobOrderDetail = () => {
 
           {/* Pipeline Stats */}
           <div className="md:w-64">
-            <div className="bg-background-tertiary rounded-lg p-4">
+            <div className="bg-white/[0.05] rounded-lg p-4">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-text-secondary text-sm">Pipeline Progress</span>
                 <span className="text-text-primary font-medium text-sm">
                   {job.filled}/{job.openings}
                 </span>
               </div>
-              <div className="w-full h-3 bg-background-secondary rounded-full overflow-hidden mb-3">
+              <div className="w-full h-3 bg-white/[0.03] backdrop-blur-xl rounded-full overflow-hidden mb-3">
                 <div
                   className="h-full rounded-full bg-gradient-to-r from-accent-primary to-accent-secondary"
                   style={{ width: `${fillPercentage}%` }}
                 />
               </div>
               <div className="grid grid-cols-2 gap-3 text-center text-xs">
-                <div className="bg-background-secondary rounded p-2">
+                <div className="bg-white/[0.03] backdrop-blur-xl rounded p-2">
                   <p className="text-text-primary font-bold text-lg">{job.applicants}</p>
                   <p className="text-text-muted">Applicants</p>
                 </div>
-                <div className="bg-background-secondary rounded p-2">
+                <div className="bg-white/[0.03] backdrop-blur-xl rounded p-2">
                   <p className="text-text-primary font-bold text-lg">{job.submissions}</p>
                   <p className="text-text-muted">Submissions</p>
                 </div>
-                <div className="bg-background-secondary rounded p-2">
+                <div className="bg-white/[0.03] backdrop-blur-xl rounded p-2">
                   <p className="text-text-primary font-bold text-lg">{job.interviews}</p>
                   <p className="text-text-muted">Interviews</p>
                 </div>
-                <div className="bg-background-secondary rounded p-2">
+                <div className="bg-white/[0.03] backdrop-blur-xl rounded p-2">
                   <p className="text-text-primary font-bold text-lg">{job.filled}</p>
                   <p className="text-text-muted">Filled</p>
                 </div>
@@ -172,7 +172,7 @@ export const JobOrderDetail = () => {
       </Card>
 
       {/* Tabs */}
-      <div className="flex gap-1 border-b border-border-default">
+      <div className="flex gap-1 border-b border-white/[0.08]">
         {tabs.map((tab) => (
           <button
             key={tab.id}
@@ -185,7 +185,7 @@ export const JobOrderDetail = () => {
           >
             {tab.label}
             {tab.count !== undefined && (
-              <span className="ml-2 px-1.5 py-0.5 text-xs rounded-full bg-background-tertiary">
+              <span className="ml-2 px-1.5 py-0.5 text-xs rounded-full bg-white/[0.05]">
                 {tab.count}
               </span>
             )}
@@ -306,7 +306,7 @@ export const JobOrderDetail = () => {
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-border-default">
+                  <tr className="border-b border-white/[0.08]">
                     <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
                       Candidate
                     </th>
@@ -328,7 +328,7 @@ export const JobOrderDetail = () => {
                   {appliedCandidates.map((candidate) => (
                     <tr
                       key={candidate.id}
-                      className="border-b border-border-default hover:bg-background-secondary/50"
+                      className="border-b border-white/[0.08] hover:bg-white/[0.03] backdrop-blur-xl/50"
                     >
                       <td className="py-3 px-4">
                         <div className="flex items-center gap-3">
@@ -403,8 +403,8 @@ export const JobOrderDetail = () => {
             </div>
             {job.status === 'filled' && (
               <div className="flex items-start gap-4">
-                <div className="w-8 h-8 rounded-full bg-purple-500/10 flex items-center justify-center">
-                  <CheckCircle className="h-4 w-4 text-purple-400" />
+                <div className="w-8 h-8 rounded-full bg-[#94B4C1]/10 flex items-center justify-center">
+                  <CheckCircle className="h-4 w-4 text-[#94B4C1]" />
                 </div>
                 <div>
                   <p className="text-text-primary">Position filled</p>

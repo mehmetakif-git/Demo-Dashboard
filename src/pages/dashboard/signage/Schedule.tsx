@@ -21,8 +21,8 @@ import { schedules, type Schedule as ScheduleType } from '@/data/signageData';
 
 const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 const PLAYLIST_COLORS: Record<string, string> = {
-  'Welcome Playlist': '#6366f1',
-  'Company News': '#8b5cf6',
+  'Welcome Playlist': '#547792',
+  'Company News': '#94B4C1',
   'Menu & Announcements': '#f59e0b',
   'Department Updates': '#10b981',
   'Room Schedule': '#3b82f6',
@@ -125,7 +125,7 @@ export const Schedule = () => {
           title="Total Schedules"
           value={stats.total.toString()}
           icon={Calendar}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
         <StatsCard
           title="Active"
@@ -143,7 +143,7 @@ export const Schedule = () => {
           title="Playlists"
           value={stats.playlists.toString()}
           icon={ListVideo}
-          iconColor="#8b5cf6"
+          iconColor="#94B4C1"
         />
       </div>
 
@@ -163,7 +163,7 @@ export const Schedule = () => {
             <select
               value={selectedDisplay}
               onChange={(e) => setSelectedDisplay(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Displays</option>
               {uniqueDisplays.map(d => (
@@ -174,7 +174,7 @@ export const Schedule = () => {
             <select
               value={selectedPlaylist}
               onChange={(e) => setSelectedPlaylist(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Playlists</option>
               {uniquePlaylists.map(p => (
@@ -184,7 +184,7 @@ export const Schedule = () => {
           </div>
 
           {/* View Toggle */}
-          <div className="flex gap-1 p-1 bg-background-secondary rounded-lg">
+          <div className="flex gap-1 p-1 bg-white/[0.03] backdrop-blur-xl rounded-lg">
             <button
               onClick={() => setViewMode('calendar')}
               className={`p-2 rounded transition-all ${
@@ -215,11 +215,11 @@ export const Schedule = () => {
           {/* Week Header */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              <button className="p-2 hover:bg-background-tertiary rounded">
+              <button className="p-2 hover:bg-white/[0.05] rounded">
                 <ChevronLeft size={16} className="text-text-secondary" />
               </button>
               <h3 className="font-semibold text-text-primary">This Week</h3>
-              <button className="p-2 hover:bg-background-tertiary rounded">
+              <button className="p-2 hover:bg-white/[0.05] rounded">
                 <ChevronRight size={16} className="text-text-secondary" />
               </button>
             </div>
@@ -251,7 +251,7 @@ export const Schedule = () => {
                     return (
                       <div
                         key={day}
-                        className="p-1 min-h-16 bg-background-tertiary rounded-lg relative"
+                        className="p-1 min-h-16 bg-white/[0.05] rounded-lg relative"
                       >
                         {daySchedules.map((schedule) => (
                           <div
@@ -281,7 +281,7 @@ export const Schedule = () => {
           </div>
 
           {/* Legend */}
-          <div className="mt-4 pt-4 border-t border-border-default">
+          <div className="mt-4 pt-4 border-t border-white/[0.08]">
             <h4 className="text-sm font-medium text-text-secondary mb-2">Playlists</h4>
             <div className="flex flex-wrap gap-3">
               {uniquePlaylists.map(playlist => (
@@ -302,7 +302,7 @@ export const Schedule = () => {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-border-default">
+                <tr className="border-b border-white/[0.08]">
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Display</th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Playlist</th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Start Time</th>
@@ -319,7 +319,7 @@ export const Schedule = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: index * 0.03 }}
-                    className="hover:bg-background-tertiary transition-colors"
+                    className="hover:bg-white/[0.05] transition-colors"
                   >
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-2">
@@ -363,10 +363,10 @@ export const Schedule = () => {
                     <td className="py-3 px-4">{getStatusBadge(schedule.status)}</td>
                     <td className="py-3 px-4">
                       <div className="flex items-center justify-end gap-1">
-                        <button className="p-2 hover:bg-background-secondary rounded text-text-secondary hover:text-accent-primary">
+                        <button className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-accent-primary">
                           <Edit size={14} />
                         </button>
-                        <button className="p-2 hover:bg-background-secondary rounded text-text-secondary hover:text-red-400">
+                        <button className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-red-400">
                           <Trash2 size={14} />
                         </button>
                       </div>

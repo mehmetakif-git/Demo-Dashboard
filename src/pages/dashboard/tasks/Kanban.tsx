@@ -34,12 +34,12 @@ const KanbanColumn = ({ status, tasks: columnTasks, onAddTask }: KanbanColumnPro
             {columnTasks.length}
           </span>
         </div>
-        <button className="p-1 hover:bg-background-tertiary rounded text-text-secondary hover:text-text-primary">
+        <button className="p-1 hover:bg-white/[0.05] rounded text-text-secondary hover:text-text-primary">
           <MoreHorizontal size={16} />
         </button>
       </div>
 
-      <div className="bg-background-secondary/50 rounded-b-lg p-2 min-h-[500px] max-h-[calc(100vh-350px)] overflow-y-auto">
+      <div className="bg-white/[0.03] backdrop-blur-xl/50 rounded-b-lg p-2 min-h-[500px] max-h-[calc(100vh-350px)] overflow-y-auto">
         <div className="space-y-2">
           {columnTasks.map((task, index) => (
             <KanbanCard key={task.id} task={task} index={index} />
@@ -48,7 +48,7 @@ const KanbanColumn = ({ status, tasks: columnTasks, onAddTask }: KanbanColumnPro
 
         <button
           onClick={onAddTask}
-          className="w-full mt-2 p-3 border border-dashed border-border-default rounded-lg text-text-secondary hover:text-text-primary hover:border-accent-primary transition-colors flex items-center justify-center gap-2"
+          className="w-full mt-2 p-3 border border-dashed border-white/[0.08] rounded-lg text-text-secondary hover:text-text-primary hover:border-accent-primary transition-colors flex items-center justify-center gap-2"
         >
           <Plus size={16} />
           <span className="text-sm">Add Task</span>
@@ -91,7 +91,7 @@ const KanbanCard = ({ task, index }: KanbanCardProps) => {
           </h4>
 
           {/* Project Badge */}
-          <span className="inline-block px-2 py-0.5 bg-background-tertiary rounded text-xs text-text-secondary mb-2">
+          <span className="inline-block px-2 py-0.5 bg-white/[0.05] rounded text-xs text-text-secondary mb-2">
             {task.project}
           </span>
 
@@ -116,7 +116,7 @@ const KanbanCard = ({ task, index }: KanbanCardProps) => {
                 <span>Subtasks</span>
                 <span>{completedSubtasks}/{task.subtasks.length}</span>
               </div>
-              <div className="w-full h-1 bg-background-tertiary rounded-full overflow-hidden">
+              <div className="w-full h-1 bg-white/[0.05] rounded-full overflow-hidden">
                 <div
                   className="h-full bg-accent-primary rounded-full transition-all"
                   style={{ width: `${(completedSubtasks / task.subtasks.length) * 100}%` }}
@@ -126,7 +126,7 @@ const KanbanCard = ({ task, index }: KanbanCardProps) => {
           )}
 
           {/* Bottom Row */}
-          <div className="flex items-center justify-between pt-2 border-t border-border-default">
+          <div className="flex items-center justify-between pt-2 border-t border-white/[0.08]">
             {/* Due Date */}
             <span
               className={`flex items-center gap-1 text-xs ${
@@ -240,7 +240,7 @@ export const Kanban = () => {
           <select
             value={selectedProject}
             onChange={(e) => setSelectedProject(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Projects</option>
             {projects.map(p => (
@@ -251,7 +251,7 @@ export const Kanban = () => {
           <select
             value={selectedAssignee}
             onChange={(e) => setSelectedAssignee(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Assignees</option>
             {assignees.map(a => (
@@ -262,7 +262,7 @@ export const Kanban = () => {
           <select
             value={selectedPriority}
             onChange={(e) => setSelectedPriority(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Priorities</option>
             {taskPriorities.map(p => (

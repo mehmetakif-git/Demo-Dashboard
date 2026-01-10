@@ -22,12 +22,12 @@ export const ProjectFiles = () => {
 
   const getFileIcon = (type: string, size: number = 20) => {
     const iconMap: Record<string, React.ReactNode> = {
-      folder: <Folder size={size} className="text-indigo-400" />,
+      folder: <Folder size={size} className="text-[#547792]" />,
       document: <FileText size={size} className="text-blue-400" />,
       spreadsheet: <FileSpreadsheet size={size} className="text-green-400" />,
       pdf: <FileText size={size} className="text-red-400" />,
       image: <Image size={size} className="text-pink-400" />,
-      design: <Palette size={size} className="text-purple-400" />,
+      design: <Palette size={size} className="text-[#94B4C1]" />,
     };
 
     return iconMap[type] || <File size={size} className="text-gray-400" />;
@@ -44,7 +44,7 @@ export const ProjectFiles = () => {
         <div className="flex items-center gap-4">
           <button
             onClick={() => setSelectedProject(null)}
-            className="p-2 hover:bg-background-tertiary rounded-lg transition-colors"
+            className="p-2 hover:bg-white/[0.05] rounded-lg transition-colors"
           >
             <ArrowLeft size={20} className="text-text-secondary" />
           </button>
@@ -89,8 +89,8 @@ export const ProjectFiles = () => {
           </Card>
           <Card className="p-4">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-purple-500/20 rounded-lg">
-                <HardDrive size={20} className="text-purple-500" />
+              <div className="p-2 bg-[#94B4C1]/20 rounded-lg">
+                <HardDrive size={20} className="text-[#94B4C1]" />
               </div>
               <div>
                 <p className="text-2xl font-bold text-text-primary">{selectedProject.totalSize}</p>
@@ -116,7 +116,7 @@ export const ProjectFiles = () => {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="bg-background-tertiary border-b border-border-default">
+                <tr className="bg-white/[0.05] border-b border-white/[0.08]">
                   <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
                     Name
                   </th>
@@ -137,7 +137,7 @@ export const ProjectFiles = () => {
                     key={file.id}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="border-b border-border-default hover:bg-background-tertiary cursor-pointer"
+                    className="border-b border-white/[0.08] hover:bg-white/[0.05] cursor-pointer"
                   >
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
@@ -212,11 +212,11 @@ export const ProjectFiles = () => {
 
               {/* Stats */}
               <div className="grid grid-cols-2 gap-4 mb-4">
-                <div className="p-3 bg-background-tertiary rounded-lg">
+                <div className="p-3 bg-white/[0.05] rounded-lg">
                   <p className="text-lg font-bold text-text-primary">{project.totalSize}</p>
                   <p className="text-xs text-text-muted">Total Size</p>
                 </div>
-                <div className="p-3 bg-background-tertiary rounded-lg">
+                <div className="p-3 bg-white/[0.05] rounded-lg">
                   <p className="text-lg font-bold text-text-primary">{project.files.length}</p>
                   <p className="text-xs text-text-muted">Root Items</p>
                 </div>
@@ -227,7 +227,7 @@ export const ProjectFiles = () => {
                 {project.files.slice(0, 3).map((file) => (
                   <div
                     key={file.id}
-                    className="flex items-center gap-2 p-2 bg-background-tertiary rounded-lg"
+                    className="flex items-center gap-2 p-2 bg-white/[0.05] rounded-lg"
                   >
                     {getFileIcon(file.type, 16)}
                     <span className="text-sm text-text-secondary truncate flex-1">{file.name}</span>
@@ -239,7 +239,7 @@ export const ProjectFiles = () => {
               </div>
 
               {/* Footer */}
-              <div className="flex items-center justify-between pt-4 border-t border-border-default">
+              <div className="flex items-center justify-between pt-4 border-t border-white/[0.08]">
                 <div className="flex items-center gap-1 text-xs text-text-muted">
                   <Clock size={12} />
                   <span>Last activity {formatDate(project.lastActivity)}</span>
@@ -249,7 +249,7 @@ export const ProjectFiles = () => {
                   {[...new Set(project.files.map(f => f.modifiedBy))].slice(0, 3).map((member, index) => (
                     <div
                       key={index}
-                      className="w-6 h-6 rounded-full bg-accent-primary/20 border-2 border-background-secondary flex items-center justify-center"
+                      className="w-6 h-6 rounded-full bg-accent-primary/20 border-2 border-white/[0.08] flex items-center justify-center"
                       title={member}
                     >
                       <span className="text-[8px] font-bold text-accent-primary">

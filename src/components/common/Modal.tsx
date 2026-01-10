@@ -56,7 +56,7 @@ export const Modal = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm"
+            className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm cursor-pointer"
           />
 
           {/* Modal */}
@@ -67,13 +67,13 @@ export const Modal = ({
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ type: 'spring', stiffness: 300, damping: 25 }}
               className={cn(
-                'w-full rounded-xl bg-background-secondary border border-border-default shadow-2xl',
+                'w-full rounded-xl bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] shadow-2xl',
                 sizes[size]
               )}
             >
               {/* Header */}
               {(title || showCloseButton) && (
-                <div className="flex items-center justify-between border-b border-border-default px-6 py-4">
+                <div className="flex items-center justify-between border-b border-white/[0.08] px-6 py-4">
                   {title && (
                     <h2 className="text-lg font-semibold text-text-primary">
                       {title}
@@ -82,7 +82,7 @@ export const Modal = ({
                   {showCloseButton && (
                     <button
                       onClick={onClose}
-                      className="ml-auto rounded-lg p-1 text-text-muted hover:bg-background-tertiary hover:text-text-secondary transition-colors"
+                      className="ml-auto rounded-lg p-1 text-text-muted hover:bg-white/[0.05] hover:text-text-secondary transition-colors cursor-pointer"
                     >
                       <X className="h-5 w-5" />
                     </button>

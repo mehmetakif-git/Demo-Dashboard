@@ -27,7 +27,7 @@ export const TrainerList = () => {
   const avgRating = (trainers.reduce((sum, t) => sum + t.rating, 0) / trainers.length).toFixed(1);
 
   const stats = [
-    { title: 'Total Trainers', value: totalTrainers.toString(), icon: Users, iconColor: '#6366f1' },
+    { title: 'Total Trainers', value: totalTrainers.toString(), icon: Users, iconColor: '#547792' },
     { title: 'Active Clients', value: totalClients.toString(), icon: Users, iconColor: '#10b981' },
     { title: 'Average Rating', value: avgRating, icon: Star, iconColor: '#f59e0b' },
   ];
@@ -139,7 +139,7 @@ const TrainerCard = ({ trainer, onView }: TrainerCardProps) => {
             </span>
           ))}
           {trainer.specializations.length > 3 && (
-            <span className="px-2 py-0.5 rounded-full text-xs bg-background-tertiary text-text-secondary">
+            <span className="px-2 py-0.5 rounded-full text-xs bg-white/[0.05] text-text-secondary">
               +{trainer.specializations.length - 3}
             </span>
           )}
@@ -162,7 +162,7 @@ const TrainerCard = ({ trainer, onView }: TrainerCardProps) => {
         </div>
       </div>
 
-      <div className="flex items-center gap-2 pt-4 border-t border-border-default">
+      <div className="flex items-center gap-2 pt-4 border-t border-white/[0.08]">
         <Button variant="ghost" size="sm" className="flex-1" onClick={onView}>
           <Eye className="h-4 w-4 mr-1" />
           View

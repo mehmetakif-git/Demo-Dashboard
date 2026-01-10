@@ -74,7 +74,7 @@ export const DataTable = <T,>({
                     type="checkbox"
                     checked={data.length > 0 && selectedItems.length === data.length}
                     onChange={handleSelectAll}
-                    className="w-4 h-4 rounded border-white/[0.08] bg-white/[0.03] text-[#6366f1] focus:ring-[#6366f1] focus:ring-offset-0 cursor-pointer"
+                    className="w-4 h-4 rounded border-white/[0.08] bg-white/[0.03] text-[#547792] focus:ring-[#547792] focus:ring-offset-0 cursor-pointer"
                   />
                 </th>
               )}
@@ -94,7 +94,7 @@ export const DataTable = <T,>({
           <tbody>
             {isLoading ? (
               Array.from({ length: 5 }).map((_, index) => (
-                <tr key={index} className="border-b border-[#1e1e2e]">
+                <tr key={index} className="border-b border-white/[0.08]">
                   {selectable && (
                     <td className="px-4 py-4">
                       <div className="w-4 h-4 bg-white/[0.05] rounded animate-pulse" />
@@ -128,9 +128,9 @@ export const DataTable = <T,>({
                     transition={{ delay: index * 0.02 }}
                     onClick={() => onRowClick?.(item)}
                     className={cn(
-                      'border-b border-[#1e1e2e] transition-colors',
+                      'border-b border-white/[0.08] transition-colors',
                       onRowClick && 'cursor-pointer',
-                      isSelected ? 'bg-[#6366f1]/10' : 'hover:bg-white/[0.03]'
+                      isSelected ? 'bg-[#547792]/10' : 'hover:bg-white/[0.03]'
                     )}
                   >
                     {selectable && (
@@ -139,7 +139,7 @@ export const DataTable = <T,>({
                           type="checkbox"
                           checked={isSelected}
                           onChange={() => handleSelectItem(id)}
-                          className="w-4 h-4 rounded border-white/[0.08] bg-white/[0.03] text-[#6366f1] focus:ring-[#6366f1] focus:ring-offset-0 cursor-pointer"
+                          className="w-4 h-4 rounded border-white/[0.08] bg-white/[0.03] text-[#547792] focus:ring-[#547792] focus:ring-offset-0 cursor-pointer"
                         />
                       </td>
                     )}
@@ -166,7 +166,7 @@ export const DataTable = <T,>({
 
       {/* Pagination */}
       {pagination && pagination.totalPages > 1 && (
-        <div className="flex items-center justify-between px-4 py-4 border-t border-[#1e1e2e]">
+        <div className="flex items-center justify-between px-4 py-4 border-t border-white/[0.08]">
           <p className="text-sm text-white/40">
             Showing {((pagination.currentPage - 1) * pagination.itemsPerPage) + 1} to{' '}
             {Math.min(pagination.currentPage * pagination.itemsPerPage, pagination.totalItems)} of{' '}
@@ -203,7 +203,7 @@ export const DataTable = <T,>({
                     className={cn(
                       'w-8 h-8 rounded-lg text-sm font-medium transition-colors',
                       page === pagination.currentPage
-                        ? 'bg-[#6366f1] text-white'
+                        ? 'bg-[#547792] text-white'
                         : 'text-white/60 hover:text-white hover:bg-white/[0.05]'
                     )}
                   >

@@ -77,7 +77,7 @@ export const MemberList = () => {
       title: 'Total Members',
       value: gymStats.totalMembers.toString(),
       icon: Users,
-      iconColor: '#6366f1',
+      iconColor: '#547792',
     },
     {
       title: 'Active Members',
@@ -238,7 +238,7 @@ export const MemberList = () => {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-border-default">
+                <tr className="border-b border-white/[0.08]">
                   <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase tracking-wider">
                     Member
                   </th>
@@ -272,7 +272,7 @@ export const MemberList = () => {
                 {filteredMembers.map((member) => (
                   <tr
                     key={member.id}
-                    className="border-b border-border-default hover:bg-background-secondary/50 cursor-pointer"
+                    className="border-b border-white/[0.08] hover:bg-white/[0.03] backdrop-blur-xl/50 cursor-pointer"
                     onClick={() => handleViewMember(member.id)}
                   >
                     <td className="py-3 px-4">
@@ -465,7 +465,7 @@ const MemberCard = ({ member, onView }: MemberCardProps) => {
         )}
       </div>
 
-      <div className="flex items-center gap-2 mt-4 pt-4 border-t border-border-default">
+      <div className="flex items-center gap-2 mt-4 pt-4 border-t border-white/[0.08]">
         <Button variant="ghost" size="sm" className="flex-1" onClick={(e) => { e.stopPropagation(); onView(); }}>
           <Eye className="h-4 w-4 mr-1" />
           View

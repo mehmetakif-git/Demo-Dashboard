@@ -67,9 +67,9 @@ export const WorkOrders = () => {
 
   const getStatusBadge = (status: WorkOrder['status']) => {
     const config = {
-      scheduled: { bg: 'bg-indigo-500/20', text: 'text-indigo-400', label: 'Scheduled' },
+      scheduled: { bg: 'bg-[#547792]/20', text: 'text-[#547792]', label: 'Scheduled' },
       'in-progress': { bg: 'bg-yellow-500/20', text: 'text-yellow-400', label: 'In Progress' },
-      'pending-parts': { bg: 'bg-purple-500/20', text: 'text-purple-400', label: 'Pending Parts' },
+      'pending-parts': { bg: 'bg-[#94B4C1]/20', text: 'text-[#94B4C1]', label: 'Pending Parts' },
       completed: { bg: 'bg-green-500/20', text: 'text-green-400', label: 'Completed' },
       cancelled: { bg: 'bg-slate-500/20', text: 'text-slate-400', label: 'Cancelled' },
     };
@@ -133,7 +133,7 @@ export const WorkOrders = () => {
           title="Total Work Orders"
           value={stats.total.toString()}
           icon={ClipboardList}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
         <StatsCard
           title="In Progress"
@@ -170,7 +170,7 @@ export const WorkOrders = () => {
           <select
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Status</option>
             {workOrderStatuses.map(status => (
@@ -181,7 +181,7 @@ export const WorkOrders = () => {
           <select
             value={selectedType}
             onChange={(e) => setSelectedType(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Types</option>
             <option value="preventive">Preventive</option>
@@ -192,7 +192,7 @@ export const WorkOrders = () => {
           <select
             value={selectedPriority}
             onChange={(e) => setSelectedPriority(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Priorities</option>
             <option value="critical">Critical</option>
@@ -232,13 +232,13 @@ export const WorkOrders = () => {
                     <p className="text-sm text-text-secondary">{wo.description}</p>
                   </div>
                   <div className="flex items-center gap-2">
-                    <button className="p-2 hover:bg-background-tertiary rounded text-text-secondary hover:text-accent-primary">
+                    <button className="p-2 hover:bg-white/[0.05] rounded text-text-secondary hover:text-accent-primary">
                       <Eye size={16} />
                     </button>
-                    <button className="p-2 hover:bg-background-tertiary rounded text-text-secondary hover:text-blue-400">
+                    <button className="p-2 hover:bg-white/[0.05] rounded text-text-secondary hover:text-blue-400">
                       <Edit size={16} />
                     </button>
-                    <button className="p-2 hover:bg-background-tertiary rounded text-text-secondary hover:text-red-400">
+                    <button className="p-2 hover:bg-white/[0.05] rounded text-text-secondary hover:text-red-400">
                       <Trash2 size={16} />
                     </button>
                   </div>
@@ -283,7 +283,7 @@ export const WorkOrders = () => {
                 )}
 
                 {/* Footer */}
-                <div className="flex items-center justify-between pt-3 border-t border-border-default">
+                <div className="flex items-center justify-between pt-3 border-t border-white/[0.08]">
                   <div className="flex items-center gap-4 text-xs text-text-muted">
                     <span>Created: {formatDateTime(wo.createdAt)}</span>
                     {wo.startedAt && <span>Started: {formatDateTime(wo.startedAt)}</span>}

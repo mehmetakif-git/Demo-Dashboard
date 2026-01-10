@@ -67,7 +67,7 @@ export const Invoicing = () => {
         title="Invoicing"
         subtitle="Manage invoices and billing"
         actions={
-          <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
+          <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
             <Plus className="h-4 w-4" />
             Create Invoice
           </button>
@@ -111,14 +111,14 @@ export const Invoicing = () => {
             placeholder="Search invoices..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full rounded-lg border border-[#1e1e2e] bg-[#12121a] py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#6366f1] focus:outline-none"
+            className="w-full rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#547792] focus:outline-none"
           />
         </div>
         <div className="flex gap-2">
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="rounded-lg border border-[#1e1e2e] bg-[#12121a] px-3 py-2 text-sm text-white focus:border-[#6366f1] focus:outline-none"
+            className="rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
             <option value="all">All Status</option>
             {statuses.map((status) => (
@@ -127,7 +127,7 @@ export const Invoicing = () => {
               </option>
             ))}
           </select>
-          <button className="flex items-center gap-2 rounded-lg border border-[#1e1e2e] bg-[#12121a] px-3 py-2 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
+          <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
             <Filter className="h-4 w-4" />
             More Filters
           </button>
@@ -135,11 +135,11 @@ export const Invoicing = () => {
       </div>
 
       {/* Invoices Table */}
-      <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] overflow-hidden">
+      <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-[#1e1e2e]">
+              <tr className="border-b border-white/[0.08]">
                 <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-[#64748b]">
                   Invoice
                 </th>
@@ -178,7 +178,7 @@ export const Invoicing = () => {
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
                         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#1a1a24]">
-                          <FileText className="h-5 w-5 text-[#6366f1]" />
+                          <FileText className="h-5 w-5 text-[#547792]" />
                         </div>
                         <span className="font-medium text-white">{invoice.invoiceNumber}</span>
                       </div>
@@ -236,15 +236,15 @@ export const Invoicing = () => {
         </div>
 
         {/* Pagination */}
-        <div className="flex items-center justify-between border-t border-[#1e1e2e] px-6 py-4">
+        <div className="flex items-center justify-between border-t border-white/[0.08] px-6 py-4">
           <p className="text-sm text-[#64748b]">
             Showing {filteredInvoices.length} of {invoices.length} invoices
           </p>
           <div className="flex gap-2">
-            <button className="rounded-lg border border-[#1e1e2e] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
+            <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
               Previous
             </button>
-            <button className="rounded-lg border border-[#1e1e2e] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
+            <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
               Next
             </button>
           </div>
@@ -254,7 +254,7 @@ export const Invoicing = () => {
       {/* Summary Cards */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Revenue Breakdown */}
-        <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+        <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
           <h3 className="text-lg font-semibold text-white mb-4">Revenue Breakdown</h3>
           <div className="space-y-4">
             <div className="flex items-center justify-between">
@@ -282,7 +282,7 @@ export const Invoicing = () => {
         </div>
 
         {/* Payment Trend */}
-        <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+        <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
           <h3 className="text-lg font-semibold text-white mb-4">Payment Statistics</h3>
           <div className="space-y-4">
             <div className="rounded-lg bg-[#1a1a24] p-4">
@@ -315,7 +315,7 @@ export const Invoicing = () => {
         </div>
 
         {/* Upcoming Due */}
-        <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+        <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
           <h3 className="text-lg font-semibold text-white mb-4">Upcoming Due</h3>
           <div className="space-y-3">
             {invoices

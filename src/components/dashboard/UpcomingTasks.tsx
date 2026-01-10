@@ -44,7 +44,7 @@ export const UpcomingTasks = () => {
             </div>
 
             {/* Assignee avatar */}
-            <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#6366f1] to-[#8b5cf6] flex items-center justify-center flex-shrink-0">
+            <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#547792] to-[#94B4C1] flex items-center justify-center flex-shrink-0">
               <span className="text-white text-xs font-medium">{task.assignee}</span>
             </div>
           </motion.div>
@@ -52,7 +52,7 @@ export const UpcomingTasks = () => {
       </div>
 
       {/* View All */}
-      <button className="relative z-10 flex items-center gap-1 text-[#6366f1] text-sm font-medium mt-5 hover:text-[#8b5cf6] transition-colors group">
+      <button className="relative z-10 flex items-center gap-1 text-[#547792] text-sm font-medium mt-5 hover:text-[#94B4C1] transition-colors group">
         View All
         <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
       </button>

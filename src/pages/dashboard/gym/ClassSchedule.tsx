@@ -59,7 +59,7 @@ export const ClassSchedule = () => {
   );
 
   const stats = [
-    { title: 'Total Classes', value: totalClasses.toString(), icon: Calendar, iconColor: '#6366f1' },
+    { title: 'Total Classes', value: totalClasses.toString(), icon: Calendar, iconColor: '#547792' },
     { title: 'Total Enrollment', value: totalEnrollment.toString(), icon: Users, iconColor: '#10b981' },
     { title: 'Avg Capacity', value: `${avgCapacityUsage}%`, icon: Users, iconColor: '#f59e0b' },
   ];
@@ -102,7 +102,7 @@ export const ClassSchedule = () => {
             <select
               value={categoryFilter}
               onChange={(e) => setCategoryFilter(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Categories</option>
               {categories.map((cat) => (
@@ -115,7 +115,7 @@ export const ClassSchedule = () => {
             <select
               value={instructorFilter}
               onChange={(e) => setInstructorFilter(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Instructors</option>
               {trainers.map((trainer) => (
@@ -128,7 +128,7 @@ export const ClassSchedule = () => {
             <select
               value={difficultyFilter}
               onChange={(e) => setDifficultyFilter(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Levels</option>
               <option value="beginner">Beginner</option>
@@ -138,7 +138,7 @@ export const ClassSchedule = () => {
             </select>
           </div>
 
-          <div className="flex items-center gap-2 bg-background-tertiary rounded-lg p-1">
+          <div className="flex items-center gap-2 bg-white/[0.05] rounded-lg p-1">
             <button
               onClick={() => setViewMode('calendar')}
               className={`p-2 rounded-md transition-colors ${
@@ -181,7 +181,7 @@ export const ClassSchedule = () => {
               {/* Time Slots */}
               {TIME_SLOTS.map((time) => (
                 <div key={time} className="grid grid-cols-8 gap-2 min-h-[60px]">
-                  <div className="text-xs text-text-secondary py-2 border-t border-border-default">
+                  <div className="text-xs text-text-secondary py-2 border-t border-white/[0.08]">
                     {time}
                   </div>
                   {DAYS.map((day) => {
@@ -189,7 +189,7 @@ export const ClassSchedule = () => {
                     return (
                       <div
                         key={`${day}-${time}`}
-                        className="border-t border-border-default p-1"
+                        className="border-t border-white/[0.08] p-1"
                       >
                         {classes.map((cls) => (
                           <button
@@ -221,7 +221,7 @@ export const ClassSchedule = () => {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-border-default">
+                <tr className="border-b border-white/[0.08]">
                   <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
                     Class
                   </th>
@@ -252,7 +252,7 @@ export const ClassSchedule = () => {
                 {filteredClasses.map((cls) => (
                   <tr
                     key={cls.id}
-                    className="border-b border-border-default hover:bg-background-secondary/50 cursor-pointer"
+                    className="border-b border-white/[0.08] hover:bg-white/[0.03] backdrop-blur-xl/50 cursor-pointer"
                     onClick={() => setSelectedClass(cls)}
                   >
                     <td className="py-3 px-4">
@@ -268,7 +268,7 @@ export const ClassSchedule = () => {
                       </div>
                     </td>
                     <td className="py-3 px-4">
-                      <span className="px-2 py-1 rounded-full text-xs font-medium bg-background-tertiary text-text-primary">
+                      <span className="px-2 py-1 rounded-full text-xs font-medium bg-white/[0.05] text-text-primary">
                         {cls.category}
                       </span>
                     </td>
@@ -282,7 +282,7 @@ export const ClassSchedule = () => {
                         <span className="text-text-primary font-medium">
                           {cls.currentEnrollment}/{cls.maxCapacity}
                         </span>
-                        <div className="w-20 h-2 bg-background-tertiary rounded-full overflow-hidden">
+                        <div className="w-20 h-2 bg-white/[0.05] rounded-full overflow-hidden">
                           <div
                             className="h-full rounded-full"
                             style={{
@@ -322,10 +322,10 @@ export const ClassSchedule = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-background-secondary border border-border-default rounded-xl max-w-lg w-full max-h-[90vh] overflow-y-auto"
+            className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl max-w-lg w-full max-h-[90vh] overflow-y-auto"
           >
             <div
-              className="p-6 border-b border-border-default"
+              className="p-6 border-b border-white/[0.08]"
               style={{ borderTopColor: selectedClass.color, borderTopWidth: '4px' }}
             >
               <div className="flex items-start justify-between">
@@ -383,7 +383,7 @@ export const ClassSchedule = () => {
                   {selectedClass.schedule.map((s, i) => (
                     <span
                       key={i}
-                      className="px-3 py-1 rounded-full text-sm bg-background-tertiary text-text-primary"
+                      className="px-3 py-1 rounded-full text-sm bg-white/[0.05] text-text-primary"
                     >
                       {s.day} at {s.time}
                     </span>
@@ -399,13 +399,13 @@ export const ClassSchedule = () => {
                 >
                   {selectedClass.difficulty === 'all-levels' ? 'All Levels' : selectedClass.difficulty.charAt(0).toUpperCase() + selectedClass.difficulty.slice(1)}
                 </span>
-                <span className="px-3 py-1 rounded-full text-sm font-medium bg-background-tertiary text-text-primary">
+                <span className="px-3 py-1 rounded-full text-sm font-medium bg-white/[0.05] text-text-primary">
                   {selectedClass.category}
                 </span>
               </div>
             </div>
 
-            <div className="p-6 border-t border-border-default flex gap-2">
+            <div className="p-6 border-t border-white/[0.08] flex gap-2">
               <Button variant="outline" className="flex-1" onClick={() => setSelectedClass(null)}>
                 Close
               </Button>

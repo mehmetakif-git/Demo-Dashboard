@@ -102,16 +102,16 @@ export const CashFlow = () => {
           title="Net Cash Flow"
           value={`$${(stats.netCashFlow / 1000000).toFixed(2)}M`}
           icon={DollarSign}
-          iconColor="#6366f1"
-          iconBg="rgba(99, 102, 241, 0.2)"
+          iconColor="#547792"
+          iconBg="rgba(84, 119, 146, 0.2)"
           delay={0.2}
         />
         <StatsCard
           title="Avg. Monthly Net"
           value={`$${(stats.avgMonthlyNet / 1000).toFixed(0)}K`}
           icon={Activity}
-          iconColor="#8b5cf6"
-          iconBg="rgba(139, 92, 246, 0.2)"
+          iconColor="#94B4C1"
+          iconBg="rgba(148, 180, 193, 0.2)"
           delay={0.25}
         />
       </div>
@@ -122,7 +122,7 @@ export const CashFlow = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6"
+          className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
         >
           <div className="flex items-center gap-3 mb-4">
             <div className="p-2 rounded-lg bg-emerald-500/20">
@@ -139,7 +139,7 @@ export const CashFlow = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.35 }}
-          className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6"
+          className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
         >
           <div className="flex items-center gap-3 mb-4">
             <div className="p-2 rounded-lg bg-red-500/20">
@@ -156,15 +156,15 @@ export const CashFlow = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6"
+          className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
         >
           <div className="flex items-center gap-3 mb-4">
-            <div className="p-2 rounded-lg bg-[#6366f1]/20">
-              <DollarSign className="w-5 h-5 text-[#6366f1]" />
+            <div className="p-2 rounded-lg bg-[#547792]/20">
+              <DollarSign className="w-5 h-5 text-[#547792]" />
             </div>
             <span className="text-white/60">This Month Net</span>
           </div>
-          <p className="text-3xl font-bold text-[#6366f1]">
+          <p className="text-3xl font-bold text-[#547792]">
             +${stats.currentMonthNet.toLocaleString()}
           </p>
         </motion.div>
@@ -175,7 +175,7 @@ export const CashFlow = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.45 }}
-        className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6"
+        className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
       >
         <h3 className="text-lg font-semibold text-white mb-4">Monthly Cash Flow</h3>
         <div className="h-[350px]">
@@ -223,9 +223,9 @@ export const CashFlow = () => {
               <Line
                 type="monotone"
                 dataKey="net"
-                stroke="#6366f1"
+                stroke="#547792"
                 strokeWidth={3}
-                dot={{ fill: '#6366f1', strokeWidth: 2 }}
+                dot={{ fill: '#547792', strokeWidth: 2 }}
                 name="Net"
               />
             </ComposedChart>
@@ -238,7 +238,7 @@ export const CashFlow = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
-        className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6"
+        className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
       >
         <h3 className="text-lg font-semibold text-white mb-4">Quarterly Comparison</h3>
         <div className="h-[300px]">
@@ -259,7 +259,7 @@ export const CashFlow = () => {
               <Legend />
               <Bar dataKey="inflow" fill="#10b981" name="Inflow" radius={[4, 4, 0, 0]} />
               <Bar dataKey="outflow" fill="#ef4444" name="Outflow" radius={[4, 4, 0, 0]} />
-              <Bar dataKey="net" fill="#6366f1" name="Net" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="net" fill="#547792" name="Net" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -270,9 +270,9 @@ export const CashFlow = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.55 }}
-        className="bg-[#12121a] border border-[#1e1e2e] rounded-xl overflow-hidden"
+        className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl overflow-hidden"
       >
-        <div className="p-6 border-b border-[#1e1e2e]">
+        <div className="p-6 border-b border-white/[0.08]">
           <h3 className="text-lg font-semibold text-white">Monthly Breakdown</h3>
         </div>
         <table className="w-full">
@@ -299,7 +299,7 @@ export const CashFlow = () => {
             {cashFlowData.map((month) => {
               const margin = ((month.net / month.inflow) * 100).toFixed(1);
               return (
-                <tr key={month.month} className="border-t border-[#1e1e2e] hover:bg-[#1a1a24]">
+                <tr key={month.month} className="border-t border-white/[0.08] hover:bg-[#1a1a24]">
                   <td className="px-6 py-4 text-white font-medium">{month.month}</td>
                   <td className="px-6 py-4 text-emerald-400 text-right">
                     +${month.inflow.toLocaleString()}
@@ -307,7 +307,7 @@ export const CashFlow = () => {
                   <td className="px-6 py-4 text-red-400 text-right">
                     -${month.outflow.toLocaleString()}
                   </td>
-                  <td className="px-6 py-4 text-[#6366f1] font-semibold text-right">
+                  <td className="px-6 py-4 text-[#547792] font-semibold text-right">
                     ${month.net.toLocaleString()}
                   </td>
                   <td className="px-6 py-4 text-white/60 text-right">{margin}%</td>

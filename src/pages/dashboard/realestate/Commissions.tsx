@@ -44,7 +44,7 @@ export const Commissions = () => {
         title="Commissions"
         subtitle="Track agent commissions and payments"
         actions={
-          <button className="flex items-center gap-2 rounded-lg border border-[#1e1e2e] px-4 py-2 text-sm text-[#94a3b8] hover:text-white hover:border-[#2e2e3e] transition-colors">
+          <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] px-4 py-2 text-sm text-[#94a3b8] hover:text-white hover:border-[#2e2e3e] transition-colors">
             <Download className="h-4 w-4" />
             Export
           </button>
@@ -79,7 +79,7 @@ export const Commissions = () => {
       </div>
 
       {/* Filters */}
-      <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-4">
+      <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-4">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1 relative">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#64748b]" />
@@ -88,13 +88,13 @@ export const Commissions = () => {
               placeholder="Search by property or agent..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full rounded-lg border border-[#1e1e2e] bg-[#0a0a0f] py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-indigo-500 focus:outline-none"
+              className="w-full rounded-lg border border-white/[0.08] bg-[#0a0a0f] py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#547792] focus:outline-none"
             />
           </div>
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="rounded-lg border border-[#1e1e2e] bg-[#0a0a0f] px-4 py-2 text-sm text-white focus:border-indigo-500 focus:outline-none"
+            className="rounded-lg border border-white/[0.08] bg-[#0a0a0f] px-4 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
             <option value="all">All Statuses</option>
             <option value="pending">Pending</option>
@@ -103,7 +103,7 @@ export const Commissions = () => {
           <select
             value={agentFilter}
             onChange={(e) => setAgentFilter(e.target.value)}
-            className="rounded-lg border border-[#1e1e2e] bg-[#0a0a0f] px-4 py-2 text-sm text-white focus:border-indigo-500 focus:outline-none"
+            className="rounded-lg border border-white/[0.08] bg-[#0a0a0f] px-4 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
             <option value="all">All Agents</option>
             {uniqueAgents.map((agent) => (
@@ -116,11 +116,11 @@ export const Commissions = () => {
       </div>
 
       {/* Commission Table */}
-      <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] overflow-hidden">
+      <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-[#1e1e2e]">
+              <tr className="border-b border-white/[0.08]">
                 <th className="px-4 py-3 text-left text-xs font-medium text-[#64748b]">Property</th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-[#64748b]">Type</th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-[#64748b]">Close Date</th>
@@ -138,7 +138,7 @@ export const Commissions = () => {
                   key={commission.id}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="border-b border-[#1e1e2e] hover:bg-[#1a1a24]"
+                  className="border-b border-white/[0.08] hover:bg-[#1a1a24]"
                 >
                   <td className="px-4 py-4">
                     <div className="flex items-center gap-3">
@@ -175,7 +175,7 @@ export const Commissions = () => {
                   </td>
                   <td className="px-4 py-4">
                     <div className="flex items-center gap-2">
-                      <div className="h-8 w-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white text-xs font-bold">
+                      <div className="h-8 w-8 rounded-full bg-gradient-to-br from-[#547792] to-[#94B4C1] flex items-center justify-center text-white text-xs font-bold">
                         {commission.agentName.split(' ').map(n => n.charAt(0)).join('')}
                       </div>
                       <span className="text-sm text-white">{commission.agentName}</span>
@@ -184,8 +184,8 @@ export const Commissions = () => {
                   <td className="px-4 py-4">
                     <span className={`px-2 py-1 rounded text-xs ${
                       commission.side === 'listing'
-                        ? 'bg-purple-500/20 text-purple-400'
-                        : 'bg-indigo-500/20 text-indigo-400'
+                        ? 'bg-[#94B4C1]/20 text-[#94B4C1]'
+                        : 'bg-[#547792]/20 text-[#547792]'
                     }`}>
                       {commission.side}
                     </span>
@@ -235,7 +235,7 @@ export const Commissions = () => {
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+        <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
           <h3 className="text-lg font-semibold text-white mb-4">By Agent</h3>
           <div className="space-y-3">
             {uniqueAgents.map((agent) => {
@@ -245,7 +245,7 @@ export const Commissions = () => {
               return (
                 <div key={agent.id} className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <div className="h-8 w-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white text-xs font-bold">
+                    <div className="h-8 w-8 rounded-full bg-gradient-to-br from-[#547792] to-[#94B4C1] flex items-center justify-center text-white text-xs font-bold">
                       {agent.name.split(' ').map(n => n.charAt(0)).join('')}
                     </div>
                     <span className="text-sm text-white">{agent.name}</span>
@@ -257,7 +257,7 @@ export const Commissions = () => {
           </div>
         </div>
 
-        <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+        <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
           <h3 className="text-lg font-semibold text-white mb-4">By Status</h3>
           <div className="space-y-4">
             <div className="flex items-center justify-between p-3 rounded-lg bg-emerald-500/10">

@@ -44,7 +44,7 @@ export const Dropdown = ({
     <div ref={dropdownRef} className={cn('relative', className)}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-1"
+        className="flex items-center gap-1 cursor-pointer"
       >
         {trigger}
         <ChevronDown
@@ -63,7 +63,7 @@ export const Dropdown = ({
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.15 }}
             className={cn(
-              'absolute top-full mt-2 min-w-[180px] rounded-lg border border-border-default bg-background-secondary py-1 shadow-xl z-50',
+              'absolute top-full mt-2 min-w-[180px] rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl py-1 shadow-xl z-50',
               align === 'right' ? 'right-0' : 'left-0'
             )}
           >
@@ -84,8 +84,8 @@ export const Dropdown = ({
                   }}
                   disabled={item.disabled}
                   className={cn(
-                    'flex w-full items-center gap-2 px-4 py-2 text-sm text-text-primary',
-                    'hover:bg-background-tertiary transition-colors',
+                    'flex w-full items-center gap-2 px-4 py-2 text-sm text-text-primary cursor-pointer',
+                    'hover:bg-white/[0.05] transition-colors',
                     item.disabled && 'cursor-not-allowed opacity-50'
                   )}
                 >

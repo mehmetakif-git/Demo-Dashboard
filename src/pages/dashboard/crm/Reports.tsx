@@ -88,7 +88,7 @@ export const Reports = () => {
       title: 'Sales Pipeline Report',
       description: 'Detailed analysis of your sales pipeline stages and conversion rates',
       icon: Activity,
-      color: '#6366f1',
+      color: '#547792',
     },
     {
       id: 'lead-conversion',
@@ -102,7 +102,7 @@ export const Reports = () => {
       title: 'Customer Revenue Report',
       description: 'Revenue breakdown by customer segment and industry',
       icon: Users,
-      color: '#8b5cf6',
+      color: '#94B4C1',
     },
     {
       id: 'activity-summary',
@@ -144,7 +144,7 @@ export const Reports = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}
-              className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-5 hover:border-[#6366f1]/50 transition-colors cursor-pointer group"
+              className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-5 hover:border-[#547792]/50 transition-colors cursor-pointer group"
             >
               <div className="flex items-start gap-4">
                 <div
@@ -158,7 +158,7 @@ export const Reports = () => {
                   <p className="text-sm text-[#64748b]">{report.description}</p>
                 </div>
               </div>
-              <button className="mt-4 w-full flex items-center justify-center gap-2 rounded-lg bg-[#1a1a24] px-4 py-2 text-sm font-medium text-[#94a3b8] hover:bg-[#6366f1] hover:text-white transition-colors group-hover:bg-[#6366f1]/10 group-hover:text-[#6366f1]">
+              <button className="mt-4 w-full flex items-center justify-center gap-2 rounded-lg bg-[#1a1a24] px-4 py-2 text-sm font-medium text-[#94a3b8] hover:bg-[#547792] hover:text-white transition-colors group-hover:bg-[#547792]/10 group-hover:text-[#547792]">
                 <Play className="h-4 w-4" />
                 Generate Report
               </button>
@@ -172,7 +172,7 @@ export const Reports = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6"
+        className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
       >
         <h3 className="text-lg font-semibold text-white mb-4">Quick Insights</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -190,7 +190,7 @@ export const Reports = () => {
               <span className="text-sm">Best Lead Source</span>
             </div>
             <p className="text-xl font-bold text-white">{insights.bestSource}</p>
-            <p className="text-sm text-[#6366f1]">Highest conversion</p>
+            <p className="text-sm text-[#547792]">Highest conversion</p>
           </div>
           <div className="p-4 bg-[#1a1a24] rounded-lg">
             <div className="flex items-center gap-2 text-[#64748b] mb-2">
@@ -206,7 +206,7 @@ export const Reports = () => {
               <span className="text-sm">Retention Rate</span>
             </div>
             <p className="text-xl font-bold text-white">{insights.retentionRate}%</p>
-            <p className="text-sm text-[#8b5cf6]">Customer loyalty</p>
+            <p className="text-sm text-[#94B4C1]">Customer loyalty</p>
           </div>
         </div>
       </motion.div>
@@ -218,7 +218,7 @@ export const Reports = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6"
+          className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
         >
           <h3 className="text-lg font-semibold text-white mb-4">Pipeline by Stage</h3>
           <div className="h-[300px]">
@@ -262,7 +262,7 @@ export const Reports = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6"
+          className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
         >
           <h3 className="text-lg font-semibold text-white mb-4">Lead Sources</h3>
           <div className="h-[300px]">
@@ -312,7 +312,7 @@ export const Reports = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6 lg:col-span-2"
+          className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6 lg:col-span-2"
         >
           <h3 className="text-lg font-semibold text-white mb-4">Monthly Closed Deals</h3>
           <div className="h-[300px]">

@@ -149,7 +149,7 @@ export const Calendar = () => {
 
               <div className="flex items-center gap-2">
                 {/* View Toggle */}
-                <div className="flex gap-1 p-1 bg-background-secondary rounded-lg">
+                <div className="flex gap-1 p-1 bg-white/[0.03] backdrop-blur-xl rounded-lg">
                   <button
                     onClick={() => setViewMode('month')}
                     className={`px-3 py-1 text-sm rounded transition-all ${
@@ -176,13 +176,13 @@ export const Calendar = () => {
                 <div className="flex items-center gap-1">
                   <button
                     onClick={goToPrevMonth}
-                    className="p-2 hover:bg-background-tertiary rounded-lg text-text-secondary hover:text-text-primary"
+                    className="p-2 hover:bg-white/[0.05] rounded-lg text-text-secondary hover:text-text-primary"
                   >
                     <ChevronLeft size={20} />
                   </button>
                   <button
                     onClick={goToNextMonth}
-                    className="p-2 hover:bg-background-tertiary rounded-lg text-text-secondary hover:text-text-primary"
+                    className="p-2 hover:bg-white/[0.05] rounded-lg text-text-secondary hover:text-text-primary"
                   >
                     <ChevronRight size={20} />
                   </button>
@@ -212,10 +212,10 @@ export const Calendar = () => {
                     onClick={() => setSelectedDate(day.date)}
                     className={`
                       min-h-[100px] p-2 rounded-lg cursor-pointer transition-colors
-                      ${day.isCurrentMonth ? 'bg-background-secondary' : 'bg-background-primary/50'}
+                      ${day.isCurrentMonth ? 'bg-white/[0.03] backdrop-blur-xl' : 'bg-background-primary/50'}
                       ${day.isToday ? 'ring-2 ring-accent-primary' : ''}
                       ${selectedDate?.toDateString() === day.date.toDateString() ? 'bg-accent-primary/10' : ''}
-                      hover:bg-background-tertiary
+                      hover:bg-white/[0.05]
                     `}
                   >
                     <div className="flex items-center justify-between mb-1">
@@ -264,7 +264,7 @@ export const Calendar = () => {
             </div>
 
             {/* Legend */}
-            <div className="flex items-center gap-6 mt-4 pt-4 border-t border-border-default">
+            <div className="flex items-center gap-6 mt-4 pt-4 border-t border-white/[0.08]">
               <span className="text-sm text-text-secondary">Priority:</span>
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-1">
@@ -276,7 +276,7 @@ export const Calendar = () => {
                   <span className="text-xs text-text-secondary">High</span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <div className="w-3 h-3 rounded-full bg-indigo-500" />
+                  <div className="w-3 h-3 rounded-full bg-[#547792]" />
                   <span className="text-xs text-text-secondary">Medium</span>
                 </div>
                 <div className="flex items-center gap-1">
@@ -309,7 +309,7 @@ export const Calendar = () => {
                     </h3>
                     <button
                       onClick={() => setSelectedDate(null)}
-                      className="p-1 hover:bg-background-tertiary rounded text-text-secondary"
+                      className="p-1 hover:bg-white/[0.05] rounded text-text-secondary"
                     >
                       <X size={16} />
                     </button>
@@ -324,7 +324,7 @@ export const Calendar = () => {
                       {selectedDayData.tasks.map(task => (
                         <div
                           key={task.id}
-                          className="p-3 bg-background-tertiary rounded-lg"
+                          className="p-3 bg-white/[0.05] rounded-lg"
                         >
                           <div className="flex items-start gap-2">
                             <div
@@ -354,7 +354,7 @@ export const Calendar = () => {
                       {selectedDayData.events.map(event => (
                         <div
                           key={event.id}
-                          className="p-3 bg-background-tertiary rounded-lg"
+                          className="p-3 bg-white/[0.05] rounded-lg"
                         >
                           <div className="flex items-start gap-2">
                             <CalendarIcon size={14} className="text-blue-400 mt-0.5" />
@@ -399,7 +399,7 @@ export const Calendar = () => {
                   return (
                     <div
                       key={task.id}
-                      className="flex items-start gap-3 p-2 rounded-lg hover:bg-background-tertiary transition-colors"
+                      className="flex items-start gap-3 p-2 rounded-lg hover:bg-white/[0.05] transition-colors"
                     >
                       <div
                         className="w-2 h-2 rounded-full mt-1.5 flex-shrink-0"

@@ -101,10 +101,10 @@ export const DynamicQR = () => {
       />
 
       {/* Info Banner */}
-      <Card className="p-4 bg-purple-500/10 border-purple-500/20">
+      <Card className="p-4 bg-[#94B4C1]/10 border-[#94B4C1]/20">
         <div className="flex items-start gap-4">
-          <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center flex-shrink-0">
-            <Zap size={20} className="text-purple-400" />
+          <div className="w-10 h-10 rounded-lg bg-[#94B4C1]/20 flex items-center justify-center flex-shrink-0">
+            <Zap size={20} className="text-[#94B4C1]" />
           </div>
           <div className="flex-1">
             <h3 className="font-semibold text-text-primary mb-1">What are Dynamic QR Codes?</h3>
@@ -125,7 +125,7 @@ export const DynamicQR = () => {
           title="Dynamic QR Codes"
           value={stats.total.toString()}
           icon={Zap}
-          iconColor="#8b5cf6"
+          iconColor="#94B4C1"
         />
         <StatsCard
           title="Active"
@@ -161,7 +161,7 @@ export const DynamicQR = () => {
           <select
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Status</option>
             <option value="active">Active</option>
@@ -232,7 +232,7 @@ export const DynamicQR = () => {
 
                     {/* Short URL */}
                     {qr.shortUrl && (
-                      <div className="flex items-center gap-3 p-3 bg-background-secondary rounded-lg mb-4">
+                      <div className="flex items-center gap-3 p-3 bg-white/[0.03] backdrop-blur-xl rounded-lg mb-4">
                         <Link size={16} className="text-accent-primary flex-shrink-0" />
                         <div className="flex-1 min-w-0">
                           <p className="text-xs text-text-muted mb-0.5">Short URL</p>
@@ -240,7 +240,7 @@ export const DynamicQR = () => {
                         </div>
                         <button
                           onClick={() => handleCopyShortUrl(qr.shortUrl)}
-                          className="p-2 hover:bg-background-tertiary rounded transition-colors"
+                          className="p-2 hover:bg-white/[0.05] rounded transition-colors"
                         >
                           <Copy size={16} className="text-text-muted hover:text-accent-primary" />
                         </button>
@@ -248,7 +248,7 @@ export const DynamicQR = () => {
                           href={qr.shortUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-2 hover:bg-background-tertiary rounded transition-colors"
+                          className="p-2 hover:bg-white/[0.05] rounded transition-colors"
                         >
                           <ExternalLink size={16} className="text-text-muted hover:text-accent-primary" />
                         </a>
@@ -256,7 +256,7 @@ export const DynamicQR = () => {
                     )}
 
                     {/* Content Preview */}
-                    <div className="p-3 bg-background-secondary rounded-lg mb-4">
+                    <div className="p-3 bg-white/[0.03] backdrop-blur-xl rounded-lg mb-4">
                       <p className="text-xs text-text-muted mb-1">Current Destination</p>
                       <p className="text-sm text-text-primary truncate">
                         {typeof qr.content === 'string' ? qr.content : JSON.stringify(qr.content)}
@@ -290,21 +290,21 @@ export const DynamicQR = () => {
                 </div>
 
                 {/* Quick Actions */}
-                <div className="flex items-center gap-2 mt-4 pt-4 border-t border-border-default">
-                  <button className="flex items-center gap-2 px-3 py-1.5 text-sm text-text-secondary hover:text-text-primary hover:bg-background-tertiary rounded transition-colors">
+                <div className="flex items-center gap-2 mt-4 pt-4 border-t border-white/[0.08]">
+                  <button className="flex items-center gap-2 px-3 py-1.5 text-sm text-text-secondary hover:text-text-primary hover:bg-white/[0.05] rounded transition-colors">
                     <RefreshCw size={14} />
                     Update Content
                   </button>
-                  <button className="flex items-center gap-2 px-3 py-1.5 text-sm text-text-secondary hover:text-text-primary hover:bg-background-tertiary rounded transition-colors">
+                  <button className="flex items-center gap-2 px-3 py-1.5 text-sm text-text-secondary hover:text-text-primary hover:bg-white/[0.05] rounded transition-colors">
                     <Copy size={14} />
                     Duplicate
                   </button>
-                  <button className="flex items-center gap-2 px-3 py-1.5 text-sm text-text-secondary hover:text-text-primary hover:bg-background-tertiary rounded transition-colors">
+                  <button className="flex items-center gap-2 px-3 py-1.5 text-sm text-text-secondary hover:text-text-primary hover:bg-white/[0.05] rounded transition-colors">
                     <Settings size={14} />
                     Settings
                   </button>
                   <button
-                    className="flex items-center gap-2 px-3 py-1.5 text-sm text-text-secondary hover:text-accent-primary hover:bg-background-tertiary rounded transition-colors"
+                    className="flex items-center gap-2 px-3 py-1.5 text-sm text-text-secondary hover:text-accent-primary hover:bg-white/[0.05] rounded transition-colors"
                     onClick={() => navigate(`/dashboard/qr-codes/${qr.id}`)}
                   >
                     <Eye size={14} />
@@ -354,8 +354,8 @@ export const DynamicQR = () => {
             </div>
           </div>
           <div className="flex items-start gap-4">
-            <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center flex-shrink-0">
-              <Link size={20} className="text-purple-400" />
+            <div className="w-10 h-10 rounded-lg bg-[#94B4C1]/20 flex items-center justify-center flex-shrink-0">
+              <Link size={20} className="text-[#94B4C1]" />
             </div>
             <div>
               <h4 className="font-medium text-text-primary mb-1">Short URLs</h4>

@@ -64,7 +64,7 @@ export const Attendance = () => {
         <div className="flex items-center gap-2">
           <div className="flex-1 h-2 bg-[#1a1a24] rounded-full overflow-hidden max-w-[100px]">
             <div
-              className="h-full bg-[#6366f1] rounded-full"
+              className="h-full bg-[#547792] rounded-full"
               style={{ width: `${Math.min((record.hoursWorked / 9) * 100, 100)}%` }}
             />
           </div>
@@ -82,7 +82,7 @@ export const Attendance = () => {
         icon={CalendarCheck}
         actions={
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 px-3 py-2 bg-[#12121a] border border-[#1e1e2e] rounded-lg">
+            <div className="flex items-center gap-2 px-3 py-2 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-lg">
               <CalendarIcon className="w-4 h-4 text-white/40" />
               <input
                 type="date"
@@ -125,8 +125,8 @@ export const Attendance = () => {
           title="On Leave"
           value={stats.onLeave}
           icon={CalendarCheck}
-          iconColor="#6366f1"
-          iconBg="rgba(99, 102, 241, 0.2)"
+          iconColor="#547792"
+          iconBg="rgba(84, 119, 146, 0.2)"
           delay={0.25}
         />
       </div>
@@ -136,7 +136,7 @@ export const Attendance = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6"
+        className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
       >
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-white">Daily Summary</h3>
@@ -216,7 +216,7 @@ export const Attendance = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.35 }}
-        className="bg-[#12121a] border border-[#1e1e2e] rounded-xl overflow-hidden"
+        className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl overflow-hidden"
       >
         <DataTable
           columns={columns}

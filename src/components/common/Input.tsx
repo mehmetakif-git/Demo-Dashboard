@@ -47,7 +47,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               'w-full rounded-lg border bg-white/[0.03] backdrop-blur-xl px-4 py-2.5 text-sm text-white',
               'placeholder:text-white/40',
               'transition-all duration-200',
-              'focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-white/20',
+              'focus:outline-none focus:ring-2 focus:ring-[#94B4C1]/50 focus:border-white/20',
               'hover:bg-white/[0.05] hover:border-white/[0.12]',
               'disabled:cursor-not-allowed disabled:opacity-50',
               error

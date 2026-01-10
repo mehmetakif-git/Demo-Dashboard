@@ -88,7 +88,7 @@ export const MyFiles = () => {
 
   const getFileIcon = (item: FileItem) => {
     if (item.type === 'folder') {
-      return <Folder size={24} style={{ color: item.color || '#6366f1' }} />;
+      return <Folder size={24} style={{ color: item.color || '#547792' }} />;
     }
 
     const iconMap: Record<string, React.ReactNode> = {
@@ -99,8 +99,8 @@ export const MyFiles = () => {
       video: <Video size={24} className="text-yellow-400" />,
       presentation: <Presentation size={24} className="text-orange-400" />,
       archive: <Archive size={24} className="text-gray-400" />,
-      design: <Palette size={24} className="text-purple-400" />,
-      code: <Code size={24} className="text-purple-400" />,
+      design: <Palette size={24} className="text-[#94B4C1]" />,
+      code: <Code size={24} className="text-[#94B4C1]" />,
     };
 
     return iconMap[item.fileType || 'default'] || <File size={24} className="text-gray-400" />;
@@ -145,7 +145,7 @@ export const MyFiles = () => {
           className={`absolute top-2 left-2 w-5 h-5 rounded border-2 transition-all cursor-pointer ${
             selectedItems.includes(item.id)
               ? 'bg-accent-primary border-accent-primary'
-              : 'border-border-default opacity-0 group-hover:opacity-100'
+              : 'border-white/[0.08] opacity-0 group-hover:opacity-100'
           }`}
           onClick={(e) => { e.stopPropagation(); toggleSelection(item.id); }}
         >
@@ -197,7 +197,7 @@ export const MyFiles = () => {
     <motion.tr
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className={`border-b border-border-default hover:bg-background-tertiary cursor-pointer group ${
+      className={`border-b border-white/[0.08] hover:bg-white/[0.05] cursor-pointer group ${
         selectedItems.includes(item.id) ? 'bg-accent-primary/10' : ''
       }`}
       onClick={() => item.type === 'folder' ? handleFolderClick(item) : null}
@@ -207,7 +207,7 @@ export const MyFiles = () => {
           className={`w-5 h-5 rounded border-2 transition-all cursor-pointer ${
             selectedItems.includes(item.id)
               ? 'bg-accent-primary border-accent-primary'
-              : 'border-border-default'
+              : 'border-white/[0.08]'
           }`}
           onClick={(e) => { e.stopPropagation(); toggleSelection(item.id); }}
         >
@@ -240,16 +240,16 @@ export const MyFiles = () => {
       <td className="px-4 py-3 text-sm text-text-secondary">{item.modifiedBy}</td>
       <td className="px-4 py-3">
         <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100">
-          <button className="p-1.5 hover:bg-background-secondary rounded text-text-secondary hover:text-accent-primary">
+          <button className="p-1.5 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-accent-primary">
             <Download size={14} />
           </button>
-          <button className="p-1.5 hover:bg-background-secondary rounded text-text-secondary hover:text-accent-primary">
+          <button className="p-1.5 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-accent-primary">
             <Share2 size={14} />
           </button>
-          <button className="p-1.5 hover:bg-background-secondary rounded text-text-secondary hover:text-red-400">
+          <button className="p-1.5 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-red-400">
             <Trash2 size={14} />
           </button>
-          <button className="p-1.5 hover:bg-background-secondary rounded text-text-secondary">
+          <button className="p-1.5 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary">
             <MoreVertical size={14} />
           </button>
         </div>
@@ -311,7 +311,7 @@ export const MyFiles = () => {
           </span>
           <button className="text-sm text-accent-primary hover:underline">Manage Storage</button>
         </div>
-        <div className="h-2 bg-background-tertiary rounded-full overflow-hidden">
+        <div className="h-2 bg-white/[0.05] rounded-full overflow-hidden">
           <div className="h-full flex">
             {storageInfo.breakdown.map((item, index) => (
               <div
@@ -350,7 +350,7 @@ export const MyFiles = () => {
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="modified">Sort by Modified</option>
             <option value="name">Sort by Name</option>
@@ -361,7 +361,7 @@ export const MyFiles = () => {
           <select
             value={filterType}
             onChange={(e) => setFilterType(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Types</option>
             <option value="folder">Folders</option>
@@ -372,13 +372,13 @@ export const MyFiles = () => {
             <option value="video">Videos</option>
           </select>
 
-          <div className="flex items-center border border-border-default rounded-lg overflow-hidden">
+          <div className="flex items-center border border-white/[0.08] rounded-lg overflow-hidden">
             <button
               onClick={() => setViewMode('grid')}
               className={`p-2 transition-colors ${
                 viewMode === 'grid'
                   ? 'bg-accent-primary text-white'
-                  : 'bg-background-tertiary text-text-secondary hover:bg-background-secondary'
+                  : 'bg-white/[0.05] text-text-secondary hover:bg-white/[0.03] backdrop-blur-xl'
               }`}
             >
               <Grid3X3 size={18} />
@@ -388,7 +388,7 @@ export const MyFiles = () => {
               className={`p-2 transition-colors ${
                 viewMode === 'list'
                   ? 'bg-accent-primary text-white'
-                  : 'bg-background-tertiary text-text-secondary hover:bg-background-secondary'
+                  : 'bg-white/[0.05] text-text-secondary hover:bg-white/[0.03] backdrop-blur-xl'
               }`}
             >
               <List size={18} />
@@ -398,7 +398,7 @@ export const MyFiles = () => {
 
         {/* Selected Items Actions */}
         {selectedItems.length > 0 && (
-          <div className="flex items-center gap-2 mt-4 pt-4 border-t border-border-default">
+          <div className="flex items-center gap-2 mt-4 pt-4 border-t border-white/[0.08]">
             <span className="text-sm text-text-secondary">{selectedItems.length} selected</span>
             <button
               onClick={() => setSelectedItems([])}
@@ -428,7 +428,7 @@ export const MyFiles = () => {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="bg-background-tertiary border-b border-border-default">
+                <tr className="bg-white/[0.05] border-b border-white/[0.08]">
                   <th className="px-4 py-3 w-12" />
                   <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
                     Name
@@ -473,33 +473,33 @@ export const MyFiles = () => {
             onClick={() => setShowContextMenu(null)}
           />
           <div
-            className="fixed z-50 bg-background-secondary border border-border-default rounded-lg shadow-xl py-1 min-w-48"
+            className="fixed z-50 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-lg shadow-xl py-1 min-w-48"
             style={{ top: showContextMenu.y, left: showContextMenu.x }}
           >
-            <button className="w-full px-4 py-2 text-left text-sm text-text-primary hover:bg-background-tertiary flex items-center gap-2">
+            <button className="w-full px-4 py-2 text-left text-sm text-text-primary hover:bg-white/[0.05] flex items-center gap-2">
               <Eye size={14} /> Preview
             </button>
-            <button className="w-full px-4 py-2 text-left text-sm text-text-primary hover:bg-background-tertiary flex items-center gap-2">
+            <button className="w-full px-4 py-2 text-left text-sm text-text-primary hover:bg-white/[0.05] flex items-center gap-2">
               <Share2 size={14} /> Share
             </button>
-            <button className="w-full px-4 py-2 text-left text-sm text-text-primary hover:bg-background-tertiary flex items-center gap-2">
+            <button className="w-full px-4 py-2 text-left text-sm text-text-primary hover:bg-white/[0.05] flex items-center gap-2">
               <Download size={14} /> Download
             </button>
-            <hr className="my-1 border-border-default" />
-            <button className="w-full px-4 py-2 text-left text-sm text-text-primary hover:bg-background-tertiary flex items-center gap-2">
+            <hr className="my-1 border-white/[0.08]" />
+            <button className="w-full px-4 py-2 text-left text-sm text-text-primary hover:bg-white/[0.05] flex items-center gap-2">
               <Move size={14} /> Move to
             </button>
-            <button className="w-full px-4 py-2 text-left text-sm text-text-primary hover:bg-background-tertiary flex items-center gap-2">
+            <button className="w-full px-4 py-2 text-left text-sm text-text-primary hover:bg-white/[0.05] flex items-center gap-2">
               <Copy size={14} /> Copy to
             </button>
-            <button className="w-full px-4 py-2 text-left text-sm text-text-primary hover:bg-background-tertiary flex items-center gap-2">
+            <button className="w-full px-4 py-2 text-left text-sm text-text-primary hover:bg-white/[0.05] flex items-center gap-2">
               <Edit size={14} /> Rename
             </button>
-            <button className="w-full px-4 py-2 text-left text-sm text-text-primary hover:bg-background-tertiary flex items-center gap-2">
+            <button className="w-full px-4 py-2 text-left text-sm text-text-primary hover:bg-white/[0.05] flex items-center gap-2">
               <Star size={14} /> Star
             </button>
-            <hr className="my-1 border-border-default" />
-            <button className="w-full px-4 py-2 text-left text-sm text-red-400 hover:bg-background-tertiary flex items-center gap-2">
+            <hr className="my-1 border-white/[0.08]" />
+            <button className="w-full px-4 py-2 text-left text-sm text-red-400 hover:bg-white/[0.05] flex items-center gap-2">
               <Trash2 size={14} /> Delete
             </button>
           </div>

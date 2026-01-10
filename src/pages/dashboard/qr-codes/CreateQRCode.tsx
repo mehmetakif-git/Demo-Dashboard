@@ -155,7 +155,7 @@ export const CreateQRCode = () => {
               className={`p-6 rounded-xl border-2 transition-all text-left ${
                 isSelected
                   ? 'border-accent-primary bg-accent-primary/10'
-                  : 'border-border-default hover:border-border-hover bg-background-secondary'
+                  : 'border-white/[0.08] hover:border-white/[0.12] bg-white/[0.03] backdrop-blur-xl'
               }`}
             >
               <div
@@ -304,7 +304,7 @@ export const CreateQRCode = () => {
                 <select
                   value={formData.content.security || 'WPA'}
                   onChange={(e) => updateContent('security', e.target.value)}
-                  className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+                  className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
                 >
                   <option value="WPA">WPA/WPA2</option>
                   <option value="WEP">WEP</option>
@@ -334,7 +334,7 @@ export const CreateQRCode = () => {
                   placeholder="Email body..."
                   value={formData.content.body || ''}
                   onChange={(e) => updateContent('body', e.target.value)}
-                  className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary min-h-24"
+                  className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary min-h-24"
                 />
               </div>
             </>
@@ -363,7 +363,7 @@ export const CreateQRCode = () => {
                   placeholder="SMS message..."
                   value={formData.content.message || ''}
                   onChange={(e) => updateContent('message', e.target.value)}
-                  className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary min-h-24"
+                  className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary min-h-24"
                 />
               </div>
             </>
@@ -428,7 +428,7 @@ export const CreateQRCode = () => {
                   placeholder="Event description..."
                   value={formData.content.description || ''}
                   onChange={(e) => updateContent('description', e.target.value)}
-                  className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary min-h-24"
+                  className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary min-h-24"
                 />
               </div>
             </>
@@ -441,7 +441,7 @@ export const CreateQRCode = () => {
                 placeholder="Enter your text..."
                 value={formData.content.text || ''}
                 onChange={(e) => updateContent('text', e.target.value)}
-                className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary min-h-32"
+                className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary min-h-32"
               />
             </div>
           )}
@@ -455,7 +455,7 @@ export const CreateQRCode = () => {
             <select
               value={formData.folder}
               onChange={(e) => setFormData(prev => ({ ...prev, folder: e.target.value }))}
-              className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               {qrFolders.map(folder => (
                 <option key={folder.id} value={folder.id}>{folder.name}</option>
@@ -468,7 +468,7 @@ export const CreateQRCode = () => {
               id="isDynamic"
               checked={formData.isDynamic}
               onChange={(e) => setFormData(prev => ({ ...prev, isDynamic: e.target.checked }))}
-              className="w-4 h-4 rounded border-border-default bg-background-tertiary text-accent-primary focus:ring-accent-primary"
+              className="w-4 h-4 rounded border-white/[0.08] bg-white/[0.05] text-accent-primary focus:ring-accent-primary"
             />
             <label htmlFor="isDynamic" className="text-sm text-text-secondary">
               Create as Dynamic QR Code (allows editing content after creation)
@@ -493,7 +493,7 @@ export const CreateQRCode = () => {
                   type="color"
                   value={formData.style.foregroundColor}
                   onChange={(e) => updateStyle('foregroundColor', e.target.value)}
-                  className="w-10 h-10 rounded cursor-pointer border border-border-default"
+                  className="w-10 h-10 rounded cursor-pointer border border-white/[0.08]"
                 />
                 <Input
                   value={formData.style.foregroundColor}
@@ -509,7 +509,7 @@ export const CreateQRCode = () => {
                   type="color"
                   value={formData.style.backgroundColor}
                   onChange={(e) => updateStyle('backgroundColor', e.target.value)}
-                  className="w-10 h-10 rounded cursor-pointer border border-border-default"
+                  className="w-10 h-10 rounded cursor-pointer border border-white/[0.08]"
                 />
                 <Input
                   value={formData.style.backgroundColor}
@@ -538,7 +538,7 @@ export const CreateQRCode = () => {
                   className={`p-4 rounded-lg border-2 transition-all flex flex-col items-center gap-2 ${
                     formData.style.cornerStyle === style.id
                       ? 'border-accent-primary bg-accent-primary/10'
-                      : 'border-border-default hover:border-border-hover'
+                      : 'border-white/[0.08] hover:border-white/[0.12]'
                   }`}
                 >
                   <Icon size={24} className="text-text-primary" />
@@ -559,7 +559,7 @@ export const CreateQRCode = () => {
                 className={`p-3 rounded-lg border-2 transition-all text-center ${
                   formData.style.frame === frame.id
                     ? 'border-accent-primary bg-accent-primary/10'
-                    : 'border-border-default hover:border-border-hover'
+                    : 'border-white/[0.08] hover:border-white/[0.12]'
                 }`}
               >
                 <span className="text-sm text-text-secondary">{frame.label}</span>
@@ -570,7 +570,7 @@ export const CreateQRCode = () => {
 
         <Card className="p-6 space-y-4">
           <h3 className="font-semibold text-text-primary">Logo</h3>
-          <div className="border-2 border-dashed border-border-default rounded-lg p-8 text-center">
+          <div className="border-2 border-dashed border-white/[0.08] rounded-lg p-8 text-center">
             <Image size={32} className="mx-auto mb-2 text-text-muted" />
             <p className="text-sm text-text-secondary mb-2">Drag & drop your logo here</p>
             <Button variant="outline" size="sm">
@@ -607,11 +607,11 @@ export const CreateQRCode = () => {
           <div className="grid grid-cols-4 gap-2">
             {[
               { fg: '#000000', bg: '#ffffff' },
-              { fg: '#6366f1', bg: '#ffffff' },
+              { fg: '#547792', bg: '#ffffff' },
               { fg: '#10b981', bg: '#ffffff' },
               { fg: '#f59e0b', bg: '#ffffff' },
               { fg: '#ffffff', bg: '#000000' },
-              { fg: '#ffffff', bg: '#6366f1' },
+              { fg: '#ffffff', bg: '#547792' },
               { fg: '#ffffff', bg: '#10b981' },
               { fg: '#ffffff', bg: '#ef4444' },
             ].map((preset, index) => (
@@ -621,7 +621,7 @@ export const CreateQRCode = () => {
                   updateStyle('foregroundColor', preset.fg);
                   updateStyle('backgroundColor', preset.bg);
                 }}
-                className="w-full aspect-square rounded-lg border border-border-default overflow-hidden"
+                className="w-full aspect-square rounded-lg border border-white/[0.08] overflow-hidden"
                 style={{ backgroundColor: preset.bg }}
               >
                 <div
@@ -685,25 +685,25 @@ export const CreateQRCode = () => {
         <Card className="p-6">
           <h3 className="font-semibold text-text-primary mb-4">Summary</h3>
           <div className="space-y-3">
-            <div className="flex justify-between py-2 border-b border-border-default">
+            <div className="flex justify-between py-2 border-b border-white/[0.08]">
               <span className="text-text-secondary">Type</span>
               <span className="text-text-primary font-medium capitalize">{formData.type}</span>
             </div>
-            <div className="flex justify-between py-2 border-b border-border-default">
+            <div className="flex justify-between py-2 border-b border-white/[0.08]">
               <span className="text-text-secondary">Dynamic</span>
               <span className="text-text-primary font-medium">{formData.isDynamic ? 'Yes' : 'No'}</span>
             </div>
-            <div className="flex justify-between py-2 border-b border-border-default">
+            <div className="flex justify-between py-2 border-b border-white/[0.08]">
               <span className="text-text-secondary">Folder</span>
               <span className="text-text-primary font-medium">
                 {qrFolders.find(f => f.id === formData.folder)?.name || 'None'}
               </span>
             </div>
-            <div className="flex justify-between py-2 border-b border-border-default">
+            <div className="flex justify-between py-2 border-b border-white/[0.08]">
               <span className="text-text-secondary">Corner Style</span>
               <span className="text-text-primary font-medium capitalize">{formData.style.cornerStyle}</span>
             </div>
-            <div className="flex justify-between py-2 border-b border-border-default">
+            <div className="flex justify-between py-2 border-b border-white/[0.08]">
               <span className="text-text-secondary">Frame</span>
               <span className="text-text-primary font-medium capitalize">{formData.style.frame}</span>
             </div>
@@ -711,11 +711,11 @@ export const CreateQRCode = () => {
               <span className="text-text-secondary">Colors</span>
               <div className="flex items-center gap-2">
                 <div
-                  className="w-6 h-6 rounded border border-border-default"
+                  className="w-6 h-6 rounded border border-white/[0.08]"
                   style={{ backgroundColor: formData.style.foregroundColor }}
                 />
                 <div
-                  className="w-6 h-6 rounded border border-border-default"
+                  className="w-6 h-6 rounded border border-white/[0.08]"
                   style={{ backgroundColor: formData.style.backgroundColor }}
                 />
               </div>
@@ -763,7 +763,7 @@ export const CreateQRCode = () => {
                         ? 'bg-green-500 text-white'
                         : isCurrent
                         ? 'bg-accent-primary text-white'
-                        : 'bg-background-tertiary text-text-muted'
+                        : 'bg-white/[0.05] text-text-muted'
                     }`}
                   >
                     {isCompleted ? <Check size={18} /> : <Icon size={18} />}
@@ -777,7 +777,7 @@ export const CreateQRCode = () => {
                 {index < steps.length - 1 && (
                   <div
                     className={`flex-1 h-0.5 mx-4 ${
-                      isCompleted ? 'bg-green-500' : 'bg-background-tertiary'
+                      isCompleted ? 'bg-green-500' : 'bg-white/[0.05]'
                     }`}
                   />
                 )}

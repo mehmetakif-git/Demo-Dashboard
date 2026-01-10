@@ -109,7 +109,7 @@ export const Announcements = () => {
               <div className="flex items-center gap-3">
                 {getPriorityBadge(announcement.priority)}
                 {announcement.targetAudience !== 'all' && (
-                  <span className="px-2 py-0.5 rounded text-xs font-medium bg-purple-500/20 text-purple-400 capitalize">
+                  <span className="px-2 py-0.5 rounded text-xs font-medium bg-[#94B4C1]/20 text-[#94B4C1] capitalize">
                     {announcement.targetAudience}
                   </span>
                 )}
@@ -141,7 +141,7 @@ export const Announcements = () => {
           </p>
 
           {/* Footer */}
-          <div className="flex items-center justify-between pt-3 border-t border-border-default">
+          <div className="flex items-center justify-between pt-3 border-t border-white/[0.08]">
             <div className="flex items-center gap-4 text-xs text-text-muted">
               <span className="flex items-center gap-1">
                 <Calendar size={12} />
@@ -161,13 +161,13 @@ export const Announcements = () => {
             <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
               <button
                 onClick={(e) => { e.stopPropagation(); }}
-                className="p-1.5 hover:bg-background-tertiary rounded text-text-secondary hover:text-accent-primary"
+                className="p-1.5 hover:bg-white/[0.05] rounded text-text-secondary hover:text-accent-primary"
               >
                 <Edit size={14} />
               </button>
               <button
                 onClick={(e) => { e.stopPropagation(); }}
-                className="p-1.5 hover:bg-background-tertiary rounded text-text-secondary hover:text-red-400"
+                className="p-1.5 hover:bg-white/[0.05] rounded text-text-secondary hover:text-red-400"
               >
                 <Trash2 size={14} />
               </button>
@@ -205,7 +205,7 @@ export const Announcements = () => {
           <select
             value={selectedPriority}
             onChange={(e) => setSelectedPriority(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Priorities</option>
             <option value="high">High Priority</option>
@@ -253,10 +253,10 @@ export const Announcements = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-background-secondary rounded-xl max-w-2xl w-full max-h-[90vh] overflow-hidden"
+            className="bg-white/[0.03] backdrop-blur-xl rounded-xl max-w-2xl w-full max-h-[90vh] overflow-hidden"
           >
             {/* Modal Header */}
-            <div className="p-6 border-b border-border-default">
+            <div className="p-6 border-b border-white/[0.08]">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-2">
@@ -267,7 +267,7 @@ export const Announcements = () => {
                 </div>
                 <button
                   onClick={() => setSelectedAnnouncement(null)}
-                  className="p-2 hover:bg-background-tertiary rounded-lg"
+                  className="p-2 hover:bg-white/[0.05] rounded-lg"
                 >
                   <X size={20} className="text-text-secondary" />
                 </button>
@@ -296,13 +296,13 @@ export const Announcements = () => {
 
               {/* Attachments */}
               {selectedAnnouncement.attachments.length > 0 && (
-                <div className="mt-6 pt-6 border-t border-border-default">
+                <div className="mt-6 pt-6 border-t border-white/[0.08]">
                   <h4 className="font-medium text-text-primary mb-3">Attachments</h4>
                   <div className="space-y-2">
                     {selectedAnnouncement.attachments.map((attachment, index) => (
                       <div
                         key={index}
-                        className="flex items-center justify-between p-3 bg-background-tertiary rounded-lg"
+                        className="flex items-center justify-between p-3 bg-white/[0.05] rounded-lg"
                       >
                         <div className="flex items-center gap-3">
                           <Paperclip size={16} className="text-text-muted" />
@@ -311,7 +311,7 @@ export const Announcements = () => {
                             <p className="text-xs text-text-muted">{attachment.size}</p>
                           </div>
                         </div>
-                        <button className="p-2 hover:bg-background-secondary rounded-lg text-text-secondary hover:text-accent-primary">
+                        <button className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded-lg text-text-secondary hover:text-accent-primary">
                           <Download size={16} />
                         </button>
                       </div>
@@ -322,7 +322,7 @@ export const Announcements = () => {
             </div>
 
             {/* Modal Footer */}
-            <div className="p-6 border-t border-border-default bg-background-tertiary">
+            <div className="p-6 border-t border-white/[0.08] bg-white/[0.05]">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4 text-sm text-text-muted">
                   <span className="flex items-center gap-1">

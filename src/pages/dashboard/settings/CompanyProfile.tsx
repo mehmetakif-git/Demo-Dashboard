@@ -95,7 +95,7 @@ export const CompanyProfile = () => {
             <div className="md:col-span-2">
               <label className="block text-sm font-medium text-text-secondary mb-2">Company Logo</label>
               <div className="flex items-center gap-4">
-                <div className="w-24 h-24 rounded-lg bg-background-tertiary border-2 border-dashed border-border-default flex items-center justify-center">
+                <div className="w-24 h-24 rounded-lg bg-white/[0.05] border-2 border-dashed border-white/[0.08] flex items-center justify-center">
                   {formData.logo ? (
                     <img src={formData.logo} alt="Logo" className="w-full h-full object-contain rounded-lg" />
                   ) : (
@@ -130,7 +130,7 @@ export const CompanyProfile = () => {
               <select
                 value={formData.industry}
                 onChange={(e) => handleChange('industry', e.target.value)}
-                className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+                className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
               >
                 {industries.map(industry => (
                   <option key={industry} value={industry}>{industry}</option>
@@ -150,7 +150,7 @@ export const CompanyProfile = () => {
               <select
                 value={formData.employeeCount}
                 onChange={(e) => handleChange('employeeCount', e.target.value)}
-                className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+                className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
               >
                 {employeeCounts.map(count => (
                   <option key={count} value={count}>{count}</option>
@@ -272,7 +272,7 @@ export const CompanyProfile = () => {
               <select
                 value={formData.address.country}
                 onChange={(e) => handleAddressChange('country', e.target.value)}
-                className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+                className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
               >
                 {countries.map(country => (
                   <option key={country} value={country}>{country}</option>
@@ -291,8 +291,8 @@ export const CompanyProfile = () => {
       >
         <Card className="p-6">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center">
-              <FileText size={20} className="text-purple-400" />
+            <div className="w-10 h-10 rounded-lg bg-[#94B4C1]/20 flex items-center justify-center">
+              <FileText size={20} className="text-[#94B4C1]" />
             </div>
             <div>
               <h3 className="font-semibold text-text-primary">Legal & Tax</h3>
@@ -341,7 +341,7 @@ export const CompanyProfile = () => {
               <select
                 value={formData.timezone}
                 onChange={(e) => handleChange('timezone', e.target.value)}
-                className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+                className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
               >
                 {timezones.map(tz => (
                   <option key={tz.value} value={tz.value}>{tz.label}</option>
@@ -354,7 +354,7 @@ export const CompanyProfile = () => {
               <select
                 value={formData.dateFormat}
                 onChange={(e) => handleChange('dateFormat', e.target.value)}
-                className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+                className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
               >
                 {dateFormats.map(df => (
                   <option key={df.value} value={df.value}>{df.label}</option>
@@ -367,7 +367,7 @@ export const CompanyProfile = () => {
               <select
                 value={formData.currency}
                 onChange={(e) => handleChange('currency', e.target.value)}
-                className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+                className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
               >
                 {currencies.map(c => (
                   <option key={c.value} value={c.value}>{c.label}</option>
@@ -380,7 +380,7 @@ export const CompanyProfile = () => {
               <select
                 value={formData.language}
                 onChange={(e) => handleChange('language', e.target.value)}
-                className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+                className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
               >
                 {languages.map(lang => (
                   <option key={lang.value} value={lang.value}>{lang.label}</option>
@@ -416,13 +416,13 @@ export const CompanyProfile = () => {
                   type="color"
                   value={formData.primaryColor}
                   onChange={(e) => handleChange('primaryColor', e.target.value)}
-                  className="w-10 h-10 rounded cursor-pointer border border-border-default"
+                  className="w-10 h-10 rounded cursor-pointer border border-white/[0.08]"
                 />
                 <input
                   type="text"
                   value={formData.primaryColor}
                   onChange={(e) => handleChange('primaryColor', e.target.value)}
-                  className="flex-1 px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary text-sm focus:outline-none focus:border-accent-primary"
+                  className="flex-1 px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary text-sm focus:outline-none focus:border-accent-primary"
                 />
               </div>
             </div>
@@ -434,13 +434,13 @@ export const CompanyProfile = () => {
                   type="color"
                   value={formData.secondaryColor}
                   onChange={(e) => handleChange('secondaryColor', e.target.value)}
-                  className="w-10 h-10 rounded cursor-pointer border border-border-default"
+                  className="w-10 h-10 rounded cursor-pointer border border-white/[0.08]"
                 />
                 <input
                   type="text"
                   value={formData.secondaryColor}
                   onChange={(e) => handleChange('secondaryColor', e.target.value)}
-                  className="flex-1 px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary text-sm focus:outline-none focus:border-accent-primary"
+                  className="flex-1 px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary text-sm focus:outline-none focus:border-accent-primary"
                 />
               </div>
             </div>
@@ -448,7 +448,7 @@ export const CompanyProfile = () => {
             <div className="md:col-span-2">
               <label className="block text-sm font-medium text-text-secondary mb-2">Favicon</label>
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-lg bg-background-tertiary border border-border-default flex items-center justify-center">
+                <div className="w-12 h-12 rounded-lg bg-white/[0.05] border border-white/[0.08] flex items-center justify-center">
                   {formData.favicon ? (
                     <img src={formData.favicon} alt="Favicon" className="w-8 h-8" />
                   ) : (
@@ -465,7 +465,7 @@ export const CompanyProfile = () => {
       </motion.div>
 
       {/* Sticky Save Button */}
-      <div className="fixed bottom-0 left-0 right-0 p-4 bg-background-primary border-t border-border-default">
+      <div className="fixed bottom-0 left-0 right-0 p-4 bg-background-primary border-t border-white/[0.08]">
         <div className="max-w-7xl mx-auto flex justify-end gap-4">
           <Button
             variant="outline"

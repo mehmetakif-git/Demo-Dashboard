@@ -68,7 +68,7 @@ export const ProjectList = () => {
         title="Projects"
         subtitle="Track and manage all agency projects"
         actions={
-          <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
+          <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
             <Plus className="h-4 w-4" />
             New Project
           </button>
@@ -112,14 +112,14 @@ export const ProjectList = () => {
             placeholder="Search projects..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full rounded-lg border border-[#1e1e2e] bg-[#12121a] py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#6366f1] focus:outline-none"
+            className="w-full rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#547792] focus:outline-none"
           />
         </div>
         <div className="flex gap-2">
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="rounded-lg border border-[#1e1e2e] bg-[#12121a] px-3 py-2 text-sm text-white focus:border-[#6366f1] focus:outline-none"
+            className="rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
             <option value="all">All Status</option>
             {projectStatuses.map((status) => (
@@ -131,7 +131,7 @@ export const ProjectList = () => {
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value)}
-            className="rounded-lg border border-[#1e1e2e] bg-[#12121a] px-3 py-2 text-sm text-white focus:border-[#6366f1] focus:outline-none"
+            className="rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
             <option value="all">All Types</option>
             {projectTypes.map((type) => (
@@ -140,7 +140,7 @@ export const ProjectList = () => {
               </option>
             ))}
           </select>
-          <button className="flex items-center gap-2 rounded-lg border border-[#1e1e2e] bg-[#12121a] px-3 py-2 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
+          <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
             <Filter className="h-4 w-4" />
             More Filters
           </button>
@@ -148,11 +148,11 @@ export const ProjectList = () => {
       </div>
 
       {/* Projects Table */}
-      <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] overflow-hidden">
+      <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-[#1e1e2e]">
+              <tr className="border-b border-white/[0.08]">
                 <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-[#64748b]">
                   Project
                 </th>
@@ -234,7 +234,7 @@ export const ProjectList = () => {
                                     ? 'bg-emerald-500'
                                     : project.status === 'on-hold'
                                     ? 'bg-amber-500'
-                                    : 'bg-gradient-to-r from-[#6366f1] to-[#8b5cf6]'
+                                    : 'bg-gradient-to-r from-[#547792] to-[#94B4C1]'
                                 }`}
                                 style={{ width: `${progress}%` }}
                               />
@@ -248,7 +248,7 @@ export const ProjectList = () => {
                         {project.team.slice(0, 3).map((member) => (
                           <div
                             key={member.id}
-                            className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-[#6366f1] to-[#8b5cf6] text-xs font-medium text-white ring-2 ring-[#12121a]"
+                            className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-[#547792] to-[#94B4C1] text-xs font-medium text-white ring-2 ring-[#12121a]"
                             title={member.name}
                           >
                             {member.name.split(' ').map((n) => n[0]).join('')}
@@ -294,15 +294,15 @@ export const ProjectList = () => {
         </div>
 
         {/* Pagination */}
-        <div className="flex items-center justify-between border-t border-[#1e1e2e] px-6 py-4">
+        <div className="flex items-center justify-between border-t border-white/[0.08] px-6 py-4">
           <p className="text-sm text-[#64748b]">
             Showing {filteredProjects.length} of {projects.length} projects
           </p>
           <div className="flex gap-2">
-            <button className="rounded-lg border border-[#1e1e2e] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
+            <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
               Previous
             </button>
-            <button className="rounded-lg border border-[#1e1e2e] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
+            <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
               Next
             </button>
           </div>

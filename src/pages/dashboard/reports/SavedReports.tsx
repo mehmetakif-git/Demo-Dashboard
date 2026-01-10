@@ -118,8 +118,8 @@ export const SavedReports = () => {
         </Card>
         <Card className="p-4">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-purple-500/20 rounded-lg">
-              <Calendar size={20} className="text-purple-500" />
+            <div className="p-2 bg-[#94B4C1]/20 rounded-lg">
+              <Calendar size={20} className="text-[#94B4C1]" />
             </div>
             <div>
               <p className="text-2xl font-bold text-text-primary">{stats.scheduled}</p>
@@ -166,7 +166,7 @@ export const SavedReports = () => {
           <select
             value={templateFilter}
             onChange={(e) => setTemplateFilter(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Templates</option>
             {templates.map((template) => (
@@ -179,7 +179,7 @@ export const SavedReports = () => {
           <select
             value={scheduleFilter}
             onChange={(e) => setScheduleFilter(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Schedules</option>
             <option value="scheduled">Scheduled</option>
@@ -189,7 +189,7 @@ export const SavedReports = () => {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Status</option>
             <option value="active">Active</option>
@@ -203,7 +203,7 @@ export const SavedReports = () => {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="bg-background-tertiary border-b border-border-default">
+              <tr className="bg-white/[0.05] border-b border-white/[0.08]">
                 <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
                   Name
                 </th>
@@ -236,7 +236,7 @@ export const SavedReports = () => {
                   key={report.id}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="border-b border-border-default hover:bg-background-tertiary"
+                  className="border-b border-white/[0.08] hover:bg-white/[0.05]"
                 >
                   <td className="px-4 py-3">
                     <div>
@@ -253,7 +253,7 @@ export const SavedReports = () => {
                         <span className="text-text-muted">Manual</span>
                       ) : (
                         <>
-                          <Clock size={14} className="text-purple-400" />
+                          <Clock size={14} className="text-[#94B4C1]" />
                           {report.schedule}
                         </>
                       )}
@@ -295,41 +295,41 @@ export const SavedReports = () => {
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-1">
                       <button
-                        className="p-1.5 hover:bg-background-secondary rounded text-text-secondary hover:text-green-400"
+                        className="p-1.5 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-green-400"
                         title="Run Now"
                       >
                         <Play size={14} />
                       </button>
                       <button
-                        className="p-1.5 hover:bg-background-secondary rounded text-text-secondary hover:text-accent-primary"
+                        className="p-1.5 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-accent-primary"
                         title="Edit"
                         onClick={() => handleEdit(report)}
                       >
                         <Edit size={14} />
                       </button>
                       <button
-                        className="p-1.5 hover:bg-background-secondary rounded text-text-secondary hover:text-blue-400"
+                        className="p-1.5 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-blue-400"
                         title="Duplicate"
                       >
                         <Copy size={14} />
                       </button>
                       {report.status === 'active' ? (
                         <button
-                          className="p-1.5 hover:bg-background-secondary rounded text-text-secondary hover:text-orange-400"
+                          className="p-1.5 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-orange-400"
                           title="Pause"
                         >
                           <Pause size={14} />
                         </button>
                       ) : (
                         <button
-                          className="p-1.5 hover:bg-background-secondary rounded text-text-secondary hover:text-green-400"
+                          className="p-1.5 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-green-400"
                           title="Resume"
                         >
                           <PlayCircle size={14} />
                         </button>
                       )}
                       <button
-                        className="p-1.5 hover:bg-background-secondary rounded text-text-secondary hover:text-red-400"
+                        className="p-1.5 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-red-400"
                         title="Delete"
                       >
                         <Trash2 size={14} />
@@ -357,17 +357,17 @@ export const SavedReports = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-background-secondary rounded-xl max-w-lg w-full max-h-[90vh] overflow-y-auto"
+            className="bg-white/[0.03] backdrop-blur-xl rounded-xl max-w-lg w-full max-h-[90vh] overflow-y-auto"
           >
             {/* Header */}
-            <div className="p-6 border-b border-border-default">
+            <div className="p-6 border-b border-white/[0.08]">
               <div className="flex items-center justify-between">
                 <h2 className="text-lg font-semibold text-text-primary">
                   Edit Report Configuration
                 </h2>
                 <button
                   onClick={() => setShowEditModal(false)}
-                  className="p-2 hover:bg-background-tertiary rounded-lg"
+                  className="p-2 hover:bg-white/[0.05] rounded-lg"
                 >
                   <X size={20} className="text-text-secondary" />
                 </button>
@@ -389,7 +389,7 @@ export const SavedReports = () => {
                 <label className="block text-sm font-medium text-text-primary mb-2">
                   Template
                 </label>
-                <div className="p-3 bg-background-tertiary rounded-lg">
+                <div className="p-3 bg-white/[0.05] rounded-lg">
                   <p className="text-text-secondary">{selectedReport.template}</p>
                 </div>
               </div>
@@ -407,7 +407,7 @@ export const SavedReports = () => {
                       </label>
                       <select
                         defaultValue={value}
-                        className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+                        className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
                       >
                         <option value={value}>{value}</option>
                         <option value="Option 1">Option 1</option>
@@ -428,7 +428,7 @@ export const SavedReports = () => {
                   defaultValue={selectedReport.schedule.includes('Daily') ? 'daily' :
                     selectedReport.schedule.includes('Weekly') ? 'weekly' :
                     selectedReport.schedule.includes('Monthly') ? 'monthly' : 'none'}
-                  className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+                  className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
                 >
                   {scheduleOptions.map((option) => (
                     <option key={option.id} value={option.id}>
@@ -448,10 +448,10 @@ export const SavedReports = () => {
                   {selectedReport.recipients.map((email, index) => (
                     <div
                       key={index}
-                      className="flex items-center justify-between p-2 bg-background-tertiary rounded-lg"
+                      className="flex items-center justify-between p-2 bg-white/[0.05] rounded-lg"
                     >
                       <span className="text-sm text-text-secondary">{email}</span>
-                      <button className="p-1 hover:bg-background-secondary rounded text-text-muted hover:text-red-400">
+                      <button className="p-1 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-muted hover:text-red-400">
                         <X size={14} />
                       </button>
                     </div>
@@ -472,7 +472,7 @@ export const SavedReports = () => {
                       className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-colors ${
                         selectedReport.format === format
                           ? 'border-accent-primary bg-accent-primary/10 text-accent-primary'
-                          : 'border-border-default text-text-secondary hover:border-accent-primary'
+                          : 'border-white/[0.08] text-text-secondary hover:border-accent-primary'
                       }`}
                     >
                       {getFormatIcon(format)}
@@ -488,7 +488,7 @@ export const SavedReports = () => {
                   <input
                     type="checkbox"
                     defaultChecked={selectedReport.status === 'active'}
-                    className="w-4 h-4 rounded border-border-default text-accent-primary focus:ring-accent-primary"
+                    className="w-4 h-4 rounded border-white/[0.08] text-accent-primary focus:ring-accent-primary"
                   />
                   <span className="text-sm text-text-secondary">Enable this report</span>
                 </label>
@@ -496,7 +496,7 @@ export const SavedReports = () => {
             </div>
 
             {/* Footer */}
-            <div className="p-6 border-t border-border-default bg-background-tertiary flex justify-end gap-3">
+            <div className="p-6 border-t border-white/[0.08] bg-white/[0.05] flex justify-end gap-3">
               <Button variant="secondary" onClick={() => setShowEditModal(false)}>
                 Cancel
               </Button>

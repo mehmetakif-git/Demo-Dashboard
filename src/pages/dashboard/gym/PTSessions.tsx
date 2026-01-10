@@ -154,7 +154,7 @@ export const PTSessions = () => {
           title="Total Sessions"
           value={stats.total.toString()}
           icon={Calendar}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
         <StatsCard
           title="Scheduled"
@@ -191,7 +191,7 @@ export const PTSessions = () => {
             <select
               value={trainerFilter}
               onChange={(e) => setTrainerFilter(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Trainers</option>
               {trainers.map(trainer => (
@@ -203,7 +203,7 @@ export const PTSessions = () => {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Status</option>
               <option value="scheduled">Scheduled</option>
@@ -238,7 +238,7 @@ export const PTSessions = () => {
           <div className="flex items-center justify-between mb-6">
             <button
               onClick={() => navigateWeek('prev')}
-              className="p-2 hover:bg-background-tertiary rounded-lg transition-colors"
+              className="p-2 hover:bg-white/[0.05] rounded-lg transition-colors"
             >
               <ChevronLeft className="h-5 w-5 text-text-secondary" />
             </button>
@@ -247,7 +247,7 @@ export const PTSessions = () => {
             </h3>
             <button
               onClick={() => navigateWeek('next')}
-              className="p-2 hover:bg-background-tertiary rounded-lg transition-colors"
+              className="p-2 hover:bg-white/[0.05] rounded-lg transition-colors"
             >
               <ChevronRight className="h-5 w-5 text-text-secondary" />
             </button>
@@ -286,7 +286,7 @@ export const PTSessions = () => {
                       return (
                         <div
                           key={dateIndex}
-                          className="min-h-[40px] p-1 bg-background-tertiary/50 rounded border border-border-default"
+                          className="min-h-[40px] p-1 bg-white/[0.05]/50 rounded border border-white/[0.08]"
                         >
                           {sessions.map(session => (
                             <button
@@ -317,7 +317,7 @@ export const PTSessions = () => {
         <Card className="overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-background-tertiary">
+              <thead className="bg-white/[0.05]">
                 <tr>
                   <th className="text-left p-4 text-xs font-semibold text-text-secondary uppercase">Date & Time</th>
                   <th className="text-left p-4 text-xs font-semibold text-text-secondary uppercase">Member</th>
@@ -334,7 +334,7 @@ export const PTSessions = () => {
                     key={session.id}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="hover:bg-background-tertiary/50 transition-colors"
+                    className="hover:bg-white/[0.05]/50 transition-colors"
                   >
                     <td className="p-4">
                       <div className="flex items-center gap-2">
@@ -368,7 +368,7 @@ export const PTSessions = () => {
                       </div>
                     </td>
                     <td className="p-4">
-                      <span className="px-2 py-1 bg-background-tertiary rounded text-xs text-text-secondary capitalize">
+                      <span className="px-2 py-1 bg-white/[0.05] rounded text-xs text-text-secondary capitalize">
                         {session.sessionType}
                       </span>
                     </td>
@@ -434,7 +434,7 @@ export const PTSessions = () => {
                 <h3 className="text-lg font-semibold text-text-primary">Session Details</h3>
                 <button
                   onClick={() => setSelectedSession(null)}
-                  className="p-2 hover:bg-background-tertiary rounded transition-colors"
+                  className="p-2 hover:bg-white/[0.05] rounded transition-colors"
                 >
                   <X size={20} className="text-text-muted" />
                 </button>
@@ -458,7 +458,7 @@ export const PTSessions = () => {
                 </div>
 
                 {/* Date & Time */}
-                <div className="flex items-center gap-3 p-3 bg-background-tertiary rounded-lg">
+                <div className="flex items-center gap-3 p-3 bg-white/[0.05] rounded-lg">
                   <Calendar className="h-5 w-5 text-accent-primary" />
                   <div>
                     <p className="text-text-primary font-medium">{formatDate(selectedSession.date)}</p>
@@ -468,14 +468,14 @@ export const PTSessions = () => {
 
                 {/* Member & Trainer */}
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="p-3 bg-background-tertiary rounded-lg">
+                  <div className="p-3 bg-white/[0.05] rounded-lg">
                     <p className="text-xs text-text-muted mb-1">Member</p>
                     <div className="flex items-center gap-2">
                       <User className="h-4 w-4 text-text-secondary" />
                       <span className="text-text-primary">{selectedSession.memberName}</span>
                     </div>
                   </div>
-                  <div className="p-3 bg-background-tertiary rounded-lg">
+                  <div className="p-3 bg-white/[0.05] rounded-lg">
                     <p className="text-xs text-text-muted mb-1">Trainer</p>
                     <div className="flex items-center gap-2">
                       <Dumbbell className="h-4 w-4 text-accent-primary" />
@@ -486,18 +486,18 @@ export const PTSessions = () => {
 
                 {/* Type & Duration */}
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="p-3 bg-background-tertiary rounded-lg">
+                  <div className="p-3 bg-white/[0.05] rounded-lg">
                     <p className="text-xs text-text-muted mb-1">Session Type</p>
                     <p className="text-text-primary capitalize">{selectedSession.sessionType}</p>
                   </div>
-                  <div className="p-3 bg-background-tertiary rounded-lg">
+                  <div className="p-3 bg-white/[0.05] rounded-lg">
                     <p className="text-xs text-text-muted mb-1">Duration</p>
                     <p className="text-text-primary">{selectedSession.duration} minutes</p>
                   </div>
                 </div>
 
                 {/* Location */}
-                <div className="p-3 bg-background-tertiary rounded-lg">
+                <div className="p-3 bg-white/[0.05] rounded-lg">
                   <p className="text-xs text-text-muted mb-1">Location</p>
                   <div className="flex items-center gap-2">
                     <MapPin className="h-4 w-4 text-text-secondary" />
@@ -507,14 +507,14 @@ export const PTSessions = () => {
 
                 {/* Notes */}
                 {selectedSession.notes && (
-                  <div className="p-3 bg-background-tertiary rounded-lg">
+                  <div className="p-3 bg-white/[0.05] rounded-lg">
                     <p className="text-xs text-text-muted mb-1">Notes</p>
                     <p className="text-text-secondary text-sm">{selectedSession.notes}</p>
                   </div>
                 )}
               </div>
 
-              <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-border-default">
+              <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-white/[0.08]">
                 {selectedSession.status === 'scheduled' && (
                   <>
                     <Button variant="outline" className="text-red-400 border-red-400/50">
@@ -555,7 +555,7 @@ export const PTSessions = () => {
                 <h3 className="text-lg font-semibold text-text-primary">Book PT Session</h3>
                 <button
                   onClick={() => setIsBookModalOpen(false)}
-                  className="p-2 hover:bg-background-tertiary rounded transition-colors"
+                  className="p-2 hover:bg-white/[0.05] rounded transition-colors"
                 >
                   <X size={20} className="text-text-muted" />
                 </button>
@@ -567,7 +567,7 @@ export const PTSessions = () => {
                   <select
                     value={bookForm.memberId}
                     onChange={(e) => setBookForm({ ...bookForm, memberId: e.target.value })}
-                    className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+                    className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
                   >
                     <option value="">Select member...</option>
                     {gymMembers.filter(m => m.membershipStatus === 'active').map(member => (
@@ -583,7 +583,7 @@ export const PTSessions = () => {
                   <select
                     value={bookForm.trainerId}
                     onChange={(e) => setBookForm({ ...bookForm, trainerId: e.target.value })}
-                    className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+                    className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
                   >
                     <option value="">Select trainer...</option>
                     {trainers.filter(t => t.status === 'active').map(trainer => (
@@ -601,7 +601,7 @@ export const PTSessions = () => {
                       type="date"
                       value={bookForm.date}
                       onChange={(e) => setBookForm({ ...bookForm, date: e.target.value })}
-                      className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+                      className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
                     />
                   </div>
                   <div>
@@ -610,7 +610,7 @@ export const PTSessions = () => {
                       type="time"
                       value={bookForm.time}
                       onChange={(e) => setBookForm({ ...bookForm, time: e.target.value })}
-                      className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+                      className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
                     />
                   </div>
                 </div>
@@ -621,7 +621,7 @@ export const PTSessions = () => {
                     <select
                       value={bookForm.duration}
                       onChange={(e) => setBookForm({ ...bookForm, duration: e.target.value })}
-                      className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+                      className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
                     >
                       <option value="30">30 minutes</option>
                       <option value="45">45 minutes</option>
@@ -634,7 +634,7 @@ export const PTSessions = () => {
                     <select
                       value={bookForm.sessionType}
                       onChange={(e) => setBookForm({ ...bookForm, sessionType: e.target.value })}
-                      className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+                      className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
                     >
                       <option value="strength">Strength Training</option>
                       <option value="cardio">Cardio</option>
@@ -653,12 +653,12 @@ export const PTSessions = () => {
                     onChange={(e) => setBookForm({ ...bookForm, notes: e.target.value })}
                     placeholder="Any special instructions or focus areas..."
                     rows={3}
-                    className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-primary resize-none"
+                    className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-primary resize-none"
                   />
                 </div>
               </div>
 
-              <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-border-default">
+              <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-white/[0.08]">
                 <Button variant="outline" onClick={() => setIsBookModalOpen(false)}>
                   Cancel
                 </Button>

@@ -116,7 +116,7 @@ export const Inventory = () => {
           title="Total Items"
           value={stats.totalItems.toString()}
           icon={Package}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
         <StatsCard
           title="In Stock"
@@ -140,7 +140,7 @@ export const Inventory = () => {
           title="Total Value"
           value={formatCurrency(stats.totalValue)}
           icon={DollarSign}
-          iconColor="#8b5cf6"
+          iconColor="#94B4C1"
         />
       </div>
 
@@ -160,7 +160,7 @@ export const Inventory = () => {
             <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Status</option>
               <option value="in-stock">In Stock</option>
@@ -171,7 +171,7 @@ export const Inventory = () => {
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Categories</option>
               {categories.map(cat => (
@@ -181,7 +181,7 @@ export const Inventory = () => {
           </div>
 
           {/* View Toggle */}
-          <div className="flex gap-1 p-1 bg-background-secondary rounded-lg">
+          <div className="flex gap-1 p-1 bg-white/[0.03] backdrop-blur-xl rounded-lg">
             <button
               onClick={() => setViewMode('grid')}
               className={`p-2 rounded transition-all ${
@@ -232,7 +232,7 @@ export const Inventory = () => {
                         <h3 className="font-semibold text-text-primary text-sm">{part.name}</h3>
                         <p className="text-xs text-text-secondary font-mono">{part.sku}</p>
                       </div>
-                      <button className="p-1 hover:bg-background-tertiary rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                      <button className="p-1 hover:bg-white/[0.05] rounded opacity-0 group-hover:opacity-100 transition-opacity">
                         <Edit size={14} className="text-text-secondary" />
                       </button>
                     </div>
@@ -250,7 +250,7 @@ export const Inventory = () => {
                           {part.quantity} / {part.minQuantity} min
                         </span>
                       </div>
-                      <div className="h-2 bg-background-tertiary rounded-full overflow-hidden">
+                      <div className="h-2 bg-white/[0.05] rounded-full overflow-hidden">
                         <div
                           className={`h-full ${stockLevel.color} transition-all`}
                           style={{ width: stockLevel.width }}
@@ -275,8 +275,8 @@ export const Inventory = () => {
                     </div>
 
                     {/* Category */}
-                    <div className="pt-3 border-t border-border-default">
-                      <span className="px-2 py-0.5 bg-background-tertiary rounded text-xs text-text-secondary">
+                    <div className="pt-3 border-t border-white/[0.08]">
+                      <span className="px-2 py-0.5 bg-white/[0.05] rounded text-xs text-text-secondary">
                         {part.category}
                       </span>
                     </div>
@@ -292,7 +292,7 @@ export const Inventory = () => {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-border-default">
+                <tr className="border-b border-white/[0.08]">
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Part</th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">SKU</th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Category</th>
@@ -312,7 +312,7 @@ export const Inventory = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: index * 0.03 }}
-                    className="hover:bg-background-tertiary transition-colors"
+                    className="hover:bg-white/[0.05] transition-colors"
                   >
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-3">
@@ -327,7 +327,7 @@ export const Inventory = () => {
                     </td>
                     <td className="py-3 px-4 text-sm text-text-secondary font-mono">{part.sku}</td>
                     <td className="py-3 px-4">
-                      <span className="px-2 py-0.5 bg-background-tertiary rounded text-xs text-text-secondary">
+                      <span className="px-2 py-0.5 bg-white/[0.05] rounded text-xs text-text-secondary">
                         {part.category}
                       </span>
                     </td>
@@ -346,13 +346,13 @@ export const Inventory = () => {
                     <td className="py-3 px-4">{getStatusBadge(part.status)}</td>
                     <td className="py-3 px-4">
                       <div className="flex items-center justify-end gap-1">
-                        <button className="p-2 hover:bg-background-secondary rounded text-text-secondary hover:text-green-400">
+                        <button className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-green-400">
                           <RefreshCw size={14} />
                         </button>
-                        <button className="p-2 hover:bg-background-secondary rounded text-text-secondary hover:text-blue-400">
+                        <button className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-blue-400">
                           <Edit size={14} />
                         </button>
-                        <button className="p-2 hover:bg-background-secondary rounded text-text-secondary hover:text-red-400">
+                        <button className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-red-400">
                           <Trash2 size={14} />
                         </button>
                       </div>

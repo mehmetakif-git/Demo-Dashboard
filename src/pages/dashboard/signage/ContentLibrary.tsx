@@ -172,7 +172,7 @@ export const ContentLibrary = () => {
           title="Total Items"
           value={stats.total.toString()}
           icon={FolderOpen}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
         <StatsCard
           title="Images"
@@ -190,7 +190,7 @@ export const ContentLibrary = () => {
           title="Storage Used"
           value={stats.storage}
           icon={HardDrive}
-          iconColor="#8b5cf6"
+          iconColor="#94B4C1"
         />
       </div>
 
@@ -199,7 +199,7 @@ export const ContentLibrary = () => {
         <Card className="w-64 p-4 shrink-0 hidden lg:block">
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-semibold text-text-primary">Folders</h3>
-            <button className="p-1 hover:bg-background-tertiary rounded">
+            <button className="p-1 hover:bg-white/[0.05] rounded">
               <FolderPlus size={16} className="text-text-secondary" />
             </button>
           </div>
@@ -209,7 +209,7 @@ export const ContentLibrary = () => {
               className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
                 selectedFolder === 'all'
                   ? 'bg-accent-primary/20 text-accent-primary'
-                  : 'text-text-secondary hover:bg-background-tertiary'
+                  : 'text-text-secondary hover:bg-white/[0.05]'
               }`}
             >
               <FolderOpen size={16} />
@@ -223,7 +223,7 @@ export const ContentLibrary = () => {
                 className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
                   selectedFolder === folder.name
                     ? 'bg-accent-primary/20 text-accent-primary'
-                    : 'text-text-secondary hover:bg-background-tertiary'
+                    : 'text-text-secondary hover:bg-white/[0.05]'
                 }`}
               >
                 <div
@@ -255,7 +255,7 @@ export const ContentLibrary = () => {
                 <select
                   value={selectedType}
                   onChange={(e) => setSelectedType(e.target.value)}
-                  className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+                  className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
                 >
                   <option value="all">All Types</option>
                   <option value="image">Images</option>
@@ -265,7 +265,7 @@ export const ContentLibrary = () => {
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+                  className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
                 >
                   <option value="date">Sort by Date</option>
                   <option value="name">Sort by Name</option>
@@ -276,7 +276,7 @@ export const ContentLibrary = () => {
                 <select
                   value={selectedFolder}
                   onChange={(e) => setSelectedFolder(e.target.value)}
-                  className="lg:hidden px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+                  className="lg:hidden px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
                 >
                   <option value="all">All Folders</option>
                   {contentFolders.map(f => (
@@ -286,7 +286,7 @@ export const ContentLibrary = () => {
               </div>
 
               {/* View Toggle */}
-              <div className="flex gap-1 p-1 bg-background-secondary rounded-lg">
+              <div className="flex gap-1 p-1 bg-white/[0.03] backdrop-blur-xl rounded-lg">
                 <button
                   onClick={() => setViewMode('grid')}
                   className={`p-2 rounded transition-all ${
@@ -312,7 +312,7 @@ export const ContentLibrary = () => {
 
             {/* Bulk Actions */}
             {selectedItems.length > 0 && (
-              <div className="flex items-center gap-4 mt-4 pt-4 border-t border-border-default">
+              <div className="flex items-center gap-4 mt-4 pt-4 border-t border-white/[0.08]">
                 <span className="text-sm text-text-secondary">
                   {selectedItems.length} item(s) selected
                 </span>
@@ -344,7 +344,7 @@ export const ContentLibrary = () => {
                 >
                   <Card className="p-0 overflow-hidden hover:shadow-lg transition-all group">
                     {/* Thumbnail */}
-                    <div className="relative aspect-video bg-background-tertiary flex items-center justify-center overflow-hidden">
+                    <div className="relative aspect-video bg-white/[0.05] flex items-center justify-center overflow-hidden">
                       {contentImages[content.name] ? (
                         <img
                           src={contentImages[content.name]}
@@ -416,14 +416,14 @@ export const ContentLibrary = () => {
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="border-b border-border-default">
+                    <tr className="border-b border-white/[0.08]">
                       <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary w-8">
                         <button
                           onClick={toggleSelectAll}
                           className={`w-4 h-4 rounded border flex items-center justify-center transition-all ${
                             selectedItems.length === filteredContent.length && filteredContent.length > 0
                               ? 'bg-accent-primary border-accent-primary'
-                              : 'border-border-default'
+                              : 'border-white/[0.08]'
                           }`}
                         >
                           {selectedItems.length === filteredContent.length && filteredContent.length > 0 && (
@@ -448,7 +448,7 @@ export const ContentLibrary = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: index * 0.02 }}
-                        className="hover:bg-background-tertiary transition-colors"
+                        className="hover:bg-white/[0.05] transition-colors"
                       >
                         <td className="py-3 px-4">
                           <button
@@ -456,7 +456,7 @@ export const ContentLibrary = () => {
                             className={`w-4 h-4 rounded border flex items-center justify-center transition-all ${
                               selectedItems.includes(content.id)
                                 ? 'bg-accent-primary border-accent-primary'
-                                : 'border-border-default'
+                                : 'border-white/[0.08]'
                             }`}
                           >
                             {selectedItems.includes(content.id) && (
@@ -466,7 +466,7 @@ export const ContentLibrary = () => {
                         </td>
                         <td className="py-3 px-4">
                           <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded bg-background-tertiary flex items-center justify-center overflow-hidden">
+                            <div className="w-10 h-10 rounded bg-white/[0.05] flex items-center justify-center overflow-hidden">
                               {contentImages[content.name] ? (
                                 <img
                                   src={contentImages[content.name]}
@@ -497,16 +497,16 @@ export const ContentLibrary = () => {
                         </td>
                         <td className="py-3 px-4">
                           <div className="flex items-center justify-end gap-1">
-                            <button className="p-2 hover:bg-background-secondary rounded text-text-secondary hover:text-accent-primary">
+                            <button className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-accent-primary">
                               <Eye size={14} />
                             </button>
-                            <button className="p-2 hover:bg-background-secondary rounded text-text-secondary hover:text-blue-400">
+                            <button className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-blue-400">
                               <Edit size={14} />
                             </button>
-                            <button className="p-2 hover:bg-background-secondary rounded text-text-secondary hover:text-green-400">
+                            <button className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-green-400">
                               <Download size={14} />
                             </button>
-                            <button className="p-2 hover:bg-background-secondary rounded text-text-secondary hover:text-red-400">
+                            <button className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-red-400">
                               <Trash2 size={14} />
                             </button>
                           </div>

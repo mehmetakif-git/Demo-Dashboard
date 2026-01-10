@@ -28,7 +28,7 @@ export const Table = <T,>({
     <div className={cn('w-full overflow-auto', className)}>
       <table className="w-full border-collapse">
         <thead>
-          <tr className="border-b border-border-default">
+          <tr className="border-b border-white/[0.08]">
             {columns.map((column) => (
               <th
                 key={column.key}
@@ -58,8 +58,8 @@ export const Table = <T,>({
                 key={keyExtractor(item)}
                 onClick={() => onRowClick?.(item)}
                 className={cn(
-                  'border-b border-border-default transition-colors',
-                  onRowClick && 'cursor-pointer hover:bg-background-tertiary'
+                  'border-b border-white/[0.08] transition-colors',
+                  onRowClick && 'cursor-pointer hover:bg-white/[0.05]'
                 )}
               >
                 {columns.map((column) => (

@@ -69,7 +69,7 @@ export const Attendance = () => {
       title: 'Currently In Gym',
       value: currentlyInGym.length.toString(),
       icon: Users,
-      iconColor: '#6366f1',
+      iconColor: '#547792',
     },
     {
       title: 'Avg Daily Check-ins',
@@ -81,7 +81,7 @@ export const Attendance = () => {
       title: 'Peak Hours',
       value: gymStats.peakHours[0],
       icon: Clock,
-      iconColor: '#8b5cf6',
+      iconColor: '#94B4C1',
     },
   ];
 
@@ -125,11 +125,11 @@ export const Attendance = () => {
 
         {/* Search Results */}
         {searchResults.length > 0 && (
-          <div className="mt-4 border border-border-default rounded-lg overflow-hidden">
+          <div className="mt-4 border border-white/[0.08] rounded-lg overflow-hidden">
             {searchResults.slice(0, 5).map((member) => (
               <div
                 key={member.id}
-                className="flex items-center justify-between p-3 border-b border-border-default last:border-b-0 hover:bg-background-tertiary"
+                className="flex items-center justify-between p-3 border-b border-white/[0.08] last:border-b-0 hover:bg-white/[0.05]"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white font-medium overflow-hidden">
@@ -186,7 +186,7 @@ export const Attendance = () => {
               return (
                 <div
                   key={record.id}
-                  className="p-4 bg-background-tertiary rounded-lg flex items-center justify-between"
+                  className="p-4 bg-white/[0.05] rounded-lg flex items-center justify-between"
                 >
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white font-medium overflow-hidden">
@@ -240,14 +240,14 @@ export const Attendance = () => {
             type="date"
             value={dateFilter}
             onChange={(e) => setDateFilter(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           />
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-border-default">
+              <tr className="border-b border-white/[0.08]">
                 <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
                   Member
                 </th>
@@ -268,7 +268,7 @@ export const Attendance = () => {
             <tbody>
               {filteredRecords.length > 0 ? (
                 filteredRecords.map((record) => (
-                  <tr key={record.id} className="border-b border-border-default">
+                  <tr key={record.id} className="border-b border-white/[0.08]">
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white text-xs font-medium overflow-hidden">

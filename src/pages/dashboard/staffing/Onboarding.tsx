@@ -20,6 +20,7 @@ import {
   getOnboardingPriorityColor,
   type OnboardingTask,
 } from '@/data/staffing/staffingData';
+import { getProfileImage } from '@/utils/profileImages';
 
 export const Onboarding = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -179,14 +180,14 @@ export const Onboarding = () => {
               placeholder="Search tasks..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-primary"
+              className="w-full pl-10 pr-4 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-primary"
             />
           </div>
 
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Statuses</option>
             <option value="pending">Pending</option>
@@ -198,7 +199,7 @@ export const Onboarding = () => {
           <select
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Categories</option>
             <option value="documentation">Documentation</option>
@@ -211,7 +212,7 @@ export const Onboarding = () => {
           <select
             value={priorityFilter}
             onChange={(e) => setPriorityFilter(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Priorities</option>
             <option value="high">High</option>
@@ -233,12 +234,20 @@ export const Onboarding = () => {
               {/* Candidate Header */}
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white font-bold">
-                    {firstTask.candidateName
-                      .split(' ')
-                      .map((n) => n[0])
-                      .join('')}
-                  </div>
+                  {getProfileImage(firstTask.candidateName) ? (
+                    <img
+                      src={getProfileImage(firstTask.candidateName)}
+                      alt={firstTask.candidateName}
+                      className="w-12 h-12 rounded-full object-cover border border-white/10"
+                    />
+                  ) : (
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white font-bold">
+                      {firstTask.candidateName
+                        .split(' ')
+                        .map((n) => n[0])
+                        .join('')}
+                    </div>
+                  )}
                   <div>
                     <h3 className="font-semibold text-text-primary text-lg">{firstTask.candidateName}</h3>
                     <div className="flex items-center gap-2 text-sm text-text-secondary">
@@ -250,7 +259,7 @@ export const Onboarding = () => {
                 <div className="text-right">
                   <p className="text-sm text-text-secondary mb-1">Progress</p>
                   <div className="flex items-center gap-2">
-                    <div className="w-24 h-2 bg-background-tertiary rounded-full overflow-hidden">
+                    <div className="w-24 h-2 bg-white/[0.05] rounded-full overflow-hidden">
                       <div
                         className="h-full rounded-full bg-gradient-to-r from-accent-primary to-accent-secondary"
                         style={{ width: `${progress}%` }}
@@ -266,7 +275,7 @@ export const Onboarding = () => {
                 {tasks.map((task) => (
                   <div
                     key={task.id}
-                    className={`flex items-center justify-between p-3 rounded-lg bg-background-tertiary ${
+                    className={`flex items-center justify-between p-3 rounded-lg bg-white/[0.05] ${
                       task.status === 'blocked' ? 'border border-red-500/30' : ''
                     }`}
                   >

@@ -32,7 +32,7 @@ const Toggle = ({ enabled, onChange, label, description }: ToggleProps) => (
     <button
       onClick={() => onChange(!enabled)}
       className={`w-12 h-6 rounded-full transition-colors relative ${
-        enabled ? 'bg-accent-primary' : 'bg-background-tertiary'
+        enabled ? 'bg-accent-primary' : 'bg-white/[0.05]'
       }`}
     >
       <div
@@ -71,7 +71,7 @@ const TagInput = ({ label, tags, onChange }: TagInputProps) => {
         {tags.map(tag => (
           <span
             key={tag}
-            className="inline-flex items-center gap-1 px-3 py-1 bg-background-tertiary rounded-full text-sm text-text-primary"
+            className="inline-flex items-center gap-1 px-3 py-1 bg-white/[0.05] rounded-full text-sm text-text-primary"
           >
             {tag}
             <button
@@ -90,7 +90,7 @@ const TagInput = ({ label, tags, onChange }: TagInputProps) => {
           onChange={(e) => setInputValue(e.target.value)}
           onKeyPress={(e) => e.key === 'Enter' && handleAdd()}
           placeholder="Add new..."
-          className="flex-1 px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary text-sm focus:outline-none focus:border-accent-primary"
+          className="flex-1 px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary text-sm focus:outline-none focus:border-accent-primary"
         />
         <Button size="sm" onClick={handleAdd} leftIcon={<Plus size={14} />}>
           Add
@@ -130,7 +130,7 @@ export const ModuleSettings = () => {
       id: 'hr',
       name: 'HR Module',
       icon: Users,
-      color: '#6366f1',
+      color: '#547792',
       enabled: settings.hr.enabled,
     },
     {
@@ -151,7 +151,7 @@ export const ModuleSettings = () => {
       id: 'tasks',
       name: 'Task Management',
       icon: CheckSquare,
-      color: '#8b5cf6',
+      color: '#94B4C1',
       enabled: settings.tasks.enabled,
     },
     {
@@ -193,7 +193,7 @@ export const ModuleSettings = () => {
                 {/* Header */}
                 <button
                   onClick={() => setExpandedModule(isExpanded ? null : module.id)}
-                  className="w-full flex items-center justify-between p-4 hover:bg-background-tertiary/50 transition-colors"
+                  className="w-full flex items-center justify-between p-4 hover:bg-white/[0.05]/50 transition-colors"
                 >
                   <div className="flex items-center gap-4">
                     <div
@@ -218,7 +218,7 @@ export const ModuleSettings = () => {
                         }
                       }}
                       className={`w-12 h-6 rounded-full transition-colors relative ${
-                        module.enabled ? 'bg-accent-primary' : 'bg-background-tertiary'
+                        module.enabled ? 'bg-accent-primary' : 'bg-white/[0.05]'
                       }`}
                     >
                       <div
@@ -240,7 +240,7 @@ export const ModuleSettings = () => {
                   <motion.div
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: 'auto', opacity: 1 }}
-                    className="border-t border-border-default p-6"
+                    className="border-t border-white/[0.08] p-6"
                   >
                     {/* HR Module Settings */}
                     {module.id === 'hr' && (
@@ -265,7 +265,7 @@ export const ModuleSettings = () => {
                                 className={`px-4 py-2 rounded-lg text-sm transition-colors ${
                                   settings.hr.workingDays.includes(day)
                                     ? 'bg-accent-primary text-white'
-                                    : 'bg-background-tertiary text-text-secondary hover:bg-background-primary'
+                                    : 'bg-white/[0.05] text-text-secondary hover:bg-background-primary'
                                 }`}
                               >
                                 {day}
@@ -280,7 +280,7 @@ export const ModuleSettings = () => {
                               type="time"
                               value={settings.hr.workingHours.start}
                               onChange={(e) => updateSettings('hr', 'workingHours', { ...settings.hr.workingHours, start: e.target.value })}
-                              className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+                              className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
                             />
                           </div>
                           <div>
@@ -289,7 +289,7 @@ export const ModuleSettings = () => {
                               type="time"
                               value={settings.hr.workingHours.end}
                               onChange={(e) => updateSettings('hr', 'workingHours', { ...settings.hr.workingHours, end: e.target.value })}
-                              className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+                              className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
                             />
                           </div>
                         </div>
@@ -317,7 +317,7 @@ export const ModuleSettings = () => {
                             <select
                               value={settings.accounting.fiscalYearStart}
                               onChange={(e) => updateSettings('accounting', 'fiscalYearStart', e.target.value)}
-                              className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+                              className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
                             >
                               {months.map(month => (
                                 <option key={month} value={month}>{month}</option>
@@ -400,7 +400,7 @@ export const ModuleSettings = () => {
                           <select
                             value={settings.tasks.defaultView}
                             onChange={(e) => updateSettings('tasks', 'defaultView', e.target.value)}
-                            className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+                            className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
                           >
                             <option value="list">List View</option>
                             <option value="kanban">Kanban Board</option>
@@ -443,7 +443,7 @@ export const ModuleSettings = () => {
                               type="time"
                               value={settings.accessControl.autoLockTime}
                               onChange={(e) => updateSettings('accessControl', 'autoLockTime', e.target.value)}
-                              className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+                              className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
                             />
                           </div>
                           <div>
@@ -452,7 +452,7 @@ export const ModuleSettings = () => {
                               type="time"
                               value={settings.accessControl.autoUnlockTime}
                               onChange={(e) => updateSettings('accessControl', 'autoUnlockTime', e.target.value)}
-                              className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+                              className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
                             />
                           </div>
                         </div>
@@ -485,7 +485,7 @@ export const ModuleSettings = () => {
                           <select
                             value={settings.notifications.digestFrequency}
                             onChange={(e) => updateSettings('notifications', 'digestFrequency', e.target.value)}
-                            className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+                            className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
                           >
                             <option value="realtime">Real-time</option>
                             <option value="hourly">Hourly</option>
@@ -504,7 +504,7 @@ export const ModuleSettings = () => {
       </div>
 
       {/* Sticky Save Button */}
-      <div className="fixed bottom-0 left-0 right-0 p-4 bg-background-primary border-t border-border-default">
+      <div className="fixed bottom-0 left-0 right-0 p-4 bg-background-primary border-t border-white/[0.08]">
         <div className="max-w-7xl mx-auto flex justify-end gap-4">
           <Button
             variant="outline"

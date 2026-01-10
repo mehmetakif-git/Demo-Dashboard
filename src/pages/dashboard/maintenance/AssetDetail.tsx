@@ -67,7 +67,7 @@ export const AssetDetail = () => {
     const config = {
       operational: { bg: 'bg-green-500/20', text: 'text-green-400', label: 'Operational' },
       'needs-repair': { bg: 'bg-yellow-500/20', text: 'text-yellow-400', label: 'Needs Repair' },
-      'under-maintenance': { bg: 'bg-indigo-500/20', text: 'text-indigo-400', label: 'Under Maintenance' },
+      'under-maintenance': { bg: 'bg-[#547792]/20', text: 'text-[#547792]', label: 'Under Maintenance' },
       'out-of-service': { bg: 'bg-red-500/20', text: 'text-red-400', label: 'Out of Service' },
     };
     const c = config[status];
@@ -80,9 +80,9 @@ export const AssetDetail = () => {
 
   const getWorkOrderStatusBadge = (status: string) => {
     const config: Record<string, { bg: string; text: string; label: string }> = {
-      scheduled: { bg: 'bg-indigo-500/20', text: 'text-indigo-400', label: 'Scheduled' },
+      scheduled: { bg: 'bg-[#547792]/20', text: 'text-[#547792]', label: 'Scheduled' },
       'in-progress': { bg: 'bg-yellow-500/20', text: 'text-yellow-400', label: 'In Progress' },
-      'pending-parts': { bg: 'bg-purple-500/20', text: 'text-purple-400', label: 'Pending Parts' },
+      'pending-parts': { bg: 'bg-[#94B4C1]/20', text: 'text-[#94B4C1]', label: 'Pending Parts' },
       completed: { bg: 'bg-green-500/20', text: 'text-green-400', label: 'Completed' },
       cancelled: { bg: 'bg-slate-500/20', text: 'text-slate-400', label: 'Cancelled' },
     };
@@ -253,19 +253,19 @@ export const AssetDetail = () => {
                   {assetWorkOrders.map(wo => (
                     <div
                       key={wo.id}
-                      className="flex items-center justify-between p-4 bg-background-secondary rounded-lg hover:bg-background-tertiary transition-colors cursor-pointer"
+                      className="flex items-center justify-between p-4 bg-white/[0.03] backdrop-blur-xl rounded-lg hover:bg-white/[0.05] transition-colors cursor-pointer"
                     >
                       <div className="flex items-center gap-3">
                         <div
                           className="w-10 h-10 rounded-lg flex items-center justify-center"
                           style={{
-                            backgroundColor: wo.type === 'preventive' ? '#6366f120' : wo.type === 'corrective' ? '#f59e0b20' : '#10b98120'
+                            backgroundColor: wo.type === 'preventive' ? '#54779220' : wo.type === 'corrective' ? '#f59e0b20' : '#10b98120'
                           }}
                         >
                           <Wrench
                             size={20}
                             style={{
-                              color: wo.type === 'preventive' ? '#6366f1' : wo.type === 'corrective' ? '#f59e0b' : '#10b981'
+                              color: wo.type === 'preventive' ? '#547792' : wo.type === 'corrective' ? '#f59e0b' : '#10b981'
                             }}
                           />
                         </div>
@@ -302,7 +302,7 @@ export const AssetDetail = () => {
             <Card className="p-6">
               <h3 className="text-lg font-semibold text-text-primary mb-4">Maintenance Schedule</h3>
               <div className="space-y-4">
-                <div className="flex items-center gap-3 p-3 bg-background-secondary rounded-lg">
+                <div className="flex items-center gap-3 p-3 bg-white/[0.03] backdrop-blur-xl rounded-lg">
                   <div className="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center">
                     <CheckCircle size={20} className="text-green-400" />
                   </div>
@@ -311,7 +311,7 @@ export const AssetDetail = () => {
                     <p className="font-medium text-text-primary">{formatDate(asset.lastMaintenance)}</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 p-3 bg-background-secondary rounded-lg">
+                <div className="flex items-center gap-3 p-3 bg-white/[0.03] backdrop-blur-xl rounded-lg">
                   <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center">
                     <Calendar size={20} className="text-blue-400" />
                   </div>
@@ -341,7 +341,7 @@ export const AssetDetail = () => {
                 {asset.documents.map((doc, index) => (
                   <div
                     key={index}
-                    className="flex items-center gap-3 p-3 bg-background-secondary rounded-lg hover:bg-background-tertiary transition-colors cursor-pointer"
+                    className="flex items-center gap-3 p-3 bg-white/[0.03] backdrop-blur-xl rounded-lg hover:bg-white/[0.05] transition-colors cursor-pointer"
                   >
                     <FileText size={18} className="text-accent-primary" />
                     <span className="text-sm text-text-primary">{doc}</span>
@@ -360,15 +360,15 @@ export const AssetDetail = () => {
             <Card className="p-6">
               <h3 className="text-lg font-semibold text-text-primary mb-4">Quick Actions</h3>
               <div className="space-y-2">
-                <button className="w-full flex items-center gap-3 p-3 text-left hover:bg-background-tertiary rounded-lg transition-colors">
+                <button className="w-full flex items-center gap-3 p-3 text-left hover:bg-white/[0.05] rounded-lg transition-colors">
                   <Wrench size={18} className="text-accent-primary" />
                   <span className="text-sm text-text-primary">Schedule Maintenance</span>
                 </button>
-                <button className="w-full flex items-center gap-3 p-3 text-left hover:bg-background-tertiary rounded-lg transition-colors">
+                <button className="w-full flex items-center gap-3 p-3 text-left hover:bg-white/[0.05] rounded-lg transition-colors">
                   <AlertTriangle size={18} className="text-yellow-400" />
                   <span className="text-sm text-text-primary">Report Issue</span>
                 </button>
-                <button className="w-full flex items-center gap-3 p-3 text-left hover:bg-background-tertiary rounded-lg transition-colors">
+                <button className="w-full flex items-center gap-3 p-3 text-left hover:bg-white/[0.05] rounded-lg transition-colors">
                   <Clock size={18} className="text-blue-400" />
                   <span className="text-sm text-text-primary">View History</span>
                 </button>

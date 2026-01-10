@@ -83,7 +83,7 @@ export const Transactions = () => {
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center gap-4 border-b border-[#1e1e2e]">
+      <div className="flex items-center gap-4 border-b border-white/[0.08]">
         {tabs.map((tab) => (
           <button
             key={tab.id}
@@ -94,14 +94,14 @@ export const Transactions = () => {
           >
             {tab.label}
             <span className={`px-2 py-0.5 rounded-full text-xs ${
-              activeTab === tab.id ? 'bg-indigo-500/20 text-indigo-400' : 'bg-[#1a1a24] text-[#64748b]'
+              activeTab === tab.id ? 'bg-[#547792]/20 text-[#547792]' : 'bg-[#1a1a24] text-[#64748b]'
             }`}>
               {tab.count}
             </span>
             {activeTab === tab.id && (
               <motion.div
                 layoutId="activeTransactionTab"
-                className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-indigo-500 to-purple-500"
+                className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#547792] to-[#94B4C1]"
               />
             )}
           </button>
@@ -116,7 +116,7 @@ export const Transactions = () => {
           placeholder="Search by address or transaction ID..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full rounded-lg border border-[#1e1e2e] bg-[#12121a] py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-indigo-500 focus:outline-none"
+          className="w-full rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#547792] focus:outline-none"
         />
       </div>
 
@@ -128,10 +128,10 @@ export const Transactions = () => {
               key={transaction.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className={`rounded-xl border bg-[#12121a] p-6 cursor-pointer transition-colors ${
+              className={`rounded-xl border bg-white/[0.03] backdrop-blur-xl p-6 cursor-pointer transition-colors ${
                 selectedTransaction === transaction.id
-                  ? 'border-indigo-500'
-                  : 'border-[#1e1e2e] hover:border-[#2e2e3e]'
+                  ? 'border-[#547792]'
+                  : 'border-white/[0.08] hover:border-[#2e2e3e]'
               }`}
               onClick={() => setSelectedTransaction(transaction.id)}
             >
@@ -208,12 +208,12 @@ export const Transactions = () => {
 
               {/* Progress */}
               {transaction.currentStep && (
-                <div className="mt-4 pt-4 border-t border-[#1e1e2e]">
+                <div className="mt-4 pt-4 border-t border-white/[0.08]">
                   <div className="text-xs text-[#64748b] mb-2">Current Step</div>
                   <div className="flex items-center gap-2">
                     <div className="h-2 flex-1 bg-[#1a1a24] rounded-full overflow-hidden">
                       <div
-                        className="h-full bg-gradient-to-r from-indigo-500 to-purple-500"
+                        className="h-full bg-gradient-to-r from-[#547792] to-[#94B4C1]"
                         style={{ width: `${(transaction.timeline.length / 6) * 100}%` }}
                       />
                     </div>
@@ -230,7 +230,7 @@ export const Transactions = () => {
           {selected ? (
             <>
               {/* Timeline */}
-              <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+              <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
                 <h3 className="text-lg font-semibold text-white mb-4">Timeline</h3>
                 <div className="space-y-4">
                   {selected.timeline.map((event, index) => (
@@ -238,7 +238,7 @@ export const Transactions = () => {
                       <div className="flex flex-col items-center">
                         <div className={`h-6 w-6 rounded-full flex items-center justify-center ${
                           index === selected.timeline.length - 1
-                            ? 'bg-indigo-500'
+                            ? 'bg-[#547792]'
                             : 'bg-emerald-500'
                         }`}>
                           <CheckCircle className="h-3 w-3 text-white" />
@@ -260,7 +260,7 @@ export const Transactions = () => {
               </div>
 
               {/* Parties */}
-              <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+              <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
                 <h3 className="text-lg font-semibold text-white mb-4">Parties</h3>
                 <div className="space-y-4">
                   {/* Buyer/Tenant */}
@@ -308,7 +308,7 @@ export const Transactions = () => {
               </div>
 
               {/* Documents */}
-              <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+              <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
                 <h3 className="text-lg font-semibold text-white mb-4">Documents</h3>
                 <div className="space-y-2">
                   {selected.documents.map((doc, index) => (
@@ -316,7 +316,7 @@ export const Transactions = () => {
                       key={index}
                       className="flex items-center gap-3 p-3 rounded-lg bg-[#1a1a24] hover:bg-[#1e1e2e] cursor-pointer transition-colors"
                     >
-                      <FileText className="h-4 w-4 text-indigo-400" />
+                      <FileText className="h-4 w-4 text-[#547792]" />
                       <span className="text-[#94a3b8]">{doc}</span>
                     </div>
                   ))}
@@ -324,7 +324,7 @@ export const Transactions = () => {
               </div>
             </>
           ) : (
-            <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-8 text-center">
+            <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-8 text-center">
               <FileText className="h-12 w-12 text-[#2e2e3e] mx-auto mb-3" />
               <h3 className="text-white font-medium mb-2">Select a Transaction</h3>
               <p className="text-sm text-[#64748b]">Click on a transaction to view details</p>

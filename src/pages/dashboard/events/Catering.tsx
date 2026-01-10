@@ -73,7 +73,7 @@ export const Catering = () => {
         title="Catering"
         subtitle="Manage event catering and dietary requirements"
         actions={
-          <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
+          <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
             <FileText className="h-4 w-4" />
             Generate BEO
           </button>
@@ -81,12 +81,12 @@ export const Catering = () => {
       />
 
       {/* Event Selector */}
-      <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-4">
+      <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-4">
         <label className="block text-sm text-[#64748b] mb-2">Select Event</label>
         <select
           value={selectedEvent}
           onChange={(e) => setSelectedEvent(e.target.value)}
-          className="w-full max-w-md rounded-lg border border-[#1e1e2e] bg-[#1a1a24] px-4 py-2 text-white focus:border-[#6366f1] focus:outline-none"
+          className="w-full max-w-md rounded-lg border border-white/[0.08] bg-[#1a1a24] px-4 py-2 text-white focus:border-[#547792] focus:outline-none"
         >
           {events.map((event) => (
             <option key={event.id} value={event.id}>
@@ -128,16 +128,16 @@ export const Catering = () => {
         {/* Catering Provider */}
         <div className="lg:col-span-2 space-y-6">
           {/* Provider Info */}
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-              <UtensilsCrossed className="h-5 w-5 text-[#6366f1]" />
+              <UtensilsCrossed className="h-5 w-5 text-[#547792]" />
               Catering Provider
             </h3>
             {cateringProvider ? (
               <div className="space-y-4">
                 <div className="flex items-center gap-4">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-gradient-to-br from-[#6366f1]/20 to-[#8b5cf6]/20">
-                    <UtensilsCrossed className="h-7 w-7 text-[#6366f1]" />
+                  <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-gradient-to-br from-[#547792]/20 to-[#94B4C1]/20">
+                    <UtensilsCrossed className="h-7 w-7 text-[#547792]" />
                   </div>
                   <div>
                     <h4 className="text-white font-semibold">{cateringProvider.name}</h4>
@@ -145,7 +145,7 @@ export const Catering = () => {
                     <p className="text-sm text-[#64748b]">{cateringProvider.contact.phone}</p>
                   </div>
                 </div>
-                <div className="pt-4 border-t border-[#1e1e2e]">
+                <div className="pt-4 border-t border-white/[0.08]">
                   <p className="text-sm text-[#64748b] mb-2">Services</p>
                   <div className="flex flex-wrap gap-2">
                     {cateringProvider.services.map((service, index) => (
@@ -167,16 +167,16 @@ export const Catering = () => {
           </div>
 
           {/* Meal Schedule */}
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-              <Clock className="h-5 w-5 text-[#6366f1]" />
+              <Clock className="h-5 w-5 text-[#547792]" />
               Meal Schedule
             </h3>
             {mealSchedule.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {mealSchedule.map((meal, index) => (
                   <div key={index} className="rounded-lg bg-[#1a1a24] p-4 text-center">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#6366f1]/20 text-[#6366f1] mx-auto mb-3">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#547792]/20 text-[#547792] mx-auto mb-3">
                       {getMealIcon(meal)}
                     </div>
                     <h4 className="text-white font-semibold capitalize">{meal}</h4>
@@ -190,9 +190,9 @@ export const Catering = () => {
           </div>
 
           {/* Dietary Options */}
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-              <Salad className="h-5 w-5 text-[#6366f1]" />
+              <Salad className="h-5 w-5 text-[#547792]" />
               Available Dietary Options
             </h3>
             {selectedEventData?.catering?.dietaryOptions && selectedEventData.catering.dietaryOptions.length > 0 ? (
@@ -214,9 +214,9 @@ export const Catering = () => {
 
         {/* Dietary Breakdown Sidebar */}
         <div className="space-y-6">
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-              <AlertCircle className="h-5 w-5 text-[#6366f1]" />
+              <AlertCircle className="h-5 w-5 text-[#547792]" />
               Dietary Breakdown
             </h3>
             <div className="space-y-3">
@@ -232,7 +232,7 @@ export const Catering = () => {
                 <p className="text-[#64748b] text-center py-4">No dietary data available.</p>
               )}
             </div>
-            <div className="pt-4 mt-4 border-t border-[#1e1e2e]">
+            <div className="pt-4 mt-4 border-t border-white/[0.08]">
               <div className="flex justify-between">
                 <span className="text-[#64748b]">Total Guests</span>
                 <span className="text-white font-semibold">{eventGuests.length}</span>
@@ -241,9 +241,9 @@ export const Catering = () => {
           </div>
 
           {/* BEO Quick Info */}
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-              <FileText className="h-5 w-5 text-[#6366f1]" />
+              <FileText className="h-5 w-5 text-[#547792]" />
               BEO Summary
             </h3>
             <div className="space-y-3">
@@ -264,7 +264,7 @@ export const Catering = () => {
                 <span className="text-white">{selectedEventData?.venue.name}</span>
               </div>
             </div>
-            <button className="w-full mt-4 rounded-lg bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
+            <button className="w-full mt-4 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
               Generate Full BEO
             </button>
           </div>

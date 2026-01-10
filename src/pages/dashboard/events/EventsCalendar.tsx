@@ -99,7 +99,7 @@ export const EventsCalendar = () => {
         title="Events Calendar"
         subtitle="View and manage your event schedule"
         actions={
-          <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
+          <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
             <Plus className="h-4 w-4" />
             Create Event
           </button>
@@ -109,9 +109,9 @@ export const EventsCalendar = () => {
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         {/* Calendar */}
         <div className="lg:col-span-3">
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] overflow-hidden">
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl overflow-hidden">
             {/* Calendar Header */}
-            <div className="flex items-center justify-between p-4 border-b border-[#1e1e2e]">
+            <div className="flex items-center justify-between p-4 border-b border-white/[0.08]">
               <div className="flex items-center gap-4">
                 <h2 className="text-xl font-semibold text-white">
                   {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
@@ -134,18 +134,18 @@ export const EventsCalendar = () => {
               <div className="flex items-center gap-2">
                 <button
                   onClick={goToToday}
-                  className="px-3 py-1.5 rounded-lg border border-[#1e1e2e] text-sm text-[#94a3b8] hover:bg-[#1a1a24]"
+                  className="px-3 py-1.5 rounded-lg border border-white/[0.08] text-sm text-[#94a3b8] hover:bg-[#1a1a24]"
                 >
                   Today
                 </button>
-                <div className="flex rounded-lg border border-[#1e1e2e] bg-[#1a1a24] p-1">
+                <div className="flex rounded-lg border border-white/[0.08] bg-[#1a1a24] p-1">
                   {(['month', 'week', 'day'] as ViewMode[]).map((mode) => (
                     <button
                       key={mode}
                       onClick={() => setViewMode(mode)}
                       className={`px-3 py-1 text-sm rounded-md transition-colors ${
                         viewMode === mode
-                          ? 'bg-[#6366f1] text-white'
+                          ? 'bg-[#547792] text-white'
                           : 'text-[#64748b] hover:text-white'
                       }`}
                     >
@@ -179,13 +179,13 @@ export const EventsCalendar = () => {
                     <div
                       key={index}
                       className={`min-h-[100px] p-2 rounded-lg border ${
-                        day ? 'border-[#1e1e2e] hover:border-[#6366f1]/50 cursor-pointer' : 'border-transparent'
-                      } ${isToday ? 'bg-[#6366f1]/10' : ''}`}
+                        day ? 'border-white/[0.08] hover:border-[#547792]/50 cursor-pointer' : 'border-transparent'
+                      } ${isToday ? 'bg-[#547792]/10' : ''}`}
                     >
                       {day && (
                         <>
                           <span className={`text-sm font-medium ${
-                            isToday ? 'text-[#6366f1]' : 'text-[#94a3b8]'
+                            isToday ? 'text-[#547792]' : 'text-[#94a3b8]'
                           }`}>
                             {day}
                           </span>
@@ -221,9 +221,9 @@ export const EventsCalendar = () => {
 
         {/* Sidebar - Upcoming Events */}
         <div className="space-y-6">
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-              <CalendarDays className="h-5 w-5 text-[#6366f1]" />
+              <CalendarDays className="h-5 w-5 text-[#547792]" />
               Upcoming Events
             </h3>
             <div className="space-y-3">
@@ -268,7 +268,7 @@ export const EventsCalendar = () => {
           </div>
 
           {/* Color Legend */}
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4">Event Types</h3>
             <div className="space-y-2">
               {eventTypes.slice(0, 6).map((type) => (

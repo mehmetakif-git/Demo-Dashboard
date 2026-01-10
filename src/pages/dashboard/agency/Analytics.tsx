@@ -110,12 +110,12 @@ export const Analytics = () => {
       {/* Performance Metrics */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Key Metrics */}
-        <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+        <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
           <h3 className="text-lg font-semibold text-white mb-4">Key Performance Metrics</h3>
           <div className="grid grid-cols-2 gap-4">
             <div className="rounded-lg bg-[#1a1a24] p-4">
               <div className="flex items-center gap-2 mb-2">
-                <Eye className="h-4 w-4 text-[#6366f1]" />
+                <Eye className="h-4 w-4 text-[#547792]" />
                 <span className="text-xs text-[#64748b]">Total Impressions</span>
               </div>
               <p className="text-2xl font-semibold text-white">{formatNumber(totalImpressions)}</p>
@@ -126,7 +126,7 @@ export const Analytics = () => {
             </div>
             <div className="rounded-lg bg-[#1a1a24] p-4">
               <div className="flex items-center gap-2 mb-2">
-                <MousePointer className="h-4 w-4 text-[#8b5cf6]" />
+                <MousePointer className="h-4 w-4 text-[#94B4C1]" />
                 <span className="text-xs text-[#64748b]">Total Engagement</span>
               </div>
               <p className="text-2xl font-semibold text-white">{formatNumber(totalEngagement)}</p>
@@ -161,19 +161,19 @@ export const Analytics = () => {
         </div>
 
         {/* Cost Metrics */}
-        <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+        <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
           <h3 className="text-lg font-semibold text-white mb-4">Cost Analysis</h3>
           <div className="grid grid-cols-2 gap-4">
             <div className="rounded-lg bg-[#1a1a24] p-4">
               <div className="flex items-center gap-2 mb-2">
-                <DollarSign className="h-4 w-4 text-[#6366f1]" />
+                <DollarSign className="h-4 w-4 text-[#547792]" />
                 <span className="text-xs text-[#64748b]">Total Budget</span>
               </div>
               <p className="text-2xl font-semibold text-white">{formatCurrency(totalBudget)}</p>
             </div>
             <div className="rounded-lg bg-[#1a1a24] p-4">
               <div className="flex items-center gap-2 mb-2">
-                <DollarSign className="h-4 w-4 text-[#8b5cf6]" />
+                <DollarSign className="h-4 w-4 text-[#94B4C1]" />
                 <span className="text-xs text-[#64748b]">Total Spent</span>
               </div>
               <p className="text-2xl font-semibold text-white">{formatCurrency(totalSpent)}</p>
@@ -199,14 +199,14 @@ export const Analytics = () => {
       {/* Campaign Performance */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Performance by Type */}
-        <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+        <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
           <h3 className="text-lg font-semibold text-white mb-4">Performance by Campaign Type</h3>
           <div className="space-y-4">
             {Object.entries(campaignsByType).map(([type, data]) => (
               <div key={type} className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#1a1a24]">
-                    <Target className="h-5 w-5 text-[#6366f1]" />
+                    <Target className="h-5 w-5 text-[#547792]" />
                   </div>
                   <div>
                     <p className="text-white font-medium">{type}</p>
@@ -232,7 +232,7 @@ export const Analytics = () => {
         </div>
 
         {/* Top Performing Campaigns */}
-        <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+        <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
           <h3 className="text-lg font-semibold text-white mb-4">Top Performing Campaigns</h3>
           <div className="space-y-4">
             {topCampaigns.map((campaign, index) => (
@@ -264,11 +264,11 @@ export const Analytics = () => {
       </div>
 
       {/* Conversion Funnel */}
-      <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+      <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
         <h3 className="text-lg font-semibold text-white mb-4">Conversion Funnel</h3>
         <div className="flex items-center justify-between gap-4">
           <div className="flex-1 text-center">
-            <div className="h-32 bg-gradient-to-b from-[#6366f1]/30 to-[#6366f1]/10 rounded-t-xl flex items-center justify-center">
+            <div className="h-32 bg-gradient-to-b from-[#547792]/30 to-[#547792]/10 rounded-t-xl flex items-center justify-center">
               <div>
                 <p className="text-2xl font-semibold text-white">{formatNumber(totalImpressions)}</p>
                 <p className="text-xs text-[#64748b]">Impressions</p>
@@ -277,7 +277,7 @@ export const Analytics = () => {
           </div>
           <div className="text-[#64748b]">→</div>
           <div className="flex-1 text-center">
-            <div className="h-28 bg-gradient-to-b from-[#8b5cf6]/30 to-[#8b5cf6]/10 rounded-t-xl flex items-center justify-center">
+            <div className="h-28 bg-gradient-to-b from-[#94B4C1]/30 to-[#94B4C1]/10 rounded-t-xl flex items-center justify-center">
               <div>
                 <p className="text-2xl font-semibold text-white">{formatNumber(totalEngagement)}</p>
                 <p className="text-xs text-[#64748b]">Engagement</p>
@@ -294,9 +294,9 @@ export const Analytics = () => {
             </div>
           </div>
         </div>
-        <div className="flex items-center justify-around mt-4 pt-4 border-t border-[#1e1e2e]">
+        <div className="flex items-center justify-around mt-4 pt-4 border-t border-white/[0.08]">
           <div className="text-center">
-            <p className="text-lg font-semibold text-[#6366f1]">{ctr.toFixed(2)}%</p>
+            <p className="text-lg font-semibold text-[#547792]">{ctr.toFixed(2)}%</p>
             <p className="text-xs text-[#64748b]">Engagement Rate</p>
           </div>
           <div className="text-center">

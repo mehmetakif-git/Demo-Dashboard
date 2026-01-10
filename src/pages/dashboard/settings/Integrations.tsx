@@ -62,11 +62,11 @@ export const Integrations = () => {
       Communication: '#3b82f6',
       Productivity: '#10b981',
       Payments: '#f59e0b',
-      CRM: '#8b5cf6',
+      CRM: '#94B4C1',
       Finance: '#ef4444',
       Automation: '#ec4899',
     };
-    return colors[category] || '#6366f1';
+    return colors[category] || '#547792';
   };
 
   return (
@@ -82,7 +82,7 @@ export const Integrations = () => {
           title="Total Integrations"
           value={stats.total.toString()}
           icon={Link2}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
         <StatsCard
           title="Connected"
@@ -100,7 +100,7 @@ export const Integrations = () => {
           title="Categories"
           value={stats.categories.toString()}
           icon={Settings}
-          iconColor="#8b5cf6"
+          iconColor="#94B4C1"
         />
       </div>
 
@@ -114,7 +114,7 @@ export const Integrations = () => {
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                 selectedCategory === category
                   ? 'bg-accent-primary text-white'
-                  : 'bg-background-tertiary text-text-secondary hover:bg-background-primary hover:text-text-primary'
+                  : 'bg-white/[0.05] text-text-secondary hover:bg-background-primary hover:text-text-primary'
               }`}
             >
               {category === 'all' ? 'All' : category}
@@ -187,7 +187,7 @@ export const Integrations = () => {
                 </div>
 
                 {integration.connectedAt && (
-                  <p className="text-xs text-text-muted mt-4 pt-4 border-t border-border-default">
+                  <p className="text-xs text-text-muted mt-4 pt-4 border-t border-white/[0.08]">
                     Connected {formatDateTime(integration.connectedAt)} by {integration.connectedBy}
                   </p>
                 )}
@@ -230,7 +230,7 @@ export const Integrations = () => {
                 </div>
                 <button
                   onClick={() => setSelectedIntegration(null)}
-                  className="p-2 hover:bg-background-tertiary rounded transition-colors"
+                  className="p-2 hover:bg-white/[0.05] rounded transition-colors"
                 >
                   <X size={20} className="text-text-muted" />
                 </button>
@@ -257,12 +257,12 @@ export const Integrations = () => {
                         <h4 className="font-medium text-text-primary mb-3">Settings</h4>
                         <div className="space-y-3">
                           {Object.entries(selectedIntegration.settings).map(([key, value]) => (
-                            <div key={key} className="flex items-center justify-between py-2 border-b border-border-default">
+                            <div key={key} className="flex items-center justify-between py-2 border-b border-white/[0.08]">
                               <span className="text-text-secondary capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}</span>
                               {typeof value === 'boolean' ? (
                                 <button
                                   className={`w-10 h-5 rounded-full transition-colors relative ${
-                                    value ? 'bg-accent-primary' : 'bg-background-tertiary'
+                                    value ? 'bg-accent-primary' : 'bg-white/[0.05]'
                                   }`}
                                 >
                                   <div
@@ -281,7 +281,7 @@ export const Integrations = () => {
                     )}
                   </div>
 
-                  <div className="flex justify-between pt-4 border-t border-border-default">
+                  <div className="flex justify-between pt-4 border-t border-white/[0.08]">
                     <Button
                       variant="secondary"
                       className="text-red-400 hover:bg-red-500/10"
@@ -303,14 +303,14 @@ export const Integrations = () => {
                 <>
                   {/* Disconnected State - Connect Flow */}
                   <div className="space-y-4 mb-6">
-                    <div className="p-4 bg-background-secondary rounded-lg">
+                    <div className="p-4 bg-white/[0.03] backdrop-blur-xl rounded-lg">
                       <h4 className="font-medium text-text-primary mb-2">Connect {selectedIntegration.name}</h4>
                       <p className="text-sm text-text-secondary">
                         Click the button below to authorize and connect {selectedIntegration.name} to your account.
                       </p>
                     </div>
 
-                    <div className="p-4 bg-background-secondary rounded-lg">
+                    <div className="p-4 bg-white/[0.03] backdrop-blur-xl rounded-lg">
                       <h4 className="font-medium text-text-primary mb-2">Permissions Required</h4>
                       <ul className="space-y-2">
                         <li className="flex items-center gap-2 text-sm text-text-secondary">
@@ -329,7 +329,7 @@ export const Integrations = () => {
                     </div>
                   </div>
 
-                  <div className="flex justify-end gap-3 pt-4 border-t border-border-default">
+                  <div className="flex justify-end gap-3 pt-4 border-t border-white/[0.08]">
                     <Button variant="outline" onClick={() => setSelectedIntegration(null)}>
                       Cancel
                     </Button>

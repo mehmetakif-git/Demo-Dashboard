@@ -111,7 +111,7 @@ export const AllTasks = () => {
       header: 'Project',
       sortable: true,
       render: (task: Task) => (
-        <span className="px-2 py-1 bg-background-tertiary rounded text-xs text-text-secondary">
+        <span className="px-2 py-1 bg-white/[0.05] rounded text-xs text-text-secondary">
           {task.project}
         </span>
       ),
@@ -178,13 +178,13 @@ export const AllTasks = () => {
       header: 'Actions',
       render: () => (
         <div className="flex items-center gap-1">
-          <button className="p-1.5 hover:bg-background-tertiary rounded text-text-secondary hover:text-text-primary">
+          <button className="p-1.5 hover:bg-white/[0.05] rounded text-text-secondary hover:text-text-primary">
             <Edit2 size={14} />
           </button>
-          <button className="p-1.5 hover:bg-background-tertiary rounded text-text-secondary hover:text-red-400">
+          <button className="p-1.5 hover:bg-white/[0.05] rounded text-text-secondary hover:text-red-400">
             <Trash2 size={14} />
           </button>
-          <button className="p-1.5 hover:bg-background-tertiary rounded text-text-secondary hover:text-text-primary">
+          <button className="p-1.5 hover:bg-white/[0.05] rounded text-text-secondary hover:text-text-primary">
             <MoreHorizontal size={14} />
           </button>
         </div>
@@ -210,7 +210,7 @@ export const AllTasks = () => {
           title="Total Tasks"
           value={stats.total.toString()}
           icon={CheckCircle}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
         <StatsCard
           title="In Progress"
@@ -248,7 +248,7 @@ export const AllTasks = () => {
             <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Status</option>
               {taskStatuses.map(s => (
@@ -259,7 +259,7 @@ export const AllTasks = () => {
             <select
               value={selectedPriority}
               onChange={(e) => setSelectedPriority(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Priorities</option>
               {taskPriorities.map(p => (
@@ -270,7 +270,7 @@ export const AllTasks = () => {
             <select
               value={selectedProject}
               onChange={(e) => setSelectedProject(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Projects</option>
               {projects.map(p => (
@@ -281,7 +281,7 @@ export const AllTasks = () => {
             <select
               value={selectedAssignee}
               onChange={(e) => setSelectedAssignee(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Assignees</option>
               {assignees.map(a => (

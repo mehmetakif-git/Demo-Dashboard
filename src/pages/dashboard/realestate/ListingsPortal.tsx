@@ -130,7 +130,7 @@ export const ListingsPortal = () => {
           <button
             onClick={handleSyncAll}
             disabled={syncing === 'all'}
-            className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-500 px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity disabled:opacity-50"
+            className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity disabled:opacity-50"
           >
             <RefreshCw className={`h-4 w-4 ${syncing === 'all' ? 'animate-spin' : ''}`} />
             {syncing === 'all' ? 'Syncing...' : 'Sync All'}
@@ -165,7 +165,7 @@ export const ListingsPortal = () => {
       </div>
 
       {/* Connected Portals */}
-      <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+      <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
         <h3 className="text-lg font-semibold text-white mb-6">Connected Portals</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {portals.map((portal) => (
@@ -173,11 +173,11 @@ export const ListingsPortal = () => {
               key={portal.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="rounded-xl border border-[#1e1e2e] bg-[#0a0a0f] p-4"
+              className="rounded-xl border border-white/[0.08] bg-[#0a0a0f] p-4"
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
-                  <div className="h-12 w-12 rounded-lg bg-gradient-to-br from-indigo-500/20 to-purple-500/20 flex items-center justify-center text-indigo-400 font-bold text-lg">
+                  <div className="h-12 w-12 rounded-lg bg-gradient-to-br from-[#547792]/20 to-[#94B4C1]/20 flex items-center justify-center text-[#547792] font-bold text-lg">
                     {portal.logo}
                   </div>
                   <div>
@@ -196,7 +196,7 @@ export const ListingsPortal = () => {
                 <button
                   onClick={() => handleSync(portal.id)}
                   disabled={syncing === portal.id || portal.status === 'disconnected'}
-                  className="p-2 rounded-lg border border-[#1e1e2e] text-[#94a3b8] hover:text-white hover:border-[#2e2e3e] transition-colors disabled:opacity-50"
+                  className="p-2 rounded-lg border border-white/[0.08] text-[#94a3b8] hover:text-white hover:border-[#2e2e3e] transition-colors disabled:opacity-50"
                 >
                   <RefreshCw className={`h-4 w-4 ${syncing === portal.id ? 'animate-spin' : ''}`} />
                 </button>
@@ -205,15 +205,15 @@ export const ListingsPortal = () => {
               {portal.status !== 'disconnected' && (
                 <>
                   <div className="grid grid-cols-3 gap-2 mb-4">
-                    <div className="text-center p-2 rounded-lg bg-[#12121a]">
+                    <div className="text-center p-2 rounded-lg bg-white/[0.03] backdrop-blur-xl">
                       <div className="text-lg font-semibold text-white">{portal.listings}</div>
                       <div className="text-xs text-[#64748b]">Listings</div>
                     </div>
-                    <div className="text-center p-2 rounded-lg bg-[#12121a]">
+                    <div className="text-center p-2 rounded-lg bg-white/[0.03] backdrop-blur-xl">
                       <div className="text-lg font-semibold text-white">{portal.views.toLocaleString()}</div>
                       <div className="text-xs text-[#64748b]">Views</div>
                     </div>
-                    <div className="text-center p-2 rounded-lg bg-[#12121a]">
+                    <div className="text-center p-2 rounded-lg bg-white/[0.03] backdrop-blur-xl">
                       <div className="text-lg font-semibold text-white">{portal.inquiries}</div>
                       <div className="text-xs text-[#64748b]">Inquiries</div>
                     </div>
@@ -224,7 +224,7 @@ export const ListingsPortal = () => {
                       <Clock className="h-3.5 w-3.5" />
                       Last sync: {portal.lastSync}
                     </div>
-                    <button className="flex items-center gap-1 text-indigo-400 hover:text-indigo-300">
+                    <button className="flex items-center gap-1 text-[#547792] hover:text-[#94B4C1]">
                       <Settings className="h-3.5 w-3.5" />
                       Settings
                     </button>
@@ -233,7 +233,7 @@ export const ListingsPortal = () => {
               )}
 
               {portal.status === 'disconnected' && (
-                <button className="w-full mt-2 py-2 rounded-lg border border-dashed border-[#2e2e3e] text-sm text-[#94a3b8] hover:text-white hover:border-indigo-500/50 transition-colors">
+                <button className="w-full mt-2 py-2 rounded-lg border border-dashed border-[#2e2e3e] text-sm text-[#94a3b8] hover:text-white hover:border-[#547792]/50 transition-colors">
                   Connect Portal
                 </button>
               )}
@@ -250,7 +250,7 @@ export const ListingsPortal = () => {
 
       {/* Performance by Portal */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+        <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
           <h3 className="text-lg font-semibold text-white mb-4">Views by Portal</h3>
           <div className="space-y-4">
             {portals
@@ -266,7 +266,7 @@ export const ListingsPortal = () => {
                     </div>
                     <div className="h-2 bg-[#1a1a24] rounded-full overflow-hidden">
                       <div
-                        className="h-full bg-gradient-to-r from-indigo-500 to-purple-500"
+                        className="h-full bg-gradient-to-r from-[#547792] to-[#94B4C1]"
                         style={{ width: `${percentage}%` }}
                       />
                     </div>
@@ -276,7 +276,7 @@ export const ListingsPortal = () => {
           </div>
         </div>
 
-        <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+        <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
           <h3 className="text-lg font-semibold text-white mb-4">Inquiries by Portal</h3>
           <div className="space-y-4">
             {portals
@@ -304,19 +304,19 @@ export const ListingsPortal = () => {
       </div>
 
       {/* Bulk Actions */}
-      <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+      <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
         <h3 className="text-lg font-semibold text-white mb-4">Bulk Actions</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <button className="flex items-center gap-3 p-4 rounded-xl border border-[#1e1e2e] bg-[#0a0a0f] hover:border-[#2e2e3e] transition-colors">
-            <div className="h-10 w-10 rounded-lg bg-indigo-500/20 flex items-center justify-center">
-              <RefreshCw className="h-5 w-5 text-indigo-400" />
+          <button className="flex items-center gap-3 p-4 rounded-xl border border-white/[0.08] bg-[#0a0a0f] hover:border-[#2e2e3e] transition-colors">
+            <div className="h-10 w-10 rounded-lg bg-[#547792]/20 flex items-center justify-center">
+              <RefreshCw className="h-5 w-5 text-[#547792]" />
             </div>
             <div className="text-left">
               <div className="text-white font-medium">Sync All Listings</div>
               <div className="text-xs text-[#64748b]">Update all portals with latest data</div>
             </div>
           </button>
-          <button className="flex items-center gap-3 p-4 rounded-xl border border-[#1e1e2e] bg-[#0a0a0f] hover:border-[#2e2e3e] transition-colors">
+          <button className="flex items-center gap-3 p-4 rounded-xl border border-white/[0.08] bg-[#0a0a0f] hover:border-[#2e2e3e] transition-colors">
             <div className="h-10 w-10 rounded-lg bg-emerald-500/20 flex items-center justify-center">
               <TrendingUp className="h-5 w-5 text-emerald-400" />
             </div>
@@ -325,9 +325,9 @@ export const ListingsPortal = () => {
               <div className="text-xs text-[#64748b]">Sync price changes across portals</div>
             </div>
           </button>
-          <button className="flex items-center gap-3 p-4 rounded-xl border border-[#1e1e2e] bg-[#0a0a0f] hover:border-[#2e2e3e] transition-colors">
-            <div className="h-10 w-10 rounded-lg bg-purple-500/20 flex items-center justify-center">
-              <Zap className="h-5 w-5 text-purple-400" />
+          <button className="flex items-center gap-3 p-4 rounded-xl border border-white/[0.08] bg-[#0a0a0f] hover:border-[#2e2e3e] transition-colors">
+            <div className="h-10 w-10 rounded-lg bg-[#94B4C1]/20 flex items-center justify-center">
+              <Zap className="h-5 w-5 text-[#94B4C1]" />
             </div>
             <div className="text-left">
               <div className="text-white font-medium">Refresh Photos</div>
@@ -338,12 +338,12 @@ export const ListingsPortal = () => {
       </div>
 
       {/* Listing Sync Status */}
-      <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+      <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
         <h3 className="text-lg font-semibold text-white mb-4">Listing Sync Status</h3>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-[#1e1e2e]">
+              <tr className="border-b border-white/[0.08]">
                 <th className="px-4 py-3 text-left text-xs font-medium text-[#64748b]">Property</th>
                 <th className="px-4 py-3 text-center text-xs font-medium text-[#64748b]">Zillow</th>
                 <th className="px-4 py-3 text-center text-xs font-medium text-[#64748b]">Realtor.com</th>
@@ -353,7 +353,7 @@ export const ListingsPortal = () => {
             </thead>
             <tbody>
               {properties.filter((p) => p.status === 'active').slice(0, 5).map((property) => (
-                <tr key={property.id} className="border-b border-[#1e1e2e]">
+                <tr key={property.id} className="border-b border-white/[0.08]">
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-3">
                       <div className="h-10 w-14 rounded-lg bg-[#1a1a24] flex items-center justify-center">

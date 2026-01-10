@@ -91,7 +91,7 @@ export const Vendors = () => {
         title="Vendors"
         subtitle="Manage event vendors and suppliers"
         actions={
-          <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
+          <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
             <Plus className="h-4 w-4" />
             Add Vendor
           </button>
@@ -135,14 +135,14 @@ export const Vendors = () => {
             placeholder="Search vendors..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full rounded-lg border border-[#1e1e2e] bg-[#12121a] py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#6366f1] focus:outline-none"
+            className="w-full rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#547792] focus:outline-none"
           />
         </div>
         <div className="flex gap-2">
           <select
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
-            className="rounded-lg border border-[#1e1e2e] bg-[#12121a] px-3 py-2 text-sm text-white focus:border-[#6366f1] focus:outline-none"
+            className="rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
             <option value="all">All Categories</option>
             {vendorCategories.map((category) => (
@@ -154,7 +154,7 @@ export const Vendors = () => {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="rounded-lg border border-[#1e1e2e] bg-[#12121a] px-3 py-2 text-sm text-white focus:border-[#6366f1] focus:outline-none"
+            className="rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
             <option value="all">All Status</option>
             {statuses.map((status) => (
@@ -163,7 +163,7 @@ export const Vendors = () => {
               </option>
             ))}
           </select>
-          <button className="flex items-center gap-2 rounded-lg border border-[#1e1e2e] bg-[#12121a] px-3 py-2 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
+          <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
             <Filter className="h-4 w-4" />
             More Filters
           </button>
@@ -181,12 +181,12 @@ export const Vendors = () => {
               key={vendor.id}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6 hover:border-[#6366f1]/50 transition-colors cursor-pointer"
+              className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6 hover:border-[#547792]/50 transition-colors cursor-pointer"
               onClick={() => setSelectedVendor(vendor.id)}
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-[#6366f1]/20 to-[#8b5cf6]/20 text-[#6366f1]">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-[#547792]/20 to-[#94B4C1]/20 text-[#547792]">
                     {getCategoryIcon(vendor.category)}
                   </div>
                   <div>
@@ -226,7 +226,7 @@ export const Vendors = () => {
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-[#1e1e2e] space-y-2">
+              <div className="pt-4 border-t border-white/[0.08] space-y-2">
                 <div className="flex items-center gap-2 text-sm">
                   <Phone className="h-4 w-4 text-[#64748b]" />
                   <span className="text-[#94a3b8]">{vendor.contact.phone}</span>
@@ -247,12 +247,12 @@ export const Vendors = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-xl border border-[#1e1e2e] bg-[#12121a]"
+            className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl"
           >
             {/* Header */}
-            <div className="sticky top-0 z-10 flex items-center justify-between border-b border-[#1e1e2e] bg-[#12121a] p-6">
+            <div className="sticky top-0 z-10 flex items-center justify-between border-b border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
               <div className="flex items-center gap-4">
-                <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-gradient-to-br from-[#6366f1]/20 to-[#8b5cf6]/20 text-[#6366f1]">
+                <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-gradient-to-br from-[#547792]/20 to-[#94B4C1]/20 text-[#547792]">
                   {getCategoryIcon(selectedVendorData.category)}
                 </div>
                 <div>
@@ -305,28 +305,28 @@ export const Vendors = () => {
                 <h4 className="text-white font-semibold mb-3">Contact Information</h4>
                 <div className="space-y-3">
                   <div className="flex items-center gap-3 p-3 rounded-lg bg-[#1a1a24]">
-                    <Users className="h-5 w-5 text-[#6366f1]" />
+                    <Users className="h-5 w-5 text-[#547792]" />
                     <div>
                       <p className="text-xs text-[#64748b]">Contact Name</p>
                       <p className="text-white">{selectedVendorData.contact.name}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3 p-3 rounded-lg bg-[#1a1a24]">
-                    <Phone className="h-5 w-5 text-[#6366f1]" />
+                    <Phone className="h-5 w-5 text-[#547792]" />
                     <div>
                       <p className="text-xs text-[#64748b]">Phone</p>
                       <p className="text-white">{selectedVendorData.contact.phone}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3 p-3 rounded-lg bg-[#1a1a24]">
-                    <Mail className="h-5 w-5 text-[#6366f1]" />
+                    <Mail className="h-5 w-5 text-[#547792]" />
                     <div>
                       <p className="text-xs text-[#64748b]">Email</p>
                       <p className="text-white">{selectedVendorData.contact.email}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3 p-3 rounded-lg bg-[#1a1a24]">
-                    <MapPin className="h-5 w-5 text-[#6366f1]" />
+                    <MapPin className="h-5 w-5 text-[#547792]" />
                     <div>
                       <p className="text-xs text-[#64748b]">Address</p>
                       <p className="text-white">{selectedVendorData.address}</p>
@@ -345,10 +345,10 @@ export const Vendors = () => {
 
               {/* Actions */}
               <div className="flex gap-3">
-                <button className="flex-1 rounded-lg bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] px-4 py-2 text-sm font-medium text-white hover:opacity-90">
+                <button className="flex-1 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90">
                   Contact Vendor
                 </button>
-                <button className="flex-1 rounded-lg border border-[#1e1e2e] px-4 py-2 text-sm font-medium text-[#94a3b8] hover:bg-[#1a1a24]">
+                <button className="flex-1 rounded-lg border border-white/[0.08] px-4 py-2 text-sm font-medium text-[#94a3b8] hover:bg-[#1a1a24]">
                   View Past Events
                 </button>
               </div>
@@ -363,10 +363,10 @@ export const Vendors = () => {
           Showing {filteredVendors.length} of {eventVendors.length} vendors
         </p>
         <div className="flex gap-2">
-          <button className="rounded-lg border border-[#1e1e2e] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
+          <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
             Previous
           </button>
-          <button className="rounded-lg border border-[#1e1e2e] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
+          <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
             Next
           </button>
         </div>

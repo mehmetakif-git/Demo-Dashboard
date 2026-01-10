@@ -20,6 +20,11 @@ import screenshotAccounting from '@/assets/screenshots/accounting.webp';
 import screenshotTasks from '@/assets/screenshots/tasks.webp';
 import screenshotAccess from '@/assets/screenshots/access.webp';
 import screenshotFiles from '@/assets/screenshots/files.webp';
+// Profile picture imports for testimonials
+import ppMichael from '@/assets/images/profiles/pp-1.webp';
+import ppSarah from '@/assets/images/profiles/pp-2.webp';
+import ppEmily from '@/assets/images/profiles/pp-4.webp';
+import ppDavid from '@/assets/images/profiles/pp-5.webp';
 import { GlowInput, BottomGradient } from '@/components/common';
 import { LayoutTextFlip } from '@/components/ui/LayoutTextFlip';
 import { LinkPreview } from '@/components/ui/LinkPreview';
@@ -92,28 +97,32 @@ const testimonials = [
     author: "Michael Johnson",
     role: "General Manager",
     company: "FitZone Gyms",
-    rating: 5
+    rating: 5,
+    avatar: ppMichael
   },
   {
     quote: "Customer tracking and project management have never been easier. Our team is very satisfied.",
     author: "Sarah Williams",
     role: "Co-Founder",
     company: "Creative Agency",
-    rating: 5
+    rating: 5,
+    avatar: ppSarah
   },
   {
     quote: "Managing our real estate portfolio is now much easier. All listings and clients in one place.",
     author: "David Miller",
     role: "CEO",
     company: "Premier Real Estate",
-    rating: 5
+    rating: 5,
+    avatar: ppDavid
   },
   {
     quote: "24/7 support and ease of use made this exactly what we were looking for. Highly recommended.",
     author: "Emily Chen",
     role: "Operations Manager",
     company: "EventPro Organization",
-    rating: 5
+    rating: 5,
+    avatar: ppEmily
   }
 ];
 
@@ -173,15 +182,28 @@ export const Login = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Disable scroll when spotlight is active
+  // Disable scroll when spotlight is active (but keep scrollbar visible)
   useEffect(() => {
-    if (showSpotlight) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+    if (!showSpotlight) return;
+
+    const preventScroll = (e: Event) => {
+      e.preventDefault();
+    };
+
+    const preventKeyScroll = (e: KeyboardEvent) => {
+      if (['ArrowUp', 'ArrowDown', 'Space', 'PageUp', 'PageDown', 'Home', 'End'].includes(e.key)) {
+        e.preventDefault();
+      }
+    };
+
+    window.addEventListener('wheel', preventScroll, { passive: false });
+    window.addEventListener('touchmove', preventScroll, { passive: false });
+    window.addEventListener('keydown', preventKeyScroll);
+
     return () => {
-      document.body.style.overflow = '';
+      window.removeEventListener('wheel', preventScroll);
+      window.removeEventListener('touchmove', preventScroll);
+      window.removeEventListener('keydown', preventKeyScroll);
     };
   }, [showSpotlight]);
 
@@ -284,9 +306,9 @@ export const Login = () => {
       {/* Background Effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Gradient orbs */}
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[120px] animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-indigo-600/20 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-pink-600/10 rounded-full blur-[150px]" />
+        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-[#547792]/20 rounded-full blur-[120px] animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#94B4C1]/20 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#EAE0CF]/10 rounded-full blur-[150px]" />
 
         {/* Grid pattern overlay */}
         <div
@@ -371,7 +393,7 @@ export const Login = () => {
                     </div>
 
                     {/* Gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-transparent pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#213448] via-transparent to-transparent pointer-events-none" />
                   </div>
                 </motion.div>
               </AnimatePresence>
@@ -394,7 +416,7 @@ export const Login = () => {
                     onClick={() => setCurrentModuleIndex(index)}
                     className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
                       index === currentModuleIndex
-                        ? 'w-6 bg-indigo-500'
+                        ? 'w-6 bg-[#94B4C1]'
                         : 'w-1.5 bg-white/20 hover:bg-white/40'
                     }`}
                   />
@@ -434,7 +456,7 @@ export const Login = () => {
                 className="flex items-center gap-4 text-white hover:opacity-90 transition-opacity"
               >
                 {/* Logo */}
-                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 p-2.5 flex items-center justify-center shadow-lg shadow-indigo-500/25">
+                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#94B4C1] to-[#547792] p-2.5 flex items-center justify-center shadow-lg shadow-[#94B4C1]/25">
                   <img src={AllyncLogo} alt="Allync Logo" className="w-10 h-10" />
                 </div>
                 {/* Brand Name */}
@@ -536,7 +558,7 @@ export const Login = () => {
                       onClick={() => setRememberMe(!rememberMe)}
                       className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all cursor-pointer ${
                         rememberMe
-                          ? 'bg-indigo-500 border-indigo-500'
+                          ? 'bg-[#94B4C1] border-[#94B4C1]'
                           : 'border-white/20 group-hover:border-white/40'
                       }`}
                     >
@@ -549,7 +571,7 @@ export const Login = () => {
                       Remember me
                     </span>
                   </label>
-                  <button type="button" className="text-indigo-400 text-sm hover:text-indigo-300 transition-colors cursor-pointer">
+                  <button type="button" className="text-[#94B4C1] text-sm hover:text-[#EAE0CF] transition-colors cursor-pointer">
                     Forgot password?
                   </button>
                 </div>
@@ -558,7 +580,7 @@ export const Login = () => {
                 <motion.button
                   type="submit"
                   disabled={isLoading}
-                  className="group/btn relative w-full overflow-hidden bg-gradient-to-r from-[#6366f1] via-[#8b5cf6] to-[#6366f1] bg-[length:200%_100%] text-white font-semibold py-3.5 rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2 cursor-pointer"
+                  className="group/btn relative w-full overflow-hidden bg-gradient-to-r from-[#547792] via-[#94B4C1] to-[#547792] bg-[length:200%_100%] text-white font-semibold py-3.5 rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2 cursor-pointer"
                   animate={{
                     backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
                   }}
@@ -570,7 +592,7 @@ export const Login = () => {
                     },
                   }}
                   whileHover={{
-                    boxShadow: '0 0 30px rgba(139, 92, 246, 0.5), 0 0 60px rgba(99, 102, 241, 0.3)',
+                    boxShadow: '0 0 30px rgba(148, 180, 193, 0.5), 0 0 60px rgba(84, 119, 146, 0.3)',
                   }}
                 >
                   {/* Shimmer effect */}
@@ -665,7 +687,7 @@ export const Login = () => {
                   onClick={() => copyToClipboard(DEMO_CREDENTIALS.password, 'password')}
                   className="flex items-center gap-1.5 px-3 py-1.5 bg-white/[0.05] rounded-lg hover:bg-white/[0.1] transition-colors group cursor-pointer"
                 >
-                  <span className="text-indigo-400 font-mono text-xs">{DEMO_CREDENTIALS.password}</span>
+                  <span className="text-[#94B4C1] font-mono text-xs">{DEMO_CREDENTIALS.password}</span>
                   {copiedField === 'password' ? (
                     <Check size={12} className="text-green-400" />
                   ) : (
@@ -706,7 +728,7 @@ export const Login = () => {
                   transition={{ delay: 0.5 + index * 0.1 }}
                   className="bg-white/[0.03] border border-white/[0.08] rounded-xl p-4 text-center shadow-lg shadow-black/30"
                 >
-                  <div className="text-2xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
+                  <div className="text-2xl font-bold bg-gradient-to-r from-[#94B4C1] to-[#EAE0CF] bg-clip-text text-transparent">
                     <AnimatedCounter
                       value={stat.value}
                       suffix={stat.suffix}
@@ -740,7 +762,7 @@ export const Login = () => {
                   >
                     {/* Quote */}
                     <div className="flex-1 min-h-0 overflow-hidden">
-                      <div className="text-2xl text-indigo-500/30 mb-1">"</div>
+                      <div className="text-2xl text-[#94B4C1]/30 mb-1">"</div>
                       <p className="text-white/70 text-sm leading-relaxed italic line-clamp-4">
                         {currentTestimonial.quote}
                       </p>
@@ -759,9 +781,11 @@ export const Login = () => {
 
                     {/* Author */}
                     <div className="flex-shrink-0 flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-semibold text-xs">
-                        {currentTestimonial.author.charAt(0)}
-                      </div>
+                      <img
+                        src={currentTestimonial.avatar}
+                        alt={currentTestimonial.author}
+                        className="w-8 h-8 rounded-full object-cover border border-white/10"
+                      />
                       <div>
                         <div className="text-white font-medium text-xs">{currentTestimonial.author}</div>
                         <div className="text-white/40 text-[10px]">{currentTestimonial.role}, {currentTestimonial.company}</div>
@@ -779,7 +803,7 @@ export const Login = () => {
                     onClick={() => setCurrentTestimonialIndex(index)}
                     className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
                       index === currentTestimonialIndex
-                        ? 'w-6 bg-purple-500'
+                        ? 'w-6 bg-[#94B4C1]'
                         : 'w-1.5 bg-white/20 hover:bg-white/40'
                     }`}
                   />
@@ -842,8 +866,8 @@ export const Login = () => {
                 height: spotlightPosition.height + 8,
               }}
             >
-              <div className="absolute inset-0 rounded-xl border-2 border-indigo-500/50 animate-pulse" />
-              <div className="absolute inset-0 rounded-xl border border-indigo-400/30 animate-ping" style={{ animationDuration: '2s' }} />
+              <div className="absolute inset-0 rounded-xl border-2 border-[#94B4C1]/50 animate-pulse" />
+              <div className="absolute inset-0 rounded-xl border border-[#94B4C1]/30 animate-ping" style={{ animationDuration: '2s' }} />
             </motion.div>
 
             {/* Tooltip */}

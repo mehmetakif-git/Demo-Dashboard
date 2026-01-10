@@ -16,6 +16,7 @@ import {
   getComplianceStatusBgColor,
   type ComplianceDocument,
 } from '@/data/staffing/staffingData';
+import { getProfileImage } from '@/utils/profileImages';
 
 export const Compliance = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -155,14 +156,14 @@ export const Compliance = () => {
               placeholder="Search documents..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-primary"
+              className="w-full pl-10 pr-4 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-primary"
             />
           </div>
 
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Statuses</option>
             <option value="pending">Pending</option>
@@ -175,7 +176,7 @@ export const Compliance = () => {
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Types</option>
             {documentTypes.map((type) => (
@@ -192,7 +193,7 @@ export const Compliance = () => {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-border-default">
+              <tr className="border-b border-white/[0.08]">
                 <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
                   Candidate
                 </th>
@@ -217,21 +218,29 @@ export const Compliance = () => {
               {filteredDocs.map((doc) => (
                 <tr
                   key={doc.id}
-                  className="border-b border-border-default hover:bg-background-secondary/50"
+                  className="border-b border-white/[0.08] hover:bg-white/[0.03] backdrop-blur-xl/50"
                 >
                   <td className="py-3 px-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white text-sm font-bold">
-                        {doc.candidateName
-                          .split(' ')
-                          .map((n) => n[0])
-                          .join('')}
-                      </div>
+                      {getProfileImage(doc.candidateName) ? (
+                        <img
+                          src={getProfileImage(doc.candidateName)}
+                          alt={doc.candidateName}
+                          className="w-10 h-10 rounded-full object-cover border border-white/10"
+                        />
+                      ) : (
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white text-sm font-bold">
+                          {doc.candidateName
+                            .split(' ')
+                            .map((n) => n[0])
+                            .join('')}
+                        </div>
+                      )}
                       <p className="font-medium text-text-primary">{doc.candidateName}</p>
                     </div>
                   </td>
                   <td className="py-3 px-4">
-                    <span className="px-2 py-1 rounded-full text-xs font-medium bg-background-tertiary text-text-primary">
+                    <span className="px-2 py-1 rounded-full text-xs font-medium bg-white/[0.05] text-text-primary">
                       {formatDocType(doc.type)}
                     </span>
                   </td>
@@ -296,9 +305,9 @@ export const Compliance = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-background-secondary border border-border-default rounded-xl max-w-lg w-full"
+            className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl max-w-lg w-full"
           >
-            <div className="p-6 border-b border-border-default">
+            <div className="p-6 border-b border-white/[0.08]">
               <div className="flex items-start justify-between">
                 <div>
                   <h2 className="text-xl font-bold text-text-primary">{formatDocType(selectedDoc.type)}</h2>
@@ -306,7 +315,7 @@ export const Compliance = () => {
                 </div>
                 <button
                   onClick={() => setSelectedDoc(null)}
-                  className="text-text-secondary hover:text-text-primary"
+                  className="text-text-secondary hover:text-text-primary cursor-pointer"
                 >
                   ×
                 </button>
@@ -360,7 +369,7 @@ export const Compliance = () => {
               )}
             </div>
 
-            <div className="p-6 border-t border-border-default flex gap-2">
+            <div className="p-6 border-t border-white/[0.08] flex gap-2">
               <Button variant="outline" className="flex-1" onClick={() => setSelectedDoc(null)}>
                 Close
               </Button>

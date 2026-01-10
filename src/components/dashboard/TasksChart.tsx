@@ -5,7 +5,7 @@ import { taskStatusData } from '@/data/dashboardData';
 const CustomTooltip = ({ active, payload }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-[#1a1a24] border border-[#2e2e3e] rounded-lg px-4 py-3 shadow-xl">
+      <div className="bg-white/[0.08] backdrop-blur-xl border border-white/[0.12] rounded-lg px-4 py-3 shadow-xl">
         <p className="text-white font-semibold">
           {payload[0].name}: {payload[0].value}
         </p>

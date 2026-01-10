@@ -59,11 +59,11 @@ export const BankAccounts = () => {
         icon={Landmark}
         actions={
           <div className="flex items-center gap-3">
-            <button className="flex items-center gap-2 px-4 py-2 bg-[#12121a] border border-[#1e1e2e] rounded-lg text-white hover:bg-[#1a1a24] transition-colors cursor-pointer">
+            <button className="flex items-center gap-2 px-4 py-2 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-lg text-white hover:bg-[#1a1a24] transition-colors cursor-pointer">
               <RefreshCw className="w-4 h-4" />
               Sync All
             </button>
-            <button className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] hover:opacity-90 text-white font-medium rounded-lg transition-opacity cursor-pointer">
+            <button className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#547792] to-[#94B4C1] hover:opacity-90 text-white font-medium rounded-lg transition-opacity cursor-pointer">
               <Plus className="w-4 h-4" />
               Add Account
             </button>
@@ -77,8 +77,8 @@ export const BankAccounts = () => {
           title="Total Balance"
           value={`$${(stats.totalBalance / 1000).toFixed(0)}K`}
           icon={DollarSign}
-          iconColor="#6366f1"
-          iconBg="rgba(99, 102, 241, 0.2)"
+          iconColor="#547792"
+          iconBg="rgba(84, 119, 146, 0.2)"
           delay={0.1}
         />
         <StatsCard
@@ -93,8 +93,8 @@ export const BankAccounts = () => {
           title="Savings"
           value={`$${(stats.savingsBalance / 1000).toFixed(0)}K`}
           icon={Landmark}
-          iconColor="#8b5cf6"
-          iconBg="rgba(139, 92, 246, 0.2)"
+          iconColor="#94B4C1"
+          iconBg="rgba(148, 180, 193, 0.2)"
           delay={0.2}
         />
         <StatsCard
@@ -115,13 +115,13 @@ export const BankAccounts = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 + index * 0.05 }}
-            className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6 hover:border-[#2e2e3e] transition-colors"
+            className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6 hover:border-[#2e2e3e] transition-colors"
           >
             {/* Header */}
             <div className="flex items-start justify-between mb-6">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-xl bg-[#6366f1]/20 flex items-center justify-center">
-                  <Landmark className="w-6 h-6 text-[#6366f1]" />
+                <div className="w-12 h-12 rounded-xl bg-[#547792]/20 flex items-center justify-center">
+                  <Landmark className="w-6 h-6 text-[#547792]" />
                 </div>
                 <div>
                   <h3 className="font-semibold text-white">{account.bankName}</h3>
@@ -135,7 +135,7 @@ export const BankAccounts = () => {
                 >
                   <Eye className="w-4 h-4" />
                 </button>
-                <button className="p-2 rounded-lg text-white/40 hover:text-[#6366f1] hover:bg-[#6366f1]/10 transition-colors cursor-pointer">
+                <button className="p-2 rounded-lg text-white/40 hover:text-[#547792] hover:bg-[#547792]/10 transition-colors cursor-pointer">
                   <Settings className="w-4 h-4" />
                 </button>
               </div>
@@ -154,7 +154,7 @@ export const BankAccounts = () => {
             </div>
 
             {/* Balance */}
-            <div className="p-4 rounded-lg bg-gradient-to-r from-[#6366f1]/10 to-[#8b5cf6]/10 border border-[#6366f1]/20">
+            <div className="p-4 rounded-lg bg-gradient-to-r from-[#547792]/10 to-[#94B4C1]/10 border border-[#547792]/20">
               <p className="text-xs text-white/40 mb-1">Current Balance</p>
               <p className="text-2xl font-bold text-white">${account.balance.toLocaleString()}</p>
               <p className="text-xs text-white/40 mt-2">
@@ -163,7 +163,7 @@ export const BankAccounts = () => {
             </div>
 
             {/* Status */}
-            <div className="flex items-center justify-between mt-4 pt-4 border-t border-[#1e1e2e]">
+            <div className="flex items-center justify-between mt-4 pt-4 border-t border-white/[0.08]">
               <span
                 className={`flex items-center gap-1 text-xs ${
                   account.isActive ? 'text-emerald-400' : 'text-red-400'
@@ -187,7 +187,7 @@ export const BankAccounts = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
-        className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6"
+        className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
       >
         <h3 className="text-lg font-semibold text-white mb-4">Recent Transactions</h3>
         <div className="space-y-3">

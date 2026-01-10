@@ -66,7 +66,7 @@ export const History = () => {
       case 'import':
         return <Upload size={16} className="text-green-400" />;
       case 'report':
-        return <FileText size={16} className="text-purple-400" />;
+        return <FileText size={16} className="text-[#94B4C1]" />;
     }
   };
 
@@ -74,7 +74,7 @@ export const History = () => {
     const config = {
       export: { bg: 'bg-blue-500/20', text: 'text-blue-400', label: 'Export' },
       import: { bg: 'bg-green-500/20', text: 'text-green-400', label: 'Import' },
-      report: { bg: 'bg-purple-500/20', text: 'text-purple-400', label: 'Report' },
+      report: { bg: 'bg-[#94B4C1]/20', text: 'text-[#94B4C1]', label: 'Report' },
     };
     const c = config[type];
     return (
@@ -142,7 +142,7 @@ export const History = () => {
         <div className="flex flex-wrap items-center gap-4">
           <div className="flex items-center gap-2">
             <Calendar size={16} className="text-text-muted" />
-            <select className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary">
+            <select className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary">
               <option value="all">All Time</option>
               <option value="today">Today</option>
               <option value="week">This Week</option>
@@ -153,7 +153,7 @@ export const History = () => {
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Types</option>
             <option value="export">Exports</option>
@@ -164,7 +164,7 @@ export const History = () => {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Status</option>
             <option value="completed">Completed</option>
@@ -217,13 +217,13 @@ export const History = () => {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="bg-background-tertiary border-b border-border-default">
+              <tr className="bg-white/[0.05] border-b border-white/[0.08]">
                 <th className="px-4 py-3 w-12">
                   <div
                     className={`w-5 h-5 rounded border-2 transition-all cursor-pointer ${
                       selectedItems.length === filteredHistory.length && filteredHistory.length > 0
                         ? 'bg-accent-primary border-accent-primary'
-                        : 'border-border-default'
+                        : 'border-white/[0.08]'
                     }`}
                     onClick={toggleSelectAll}
                   >
@@ -275,7 +275,7 @@ export const History = () => {
                   key={item.id}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className={`border-b border-border-default hover:bg-background-tertiary cursor-pointer ${
+                  className={`border-b border-white/[0.08] hover:bg-white/[0.05] cursor-pointer ${
                     selectedItems.includes(item.id) ? 'bg-accent-primary/10' : ''
                   } ${item.status === 'failed' ? 'bg-red-500/5' : ''}`}
                   onClick={() => showDetails(item)}
@@ -285,7 +285,7 @@ export const History = () => {
                       className={`w-5 h-5 rounded border-2 transition-all cursor-pointer ${
                         selectedItems.includes(item.id)
                           ? 'bg-accent-primary border-accent-primary'
-                          : 'border-border-default'
+                          : 'border-white/[0.08]'
                       }`}
                       onClick={() => toggleSelection(item.id)}
                     >
@@ -332,14 +332,14 @@ export const History = () => {
                     <div className="flex items-center gap-1">
                       {item.downloadUrl && item.status === 'completed' && (
                         <button
-                          className="p-1.5 hover:bg-background-secondary rounded text-text-secondary hover:text-accent-primary"
+                          className="p-1.5 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-accent-primary"
                           title="Download"
                         >
                           <Download size={14} />
                         </button>
                       )}
                       <button
-                        className="p-1.5 hover:bg-background-secondary rounded text-text-secondary hover:text-accent-primary"
+                        className="p-1.5 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-accent-primary"
                         title="View Details"
                         onClick={() => showDetails(item)}
                       >
@@ -347,14 +347,14 @@ export const History = () => {
                       </button>
                       {item.type === 'report' && (
                         <button
-                          className="p-1.5 hover:bg-background-secondary rounded text-text-secondary hover:text-green-400"
+                          className="p-1.5 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-green-400"
                           title="Re-run"
                         >
                           <RefreshCw size={14} />
                         </button>
                       )}
                       <button
-                        className="p-1.5 hover:bg-background-secondary rounded text-text-secondary hover:text-red-400"
+                        className="p-1.5 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-red-400"
                         title="Delete"
                       >
                         <Trash2 size={14} />
@@ -397,10 +397,10 @@ export const History = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-background-secondary rounded-xl max-w-lg w-full"
+            className="bg-white/[0.03] backdrop-blur-xl rounded-xl max-w-lg w-full"
           >
             {/* Header */}
-            <div className="p-6 border-b border-border-default">
+            <div className="p-6 border-b border-white/[0.08]">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   {getTypeIcon(selectedDetail.type)}
@@ -410,7 +410,7 @@ export const History = () => {
                 </div>
                 <button
                   onClick={() => setShowDetailModal(false)}
-                  className="p-2 hover:bg-background-tertiary rounded-lg"
+                  className="p-2 hover:bg-white/[0.05] rounded-lg"
                 >
                   <X size={20} className="text-text-secondary" />
                 </button>
@@ -472,7 +472,7 @@ export const History = () => {
             </div>
 
             {/* Footer */}
-            <div className="p-6 border-t border-border-default bg-background-tertiary flex justify-end gap-3">
+            <div className="p-6 border-t border-white/[0.08] bg-white/[0.05] flex justify-end gap-3">
               {selectedDetail.type === 'report' && (
                 <Button variant="secondary" leftIcon={<RefreshCw size={14} />}>
                   Re-run Report

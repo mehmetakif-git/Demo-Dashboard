@@ -155,7 +155,7 @@ export const MyTasks = () => {
           title="Total Tasks"
           value={stats.total.toString()}
           icon={CheckCircle}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
         <StatsCard
           title="In Progress"
@@ -180,7 +180,7 @@ export const MyTasks = () => {
       </div>
 
       {/* Tab Navigation */}
-      <div className="flex gap-1 p-1 bg-background-secondary rounded-lg w-fit">
+      <div className="flex gap-1 p-1 bg-white/[0.03] backdrop-blur-xl rounded-lg w-fit">
         {statusTabs.map(tab => (
           <button
             key={tab.id}
@@ -188,7 +188,7 @@ export const MyTasks = () => {
             className={`px-4 py-2 text-sm font-medium rounded-md transition-all ${
               selectedStatus === tab.id
                 ? 'bg-accent-primary text-white'
-                : 'text-text-secondary hover:text-text-primary hover:bg-background-tertiary'
+                : 'text-text-secondary hover:text-text-primary hover:bg-white/[0.05]'
             }`}
           >
             {tab.label}
@@ -212,7 +212,7 @@ export const MyTasks = () => {
             <select
               value={selectedPriority}
               onChange={(e) => setSelectedPriority(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Priorities</option>
               {taskPriorities.map(p => (
@@ -223,7 +223,7 @@ export const MyTasks = () => {
             <select
               value={selectedProject}
               onChange={(e) => setSelectedProject(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Projects</option>
               {projects.map(p => (
@@ -234,7 +234,7 @@ export const MyTasks = () => {
             <select
               value={dueDateFilter}
               onChange={(e) => setDueDateFilter(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Dates</option>
               <option value="today">Today</option>
@@ -245,7 +245,7 @@ export const MyTasks = () => {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="dueDate">Sort: Due Date</option>
               <option value="priority">Sort: Priority</option>
@@ -293,7 +293,7 @@ export const MyTasks = () => {
                         className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all mt-0.5 ${
                           task.status === 'done'
                             ? 'bg-green-500 border-green-500'
-                            : 'border-border-default hover:border-accent-primary'
+                            : 'border-white/[0.08] hover:border-accent-primary'
                         }`}
                       >
                         {task.status === 'done' && <Check size={12} className="text-white" />}
@@ -318,7 +318,7 @@ export const MyTasks = () => {
                             </h3>
                             <div className="flex items-center gap-3 mt-1.5 flex-wrap">
                               {/* Project Badge */}
-                              <span className="px-2 py-0.5 bg-background-tertiary rounded text-xs text-text-secondary">
+                              <span className="px-2 py-0.5 bg-white/[0.05] rounded text-xs text-text-secondary">
                                 {task.project}
                               </span>
 
@@ -358,7 +358,7 @@ export const MyTasks = () => {
                             {/* Subtask Progress */}
                             {task.subtasks.length > 0 && (
                               <div className="flex items-center gap-2">
-                                <div className="w-16 h-1.5 bg-background-tertiary rounded-full overflow-hidden">
+                                <div className="w-16 h-1.5 bg-white/[0.05] rounded-full overflow-hidden">
                                   <div
                                     className="h-full bg-accent-primary rounded-full transition-all"
                                     style={{
@@ -397,10 +397,10 @@ export const MyTasks = () => {
 
                             {/* Actions */}
                             <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                              <button className="p-1.5 hover:bg-background-tertiary rounded text-text-secondary hover:text-text-primary">
+                              <button className="p-1.5 hover:bg-white/[0.05] rounded text-text-secondary hover:text-text-primary">
                                 <Edit2 size={14} />
                               </button>
-                              <button className="p-1.5 hover:bg-background-tertiary rounded text-text-secondary hover:text-red-400">
+                              <button className="p-1.5 hover:bg-white/[0.05] rounded text-text-secondary hover:text-red-400">
                                 <Trash2 size={14} />
                               </button>
                             </div>
@@ -416,7 +416,7 @@ export const MyTasks = () => {
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: 'auto' }}
                       exit={{ opacity: 0, height: 0 }}
-                      className="border-t border-border-default"
+                      className="border-t border-white/[0.08]"
                     >
                       <div className="p-4 pl-14 space-y-4">
                         <p className="text-sm text-text-secondary">{task.description}</p>
@@ -431,7 +431,7 @@ export const MyTasks = () => {
                                   className={`w-4 h-4 rounded border flex items-center justify-center ${
                                     subtask.completed
                                       ? 'bg-green-500 border-green-500'
-                                      : 'border-border-default'
+                                      : 'border-white/[0.08]'
                                   }`}
                                 >
                                   {subtask.completed && <Check size={10} className="text-white" />}
@@ -449,7 +449,7 @@ export const MyTasks = () => {
                         )}
 
                         {/* Meta Info */}
-                        <div className="flex items-center gap-6 text-xs text-text-secondary pt-2 border-t border-border-default">
+                        <div className="flex items-center gap-6 text-xs text-text-secondary pt-2 border-t border-white/[0.08]">
                           <span>Reporter: {task.reporter}</span>
                           <span>Created: {new Date(task.createdAt).toLocaleDateString()}</span>
                           <span>Updated: {new Date(task.updatedAt).toLocaleDateString()}</span>

@@ -28,8 +28,8 @@ const COMPANY_EMAIL = 'info@allyncai.com';
 const PHONE_NUMBER = '+97451079565';
 
 // Glassmorphism input styles
-const inputClassName = "w-full px-4 py-3 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl text-white placeholder-white/40 text-sm focus:outline-none focus:border-[#8b5cf6]/50 focus:bg-white/[0.05] transition-all";
-const selectClassName = "w-full px-4 py-3 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl text-white text-sm focus:outline-none focus:border-[#8b5cf6]/50 focus:bg-white/[0.05] transition-all cursor-pointer";
+const inputClassName = "w-full px-4 py-3 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl text-white placeholder-white/40 text-sm focus:outline-none focus:border-[#94B4C1]/50 focus:bg-white/[0.05] transition-all";
+const selectClassName = "w-full px-4 py-3 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl text-white text-sm focus:outline-none focus:border-[#94B4C1]/50 focus:bg-white/[0.05] transition-all cursor-pointer";
 
 // Contact Form Component
 const ContactForm = () => {
@@ -85,7 +85,7 @@ ${formData.message || 'No message provided'}`;
         <p className="text-white/60 text-sm">Complete sending in your email app.</p>
         <button
           onClick={() => setIsSubmitted(false)}
-          className="mt-4 text-[#8b5cf6] hover:text-[#a78bfa] text-sm font-medium transition-colors cursor-pointer"
+          className="mt-4 text-[#94B4C1] hover:text-[#94B4C1] text-sm font-medium transition-colors cursor-pointer"
         >
           Send another message
         </button>
@@ -149,7 +149,7 @@ ${formData.message || 'No message provided'}`;
         disabled={isSubmitting}
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
-        className="relative w-full py-3 bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] text-white rounded-xl font-medium text-sm overflow-hidden disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer group"
+        className="relative w-full py-3 bg-gradient-to-r from-[#547792] to-[#94B4C1] text-white rounded-xl font-medium text-sm overflow-hidden disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer group"
       >
         {/* Shimmer effect */}
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
@@ -267,15 +267,15 @@ Employee Count: ${formData.employeeCount || 'Not specified'}`;
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ type: 'spring', delay: 0.1 }}
-          className="w-20 h-20 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-purple-500/30"
+          className="w-20 h-20 bg-gradient-to-br from-[#547792]/20 to-[#94B4C1]/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-[#94B4C1]/30"
         >
-          <Calendar size={40} className="text-purple-400" />
+          <Calendar size={40} className="text-[#94B4C1]" />
         </motion.div>
         <h4 className="text-white font-semibold text-lg mb-2">Email Client Opened!</h4>
         <p className="text-white/60 text-sm">Complete sending to request your demo.</p>
         <button
           onClick={() => setIsSubmitted(false)}
-          className="mt-4 text-[#8b5cf6] hover:text-[#a78bfa] text-sm font-medium transition-colors cursor-pointer"
+          className="mt-4 text-[#94B4C1] hover:text-[#94B4C1] text-sm font-medium transition-colors cursor-pointer"
         >
           Request another demo
         </button>
@@ -360,7 +360,7 @@ Employee Count: ${formData.employeeCount || 'Not specified'}`;
         disabled={isSubmitting}
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
-        className="relative w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-medium text-sm overflow-hidden disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer group"
+        className="relative w-full py-3 bg-gradient-to-r from-[#547792] to-[#94B4C1] text-white rounded-xl font-medium text-sm overflow-hidden disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer group"
       >
         {/* Shimmer effect */}
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
@@ -396,7 +396,7 @@ const InterestPopup = ({ isOpen, onClose, onOpenWidget }: InterestPopupProps) =>
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black/70 backdrop-blur-md z-[60] flex items-center justify-center p-4"
           onClick={onClose}
         >
           <motion.div
@@ -404,11 +404,11 @@ const InterestPopup = ({ isOpen, onClose, onOpenWidget }: InterestPopupProps) =>
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ duration: 0.2 }}
-            className="w-full max-w-lg bg-white/[0.03] backdrop-blur-2xl border border-white/[0.08] rounded-2xl overflow-hidden shadow-2xl"
+            className="w-full max-w-lg bg-white/[0.05] backdrop-blur-3xl border border-white/[0.12] rounded-2xl overflow-hidden shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Hero Section */}
-            <div className="relative bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 p-8 text-center">
+            <div className="relative bg-gradient-to-br from-[#213448] via-[#547792] to-[#94B4C1] p-8 text-center">
               <button
                 onClick={onClose}
                 className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white/80 hover:text-white transition-all cursor-pointer"
@@ -428,8 +428,8 @@ const InterestPopup = ({ isOpen, onClose, onOpenWidget }: InterestPopupProps) =>
             <div className="p-6">
               <div className="grid grid-cols-2 gap-4 mb-6">
                 <div className="flex items-start gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/[0.05]">
-                  <div className="w-10 h-10 bg-indigo-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Zap size={20} className="text-indigo-400" />
+                  <div className="w-10 h-10 bg-[#547792]/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Zap size={20} className="text-[#94B4C1]" />
                   </div>
                   <div>
                     <h4 className="text-white font-medium text-sm">Fast Setup</h4>
@@ -446,8 +446,8 @@ const InterestPopup = ({ isOpen, onClose, onOpenWidget }: InterestPopupProps) =>
                   </div>
                 </div>
                 <div className="flex items-start gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/[0.05]">
-                  <div className="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Headphones size={20} className="text-purple-400" />
+                  <div className="w-10 h-10 bg-[#94B4C1]/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Headphones size={20} className="text-[#94B4C1]" />
                   </div>
                   <div>
                     <h4 className="text-white font-medium text-sm">24/7 Support</h4>
@@ -455,8 +455,8 @@ const InterestPopup = ({ isOpen, onClose, onOpenWidget }: InterestPopupProps) =>
                   </div>
                 </div>
                 <div className="flex items-start gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/[0.05]">
-                  <div className="w-10 h-10 bg-orange-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Settings size={20} className="text-orange-400" />
+                  <div className="w-10 h-10 bg-[#EAE0CF]/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Settings size={20} className="text-[#EAE0CF]" />
                   </div>
                   <div>
                     <h4 className="text-white font-medium text-sm">Customizable</h4>
@@ -474,7 +474,7 @@ const InterestPopup = ({ isOpen, onClose, onOpenWidget }: InterestPopupProps) =>
                   }}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full py-3.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-medium hover:opacity-90 transition-opacity flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-purple-500/20"
+                  className="w-full py-3.5 bg-gradient-to-r from-[#547792] to-[#94B4C1] text-white rounded-xl font-medium hover:opacity-90 transition-opacity flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-[#94B4C1]/20"
                 >
                   <Calendar size={20} />
                   Request Free Demo
@@ -631,13 +631,13 @@ export const LeadCaptureWidget = ({
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20, scale: 0.9 }}
               transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-              className="absolute bottom-0 right-0 w-[340px] bg-white/[0.03] backdrop-blur-2xl border border-white/[0.08] rounded-2xl shadow-2xl overflow-hidden"
+              className="absolute bottom-0 right-0 w-[340px] bg-white/[0.05] backdrop-blur-3xl border border-white/[0.12] rounded-2xl shadow-2xl overflow-hidden"
             >
               {/* Glass shimmer overlay */}
               <div className="absolute inset-0 bg-gradient-to-b from-white/[0.05] to-transparent pointer-events-none" />
 
               {/* Header */}
-              <div className="relative bg-gradient-to-r from-indigo-600 to-purple-600 p-4">
+              <div className="relative bg-gradient-to-r from-[#547792] to-[#94B4C1] p-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
@@ -660,9 +660,9 @@ export const LeadCaptureWidget = ({
               {/* Tabs */}
               <div className="relative flex border-b border-white/[0.08]">
                 {[
-                  { id: 'contact', label: 'Form', icon: Mail, color: 'indigo' },
-                  { id: 'whatsapp', label: 'WhatsApp', icon: MessageSquare, color: 'green' },
-                  { id: 'demo', label: 'Demo', icon: Calendar, color: 'purple' },
+                  { id: 'contact', label: 'Form', icon: Mail },
+                  { id: 'whatsapp', label: 'WhatsApp', icon: MessageSquare },
+                  { id: 'demo', label: 'Demo', icon: Calendar },
                 ].map((tab) => {
                   const Icon = tab.icon;
                   const isActive = activeTab === tab.id;
@@ -672,7 +672,7 @@ export const LeadCaptureWidget = ({
                       onClick={() => setActiveTab(tab.id as typeof activeTab)}
                       className={`relative flex-1 py-3 text-sm font-medium transition-all cursor-pointer ${
                         isActive
-                          ? `text-${tab.color}-400`
+                          ? 'text-[#94B4C1]'
                           : 'text-white/40 hover:text-white/60'
                       }`}
                     >
@@ -683,7 +683,7 @@ export const LeadCaptureWidget = ({
                       {isActive && (
                         <motion.div
                           layoutId="activeTab"
-                          className={`absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-${tab.color}-500 to-${tab.color}-400`}
+                          className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#547792] to-[#94B4C1]"
                           transition={{ type: 'spring', stiffness: 500, damping: 30 }}
                         />
                       )}
@@ -693,7 +693,7 @@ export const LeadCaptureWidget = ({
               </div>
 
               {/* Content */}
-              <div className="relative p-4 max-h-[400px] overflow-y-auto">
+              <div className="relative p-4 max-h-[400px] overflow-y-auto no-scrollbar">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeTab}
@@ -712,7 +712,7 @@ export const LeadCaptureWidget = ({
               {/* Footer */}
               <div className="relative px-4 py-3 border-t border-white/[0.05] bg-white/[0.02]">
                 <p className="text-center text-white/30 text-xs">
-                  Powered by <span className="text-[#8b5cf6]">Allync</span>
+                  Powered by <span className="text-[#94B4C1]">Allync</span>
                 </p>
               </div>
             </motion.div>

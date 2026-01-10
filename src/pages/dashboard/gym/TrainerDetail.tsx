@@ -175,8 +175,8 @@ export const TrainerDetail = () => {
         </Card>
         <Card className="p-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center">
-              <Clock className="h-5 w-5 text-purple-400" />
+            <div className="w-10 h-10 rounded-lg bg-[#94B4C1]/10 flex items-center justify-center">
+              <Clock className="h-5 w-5 text-[#94B4C1]" />
             </div>
             <div>
               <p className="text-sm text-text-secondary">Experience</p>
@@ -226,7 +226,7 @@ export const TrainerDetail = () => {
             {trainer.certifications.map((cert, index) => (
               <span
                 key={index}
-                className="px-3 py-1 rounded-full text-sm bg-background-tertiary text-text-primary"
+                className="px-3 py-1 rounded-full text-sm bg-white/[0.05] text-text-primary"
               >
                 {cert}
               </span>
@@ -273,7 +273,7 @@ export const TrainerDetail = () => {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-border-default">
+                <tr className="border-b border-white/[0.08]">
                   <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
                     Client
                   </th>
@@ -296,7 +296,7 @@ export const TrainerDetail = () => {
                   trainerSessions
                     .filter((s) => s.status === 'scheduled')
                     .map((session) => (
-                      <tr key={session.id} className="border-b border-border-default">
+                      <tr key={session.id} className="border-b border-white/[0.08]">
                         <td className="py-3 px-4 text-text-primary">{session.memberName}</td>
                         <td className="py-3 px-4 text-text-secondary">{formatDate(session.date)}</td>
                         <td className="py-3 px-4 text-text-secondary">
@@ -332,7 +332,7 @@ export const TrainerDetail = () => {
             {trainerClients.map((client) => (
               <div
                 key={client.id}
-                className="p-4 bg-background-tertiary rounded-lg flex items-center gap-3"
+                className="p-4 bg-white/[0.05] rounded-lg flex items-center gap-3"
               >
                 <div className="w-10 h-10 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white font-medium overflow-hidden">
                   {profileImages[`${client.firstName} ${client.lastName}`] ? (
@@ -387,7 +387,7 @@ export const TrainerDetail = () => {
                   {cls.schedule.map((s, i) => (
                     <span
                       key={i}
-                      className="px-2 py-0.5 rounded text-xs bg-background-tertiary text-text-secondary"
+                      className="px-2 py-0.5 rounded text-xs bg-white/[0.05] text-text-secondary"
                     >
                       {s.day} {s.time}
                     </span>
@@ -450,7 +450,7 @@ export const TrainerDetail = () => {
                 comment: 'Good training sessions. Helped me achieve my fitness goals.',
               },
             ].map((review, index) => (
-              <div key={index} className="p-4 bg-background-tertiary rounded-lg">
+              <div key={index} className="p-4 bg-white/[0.05] rounded-lg">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
                     <div className="w-8 h-8 rounded-full bg-accent-primary/20 flex items-center justify-center text-accent-primary font-medium text-sm">

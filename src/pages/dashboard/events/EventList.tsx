@@ -97,7 +97,7 @@ export const EventList = () => {
         title="Events"
         subtitle="Plan and manage all your events"
         actions={
-          <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
+          <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
             <Plus className="h-4 w-4" />
             Create Event
           </button>
@@ -141,14 +141,14 @@ export const EventList = () => {
             placeholder="Search events..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full rounded-lg border border-[#1e1e2e] bg-[#12121a] py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#6366f1] focus:outline-none"
+            className="w-full rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#547792] focus:outline-none"
           />
         </div>
         <div className="flex gap-2 flex-wrap">
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="rounded-lg border border-[#1e1e2e] bg-[#12121a] px-3 py-2 text-sm text-white focus:border-[#6366f1] focus:outline-none"
+            className="rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
             <option value="all">All Status</option>
             {eventStatuses.map((status) => (
@@ -160,7 +160,7 @@ export const EventList = () => {
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value)}
-            className="rounded-lg border border-[#1e1e2e] bg-[#12121a] px-3 py-2 text-sm text-white focus:border-[#6366f1] focus:outline-none"
+            className="rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
             <option value="all">All Types</option>
             {eventTypes.map((type) => (
@@ -172,7 +172,7 @@ export const EventList = () => {
           <select
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
-            className="rounded-lg border border-[#1e1e2e] bg-[#12121a] px-3 py-2 text-sm text-white focus:border-[#6366f1] focus:outline-none"
+            className="rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
             <option value="all">All Categories</option>
             {categories.map((category) => (
@@ -181,15 +181,15 @@ export const EventList = () => {
               </option>
             ))}
           </select>
-          <button className="flex items-center gap-2 rounded-lg border border-[#1e1e2e] bg-[#12121a] px-3 py-2 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
+          <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
             <Filter className="h-4 w-4" />
             More Filters
           </button>
-          <div className="flex rounded-lg border border-[#1e1e2e] bg-[#12121a] p-1">
+          <div className="flex rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-1">
             <button
               onClick={() => setViewMode('grid')}
               className={`rounded-md p-1.5 transition-colors ${
-                viewMode === 'grid' ? 'bg-[#6366f1] text-white' : 'text-[#64748b] hover:text-white'
+                viewMode === 'grid' ? 'bg-[#547792] text-white' : 'text-[#64748b] hover:text-white'
               }`}
             >
               <Grid3X3 className="h-4 w-4" />
@@ -197,7 +197,7 @@ export const EventList = () => {
             <button
               onClick={() => setViewMode('list')}
               className={`rounded-md p-1.5 transition-colors ${
-                viewMode === 'list' ? 'bg-[#6366f1] text-white' : 'text-[#64748b] hover:text-white'
+                viewMode === 'list' ? 'bg-[#547792] text-white' : 'text-[#64748b] hover:text-white'
               }`}
             >
               <List className="h-4 w-4" />
@@ -221,7 +221,7 @@ export const EventList = () => {
                 key={event.id}
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="rounded-xl border border-[#1e1e2e] bg-[#12121a] overflow-hidden hover:border-[#6366f1]/50 transition-colors cursor-pointer"
+                className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl overflow-hidden hover:border-[#547792]/50 transition-colors cursor-pointer"
                 onClick={() => navigate(`/dashboard/events/events/${event.id}`)}
               >
                 {/* Image Placeholder */}
@@ -271,21 +271,21 @@ export const EventList = () => {
                   </div>
 
                   {/* Budget Progress */}
-                  <div className="pt-3 border-t border-[#1e1e2e]">
+                  <div className="pt-3 border-t border-white/[0.08]">
                     <div className="flex justify-between text-xs mb-1">
                       <span className="text-[#64748b]">Budget</span>
                       <span className="text-white">{formatCurrency(event.budget.estimated)}</span>
                     </div>
                     <div className="h-1.5 rounded-full bg-[#1e1e2e]">
                       <div
-                        className="h-full rounded-full bg-gradient-to-r from-[#6366f1] to-[#8b5cf6]"
+                        className="h-full rounded-full bg-gradient-to-r from-[#547792] to-[#94B4C1]"
                         style={{ width: `${Math.min(budgetProgress, 100)}%` }}
                       />
                     </div>
                   </div>
 
                   {/* Actions */}
-                  <div className="flex items-center justify-end gap-2 mt-4 pt-3 border-t border-[#1e1e2e]">
+                  <div className="flex items-center justify-end gap-2 mt-4 pt-3 border-t border-white/[0.08]">
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
@@ -317,11 +317,11 @@ export const EventList = () => {
 
       {/* Events List View */}
       {viewMode === 'list' && (
-        <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] overflow-hidden">
+        <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-[#1e1e2e]">
+                <tr className="border-b border-white/[0.08]">
                   <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-[#64748b]">
                     Event
                   </th>
@@ -428,10 +428,10 @@ export const EventList = () => {
           Showing {filteredEvents.length} of {events.length} events
         </p>
         <div className="flex gap-2">
-          <button className="rounded-lg border border-[#1e1e2e] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
+          <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
             Previous
           </button>
-          <button className="rounded-lg border border-[#1e1e2e] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
+          <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
             Next
           </button>
         </div>

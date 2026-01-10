@@ -74,8 +74,8 @@ export const Cameras = () => {
   const getTypeBadge = (type: CameraType['type']) => {
     const config = {
       indoor: { bg: 'bg-blue-500/20', text: 'text-blue-400' },
-      outdoor: { bg: 'bg-purple-500/20', text: 'text-purple-400' },
-      ptz: { bg: 'bg-indigo-500/20', text: 'text-indigo-400' },
+      outdoor: { bg: 'bg-[#94B4C1]/20', text: 'text-[#94B4C1]' },
+      ptz: { bg: 'bg-[#547792]/20', text: 'text-[#547792]' },
     };
     const c = config[type];
     return (
@@ -103,7 +103,7 @@ export const Cameras = () => {
           title="Total Cameras"
           value={stats.total.toString()}
           icon={Camera}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
         <StatsCard
           title="Online"
@@ -141,7 +141,7 @@ export const Cameras = () => {
             <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Status</option>
               <option value="online">Online</option>
@@ -152,7 +152,7 @@ export const Cameras = () => {
             <select
               value={selectedType}
               onChange={(e) => setSelectedType(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Types</option>
               <option value="indoor">Indoor</option>
@@ -162,7 +162,7 @@ export const Cameras = () => {
           </div>
 
           {/* View Toggle */}
-          <div className="flex gap-1 p-1 bg-background-secondary rounded-lg">
+          <div className="flex gap-1 p-1 bg-white/[0.03] backdrop-blur-xl rounded-lg">
             <button
               onClick={() => setViewMode('grid')}
               className={`p-2 rounded transition-all ${
@@ -216,7 +216,7 @@ export const Cameras = () => {
                         <p className="text-xs text-text-secondary">{camera.ipAddress}</p>
                       </div>
                     </div>
-                    <button className="p-1 hover:bg-background-tertiary rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button className="p-1 hover:bg-white/[0.05] rounded opacity-0 group-hover:opacity-100 transition-opacity">
                       <MoreVertical size={16} className="text-text-secondary" />
                     </button>
                   </div>
@@ -231,7 +231,7 @@ export const Cameras = () => {
                   <div className="flex items-center gap-2 mb-4">
                     {getStatusBadge(camera.status)}
                     {getTypeBadge(camera.type)}
-                    <span className="px-2 py-0.5 rounded text-xs font-medium bg-background-tertiary text-text-secondary">
+                    <span className="px-2 py-0.5 rounded text-xs font-medium bg-white/[0.05] text-text-secondary">
                       {camera.resolution}
                     </span>
                   </div>
@@ -248,7 +248,7 @@ export const Cameras = () => {
                   </div>
 
                   {/* Meta Info */}
-                  <div className="pt-3 border-t border-border-default space-y-2 text-xs text-text-secondary">
+                  <div className="pt-3 border-t border-white/[0.08] space-y-2 text-xs text-text-secondary">
                     <div className="flex justify-between">
                       <span>Last Maintenance</span>
                       <span className="text-text-primary">
@@ -264,7 +264,7 @@ export const Cameras = () => {
                   </div>
 
                   {/* Actions */}
-                  <div className="flex items-center gap-2 mt-4 pt-3 border-t border-border-default">
+                  <div className="flex items-center gap-2 mt-4 pt-3 border-t border-white/[0.08]">
                     <button className="flex-1 flex items-center justify-center gap-1 py-2 text-sm text-text-secondary hover:text-accent-primary hover:bg-accent-primary/10 rounded transition-colors">
                       <Edit size={14} />
                       Edit
@@ -289,7 +289,7 @@ export const Cameras = () => {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-border-default">
+                <tr className="border-b border-white/[0.08]">
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Camera</th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Location</th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Status</th>
@@ -307,7 +307,7 @@ export const Cameras = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: index * 0.03 }}
-                    className="hover:bg-background-tertiary transition-colors"
+                    className="hover:bg-white/[0.05] transition-colors"
                   >
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-3">
@@ -332,10 +332,10 @@ export const Cameras = () => {
                     <td className="py-3 px-4 text-sm text-text-secondary font-mono">{camera.ipAddress}</td>
                     <td className="py-3 px-4">
                       <div className="flex items-center justify-end gap-1">
-                        <button className="p-2 hover:bg-background-secondary rounded text-text-secondary hover:text-accent-primary">
+                        <button className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-accent-primary">
                           <Edit size={14} />
                         </button>
-                        <button className="p-2 hover:bg-background-secondary rounded text-text-secondary hover:text-red-400">
+                        <button className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-red-400">
                           <Trash2 size={14} />
                         </button>
                       </div>

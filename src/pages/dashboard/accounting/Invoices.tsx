@@ -73,7 +73,7 @@ export const Invoices = () => {
       key: 'invoiceNumber',
       header: 'Invoice #',
       render: (invoice: Invoice) => (
-        <span className="text-[#6366f1] font-medium">{invoice.invoiceNumber}</span>
+        <span className="text-[#547792] font-medium">{invoice.invoiceNumber}</span>
       ),
     },
     {
@@ -125,7 +125,7 @@ export const Invoices = () => {
           >
             <Eye className="w-4 h-4" />
           </button>
-          <button className="p-2 rounded-lg text-white/40 hover:text-[#6366f1] hover:bg-[#6366f1]/10 transition-colors cursor-pointer">
+          <button className="p-2 rounded-lg text-white/40 hover:text-[#547792] hover:bg-[#547792]/10 transition-colors cursor-pointer">
             <Pencil className="w-4 h-4" />
           </button>
           {invoice.status === 'draft' && (
@@ -146,11 +146,11 @@ export const Invoices = () => {
         icon={FileText}
         actions={
           <div className="flex items-center gap-3">
-            <button className="flex items-center gap-2 px-4 py-2 bg-[#12121a] border border-[#1e1e2e] rounded-lg text-white hover:bg-[#1a1a24] transition-colors cursor-pointer">
+            <button className="flex items-center gap-2 px-4 py-2 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-lg text-white hover:bg-[#1a1a24] transition-colors cursor-pointer">
               <Download className="w-4 h-4" />
               Export
             </button>
-            <button className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] hover:opacity-90 text-white font-medium rounded-lg transition-opacity cursor-pointer">
+            <button className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#547792] to-[#94B4C1] hover:opacity-90 text-white font-medium rounded-lg transition-opacity cursor-pointer">
               <Plus className="w-4 h-4" />
               Create Invoice
             </button>
@@ -164,8 +164,8 @@ export const Invoices = () => {
           title="Total Invoiced"
           value={`$${(stats.totalAmount / 1000).toFixed(0)}K`}
           icon={DollarSign}
-          iconColor="#6366f1"
-          iconBg="rgba(99, 102, 241, 0.2)"
+          iconColor="#547792"
+          iconBg="rgba(84, 119, 146, 0.2)"
           delay={0.1}
         />
         <StatsCard
@@ -202,7 +202,7 @@ export const Invoices = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.35 }}
-        className="bg-[#12121a] border border-[#1e1e2e] rounded-xl overflow-hidden"
+        className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl overflow-hidden"
       >
         <DataTable
           columns={columns}
@@ -288,7 +288,7 @@ export const Invoices = () => {
               </div>
               <div className="flex justify-between text-lg font-semibold pt-2 border-t border-[#2e2e3e]">
                 <span className="text-white">Total</span>
-                <span className="text-[#6366f1]">${selectedInvoice.total.toLocaleString()}</span>
+                <span className="text-[#547792]">${selectedInvoice.total.toLocaleString()}</span>
               </div>
             </div>
           </div>

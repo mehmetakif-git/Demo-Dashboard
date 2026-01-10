@@ -51,8 +51,8 @@ const getVariantStyles = (status: string): string => {
     'default': 'bg-gray-500/20 text-gray-400 border-gray-500/30',
 
     // Employment type
-    'full-time': 'bg-indigo-500/20 text-indigo-400 border-indigo-500/30',
-    'part-time': 'bg-purple-500/20 text-purple-400 border-purple-500/30',
+    'full-time': 'bg-[#547792]/20 text-[#94B4C1] border-[#547792]/30',
+    'part-time': 'bg-[#94B4C1]/20 text-[#94B4C1] border-[#94B4C1]/30',
     'contract': 'bg-cyan-500/20 text-cyan-400 border-cyan-500/30',
   };
 

@@ -67,7 +67,7 @@ export const AssetList = () => {
     const config = {
       operational: { bg: 'bg-green-500/20', text: 'text-green-400', label: 'Operational' },
       'needs-repair': { bg: 'bg-yellow-500/20', text: 'text-yellow-400', label: 'Needs Repair' },
-      'under-maintenance': { bg: 'bg-indigo-500/20', text: 'text-indigo-400', label: 'Under Maintenance' },
+      'under-maintenance': { bg: 'bg-[#547792]/20', text: 'text-[#547792]', label: 'Under Maintenance' },
       'out-of-service': { bg: 'bg-red-500/20', text: 'text-red-400', label: 'Out of Service' },
     };
     const c = config[status];
@@ -125,7 +125,7 @@ export const AssetList = () => {
           title="Total Assets"
           value={stats.total.toString()}
           icon={Box}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
         <StatsCard
           title="Operational"
@@ -143,7 +143,7 @@ export const AssetList = () => {
           title="Under Maintenance"
           value={stats.underMaintenance.toString()}
           icon={AlertTriangle}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
       </div>
 
@@ -163,7 +163,7 @@ export const AssetList = () => {
             <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Status</option>
               <option value="operational">Operational</option>
@@ -175,7 +175,7 @@ export const AssetList = () => {
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Categories</option>
               {assetCategories.map(cat => (
@@ -185,7 +185,7 @@ export const AssetList = () => {
           </div>
 
           {/* View Toggle */}
-          <div className="flex gap-1 p-1 bg-background-secondary rounded-lg">
+          <div className="flex gap-1 p-1 bg-white/[0.03] backdrop-blur-xl rounded-lg">
             <button
               onClick={() => setViewMode('grid')}
               className={`p-2 rounded transition-all ${
@@ -246,7 +246,7 @@ export const AssetList = () => {
                       </div>
                     </div>
                     <button
-                      className="p-1 hover:bg-background-tertiary rounded opacity-0 group-hover:opacity-100 transition-opacity"
+                      className="p-1 hover:bg-white/[0.05] rounded opacity-0 group-hover:opacity-100 transition-opacity"
                       onClick={(e) => e.stopPropagation()}
                     >
                       <MoreVertical size={16} className="text-text-secondary" />
@@ -281,7 +281,7 @@ export const AssetList = () => {
                   </div>
 
                   {/* Meta Info */}
-                  <div className="pt-3 border-t border-border-default space-y-2 text-xs text-text-secondary">
+                  <div className="pt-3 border-t border-white/[0.08] space-y-2 text-xs text-text-secondary">
                     <div className="flex justify-between">
                       <span>Last Maintenance</span>
                       <span className="text-text-primary">{formatDate(asset.lastMaintenance)}</span>
@@ -293,7 +293,7 @@ export const AssetList = () => {
                   </div>
 
                   {/* Actions */}
-                  <div className="flex items-center gap-2 mt-4 pt-3 border-t border-border-default">
+                  <div className="flex items-center gap-2 mt-4 pt-3 border-t border-white/[0.08]">
                     <button
                       className="flex-1 flex items-center justify-center gap-1 py-2 text-sm text-text-secondary hover:text-accent-primary hover:bg-accent-primary/10 rounded transition-colors"
                       onClick={(e) => {
@@ -330,7 +330,7 @@ export const AssetList = () => {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-border-default">
+                <tr className="border-b border-white/[0.08]">
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Asset</th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Category</th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Location</th>
@@ -348,7 +348,7 @@ export const AssetList = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: index * 0.03 }}
-                    className="hover:bg-background-tertiary transition-colors cursor-pointer"
+                    className="hover:bg-white/[0.05] transition-colors cursor-pointer"
                     onClick={() => navigate(`/dashboard/maintenance/assets/${asset.id}`)}
                   >
                     <td className="py-3 px-4">
@@ -374,7 +374,7 @@ export const AssetList = () => {
                     <td className="py-3 px-4">
                       <div className="flex items-center justify-end gap-1">
                         <button
-                          className="p-2 hover:bg-background-secondary rounded text-text-secondary hover:text-accent-primary"
+                          className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-accent-primary"
                           onClick={(e) => {
                             e.stopPropagation();
                             navigate(`/dashboard/maintenance/assets/${asset.id}`);
@@ -383,13 +383,13 @@ export const AssetList = () => {
                           <Eye size={14} />
                         </button>
                         <button
-                          className="p-2 hover:bg-background-secondary rounded text-text-secondary hover:text-blue-400"
+                          className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-blue-400"
                           onClick={(e) => e.stopPropagation()}
                         >
                           <Edit size={14} />
                         </button>
                         <button
-                          className="p-2 hover:bg-background-secondary rounded text-text-secondary hover:text-red-400"
+                          className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-red-400"
                           onClick={(e) => e.stopPropagation()}
                         >
                           <Trash2 size={14} />

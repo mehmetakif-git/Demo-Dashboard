@@ -49,7 +49,7 @@ export const FormField = forwardRef<HTMLInputElement, FormFieldProps>(
                 ? 'border-red-500 focus:border-red-500'
                 : success
                 ? 'border-emerald-500 focus:border-emerald-500'
-                : 'border-[#1e1e2e] focus:border-[#6366f1]',
+                : 'border-white/[0.08] focus:border-[#547792]',
               className
             )}
             {...props}
@@ -137,7 +137,7 @@ export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>(
               ? 'border-red-500 focus:border-red-500'
               : success
               ? 'border-emerald-500 focus:border-emerald-500'
-              : 'border-[#1e1e2e] focus:border-[#6366f1]',
+              : 'border-white/[0.08] focus:border-[#547792]',
             className
           )}
           {...props}
@@ -194,7 +194,7 @@ export const FormSelect = forwardRef<HTMLSelectElement, FormSelectProps>(
             'w-full rounded-lg border bg-[#1a1a24] px-4 py-2.5 text-white focus:outline-none transition-colors',
             error
               ? 'border-red-500 focus:border-red-500'
-              : 'border-[#1e1e2e] focus:border-[#6366f1]',
+              : 'border-white/[0.08] focus:border-[#547792]',
             className
           )}
           {...props}

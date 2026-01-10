@@ -43,7 +43,7 @@ export const ClientDetail = () => {
         <p className="text-[#64748b] mb-4">Client not found</p>
         <button
           onClick={() => navigate('/dashboard/agency/clients')}
-          className="text-[#6366f1] hover:underline"
+          className="text-[#547792] hover:underline"
         >
           Back to Clients
         </button>
@@ -90,7 +90,7 @@ export const ClientDetail = () => {
               {getTierIcon(client.tier)}
               {client.tier.charAt(0).toUpperCase() + client.tier.slice(1)} Client
             </span>
-            <button className="flex items-center gap-2 rounded-lg border border-[#1e1e2e] bg-[#12121a] px-4 py-2 text-sm font-medium text-[#94a3b8] hover:bg-[#1a1a24]">
+            <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-4 py-2 text-sm font-medium text-[#94a3b8] hover:bg-[#1a1a24]">
               <Edit2 className="h-4 w-4" />
               Edit Client
             </button>
@@ -131,12 +131,12 @@ export const ClientDetail = () => {
         {/* Left Column - Client Info */}
         <div className="space-y-6">
           {/* Contact Information */}
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4">Contact Information</h3>
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#1a1a24]">
-                  <Building2 className="h-5 w-5 text-[#6366f1]" />
+                  <Building2 className="h-5 w-5 text-[#547792]" />
                 </div>
                 <div>
                   <p className="text-xs text-[#64748b]">Company</p>
@@ -145,7 +145,7 @@ export const ClientDetail = () => {
               </div>
               <div className="flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#1a1a24]">
-                  <Mail className="h-5 w-5 text-[#8b5cf6]" />
+                  <Mail className="h-5 w-5 text-[#94B4C1]" />
                 </div>
                 <div>
                   <p className="text-xs text-[#64748b]">Email</p>
@@ -174,7 +174,7 @@ export const ClientDetail = () => {
           </div>
 
           {/* Client Details */}
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4">Client Details</h3>
             <div className="space-y-4">
               <div className="flex justify-between">
@@ -211,10 +211,10 @@ export const ClientDetail = () => {
         {/* Right Column - Campaigns */}
         <div className="lg:col-span-2 space-y-6">
           {/* Active Campaigns */}
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-semibold text-white">Active Campaigns</h3>
-              <button className="text-sm text-[#6366f1] hover:underline">View All</button>
+              <button className="text-sm text-[#547792] hover:underline">View All</button>
             </div>
             <div className="space-y-4">
               {clientCampaigns.length > 0 ? (
@@ -252,7 +252,7 @@ export const ClientDetail = () => {
           </div>
 
           {/* Revenue History */}
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4">Revenue Summary</h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="rounded-lg bg-[#1a1a24] p-4">
@@ -271,13 +271,13 @@ export const ClientDetail = () => {
               </div>
               <div className="rounded-lg bg-[#1a1a24] p-4">
                 <p className="text-xs text-[#64748b] mb-1">Rating</p>
-                <p className="text-xl font-semibold text-[#6366f1]">{client.rating}/5</p>
+                <p className="text-xl font-semibold text-[#547792]">{client.rating}/5</p>
               </div>
             </div>
           </div>
 
           {/* Services Used */}
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4">Services Used</h3>
             <div className="flex flex-wrap gap-2">
               {client.services.map((service) => (
@@ -292,7 +292,7 @@ export const ClientDetail = () => {
           </div>
 
           {/* Brands */}
-          <div className="rounded-xl border border-[#1e1e2e] bg-[#12121a] p-6">
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4">Brands</h3>
             <div className="flex flex-wrap gap-2">
               {client.brands.map((brand) => (

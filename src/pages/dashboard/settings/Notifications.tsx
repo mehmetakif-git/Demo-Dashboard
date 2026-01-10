@@ -25,7 +25,7 @@ const Toggle = ({ enabled, onChange }: ToggleProps) => (
   <button
     onClick={() => onChange(!enabled)}
     className={`w-10 h-5 rounded-full transition-colors relative ${
-      enabled ? 'bg-accent-primary' : 'bg-background-tertiary'
+      enabled ? 'bg-accent-primary' : 'bg-white/[0.05]'
     }`}
   >
     <div
@@ -154,7 +154,7 @@ export const Notifications = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Email */}
-            <div className="p-4 bg-background-secondary rounded-lg">
+            <div className="p-4 bg-white/[0.03] backdrop-blur-xl rounded-lg">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-3">
                   <Mail size={20} className="text-blue-400" />
@@ -175,10 +175,10 @@ export const Notifications = () => {
             </div>
 
             {/* Push */}
-            <div className="p-4 bg-background-secondary rounded-lg">
+            <div className="p-4 bg-white/[0.03] backdrop-blur-xl rounded-lg">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-3">
-                  <Bell size={20} className="text-purple-400" />
+                  <Bell size={20} className="text-[#94B4C1]" />
                   <span className="font-medium text-text-primary">Push Notifications</span>
                 </div>
                 <Toggle
@@ -207,7 +207,7 @@ export const Notifications = () => {
             </div>
 
             {/* SMS */}
-            <div className="p-4 bg-background-secondary rounded-lg">
+            <div className="p-4 bg-white/[0.03] backdrop-blur-xl rounded-lg">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-3">
                   <Smartphone size={20} className="text-green-400" />
@@ -228,7 +228,7 @@ export const Notifications = () => {
             </div>
 
             {/* Slack */}
-            <div className="p-4 bg-background-secondary rounded-lg">
+            <div className="p-4 bg-white/[0.03] backdrop-blur-xl rounded-lg">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-3">
                   <MessageSquare size={20} className="text-amber-400" />
@@ -271,7 +271,7 @@ export const Notifications = () => {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-border-default">
+                <tr className="border-b border-white/[0.08]">
                   <th className="text-left py-3 text-sm font-medium text-text-secondary">Notification Type</th>
                   <th className="text-center py-3 px-4 text-sm font-medium text-text-secondary">
                     <Mail size={16} className="mx-auto" />
@@ -288,7 +288,7 @@ export const Notifications = () => {
                 {notificationTypes.map((type) => {
                   const pref = settings.preferences[type.key as keyof NotificationSettings['preferences']];
                   return (
-                    <tr key={type.key} className="border-b border-border-default hover:bg-background-tertiary/50">
+                    <tr key={type.key} className="border-b border-white/[0.08] hover:bg-white/[0.05]/50">
                       <td className="py-4">
                         <p className="font-medium text-text-primary">{type.label}</p>
                         <p className="text-xs text-text-muted">{type.description}</p>
@@ -299,7 +299,7 @@ export const Notifications = () => {
                           className={`w-6 h-6 rounded border flex items-center justify-center transition-colors ${
                             pref.email
                               ? 'bg-accent-primary border-accent-primary'
-                              : 'border-border-default hover:border-accent-primary'
+                              : 'border-white/[0.08] hover:border-accent-primary'
                           }`}
                         >
                           {pref.email && <Check size={14} className="text-white" />}
@@ -311,7 +311,7 @@ export const Notifications = () => {
                           className={`w-6 h-6 rounded border flex items-center justify-center transition-colors ${
                             pref.push
                               ? 'bg-accent-primary border-accent-primary'
-                              : 'border-border-default hover:border-accent-primary'
+                              : 'border-white/[0.08] hover:border-accent-primary'
                           }`}
                         >
                           {pref.push && <Check size={14} className="text-white" />}
@@ -323,7 +323,7 @@ export const Notifications = () => {
                           className={`w-6 h-6 rounded border flex items-center justify-center transition-colors ${
                             pref.sms
                               ? 'bg-accent-primary border-accent-primary'
-                              : 'border-border-default hover:border-accent-primary'
+                              : 'border-white/[0.08] hover:border-accent-primary'
                           }`}
                         >
                           {pref.sms && <Check size={14} className="text-white" />}
@@ -348,8 +348,8 @@ export const Notifications = () => {
         >
           <Card className="p-6">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center">
-                <Clock size={20} className="text-purple-400" />
+              <div className="w-10 h-10 rounded-lg bg-[#94B4C1]/20 flex items-center justify-center">
+                <Clock size={20} className="text-[#94B4C1]" />
               </div>
               <div>
                 <h3 className="font-semibold text-text-primary">Quiet Hours</h3>
@@ -374,7 +374,7 @@ export const Notifications = () => {
                       type="time"
                       value={settings.quietHours.start}
                       onChange={(e) => updateQuietHours('start', e.target.value)}
-                      className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+                      className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
                     />
                   </div>
                   <div>
@@ -383,7 +383,7 @@ export const Notifications = () => {
                       type="time"
                       value={settings.quietHours.end}
                       onChange={(e) => updateQuietHours('end', e.target.value)}
-                      className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+                      className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
                     />
                   </div>
                 </div>
@@ -425,7 +425,7 @@ export const Notifications = () => {
                     <select
                       value={settings.digestFrequency}
                       onChange={(e) => updateDigest('digestFrequency', e.target.value)}
-                      className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+                      className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
                     >
                       <option value="daily">Daily</option>
                       <option value="weekly">Weekly</option>
@@ -437,7 +437,7 @@ export const Notifications = () => {
                       type="time"
                       value={settings.digestTime}
                       onChange={(e) => updateDigest('digestTime', e.target.value)}
-                      className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+                      className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
                     />
                   </div>
                 </>
@@ -448,7 +448,7 @@ export const Notifications = () => {
       </div>
 
       {/* Sticky Save Button */}
-      <div className="fixed bottom-0 left-0 right-0 p-4 bg-background-primary border-t border-border-default">
+      <div className="fixed bottom-0 left-0 right-0 p-4 bg-background-primary border-t border-white/[0.08]">
         <div className="max-w-7xl mx-auto flex justify-end gap-4">
           <Button
             variant="outline"

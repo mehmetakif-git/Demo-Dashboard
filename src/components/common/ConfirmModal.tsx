@@ -29,9 +29,9 @@ const variantStyles = {
   },
   info: {
     icon: Info,
-    iconBg: 'bg-[#6366f1]/20',
-    iconColor: 'text-[#6366f1]',
-    buttonBg: 'bg-[#6366f1] hover:bg-[#5558e3]',
+    iconBg: 'bg-[#547792]/20',
+    iconColor: 'text-[#547792]',
+    buttonBg: 'bg-[#547792] hover:bg-[#456a82]',
   },
 };
 
@@ -65,7 +65,7 @@ export const ConfirmModal = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm"
+            className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm cursor-pointer"
           />
 
           {/* Modal */}
@@ -80,7 +80,7 @@ export const ConfirmModal = ({
               {/* Close button */}
               <button
                 onClick={onClose}
-                className="absolute top-4 right-4 rounded-lg p-1 text-white/40 hover:bg-white/[0.05] hover:text-white transition-colors"
+                className="absolute top-4 right-4 rounded-lg p-1 text-white/40 hover:bg-white/[0.05] hover:text-white transition-colors cursor-pointer"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -108,7 +108,7 @@ export const ConfirmModal = ({
                   <button
                     onClick={onClose}
                     disabled={loading}
-                    className="flex-1 rounded-lg border border-white/[0.08] bg-white/[0.03] px-4 py-2.5 text-sm font-medium text-white hover:bg-white/[0.08] transition-colors disabled:opacity-50"
+                    className="flex-1 rounded-lg border border-white/[0.08] bg-white/[0.03] px-4 py-2.5 text-sm font-medium text-white hover:bg-white/[0.08] transition-colors disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed"
                   >
                     {cancelText}
                   </button>
@@ -116,7 +116,7 @@ export const ConfirmModal = ({
                     onClick={handleConfirm}
                     disabled={loading}
                     className={cn(
-                      'flex-1 rounded-lg px-4 py-2.5 text-sm font-medium text-white transition-colors disabled:opacity-50',
+                      'flex-1 rounded-lg px-4 py-2.5 text-sm font-medium text-white transition-colors disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed',
                       styles.buttonBg
                     )}
                   >

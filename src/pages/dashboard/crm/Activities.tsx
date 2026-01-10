@@ -94,9 +94,9 @@ export const Activities = () => {
   const getActivityTypeColor = (type: Activity['type']) => {
     const colors = {
       call: '#10b981',
-      email: '#6366f1',
+      email: '#547792',
       meeting: '#f59e0b',
-      task: '#8b5cf6',
+      task: '#94B4C1',
     };
     return colors[type];
   };
@@ -107,7 +107,7 @@ export const Activities = () => {
         title="Activities"
         subtitle="Track customer interactions and tasks"
         actions={
-          <button className="flex items-center gap-2 rounded-lg bg-[#6366f1] px-4 py-2 text-sm font-medium text-white hover:bg-[#5558e3] transition-colors">
+          <button className="flex items-center gap-2 rounded-lg bg-[#547792] px-4 py-2 text-sm font-medium text-white hover:bg-[#5558e3] transition-colors">
             <Plus className="h-4 w-4" />
             Log Activity
           </button>
@@ -121,7 +121,7 @@ export const Activities = () => {
           value={stats.total.toString()}
           subtitle="This week"
           icon={Clock}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
         <StatsCard
           title="Calls Made"
@@ -133,7 +133,7 @@ export const Activities = () => {
           title="Emails Sent"
           value={stats.emails.toString()}
           icon={Mail}
-          iconColor="#8b5cf6"
+          iconColor="#94B4C1"
         />
         <StatsCard
           title="Meetings Held"
@@ -144,7 +144,7 @@ export const Activities = () => {
       </div>
 
       {/* Filters */}
-      <div className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-4">
+      <div className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-4">
         <div className="flex flex-wrap gap-3 items-center">
           {/* Search */}
           <div className="relative flex-1 min-w-64">
@@ -154,7 +154,7 @@ export const Activities = () => {
               placeholder="Search activities..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white placeholder-[#64748b] focus:outline-none focus:border-[#6366f1]"
+              className="w-full pl-10 pr-4 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white placeholder-[#64748b] focus:outline-none focus:border-[#547792]"
             />
           </div>
 
@@ -162,7 +162,7 @@ export const Activities = () => {
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value)}
-            className="px-3 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white focus:outline-none focus:border-[#6366f1]"
+            className="px-3 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white focus:outline-none focus:border-[#547792]"
           >
             <option value="all">All Types</option>
             <option value="call">Calls</option>
@@ -175,7 +175,7 @@ export const Activities = () => {
           <select
             value={customerFilter}
             onChange={(e) => setCustomerFilter(e.target.value)}
-            className="px-3 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white focus:outline-none focus:border-[#6366f1]"
+            className="px-3 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white focus:outline-none focus:border-[#547792]"
           >
             <option value="all">All Customers</option>
             {customers.map(customer => (
@@ -187,7 +187,7 @@ export const Activities = () => {
           <select
             value={assignedFilter}
             onChange={(e) => setAssignedFilter(e.target.value)}
-            className="px-3 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white focus:outline-none focus:border-[#6366f1]"
+            className="px-3 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white focus:outline-none focus:border-[#547792]"
           >
             <option value="all">All Assignees</option>
             {assignees.map(assignee => (
@@ -212,7 +212,7 @@ export const Activities = () => {
                     key={activity.id}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-4 hover:border-[#6366f1]/30 transition-colors"
+                    className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-4 hover:border-[#547792]/30 transition-colors"
                   >
                     <div className="flex items-start gap-4">
                       <div
@@ -241,7 +241,7 @@ export const Activities = () => {
                           </div>
                         </div>
 
-                        <div className="flex items-center justify-between mt-3 pt-3 border-t border-[#1e1e2e]">
+                        <div className="flex items-center justify-between mt-3 pt-3 border-t border-white/[0.08]">
                           <p className="text-sm text-[#94a3b8]">{activity.outcome}</p>
                           <span className="text-xs text-[#64748b]">{activity.assignedTo}</span>
                         </div>
@@ -255,7 +255,7 @@ export const Activities = () => {
         ))}
 
         {Object.keys(groupedActivities).length === 0 && (
-          <div className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-12 text-center">
+          <div className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-12 text-center">
             <Calendar className="h-12 w-12 mx-auto mb-4 text-[#64748b] opacity-50" />
             <p className="text-[#64748b]">No activities found</p>
             <p className="text-sm text-[#64748b] mt-1">Try adjusting your filters</p>

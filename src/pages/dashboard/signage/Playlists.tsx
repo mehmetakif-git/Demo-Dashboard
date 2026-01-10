@@ -130,7 +130,7 @@ export const Playlists = () => {
           title="Total Playlists"
           value={stats.total.toString()}
           icon={ListVideo}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
         <StatsCard
           title="Active"
@@ -148,7 +148,7 @@ export const Playlists = () => {
           title="Assigned Displays"
           value={stats.totalDisplays.toString()}
           icon={Monitor}
-          iconColor="#8b5cf6"
+          iconColor="#94B4C1"
         />
       </div>
 
@@ -167,7 +167,7 @@ export const Playlists = () => {
           <select
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Status</option>
             <option value="active">Active</option>
@@ -200,7 +200,7 @@ export const Playlists = () => {
                   </div>
                   <button
                     onClick={(e) => { e.stopPropagation(); }}
-                    className="p-1 hover:bg-background-tertiary rounded opacity-0 group-hover:opacity-100 transition-opacity"
+                    className="p-1 hover:bg-white/[0.05] rounded opacity-0 group-hover:opacity-100 transition-opacity"
                   >
                     <MoreVertical size={16} className="text-text-secondary" />
                   </button>
@@ -213,7 +213,7 @@ export const Playlists = () => {
                     return (
                       <div
                         key={i}
-                        className="w-16 h-12 bg-background-tertiary rounded flex items-center justify-center overflow-hidden"
+                        className="w-16 h-12 bg-white/[0.05] rounded flex items-center justify-center overflow-hidden"
                       >
                         {content && contentImages[content.name] ? (
                           <img
@@ -230,7 +230,7 @@ export const Playlists = () => {
                     );
                   })}
                   {playlist.items.length > 3 && (
-                    <div className="w-16 h-12 bg-background-tertiary rounded flex items-center justify-center">
+                    <div className="w-16 h-12 bg-white/[0.05] rounded flex items-center justify-center">
                       <span className="text-xs text-text-secondary">+{playlist.items.length - 3}</span>
                     </div>
                   )}
@@ -250,7 +250,7 @@ export const Playlists = () => {
                 </div>
 
                 {/* Stats */}
-                <div className="flex items-center justify-between pt-3 border-t border-border-default text-sm">
+                <div className="flex items-center justify-between pt-3 border-t border-white/[0.08] text-sm">
                   <div className="flex items-center gap-1 text-text-secondary">
                     <Monitor size={14} />
                     <span>{playlist.assignedDisplays} displays</span>
@@ -261,7 +261,7 @@ export const Playlists = () => {
                 </div>
 
                 {/* Quick Actions */}
-                <div className="flex items-center gap-2 mt-4 pt-3 border-t border-border-default opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="flex items-center gap-2 mt-4 pt-3 border-t border-white/[0.08] opacity-0 group-hover:opacity-100 transition-opacity">
                   <button
                     onClick={(e) => { e.stopPropagation(); }}
                     className="flex-1 flex items-center justify-center gap-1 py-2 text-sm text-text-secondary hover:text-accent-primary hover:bg-accent-primary/10 rounded transition-colors"
@@ -301,7 +301,7 @@ export const Playlists = () => {
                 <h3 className="font-semibold text-text-primary">Playlist Details</h3>
                 <button
                   onClick={() => setSelectedPlaylist(null)}
-                  className="p-1 hover:bg-background-tertiary rounded"
+                  className="p-1 hover:bg-white/[0.05] rounded"
                 >
                   <XCircle size={16} className="text-text-secondary" />
                 </button>
@@ -321,7 +321,7 @@ export const Playlists = () => {
                 </div>
 
                 {/* Content Items */}
-                <div className="pt-4 border-t border-border-default">
+                <div className="pt-4 border-t border-white/[0.08]">
                   <div className="flex items-center justify-between mb-3">
                     <h4 className="font-medium text-text-primary">Content Items</h4>
                     <Button variant="secondary" size="sm" leftIcon={<Plus size={12} />}>
@@ -337,10 +337,10 @@ export const Playlists = () => {
                       return (
                         <div
                           key={index}
-                          className="flex items-center gap-3 p-2 bg-background-tertiary rounded-lg group"
+                          className="flex items-center gap-3 p-2 bg-white/[0.05] rounded-lg group"
                         >
                           <GripVertical size={14} className="text-text-muted cursor-grab" />
-                          <div className="w-12 h-9 bg-background-secondary rounded flex items-center justify-center shrink-0 overflow-hidden">
+                          <div className="w-12 h-9 bg-white/[0.03] backdrop-blur-xl rounded flex items-center justify-center shrink-0 overflow-hidden">
                             {contentImages[content.name] ? (
                               <img
                                 src={contentImages[content.name]}
@@ -357,7 +357,7 @@ export const Playlists = () => {
                             <p className="text-sm font-medium text-text-primary truncate">{content.name}</p>
                             <p className="text-xs text-text-secondary">{formatDuration(item.duration)}</p>
                           </div>
-                          <button className="p-1 hover:bg-background-secondary rounded opacity-0 group-hover:opacity-100">
+                          <button className="p-1 hover:bg-white/[0.03] backdrop-blur-xl rounded opacity-0 group-hover:opacity-100">
                             <Trash2 size={12} className="text-text-muted hover:text-red-400" />
                           </button>
                         </div>
@@ -367,7 +367,7 @@ export const Playlists = () => {
                 </div>
 
                 {/* Actions */}
-                <div className="flex gap-2 pt-4 border-t border-border-default">
+                <div className="flex gap-2 pt-4 border-t border-white/[0.08]">
                   <Button variant="secondary" className="flex-1" leftIcon={<Eye size={14} />}>
                     Preview
                   </Button>
@@ -377,7 +377,7 @@ export const Playlists = () => {
                 </div>
 
                 {/* Meta Info */}
-                <div className="pt-4 border-t border-border-default space-y-2 text-sm">
+                <div className="pt-4 border-t border-white/[0.08] space-y-2 text-sm">
                   <div className="flex justify-between text-text-secondary">
                     <span>Created by</span>
                     <span className="text-text-primary">{selectedPlaylist.createdBy}</span>

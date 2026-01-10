@@ -142,7 +142,7 @@ export const Displays = () => {
           title="Total Displays"
           value={stats.total.toString()}
           icon={Monitor}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
         <StatsCard
           title="Online"
@@ -160,7 +160,7 @@ export const Displays = () => {
           title="Groups"
           value={stats.groups.toString()}
           icon={LayoutGrid}
-          iconColor="#8b5cf6"
+          iconColor="#94B4C1"
         />
       </div>
 
@@ -180,7 +180,7 @@ export const Displays = () => {
             <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Status</option>
               <option value="online">Online</option>
@@ -190,7 +190,7 @@ export const Displays = () => {
             <select
               value={selectedGroup}
               onChange={(e) => setSelectedGroup(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Groups</option>
               {uniqueGroups.map(g => (
@@ -201,7 +201,7 @@ export const Displays = () => {
             <select
               value={selectedOrientation}
               onChange={(e) => setSelectedOrientation(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Orientations</option>
               <option value="landscape">Landscape</option>
@@ -210,7 +210,7 @@ export const Displays = () => {
           </div>
 
           {/* View Toggle */}
-          <div className="flex gap-1 p-1 bg-background-secondary rounded-lg">
+          <div className="flex gap-1 p-1 bg-white/[0.03] backdrop-blur-xl rounded-lg">
             <button
               onClick={() => setViewMode('grid')}
               className={`p-2 rounded transition-all ${
@@ -247,7 +247,7 @@ export const Displays = () => {
             >
               <Card className="p-0 overflow-hidden hover:shadow-lg transition-all group">
                 {/* Display Preview */}
-                <div className={`relative bg-background-tertiary flex items-center justify-center overflow-hidden ${
+                <div className={`relative bg-white/[0.05] flex items-center justify-center overflow-hidden ${
                   display.orientation === 'landscape' ? 'aspect-video' : 'aspect-[9/16] max-h-48'
                 }`}>
                   {displayImages[display.id] ? (
@@ -294,14 +294,14 @@ export const Displays = () => {
                         {display.location}
                       </p>
                     </div>
-                    <button className="p-1 hover:bg-background-tertiary rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button className="p-1 hover:bg-white/[0.05] rounded opacity-0 group-hover:opacity-100 transition-opacity">
                       <MoreVertical size={16} className="text-text-secondary" />
                     </button>
                   </div>
 
                   <div className="flex items-center gap-2 mb-3">
                     {getStatusBadge(display.status)}
-                    <span className="flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium bg-purple-500/20 text-purple-400">
+                    <span className="flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium bg-[#94B4C1]/20 text-[#94B4C1]">
                       {getOrientationIcon(display.orientation)}
                       {display.orientation}
                     </span>
@@ -326,7 +326,7 @@ export const Displays = () => {
                   </div>
 
                   {/* Quick Actions */}
-                  <div className="flex items-center gap-2 mt-4 pt-3 border-t border-border-default">
+                  <div className="flex items-center gap-2 mt-4 pt-3 border-t border-white/[0.08]">
                     <button className="flex-1 flex items-center justify-center gap-1 py-2 text-sm text-text-secondary hover:text-accent-primary hover:bg-accent-primary/10 rounded transition-colors">
                       <Eye size={14} />
                       View
@@ -351,7 +351,7 @@ export const Displays = () => {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-border-default">
+                <tr className="border-b border-white/[0.08]">
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Status</th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Name</th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Location</th>
@@ -369,7 +369,7 @@ export const Displays = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: index * 0.03 }}
-                    className="hover:bg-background-tertiary transition-colors"
+                    className="hover:bg-white/[0.05] transition-colors"
                   >
                     <td className="py-3 px-4">{getStatusBadge(display.status)}</td>
                     <td className="py-3 px-4">
@@ -389,16 +389,16 @@ export const Displays = () => {
                     <td className="py-3 px-4 text-sm text-text-secondary">{formatLastSeen(display.lastSeen)}</td>
                     <td className="py-3 px-4">
                       <div className="flex items-center justify-end gap-1">
-                        <button className="p-2 hover:bg-background-secondary rounded text-text-secondary hover:text-accent-primary">
+                        <button className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-accent-primary">
                           <Eye size={14} />
                         </button>
-                        <button className="p-2 hover:bg-background-secondary rounded text-text-secondary hover:text-blue-400">
+                        <button className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-blue-400">
                           <Settings size={14} />
                         </button>
-                        <button className="p-2 hover:bg-background-secondary rounded text-text-secondary hover:text-green-400">
+                        <button className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-green-400">
                           <RefreshCw size={14} />
                         </button>
-                        <button className="p-2 hover:bg-background-secondary rounded text-text-secondary hover:text-purple-400">
+                        <button className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-[#94B4C1]">
                           <Send size={14} />
                         </button>
                       </div>
@@ -425,7 +425,7 @@ export const Displays = () => {
           {displayGroups.map(group => (
             <div
               key={group.id}
-              className="p-3 bg-background-tertiary rounded-lg hover:bg-background-secondary transition-colors cursor-pointer"
+              className="p-3 bg-white/[0.05] rounded-lg hover:bg-white/[0.03] backdrop-blur-xl transition-colors cursor-pointer"
             >
               <div className="flex items-center gap-2 mb-2">
                 <div

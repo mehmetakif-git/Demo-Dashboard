@@ -128,7 +128,7 @@ export const BulkCreate = () => {
             className={`flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-all ${
               activeTab === 'upload'
                 ? 'bg-accent-primary text-white'
-                : 'text-text-secondary hover:bg-background-tertiary'
+                : 'text-text-secondary hover:bg-white/[0.05]'
             }`}
           >
             <div className="flex items-center justify-center gap-2">
@@ -141,7 +141,7 @@ export const BulkCreate = () => {
             className={`flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-all ${
               activeTab === 'manual'
                 ? 'bg-accent-primary text-white'
-                : 'text-text-secondary hover:bg-background-tertiary'
+                : 'text-text-secondary hover:bg-white/[0.05]'
             }`}
           >
             <div className="flex items-center justify-center gap-2">
@@ -161,7 +161,7 @@ export const BulkCreate = () => {
             <select
               value={selectedType}
               onChange={(e) => setSelectedType(e.target.value)}
-              className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               {qrCodeTypes.map(type => (
                 <option key={type.id} value={type.id}>{type.label}</option>
@@ -173,7 +173,7 @@ export const BulkCreate = () => {
             <select
               value={selectedFolder}
               onChange={(e) => setSelectedFolder(e.target.value)}
-              className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               {qrFolders.map(folder => (
                 <option key={folder.id} value={folder.id}>{folder.name}</option>
@@ -185,7 +185,7 @@ export const BulkCreate = () => {
               <input
                 type="checkbox"
                 defaultChecked
-                className="w-4 h-4 rounded border-border-default bg-background-tertiary text-accent-primary focus:ring-accent-primary"
+                className="w-4 h-4 rounded border-white/[0.08] bg-white/[0.05] text-accent-primary focus:ring-accent-primary"
               />
               <span className="text-sm text-text-secondary">Create as Dynamic QR Codes</span>
             </label>
@@ -200,8 +200,8 @@ export const BulkCreate = () => {
           animate={{ opacity: 1, y: 0 }}
         >
           <div
-            className={`p-12 border-2 border-dashed rounded-xl bg-background-secondary transition-all ${
-              isDragging ? 'border-accent-primary bg-accent-primary/5' : 'border-border-default'
+            className={`p-12 border-2 border-dashed rounded-xl bg-white/[0.03] backdrop-blur-xl transition-all ${
+              isDragging ? 'border-accent-primary bg-accent-primary/5' : 'border-white/[0.08]'
             }`}
             onDragOver={(e: React.DragEvent) => { e.preventDefault(); setIsDragging(true); }}
             onDragLeave={() => setIsDragging(false)}
@@ -214,9 +214,9 @@ export const BulkCreate = () => {
                 Drag and drop your CSV or Excel file here, or click to browse
               </p>
               <div className="flex items-center justify-center gap-4 mb-6">
-                <span className="px-3 py-1 bg-background-tertiary rounded text-sm text-text-secondary">.csv</span>
-                <span className="px-3 py-1 bg-background-tertiary rounded text-sm text-text-secondary">.xlsx</span>
-                <span className="px-3 py-1 bg-background-tertiary rounded text-sm text-text-secondary">.xls</span>
+                <span className="px-3 py-1 bg-white/[0.05] rounded text-sm text-text-secondary">.csv</span>
+                <span className="px-3 py-1 bg-white/[0.05] rounded text-sm text-text-secondary">.xlsx</span>
+                <span className="px-3 py-1 bg-white/[0.05] rounded text-sm text-text-secondary">.xls</span>
               </div>
               <input
                 type="file"
@@ -300,7 +300,7 @@ export const BulkCreate = () => {
             </div>
             {isProcessing && (
               <div className="mt-4">
-                <div className="h-2 bg-background-tertiary rounded-full overflow-hidden">
+                <div className="h-2 bg-white/[0.05] rounded-full overflow-hidden">
                   <motion.div
                     className="h-full bg-accent-primary"
                     initial={{ width: 0 }}
@@ -316,7 +316,7 @@ export const BulkCreate = () => {
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-border-default">
+                  <tr className="border-b border-white/[0.08]">
                     <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary w-12">#</th>
                     <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Name</th>
                     <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Type</th>
@@ -337,7 +337,7 @@ export const BulkCreate = () => {
                         item.status === 'processing' ? 'bg-yellow-500/5' :
                         item.status === 'completed' ? 'bg-green-500/5' :
                         item.status === 'error' ? 'bg-red-500/5' :
-                        'hover:bg-background-tertiary'
+                        'hover:bg-white/[0.05]'
                       } transition-colors`}
                     >
                       <td className="py-3 px-4 text-sm text-text-muted">{index + 1}</td>
@@ -358,7 +358,7 @@ export const BulkCreate = () => {
                           <select
                             value={item.type}
                             onChange={(e) => updateItem(item.id, 'type', e.target.value)}
-                            className="px-2 py-1 bg-background-tertiary border border-border-default rounded text-sm text-text-primary"
+                            className="px-2 py-1 bg-white/[0.05] border border-white/[0.08] rounded text-sm text-text-primary"
                           >
                             {qrCodeTypes.map(type => (
                               <option key={type.id} value={type.id}>{type.label}</option>
@@ -381,7 +381,7 @@ export const BulkCreate = () => {
                         )}
                       </td>
                       <td className="py-3 px-4">
-                        <span className="px-2 py-0.5 bg-background-tertiary rounded text-xs text-text-secondary">
+                        <span className="px-2 py-0.5 bg-white/[0.05] rounded text-xs text-text-secondary">
                           {qrFolders.find(f => f.id === item.folder)?.name || 'None'}
                         </span>
                       </td>
@@ -425,7 +425,7 @@ export const BulkCreate = () => {
                           {item.status === 'pending' && (
                             <button
                               onClick={() => removeItem(item.id)}
-                              className="p-2 hover:bg-background-secondary rounded text-text-secondary hover:text-red-400"
+                              className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-red-400"
                             >
                               <Trash2 size={14} />
                             </button>
@@ -433,7 +433,7 @@ export const BulkCreate = () => {
                           {item.status === 'error' && (
                             <button
                               onClick={() => setItems(items.map(i => i.id === item.id ? { ...i, status: 'pending', error: undefined } : i))}
-                              className="p-2 hover:bg-background-secondary rounded text-text-secondary hover:text-yellow-400"
+                              className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-yellow-400"
                             >
                               <Play size={14} />
                             </button>
@@ -458,11 +458,11 @@ export const BulkCreate = () => {
             <ul className="space-y-2 text-sm text-text-muted">
               <li className="flex items-center gap-2">
                 <Check size={14} className="text-green-400" />
-                <code className="px-1 bg-background-tertiary rounded">name</code> - QR code name
+                <code className="px-1 bg-white/[0.05] rounded">name</code> - QR code name
               </li>
               <li className="flex items-center gap-2">
                 <Check size={14} className="text-green-400" />
-                <code className="px-1 bg-background-tertiary rounded">content</code> - URL or content
+                <code className="px-1 bg-white/[0.05] rounded">content</code> - URL or content
               </li>
             </ul>
           </div>
@@ -471,11 +471,11 @@ export const BulkCreate = () => {
             <ul className="space-y-2 text-sm text-text-muted">
               <li className="flex items-center gap-2">
                 <AlertCircle size={14} className="text-yellow-400" />
-                <code className="px-1 bg-background-tertiary rounded">type</code> - url, vcard, wifi, etc.
+                <code className="px-1 bg-white/[0.05] rounded">type</code> - url, vcard, wifi, etc.
               </li>
               <li className="flex items-center gap-2">
                 <AlertCircle size={14} className="text-yellow-400" />
-                <code className="px-1 bg-background-tertiary rounded">folder</code> - Folder ID
+                <code className="px-1 bg-white/[0.05] rounded">folder</code> - Folder ID
               </li>
             </ul>
           </div>

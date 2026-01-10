@@ -108,17 +108,17 @@ export const Payroll = () => {
             <select
               value={selectedMonth}
               onChange={(e) => setSelectedMonth(e.target.value)}
-              className="px-3 py-2 bg-[#12121a] border border-[#1e1e2e] rounded-lg text-white text-sm focus:outline-none focus:border-[#6366f1]/50"
+              className="px-3 py-2 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-lg text-white text-sm focus:outline-none focus:border-[#547792]/50"
             >
               <option value="December 2024">December 2024</option>
               <option value="November 2024">November 2024</option>
               <option value="October 2024">October 2024</option>
             </select>
-            <button className="flex items-center gap-2 px-4 py-2 bg-[#12121a] border border-[#1e1e2e] rounded-lg text-white hover:bg-[#1a1a24] transition-colors cursor-pointer">
+            <button className="flex items-center gap-2 px-4 py-2 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-lg text-white hover:bg-[#1a1a24] transition-colors cursor-pointer">
               <Download className="w-4 h-4" />
               Export
             </button>
-            <button className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] hover:opacity-90 text-white font-medium rounded-lg transition-opacity cursor-pointer">
+            <button className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#547792] to-[#94B4C1] hover:opacity-90 text-white font-medium rounded-lg transition-opacity cursor-pointer">
               <Play className="w-4 h-4" />
               Run Payroll
             </button>
@@ -132,8 +132,8 @@ export const Payroll = () => {
           title="Total Payroll"
           value={`$${stats.totalPayroll.toLocaleString()}`}
           icon={DollarSign}
-          iconColor="#6366f1"
-          iconBg="rgba(99, 102, 241, 0.2)"
+          iconColor="#547792"
+          iconBg="rgba(84, 119, 146, 0.2)"
           delay={0.1}
         />
         <StatsCard
@@ -156,8 +156,8 @@ export const Payroll = () => {
           title="Total Bonus"
           value={`$${stats.totalBonus.toLocaleString()}`}
           icon={Wallet}
-          iconColor="#8b5cf6"
-          iconBg="rgba(139, 92, 246, 0.2)"
+          iconColor="#94B4C1"
+          iconBg="rgba(148, 180, 193, 0.2)"
           delay={0.25}
         />
       </div>
@@ -167,7 +167,7 @@ export const Payroll = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6"
+        className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
       >
         <h3 className="text-lg font-semibold text-white mb-4">{selectedMonth} Summary</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -197,7 +197,7 @@ export const Payroll = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.35 }}
-        className="bg-[#12121a] border border-[#1e1e2e] rounded-xl overflow-hidden"
+        className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl overflow-hidden"
       >
         <DataTable
           columns={columns}

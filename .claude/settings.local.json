@@ -23,7 +23,10 @@
       "Bash(git -C \"e:/Demo-Dashboard\" push)",
       "Bash(git -C \"e:/Demo-Dashboard\" add -A)",
       "Bash(git -C \"e:/Demo-Dashboard\" commit -m \"$\\(cat <<''EOF''\nAdd module screenshots to Login page carousel\n\n- Add 7 webp screenshots for module carousel \\(dashboard, hr, crm, accounting, tasks, access, files\\)\n- Import screenshots from src/assets/screenshots/ for proper Vite bundling\n- Use webp format for optimized file sizes\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
-      "Bash(git -C \"e:/Demo-Dashboard\" commit -m \"$\\(cat <<''EOF''\nUpdate module screenshots with optimized dimensions\n\n- Replace all 7 module screenshots with properly sized images\n- Screenshots optimized for Login page carousel container\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
+      "Bash(git -C \"e:/Demo-Dashboard\" commit -m \"$\\(cat <<''EOF''\nUpdate module screenshots with optimized dimensions\n\n- Replace all 7 module screenshots with properly sized images\n- Screenshots optimized for Login page carousel container\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(powershell -Command \"Get-ChildItem -Recurse -Filter *.tsx | ForEach-Object { \\(Get-Content $_FullName -Raw\\) -replace ''bg-\\\\[#12121a\\\\]'', ''bg-background-secondary'' -replace ''border-\\\\[#1e1e2e\\\\]'', ''border-border-default'' | Set-Content $_FullName -NoNewline }\")",
+      "Bash(powershell -Command \"$files = Get-ChildItem -Recurse -Filter ''*.tsx''; foreach \\($file in $files\\) { $content = Get-Content $file.FullName -Raw; if \\($content -match ''#12121a|#1e1e2e''\\) { $content = $content -replace ''bg-\\\\[#12121a\\\\]'', ''bg-background-secondary''; $content = $content -replace ''border-\\\\[#1e1e2e\\\\]'', ''border-border-default''; Set-Content -Path $file.FullName -Value $content -NoNewline; Write-Host \\(''Updated: '' + $file.Name\\) } }\")",
+      "Bash(npx replace-in-files-cli:*)"
     ]
   }
 }

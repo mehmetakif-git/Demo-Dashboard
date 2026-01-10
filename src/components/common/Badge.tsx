@@ -8,7 +8,7 @@ interface BadgeProps {
 }
 
 const variants = {
-  default: 'bg-background-tertiary text-text-secondary',
+  default: 'bg-white/[0.05] text-text-secondary',
   primary: 'bg-accent-primary/20 text-accent-primary',
   secondary: 'bg-accent-secondary/20 text-accent-secondary',
   success: 'bg-success/20 text-success',

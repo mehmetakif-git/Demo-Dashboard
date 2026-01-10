@@ -99,7 +99,7 @@ export const Analytics = () => {
             <select
               value={selectedPeriod}
               onChange={(e) => setSelectedPeriod(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="week">Last 7 Days</option>
               <option value="month">Last 30 Days</option>
@@ -123,7 +123,7 @@ export const Analytics = () => {
           value={formatNumber(stats.totalScans)}
           subtitle="+12.5% from last period"
           icon={Scan}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
         <StatsCard
           title="Unique Visitors"
@@ -142,7 +142,7 @@ export const Analytics = () => {
           title="Avg. Scans per QR"
           value={formatNumber(stats.avgScansPerQR)}
           icon={BarChart3}
-          iconColor="#8b5cf6"
+          iconColor="#94B4C1"
         />
       </div>
 
@@ -153,7 +153,7 @@ export const Analytics = () => {
           <select
             value={selectedQRCode}
             onChange={(e) => setSelectedQRCode(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All QR Codes</option>
             {qrCodes.map(qr => (
@@ -231,7 +231,7 @@ export const Analytics = () => {
                     </div>
                     <span className="text-sm font-medium text-text-primary">{device.percentage}%</span>
                   </div>
-                  <div className="h-2 bg-background-tertiary rounded-full overflow-hidden">
+                  <div className="h-2 bg-white/[0.05] rounded-full overflow-hidden">
                     <motion.div
                       initial={{ width: 0 }}
                       animate={{ width: `${device.percentage}%` }}
@@ -259,9 +259,9 @@ export const Analytics = () => {
             </div>
             <div className="space-y-3">
               {topLocations.map((location, index) => (
-                <div key={location.country} className="flex items-center justify-between p-2 hover:bg-background-tertiary rounded transition-colors">
+                <div key={location.country} className="flex items-center justify-between p-2 hover:bg-white/[0.05] rounded transition-colors">
                   <div className="flex items-center gap-3">
-                    <span className="w-6 h-6 rounded-full bg-background-tertiary flex items-center justify-center text-xs text-text-muted">
+                    <span className="w-6 h-6 rounded-full bg-white/[0.05] flex items-center justify-center text-xs text-text-muted">
                       {index + 1}
                     </span>
                     <span className="text-sm text-text-primary">{location.country}</span>
@@ -301,7 +301,7 @@ export const Analytics = () => {
                 </div>
               ))}
             </div>
-            <div className="mt-4 p-3 bg-background-secondary rounded-lg">
+            <div className="mt-4 p-3 bg-white/[0.03] backdrop-blur-xl rounded-lg">
               <p className="text-xs text-text-muted">Best performing hour</p>
               <p className="text-lg font-semibold text-text-primary">3:00 PM - 6:00 PM</p>
             </div>
@@ -326,7 +326,7 @@ export const Analytics = () => {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-border-default">
+                <tr className="border-b border-white/[0.08]">
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Rank</th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">QR Code</th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Type</th>
@@ -342,13 +342,13 @@ export const Analytics = () => {
                   const trendValue = Math.floor(Math.random() * 20) + 5;
 
                   return (
-                    <tr key={qr.id} className="hover:bg-background-tertiary transition-colors">
+                    <tr key={qr.id} className="hover:bg-white/[0.05] transition-colors">
                       <td className="py-3 px-4">
                         <span className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
                           index === 0 ? 'bg-yellow-500/20 text-yellow-400' :
                           index === 1 ? 'bg-slate-500/20 text-slate-400' :
                           index === 2 ? 'bg-orange-500/20 text-orange-400' :
-                          'bg-background-tertiary text-text-muted'
+                          'bg-white/[0.05] text-text-muted'
                         }`}>
                           {index + 1}
                         </span>
@@ -409,7 +409,7 @@ export const Analytics = () => {
             </div>
             <p className="text-3xl font-bold text-text-primary mb-2">2.4K</p>
             <p className="text-sm text-text-secondary">Average daily scans</p>
-            <div className="mt-4 pt-4 border-t border-border-default">
+            <div className="mt-4 pt-4 border-t border-white/[0.08]">
               <div className="flex items-center gap-2 text-green-400">
                 <TrendingUp size={14} />
                 <span className="text-sm font-medium">+18.2% vs last month</span>
@@ -430,7 +430,7 @@ export const Analytics = () => {
             </div>
             <p className="text-3xl font-bold text-text-primary mb-2">68.5%</p>
             <p className="text-sm text-text-secondary">Unique vs total scans</p>
-            <div className="mt-4 pt-4 border-t border-border-default">
+            <div className="mt-4 pt-4 border-t border-white/[0.08]">
               <div className="flex items-center gap-2 text-green-400">
                 <TrendingUp size={14} />
                 <span className="text-sm font-medium">+5.3% vs last month</span>
@@ -447,11 +447,11 @@ export const Analytics = () => {
           <Card className="p-6">
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-semibold text-text-primary">Growth Rate</h3>
-              <BarChart3 size={18} className="text-purple-400" />
+              <BarChart3 size={18} className="text-[#94B4C1]" />
             </div>
             <p className="text-3xl font-bold text-text-primary mb-2">+24.8%</p>
             <p className="text-sm text-text-secondary">Month over month growth</p>
-            <div className="mt-4 pt-4 border-t border-border-default">
+            <div className="mt-4 pt-4 border-t border-white/[0.08]">
               <div className="flex items-center gap-2 text-green-400">
                 <TrendingUp size={14} />
                 <span className="text-sm font-medium">On track for goals</span>

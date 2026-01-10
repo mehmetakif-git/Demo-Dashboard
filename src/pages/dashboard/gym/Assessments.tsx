@@ -142,13 +142,13 @@ export const Assessments = () => {
           title="Total Assessments"
           value={stats.total.toString()}
           icon={ClipboardList}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
         <StatsCard
           title="This Month"
           value={stats.thisMonth.toString()}
           icon={Calendar}
-          iconColor="#8b5cf6"
+          iconColor="#94B4C1"
         />
         <StatsCard
           title="Showing Improvement"
@@ -178,7 +178,7 @@ export const Assessments = () => {
           <select
             value={memberFilter}
             onChange={(e) => setMemberFilter(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Members</option>
             {gymMembers.map(member => (
@@ -198,7 +198,7 @@ export const Assessments = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <Card className="p-6 hover:border-border-hover transition-colors cursor-pointer" onClick={() => setSelectedAssessment(assessment)}>
+            <Card className="p-6 hover:border-white/[0.12] transition-colors cursor-pointer" onClick={() => setSelectedAssessment(assessment)}>
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white font-medium">
@@ -223,7 +223,7 @@ export const Assessments = () => {
 
               {/* Quick Metrics */}
               <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-6">
-                <div className="p-3 bg-background-tertiary rounded-lg">
+                <div className="p-3 bg-white/[0.05] rounded-lg">
                   <div className="flex items-center gap-2 text-text-muted mb-1">
                     <Scale className="h-4 w-4" />
                     <span className="text-xs">Weight</span>
@@ -238,7 +238,7 @@ export const Assessments = () => {
                   </div>
                 </div>
 
-                <div className="p-3 bg-background-tertiary rounded-lg">
+                <div className="p-3 bg-white/[0.05] rounded-lg">
                   <div className="flex items-center gap-2 text-text-muted mb-1">
                     <Activity className="h-4 w-4" />
                     <span className="text-xs">Body Fat</span>
@@ -249,7 +249,7 @@ export const Assessments = () => {
                   </div>
                 </div>
 
-                <div className="p-3 bg-background-tertiary rounded-lg">
+                <div className="p-3 bg-white/[0.05] rounded-lg">
                   <div className="flex items-center gap-2 text-text-muted mb-1">
                     <Target className="h-4 w-4" />
                     <span className="text-xs">BMI</span>
@@ -257,7 +257,7 @@ export const Assessments = () => {
                   <span className="text-lg font-semibold text-text-primary">{assessment.metrics.bmi}</span>
                 </div>
 
-                <div className="p-3 bg-background-tertiary rounded-lg">
+                <div className="p-3 bg-white/[0.05] rounded-lg">
                   <div className="flex items-center gap-2 text-text-muted mb-1">
                     <Heart className="h-4 w-4" />
                     <span className="text-xs">Resting HR</span>
@@ -265,7 +265,7 @@ export const Assessments = () => {
                   <span className="text-lg font-semibold text-text-primary">{assessment.metrics.restingHeartRate} bpm</span>
                 </div>
 
-                <div className="p-3 bg-background-tertiary rounded-lg">
+                <div className="p-3 bg-white/[0.05] rounded-lg">
                   <div className="flex items-center gap-2 text-text-muted mb-1">
                     <Ruler className="h-4 w-4" />
                     <span className="text-xs">Muscle Mass</span>
@@ -276,7 +276,7 @@ export const Assessments = () => {
                   </div>
                 </div>
 
-                <div className="p-3 bg-background-tertiary rounded-lg">
+                <div className="p-3 bg-white/[0.05] rounded-lg">
                   <div className="flex items-center gap-2 text-text-muted mb-1">
                     <Award className="h-4 w-4" />
                     <span className="text-xs">VO2 Max</span>
@@ -287,7 +287,7 @@ export const Assessments = () => {
 
               {/* Goals */}
               {assessment.goals && assessment.goals.length > 0 && (
-                <div className="mt-4 pt-4 border-t border-border-default">
+                <div className="mt-4 pt-4 border-t border-white/[0.08]">
                   <p className="text-xs text-text-muted mb-2">Goals</p>
                   <div className="flex flex-wrap gap-2">
                     {assessment.goals.map((goal, index) => (
@@ -342,7 +342,7 @@ export const Assessments = () => {
                 </div>
                 <button
                   onClick={() => setSelectedAssessment(null)}
-                  className="p-2 hover:bg-background-tertiary rounded transition-colors"
+                  className="p-2 hover:bg-white/[0.05] rounded transition-colors"
                 >
                   <X size={20} className="text-text-muted" />
                 </button>
@@ -352,7 +352,7 @@ export const Assessments = () => {
               <div className="mb-6">
                 <h4 className="text-sm font-semibold text-text-primary mb-3">Body Composition</h4>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <div className="p-4 bg-background-tertiary rounded-lg">
+                  <div className="p-4 bg-white/[0.05] rounded-lg">
                     <p className="text-xs text-text-muted mb-1">Weight</p>
                     <p className="text-2xl font-bold text-text-primary">{selectedAssessment.metrics.weight} <span className="text-sm font-normal">kg</span></p>
                     {selectedAssessment.comparison?.weight && (
@@ -362,7 +362,7 @@ export const Assessments = () => {
                       </div>
                     )}
                   </div>
-                  <div className="p-4 bg-background-tertiary rounded-lg">
+                  <div className="p-4 bg-white/[0.05] rounded-lg">
                     <p className="text-xs text-text-muted mb-1">Body Fat</p>
                     <p className="text-2xl font-bold text-text-primary">{selectedAssessment.metrics.bodyFatPercentage}<span className="text-sm font-normal">%</span></p>
                     {selectedAssessment.comparison?.bodyFat && (
@@ -372,7 +372,7 @@ export const Assessments = () => {
                       </div>
                     )}
                   </div>
-                  <div className="p-4 bg-background-tertiary rounded-lg">
+                  <div className="p-4 bg-white/[0.05] rounded-lg">
                     <p className="text-xs text-text-muted mb-1">Muscle Mass</p>
                     <p className="text-2xl font-bold text-text-primary">{selectedAssessment.metrics.muscleMass} <span className="text-sm font-normal">kg</span></p>
                     {selectedAssessment.comparison?.muscleMass && (
@@ -382,7 +382,7 @@ export const Assessments = () => {
                       </div>
                     )}
                   </div>
-                  <div className="p-4 bg-background-tertiary rounded-lg">
+                  <div className="p-4 bg-white/[0.05] rounded-lg">
                     <p className="text-xs text-text-muted mb-1">BMI</p>
                     <p className="text-2xl font-bold text-text-primary">{selectedAssessment.metrics.bmi}</p>
                   </div>
@@ -393,15 +393,15 @@ export const Assessments = () => {
               <div className="mb-6">
                 <h4 className="text-sm font-semibold text-text-primary mb-3">Cardiovascular Health</h4>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  <div className="p-4 bg-background-tertiary rounded-lg">
+                  <div className="p-4 bg-white/[0.05] rounded-lg">
                     <p className="text-xs text-text-muted mb-1">Resting Heart Rate</p>
                     <p className="text-2xl font-bold text-text-primary">{selectedAssessment.metrics.restingHeartRate} <span className="text-sm font-normal">bpm</span></p>
                   </div>
-                  <div className="p-4 bg-background-tertiary rounded-lg">
+                  <div className="p-4 bg-white/[0.05] rounded-lg">
                     <p className="text-xs text-text-muted mb-1">Blood Pressure</p>
                     <p className="text-2xl font-bold text-text-primary">{selectedAssessment.metrics.bloodPressure}</p>
                   </div>
-                  <div className="p-4 bg-background-tertiary rounded-lg">
+                  <div className="p-4 bg-white/[0.05] rounded-lg">
                     <p className="text-xs text-text-muted mb-1">VO2 Max</p>
                     <p className="text-2xl font-bold text-text-primary">{selectedAssessment.metrics.vo2Max} <span className="text-sm font-normal">ml/kg/min</span></p>
                   </div>
@@ -412,19 +412,19 @@ export const Assessments = () => {
               <div className="mb-6">
                 <h4 className="text-sm font-semibold text-text-primary mb-3">Fitness Performance</h4>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <div className="p-4 bg-background-tertiary rounded-lg">
+                  <div className="p-4 bg-white/[0.05] rounded-lg">
                     <p className="text-xs text-text-muted mb-1">Flexibility</p>
                     <p className="text-2xl font-bold text-text-primary">{selectedAssessment.metrics.flexibility} <span className="text-sm font-normal">cm</span></p>
                   </div>
-                  <div className="p-4 bg-background-tertiary rounded-lg">
+                  <div className="p-4 bg-white/[0.05] rounded-lg">
                     <p className="text-xs text-text-muted mb-1">Push-ups (1 min)</p>
                     <p className="text-2xl font-bold text-text-primary">{selectedAssessment.metrics.pushUps}</p>
                   </div>
-                  <div className="p-4 bg-background-tertiary rounded-lg">
+                  <div className="p-4 bg-white/[0.05] rounded-lg">
                     <p className="text-xs text-text-muted mb-1">Sit-ups (1 min)</p>
                     <p className="text-2xl font-bold text-text-primary">{selectedAssessment.metrics.sitUps}</p>
                   </div>
-                  <div className="p-4 bg-background-tertiary rounded-lg">
+                  <div className="p-4 bg-white/[0.05] rounded-lg">
                     <p className="text-xs text-text-muted mb-1">Plank Time</p>
                     <p className="text-2xl font-bold text-text-primary">{selectedAssessment.metrics.plankTime} <span className="text-sm font-normal">sec</span></p>
                   </div>
@@ -434,7 +434,7 @@ export const Assessments = () => {
               {/* Goals & Notes */}
               <div className="grid md:grid-cols-2 gap-4">
                 {selectedAssessment.goals && selectedAssessment.goals.length > 0 && (
-                  <div className="p-4 bg-background-tertiary rounded-lg">
+                  <div className="p-4 bg-white/[0.05] rounded-lg">
                     <h4 className="text-sm font-semibold text-text-primary mb-3">Goals</h4>
                     <ul className="space-y-2">
                       {selectedAssessment.goals.map((goal, index) => (
@@ -447,14 +447,14 @@ export const Assessments = () => {
                   </div>
                 )}
                 {selectedAssessment.notes && (
-                  <div className="p-4 bg-background-tertiary rounded-lg">
+                  <div className="p-4 bg-white/[0.05] rounded-lg">
                     <h4 className="text-sm font-semibold text-text-primary mb-3">Notes</h4>
                     <p className="text-text-secondary text-sm">{selectedAssessment.notes}</p>
                   </div>
                 )}
               </div>
 
-              <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-border-default">
+              <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-white/[0.08]">
                 <Button variant="outline" onClick={() => setSelectedAssessment(null)}>
                   Close
                 </Button>
@@ -486,7 +486,7 @@ export const Assessments = () => {
                 <h3 className="text-lg font-semibold text-text-primary">New Fitness Assessment</h3>
                 <button
                   onClick={() => setIsNewAssessmentOpen(false)}
-                  className="p-2 hover:bg-background-tertiary rounded transition-colors"
+                  className="p-2 hover:bg-white/[0.05] rounded transition-colors"
                 >
                   <X size={20} className="text-text-muted" />
                 </button>
@@ -500,7 +500,7 @@ export const Assessments = () => {
                     <select
                       value={assessmentForm.memberId}
                       onChange={(e) => setAssessmentForm({ ...assessmentForm, memberId: e.target.value })}
-                      className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+                      className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
                     >
                       <option value="">Select member...</option>
                       {gymMembers.filter(m => m.membershipStatus === 'active').map(member => (
@@ -515,7 +515,7 @@ export const Assessments = () => {
                     <select
                       value={assessmentForm.trainerId}
                       onChange={(e) => setAssessmentForm({ ...assessmentForm, trainerId: e.target.value })}
-                      className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+                      className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
                     >
                       <option value="">Select trainer...</option>
                       {trainers.map(trainer => (
@@ -531,7 +531,7 @@ export const Assessments = () => {
                       type="date"
                       value={assessmentForm.date}
                       onChange={(e) => setAssessmentForm({ ...assessmentForm, date: e.target.value })}
-                      className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+                      className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
                     />
                   </div>
                 </div>
@@ -642,7 +642,7 @@ export const Assessments = () => {
                       onChange={(e) => setAssessmentForm({ ...assessmentForm, goals: e.target.value })}
                       placeholder="Enter goals, one per line..."
                       rows={3}
-                      className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-primary resize-none"
+                      className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-primary resize-none"
                     />
                   </div>
                   <div>
@@ -652,13 +652,13 @@ export const Assessments = () => {
                       onChange={(e) => setAssessmentForm({ ...assessmentForm, notes: e.target.value })}
                       placeholder="Additional observations..."
                       rows={3}
-                      className="w-full px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-primary resize-none"
+                      className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-primary resize-none"
                     />
                   </div>
                 </div>
               </div>
 
-              <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-border-default">
+              <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-white/[0.08]">
                 <Button variant="outline" onClick={() => setIsNewAssessmentOpen(false)}>
                   Cancel
                 </Button>

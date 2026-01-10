@@ -22,6 +22,7 @@ import {
   type Client,
 } from '@/data/staffing/staffingData';
 import { ROUTES } from '@/utils/constants';
+import { getCompanyLogo } from '@/utils/profileImages';
 
 export const ClientList = () => {
   const navigate = useNavigate();
@@ -60,7 +61,7 @@ export const ClientList = () => {
       title: 'Total Clients',
       value: staffingStats.totalClients.toString(),
       icon: Building2,
-      iconColor: '#6366f1',
+      iconColor: '#547792',
     },
     {
       title: 'Active Clients',
@@ -78,7 +79,7 @@ export const ClientList = () => {
       title: 'Open Positions',
       value: activePositions.toString(),
       icon: Briefcase,
-      iconColor: '#8b5cf6',
+      iconColor: '#94B4C1',
     },
   ];
 
@@ -127,14 +128,14 @@ export const ClientList = () => {
               placeholder="Search clients..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-primary"
+              className="w-full pl-10 pr-4 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-primary"
             />
           </div>
 
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Statuses</option>
             <option value="active">Active</option>
@@ -145,7 +146,7 @@ export const ClientList = () => {
           <select
             value={tierFilter}
             onChange={(e) => setTierFilter(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Tiers</option>
             <option value="platinum">Platinum</option>
@@ -157,7 +158,7 @@ export const ClientList = () => {
           <select
             value={industryFilter}
             onChange={(e) => setIndustryFilter(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="all">All Industries</option>
             {industries.map((industry) => (
@@ -202,9 +203,17 @@ const ClientCard = ({ client, onView }: ClientCardProps) => {
     <Card className="p-6 hover:border-accent-primary/50 transition-colors">
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center gap-4">
-          <div className="w-14 h-14 rounded-lg bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white text-xl font-bold">
-            {client.companyName.charAt(0)}
-          </div>
+          {getCompanyLogo(client.companyName) ? (
+            <img
+              src={getCompanyLogo(client.companyName)}
+              alt={client.companyName}
+              className="w-14 h-14 rounded-lg object-cover border border-white/10"
+            />
+          ) : (
+            <div className="w-14 h-14 rounded-lg bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white text-xl font-bold">
+              {client.companyName.charAt(0)}
+            </div>
+          )}
           <div>
             <h3 className="font-semibold text-text-primary text-lg">{client.companyName}</h3>
             <p className="text-text-secondary text-sm">{client.industry}</p>
@@ -230,21 +239,21 @@ const ClientCard = ({ client, onView }: ClientCardProps) => {
       </div>
 
       <div className="grid grid-cols-3 gap-2 mb-4 text-center">
-        <div className="bg-background-tertiary rounded-lg p-2">
+        <div className="bg-white/[0.05] rounded-lg p-2">
           <p className="text-text-primary font-bold">{client.totalPlacements}</p>
           <p className="text-xs text-text-muted">Placements</p>
         </div>
-        <div className="bg-background-tertiary rounded-lg p-2">
+        <div className="bg-white/[0.05] rounded-lg p-2">
           <p className="text-text-primary font-bold">{client.activePositions}</p>
           <p className="text-xs text-text-muted">Open</p>
         </div>
-        <div className="bg-background-tertiary rounded-lg p-2">
+        <div className="bg-white/[0.05] rounded-lg p-2">
           <p className="text-text-primary font-bold text-sm">{formatCurrency(client.totalRevenue / 1000)}k</p>
           <p className="text-xs text-text-muted">Revenue</p>
         </div>
       </div>
 
-      <div className="flex items-center justify-between pt-4 border-t border-border-default">
+      <div className="flex items-center justify-between pt-4 border-t border-white/[0.08]">
         <span
           className={`px-2 py-1 rounded-full text-xs font-medium ${
             client.status === 'active'

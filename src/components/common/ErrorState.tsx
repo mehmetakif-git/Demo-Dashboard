@@ -27,21 +27,21 @@ export const ErrorState = ({
         <Icon className="w-8 h-8 text-red-400" />
       </div>
       <h3 className="text-lg font-medium text-white mb-1">{title}</h3>
-      <p className="text-[#94a3b8] text-sm text-center max-w-sm mb-6">
+      <p className="text-text-secondary text-sm text-center max-w-sm mb-6">
         {message}
       </p>
       <div className="flex gap-3">
         {onRetry && (
           <button
             onClick={onRetry}
-            className="flex items-center gap-2 px-4 py-2 bg-[#6366f1] hover:bg-[#5558e3] text-white text-sm font-medium rounded-lg transition-colors"
+            className="flex items-center gap-2 px-4 py-2 bg-accent-primary hover:opacity-90 text-background-primary text-sm font-medium rounded-lg transition-colors"
           >
             <RefreshCw className="h-4 w-4" />
             Try Again
           </button>
         )}
         {showSupport && (
-          <button className="flex items-center gap-2 px-4 py-2 border border-[#1e1e2e] bg-[#1a1a24] hover:bg-[#252532] text-white text-sm font-medium rounded-lg transition-colors">
+          <button className="flex items-center gap-2 px-4 py-2 border border-white/[0.08] bg-white/[0.05] hover:bg-border-hover text-white text-sm font-medium rounded-lg transition-colors">
             <MessageCircle className="h-4 w-4" />
             Contact Support
           </button>

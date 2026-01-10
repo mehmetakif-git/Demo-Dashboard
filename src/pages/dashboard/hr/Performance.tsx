@@ -101,7 +101,7 @@ export const Performance = () => {
         subtitle="Evaluate and track employee performance"
         icon={Star}
         actions={
-          <button className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] hover:opacity-90 text-white font-medium rounded-lg transition-opacity cursor-pointer">
+          <button className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#547792] to-[#94B4C1] hover:opacity-90 text-white font-medium rounded-lg transition-opacity cursor-pointer">
             <Play className="w-4 h-4" />
             Start Review Cycle
           </button>
@@ -112,7 +112,7 @@ export const Performance = () => {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6"
+        className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
       >
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
@@ -148,7 +148,7 @@ export const Performance = () => {
                   fill="none"
                   strokeDasharray={`${completionPercentage * 3.52} 352`}
                   strokeLinecap="round"
-                  className="text-[#6366f1]"
+                  className="text-[#547792]"
                 />
               </svg>
             </div>
@@ -162,8 +162,8 @@ export const Performance = () => {
           title="Total Reviews"
           value={stats.totalReviews}
           icon={Users}
-          iconColor="#6366f1"
-          iconBg="rgba(99, 102, 241, 0.2)"
+          iconColor="#547792"
+          iconBg="rgba(84, 119, 146, 0.2)"
           delay={0.1}
         />
         <StatsCard
@@ -197,7 +197,7 @@ export const Performance = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6"
+        className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
       >
         <h3 className="text-lg font-semibold text-white mb-4">Rating Distribution</h3>
         <div className="space-y-3">
@@ -219,7 +219,7 @@ export const Performance = () => {
                     initial={{ width: 0 }}
                     animate={{ width: `${percentage}%` }}
                     transition={{ delay: 0.4 + rating * 0.05, duration: 0.5 }}
-                    className="h-full bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] rounded-full"
+                    className="h-full bg-gradient-to-r from-[#547792] to-[#94B4C1] rounded-full"
                   />
                 </div>
                 <span className="text-white/60 text-sm w-12">{count}</span>
@@ -234,7 +234,7 @@ export const Performance = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.35 }}
-        className="bg-[#12121a] border border-[#1e1e2e] rounded-xl overflow-hidden"
+        className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl overflow-hidden"
       >
         <DataTable
           columns={columns}

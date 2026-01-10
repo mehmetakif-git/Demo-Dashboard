@@ -95,8 +95,8 @@ export const Dashboard = () => {
           changeType={kpiData.activeClients.changeType}
           changeLabel={kpiData.activeClients.label}
           icon={Users}
-          iconColor="#6366f1"
-          iconBg="rgba(99, 102, 241, 0.2)"
+          iconColor="#547792"
+          iconBg="rgba(84, 119, 146, 0.2)"
           delay={0.15}
         />
         <KPICard
@@ -118,8 +118,8 @@ export const Dashboard = () => {
           change={kpiData.growthRate.change}
           changeType={kpiData.growthRate.changeType}
           icon={TrendingUp}
-          iconColor="#8b5cf6"
-          iconBg="rgba(139, 92, 246, 0.2)"
+          iconColor="#94B4C1"
+          iconBg="rgba(148, 180, 193, 0.2)"
           delay={0.25}
         />
       </div>

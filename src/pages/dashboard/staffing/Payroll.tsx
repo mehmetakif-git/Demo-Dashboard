@@ -15,6 +15,7 @@ import {
   placements,
   formatCurrency,
 } from '@/data/staffing/staffingData';
+import { getProfileImage } from '@/utils/profileImages';
 
 export const Payroll = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -83,7 +84,7 @@ export const Payroll = () => {
       title: 'Gross Margin',
       value: `${margin.toFixed(1)}%`,
       icon: TrendingUp,
-      iconColor: '#6366f1',
+      iconColor: '#547792',
     },
     {
       title: 'Active Contractors',
@@ -140,14 +141,14 @@ export const Payroll = () => {
               placeholder="Search contractors..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-primary"
+              className="w-full pl-10 pr-4 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-primary"
             />
           </div>
 
           <select
             value={periodFilter}
             onChange={(e) => setPeriodFilter(e.target.value)}
-            className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
+            className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
             <option value="current">Current Period</option>
             <option value="last">Last Period</option>
@@ -160,7 +161,7 @@ export const Payroll = () => {
       <Card className="p-6">
         <h3 className="text-lg font-semibold text-text-primary mb-4">Period Summary</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-background-tertiary rounded-lg p-4">
+          <div className="bg-white/[0.05] rounded-lg p-4">
             <div className="flex items-center justify-between mb-2">
               <span className="text-text-secondary">Total Billable</span>
               <DollarSign className="h-5 w-5 text-green-400" />
@@ -168,7 +169,7 @@ export const Payroll = () => {
             <p className="text-2xl font-bold text-green-400">{formatCurrency(totalBillable)}</p>
             <p className="text-sm text-text-muted mt-1">Gross client billing</p>
           </div>
-          <div className="bg-background-tertiary rounded-lg p-4">
+          <div className="bg-white/[0.05] rounded-lg p-4">
             <div className="flex items-center justify-between mb-2">
               <span className="text-text-secondary">Total Payroll</span>
               <DollarSign className="h-5 w-5 text-red-400" />
@@ -176,7 +177,7 @@ export const Payroll = () => {
             <p className="text-2xl font-bold text-red-400">{formatCurrency(totalPayroll)}</p>
             <p className="text-sm text-text-muted mt-1">Contractor payments</p>
           </div>
-          <div className="bg-background-tertiary rounded-lg p-4">
+          <div className="bg-white/[0.05] rounded-lg p-4">
             <div className="flex items-center justify-between mb-2">
               <span className="text-text-secondary">Gross Profit</span>
               <TrendingUp className="h-5 w-5 text-accent-primary" />
@@ -194,7 +195,7 @@ export const Payroll = () => {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-border-default">
+              <tr className="border-b border-white/[0.08]">
                 <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
                   Contractor
                 </th>
@@ -227,16 +228,24 @@ export const Payroll = () => {
                 return (
                   <tr
                     key={item.candidateId}
-                    className="border-b border-border-default hover:bg-background-secondary/50"
+                    className="border-b border-white/[0.08] hover:bg-white/[0.03] backdrop-blur-xl/50"
                   >
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white text-sm font-bold">
-                          {item.candidateName
-                            .split(' ')
-                            .map((n: string) => n[0])
-                            .join('')}
-                        </div>
+                        {getProfileImage(item.candidateName) ? (
+                          <img
+                            src={getProfileImage(item.candidateName)}
+                            alt={item.candidateName}
+                            className="w-10 h-10 rounded-full object-cover border border-white/10"
+                          />
+                        ) : (
+                          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white text-sm font-bold">
+                            {item.candidateName
+                              .split(' ')
+                              .map((n: string) => n[0])
+                              .join('')}
+                          </div>
+                        )}
                         <p className="font-medium text-text-primary">{item.candidateName}</p>
                       </div>
                     </td>

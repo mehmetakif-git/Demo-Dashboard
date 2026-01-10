@@ -7,7 +7,7 @@ interface BottomGradientProps {
 
 export const BottomGradient: React.FC<BottomGradientProps> = ({
   primaryColor = '#06b6d4', // cyan-500
-  secondaryColor = '#6366f1', // indigo-500
+  secondaryColor = '#547792', // indigo-500
 }) => {
   return (
     <>

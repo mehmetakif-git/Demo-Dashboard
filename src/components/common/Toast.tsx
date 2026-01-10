@@ -32,7 +32,7 @@ export const ToastContainer = () => {
             exit={{ opacity: 0, x: 100, scale: 0.95 }}
             className={cn(
               'flex items-center gap-3 rounded-lg border px-4 py-3 shadow-lg backdrop-blur-sm',
-              'bg-background-secondary/90',
+              'bg-white/[0.03] backdrop-blur-xl/90',
               colors[toast.type]
             )}
           >
@@ -44,7 +44,7 @@ export const ToastContainer = () => {
             </span>
             <button
               onClick={() => removeToast(toast.id)}
-              className="ml-2 text-text-muted hover:text-text-secondary transition-colors"
+              className="ml-2 text-text-muted hover:text-text-secondary transition-colors cursor-pointer"
             >
               <X className="h-4 w-4" />
             </button>

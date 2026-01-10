@@ -133,7 +133,7 @@ export const Opportunities = () => {
 
     return (
       <div
-        className={`bg-[#1a1a24] rounded-lg p-4 border border-[#2e2e3e] hover:border-[#6366f1]/50 transition-colors cursor-pointer ${
+        className={`bg-[#1a1a24] rounded-lg p-4 border border-[#2e2e3e] hover:border-[#547792]/50 transition-colors cursor-pointer ${
           isClosedLost ? 'opacity-60' : ''
         }`}
       >
@@ -158,8 +158,8 @@ export const Opportunities = () => {
           </div>
         </div>
         <div className="flex items-center gap-2 mt-3 pt-3 border-t border-[#2e2e3e]">
-          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#6366f1]/10">
-            <User className="h-3 w-3 text-[#6366f1]" />
+          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#547792]/10">
+            <User className="h-3 w-3 text-[#547792]" />
           </div>
           <span className="text-xs text-[#94a3b8]">{opportunity.owner}</span>
         </div>
@@ -180,7 +180,7 @@ export const Opportunities = () => {
                 onClick={() => setViewMode('pipeline')}
                 className={`p-2 rounded-md transition-colors ${
                   viewMode === 'pipeline'
-                    ? 'bg-[#6366f1] text-white'
+                    ? 'bg-[#547792] text-white'
                     : 'text-[#64748b] hover:text-white'
                 }`}
               >
@@ -190,14 +190,14 @@ export const Opportunities = () => {
                 onClick={() => setViewMode('list')}
                 className={`p-2 rounded-md transition-colors ${
                   viewMode === 'list'
-                    ? 'bg-[#6366f1] text-white'
+                    ? 'bg-[#547792] text-white'
                     : 'text-[#64748b] hover:text-white'
                 }`}
               >
                 <List className="h-4 w-4" />
               </button>
             </div>
-            <button className="flex items-center gap-2 rounded-lg bg-[#6366f1] px-4 py-2 text-sm font-medium text-white hover:bg-[#5558e3] transition-colors">
+            <button className="flex items-center gap-2 rounded-lg bg-[#547792] px-4 py-2 text-sm font-medium text-white hover:bg-[#5558e3] transition-colors">
               <Plus className="h-4 w-4" />
               Add Opportunity
             </button>
@@ -211,7 +211,7 @@ export const Opportunities = () => {
           title="Total Pipeline"
           value={`$${(stats.totalPipeline / 1000).toFixed(0)}K`}
           icon={DollarSign}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
         <StatsCard
           title="Weighted Value"
@@ -229,7 +229,7 @@ export const Opportunities = () => {
           title="Win Rate"
           value={`${stats.winRate}%`}
           icon={Percent}
-          iconColor="#8b5cf6"
+          iconColor="#94B4C1"
         />
       </div>
 
@@ -251,7 +251,7 @@ export const Opportunities = () => {
                   className={`w-72 flex-shrink-0 rounded-xl p-4 ${
                     isClosedWon ? 'bg-[#10b981]/10 border border-[#10b981]/30' :
                     isClosedLost ? 'bg-[#ef4444]/10 border border-[#ef4444]/30' :
-                    'bg-[#12121a] border border-[#1e1e2e]'
+                    'bg-white/[0.03] backdrop-blur-xl border border-white/[0.08]'
                   }`}
                 >
                   {/* Stage Header */}

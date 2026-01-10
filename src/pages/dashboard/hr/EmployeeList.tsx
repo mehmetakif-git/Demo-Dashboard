@@ -117,7 +117,7 @@ export const EmployeeList = () => {
             <Eye className="w-4 h-4" />
           </button>
           <button
-            className="p-2 rounded-lg text-white/40 hover:text-[#6366f1] hover:bg-[#6366f1]/10 transition-colors cursor-pointer"
+            className="p-2 rounded-lg text-white/40 hover:text-[#547792] hover:bg-[#547792]/10 transition-colors cursor-pointer"
             title="Edit"
           >
             <Pencil className="w-4 h-4" />
@@ -140,7 +140,7 @@ export const EmployeeList = () => {
         subtitle={`Manage your team of ${stats.total} employees`}
         icon={Users}
         actions={
-          <button className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] hover:opacity-90 text-white font-medium rounded-lg transition-opacity cursor-pointer">
+          <button className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#547792] to-[#94B4C1] hover:opacity-90 text-white font-medium rounded-lg transition-opacity cursor-pointer">
             <Plus className="w-4 h-4" />
             Add Employee
           </button>
@@ -153,8 +153,8 @@ export const EmployeeList = () => {
           title="Total Employees"
           value={stats.total}
           icon={Users}
-          iconColor="#6366f1"
-          iconBg="rgba(99, 102, 241, 0.2)"
+          iconColor="#547792"
+          iconBg="rgba(84, 119, 146, 0.2)"
           delay={0.1}
         />
         <StatsCard
@@ -177,8 +177,8 @@ export const EmployeeList = () => {
           title="Departments"
           value={stats.departments}
           icon={Building2}
-          iconColor="#8b5cf6"
-          iconBg="rgba(139, 92, 246, 0.2)"
+          iconColor="#94B4C1"
+          iconBg="rgba(148, 180, 193, 0.2)"
           delay={0.25}
         />
       </div>
@@ -220,7 +220,7 @@ export const EmployeeList = () => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="bg-[#12121a] border border-[#1e1e2e] rounded-xl overflow-hidden"
+          className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl overflow-hidden"
         >
           <DataTable
             columns={columns}
@@ -253,7 +253,7 @@ export const EmployeeList = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}
               onClick={() => navigate(`/dashboard/hr/employees/${employee.id}`)}
-              className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-4 hover:border-[#6366f1]/30 transition-colors cursor-pointer"
+              className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-4 hover:border-accent-primary/30 transition-colors cursor-pointer"
             >
               <div className="flex items-start justify-between mb-4">
                 <Avatar name={employee.name} src={profileImages[employee.name]} size="lg" />

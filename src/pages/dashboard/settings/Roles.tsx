@@ -107,7 +107,7 @@ export const Roles = () => {
           title="Total Roles"
           value={stats.totalRoles.toString()}
           icon={Shield}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
         <StatsCard
           title="System Roles"
@@ -125,7 +125,7 @@ export const Roles = () => {
           title="Total Users"
           value={stats.totalUsers.toString()}
           icon={Users}
-          iconColor="#8b5cf6"
+          iconColor="#94B4C1"
         />
       </div>
 
@@ -145,7 +145,7 @@ export const Roles = () => {
                   className={`w-full text-left p-4 rounded-lg transition-all ${
                     selectedRole?.id === role.id
                       ? 'bg-accent-primary/10 border border-accent-primary/30'
-                      : 'hover:bg-background-tertiary border border-transparent'
+                      : 'hover:bg-white/[0.05] border border-transparent'
                   }`}
                 >
                   <div className="flex items-start justify-between">
@@ -194,14 +194,14 @@ export const Roles = () => {
                           value={newRoleName}
                           onChange={(e) => setNewRoleName(e.target.value)}
                           placeholder="Role Name"
-                          className="text-lg font-semibold text-text-primary bg-transparent border-b border-border-default focus:outline-none focus:border-accent-primary w-full pb-1"
+                          className="text-lg font-semibold text-text-primary bg-transparent border-b border-white/[0.08] focus:outline-none focus:border-accent-primary w-full pb-1"
                         />
                         <input
                           type="text"
                           value={newRoleDescription}
                           onChange={(e) => setNewRoleDescription(e.target.value)}
                           placeholder="Role Description"
-                          className="text-sm text-text-secondary bg-transparent border-b border-border-default focus:outline-none focus:border-accent-primary w-full pb-1"
+                          className="text-sm text-text-secondary bg-transparent border-b border-white/[0.08] focus:outline-none focus:border-accent-primary w-full pb-1"
                         />
                       </div>
                     ) : (
@@ -214,17 +214,17 @@ export const Roles = () => {
                   <div className="flex gap-2">
                     {!isCreating && !selectedRole?.isSystem && (
                       <>
-                        <button className="p-2 hover:bg-background-tertiary rounded transition-colors text-text-secondary hover:text-text-primary">
+                        <button className="p-2 hover:bg-white/[0.05] rounded transition-colors text-text-secondary hover:text-text-primary">
                           <Copy size={18} />
                         </button>
-                        <button className="p-2 hover:bg-background-tertiary rounded transition-colors text-text-secondary hover:text-red-400">
+                        <button className="p-2 hover:bg-white/[0.05] rounded transition-colors text-text-secondary hover:text-red-400">
                           <Trash2 size={18} />
                         </button>
                       </>
                     )}
                     <button
                       onClick={() => { setSelectedRole(null); setIsCreating(false); }}
-                      className="p-2 hover:bg-background-tertiary rounded transition-colors text-text-secondary"
+                      className="p-2 hover:bg-white/[0.05] rounded transition-colors text-text-secondary"
                     >
                       <X size={18} />
                     </button>
@@ -233,7 +233,7 @@ export const Roles = () => {
 
                 {/* Info */}
                 {selectedRole && !isCreating && (
-                  <div className="grid grid-cols-3 gap-4 mb-6 p-4 bg-background-secondary rounded-lg">
+                  <div className="grid grid-cols-3 gap-4 mb-6 p-4 bg-white/[0.03] backdrop-blur-xl rounded-lg">
                     <div>
                       <p className="text-xs text-text-muted">Users</p>
                       <p className="text-lg font-semibold text-text-primary">{selectedRole.userCount}</p>
@@ -262,11 +262,11 @@ export const Roles = () => {
                       return (
                         <div
                           key={module.id}
-                          className="border border-border-default rounded-lg overflow-hidden"
+                          className="border border-white/[0.08] rounded-lg overflow-hidden"
                         >
                           <button
                             onClick={() => setExpandedModule(isExpanded ? null : module.id)}
-                            className="w-full flex items-center justify-between p-4 hover:bg-background-tertiary transition-colors"
+                            className="w-full flex items-center justify-between p-4 hover:bg-white/[0.05] transition-colors"
                           >
                             <div className="flex items-center gap-3">
                               <button
@@ -279,7 +279,7 @@ export const Roles = () => {
                                     ? 'bg-accent-primary border-accent-primary'
                                     : hasSomePermissions
                                     ? 'bg-accent-primary/50 border-accent-primary'
-                                    : 'border-border-default hover:border-accent-primary'
+                                    : 'border-white/[0.08] hover:border-accent-primary'
                                 }`}
                               >
                                 {(hasAllPermissions || hasSomePermissions) && (
@@ -305,7 +305,7 @@ export const Roles = () => {
                               initial={{ height: 0, opacity: 0 }}
                               animate={{ height: 'auto', opacity: 1 }}
                               exit={{ height: 0, opacity: 0 }}
-                              className="border-t border-border-default bg-background-secondary px-4 py-3"
+                              className="border-t border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-4 py-3"
                             >
                               <div className="flex flex-wrap gap-3">
                                 {module.actions.map((action) => {
@@ -317,11 +317,11 @@ export const Roles = () => {
                                       className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm transition-colors ${
                                         hasPermission
                                           ? 'bg-accent-primary/20 text-accent-primary'
-                                          : 'bg-background-tertiary text-text-secondary hover:bg-background-primary'
+                                          : 'bg-white/[0.05] text-text-secondary hover:bg-background-primary'
                                       }`}
                                     >
                                       <div className={`w-4 h-4 rounded border flex items-center justify-center ${
-                                        hasPermission ? 'bg-accent-primary border-accent-primary' : 'border-border-default'
+                                        hasPermission ? 'bg-accent-primary border-accent-primary' : 'border-white/[0.08]'
                                       }`}>
                                         {hasPermission && <Check size={10} className="text-white" />}
                                       </div>
@@ -346,7 +346,7 @@ export const Roles = () => {
                       {getRoleUsers(selectedRole.id).map((user) => (
                         <div
                           key={user.id}
-                          className="flex items-center gap-2 px-3 py-1.5 bg-background-secondary rounded-full"
+                          className="flex items-center gap-2 px-3 py-1.5 bg-white/[0.03] backdrop-blur-xl rounded-full"
                         >
                           <div className="w-6 h-6 rounded-full bg-accent-primary/20 flex items-center justify-center text-accent-primary text-xs">
                             {user.name.split(' ').map(n => n[0]).join('')}
@@ -359,7 +359,7 @@ export const Roles = () => {
                 )}
 
                 {/* Actions */}
-                <div className="flex justify-end gap-3 pt-4 border-t border-border-default">
+                <div className="flex justify-end gap-3 pt-4 border-t border-white/[0.08]">
                   <Button
                     variant="outline"
                     onClick={() => { setSelectedRole(null); setIsCreating(false); }}

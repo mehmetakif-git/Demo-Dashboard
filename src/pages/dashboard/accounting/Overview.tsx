@@ -82,8 +82,8 @@ export const Overview = () => {
           title="Net Profit"
           value={`$${(stats.netProfit / 1000).toFixed(0)}K`}
           icon={DollarSign}
-          iconColor="#6366f1"
-          iconBg="rgba(99, 102, 241, 0.2)"
+          iconColor="#547792"
+          iconBg="rgba(84, 119, 146, 0.2)"
           delay={0.2}
         />
         <StatsCard
@@ -103,7 +103,7 @@ export const Overview = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6"
+          className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
         >
           <h3 className="text-lg font-semibold text-white mb-4">Cash Flow</h3>
           <div className="h-[300px]">
@@ -157,7 +157,7 @@ export const Overview = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.35 }}
-          className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6"
+          className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
         >
           <h3 className="text-lg font-semibold text-white mb-4">Expense Distribution</h3>
           <div className="h-[300px]">
@@ -206,7 +206,7 @@ export const Overview = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6"
+          className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
         >
           <h3 className="text-sm font-medium text-white/60 mb-4">Financial Health</h3>
           <div className="space-y-4">
@@ -238,7 +238,7 @@ export const Overview = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.45 }}
-          className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6"
+          className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
         >
           <h3 className="text-sm font-medium text-white/60 mb-4">Recent Income</h3>
           <div className="space-y-3">
@@ -261,7 +261,7 @@ export const Overview = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6"
+          className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
         >
           <h3 className="text-sm font-medium text-white/60 mb-4">Recent Expenses</h3>
           <div className="space-y-3">
@@ -305,7 +305,7 @@ export const Overview = () => {
                   .map((invoice) => (
                     <div
                       key={invoice.id}
-                      className="flex items-center justify-between p-3 rounded-lg bg-[#12121a]/50"
+                      className="flex items-center justify-between p-3 rounded-lg bg-white/[0.03] backdrop-blur-xl/50"
                     >
                       <div>
                         <span className="text-white font-medium">{invoice.invoiceNumber}</span>

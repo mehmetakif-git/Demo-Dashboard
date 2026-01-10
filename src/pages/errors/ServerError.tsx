@@ -10,7 +10,7 @@ export const ServerError = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center p-4">
+    <div className="min-h-screen bg-background-primary flex items-center justify-center p-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -24,7 +24,7 @@ export const ServerError = () => {
           className="mb-8"
         >
           <div className="relative inline-block">
-            <div className="text-[150px] font-bold text-[#1a1a24] leading-none select-none">
+            <div className="text-[150px] font-bold text-background-tertiary leading-none select-none">
               500
             </div>
             <motion.div
@@ -47,7 +47,7 @@ export const ServerError = () => {
 
         {/* Message */}
         <h1 className="text-3xl font-bold text-white mb-3">Something Went Wrong</h1>
-        <p className="text-[#94a3b8] mb-8 max-w-md mx-auto">
+        <p className="text-text-secondary mb-8 max-w-md mx-auto">
           We're experiencing technical difficulties. Our team has been notified
           and is working to fix the issue. Please try again later.
         </p>
@@ -56,14 +56,14 @@ export const ServerError = () => {
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <button
             onClick={handleRetry}
-            className="flex items-center justify-center gap-2 rounded-lg border border-[#1e1e2e] bg-[#12121a] px-6 py-3 text-sm font-medium text-white hover:bg-[#1a1a24] transition-colors"
+            className="flex items-center justify-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-6 py-3 text-sm font-medium text-white hover:bg-white/[0.05] transition-colors"
           >
             <RefreshCw className="h-4 w-4" />
             Try Again
           </button>
           <button
             onClick={() => navigate('/dashboard')}
-            className="flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] px-6 py-3 text-sm font-medium text-white hover:opacity-90 transition-opacity"
+            className="flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-6 py-3 text-sm font-medium text-white hover:opacity-90 transition-opacity"
           >
             <Home className="h-4 w-4" />
             Go to Dashboard
@@ -71,21 +71,21 @@ export const ServerError = () => {
         </div>
 
         {/* Support contact */}
-        <div className="mt-12 p-6 rounded-xl border border-[#1e1e2e] bg-[#12121a]">
+        <div className="mt-12 p-6 rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl">
           <div className="flex items-center justify-center gap-3 mb-3">
-            <MessageCircle className="h-5 w-5 text-[#6366f1]" />
+            <MessageCircle className="h-5 w-5 text-accent-primary" />
             <p className="text-white font-medium">Need immediate help?</p>
           </div>
-          <p className="text-[#64748b] text-sm mb-4">
+          <p className="text-text-muted text-sm mb-4">
             Contact our support team for assistance.
           </p>
-          <button className="inline-flex items-center justify-center gap-2 rounded-lg border border-[#6366f1] px-4 py-2 text-sm font-medium text-[#6366f1] hover:bg-[#6366f1]/10 transition-colors">
+          <button className="inline-flex items-center justify-center gap-2 rounded-lg border border-accent-primary px-4 py-2 text-sm font-medium text-accent-primary hover:bg-accent-primary/10 transition-colors">
             Contact Support
           </button>
         </div>
 
         {/* Technical info */}
-        <p className="mt-6 text-xs text-[#64748b]">
+        <p className="mt-6 text-xs text-text-muted">
           Error ID: {Math.random().toString(36).substring(2, 10).toUpperCase()}
         </p>
       </motion.div>

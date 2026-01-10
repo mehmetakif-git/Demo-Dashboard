@@ -110,7 +110,7 @@ export const AccessCards = () => {
           title="Total Cards"
           value={stats.total.toString()}
           icon={CreditCard}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
         <StatsCard
           title="Active"
@@ -154,7 +154,7 @@ export const AccessCards = () => {
             <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Status</option>
               <option value="active">Active</option>
@@ -166,7 +166,7 @@ export const AccessCards = () => {
             <select
               value={selectedDepartment}
               onChange={(e) => setSelectedDepartment(e.target.value)}
-              className="px-3 py-2 bg-background-tertiary border border-border-default rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
+              className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
               <option value="all">All Departments</option>
               {departments.map(d => (
@@ -176,7 +176,7 @@ export const AccessCards = () => {
           </div>
 
           {/* View Toggle */}
-          <div className="flex gap-1 p-1 bg-background-secondary rounded-lg">
+          <div className="flex gap-1 p-1 bg-white/[0.03] backdrop-blur-xl rounded-lg">
             <button
               onClick={() => setViewMode('grid')}
               className={`p-2 rounded transition-all ${
@@ -232,7 +232,7 @@ export const AccessCards = () => {
                         <p className="text-xs text-text-secondary font-mono">{card.cardNumber}</p>
                       </div>
                     </div>
-                    <button className="p-1 hover:bg-background-tertiary rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button className="p-1 hover:bg-white/[0.05] rounded opacity-0 group-hover:opacity-100 transition-opacity">
                       <MoreVertical size={16} className="text-text-secondary" />
                     </button>
                   </div>
@@ -260,7 +260,7 @@ export const AccessCards = () => {
                   </div>
 
                   {/* Dates */}
-                  <div className="pt-3 border-t border-border-default space-y-2 text-xs">
+                  <div className="pt-3 border-t border-white/[0.08] space-y-2 text-xs">
                     <div className="flex items-center justify-between text-text-secondary">
                       <span className="flex items-center gap-1">
                         <Calendar size={12} />
@@ -282,7 +282,7 @@ export const AccessCards = () => {
                   </div>
 
                   {/* Actions */}
-                  <div className="flex items-center gap-2 mt-4 pt-3 border-t border-border-default">
+                  <div className="flex items-center gap-2 mt-4 pt-3 border-t border-white/[0.08]">
                     <button className="flex-1 flex items-center justify-center gap-1 py-2 text-sm text-text-secondary hover:text-accent-primary hover:bg-accent-primary/10 rounded transition-colors">
                       <Edit size={14} />
                       Edit
@@ -310,9 +310,9 @@ export const AccessCards = () => {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-border-default">
+                <tr className="border-b border-white/[0.08]">
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">
-                    <input type="checkbox" className="rounded border-border-default" />
+                    <input type="checkbox" className="rounded border-white/[0.08]" />
                   </th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Holder</th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Card Number</th>
@@ -330,10 +330,10 @@ export const AccessCards = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: index * 0.03 }}
-                    className="hover:bg-background-tertiary transition-colors"
+                    className="hover:bg-white/[0.05] transition-colors"
                   >
                     <td className="py-3 px-4">
-                      <input type="checkbox" className="rounded border-border-default" />
+                      <input type="checkbox" className="rounded border-white/[0.08]" />
                     </td>
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-3">
@@ -358,10 +358,10 @@ export const AccessCards = () => {
                     </td>
                     <td className="py-3 px-4">
                       <div className="flex items-center justify-end gap-1">
-                        <button className="p-2 hover:bg-background-secondary rounded text-text-secondary hover:text-accent-primary">
+                        <button className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-accent-primary">
                           <Edit size={14} />
                         </button>
-                        <button className="p-2 hover:bg-background-secondary rounded text-text-secondary hover:text-red-400">
+                        <button className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-red-400">
                           <Trash2 size={14} />
                         </button>
                       </div>

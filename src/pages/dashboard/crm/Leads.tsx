@@ -67,8 +67,8 @@ export const Leads = () => {
       sortable: true,
       render: (lead: Lead) => (
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#6366f1]/10">
-            <span className="text-sm font-medium text-[#6366f1]">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#547792]/10">
+            <span className="text-sm font-medium text-[#547792]">
               {lead.name.split(' ').map(n => n[0]).join('')}
             </span>
           </div>
@@ -192,7 +192,7 @@ export const Leads = () => {
         title="Leads"
         subtitle="Track and manage your sales leads"
         actions={
-          <button className="flex items-center gap-2 rounded-lg bg-[#6366f1] px-4 py-2 text-sm font-medium text-white hover:bg-[#5558e3] transition-colors">
+          <button className="flex items-center gap-2 rounded-lg bg-[#547792] px-4 py-2 text-sm font-medium text-white hover:bg-[#5558e3] transition-colors">
             <Plus className="h-4 w-4" />
             Add Lead
           </button>
@@ -205,7 +205,7 @@ export const Leads = () => {
           title="Total Leads"
           value={stats.totalLeads.toString()}
           icon={Target}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
         <StatsCard
           title="New This Week"
@@ -218,7 +218,7 @@ export const Leads = () => {
           title="Qualified"
           value={stats.qualified.toString()}
           icon={TrendingUp}
-          iconColor="#8b5cf6"
+          iconColor="#94B4C1"
         />
         <StatsCard
           title="Conversion Rate"
@@ -232,7 +232,7 @@ export const Leads = () => {
         {/* Leads Table */}
         <div className="lg:col-span-3 space-y-4">
           {/* Filters */}
-          <div className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-4">
+          <div className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-4">
             <div className="flex flex-wrap gap-3 items-center">
               {/* Search */}
               <div className="relative flex-1 min-w-64">
@@ -242,7 +242,7 @@ export const Leads = () => {
                   placeholder="Search leads..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white placeholder-[#64748b] focus:outline-none focus:border-[#6366f1]"
+                  className="w-full pl-10 pr-4 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white placeholder-[#64748b] focus:outline-none focus:border-[#547792]"
                 />
               </div>
 
@@ -250,7 +250,7 @@ export const Leads = () => {
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="px-3 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white focus:outline-none focus:border-[#6366f1]"
+                className="px-3 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white focus:outline-none focus:border-[#547792]"
               >
                 <option value="all">All Status</option>
                 <option value="new">New</option>
@@ -263,7 +263,7 @@ export const Leads = () => {
               <select
                 value={sourceFilter}
                 onChange={(e) => setSourceFilter(e.target.value)}
-                className="px-3 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white focus:outline-none focus:border-[#6366f1]"
+                className="px-3 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white focus:outline-none focus:border-[#547792]"
               >
                 <option value="all">All Sources</option>
                 {sources.map(source => (
@@ -275,7 +275,7 @@ export const Leads = () => {
               <select
                 value={assignedFilter}
                 onChange={(e) => setAssignedFilter(e.target.value)}
-                className="px-3 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white focus:outline-none focus:border-[#6366f1]"
+                className="px-3 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white focus:outline-none focus:border-[#547792]"
               >
                 <option value="all">All Assignees</option>
                 {assignees.map(assignee => (
@@ -304,7 +304,7 @@ export const Leads = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-[#12121a] border border-[#1e1e2e] rounded-xl p-6"
+          className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
         >
           <h3 className="text-lg font-semibold text-white mb-4">Lead Sources</h3>
           <div className="h-[250px]">

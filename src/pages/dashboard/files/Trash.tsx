@@ -22,7 +22,7 @@ export const Trash = () => {
 
   const getFileIcon = (type: string) => {
     const iconMap: Record<string, React.ReactNode> = {
-      folder: <Folder size={20} className="text-indigo-400" />,
+      folder: <Folder size={20} className="text-[#547792]" />,
       document: <FileText size={20} className="text-blue-400" />,
       spreadsheet: <FileSpreadsheet size={20} className="text-green-400" />,
       pdf: <FileText size={20} className="text-red-400" />,
@@ -114,13 +114,13 @@ export const Trash = () => {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="bg-background-tertiary border-b border-border-default">
+                <tr className="bg-white/[0.05] border-b border-white/[0.08]">
                   <th className="px-4 py-3 w-12">
                     <div
                       className={`w-5 h-5 rounded border-2 transition-all cursor-pointer ${
                         selectedItems.length === trashFiles.length
                           ? 'bg-accent-primary border-accent-primary'
-                          : 'border-border-default'
+                          : 'border-white/[0.08]'
                       }`}
                       onClick={selectAll}
                     >
@@ -157,7 +157,7 @@ export const Trash = () => {
                     key={file.id}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className={`border-b border-border-default hover:bg-background-tertiary ${
+                    className={`border-b border-white/[0.08] hover:bg-white/[0.05] ${
                       selectedItems.includes(file.id) ? 'bg-accent-primary/10' : ''
                     }`}
                   >
@@ -166,7 +166,7 @@ export const Trash = () => {
                         className={`w-5 h-5 rounded border-2 transition-all cursor-pointer ${
                           selectedItems.includes(file.id)
                             ? 'bg-accent-primary border-accent-primary'
-                            : 'border-border-default'
+                            : 'border-white/[0.08]'
                         }`}
                         onClick={() => toggleSelection(file.id)}
                       >
@@ -208,10 +208,10 @@ export const Trash = () => {
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-1">
-                        <button className="p-1.5 hover:bg-background-secondary rounded text-text-secondary hover:text-green-400">
+                        <button className="p-1.5 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-green-400">
                           <RotateCcw size={14} />
                         </button>
-                        <button className="p-1.5 hover:bg-background-secondary rounded text-text-secondary hover:text-red-400">
+                        <button className="p-1.5 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-red-400">
                           <Trash2 size={14} />
                         </button>
                       </div>
@@ -235,7 +235,7 @@ export const Trash = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-background-secondary rounded-xl max-w-md w-full p-6"
+            className="bg-white/[0.03] backdrop-blur-xl rounded-xl max-w-md w-full p-6"
           >
             <div className="flex items-center gap-3 mb-4">
               <div className="p-3 bg-red-500/20 rounded-full">
@@ -276,7 +276,7 @@ export const Trash = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-background-secondary rounded-xl max-w-md w-full p-6"
+            className="bg-white/[0.03] backdrop-blur-xl rounded-xl max-w-md w-full p-6"
           >
             <div className="flex items-center gap-3 mb-4">
               <div className="p-3 bg-red-500/20 rounded-full">

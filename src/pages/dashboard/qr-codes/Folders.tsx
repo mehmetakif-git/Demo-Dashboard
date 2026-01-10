@@ -86,7 +86,7 @@ export const Folders = () => {
           title="Total Folders"
           value={stats.totalFolders.toString()}
           icon={Folder}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
         <StatsCard
           title="Total QR Codes"
@@ -177,7 +177,7 @@ export const Folders = () => {
                     className={`w-full flex items-center gap-3 p-3 rounded-lg transition-all text-left ${
                       isSelected
                         ? 'bg-accent-primary/10 border border-accent-primary/30'
-                        : 'hover:bg-background-tertiary border border-transparent'
+                        : 'hover:bg-white/[0.05] border border-transparent'
                     }`}
                   >
                     <div
@@ -230,10 +230,10 @@ export const Folders = () => {
                     </div>
                   </div>
                   <div className="flex gap-2">
-                    <button className="p-2 hover:bg-background-tertiary rounded text-text-secondary hover:text-blue-400">
+                    <button className="p-2 hover:bg-white/[0.05] rounded text-text-secondary hover:text-blue-400">
                       <Edit size={18} />
                     </button>
-                    <button className="p-2 hover:bg-background-tertiary rounded text-text-secondary hover:text-red-400">
+                    <button className="p-2 hover:bg-white/[0.05] rounded text-text-secondary hover:text-red-400">
                       <Trash2 size={18} />
                     </button>
                   </div>
@@ -241,17 +241,17 @@ export const Folders = () => {
 
                 {/* Folder Stats */}
                 <div className="grid grid-cols-3 gap-4 mb-6">
-                  <div className="p-4 bg-background-secondary rounded-lg">
+                  <div className="p-4 bg-white/[0.03] backdrop-blur-xl rounded-lg">
                     <p className="text-sm text-text-muted mb-1">QR Codes</p>
                     <p className="text-2xl font-bold text-text-primary">{selectedFolderData.qrCodes.length}</p>
                   </div>
-                  <div className="p-4 bg-background-secondary rounded-lg">
+                  <div className="p-4 bg-white/[0.03] backdrop-blur-xl rounded-lg">
                     <p className="text-sm text-text-muted mb-1">Total Scans</p>
                     <p className="text-2xl font-bold text-text-primary">
                       {formatNumber(selectedFolderData.qrCodes.reduce((sum, q) => sum + q.scans, 0))}
                     </p>
                   </div>
-                  <div className="p-4 bg-background-secondary rounded-lg">
+                  <div className="p-4 bg-white/[0.03] backdrop-blur-xl rounded-lg">
                     <p className="text-sm text-text-muted mb-1">Active</p>
                     <p className="text-2xl font-bold text-text-primary">
                       {selectedFolderData.qrCodes.filter(q => q.status === 'active').length}
@@ -274,7 +274,7 @@ export const Folders = () => {
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: index * 0.03 }}
-                          className="flex items-center gap-4 p-3 bg-background-secondary rounded-lg hover:bg-background-tertiary transition-colors cursor-pointer"
+                          className="flex items-center gap-4 p-3 bg-white/[0.03] backdrop-blur-xl rounded-lg hover:bg-white/[0.05] transition-colors cursor-pointer"
                           onClick={() => navigate(`/dashboard/qr-codes/${qr.id}`)}
                         >
                           <div

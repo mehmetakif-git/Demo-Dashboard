@@ -89,7 +89,7 @@ export const APIKeys = () => {
           title="Total Keys"
           value={stats.total.toString()}
           icon={Key}
-          iconColor="#6366f1"
+          iconColor="#547792"
         />
         <StatsCard
           title="Active Keys"
@@ -107,7 +107,7 @@ export const APIKeys = () => {
           title="Total Requests"
           value={stats.totalUsage.toLocaleString()}
           icon={Activity}
-          iconColor="#8b5cf6"
+          iconColor="#94B4C1"
         />
       </div>
 
@@ -115,7 +115,7 @@ export const APIKeys = () => {
       <Card className="overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-background-tertiary">
+            <thead className="bg-white/[0.05]">
               <tr>
                 <th className="text-left p-4 text-sm font-medium text-text-secondary">Name</th>
                 <th className="text-left p-4 text-sm font-medium text-text-secondary">Key</th>
@@ -133,7 +133,7 @@ export const APIKeys = () => {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.05 }}
-                  className="hover:bg-background-tertiary/50 transition-colors"
+                  className="hover:bg-white/[0.05]/50 transition-colors"
                 >
                   <td className="p-4">
                     <div>
@@ -143,12 +143,12 @@ export const APIKeys = () => {
                   </td>
                   <td className="p-4">
                     <div className="flex items-center gap-2">
-                      <code className="text-sm text-text-secondary font-mono bg-background-tertiary px-2 py-1 rounded">
+                      <code className="text-sm text-text-secondary font-mono bg-white/[0.05] px-2 py-1 rounded">
                         {apiKey.key}
                       </code>
                       <button
                         onClick={() => handleCopyKey(apiKey.key)}
-                        className="p-1 hover:bg-background-tertiary rounded transition-colors text-text-muted hover:text-text-primary"
+                        className="p-1 hover:bg-white/[0.05] rounded transition-colors text-text-muted hover:text-text-primary"
                       >
                         <Copy size={14} />
                       </button>
@@ -166,7 +166,7 @@ export const APIKeys = () => {
                   <td className="p-4">
                     <div className="flex gap-1">
                       {apiKey.permissions.map(perm => (
-                        <span key={perm} className="px-2 py-0.5 bg-background-tertiary rounded text-xs text-text-secondary capitalize">
+                        <span key={perm} className="px-2 py-0.5 bg-white/[0.05] rounded text-xs text-text-secondary capitalize">
                           {perm}
                         </span>
                       ))}
@@ -190,17 +190,17 @@ export const APIKeys = () => {
                     <div className="flex items-center justify-end gap-1">
                       <button
                         onClick={() => setSelectedKey(apiKey)}
-                        className="p-2 hover:bg-background-tertiary rounded transition-colors text-text-secondary hover:text-text-primary"
+                        className="p-2 hover:bg-white/[0.05] rounded transition-colors text-text-secondary hover:text-text-primary"
                       >
                         <Eye size={16} />
                       </button>
                       <button
                         onClick={() => handleCopyKey(apiKey.keyFull)}
-                        className="p-2 hover:bg-background-tertiary rounded transition-colors text-text-secondary hover:text-blue-400"
+                        className="p-2 hover:bg-white/[0.05] rounded transition-colors text-text-secondary hover:text-blue-400"
                       >
                         <Copy size={16} />
                       </button>
-                      <button className="p-2 hover:bg-background-tertiary rounded transition-colors text-text-secondary hover:text-red-400">
+                      <button className="p-2 hover:bg-white/[0.05] rounded transition-colors text-text-secondary hover:text-red-400">
                         <Trash2 size={16} />
                       </button>
                     </div>
@@ -231,7 +231,7 @@ export const APIKeys = () => {
                 <h3 className="text-lg font-semibold text-text-primary">API Key Details</h3>
                 <button
                   onClick={() => { setSelectedKey(null); setShowFullKey(false); }}
-                  className="p-2 hover:bg-background-tertiary rounded transition-colors"
+                  className="p-2 hover:bg-white/[0.05] rounded transition-colors"
                 >
                   <X size={20} className="text-text-muted" />
                 </button>
@@ -246,18 +246,18 @@ export const APIKeys = () => {
                 <div>
                   <p className="text-sm text-text-muted mb-1">API Key</p>
                   <div className="flex items-center gap-2">
-                    <code className="flex-1 text-sm bg-background-tertiary p-3 rounded-lg font-mono text-text-primary break-all">
+                    <code className="flex-1 text-sm bg-white/[0.05] p-3 rounded-lg font-mono text-text-primary break-all">
                       {showFullKey ? selectedKey.keyFull : selectedKey.key}
                     </code>
                     <button
                       onClick={() => setShowFullKey(!showFullKey)}
-                      className="p-2 hover:bg-background-tertiary rounded transition-colors text-text-secondary"
+                      className="p-2 hover:bg-white/[0.05] rounded transition-colors text-text-secondary"
                     >
                       {showFullKey ? <EyeOff size={18} /> : <Eye size={18} />}
                     </button>
                     <button
                       onClick={() => handleCopyKey(selectedKey.keyFull)}
-                      className="p-2 hover:bg-background-tertiary rounded transition-colors text-text-secondary"
+                      className="p-2 hover:bg-white/[0.05] rounded transition-colors text-text-secondary"
                     >
                       {copiedKey ? <Check size={18} className="text-green-400" /> : <Copy size={18} />}
                     </button>
@@ -315,7 +315,7 @@ export const APIKeys = () => {
                 </div>
               </div>
 
-              <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-border-default">
+              <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-white/[0.08]">
                 <Button
                   variant="secondary"
                   className="text-red-400 hover:bg-red-500/10"
@@ -352,7 +352,7 @@ export const APIKeys = () => {
                 </h3>
                 <button
                   onClick={handleCloseCreate}
-                  className="p-2 hover:bg-background-tertiary rounded transition-colors"
+                  className="p-2 hover:bg-white/[0.05] rounded transition-colors"
                 >
                   <X size={20} className="text-text-muted" />
                 </button>
@@ -375,7 +375,7 @@ export const APIKeys = () => {
                         className={`flex-1 p-3 rounded-lg border transition-colors ${
                           newKeyType === 'development'
                             ? 'border-blue-500 bg-blue-500/10'
-                            : 'border-border-default hover:border-border-hover'
+                            : 'border-white/[0.08] hover:border-white/[0.12]'
                         }`}
                       >
                         <p className="font-medium text-text-primary">Development</p>
@@ -386,7 +386,7 @@ export const APIKeys = () => {
                         className={`flex-1 p-3 rounded-lg border transition-colors ${
                           newKeyType === 'production'
                             ? 'border-red-500 bg-red-500/10'
-                            : 'border-border-default hover:border-border-hover'
+                            : 'border-white/[0.08] hover:border-white/[0.12]'
                         }`}
                       >
                         <p className="font-medium text-text-primary">Production</p>
@@ -411,13 +411,13 @@ export const APIKeys = () => {
                           className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-colors ${
                             newKeyPermissions.includes(perm)
                               ? 'border-accent-primary bg-accent-primary/10'
-                              : 'border-border-default hover:border-border-hover'
+                              : 'border-white/[0.08] hover:border-white/[0.12]'
                           }`}
                         >
                           <div className={`w-4 h-4 rounded border flex items-center justify-center ${
                             newKeyPermissions.includes(perm)
                               ? 'bg-accent-primary border-accent-primary'
-                              : 'border-border-default'
+                              : 'border-white/[0.08]'
                           }`}>
                             {newKeyPermissions.includes(perm) && <Check size={10} className="text-white" />}
                           </div>
@@ -427,7 +427,7 @@ export const APIKeys = () => {
                     </div>
                   </div>
 
-                  <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-border-default">
+                  <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-white/[0.08]">
                     <Button variant="outline" onClick={handleCloseCreate}>
                       Cancel
                     </Button>
@@ -455,19 +455,19 @@ export const APIKeys = () => {
                   <div>
                     <p className="text-sm text-text-muted mb-2">Your API Key</p>
                     <div className="flex items-center gap-2">
-                      <code className="flex-1 text-sm bg-background-tertiary p-3 rounded-lg font-mono text-text-primary break-all">
+                      <code className="flex-1 text-sm bg-white/[0.05] p-3 rounded-lg font-mono text-text-primary break-all">
                         {generatedKey}
                       </code>
                       <button
                         onClick={() => handleCopyKey(generatedKey)}
-                        className="p-2 hover:bg-background-tertiary rounded transition-colors text-text-secondary"
+                        className="p-2 hover:bg-white/[0.05] rounded transition-colors text-text-secondary"
                       >
                         {copiedKey ? <Check size={18} className="text-green-400" /> : <Copy size={18} />}
                       </button>
                     </div>
                   </div>
 
-                  <div className="flex justify-end mt-6 pt-4 border-t border-border-default">
+                  <div className="flex justify-end mt-6 pt-4 border-t border-white/[0.08]">
                     <Button onClick={handleCloseCreate}>
                       Done
                     </Button>

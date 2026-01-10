@@ -65,7 +65,7 @@ export const RecentFiles = () => {
 
   const getFileIcon = (type: string) => {
     const iconMap: Record<string, React.ReactNode> = {
-      folder: <Folder size={20} className="text-indigo-400" />,
+      folder: <Folder size={20} className="text-[#547792]" />,
       document: <FileText size={20} className="text-blue-400" />,
       spreadsheet: <FileSpreadsheet size={20} className="text-green-400" />,
       pdf: <FileText size={20} className="text-red-400" />,
@@ -81,7 +81,7 @@ export const RecentFiles = () => {
       edited: { bg: 'bg-blue-500/20', text: 'text-blue-400', icon: Edit, label: 'Edited' },
       viewed: { bg: 'bg-gray-500/20', text: 'text-gray-400', icon: Eye, label: 'Viewed' },
       created: { bg: 'bg-green-500/20', text: 'text-green-400', icon: Plus, label: 'Created' },
-      shared: { bg: 'bg-purple-500/20', text: 'text-purple-400', icon: Share2, label: 'Shared' },
+      shared: { bg: 'bg-[#94B4C1]/20', text: 'text-[#94B4C1]', icon: Share2, label: 'Shared' },
     };
     const c = config[action];
     const Icon = c.icon;
@@ -121,7 +121,7 @@ export const RecentFiles = () => {
               className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
                 filterAction === action
                   ? 'bg-accent-primary text-white'
-                  : 'bg-background-tertiary text-text-secondary hover:bg-background-secondary'
+                  : 'bg-white/[0.05] text-text-secondary hover:bg-white/[0.03] backdrop-blur-xl'
               }`}
             >
               {action === 'all' ? 'All' : action.charAt(0).toUpperCase() + action.slice(1)}
@@ -145,7 +145,7 @@ export const RecentFiles = () => {
                   <Card className="p-4 hover:shadow-lg transition-all cursor-pointer group">
                     <div className="flex items-center gap-4">
                       {/* Icon */}
-                      <div className="w-10 h-10 rounded-lg bg-background-tertiary flex items-center justify-center">
+                      <div className="w-10 h-10 rounded-lg bg-white/[0.05] flex items-center justify-center">
                         {getFileIcon(file.type)}
                       </div>
 
@@ -167,16 +167,16 @@ export const RecentFiles = () => {
 
                       {/* Actions */}
                       <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button className="p-2 hover:bg-background-tertiary rounded-lg text-text-secondary hover:text-accent-primary">
+                        <button className="p-2 hover:bg-white/[0.05] rounded-lg text-text-secondary hover:text-accent-primary">
                           <Eye size={16} />
                         </button>
-                        <button className="p-2 hover:bg-background-tertiary rounded-lg text-text-secondary hover:text-accent-primary">
+                        <button className="p-2 hover:bg-white/[0.05] rounded-lg text-text-secondary hover:text-accent-primary">
                           <Download size={16} />
                         </button>
-                        <button className="p-2 hover:bg-background-tertiary rounded-lg text-text-secondary hover:text-accent-primary">
+                        <button className="p-2 hover:bg-white/[0.05] rounded-lg text-text-secondary hover:text-accent-primary">
                           <Share2 size={16} />
                         </button>
-                        <button className="p-2 hover:bg-background-tertiary rounded-lg text-text-secondary">
+                        <button className="p-2 hover:bg-white/[0.05] rounded-lg text-text-secondary">
                           <MoreVertical size={16} />
                         </button>
                       </div>
