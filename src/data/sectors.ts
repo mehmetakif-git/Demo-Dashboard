@@ -17,6 +17,8 @@ import {
   TrendingUp,
   Scissors,
   Printer,
+  Shirt,
+  Wrench,
 } from 'lucide-react';
 import type { Sector } from '@/types';
 
@@ -157,7 +159,23 @@ export const sectors: Sector[] = [
     description: 'Salon and spa management',
     icon: Scissors,
     color: '#ec4899', // Pink - beauty, elegance
-    isActive: false,
+    isActive: true,
+  },
+  {
+    id: 'laundry',
+    name: 'Laundry & Dry Cleaning',
+    description: 'Laundry and dry cleaning operations',
+    icon: Shirt,
+    color: '#0ea5e9', // Sky blue - clean, fresh
+    isActive: true,
+  },
+  {
+    id: 'hardware',
+    name: 'Hardware & Inventory',
+    description: 'Hardware store and inventory management',
+    icon: Wrench,
+    color: '#f59e0b', // Amber - tools, industrial
+    isActive: true,
   },
   {
     id: 'print-shop',

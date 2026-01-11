@@ -27,6 +27,11 @@ import {
   ArrowLeft,
   type LucideIcon,
   UtensilsCrossed,
+  Scissors,
+  Package,
+  Gift,
+  Star,
+  CreditCard,
 } from 'lucide-react';
 import { useAppStore } from '@/store/appStore';
 import { getSectorById } from '@/data/sectors';
@@ -122,6 +127,37 @@ const sectorModules: Record<string, ModuleDefinition[]> = {
     { id: 'events-guests', name: 'Guests', icon: Users, description: 'Guest management', color: '#3b82f6' }, // Blue
     { id: 'events-catering', name: 'Catering', icon: UtensilsCrossed, description: 'Food organization', color: '#f97316' }, // Orange
     { id: 'events-budget', name: 'Budget', icon: Calculator, description: 'Event budget', color: '#10b981' }, // Emerald
+  ],
+  beauty: [
+    { id: 'beauty-appointments', name: 'Appointments', icon: Calendar, description: 'Schedule & calendar', color: '#ec4899' }, // Pink
+    { id: 'beauty-clients', name: 'Clients', icon: Users, description: 'Client management', color: '#8b5cf6' }, // Purple
+    { id: 'beauty-services', name: 'Services', icon: Scissors, description: 'Service catalog', color: '#f97316' }, // Orange
+    { id: 'beauty-staff', name: 'Staff', icon: Users, description: 'Stylists & technicians', color: '#10b981' }, // Emerald
+    { id: 'beauty-products', name: 'Products', icon: Package, description: 'Inventory management', color: '#06b6d4' }, // Cyan
+    { id: 'beauty-packages', name: 'Packages', icon: Gift, description: 'Service packages', color: '#f59e0b' }, // Amber
+    { id: 'beauty-memberships', name: 'Memberships', icon: CreditCard, description: 'Member plans', color: '#6366f1' }, // Indigo
+    { id: 'beauty-gift-cards', name: 'Gift Cards', icon: Gift, description: 'Gift card management', color: '#ef4444' }, // Red
+    { id: 'beauty-reviews', name: 'Reviews', icon: Star, description: 'Ratings & feedback', color: '#eab308' }, // Yellow
+  ],
+  laundry: [
+    { id: 'laundry-orders', name: 'Orders', icon: CheckSquare, description: 'Order management', color: '#0ea5e9' }, // Sky
+    { id: 'laundry-customers', name: 'Customers', icon: Users, description: 'Customer database', color: '#8b5cf6' }, // Purple
+    { id: 'laundry-services', name: 'Services', icon: Briefcase, description: 'Service & pricing', color: '#f97316' }, // Orange
+    { id: 'laundry-delivery', name: 'Delivery', icon: Calendar, description: 'Pickup & delivery', color: '#06b6d4' }, // Cyan
+    { id: 'laundry-garments', name: 'Garments', icon: Package, description: 'Garment tracking', color: '#ec4899' }, // Pink
+    { id: 'laundry-inventory', name: 'Inventory', icon: Package, description: 'Supply management', color: '#10b981' }, // Emerald
+    { id: 'laundry-complaints', name: 'Complaints', icon: Target, description: 'Issue tracking', color: '#ef4444' }, // Red
+    { id: 'laundry-reports', name: 'Reports', icon: FileText, description: 'Analytics & reports', color: '#6366f1' }, // Indigo
+  ],
+  hardware: [
+    { id: 'hardware-products', name: 'Products', icon: Package, description: 'Product catalog', color: '#f59e0b' }, // Amber
+    { id: 'hardware-categories', name: 'Categories', icon: Target, description: 'Product categories', color: '#8b5cf6' }, // Purple
+    { id: 'hardware-inventory', name: 'Inventory', icon: Package, description: 'Stock management', color: '#10b981' }, // Emerald
+    { id: 'hardware-suppliers', name: 'Suppliers', icon: Users, description: 'Supplier database', color: '#0ea5e9' }, // Sky
+    { id: 'hardware-purchases', name: 'Purchases', icon: FileText, description: 'Purchase orders', color: '#6366f1' }, // Indigo
+    { id: 'hardware-sales', name: 'Sales (POS)', icon: CheckSquare, description: 'Point of sale', color: '#22c55e' }, // Green
+    { id: 'hardware-alerts', name: 'Alerts', icon: Target, description: 'Low stock alerts', color: '#ef4444' }, // Red
+    { id: 'hardware-barcode', name: 'Barcode', icon: QrCode, description: 'Barcode management', color: '#64748b' }, // Slate
   ],
 };
 

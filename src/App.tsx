@@ -754,6 +754,192 @@ const EventsBudget = lazy(() =>
   }))
 );
 
+// Beauty Salon Pages
+const BeautyAppointments = lazy(() =>
+  import('@/pages/dashboard/beauty/Appointments').then((module) => ({
+    default: module.Appointments,
+  }))
+);
+const BeautyAppointmentDetail = lazy(() =>
+  import('@/pages/dashboard/beauty/AppointmentDetail').then((module) => ({
+    default: module.AppointmentDetail,
+  }))
+);
+const BeautyClients = lazy(() =>
+  import('@/pages/dashboard/beauty/Clients').then((module) => ({
+    default: module.Clients,
+  }))
+);
+const BeautyClientDetail = lazy(() =>
+  import('@/pages/dashboard/beauty/ClientDetail').then((module) => ({
+    default: module.ClientDetail,
+  }))
+);
+const BeautyServices = lazy(() =>
+  import('@/pages/dashboard/beauty/Services').then((module) => ({
+    default: module.Services,
+  }))
+);
+const BeautyStaff = lazy(() =>
+  import('@/pages/dashboard/beauty/Staff').then((module) => ({
+    default: module.Staff,
+  }))
+);
+const BeautyStaffDetail = lazy(() =>
+  import('@/pages/dashboard/beauty/StaffDetail').then((module) => ({
+    default: module.StaffDetail,
+  }))
+);
+const BeautyProducts = lazy(() =>
+  import('@/pages/dashboard/beauty/Products').then((module) => ({
+    default: module.Products,
+  }))
+);
+const BeautyPackages = lazy(() =>
+  import('@/pages/dashboard/beauty/Packages').then((module) => ({
+    default: module.Packages,
+  }))
+);
+const BeautyMemberships = lazy(() =>
+  import('@/pages/dashboard/beauty/Memberships').then((module) => ({
+    default: module.Memberships,
+  }))
+);
+const BeautyGiftCards = lazy(() =>
+  import('@/pages/dashboard/beauty/GiftCards').then((module) => ({
+    default: module.GiftCards,
+  }))
+);
+const BeautyReviews = lazy(() =>
+  import('@/pages/dashboard/beauty/Reviews').then((module) => ({
+    default: module.Reviews,
+  }))
+);
+
+// Laundry Pages
+const LaundryOrders = lazy(() =>
+  import('@/pages/dashboard/laundry/Orders').then((module) => ({
+    default: module.Orders,
+  }))
+);
+const LaundryNewOrder = lazy(() =>
+  import('@/pages/dashboard/laundry/NewOrder').then((module) => ({
+    default: module.NewOrder,
+  }))
+);
+const LaundryOrderDetail = lazy(() =>
+  import('@/pages/dashboard/laundry/OrderDetail').then((module) => ({
+    default: module.OrderDetail,
+  }))
+);
+const LaundryCustomers = lazy(() =>
+  import('@/pages/dashboard/laundry/Customers').then((module) => ({
+    default: module.Customers,
+  }))
+);
+const LaundryCustomerDetail = lazy(() =>
+  import('@/pages/dashboard/laundry/CustomerDetail').then((module) => ({
+    default: module.CustomerDetail,
+  }))
+);
+const LaundryServices = lazy(() =>
+  import('@/pages/dashboard/laundry/Services').then((module) => ({
+    default: module.Services,
+  }))
+);
+const LaundryDelivery = lazy(() =>
+  import('@/pages/dashboard/laundry/Delivery').then((module) => ({
+    default: module.Delivery,
+  }))
+);
+const LaundryGarmentTracking = lazy(() =>
+  import('@/pages/dashboard/laundry/GarmentTracking').then((module) => ({
+    default: module.GarmentTracking,
+  }))
+);
+const LaundryInventory = lazy(() =>
+  import('@/pages/dashboard/laundry/Inventory').then((module) => ({
+    default: module.Inventory,
+  }))
+);
+const LaundryComplaints = lazy(() =>
+  import('@/pages/dashboard/laundry/Complaints').then((module) => ({
+    default: module.Complaints,
+  }))
+);
+const LaundryReports = lazy(() =>
+  import('@/pages/dashboard/laundry/Reports').then((module) => ({
+    default: module.Reports,
+  }))
+);
+
+// Hardware Pages
+const HardwareProducts = lazy(() =>
+  import('@/pages/dashboard/hardware/Products').then((module) => ({
+    default: module.Products,
+  }))
+);
+const HardwareProductDetail = lazy(() =>
+  import('@/pages/dashboard/hardware/ProductDetail').then((module) => ({
+    default: module.ProductDetail,
+  }))
+);
+const HardwareCategories = lazy(() =>
+  import('@/pages/dashboard/hardware/Categories').then((module) => ({
+    default: module.Categories,
+  }))
+);
+const HardwareInventory = lazy(() =>
+  import('@/pages/dashboard/hardware/Inventory').then((module) => ({
+    default: module.Inventory,
+  }))
+);
+const HardwareStockMovements = lazy(() =>
+  import('@/pages/dashboard/hardware/StockMovements').then((module) => ({
+    default: module.StockMovements,
+  }))
+);
+const HardwareSuppliers = lazy(() =>
+  import('@/pages/dashboard/hardware/Suppliers').then((module) => ({
+    default: module.Suppliers,
+  }))
+);
+const HardwarePurchaseOrders = lazy(() =>
+  import('@/pages/dashboard/hardware/PurchaseOrders').then((module) => ({
+    default: module.PurchaseOrders,
+  }))
+);
+const HardwarePurchaseOrderDetail = lazy(() =>
+  import('@/pages/dashboard/hardware/PurchaseOrderDetail').then((module) => ({
+    default: module.PurchaseOrderDetail,
+  }))
+);
+const HardwareSales = lazy(() =>
+  import('@/pages/dashboard/hardware/Sales').then((module) => ({
+    default: module.Sales,
+  }))
+);
+const HardwareSalesHistory = lazy(() =>
+  import('@/pages/dashboard/hardware/SalesHistory').then((module) => ({
+    default: module.SalesHistory,
+  }))
+);
+const HardwarePriceLists = lazy(() =>
+  import('@/pages/dashboard/hardware/PriceLists').then((module) => ({
+    default: module.PriceLists,
+  }))
+);
+const HardwareAlerts = lazy(() =>
+  import('@/pages/dashboard/hardware/Alerts').then((module) => ({
+    default: module.Alerts,
+  }))
+);
+const HardwareBarcode = lazy(() =>
+  import('@/pages/dashboard/hardware/Barcode').then((module) => ({
+    default: module.Barcode,
+  }))
+);
+
 // Error Pages
 const NotFound = lazy(() =>
   import('@/pages/errors/NotFound').then((module) => ({
@@ -1087,6 +1273,51 @@ const AppRoutes = () => {
         <Route path={ROUTES.events.catering} element={<EventsCatering />} />
         <Route path={ROUTES.events.equipment} element={<EventsEquipment />} />
         <Route path={ROUTES.events.budget} element={<EventsBudget />} />
+
+        {/* Beauty Salon Routes (Sector-specific) */}
+        <Route path={ROUTES.beauty.root} element={<Navigate to={ROUTES.beauty.appointments} replace />} />
+        <Route path={ROUTES.beauty.appointments} element={<BeautyAppointments />} />
+        <Route path={ROUTES.beauty.appointmentDetail} element={<BeautyAppointmentDetail />} />
+        <Route path={ROUTES.beauty.clients} element={<BeautyClients />} />
+        <Route path={ROUTES.beauty.clientDetail} element={<BeautyClientDetail />} />
+        <Route path={ROUTES.beauty.services} element={<BeautyServices />} />
+        <Route path={ROUTES.beauty.staff} element={<BeautyStaff />} />
+        <Route path={ROUTES.beauty.staffDetail} element={<BeautyStaffDetail />} />
+        <Route path={ROUTES.beauty.products} element={<BeautyProducts />} />
+        <Route path={ROUTES.beauty.packages} element={<BeautyPackages />} />
+        <Route path={ROUTES.beauty.memberships} element={<BeautyMemberships />} />
+        <Route path={ROUTES.beauty.giftCards} element={<BeautyGiftCards />} />
+        <Route path={ROUTES.beauty.reviews} element={<BeautyReviews />} />
+
+        {/* Laundry Routes (Sector-specific) */}
+        <Route path={ROUTES.laundry.root} element={<Navigate to={ROUTES.laundry.orders} replace />} />
+        <Route path={ROUTES.laundry.orders} element={<LaundryOrders />} />
+        <Route path={ROUTES.laundry.newOrder} element={<LaundryNewOrder />} />
+        <Route path={ROUTES.laundry.orderDetail} element={<LaundryOrderDetail />} />
+        <Route path={ROUTES.laundry.customers} element={<LaundryCustomers />} />
+        <Route path={ROUTES.laundry.customerDetail} element={<LaundryCustomerDetail />} />
+        <Route path={ROUTES.laundry.services} element={<LaundryServices />} />
+        <Route path={ROUTES.laundry.delivery} element={<LaundryDelivery />} />
+        <Route path={ROUTES.laundry.garments} element={<LaundryGarmentTracking />} />
+        <Route path={ROUTES.laundry.inventory} element={<LaundryInventory />} />
+        <Route path={ROUTES.laundry.complaints} element={<LaundryComplaints />} />
+        <Route path={ROUTES.laundry.reports} element={<LaundryReports />} />
+
+        {/* Hardware Routes (Sector-specific) */}
+        <Route path={ROUTES.hardware.root} element={<Navigate to={ROUTES.hardware.products} replace />} />
+        <Route path={ROUTES.hardware.products} element={<HardwareProducts />} />
+        <Route path={ROUTES.hardware.productDetail} element={<HardwareProductDetail />} />
+        <Route path={ROUTES.hardware.categories} element={<HardwareCategories />} />
+        <Route path={ROUTES.hardware.inventory} element={<HardwareInventory />} />
+        <Route path={ROUTES.hardware.stockMovements} element={<HardwareStockMovements />} />
+        <Route path={ROUTES.hardware.suppliers} element={<HardwareSuppliers />} />
+        <Route path={ROUTES.hardware.purchaseOrders} element={<HardwarePurchaseOrders />} />
+        <Route path={ROUTES.hardware.purchaseOrderDetail} element={<HardwarePurchaseOrderDetail />} />
+        <Route path={ROUTES.hardware.sales} element={<HardwareSales />} />
+        <Route path={ROUTES.hardware.salesHistory} element={<HardwareSalesHistory />} />
+        <Route path={ROUTES.hardware.priceLists} element={<HardwarePriceLists />} />
+        <Route path={ROUTES.hardware.alerts} element={<HardwareAlerts />} />
+        <Route path={ROUTES.hardware.barcode} element={<HardwareBarcode />} />
       </Route>
 
       {/* Default redirect */}

@@ -10,6 +10,9 @@ import { staffingMenuItems } from '@/data/staffing/staffingData';
 import { realestateMenuItems } from '@/data/realestate/realestateData';
 import { agencyMenuItems } from '@/data/agency/agencyData';
 import { eventsMenuItems } from '@/data/events/eventsData';
+import { beautyMenuItems } from '@/data/beauty/beautyData';
+import { laundryMenuItems } from '@/data/laundry/laundryData';
+import { hardwareMenuItems } from '@/data/hardware/hardwareData';
 import { LAYOUT, ROUTES } from '@/utils/constants';
 import type { MenuItem, MenuGroup } from '@/types';
 import AllyncLogo from '@/assets/images/logos/logo-white.svg';
@@ -35,6 +38,9 @@ const moduleIdMap: Record<string, string> = {
   realestate: 'realestate',
   agency: 'agency',
   events: 'events',
+  beauty: 'beauty',
+  laundry: 'laundry',
+  hardware: 'hardware',
 };
 
 export const Sidebar = () => {
@@ -123,6 +129,48 @@ export const Sidebar = () => {
       };
       // Insert after MAIN (index 0)
       groups.splice(1, 0, eventsGroup);
+    }
+
+    if (selectedSector === 'beauty-salon') {
+      // Insert beauty salon management group after the MAIN group
+      const beautyGroup: MenuGroup = {
+        id: 'beauty-management',
+        label: 'BEAUTY SALON',
+        items: beautyMenuItems.map(item => ({
+          ...item,
+          children: []
+        }))
+      };
+      // Insert after MAIN (index 0)
+      groups.splice(1, 0, beautyGroup);
+    }
+
+    if (selectedSector === 'laundry') {
+      // Insert laundry management group after the MAIN group
+      const laundryGroup: MenuGroup = {
+        id: 'laundry-management',
+        label: 'LAUNDRY',
+        items: laundryMenuItems.map(item => ({
+          ...item,
+          children: []
+        }))
+      };
+      // Insert after MAIN (index 0)
+      groups.splice(1, 0, laundryGroup);
+    }
+
+    if (selectedSector === 'hardware') {
+      // Insert hardware store management group after the MAIN group
+      const hardwareGroup: MenuGroup = {
+        id: 'hardware-management',
+        label: 'HARDWARE STORE',
+        items: hardwareMenuItems.map(item => ({
+          ...item,
+          children: []
+        }))
+      };
+      // Insert after MAIN (index 0)
+      groups.splice(1, 0, hardwareGroup);
     }
 
     // Filter menu groups based on enabled modules
