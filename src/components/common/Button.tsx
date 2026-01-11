@@ -20,7 +20,7 @@ const variants = {
   primary:
     'btn-gradient text-white hover:shadow-lg',
   secondary:
-    'bg-accent-secondary text-white hover:bg-opacity-90',
+    'bg-accent-secondary text-background-primary hover:opacity-90',
   outline:
     'border border-white/[0.08] bg-transparent text-text-primary hover:bg-white/[0.05] hover:border-white/[0.12]',
   ghost:
