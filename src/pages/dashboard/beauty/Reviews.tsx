@@ -15,6 +15,7 @@ import {
   getServiceById,
   formatDate,
 } from '@/data/beauty/beautyData';
+import { getProfileImage } from '@/utils/profileImages';
 
 export const Reviews = () => {
   const navigate = useNavigate();
@@ -199,14 +200,22 @@ export const Reviews = () => {
               <Card className="p-6 hover:border-white/[0.15] transition-all">
                 <div className="flex items-start gap-4">
                   {/* Client Avatar */}
-                  <div className="w-12 h-12 rounded-full bg-accent-primary/20 flex items-center justify-center flex-shrink-0">
-                    <span className="text-lg font-bold text-accent-primary">
-                      {review.clientName
-                        .split(' ')
-                        .map((n) => n[0])
-                        .join('')}
-                    </span>
-                  </div>
+                  {getProfileImage(review.clientName) ? (
+                    <img
+                      src={getProfileImage(review.clientName)}
+                      alt={review.clientName}
+                      className="w-12 h-12 rounded-full object-cover flex-shrink-0"
+                    />
+                  ) : (
+                    <div className="w-12 h-12 rounded-full bg-accent-primary/20 flex items-center justify-center flex-shrink-0">
+                      <span className="text-lg font-bold text-accent-primary">
+                        {review.clientName
+                          .split(' ')
+                          .map((n) => n[0])
+                          .join('')}
+                      </span>
+                    </div>
+                  )}
 
                   {/* Review Content */}
                   <div className="flex-1">

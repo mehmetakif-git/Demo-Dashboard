@@ -25,6 +25,7 @@ import {
   formatCurrency,
   type Appointment,
 } from '@/data/beauty/beautyData';
+import { getProfileImage } from '@/utils/profileImages';
 
 export const Appointments = () => {
   const navigate = useNavigate();
@@ -234,6 +235,24 @@ export const Appointments = () => {
                     className="w-1 h-full min-h-[80px] rounded-full"
                     style={{ backgroundColor: getAppointmentStatusColor(appointment.status) }}
                   />
+
+                  {/* Client Avatar */}
+                  {getProfileImage(appointment.clientName) ? (
+                    <img
+                      src={getProfileImage(appointment.clientName)}
+                      alt={appointment.clientName}
+                      className="w-12 h-12 rounded-full object-cover flex-shrink-0"
+                    />
+                  ) : (
+                    <div className="w-12 h-12 rounded-full bg-accent-primary/20 flex items-center justify-center flex-shrink-0">
+                      <span className="text-sm font-bold text-accent-primary">
+                        {appointment.clientName
+                          .split(' ')
+                          .map((n) => n[0])
+                          .join('')}
+                      </span>
+                    </div>
+                  )}
 
                   {/* Main Content */}
                   <div className="flex-1 space-y-3">

@@ -19,6 +19,7 @@ import {
   formatDate,
   formatCurrency,
 } from '@/data/beauty/beautyData';
+import { getProfileImage } from '@/utils/profileImages';
 
 export const Clients = () => {
   const navigate = useNavigate();
@@ -176,12 +177,20 @@ export const Clients = () => {
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-full bg-accent-primary/20 flex items-center justify-center">
-                      <span className="text-lg font-bold text-accent-primary">
-                        {client.firstName[0]}
-                        {client.lastName[0]}
-                      </span>
-                    </div>
+                    {getProfileImage(`${client.firstName} ${client.lastName}`) ? (
+                      <img
+                        src={getProfileImage(`${client.firstName} ${client.lastName}`)}
+                        alt={`${client.firstName} ${client.lastName}`}
+                        className="w-12 h-12 rounded-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-12 h-12 rounded-full bg-accent-primary/20 flex items-center justify-center">
+                        <span className="text-lg font-bold text-accent-primary">
+                          {client.firstName[0]}
+                          {client.lastName[0]}
+                        </span>
+                      </div>
+                    )}
                     <div>
                       <div className="flex items-center gap-2">
                         <h3 className="font-semibold text-text-primary">
@@ -272,12 +281,20 @@ export const Clients = () => {
                   >
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-accent-primary/20 flex items-center justify-center">
-                          <span className="text-xs font-bold text-accent-primary">
-                            {client.firstName[0]}
-                            {client.lastName[0]}
-                          </span>
-                        </div>
+                        {getProfileImage(`${client.firstName} ${client.lastName}`) ? (
+                          <img
+                            src={getProfileImage(`${client.firstName} ${client.lastName}`)}
+                            alt={`${client.firstName} ${client.lastName}`}
+                            className="w-8 h-8 rounded-full object-cover"
+                          />
+                        ) : (
+                          <div className="w-8 h-8 rounded-full bg-accent-primary/20 flex items-center justify-center">
+                            <span className="text-xs font-bold text-accent-primary">
+                              {client.firstName[0]}
+                              {client.lastName[0]}
+                            </span>
+                          </div>
+                        )}
                         <div className="flex items-center gap-2">
                           <span className="font-medium text-text-primary">
                             {client.firstName} {client.lastName}

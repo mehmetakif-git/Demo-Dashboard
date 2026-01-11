@@ -24,6 +24,7 @@ import {
   formatCurrency,
   type Appointment,
 } from '@/data/beauty/beautyData';
+import { getProfileImage } from '@/utils/profileImages';
 
 export const AppointmentDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -187,14 +188,22 @@ export const AppointmentDetail = () => {
           <Card className="p-6">
             <h3 className="text-lg font-semibold text-text-primary mb-4">Client</h3>
             <div className="flex items-center gap-4 mb-4">
-              <div className="w-14 h-14 rounded-full bg-accent-primary/20 flex items-center justify-center">
-                <span className="text-lg font-bold text-accent-primary">
-                  {appointment.clientName
-                    .split(' ')
-                    .map((n) => n[0])
-                    .join('')}
-                </span>
-              </div>
+              {getProfileImage(appointment.clientName) ? (
+                <img
+                  src={getProfileImage(appointment.clientName)}
+                  alt={appointment.clientName}
+                  className="w-14 h-14 rounded-full object-cover"
+                />
+              ) : (
+                <div className="w-14 h-14 rounded-full bg-accent-primary/20 flex items-center justify-center">
+                  <span className="text-lg font-bold text-accent-primary">
+                    {appointment.clientName
+                      .split(' ')
+                      .map((n) => n[0])
+                      .join('')}
+                  </span>
+                </div>
+              )}
               <div>
                 <p className="font-semibold text-text-primary">{appointment.clientName}</p>
                 {client?.vipStatus && (
@@ -230,14 +239,22 @@ export const AppointmentDetail = () => {
           <Card className="p-6">
             <h3 className="text-lg font-semibold text-text-primary mb-4">Stylist</h3>
             <div className="flex items-center gap-4 mb-4">
-              <div className="w-14 h-14 rounded-full bg-emerald-500/20 flex items-center justify-center">
-                <span className="text-lg font-bold text-emerald-400">
-                  {appointment.stylistName
-                    .split(' ')
-                    .map((n) => n[0])
-                    .join('')}
-                </span>
-              </div>
+              {getProfileImage(appointment.stylistName) ? (
+                <img
+                  src={getProfileImage(appointment.stylistName)}
+                  alt={appointment.stylistName}
+                  className="w-14 h-14 rounded-full object-cover"
+                />
+              ) : (
+                <div className="w-14 h-14 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                  <span className="text-lg font-bold text-emerald-400">
+                    {appointment.stylistName
+                      .split(' ')
+                      .map((n) => n[0])
+                      .join('')}
+                  </span>
+                </div>
+              )}
               <div>
                 <p className="font-semibold text-text-primary">{appointment.stylistName}</p>
                 {stylist && (

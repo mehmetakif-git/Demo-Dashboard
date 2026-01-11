@@ -19,6 +19,7 @@ import {
   formatDate,
   formatCurrency,
 } from '@/data/beauty/beautyData';
+import { getProfileImage } from '@/utils/profileImages';
 
 export const StaffDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -83,7 +84,13 @@ export const StaffDetail = () => {
           {/* Profile Card */}
           <Card className="p-6">
             <div className="flex items-start gap-6">
-              {member.image ? (
+              {getProfileImage(member.name) ? (
+                <img
+                  src={getProfileImage(member.name)}
+                  alt={member.name}
+                  className="w-24 h-24 rounded-full object-cover flex-shrink-0"
+                />
+              ) : member.image ? (
                 <img
                   src={member.image}
                   alt={member.name}

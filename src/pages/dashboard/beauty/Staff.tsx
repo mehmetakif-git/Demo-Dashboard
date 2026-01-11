@@ -16,6 +16,7 @@ import {
   staff,
   formatCurrency,
 } from '@/data/beauty/beautyData';
+import { getProfileImage } from '@/utils/profileImages';
 
 export const Staff = () => {
   const navigate = useNavigate();
@@ -183,7 +184,13 @@ export const Staff = () => {
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
-                    {member.image ? (
+                    {getProfileImage(member.name) ? (
+                      <img
+                        src={getProfileImage(member.name)}
+                        alt={member.name}
+                        className="w-14 h-14 rounded-full object-cover"
+                      />
+                    ) : member.image ? (
                       <img
                         src={member.image}
                         alt={member.name}
@@ -307,7 +314,13 @@ export const Staff = () => {
                   >
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-3">
-                        {member.image ? (
+                        {getProfileImage(member.name) ? (
+                          <img
+                            src={getProfileImage(member.name)}
+                            alt={member.name}
+                            className="w-10 h-10 rounded-full object-cover"
+                          />
+                        ) : member.image ? (
                           <img
                             src={member.image}
                             alt={member.name}

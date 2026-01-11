@@ -18,6 +18,7 @@ import {
   formatCurrency,
   formatDate,
 } from '@/data/laundry/laundryData';
+import { getProfileImage } from '@/utils/profileImages';
 
 export const Customers = () => {
   const navigate = useNavigate();
@@ -143,11 +144,19 @@ export const Customers = () => {
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-sky-500/20 flex items-center justify-center">
-                    <span className="text-lg font-bold text-sky-400">
-                      {customer.firstName[0]}{customer.lastName[0]}
-                    </span>
-                  </div>
+                  {getProfileImage(`${customer.firstName} ${customer.lastName}`) ? (
+                    <img
+                      src={getProfileImage(`${customer.firstName} ${customer.lastName}`)}
+                      alt={`${customer.firstName} ${customer.lastName}`}
+                      className="w-12 h-12 rounded-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-12 h-12 rounded-full bg-sky-500/20 flex items-center justify-center">
+                      <span className="text-lg font-bold text-sky-400">
+                        {customer.firstName[0]}{customer.lastName[0]}
+                      </span>
+                    </div>
+                  )}
                   <div>
                     <div className="flex items-center gap-2">
                       <h3 className="font-semibold text-text-primary">

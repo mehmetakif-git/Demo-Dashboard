@@ -19,6 +19,7 @@ import {
   formatCurrency,
   formatDate,
 } from '@/data/laundry/laundryData';
+import { getProfileImage } from '@/utils/profileImages';
 
 export const CustomerDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -68,11 +69,19 @@ export const CustomerDetail = () => {
           {/* Profile Card */}
           <Card className="p-6">
             <div className="flex items-start gap-6">
-              <div className="w-20 h-20 rounded-full bg-sky-500/20 flex items-center justify-center flex-shrink-0">
-                <span className="text-2xl font-bold text-sky-400">
-                  {customer.firstName[0]}{customer.lastName[0]}
-                </span>
-              </div>
+              {getProfileImage(`${customer.firstName} ${customer.lastName}`) ? (
+                <img
+                  src={getProfileImage(`${customer.firstName} ${customer.lastName}`)}
+                  alt={`${customer.firstName} ${customer.lastName}`}
+                  className="w-20 h-20 rounded-full object-cover flex-shrink-0"
+                />
+              ) : (
+                <div className="w-20 h-20 rounded-full bg-sky-500/20 flex items-center justify-center flex-shrink-0">
+                  <span className="text-2xl font-bold text-sky-400">
+                    {customer.firstName[0]}{customer.lastName[0]}
+                  </span>
+                </div>
+              )}
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
                   <h2 className="text-2xl font-bold text-text-primary">

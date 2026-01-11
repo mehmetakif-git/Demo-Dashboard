@@ -16,6 +16,7 @@ import {
   formatCurrency,
   type BeautyProduct,
 } from '@/data/beauty/beautyData';
+import { getProductImage } from '@/utils/productImages';
 
 export const Products = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -171,7 +172,15 @@ export const Products = () => {
                 <Card className="p-4 hover:border-white/[0.15] transition-all">
                   {/* Product Image */}
                   <div className="aspect-square bg-white/[0.03] rounded-lg mb-4 flex items-center justify-center overflow-hidden">
-                    <Package size={48} className="text-text-muted" />
+                    {getProductImage(product.id) ? (
+                      <img
+                        src={getProductImage(product.id)}
+                        alt={product.name}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <Package size={48} className="text-text-muted" />
+                    )}
                   </div>
 
                   {/* Product Info */}
@@ -258,7 +267,15 @@ export const Products = () => {
                       <td className="py-3 px-4">
                         <div className="flex items-center gap-3">
                           <div className="w-10 h-10 rounded bg-white/[0.03] flex items-center justify-center overflow-hidden">
-                            <Package size={18} className="text-text-muted" />
+                            {getProductImage(product.id) ? (
+                              <img
+                                src={getProductImage(product.id)}
+                                alt={product.name}
+                                className="w-full h-full object-cover"
+                              />
+                            ) : (
+                              <Package size={18} className="text-text-muted" />
+                            )}
                           </div>
                           <div>
                             <p className="font-medium text-text-primary">{product.name}</p>

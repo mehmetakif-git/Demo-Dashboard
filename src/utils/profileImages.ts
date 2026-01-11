@@ -12,7 +12,6 @@ import pp7 from '@/assets/images/profiles/pp-7.webp';
 import pp8 from '@/assets/images/profiles/pp-8.webp';
 import pp9 from '@/assets/images/profiles/pp-9.webp';
 import pp10 from '@/assets/images/profiles/pp-10.webp';
-import pp11 from '@/assets/images/profiles/pp-11.webp';
 import pp12 from '@/assets/images/profiles/pp-12.webp';
 import pp13 from '@/assets/images/profiles/pp-13.webp';
 import pp14 from '@/assets/images/profiles/pp-14.webp';
@@ -26,7 +25,6 @@ import pp21 from '@/assets/images/profiles/pp-21.webp';
 import pp22 from '@/assets/images/profiles/pp-22.webp';
 import pp23 from '@/assets/images/profiles/pp-23.webp';
 import pp24 from '@/assets/images/profiles/pp-24.webp';
-import pp25 from '@/assets/images/profiles/pp-25.webp';
 import pp26 from '@/assets/images/profiles/pp-26.webp';
 import pp27 from '@/assets/images/profiles/pp-27.webp';
 import pp28 from '@/assets/images/profiles/pp-28.webp';
@@ -47,9 +45,19 @@ import pp42 from '@/assets/images/profiles/pp-42.webp';
 import pp43 from '@/assets/images/profiles/pp-43.webp';
 import pp44 from '@/assets/images/profiles/pp-44.webp';
 import pp45 from '@/assets/images/profiles/pp-45.webp';
-import pp46 from '@/assets/images/profiles/pp-46.webp';
 import pp47 from '@/assets/images/profiles/pp-47.webp';
 import pp48 from '@/assets/images/profiles/pp-48.webp';
+import pp49 from '@/assets/images/profiles/pp-49.webp';
+import pp50 from '@/assets/images/profiles/pp-50.webp';
+import pp51 from '@/assets/images/profiles/pp-51.webp';
+import pp52 from '@/assets/images/profiles/pp-52.webp';
+import pp53 from '@/assets/images/profiles/pp-53.webp';
+import pp54 from '@/assets/images/profiles/pp-54.webp';
+import pp55 from '@/assets/images/profiles/pp-55.webp';
+import pp56 from '@/assets/images/profiles/pp-56.webp';
+import pp57 from '@/assets/images/profiles/pp-57.webp';
+import pp58 from '@/assets/images/profiles/pp-58.webp';
+import pp60 from '@/assets/images/profiles/pp-60.webp';
 
 // Company logo imports (comp1 through comp7)
 import comp1 from '@/assets/images/profiles/comp1.webp';
@@ -80,7 +88,7 @@ export const profileImages: Record<string, string> = {
   'Jessica Martinez': pp7,
   'Amanda Lee': pp2,
   'Chris Johnson': pp10,
-  'Lisa Park': pp11,
+  'Lisa Park': pp55,
   'Alex Thompson': pp12,
   'Maria Garcia': pp13,
   'James Wilson': pp14,
@@ -94,7 +102,7 @@ export const profileImages: Record<string, string> = {
   'James Anderson': pp22,
   'Sophia Garcia': pp23,
   'Oliver Martinez': pp24,
-  'Michael Brown': pp25,
+  'Michael Brown': pp53,
 
   // Gym Members (26-34)
   'Jessica Williams': pp26,
@@ -118,7 +126,7 @@ export const profileImages: Record<string, string> = {
   'Lisa Rodriguez': pp42,
   'Rachel Green': pp44,
   'Thomas Wilson': pp45,
-  'Michael Chen': pp46,
+  'Michael Chen': pp1,
 
   // Staffing (47-48)
   'Robert Martinez': pp47,
@@ -135,10 +143,26 @@ export const profileImages: Record<string, string> = {
   'Jennifer Taylor': pp4,
 
   // Access Control
-  'Emily Davis': pp43,
+  'Emily Davis': pp8,
   'Thomas Lee': pp42,
   'Amanda White': pp44,
   'Christopher Garcia': pp48,
+
+  // Additional mappings
+  'John Mitchell': pp3,
+  'Robert Williams': pp5,
+  'Sarah Johnson': pp50,
+
+  // Beauty / Spa (49-58)
+  'Maryam Al-Thani': pp49,
+  'Aisha Mahmoud': pp51,
+  'Noura Hassan': pp52,
+  'Maria Santos': pp54,
+  'Fatima Al-Hassan': pp56,
+  'Emma Wilson': pp57,
+  'Sophie Chen': pp58,
+  'Ahmed Khalil': pp7,
+  'Jennifer Smith': pp60,
 };
 
 // Helper function to get profile image by name
