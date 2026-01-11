@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, StatsCard, Input, Button } from '@/components/common';
 import { visitors, getVisitorStatusColor, type Visitor } from '@/data/accessControlData';
+import { getProfileImage } from '@/utils/profileImages';
 
 export const Visitors = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -256,11 +257,19 @@ export const Visitors = () => {
                   {/* Header */}
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-full bg-accent-primary/20 flex items-center justify-center">
-                        <span className="text-lg font-bold text-accent-primary">
-                          {visitor.name.split(' ').map(n => n[0]).join('')}
-                        </span>
-                      </div>
+                      {getProfileImage(visitor.name) ? (
+                        <img
+                          src={getProfileImage(visitor.name)}
+                          alt={visitor.name}
+                          className="w-12 h-12 rounded-full object-cover border border-white/10"
+                        />
+                      ) : (
+                        <div className="w-12 h-12 rounded-full bg-accent-primary/20 flex items-center justify-center">
+                          <span className="text-lg font-bold text-accent-primary">
+                            {visitor.name.split(' ').map(n => n[0]).join('')}
+                          </span>
+                        </div>
+                      )}
                       <div>
                         <h3 className="font-semibold text-text-primary">{visitor.name}</h3>
                         <p className="text-xs text-text-secondary">{visitor.company}</p>
@@ -391,11 +400,19 @@ export const Visitors = () => {
                   >
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-accent-primary/20 flex items-center justify-center">
-                          <span className="text-xs font-bold text-accent-primary">
-                            {visitor.name.split(' ').map(n => n[0]).join('')}
-                          </span>
-                        </div>
+                        {getProfileImage(visitor.name) ? (
+                          <img
+                            src={getProfileImage(visitor.name)}
+                            alt={visitor.name}
+                            className="w-8 h-8 rounded-full object-cover border border-white/10"
+                          />
+                        ) : (
+                          <div className="w-8 h-8 rounded-full bg-accent-primary/20 flex items-center justify-center">
+                            <span className="text-xs font-bold text-accent-primary">
+                              {visitor.name.split(' ').map(n => n[0]).join('')}
+                            </span>
+                          </div>
+                        )}
                         <span className="font-medium text-text-primary">{visitor.name}</span>
                       </div>
                     </td>

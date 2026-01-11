@@ -133,6 +133,12 @@ export const profileImages: Record<string, string> = {
   'Rachel Adams': pp3,
   'Kevin White': pp1,
   'Jennifer Taylor': pp4,
+
+  // Access Control
+  'Emily Davis': pp43,
+  'Thomas Lee': pp42,
+  'Amanda White': pp44,
+  'Christopher Garcia': pp48,
 };
 
 // Helper function to get profile image by name

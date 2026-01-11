@@ -25,6 +25,7 @@ import {
   formatDate,
   type FitnessAssessment,
 } from '@/data/gym/gymData';
+import { getProfileImage } from '@/utils/profileImages';
 
 export const Assessments = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -201,9 +202,17 @@ export const Assessments = () => {
             <Card className="p-6 hover:border-white/[0.12] transition-colors cursor-pointer" onClick={() => setSelectedAssessment(assessment)}>
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white font-medium">
-                    {assessment.memberName.split(' ').map(n => n[0]).join('')}
-                  </div>
+                  {getProfileImage(assessment.memberName) ? (
+                    <img
+                      src={getProfileImage(assessment.memberName)}
+                      alt={assessment.memberName}
+                      className="w-12 h-12 rounded-full object-cover border border-white/10"
+                    />
+                  ) : (
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white font-medium">
+                      {assessment.memberName.split(' ').map(n => n[0]).join('')}
+                    </div>
+                  )}
                   <div>
                     <h3 className="text-lg font-semibold text-text-primary">{assessment.memberName}</h3>
                     <div className="flex items-center gap-3 text-sm text-text-secondary">
@@ -330,9 +339,17 @@ export const Assessments = () => {
             <Card className="p-6">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white font-medium">
-                    {selectedAssessment.memberName.split(' ').map(n => n[0]).join('')}
-                  </div>
+                  {getProfileImage(selectedAssessment.memberName) ? (
+                    <img
+                      src={getProfileImage(selectedAssessment.memberName)}
+                      alt={selectedAssessment.memberName}
+                      className="w-12 h-12 rounded-full object-cover border border-white/10"
+                    />
+                  ) : (
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white font-medium">
+                      {selectedAssessment.memberName.split(' ').map(n => n[0]).join('')}
+                    </div>
+                  )}
                   <div>
                     <h3 className="text-lg font-semibold text-text-primary">{selectedAssessment.memberName}</h3>
                     <p className="text-sm text-text-secondary">

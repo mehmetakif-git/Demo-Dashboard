@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, StatsCard, Input, Button } from '@/components/common';
 import { accessCards, getCardStatusColor, type AccessCard } from '@/data/accessControlData';
+import { getProfileImage } from '@/utils/profileImages';
 
 export const AccessCards = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -222,11 +223,19 @@ export const AccessCards = () => {
                   {/* Header */}
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-full bg-accent-primary/20 flex items-center justify-center">
-                        <span className="text-lg font-bold text-accent-primary">
-                          {card.holderName.split(' ').map(n => n[0]).join('')}
-                        </span>
-                      </div>
+                      {getProfileImage(card.holderName) ? (
+                        <img
+                          src={getProfileImage(card.holderName)}
+                          alt={card.holderName}
+                          className="w-12 h-12 rounded-full object-cover border border-white/10"
+                        />
+                      ) : (
+                        <div className="w-12 h-12 rounded-full bg-accent-primary/20 flex items-center justify-center">
+                          <span className="text-lg font-bold text-accent-primary">
+                            {card.holderName.split(' ').map(n => n[0]).join('')}
+                          </span>
+                        </div>
+                      )}
                       <div>
                         <h3 className="font-semibold text-text-primary">{card.holderName}</h3>
                         <p className="text-xs text-text-secondary font-mono">{card.cardNumber}</p>
@@ -337,11 +346,19 @@ export const AccessCards = () => {
                     </td>
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-accent-primary/20 flex items-center justify-center">
-                          <span className="text-xs font-bold text-accent-primary">
-                            {card.holderName.split(' ').map(n => n[0]).join('')}
-                          </span>
-                        </div>
+                        {getProfileImage(card.holderName) ? (
+                          <img
+                            src={getProfileImage(card.holderName)}
+                            alt={card.holderName}
+                            className="w-8 h-8 rounded-full object-cover border border-white/10"
+                          />
+                        ) : (
+                          <div className="w-8 h-8 rounded-full bg-accent-primary/20 flex items-center justify-center">
+                            <span className="text-xs font-bold text-accent-primary">
+                              {card.holderName.split(' ').map(n => n[0]).join('')}
+                            </span>
+                          </div>
+                        )}
                         <span className="font-medium text-text-primary">{card.holderName}</span>
                       </div>
                     </td>
