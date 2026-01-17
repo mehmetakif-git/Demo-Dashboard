@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import type { ReactNode, ElementType } from 'react';
 
 interface PageHeaderProps {
-  title: string;
+  title: ReactNode;
   subtitle?: string;
   icon?: ElementType;
   actions?: ReactNode;

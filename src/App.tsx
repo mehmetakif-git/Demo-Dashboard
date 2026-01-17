@@ -940,6 +940,316 @@ const HardwareBarcode = lazy(() =>
   }))
 );
 
+// E-Commerce Pages
+const EcommerceOverview = lazy(() =>
+  import('@/pages/dashboard/ecommerce/Overview').then((module) => ({
+    default: module.Overview,
+  }))
+);
+const EcommerceOrders = lazy(() =>
+  import('@/pages/dashboard/ecommerce/Orders').then((module) => ({
+    default: module.Orders,
+  }))
+);
+const EcommerceOrderDetail = lazy(() =>
+  import('@/pages/dashboard/ecommerce/OrderDetail').then((module) => ({
+    default: module.OrderDetail,
+  }))
+);
+const EcommerceProducts = lazy(() =>
+  import('@/pages/dashboard/ecommerce/Products').then((module) => ({
+    default: module.Products,
+  }))
+);
+const EcommerceProductDetail = lazy(() =>
+  import('@/pages/dashboard/ecommerce/ProductDetail').then((module) => ({
+    default: module.ProductDetail,
+  }))
+);
+const EcommerceCategories = lazy(() =>
+  import('@/pages/dashboard/ecommerce/Categories').then((module) => ({
+    default: module.Categories,
+  }))
+);
+const EcommerceCustomers = lazy(() =>
+  import('@/pages/dashboard/ecommerce/Customers').then((module) => ({
+    default: module.Customers,
+  }))
+);
+const EcommerceCustomerDetail = lazy(() =>
+  import('@/pages/dashboard/ecommerce/CustomerDetail').then((module) => ({
+    default: module.CustomerDetail,
+  }))
+);
+const EcommerceInventory = lazy(() =>
+  import('@/pages/dashboard/ecommerce/Inventory').then((module) => ({
+    default: module.Inventory,
+  }))
+);
+const EcommerceDiscounts = lazy(() =>
+  import('@/pages/dashboard/ecommerce/Discounts').then((module) => ({
+    default: module.Discounts,
+  }))
+);
+const EcommerceShipping = lazy(() =>
+  import('@/pages/dashboard/ecommerce/Shipping').then((module) => ({
+    default: module.Shipping,
+  }))
+);
+const EcommerceReviews = lazy(() =>
+  import('@/pages/dashboard/ecommerce/Reviews').then((module) => ({
+    default: module.Reviews,
+  }))
+);
+
+// Restaurant Pages
+const RestaurantTables = lazy(() =>
+  import('@/pages/dashboard/restaurant/Tables').then((module) => ({
+    default: module.Tables,
+  }))
+);
+const RestaurantMenu = lazy(() =>
+  import('@/pages/dashboard/restaurant/Menu').then((module) => ({
+    default: module.Menu,
+  }))
+);
+const RestaurantOrders = lazy(() =>
+  import('@/pages/dashboard/restaurant/RestaurantOrders').then((module) => ({
+    default: module.RestaurantOrders,
+  }))
+);
+const RestaurantKitchen = lazy(() =>
+  import('@/pages/dashboard/restaurant/Kitchen').then((module) => ({
+    default: module.Kitchen,
+  }))
+);
+const RestaurantReservations = lazy(() =>
+  import('@/pages/dashboard/restaurant/Reservations').then((module) => ({
+    default: module.Reservations,
+  }))
+);
+const RestaurantPOS = lazy(() =>
+  import('@/pages/dashboard/restaurant/POS').then((module) => ({
+    default: module.POS,
+  }))
+);
+const RestaurantDelivery = lazy(() =>
+  import('@/pages/dashboard/restaurant/Delivery').then((module) => ({
+    default: module.Delivery,
+  }))
+);
+const RestaurantInventory = lazy(() =>
+  import('@/pages/dashboard/restaurant/RestaurantInventory').then((module) => ({
+    default: module.RestaurantInventory,
+  }))
+);
+const RestaurantStaffSchedule = lazy(() =>
+  import('@/pages/dashboard/restaurant/StaffSchedule').then((module) => ({
+    default: module.StaffSchedule,
+  }))
+);
+const RestaurantAnalytics = lazy(() =>
+  import('@/pages/dashboard/restaurant/RestaurantAnalytics').then((module) => ({
+    default: module.RestaurantAnalytics,
+  }))
+);
+const RestaurantTableQRCodes = lazy(() =>
+  import('@/pages/dashboard/restaurant/TableQRCodes').then((module) => ({
+    default: module.TableQRCodes,
+  }))
+);
+const RestaurantFeedback = lazy(() =>
+  import('@/pages/dashboard/restaurant/Feedback').then((module) => ({
+    default: module.Feedback,
+  }))
+);
+
+// Healthcare Pages
+const HealthcarePatients = lazy(() =>
+  import('@/pages/dashboard/healthcare/Patients').then((module) => ({
+    default: module.Patients,
+  }))
+);
+const HealthcareAppointments = lazy(() =>
+  import('@/pages/dashboard/healthcare/Appointments').then((module) => ({
+    default: module.Appointments,
+  }))
+);
+const HealthcareConsultations = lazy(() =>
+  import('@/pages/dashboard/healthcare/Consultations').then((module) => ({
+    default: module.Consultations,
+  }))
+);
+const HealthcarePrescriptions = lazy(() =>
+  import('@/pages/dashboard/healthcare/Prescriptions').then((module) => ({
+    default: module.Prescriptions,
+  }))
+);
+const HealthcareLaboratory = lazy(() =>
+  import('@/pages/dashboard/healthcare/Laboratory').then((module) => ({
+    default: module.Laboratory,
+  }))
+);
+const HealthcareRadiology = lazy(() =>
+  import('@/pages/dashboard/healthcare/Radiology').then((module) => ({
+    default: module.Radiology,
+  }))
+);
+const HealthcarePharmacy = lazy(() =>
+  import('@/pages/dashboard/healthcare/Pharmacy').then((module) => ({
+    default: module.Pharmacy,
+  }))
+);
+const HealthcareBilling = lazy(() =>
+  import('@/pages/dashboard/healthcare/HealthcareBilling').then((module) => ({
+    default: module.HealthcareBilling,
+  }))
+);
+const HealthcareInsurance = lazy(() =>
+  import('@/pages/dashboard/healthcare/Insurance').then((module) => ({
+    default: module.Insurance,
+  }))
+);
+const HealthcareMedicalRecords = lazy(() =>
+  import('@/pages/dashboard/healthcare/MedicalRecords').then((module) => ({
+    default: module.MedicalRecords,
+  }))
+);
+const HealthcareReports = lazy(() =>
+  import('@/pages/dashboard/healthcare/HealthcareReports').then((module) => ({
+    default: module.HealthcareReports,
+  }))
+);
+const HealthcareBedManagement = lazy(() =>
+  import('@/pages/dashboard/healthcare/BedManagement').then((module) => ({
+    default: module.BedManagement,
+  }))
+);
+
+// Education Pages
+const EducationStudents = lazy(() =>
+  import('@/pages/dashboard/education/Students').then((module) => ({
+    default: module.Students,
+  }))
+);
+const EducationClasses = lazy(() =>
+  import('@/pages/dashboard/education/Classes').then((module) => ({
+    default: module.Classes,
+  }))
+);
+const EducationTeachers = lazy(() =>
+  import('@/pages/dashboard/education/Teachers').then((module) => ({
+    default: module.Teachers,
+  }))
+);
+const EducationCurriculum = lazy(() =>
+  import('@/pages/dashboard/education/Curriculum').then((module) => ({
+    default: module.Curriculum,
+  }))
+);
+const EducationAttendance = lazy(() =>
+  import('@/pages/dashboard/education/Attendance').then((module) => ({
+    default: module.Attendance,
+  }))
+);
+const EducationExams = lazy(() =>
+  import('@/pages/dashboard/education/Exams').then((module) => ({
+    default: module.Exams,
+  }))
+);
+const EducationAssignments = lazy(() =>
+  import('@/pages/dashboard/education/Assignments').then((module) => ({
+    default: module.Assignments,
+  }))
+);
+const EducationGrades = lazy(() =>
+  import('@/pages/dashboard/education/Grades').then((module) => ({
+    default: module.Grades,
+  }))
+);
+const EducationParents = lazy(() =>
+  import('@/pages/dashboard/education/Parents').then((module) => ({
+    default: module.Parents,
+  }))
+);
+const EducationLibrary = lazy(() =>
+  import('@/pages/dashboard/education/Library').then((module) => ({
+    default: module.Library,
+  }))
+);
+const EducationTransport = lazy(() =>
+  import('@/pages/dashboard/education/Transport').then((module) => ({
+    default: module.Transport,
+  }))
+);
+const EducationFees = lazy(() =>
+  import('@/pages/dashboard/education/Fees').then((module) => ({
+    default: module.Fees,
+  }))
+);
+
+// Hotel Pages
+const HotelRooms = lazy(() =>
+  import('@/pages/dashboard/hotel/Rooms').then((module) => ({
+    default: module.Rooms,
+  }))
+);
+const HotelReservations = lazy(() =>
+  import('@/pages/dashboard/hotel/Reservations').then((module) => ({
+    default: module.Reservations,
+  }))
+);
+const HotelCheckIn = lazy(() =>
+  import('@/pages/dashboard/hotel/CheckIn').then((module) => ({
+    default: module.CheckIn,
+  }))
+);
+const HotelGuests = lazy(() =>
+  import('@/pages/dashboard/hotel/Guests').then((module) => ({
+    default: module.Guests,
+  }))
+);
+const HotelHousekeeping = lazy(() =>
+  import('@/pages/dashboard/hotel/Housekeeping').then((module) => ({
+    default: module.Housekeeping,
+  }))
+);
+const HotelFrontDesk = lazy(() =>
+  import('@/pages/dashboard/hotel/FrontDesk').then((module) => ({
+    default: module.FrontDesk,
+  }))
+);
+const HotelRoomService = lazy(() =>
+  import('@/pages/dashboard/hotel/RoomService').then((module) => ({
+    default: module.RoomService,
+  }))
+);
+const HotelMaintenance = lazy(() =>
+  import('@/pages/dashboard/hotel/HotelMaintenance').then((module) => ({
+    default: module.HotelMaintenance,
+  }))
+);
+const HotelBilling = lazy(() =>
+  import('@/pages/dashboard/hotel/HotelBilling').then((module) => ({
+    default: module.HotelBilling,
+  }))
+);
+const HotelPackages = lazy(() =>
+  import('@/pages/dashboard/hotel/Packages').then((module) => ({
+    default: module.Packages,
+  }))
+);
+const HotelAmenities = lazy(() =>
+  import('@/pages/dashboard/hotel/Amenities').then((module) => ({
+    default: module.Amenities,
+  }))
+);
+const HotelReports = lazy(() =>
+  import('@/pages/dashboard/hotel/HotelReports').then((module) => ({
+    default: module.HotelReports,
+  }))
+);
+
 // Error Pages
 const NotFound = lazy(() =>
   import('@/pages/errors/NotFound').then((module) => ({
@@ -1318,6 +1628,81 @@ const AppRoutes = () => {
         <Route path={ROUTES.hardware.priceLists} element={<HardwarePriceLists />} />
         <Route path={ROUTES.hardware.alerts} element={<HardwareAlerts />} />
         <Route path={ROUTES.hardware.barcode} element={<HardwareBarcode />} />
+
+        {/* E-Commerce Routes (Sector-specific) */}
+        <Route path={ROUTES.ecommerce.root} element={<Navigate to={ROUTES.ecommerce.overview} replace />} />
+        <Route path={ROUTES.ecommerce.overview} element={<EcommerceOverview />} />
+        <Route path={ROUTES.ecommerce.orders} element={<EcommerceOrders />} />
+        <Route path={ROUTES.ecommerce.orderDetail} element={<EcommerceOrderDetail />} />
+        <Route path={ROUTES.ecommerce.products} element={<EcommerceProducts />} />
+        <Route path={ROUTES.ecommerce.productDetail} element={<EcommerceProductDetail />} />
+        <Route path={ROUTES.ecommerce.categories} element={<EcommerceCategories />} />
+        <Route path={ROUTES.ecommerce.customers} element={<EcommerceCustomers />} />
+        <Route path={ROUTES.ecommerce.customerDetail} element={<EcommerceCustomerDetail />} />
+        <Route path={ROUTES.ecommerce.inventory} element={<EcommerceInventory />} />
+        <Route path={ROUTES.ecommerce.discounts} element={<EcommerceDiscounts />} />
+        <Route path={ROUTES.ecommerce.shipping} element={<EcommerceShipping />} />
+        <Route path={ROUTES.ecommerce.reviews} element={<EcommerceReviews />} />
+
+        {/* Restaurant Routes (Sector-specific) */}
+        <Route path={ROUTES.restaurant.root} element={<Navigate to={ROUTES.restaurant.tables} replace />} />
+        <Route path={ROUTES.restaurant.tables} element={<RestaurantTables />} />
+        <Route path={ROUTES.restaurant.menu} element={<RestaurantMenu />} />
+        <Route path={ROUTES.restaurant.orders} element={<RestaurantOrders />} />
+        <Route path={ROUTES.restaurant.kitchen} element={<RestaurantKitchen />} />
+        <Route path={ROUTES.restaurant.reservations} element={<RestaurantReservations />} />
+        <Route path={ROUTES.restaurant.pos} element={<RestaurantPOS />} />
+        <Route path={ROUTES.restaurant.delivery} element={<RestaurantDelivery />} />
+        <Route path={ROUTES.restaurant.inventory} element={<RestaurantInventory />} />
+        <Route path={ROUTES.restaurant.staff} element={<RestaurantStaffSchedule />} />
+        <Route path={ROUTES.restaurant.analytics} element={<RestaurantAnalytics />} />
+        <Route path={ROUTES.restaurant.qrCodes} element={<RestaurantTableQRCodes />} />
+        <Route path={ROUTES.restaurant.feedback} element={<RestaurantFeedback />} />
+
+        {/* Healthcare Routes (Sector-specific) */}
+        <Route path={ROUTES.healthcare.root} element={<Navigate to={ROUTES.healthcare.patients} replace />} />
+        <Route path={ROUTES.healthcare.patients} element={<HealthcarePatients />} />
+        <Route path={ROUTES.healthcare.appointments} element={<HealthcareAppointments />} />
+        <Route path={ROUTES.healthcare.consultations} element={<HealthcareConsultations />} />
+        <Route path={ROUTES.healthcare.prescriptions} element={<HealthcarePrescriptions />} />
+        <Route path={ROUTES.healthcare.laboratory} element={<HealthcareLaboratory />} />
+        <Route path={ROUTES.healthcare.radiology} element={<HealthcareRadiology />} />
+        <Route path={ROUTES.healthcare.pharmacy} element={<HealthcarePharmacy />} />
+        <Route path={ROUTES.healthcare.billing} element={<HealthcareBilling />} />
+        <Route path={ROUTES.healthcare.insurance} element={<HealthcareInsurance />} />
+        <Route path={ROUTES.healthcare.medicalRecords} element={<HealthcareMedicalRecords />} />
+        <Route path={ROUTES.healthcare.reports} element={<HealthcareReports />} />
+        <Route path={ROUTES.healthcare.bedManagement} element={<HealthcareBedManagement />} />
+
+        {/* Education Routes (Sector-specific) */}
+        <Route path={ROUTES.education.root} element={<Navigate to={ROUTES.education.students} replace />} />
+        <Route path={ROUTES.education.students} element={<EducationStudents />} />
+        <Route path={ROUTES.education.classes} element={<EducationClasses />} />
+        <Route path={ROUTES.education.teachers} element={<EducationTeachers />} />
+        <Route path={ROUTES.education.curriculum} element={<EducationCurriculum />} />
+        <Route path={ROUTES.education.attendance} element={<EducationAttendance />} />
+        <Route path={ROUTES.education.exams} element={<EducationExams />} />
+        <Route path={ROUTES.education.assignments} element={<EducationAssignments />} />
+        <Route path={ROUTES.education.grades} element={<EducationGrades />} />
+        <Route path={ROUTES.education.parents} element={<EducationParents />} />
+        <Route path={ROUTES.education.library} element={<EducationLibrary />} />
+        <Route path={ROUTES.education.transport} element={<EducationTransport />} />
+        <Route path={ROUTES.education.fees} element={<EducationFees />} />
+
+        {/* Hotel Routes (Sector-specific) */}
+        <Route path={ROUTES.hotel.root} element={<Navigate to={ROUTES.hotel.rooms} replace />} />
+        <Route path={ROUTES.hotel.rooms} element={<HotelRooms />} />
+        <Route path={ROUTES.hotel.reservations} element={<HotelReservations />} />
+        <Route path={ROUTES.hotel.checkin} element={<HotelCheckIn />} />
+        <Route path={ROUTES.hotel.guests} element={<HotelGuests />} />
+        <Route path={ROUTES.hotel.housekeeping} element={<HotelHousekeeping />} />
+        <Route path={ROUTES.hotel.frontdesk} element={<HotelFrontDesk />} />
+        <Route path={ROUTES.hotel.roomService} element={<HotelRoomService />} />
+        <Route path={ROUTES.hotel.maintenance} element={<HotelMaintenance />} />
+        <Route path={ROUTES.hotel.billing} element={<HotelBilling />} />
+        <Route path={ROUTES.hotel.packages} element={<HotelPackages />} />
+        <Route path={ROUTES.hotel.amenities} element={<HotelAmenities />} />
+        <Route path={ROUTES.hotel.reports} element={<HotelReports />} />
       </Route>
 
       {/* Default redirect */}

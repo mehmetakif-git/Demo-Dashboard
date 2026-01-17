@@ -13,6 +13,11 @@ import { eventsMenuItems } from '@/data/events/eventsData';
 import { beautyMenuItems } from '@/data/beauty/beautyData';
 import { laundryMenuItems } from '@/data/laundry/laundryData';
 import { hardwareMenuItems } from '@/data/hardware/hardwareData';
+import { ecommerceMenuItems } from '@/data/ecommerce/ecommerceData';
+import { restaurantMenuItems } from '@/data/restaurant/restaurantData';
+import { healthcareMenuItems } from '@/data/healthcare/healthcareData';
+import { educationMenuItems } from '@/data/education/educationData';
+import { hotelMenuItems } from '@/data/hotel/hotelData';
 import { LAYOUT, ROUTES } from '@/utils/constants';
 import type { MenuItem, MenuGroup } from '@/types';
 import AllyncLogo from '@/assets/images/logos/logo-white.svg';
@@ -41,6 +46,11 @@ const moduleIdMap: Record<string, string> = {
   beauty: 'beauty',
   laundry: 'laundry',
   hardware: 'hardware',
+  ecommerce: 'ecommerce',
+  restaurant: 'restaurant',
+  healthcare: 'healthcare',
+  education: 'education',
+  hotel: 'hotel',
 };
 
 export const Sidebar = () => {
@@ -171,6 +181,76 @@ export const Sidebar = () => {
       };
       // Insert after MAIN (index 0)
       groups.splice(1, 0, hardwareGroup);
+    }
+
+    if (selectedSector === 'ecommerce') {
+      // Insert e-commerce management group after the MAIN group
+      const ecommerceGroup: MenuGroup = {
+        id: 'ecommerce-management',
+        label: 'E-COMMERCE',
+        items: ecommerceMenuItems.map(item => ({
+          ...item,
+          children: []
+        }))
+      };
+      // Insert after MAIN (index 0)
+      groups.splice(1, 0, ecommerceGroup);
+    }
+
+    if (selectedSector === 'restaurant') {
+      // Insert restaurant management group after the MAIN group
+      const restaurantGroup: MenuGroup = {
+        id: 'restaurant-management',
+        label: 'RESTAURANT',
+        items: restaurantMenuItems.map(item => ({
+          ...item,
+          children: []
+        }))
+      };
+      // Insert after MAIN (index 0)
+      groups.splice(1, 0, restaurantGroup);
+    }
+
+    if (selectedSector === 'healthcare') {
+      // Insert healthcare management group after the MAIN group
+      const healthcareGroup: MenuGroup = {
+        id: 'healthcare-management',
+        label: 'HEALTHCARE',
+        items: healthcareMenuItems.map(item => ({
+          ...item,
+          children: []
+        }))
+      };
+      // Insert after MAIN (index 0)
+      groups.splice(1, 0, healthcareGroup);
+    }
+
+    if (selectedSector === 'education') {
+      // Insert education management group after the MAIN group
+      const educationGroup: MenuGroup = {
+        id: 'education-management',
+        label: 'EDUCATION',
+        items: educationMenuItems.map(item => ({
+          ...item,
+          children: []
+        }))
+      };
+      // Insert after MAIN (index 0)
+      groups.splice(1, 0, educationGroup);
+    }
+
+    if (selectedSector === 'hotel') {
+      // Insert hotel management group after the MAIN group
+      const hotelGroup: MenuGroup = {
+        id: 'hotel-management',
+        label: 'HOTEL MANAGEMENT',
+        items: hotelMenuItems.map(item => ({
+          ...item,
+          children: []
+        }))
+      };
+      // Insert after MAIN (index 0)
+      groups.splice(1, 0, hotelGroup);
     }
 
     // Filter menu groups based on enabled modules

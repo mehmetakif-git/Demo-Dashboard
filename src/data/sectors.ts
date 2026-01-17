@@ -66,36 +66,36 @@ export const sectors: Sector[] = [
   },
   // Coming soon sectors
   {
-    id: 'e-commerce',
+    id: 'ecommerce',
     name: 'E-Commerce',
-    description: 'Online retail management',
+    description: 'Online store management',
     icon: ShoppingCart,
     color: '#10b981', // Emerald - commerce, growth
-    isActive: false,
+    isActive: true,
   },
   {
     id: 'restaurant',
     name: 'Restaurant',
     description: 'Restaurant and cafe operations',
     icon: Utensils,
-    color: '#f59e0b', // Amber - food, warmth
-    isActive: false,
+    color: '#f97316', // Orange - food, warmth
+    isActive: true,
   },
   {
     id: 'healthcare',
     name: 'Healthcare',
     description: 'Clinic and hospital management',
     icon: Heart,
-    color: '#ef4444', // Red - health, care
-    isActive: false,
+    color: '#06b6d4', // Cyan - medical, clinical
+    isActive: true,
   },
   {
     id: 'education',
     name: 'Education',
     description: 'School and course management',
     icon: GraduationCap,
-    color: '#6366f1', // Indigo - knowledge, wisdom
-    isActive: false,
+    color: '#8b5cf6', // Violet - knowledge, wisdom
+    isActive: true,
   },
   {
     id: 'hotel',
@@ -103,7 +103,7 @@ export const sectors: Sector[] = [
     description: 'Hospitality management',
     icon: Hotel,
     color: '#14b8a6', // Teal - hospitality, calm
-    isActive: false,
+    isActive: true,
   },
   {
     id: 'construction',
