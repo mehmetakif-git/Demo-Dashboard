@@ -1250,6 +1250,68 @@ const HotelReports = lazy(() =>
   }))
 );
 
+// Construction Pages
+const ConstructionProjects = lazy(() =>
+  import('@/pages/dashboard/construction/Projects').then((module) => ({
+    default: module.Projects,
+  }))
+);
+const ConstructionSites = lazy(() =>
+  import('@/pages/dashboard/construction/Sites').then((module) => ({
+    default: module.Sites,
+  }))
+);
+const ConstructionMaterials = lazy(() =>
+  import('@/pages/dashboard/construction/Materials').then((module) => ({
+    default: module.Materials,
+  }))
+);
+const ConstructionSubcontractors = lazy(() =>
+  import('@/pages/dashboard/construction/Subcontractors').then((module) => ({
+    default: module.Subcontractors,
+  }))
+);
+const ConstructionEquipment = lazy(() =>
+  import('@/pages/dashboard/construction/Equipment').then((module) => ({
+    default: module.Equipment,
+  }))
+);
+const ConstructionBudget = lazy(() =>
+  import('@/pages/dashboard/construction/Budget').then((module) => ({
+    default: module.Budget,
+  }))
+);
+const ConstructionTimeline = lazy(() =>
+  import('@/pages/dashboard/construction/Timeline').then((module) => ({
+    default: module.Timeline,
+  }))
+);
+const ConstructionSafety = lazy(() =>
+  import('@/pages/dashboard/construction/Safety').then((module) => ({
+    default: module.Safety,
+  }))
+);
+const ConstructionQuality = lazy(() =>
+  import('@/pages/dashboard/construction/Quality').then((module) => ({
+    default: module.Quality,
+  }))
+);
+const ConstructionDocuments = lazy(() =>
+  import('@/pages/dashboard/construction/Documents').then((module) => ({
+    default: module.Documents,
+  }))
+);
+const ConstructionProgress = lazy(() =>
+  import('@/pages/dashboard/construction/Progress').then((module) => ({
+    default: module.Progress,
+  }))
+);
+const ConstructionInspections = lazy(() =>
+  import('@/pages/dashboard/construction/Inspections').then((module) => ({
+    default: module.Inspections,
+  }))
+);
+
 // Error Pages
 const NotFound = lazy(() =>
   import('@/pages/errors/NotFound').then((module) => ({
@@ -1703,6 +1765,21 @@ const AppRoutes = () => {
         <Route path={ROUTES.hotel.packages} element={<HotelPackages />} />
         <Route path={ROUTES.hotel.amenities} element={<HotelAmenities />} />
         <Route path={ROUTES.hotel.reports} element={<HotelReports />} />
+
+        {/* Construction Routes (Sector-specific) */}
+        <Route path={ROUTES.construction.root} element={<Navigate to={ROUTES.construction.projects} replace />} />
+        <Route path={ROUTES.construction.projects} element={<ConstructionProjects />} />
+        <Route path={ROUTES.construction.sites} element={<ConstructionSites />} />
+        <Route path={ROUTES.construction.materials} element={<ConstructionMaterials />} />
+        <Route path={ROUTES.construction.subcontractors} element={<ConstructionSubcontractors />} />
+        <Route path={ROUTES.construction.equipment} element={<ConstructionEquipment />} />
+        <Route path={ROUTES.construction.budget} element={<ConstructionBudget />} />
+        <Route path={ROUTES.construction.timeline} element={<ConstructionTimeline />} />
+        <Route path={ROUTES.construction.safety} element={<ConstructionSafety />} />
+        <Route path={ROUTES.construction.quality} element={<ConstructionQuality />} />
+        <Route path={ROUTES.construction.documents} element={<ConstructionDocuments />} />
+        <Route path={ROUTES.construction.progress} element={<ConstructionProgress />} />
+        <Route path={ROUTES.construction.inspections} element={<ConstructionInspections />} />
       </Route>
 
       {/* Default redirect */}

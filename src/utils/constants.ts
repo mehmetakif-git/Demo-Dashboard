@@ -416,6 +416,23 @@ export const ROUTES = {
     amenities: '/dashboard/hotel/amenities',
     reports: '/dashboard/hotel/reports',
   },
+  construction: {
+    root: '/dashboard/construction',
+    projects: '/dashboard/construction/projects',
+    projectDetail: '/dashboard/construction/projects/:id',
+    sites: '/dashboard/construction/sites',
+    siteDetail: '/dashboard/construction/sites/:id',
+    materials: '/dashboard/construction/materials',
+    subcontractors: '/dashboard/construction/subcontractors',
+    equipment: '/dashboard/construction/equipment',
+    budget: '/dashboard/construction/budget',
+    timeline: '/dashboard/construction/timeline',
+    safety: '/dashboard/construction/safety',
+    quality: '/dashboard/construction/quality',
+    documents: '/dashboard/construction/documents',
+    progress: '/dashboard/construction/progress',
+    inspections: '/dashboard/construction/inspections',
+  },
 } as const;
 
 // Toast duration

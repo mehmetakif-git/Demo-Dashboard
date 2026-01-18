@@ -110,8 +110,8 @@ export const sectors: Sector[] = [
     name: 'Construction',
     description: 'Construction project tracking',
     icon: HardHat,
-    color: '#f59e0b', // Amber - construction, safety
-    isActive: false,
+    color: '#f97316', // Orange - construction, safety
+    isActive: true,
   },
   {
     id: 'logistics',

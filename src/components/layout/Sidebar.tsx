@@ -18,6 +18,7 @@ import { restaurantMenuItems } from '@/data/restaurant/restaurantData';
 import { healthcareMenuItems } from '@/data/healthcare/healthcareData';
 import { educationMenuItems } from '@/data/education/educationData';
 import { hotelMenuItems } from '@/data/hotel/hotelData';
+import { constructionMenuItems } from '@/data/construction/constructionData';
 import { LAYOUT, ROUTES } from '@/utils/constants';
 import type { MenuItem, MenuGroup } from '@/types';
 import AllyncLogo from '@/assets/images/logos/logo-white.svg';
@@ -51,6 +52,7 @@ const moduleIdMap: Record<string, string> = {
   healthcare: 'healthcare',
   education: 'education',
   hotel: 'hotel',
+  construction: 'construction',
 };
 
 export const Sidebar = () => {
@@ -251,6 +253,20 @@ export const Sidebar = () => {
       };
       // Insert after MAIN (index 0)
       groups.splice(1, 0, hotelGroup);
+    }
+
+    if (selectedSector === 'construction') {
+      // Insert construction management group after the MAIN group
+      const constructionGroup: MenuGroup = {
+        id: 'construction-management',
+        label: 'CONSTRUCTION',
+        items: constructionMenuItems.map(item => ({
+          ...item,
+          children: []
+        }))
+      };
+      // Insert after MAIN (index 0)
+      groups.splice(1, 0, constructionGroup);
     }
 
     // Filter menu groups based on enabled modules
