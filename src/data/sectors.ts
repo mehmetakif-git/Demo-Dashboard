@@ -118,8 +118,8 @@ export const sectors: Sector[] = [
     name: 'Logistics',
     description: 'Fleet and shipment management',
     icon: Truck,
-    color: '#06b6d4', // Cyan - transport, movement
-    isActive: false,
+    color: '#3b82f6', // Blue - logistics, transport
+    isActive: true,
   },
   {
     id: 'manufacturing',
@@ -127,15 +127,15 @@ export const sectors: Sector[] = [
     description: 'Production operations',
     icon: Factory,
     color: '#64748b', // Slate - industrial
-    isActive: false,
+    isActive: true,
   },
   {
-    id: 'legal',
-    name: 'Legal',
-    description: 'Law firm management',
+    id: 'law',
+    name: 'Law Firm',
+    description: 'Legal practice management',
     icon: Scale,
-    color: '#8b5cf6', // Purple - authority, justice
-    isActive: false,
+    color: '#f59e0b', // Amber - authority, justice
+    isActive: true,
   },
   {
     id: 'retail',

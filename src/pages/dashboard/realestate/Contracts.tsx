@@ -1,69 +1,63 @@
 import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import {
-  DollarSign,
+  FileSignature,
   Search,
   MoreVertical,
+  Calendar,
   Building,
   User,
-  TrendingUp,
-  Percent,
+  DollarSign,
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
-import { contracts, agents, REALESTATE_COLOR, getStatusColor } from '@/data/realestate/realestateData';
+import { contracts, REALESTATE_COLOR, getStatusColor } from '@/data/realestate/realestateData';
 
-export const Commissions = () => {
+export const Contracts = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [agentFilter, setAgentFilter] = useState<string>('all');
+  const [statusFilter, setStatusFilter] = useState<string>('all');
+  const [typeFilter, setTypeFilter] = useState<string>('all');
 
   const stats = useMemo(() => {
-    const totalCommission = contracts.reduce((sum, c) => sum + c.commission, 0);
-    const paidCommission = contracts.filter(c => c.status === 'completed' || c.status === 'active').reduce((sum, c) => sum + c.commission, 0);
-    const pendingCommission = contracts.filter(c => c.status === 'pending-completion').reduce((sum, c) => sum + c.commission, 0);
-    const avgCommission = contracts.length > 0 ? totalCommission / contracts.length : 0;
+    const total = contracts.length;
+    const active = contracts.filter(c => c.status === 'active').length;
+    const pendingCompletion = contracts.filter(c => c.status === 'pending-completion').length;
+    const totalValue = contracts.reduce((sum, c) => sum + (c.salePrice || c.rentAmount || 0), 0);
 
-    return { totalCommission, paidCommission, pendingCommission, avgCommission };
+    return { total, active, pendingCompletion, totalValue };
   }, []);
 
   const filteredContracts = useMemo(() => {
     return contracts.filter(contract => {
       const matchesSearch = contract.propertyTitle.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        contract.agentName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        contract.contractNo.toLowerCase().includes(searchQuery.toLowerCase());
+        contract.clientName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        contract.contractNo.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        contract.ownerName.toLowerCase().includes(searchQuery.toLowerCase());
 
-      const matchesAgent = agentFilter === 'all' || contract.agentId === agentFilter;
+      const matchesStatus = statusFilter === 'all' || contract.status === statusFilter;
+      const matchesType = typeFilter === 'all' || contract.contractType === typeFilter;
 
-      return matchesSearch && matchesAgent;
+      return matchesSearch && matchesStatus && matchesType;
     });
-  }, [searchQuery, agentFilter]);
+  }, [searchQuery, statusFilter, typeFilter]);
 
-  const agentCommissions = useMemo(() => {
-    const commissionByAgent: Record<string, { name: string; total: number; count: number }> = {};
-    contracts.forEach(contract => {
-      if (!commissionByAgent[contract.agentId]) {
-        commissionByAgent[contract.agentId] = { name: contract.agentName, total: 0, count: 0 };
-      }
-      commissionByAgent[contract.agentId].total += contract.commission;
-      commissionByAgent[contract.agentId].count += 1;
-    });
-    return Object.entries(commissionByAgent).map(([id, data]) => ({ id, ...data }));
-  }, []);
+  const statuses = ['all', 'pending-completion', 'active', 'completed', 'cancelled'];
+  const types = ['all', 'Sale Agreement', 'Lease Agreement'];
 
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Commissions"
-        subtitle="Track agent commissions and earnings"
-        icon={DollarSign}
+        title="Contracts"
+        subtitle="Manage sale and lease agreements"
+        icon={FileSignature}
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Commission', value: `QAR ${stats.totalCommission.toLocaleString()}`, color: REALESTATE_COLOR },
-          { label: 'Paid', value: `QAR ${stats.paidCommission.toLocaleString()}`, color: '#10b981' },
-          { label: 'Pending', value: `QAR ${stats.pendingCommission.toLocaleString()}`, color: '#f59e0b' },
-          { label: 'Avg. Commission', value: `QAR ${Math.round(stats.avgCommission).toLocaleString()}`, color: '#8b5cf6' },
+          { label: 'Total Contracts', value: stats.total, color: REALESTATE_COLOR },
+          { label: 'Active Leases', value: stats.active, color: '#10b981' },
+          { label: 'Pending Completion', value: stats.pendingCompletion, color: '#f59e0b' },
+          { label: 'Total Value', value: `QAR ${(stats.totalValue / 1000000).toFixed(1)}M`, color: '#8b5cf6' },
         ].map((stat, index) => (
           <motion.div
             key={stat.label}
@@ -77,7 +71,7 @@ export const Commissions = () => {
                   className="w-10 h-10 rounded-lg flex items-center justify-center"
                   style={{ backgroundColor: `${stat.color}20` }}
                 >
-                  <DollarSign size={20} style={{ color: stat.color }} />
+                  <FileSignature size={20} style={{ color: stat.color }} />
                 </div>
                 <div>
                   <p className="text-lg font-bold text-text-primary">{stat.value}</p>
@@ -89,82 +83,58 @@ export const Commissions = () => {
         ))}
       </div>
 
-      {/* Agent Summary */}
-      <Card className="p-4">
-        <h3 className="text-lg font-semibold text-text-primary mb-4">Commission by Agent</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {agentCommissions.map((agent, index) => (
-            <motion.div
-              key={agent.id}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: index * 0.05 }}
-              className="p-4 rounded-lg border border-border-default hover:border-border-hover transition-colors"
-            >
-              <div className="flex items-center gap-3 mb-3">
-                <div
-                  className="w-10 h-10 rounded-full flex items-center justify-center"
-                  style={{ backgroundColor: `${REALESTATE_COLOR}20` }}
-                >
-                  <User size={18} style={{ color: REALESTATE_COLOR }} />
-                </div>
-                <div>
-                  <p className="font-medium text-text-primary">{agent.name}</p>
-                  <p className="text-xs text-text-muted">{agent.count} deals</p>
-                </div>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1">
-                  <TrendingUp size={14} className="text-text-muted" />
-                  <span className="text-sm text-text-secondary">Total</span>
-                </div>
-                <span className="font-bold" style={{ color: REALESTATE_COLOR }}>
-                  QAR {agent.total.toLocaleString()}
-                </span>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </Card>
-
       {/* Filters */}
       <Card className="p-4">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search commissions..."
+              placeholder="Search contracts..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
             />
           </div>
-          <select
-            value={agentFilter}
-            onChange={(e) => setAgentFilter(e.target.value)}
-            className="px-3 py-2 rounded-lg bg-background-secondary border border-border-default text-text-primary text-sm"
-          >
-            <option value="all">All Agents</option>
-            {agents.map(agent => (
-              <option key={agent.id} value={agent.id}>{agent.name}</option>
-            ))}
-          </select>
+          <div className="flex gap-2 flex-wrap">
+            <select
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+              className="px-3 py-2 rounded-lg bg-background-secondary border border-border-default text-text-primary text-sm"
+            >
+              {statuses.map(status => (
+                <option key={status} value={status}>
+                  {status === 'all' ? 'All Status' : status.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                </option>
+              ))}
+            </select>
+            <select
+              value={typeFilter}
+              onChange={(e) => setTypeFilter(e.target.value)}
+              className="px-3 py-2 rounded-lg bg-background-secondary border border-border-default text-text-primary text-sm"
+            >
+              {types.map(type => (
+                <option key={type} value={type}>
+                  {type === 'all' ? 'All Types' : type}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </Card>
 
-      {/* Commission Details Table */}
+      {/* Contracts Table */}
       <Card className="p-4">
-        <h3 className="text-lg font-semibold text-text-primary mb-4">Commission Details</h3>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-background-tertiary">
               <tr>
                 <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Contract</th>
                 <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Type</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Client</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Owner</th>
                 <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Value</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Rate</th>
                 <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Commission</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Agent</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Date</th>
                 <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Status</th>
                 <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Actions</th>
               </tr>
@@ -203,27 +173,43 @@ export const Commissions = () => {
                       {contract.contractType === 'Sale Agreement' ? 'Sale' : 'Lease'}
                     </span>
                   </td>
-                  <td className="py-3 px-4 text-right">
-                    <span className="text-text-secondary">
-                      QAR {(contract.salePrice || contract.rentAmount || 0).toLocaleString()}
-                    </span>
-                  </td>
-                  <td className="py-3 px-4 text-center">
-                    <div className="flex items-center justify-center gap-1">
-                      <Percent size={12} className="text-text-muted" />
-                      <span className="text-text-secondary">{contract.commissionRate}%</span>
-                    </div>
-                  </td>
-                  <td className="py-3 px-4 text-right">
-                    <span className="font-bold" style={{ color: REALESTATE_COLOR }}>
-                      QAR {contract.commission.toLocaleString()}
-                    </span>
-                  </td>
                   <td className="py-3 px-4">
                     <div className="flex items-center gap-2">
                       <User size={14} className="text-text-muted" />
-                      <span className="text-text-secondary text-sm">{contract.agentName}</span>
+                      <div>
+                        <p className="text-text-secondary text-sm">{contract.clientName}</p>
+                        <p className="text-xs text-text-muted">{contract.clientType}</p>
+                      </div>
                     </div>
+                  </td>
+                  <td className="py-3 px-4">
+                    <span className="text-text-secondary text-sm">{contract.ownerName}</span>
+                  </td>
+                  <td className="py-3 px-4 text-right">
+                    <span className="font-semibold" style={{ color: REALESTATE_COLOR }}>
+                      QAR {(contract.salePrice || contract.rentAmount || 0).toLocaleString()}
+                    </span>
+                    {contract.rentAmount && (
+                      <p className="text-xs text-text-muted">/month</p>
+                    )}
+                  </td>
+                  <td className="py-3 px-4 text-right">
+                    <div className="flex items-center justify-end gap-1">
+                      <DollarSign size={12} className="text-text-muted" />
+                      <span className="text-text-secondary">
+                        QAR {contract.commission.toLocaleString()}
+                      </span>
+                    </div>
+                    <p className="text-xs text-text-muted">{contract.commissionRate}%</p>
+                  </td>
+                  <td className="py-3 px-4">
+                    <div className="flex items-center gap-1 text-sm text-text-secondary">
+                      <Calendar size={12} className="text-text-muted" />
+                      <span>{contract.contractDate}</span>
+                    </div>
+                    {contract.leaseEnd && (
+                      <p className="text-xs text-text-muted">Ends: {contract.leaseEnd}</p>
+                    )}
                   </td>
                   <td className="py-3 px-4 text-center">
                     <span
@@ -241,8 +227,9 @@ export const Commissions = () => {
                         </Button>
                       }
                       items={[
-                        { id: 'view', label: 'View Details', onClick: () => {} },
-                        { id: 'payout', label: 'Process Payout', onClick: () => {} },
+                        { id: 'view', label: 'View Contract', onClick: () => {} },
+                        { id: 'download', label: 'Download PDF', onClick: () => {} },
+                        { id: 'renew', label: 'Renew', onClick: () => {} },
                       ]}
                     />
                   </td>
@@ -254,8 +241,8 @@ export const Commissions = () => {
 
         {filteredContracts.length === 0 && (
           <div className="py-12 text-center text-text-muted">
-            <DollarSign size={48} className="mx-auto mb-4 opacity-50" />
-            <p>No commission records found</p>
+            <FileSignature size={48} className="mx-auto mb-4 opacity-50" />
+            <p>No contracts found</p>
           </div>
         )}
       </Card>
@@ -263,4 +250,4 @@ export const Commissions = () => {
   );
 };
 
-export default Commissions;
+export default Contracts;

@@ -19,6 +19,9 @@ import { healthcareMenuItems } from '@/data/healthcare/healthcareData';
 import { educationMenuItems } from '@/data/education/educationData';
 import { hotelMenuItems } from '@/data/hotel/hotelData';
 import { constructionMenuItems } from '@/data/construction/constructionData';
+import { logisticsMenuItems } from '@/data/logistics/logisticsData';
+import { manufacturingMenuItems } from '@/data/manufacturing/manufacturingData';
+import { lawMenuItems } from '@/data/law/lawData';
 import { LAYOUT, ROUTES } from '@/utils/constants';
 import type { MenuItem, MenuGroup } from '@/types';
 import AllyncLogo from '@/assets/images/logos/logo-white.svg';
@@ -53,6 +56,9 @@ const moduleIdMap: Record<string, string> = {
   education: 'education',
   hotel: 'hotel',
   construction: 'construction',
+  logistics: 'logistics',
+  manufacturing: 'manufacturing',
+  law: 'law',
 };
 
 export const Sidebar = () => {
@@ -267,6 +273,48 @@ export const Sidebar = () => {
       };
       // Insert after MAIN (index 0)
       groups.splice(1, 0, constructionGroup);
+    }
+
+    if (selectedSector === 'logistics') {
+      // Insert logistics management group after the MAIN group
+      const logisticsGroup: MenuGroup = {
+        id: 'logistics-management',
+        label: 'LOGISTICS',
+        items: logisticsMenuItems.map(item => ({
+          ...item,
+          children: []
+        }))
+      };
+      // Insert after MAIN (index 0)
+      groups.splice(1, 0, logisticsGroup);
+    }
+
+    if (selectedSector === 'manufacturing') {
+      // Insert manufacturing management group after the MAIN group
+      const manufacturingGroup: MenuGroup = {
+        id: 'manufacturing-management',
+        label: 'MANUFACTURING',
+        items: manufacturingMenuItems.map(item => ({
+          ...item,
+          children: []
+        }))
+      };
+      // Insert after MAIN (index 0)
+      groups.splice(1, 0, manufacturingGroup);
+    }
+
+    if (selectedSector === 'law') {
+      // Insert law firm management group after the MAIN group
+      const lawGroup: MenuGroup = {
+        id: 'law-management',
+        label: 'LAW FIRM',
+        items: lawMenuItems.map(item => ({
+          ...item,
+          children: []
+        }))
+      };
+      // Insert after MAIN (index 0)
+      groups.splice(1, 0, lawGroup);
     }
 
     // Filter menu groups based on enabled modules

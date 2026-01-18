@@ -589,44 +589,34 @@ const StaffingOnboarding = lazy(() =>
 );
 
 // Real Estate Pages
-const RealEstatePropertyList = lazy(() =>
-  import('@/pages/dashboard/realestate/PropertyList').then((module) => ({
-    default: module.PropertyList,
+const RealEstateProperties = lazy(() =>
+  import('@/pages/dashboard/realestate/Properties').then((module) => ({
+    default: module.Properties,
   }))
 );
-const RealEstatePropertyDetail = lazy(() =>
-  import('@/pages/dashboard/realestate/PropertyDetail').then((module) => ({
-    default: module.PropertyDetail,
+const RealEstateListings = lazy(() =>
+  import('@/pages/dashboard/realestate/Listings').then((module) => ({
+    default: module.Listings,
   }))
 );
-const RealEstateLeadList = lazy(() =>
-  import('@/pages/dashboard/realestate/LeadList').then((module) => ({
-    default: module.LeadList,
+const RealEstateLeads = lazy(() =>
+  import('@/pages/dashboard/realestate/Leads').then((module) => ({
+    default: module.Leads,
   }))
 );
-const RealEstateLeadDetail = lazy(() =>
-  import('@/pages/dashboard/realestate/LeadDetail').then((module) => ({
-    default: module.LeadDetail,
+const RealEstateViewings = lazy(() =>
+  import('@/pages/dashboard/realestate/Viewings').then((module) => ({
+    default: module.Viewings,
   }))
 );
-const RealEstateShowings = lazy(() =>
-  import('@/pages/dashboard/realestate/Showings').then((module) => ({
-    default: module.Showings,
+const RealEstateOffers = lazy(() =>
+  import('@/pages/dashboard/realestate/Offers').then((module) => ({
+    default: module.Offers,
   }))
 );
-const RealEstateTransactions = lazy(() =>
-  import('@/pages/dashboard/realestate/Transactions').then((module) => ({
-    default: module.Transactions,
-  }))
-);
-const RealEstateOwners = lazy(() =>
-  import('@/pages/dashboard/realestate/Owners').then((module) => ({
-    default: module.Owners,
-  }))
-);
-const RealEstateAgents = lazy(() =>
-  import('@/pages/dashboard/realestate/Agents').then((module) => ({
-    default: module.Agents,
+const RealEstateContracts = lazy(() =>
+  import('@/pages/dashboard/realestate/Contracts').then((module) => ({
+    default: module.Contracts,
   }))
 );
 const RealEstateCommissions = lazy(() =>
@@ -634,9 +624,29 @@ const RealEstateCommissions = lazy(() =>
     default: module.Commissions,
   }))
 );
-const RealEstateListingsPortal = lazy(() =>
-  import('@/pages/dashboard/realestate/ListingsPortal').then((module) => ({
-    default: module.ListingsPortal,
+const RealEstateTenants = lazy(() =>
+  import('@/pages/dashboard/realestate/Tenants').then((module) => ({
+    default: module.Tenants,
+  }))
+);
+const RealEstateLandlords = lazy(() =>
+  import('@/pages/dashboard/realestate/Landlords').then((module) => ({
+    default: module.Landlords,
+  }))
+);
+const RealEstateMaintenance = lazy(() =>
+  import('@/pages/dashboard/realestate/Maintenance').then((module) => ({
+    default: module.Maintenance,
+  }))
+);
+const RealEstatePayments = lazy(() =>
+  import('@/pages/dashboard/realestate/Payments').then((module) => ({
+    default: module.Payments,
+  }))
+);
+const RealEstateReports = lazy(() =>
+  import('@/pages/dashboard/realestate/Reports').then((module) => ({
+    default: module.Reports,
   }))
 );
 
@@ -1312,6 +1322,192 @@ const ConstructionInspections = lazy(() =>
   }))
 );
 
+// Logistics Pages
+const LogisticsFleet = lazy(() =>
+  import('@/pages/dashboard/logistics/Fleet').then((module) => ({
+    default: module.Fleet,
+  }))
+);
+const LogisticsRoutes = lazy(() =>
+  import('@/pages/dashboard/logistics/Routes').then((module) => ({
+    default: module.Routes,
+  }))
+);
+const LogisticsShipments = lazy(() =>
+  import('@/pages/dashboard/logistics/Shipments').then((module) => ({
+    default: module.Shipments,
+  }))
+);
+const LogisticsWarehouse = lazy(() =>
+  import('@/pages/dashboard/logistics/Warehouse').then((module) => ({
+    default: module.WarehousePage,
+  }))
+);
+const LogisticsDrivers = lazy(() =>
+  import('@/pages/dashboard/logistics/Drivers').then((module) => ({
+    default: module.Drivers,
+  }))
+);
+const LogisticsFuel = lazy(() =>
+  import('@/pages/dashboard/logistics/Fuel').then((module) => ({
+    default: module.FuelPage,
+  }))
+);
+const LogisticsMaintenance = lazy(() =>
+  import('@/pages/dashboard/logistics/Maintenance').then((module) => ({
+    default: module.Maintenance,
+  }))
+);
+const LogisticsTracking = lazy(() =>
+  import('@/pages/dashboard/logistics/Tracking').then((module) => ({
+    default: module.Tracking,
+  }))
+);
+const LogisticsInvoicing = lazy(() =>
+  import('@/pages/dashboard/logistics/Invoicing').then((module) => ({
+    default: module.Invoicing,
+  }))
+);
+const LogisticsClients = lazy(() =>
+  import('@/pages/dashboard/logistics/Clients').then((module) => ({
+    default: module.Clients,
+  }))
+);
+const LogisticsReports = lazy(() =>
+  import('@/pages/dashboard/logistics/Reports').then((module) => ({
+    default: module.Reports,
+  }))
+);
+const LogisticsCompliance = lazy(() =>
+  import('@/pages/dashboard/logistics/Compliance').then((module) => ({
+    default: module.Compliance,
+  }))
+);
+
+// Manufacturing Pages
+const ManufacturingProduction = lazy(() =>
+  import('@/pages/dashboard/manufacturing/Production').then((module) => ({
+    default: module.Production,
+  }))
+);
+const ManufacturingWorkOrders = lazy(() =>
+  import('@/pages/dashboard/manufacturing/WorkOrders').then((module) => ({
+    default: module.WorkOrders,
+  }))
+);
+const ManufacturingBOM = lazy(() =>
+  import('@/pages/dashboard/manufacturing/BOM').then((module) => ({
+    default: module.BOM,
+  }))
+);
+const ManufacturingInventory = lazy(() =>
+  import('@/pages/dashboard/manufacturing/Inventory').then((module) => ({
+    default: module.Inventory,
+  }))
+);
+const ManufacturingQuality = lazy(() =>
+  import('@/pages/dashboard/manufacturing/Quality').then((module) => ({
+    default: module.Quality,
+  }))
+);
+const ManufacturingMachines = lazy(() =>
+  import('@/pages/dashboard/manufacturing/Machines').then((module) => ({
+    default: module.Machines,
+  }))
+);
+const ManufacturingMaintenance = lazy(() =>
+  import('@/pages/dashboard/manufacturing/Maintenance').then((module) => ({
+    default: module.MaintenancePage,
+  }))
+);
+const ManufacturingPlanning = lazy(() =>
+  import('@/pages/dashboard/manufacturing/Planning').then((module) => ({
+    default: module.Planning,
+  }))
+);
+const ManufacturingFinishedGoods = lazy(() =>
+  import('@/pages/dashboard/manufacturing/FinishedGoods').then((module) => ({
+    default: module.FinishedGoods,
+  }))
+);
+const ManufacturingWaste = lazy(() =>
+  import('@/pages/dashboard/manufacturing/Waste').then((module) => ({
+    default: module.Waste,
+  }))
+);
+const ManufacturingShifts = lazy(() =>
+  import('@/pages/dashboard/manufacturing/Shifts').then((module) => ({
+    default: module.Shifts,
+  }))
+);
+const ManufacturingReports = lazy(() =>
+  import('@/pages/dashboard/manufacturing/Reports').then((module) => ({
+    default: module.Reports,
+  }))
+);
+
+// Law Pages
+const LawCases = lazy(() =>
+  import('@/pages/dashboard/law/Cases').then((module) => ({
+    default: module.Cases,
+  }))
+);
+const LawClients = lazy(() =>
+  import('@/pages/dashboard/law/Clients').then((module) => ({
+    default: module.Clients,
+  }))
+);
+const LawHearings = lazy(() =>
+  import('@/pages/dashboard/law/Hearings').then((module) => ({
+    default: module.Hearings,
+  }))
+);
+const LawDocuments = lazy(() =>
+  import('@/pages/dashboard/law/Documents').then((module) => ({
+    default: module.Documents,
+  }))
+);
+const LawContracts = lazy(() =>
+  import('@/pages/dashboard/law/Contracts').then((module) => ({
+    default: module.Contracts,
+  }))
+);
+const LawBilling = lazy(() =>
+  import('@/pages/dashboard/law/Billing').then((module) => ({
+    default: module.Billing,
+  }))
+);
+const LawCalendar = lazy(() =>
+  import('@/pages/dashboard/law/Calendar').then((module) => ({
+    default: module.Calendar,
+  }))
+);
+const LawResearch = lazy(() =>
+  import('@/pages/dashboard/law/Research').then((module) => ({
+    default: module.Research,
+  }))
+);
+const LawTimeTracking = lazy(() =>
+  import('@/pages/dashboard/law/TimeTracking').then((module) => ({
+    default: module.TimeTracking,
+  }))
+);
+const LawOpposing = lazy(() =>
+  import('@/pages/dashboard/law/Opposing').then((module) => ({
+    default: module.Opposing,
+  }))
+);
+const LawSettlements = lazy(() =>
+  import('@/pages/dashboard/law/Settlements').then((module) => ({
+    default: module.Settlements,
+  }))
+);
+const LawReports = lazy(() =>
+  import('@/pages/dashboard/law/Reports').then((module) => ({
+    default: module.Reports,
+  }))
+);
+
 // Error Pages
 const NotFound = lazy(() =>
   import('@/pages/errors/NotFound').then((module) => ({
@@ -1607,16 +1803,18 @@ const AppRoutes = () => {
 
         {/* Real Estate Routes (Sector-specific) */}
         <Route path={ROUTES.realestate.root} element={<Navigate to={ROUTES.realestate.properties} replace />} />
-        <Route path={ROUTES.realestate.properties} element={<RealEstatePropertyList />} />
-        <Route path={ROUTES.realestate.propertyDetail} element={<RealEstatePropertyDetail />} />
-        <Route path={ROUTES.realestate.leads} element={<RealEstateLeadList />} />
-        <Route path={ROUTES.realestate.leadDetail} element={<RealEstateLeadDetail />} />
-        <Route path={ROUTES.realestate.showings} element={<RealEstateShowings />} />
-        <Route path={ROUTES.realestate.transactions} element={<RealEstateTransactions />} />
-        <Route path={ROUTES.realestate.owners} element={<RealEstateOwners />} />
-        <Route path={ROUTES.realestate.agents} element={<RealEstateAgents />} />
+        <Route path={ROUTES.realestate.properties} element={<RealEstateProperties />} />
+        <Route path={ROUTES.realestate.listings} element={<RealEstateListings />} />
+        <Route path={ROUTES.realestate.leads} element={<RealEstateLeads />} />
+        <Route path={ROUTES.realestate.viewings} element={<RealEstateViewings />} />
+        <Route path={ROUTES.realestate.offers} element={<RealEstateOffers />} />
+        <Route path={ROUTES.realestate.contracts} element={<RealEstateContracts />} />
         <Route path={ROUTES.realestate.commissions} element={<RealEstateCommissions />} />
-        <Route path={ROUTES.realestate.listingsPortal} element={<RealEstateListingsPortal />} />
+        <Route path={ROUTES.realestate.tenants} element={<RealEstateTenants />} />
+        <Route path={ROUTES.realestate.landlords} element={<RealEstateLandlords />} />
+        <Route path={ROUTES.realestate.maintenance} element={<RealEstateMaintenance />} />
+        <Route path={ROUTES.realestate.payments} element={<RealEstatePayments />} />
+        <Route path={ROUTES.realestate.reports} element={<RealEstateReports />} />
 
         {/* Agency Routes (Sector-specific) */}
         <Route path={ROUTES.agency.root} element={<Navigate to={ROUTES.agency.campaigns} replace />} />
@@ -1780,6 +1978,51 @@ const AppRoutes = () => {
         <Route path={ROUTES.construction.documents} element={<ConstructionDocuments />} />
         <Route path={ROUTES.construction.progress} element={<ConstructionProgress />} />
         <Route path={ROUTES.construction.inspections} element={<ConstructionInspections />} />
+
+        {/* Logistics Routes (Sector-specific) */}
+        <Route path={ROUTES.logistics.root} element={<Navigate to={ROUTES.logistics.fleet} replace />} />
+        <Route path={ROUTES.logistics.fleet} element={<LogisticsFleet />} />
+        <Route path={ROUTES.logistics.routes} element={<LogisticsRoutes />} />
+        <Route path={ROUTES.logistics.shipments} element={<LogisticsShipments />} />
+        <Route path={ROUTES.logistics.warehouse} element={<LogisticsWarehouse />} />
+        <Route path={ROUTES.logistics.drivers} element={<LogisticsDrivers />} />
+        <Route path={ROUTES.logistics.fuel} element={<LogisticsFuel />} />
+        <Route path={ROUTES.logistics.maintenance} element={<LogisticsMaintenance />} />
+        <Route path={ROUTES.logistics.tracking} element={<LogisticsTracking />} />
+        <Route path={ROUTES.logistics.invoicing} element={<LogisticsInvoicing />} />
+        <Route path={ROUTES.logistics.clients} element={<LogisticsClients />} />
+        <Route path={ROUTES.logistics.reports} element={<LogisticsReports />} />
+        <Route path={ROUTES.logistics.compliance} element={<LogisticsCompliance />} />
+
+        {/* Manufacturing Routes (Sector-specific) */}
+        <Route path={ROUTES.manufacturing.root} element={<Navigate to={ROUTES.manufacturing.production} replace />} />
+        <Route path={ROUTES.manufacturing.production} element={<ManufacturingProduction />} />
+        <Route path={ROUTES.manufacturing.workOrders} element={<ManufacturingWorkOrders />} />
+        <Route path={ROUTES.manufacturing.bom} element={<ManufacturingBOM />} />
+        <Route path={ROUTES.manufacturing.inventory} element={<ManufacturingInventory />} />
+        <Route path={ROUTES.manufacturing.quality} element={<ManufacturingQuality />} />
+        <Route path={ROUTES.manufacturing.machines} element={<ManufacturingMachines />} />
+        <Route path={ROUTES.manufacturing.maintenance} element={<ManufacturingMaintenance />} />
+        <Route path={ROUTES.manufacturing.planning} element={<ManufacturingPlanning />} />
+        <Route path={ROUTES.manufacturing.finishedGoods} element={<ManufacturingFinishedGoods />} />
+        <Route path={ROUTES.manufacturing.waste} element={<ManufacturingWaste />} />
+        <Route path={ROUTES.manufacturing.shifts} element={<ManufacturingShifts />} />
+        <Route path={ROUTES.manufacturing.reports} element={<ManufacturingReports />} />
+
+        {/* Law Routes (Sector-specific) */}
+        <Route path={ROUTES.law.root} element={<Navigate to={ROUTES.law.cases} replace />} />
+        <Route path={ROUTES.law.cases} element={<LawCases />} />
+        <Route path={ROUTES.law.clients} element={<LawClients />} />
+        <Route path={ROUTES.law.hearings} element={<LawHearings />} />
+        <Route path={ROUTES.law.documents} element={<LawDocuments />} />
+        <Route path={ROUTES.law.contracts} element={<LawContracts />} />
+        <Route path={ROUTES.law.billing} element={<LawBilling />} />
+        <Route path={ROUTES.law.calendar} element={<LawCalendar />} />
+        <Route path={ROUTES.law.research} element={<LawResearch />} />
+        <Route path={ROUTES.law.timeTracking} element={<LawTimeTracking />} />
+        <Route path={ROUTES.law.opposing} element={<LawOpposing />} />
+        <Route path={ROUTES.law.settlements} element={<LawSettlements />} />
+        <Route path={ROUTES.law.reports} element={<LawReports />} />
       </Route>
 
       {/* Default redirect */}
