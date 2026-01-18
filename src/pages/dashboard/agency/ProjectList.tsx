@@ -23,6 +23,7 @@ import {
   formatCurrency,
   getProjectStatusColor,
 } from '@/data/agency/agencyData';
+import { getProfileImage } from '@/utils/profileImages';
 
 export const ProjectList = () => {
   const navigate = useNavigate();
@@ -245,15 +246,28 @@ export const ProjectList = () => {
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex -space-x-2">
-                        {project.team.slice(0, 3).map((member) => (
-                          <div
-                            key={member.id}
-                            className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-[#547792] to-[#94B4C1] text-xs font-medium text-white ring-2 ring-[#12121a]"
-                            title={member.name}
-                          >
-                            {member.name.split(' ').map((n) => n[0]).join('')}
-                          </div>
-                        ))}
+                        {project.team.slice(0, 3).map((member) => {
+                          const profileImg = getProfileImage(member.name);
+                          return (
+                            <div
+                              key={member.id}
+                              className="h-8 w-8 rounded-full ring-2 ring-[#12121a] overflow-hidden"
+                              title={member.name}
+                            >
+                              {profileImg ? (
+                                <img
+                                  src={profileImg}
+                                  alt={member.name}
+                                  className="h-full w-full object-cover"
+                                />
+                              ) : (
+                                <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[#547792] to-[#94B4C1] text-xs font-medium text-white">
+                                  {member.name.split(' ').map((n) => n[0]).join('')}
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
                         {project.team.length > 3 && (
                           <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#1e1e2e] text-xs font-medium text-[#94a3b8] ring-2 ring-[#12121a]">
                             +{project.team.length - 3}

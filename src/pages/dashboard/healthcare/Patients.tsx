@@ -167,12 +167,20 @@ export const Patients = () => {
               <div className="flex flex-col lg:flex-row lg:items-center gap-4">
                 {/* Patient Info */}
                 <div className="flex items-center gap-4 flex-1">
-                  <div
-                    className="w-12 h-12 rounded-full flex items-center justify-center"
-                    style={{ backgroundColor: `${HEALTHCARE_COLOR}20` }}
-                  >
-                    <User size={24} style={{ color: HEALTHCARE_COLOR }} />
-                  </div>
+                  {patient.profileImage ? (
+                    <img
+                      src={patient.profileImage}
+                      alt={`${patient.firstName} ${patient.lastName}`}
+                      className="w-12 h-12 rounded-full object-cover"
+                    />
+                  ) : (
+                    <div
+                      className="w-12 h-12 rounded-full flex items-center justify-center"
+                      style={{ backgroundColor: `${HEALTHCARE_COLOR}20` }}
+                    >
+                      <User size={24} style={{ color: HEALTHCARE_COLOR }} />
+                    </div>
+                  )}
                   <div>
                     <div className="flex items-center gap-2">
                       <p className="font-semibold text-text-primary">

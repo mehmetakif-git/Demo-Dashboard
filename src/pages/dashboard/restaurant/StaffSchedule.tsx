@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, StatusBadge, Dropdown } from '@/components/common';
 import { staffMembers, staffSchedule } from '@/data/restaurant/restaurantData';
+import { getProfileImage } from '@/utils/profileImages';
 
 export const StaffSchedule = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -180,12 +181,23 @@ export const StaffSchedule = () => {
             >
               <Card className="p-4">
                 <div className="flex items-start gap-4">
-                  <div
-                    className="w-12 h-12 rounded-full flex items-center justify-center"
-                    style={{ backgroundColor: `${roleColor}20` }}
-                  >
-                    <RoleIcon size={24} style={{ color: roleColor }} />
-                  </div>
+                  {(() => {
+                    const profileImg = getProfileImage(staff.name);
+                    return profileImg ? (
+                      <img
+                        src={profileImg}
+                        alt={staff.name}
+                        className="w-12 h-12 rounded-full object-cover"
+                      />
+                    ) : (
+                      <div
+                        className="w-12 h-12 rounded-full flex items-center justify-center"
+                        style={{ backgroundColor: `${roleColor}20` }}
+                      >
+                        <RoleIcon size={24} style={{ color: roleColor }} />
+                      </div>
+                    );
+                  })()}
                   <div className="flex-1">
                     <h3 className="font-semibold text-text-primary">{staff.name}</h3>
                     <p className="text-sm capitalize" style={{ color: roleColor }}>
@@ -238,12 +250,23 @@ export const StaffSchedule = () => {
                 transition={{ delay: index * 0.03 }}
                 className="flex items-center gap-4 p-3 bg-background-secondary rounded-lg"
               >
-                <div
-                  className="w-10 h-10 rounded-full flex items-center justify-center"
-                  style={{ backgroundColor: `${roleColor}20` }}
-                >
-                  <RoleIcon size={20} style={{ color: roleColor }} />
-                </div>
+                {(() => {
+                  const profileImg = getProfileImage(shift.staffName);
+                  return profileImg ? (
+                    <img
+                      src={profileImg}
+                      alt={shift.staffName}
+                      className="w-10 h-10 rounded-full object-cover"
+                    />
+                  ) : (
+                    <div
+                      className="w-10 h-10 rounded-full flex items-center justify-center"
+                      style={{ backgroundColor: `${roleColor}20` }}
+                    >
+                      <RoleIcon size={20} style={{ color: roleColor }} />
+                    </div>
+                  );
+                })()}
                 <div className="flex-1">
                   <p className="font-medium text-text-primary">{shift.staffName}</p>
                   <p className="text-xs capitalize text-text-muted">{shift.role.replace('-', ' ')}</p>

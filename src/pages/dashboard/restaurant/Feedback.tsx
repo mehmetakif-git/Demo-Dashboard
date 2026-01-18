@@ -11,7 +11,7 @@ import {
   MoreVertical,
   TrendingUp,
 } from 'lucide-react';
-import { PageHeader, Card, Button, Input, StatusBadge, Dropdown } from '@/components/common';
+import { PageHeader, Card, Button, Input, StatusBadge, Dropdown, Avatar } from '@/components/common';
 import { customerFeedback } from '@/data/restaurant/restaurantData';
 
 export const Feedback = () => {
@@ -177,11 +177,7 @@ export const Feedback = () => {
               <div className="flex flex-col lg:flex-row gap-4">
                 {/* Customer Info */}
                 <div className="flex items-start gap-3 lg:w-48 flex-shrink-0">
-                  <div className="w-10 h-10 rounded-full bg-[#f97316]/20 flex items-center justify-center">
-                    <span className="text-lg font-bold text-[#f97316]">
-                      {feedback.customerName.charAt(0)}
-                    </span>
-                  </div>
+                  <Avatar name={feedback.customerName} size="md" />
                   <div>
                     <p className="font-medium text-text-primary">{feedback.customerName}</p>
                     <p className="text-xs text-text-muted">

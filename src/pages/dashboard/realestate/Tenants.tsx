@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { tenants, REALESTATE_COLOR, getStatusColor } from '@/data/realestate/realestateData';
+import { getProfileImage, getCompanyLogo } from '@/utils/profileImages';
 
 export const Tenants = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -135,12 +136,29 @@ export const Tenants = () => {
                 >
                   <td className="py-3 px-4">
                     <div className="flex items-center gap-3">
-                      <div
-                        className="w-10 h-10 rounded-full flex items-center justify-center"
-                        style={{ backgroundColor: `${REALESTATE_COLOR}20` }}
-                      >
-                        <UserCheck size={18} style={{ color: REALESTATE_COLOR }} />
-                      </div>
+                      {(() => {
+                        const profileImg = getProfileImage(tenant.name);
+                        const companyLogo = getCompanyLogo(tenant.name);
+                        const image = profileImg || companyLogo;
+
+                        if (image) {
+                          return (
+                            <img
+                              src={image}
+                              alt={tenant.name}
+                              className="w-10 h-10 rounded-full object-cover"
+                            />
+                          );
+                        }
+                        return (
+                          <div
+                            className="w-10 h-10 rounded-full flex items-center justify-center"
+                            style={{ backgroundColor: `${REALESTATE_COLOR}20` }}
+                          >
+                            <UserCheck size={18} style={{ color: REALESTATE_COLOR }} />
+                          </div>
+                        );
+                      })()}
                       <div>
                         <p className="font-medium text-text-primary">{tenant.name}</p>
                         <p className="text-xs text-text-muted font-mono">{tenant.tenantNo}</p>

@@ -11,7 +11,7 @@ import {
   MoreVertical,
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, StatusBadge, Dropdown } from '@/components/common';
-import { appointments, doctors, HEALTHCARE_COLOR } from '@/data/healthcare/healthcareData';
+import { appointments, doctors, HEALTHCARE_COLOR, getPatientProfileImage } from '@/data/healthcare/healthcareData';
 
 export const Appointments = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -210,11 +210,26 @@ export const Appointments = () => {
 
                 {/* Patient Info */}
                 <div className="flex-1">
-                  <div className="flex items-center gap-2">
-                    <User size={16} className="text-text-muted" />
-                    <p className="font-semibold text-text-primary">{appointment.patientName}</p>
+                  <div className="flex items-center gap-3">
+                    {getPatientProfileImage(appointment.patientName) ? (
+                      <img
+                        src={getPatientProfileImage(appointment.patientName)}
+                        alt={appointment.patientName}
+                        className="w-10 h-10 rounded-full object-cover"
+                      />
+                    ) : (
+                      <div
+                        className="w-10 h-10 rounded-full flex items-center justify-center"
+                        style={{ backgroundColor: `${HEALTHCARE_COLOR}20` }}
+                      >
+                        <User size={18} style={{ color: HEALTHCARE_COLOR }} />
+                      </div>
+                    )}
+                    <div>
+                      <p className="font-semibold text-text-primary">{appointment.patientName}</p>
+                      <p className="text-sm text-text-muted">{appointment.reason}</p>
+                    </div>
                   </div>
-                  <p className="text-sm text-text-muted mt-1">{appointment.reason}</p>
                 </div>
 
                 {/* Doctor */}

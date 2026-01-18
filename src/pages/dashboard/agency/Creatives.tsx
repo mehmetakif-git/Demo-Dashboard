@@ -21,6 +21,7 @@ import {
   creativeAssets,
   getAssetStatusColor,
 } from '@/data/agency/agencyData';
+import { getCreativeThumbnail } from '@/utils/creativeImages';
 
 export const Creatives = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -179,15 +180,29 @@ export const Creatives = () => {
               className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl overflow-hidden hover:border-[#547792]/50 transition-colors"
             >
               {/* Preview Area */}
-              <div className="aspect-video bg-[#1a1a24] flex items-center justify-center relative">
-                <div className={`flex items-center justify-center h-16 w-16 rounded-xl ${
-                  asset.type === 'image' ? 'bg-blue-500/20 text-blue-400' :
-                  asset.type === 'video' ? 'bg-red-500/20 text-red-400' :
-                  asset.type === 'document' ? 'bg-emerald-500/20 text-emerald-400' :
-                  'bg-[#547792]/20 text-[#547792]'
-                }`}>
-                  {getTypeIcon(asset.type)}
-                </div>
+              <div className="aspect-video bg-[#1a1a24] flex items-center justify-center relative overflow-hidden">
+                {(() => {
+                  const thumbnail = getCreativeThumbnail(asset.id);
+                  if (thumbnail) {
+                    return (
+                      <img
+                        src={thumbnail}
+                        alt={asset.name}
+                        className="w-full h-full object-cover"
+                      />
+                    );
+                  }
+                  return (
+                    <div className={`flex items-center justify-center h-16 w-16 rounded-xl ${
+                      asset.type === 'image' ? 'bg-blue-500/20 text-blue-400' :
+                      asset.type === 'video' ? 'bg-red-500/20 text-red-400' :
+                      asset.type === 'document' ? 'bg-emerald-500/20 text-emerald-400' :
+                      'bg-[#547792]/20 text-[#547792]'
+                    }`}>
+                      {getTypeIcon(asset.type)}
+                    </div>
+                  );
+                })()}
                 <span className={`absolute top-2 right-2 inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium ${statusColor}`}>
                   {getStatusIcon(asset.status)}
                   {asset.status.charAt(0).toUpperCase() + asset.status.slice(1).replace('-', ' ')}

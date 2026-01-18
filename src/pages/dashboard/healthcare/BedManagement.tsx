@@ -12,7 +12,7 @@ import {
   MoreVertical,
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
-import { beds, HEALTHCARE_COLOR } from '@/data/healthcare/healthcareData';
+import { beds, HEALTHCARE_COLOR, getPatientProfileImage } from '@/data/healthcare/healthcareData';
 
 export const BedManagement = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -281,7 +281,15 @@ export const BedManagement = () => {
                 {bed.status === 'occupied' && bed.patientName && (
                   <div className="mt-3 pt-3 border-t border-border-default">
                     <div className="flex items-center gap-2 mb-2">
-                      <User size={14} className="text-text-muted" />
+                      {getPatientProfileImage(bed.patientName) ? (
+                        <img
+                          src={getPatientProfileImage(bed.patientName)}
+                          alt={bed.patientName}
+                          className="w-6 h-6 rounded-full object-cover"
+                        />
+                      ) : (
+                        <User size={14} className="text-text-muted" />
+                      )}
                       <span className="text-sm font-medium text-text-primary">
                         {bed.patientName}
                       </span>

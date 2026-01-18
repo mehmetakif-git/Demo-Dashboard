@@ -12,7 +12,7 @@ import {
   MoreVertical,
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, StatusBadge, Dropdown } from '@/components/common';
-import { consultations, HEALTHCARE_COLOR } from '@/data/healthcare/healthcareData';
+import { consultations, HEALTHCARE_COLOR, getPatientProfileImage } from '@/data/healthcare/healthcareData';
 
 export const Consultations = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -125,12 +125,20 @@ export const Consultations = () => {
                 {/* Patient & Doctor Info */}
                 <div className="flex-1">
                   <div className="flex items-center gap-4 mb-3">
-                    <div
-                      className="w-12 h-12 rounded-full flex items-center justify-center"
-                      style={{ backgroundColor: `${HEALTHCARE_COLOR}20` }}
-                    >
-                      <User size={24} style={{ color: HEALTHCARE_COLOR }} />
-                    </div>
+                    {getPatientProfileImage(consultation.patientName) ? (
+                      <img
+                        src={getPatientProfileImage(consultation.patientName)}
+                        alt={consultation.patientName}
+                        className="w-12 h-12 rounded-full object-cover"
+                      />
+                    ) : (
+                      <div
+                        className="w-12 h-12 rounded-full flex items-center justify-center"
+                        style={{ backgroundColor: `${HEALTHCARE_COLOR}20` }}
+                      >
+                        <User size={24} style={{ color: HEALTHCARE_COLOR }} />
+                      </div>
+                    )}
                     <div>
                       <p className="font-semibold text-text-primary">{consultation.patientName}</p>
                       <p className="text-sm text-text-muted">

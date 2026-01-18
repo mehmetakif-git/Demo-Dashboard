@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Input, Button } from '@/components/common';
 import { announcements, getPriorityColor, type Announcement } from '@/data/communicationData';
+import { getProfileImage } from '@/utils/profileImages';
 
 export const Announcements = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -124,11 +125,25 @@ export const Announcements = () => {
 
           {/* Author */}
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-8 h-8 rounded-full bg-accent-primary/20 flex items-center justify-center">
-              <span className="text-xs font-bold text-accent-primary">
-                {getInitials(announcement.author)}
-              </span>
-            </div>
+            {(() => {
+              const profileImg = getProfileImage(announcement.author);
+              if (profileImg) {
+                return (
+                  <img
+                    src={profileImg}
+                    alt={announcement.author}
+                    className="w-8 h-8 rounded-full object-cover"
+                  />
+                );
+              }
+              return (
+                <div className="w-8 h-8 rounded-full bg-accent-primary/20 flex items-center justify-center">
+                  <span className="text-xs font-bold text-accent-primary">
+                    {getInitials(announcement.author)}
+                  </span>
+                </div>
+              );
+            })()}
             <div>
               <p className="text-sm font-medium text-text-primary">{announcement.author}</p>
               <p className="text-xs text-text-secondary">{announcement.authorRole}</p>
@@ -275,11 +290,25 @@ export const Announcements = () => {
 
               {/* Author */}
               <div className="flex items-center gap-3 mt-4">
-                <div className="w-10 h-10 rounded-full bg-accent-primary/20 flex items-center justify-center">
-                  <span className="text-sm font-bold text-accent-primary">
-                    {getInitials(selectedAnnouncement.author)}
-                  </span>
-                </div>
+                {(() => {
+                  const profileImg = getProfileImage(selectedAnnouncement.author);
+                  if (profileImg) {
+                    return (
+                      <img
+                        src={profileImg}
+                        alt={selectedAnnouncement.author}
+                        className="w-10 h-10 rounded-full object-cover"
+                      />
+                    );
+                  }
+                  return (
+                    <div className="w-10 h-10 rounded-full bg-accent-primary/20 flex items-center justify-center">
+                      <span className="text-sm font-bold text-accent-primary">
+                        {getInitials(selectedAnnouncement.author)}
+                      </span>
+                    </div>
+                  );
+                })()}
                 <div>
                   <p className="font-medium text-text-primary">{selectedAnnouncement.author}</p>
                   <p className="text-sm text-text-secondary">{selectedAnnouncement.authorRole}</p>

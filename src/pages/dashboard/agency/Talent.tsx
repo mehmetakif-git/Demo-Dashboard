@@ -24,6 +24,7 @@ import {
   formatCurrency,
   getTalentTierColor,
 } from '@/data/agency/agencyData';
+import { getProfileImage } from '@/utils/profileImages';
 
 export const Talent = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -179,9 +180,23 @@ export const Talent = () => {
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-[#547792] to-[#94B4C1] text-lg font-semibold text-white">
-                    {t.name.split(' ').map((n) => n[0]).join('')}
-                  </div>
+                  {(() => {
+                    const profileImg = getProfileImage(t.name);
+                    if (profileImg) {
+                      return (
+                        <img
+                          src={profileImg}
+                          alt={t.name}
+                          className="h-14 w-14 rounded-full object-cover"
+                        />
+                      );
+                    }
+                    return (
+                      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-[#547792] to-[#94B4C1] text-lg font-semibold text-white">
+                        {t.name.split(' ').map((n) => n[0]).join('')}
+                      </div>
+                    );
+                  })()}
                   <div>
                     <h3 className="font-semibold text-white">{t.name}</h3>
                     <p className="text-xs text-[#64748b]">{t.category}</p>

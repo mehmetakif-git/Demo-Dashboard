@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { leads, REALESTATE_COLOR, getStatusColor, getPriorityColor } from '@/data/realestate/realestateData';
+import { getProfileImage, getCompanyLogo } from '@/utils/profileImages';
 
 export const Leads = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -149,12 +150,29 @@ export const Leads = () => {
                 >
                   <td className="py-3 px-4">
                     <div className="flex items-center gap-3">
-                      <div
-                        className="w-10 h-10 rounded-full flex items-center justify-center"
-                        style={{ backgroundColor: `${REALESTATE_COLOR}20` }}
-                      >
-                        <User size={18} style={{ color: REALESTATE_COLOR }} />
-                      </div>
+                      {(() => {
+                        const profileImg = getProfileImage(lead.name);
+                        const companyLogo = getCompanyLogo(lead.name);
+                        const image = profileImg || companyLogo;
+
+                        if (image) {
+                          return (
+                            <img
+                              src={image}
+                              alt={lead.name}
+                              className="w-10 h-10 rounded-full object-cover"
+                            />
+                          );
+                        }
+                        return (
+                          <div
+                            className="w-10 h-10 rounded-full flex items-center justify-center"
+                            style={{ backgroundColor: `${REALESTATE_COLOR}20` }}
+                          >
+                            <User size={18} style={{ color: REALESTATE_COLOR }} />
+                          </div>
+                        );
+                      })()}
                       <div>
                         <p className="font-medium text-text-primary">{lead.name}</p>
                         <div className="flex items-center gap-2 text-xs text-text-muted">

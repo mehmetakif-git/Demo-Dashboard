@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { contracts, REALESTATE_COLOR, getStatusColor } from '@/data/realestate/realestateData';
+import { getProfileImage, getCompanyLogo } from '@/utils/profileImages';
 
 export const Contracts = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -175,7 +176,22 @@ export const Contracts = () => {
                   </td>
                   <td className="py-3 px-4">
                     <div className="flex items-center gap-2">
-                      <User size={14} className="text-text-muted" />
+                      {(() => {
+                        const profileImg = getProfileImage(contract.clientName);
+                        const companyLogo = getCompanyLogo(contract.clientName);
+                        const image = profileImg || companyLogo;
+
+                        if (image) {
+                          return (
+                            <img
+                              src={image}
+                              alt={contract.clientName}
+                              className="w-8 h-8 rounded-full object-cover"
+                            />
+                          );
+                        }
+                        return <User size={14} className="text-text-muted" />;
+                      })()}
                       <div>
                         <p className="text-text-secondary text-sm">{contract.clientName}</p>
                         <p className="text-xs text-text-muted">{contract.clientType}</p>

@@ -1,4 +1,5 @@
 import { cn, getInitials } from '@/utils/helpers';
+import { getProfileImage } from '@/utils/profileImages';
 
 interface AvatarProps {
   src?: string | null;
@@ -16,6 +17,7 @@ const sizes = {
 
 export const Avatar = ({ src, name, size = 'md', className }: AvatarProps) => {
   const initials = getInitials(name);
+  const imageSrc = src || getProfileImage(name);
 
   return (
     <div
@@ -25,9 +27,9 @@ export const Avatar = ({ src, name, size = 'md', className }: AvatarProps) => {
         className
       )}
     >
-      {src ? (
+      {imageSrc ? (
         <img
-          src={src}
+          src={imageSrc}
           alt={name}
           className="h-full w-full object-cover"
           onError={(e) => {

@@ -20,6 +20,7 @@ import {
   formatCurrency,
   getProjectStatusColor,
 } from '@/data/agency/agencyData';
+import { getProfileImage } from '@/utils/profileImages';
 
 export const ProjectDetail = () => {
   const { id } = useParams();
@@ -213,17 +214,30 @@ export const ProjectDetail = () => {
           <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4">Team Members</h3>
             <div className="space-y-3">
-              {project.team.map((member) => (
-                <div key={member.id} className="flex items-center gap-3 p-3 rounded-lg bg-[#1a1a24]">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#547792] to-[#94B4C1] text-sm font-medium text-white">
-                    {member.name.split(' ').map((n) => n[0]).join('')}
+              {project.team.map((member) => {
+                const profileImg = getProfileImage(member.name);
+                return (
+                  <div key={member.id} className="flex items-center gap-3 p-3 rounded-lg bg-[#1a1a24]">
+                    <div className="h-10 w-10 rounded-full overflow-hidden">
+                      {profileImg ? (
+                        <img
+                          src={profileImg}
+                          alt={member.name}
+                          className="h-full w-full object-cover"
+                        />
+                      ) : (
+                        <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[#547792] to-[#94B4C1] text-sm font-medium text-white">
+                          {member.name.split(' ').map((n) => n[0]).join('')}
+                        </div>
+                      )}
+                    </div>
+                    <div>
+                      <p className="text-white font-medium">{member.name}</p>
+                      <p className="text-xs text-[#64748b]">{member.role}</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-white font-medium">{member.name}</p>
-                    <p className="text-xs text-[#64748b]">{member.role}</p>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 

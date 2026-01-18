@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, StatusBadge } from '@/components/common';
 import { menuItems, menuCategories } from '@/data/restaurant/restaurantData';
+import { getMenuImage } from '@/utils/menuImages';
 
 export const Menu = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -147,9 +148,20 @@ export const Menu = () => {
           >
             <Card className={`overflow-hidden ${!item.isAvailable ? 'opacity-60' : ''}`}>
               <div className="h-40 bg-background-secondary relative">
-                <div className="absolute inset-0 flex items-center justify-center text-6xl opacity-30">
-                  {menuCategories.find(c => c.id === item.category)?.icon || '🍽️'}
-                </div>
+                {(() => {
+                  const menuImage = getMenuImage(item.id);
+                  return menuImage ? (
+                    <img
+                      src={menuImage}
+                      alt={item.name}
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center text-6xl opacity-30">
+                      {menuCategories.find(c => c.id === item.category)?.icon || '🍽️'}
+                    </div>
+                  );
+                })()}
                 {item.isPopular && (
                   <div className="absolute top-2 left-2">
                     <span className="px-2 py-1 bg-warning text-warning-foreground text-xs font-medium rounded-full flex items-center gap-1">

@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { offers, REALESTATE_COLOR, getStatusColor } from '@/data/realestate/realestateData';
+import { getProfileImage, getCompanyLogo } from '@/utils/profileImages';
 
 export const Offers = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -174,7 +175,22 @@ export const Offers = () => {
                     </td>
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-2">
-                        <User size={14} className="text-text-muted" />
+                        {(() => {
+                          const profileImg = getProfileImage(offer.buyerName);
+                          const companyLogo = getCompanyLogo(offer.buyerName);
+                          const image = profileImg || companyLogo;
+
+                          if (image) {
+                            return (
+                              <img
+                                src={image}
+                                alt={offer.buyerName}
+                                className="w-8 h-8 rounded-full object-cover"
+                              />
+                            );
+                          }
+                          return <User size={14} className="text-text-muted" />;
+                        })()}
                         <span className="text-text-secondary">{offer.buyerName}</span>
                       </div>
                     </td>

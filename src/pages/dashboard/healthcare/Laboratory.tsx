@@ -12,7 +12,7 @@ import {
   Beaker,
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, StatusBadge, Dropdown } from '@/components/common';
-import { labTests, HEALTHCARE_COLOR } from '@/data/healthcare/healthcareData';
+import { labTests, HEALTHCARE_COLOR, getPatientProfileImage } from '@/data/healthcare/healthcareData';
 
 export const Laboratory = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -202,7 +202,15 @@ export const Laboratory = () => {
 
                   {/* Patient */}
                   <div className="flex items-center gap-2">
-                    <User size={16} className="text-text-muted" />
+                    {getPatientProfileImage(test.patientName) ? (
+                      <img
+                        src={getPatientProfileImage(test.patientName)}
+                        alt={test.patientName}
+                        className="w-8 h-8 rounded-full object-cover"
+                      />
+                    ) : (
+                      <User size={16} className="text-text-muted" />
+                    )}
                     <span className="text-sm text-text-primary">{test.patientName}</span>
                   </div>
 

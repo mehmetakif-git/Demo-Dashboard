@@ -22,6 +22,7 @@ import {
   formatCurrency,
   getClientTierColor,
 } from '@/data/agency/agencyData';
+import { getCompanyLogo } from '@/utils/profileImages';
 
 export const ClientList = () => {
   const navigate = useNavigate();
@@ -163,9 +164,23 @@ export const ClientList = () => {
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-[#6366f1]/20 to-[#8b5cf6]/20">
-                    <Building2 className="h-6 w-6 text-[#547792]" />
-                  </div>
+                  {(() => {
+                    const companyLogo = getCompanyLogo(client.name);
+                    if (companyLogo) {
+                      return (
+                        <img
+                          src={companyLogo}
+                          alt={client.name}
+                          className="h-12 w-12 rounded-lg object-cover"
+                        />
+                      );
+                    }
+                    return (
+                      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-[#6366f1]/20 to-[#8b5cf6]/20">
+                        <Building2 className="h-6 w-6 text-[#547792]" />
+                      </div>
+                    );
+                  })()}
                   <div>
                     <h3 className="font-semibold text-white">{client.name}</h3>
                     <p className="text-xs text-[#64748b]">{client.industry}</p>

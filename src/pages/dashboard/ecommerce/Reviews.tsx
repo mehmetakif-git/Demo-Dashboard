@@ -8,11 +8,10 @@ import {
   CheckCircle,
   XCircle,
   Clock,
-  User,
   Package,
   Filter,
 } from 'lucide-react';
-import { PageHeader, Card, Button, Input, StatusBadge, Dropdown } from '@/components/common';
+import { PageHeader, Card, Button, Input, StatusBadge, Dropdown, Avatar } from '@/components/common';
 import { reviews } from '@/data/ecommerce/ecommerceData';
 
 export const Reviews = () => {
@@ -187,9 +186,7 @@ export const Reviews = () => {
                 <div className="flex flex-col lg:flex-row lg:items-start gap-4">
                   {/* Customer Info */}
                   <div className="flex items-start gap-3 lg:w-48 flex-shrink-0">
-                    <div className="w-10 h-10 rounded-full bg-background-tertiary flex items-center justify-center">
-                      <User size={18} className="text-text-muted" />
-                    </div>
+                    <Avatar name={review.customerName} size="md" />
                     <div>
                       <p className="font-medium text-text-primary">{review.customerName}</p>
                       <p className="text-xs text-text-muted">

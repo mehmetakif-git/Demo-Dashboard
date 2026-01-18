@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { viewings, REALESTATE_COLOR, getStatusColor } from '@/data/realestate/realestateData';
+import { getProfileImage, getCompanyLogo } from '@/utils/profileImages';
 
 export const Viewings = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -165,7 +166,22 @@ export const Viewings = () => {
                   </td>
                   <td className="py-3 px-4">
                     <div className="flex items-center gap-2">
-                      <User size={14} className="text-text-muted" />
+                      {(() => {
+                        const profileImg = getProfileImage(viewing.leadName);
+                        const companyLogo = getCompanyLogo(viewing.leadName);
+                        const image = profileImg || companyLogo;
+
+                        if (image) {
+                          return (
+                            <img
+                              src={image}
+                              alt={viewing.leadName}
+                              className="w-8 h-8 rounded-full object-cover"
+                            />
+                          );
+                        }
+                        return <User size={14} className="text-text-muted" />;
+                      })()}
                       <span className="text-text-secondary">{viewing.leadName}</span>
                     </div>
                   </td>

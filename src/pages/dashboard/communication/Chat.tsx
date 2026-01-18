@@ -23,6 +23,7 @@ import {
   type DirectMessage,
   type Message,
 } from '@/data/communicationData';
+import { getProfileImage } from '@/utils/profileImages';
 
 export const Chat = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -140,11 +141,25 @@ export const Chat = () => {
               <div className="flex items-start gap-3">
                 {/* Avatar with status */}
                 <div className="relative">
-                  <div className="w-12 h-12 rounded-full bg-accent-primary/20 flex items-center justify-center">
-                    <span className="text-sm font-bold text-accent-primary">
-                      {getInitials(conversation.otherUser.name)}
-                    </span>
-                  </div>
+                  {(() => {
+                    const profileImg = getProfileImage(conversation.otherUser.name);
+                    if (profileImg) {
+                      return (
+                        <img
+                          src={profileImg}
+                          alt={conversation.otherUser.name}
+                          className="w-12 h-12 rounded-full object-cover"
+                        />
+                      );
+                    }
+                    return (
+                      <div className="w-12 h-12 rounded-full bg-accent-primary/20 flex items-center justify-center">
+                        <span className="text-sm font-bold text-accent-primary">
+                          {getInitials(conversation.otherUser.name)}
+                        </span>
+                      </div>
+                    );
+                  })()}
                   <div
                     className="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full border-2 border-white/[0.08]"
                     style={{ backgroundColor: getStatusColor(conversation.otherUser.status) }}
@@ -193,11 +208,25 @@ export const Chat = () => {
             <div className="p-4 border-b border-white/[0.08] flex items-center justify-between bg-white/[0.03] backdrop-blur-xl">
               <div className="flex items-center gap-3">
                 <div className="relative">
-                  <div className="w-10 h-10 rounded-full bg-accent-primary/20 flex items-center justify-center">
-                    <span className="text-sm font-bold text-accent-primary">
-                      {getInitials(selectedConversation.otherUser.name)}
-                    </span>
-                  </div>
+                  {(() => {
+                    const profileImg = getProfileImage(selectedConversation.otherUser.name);
+                    if (profileImg) {
+                      return (
+                        <img
+                          src={profileImg}
+                          alt={selectedConversation.otherUser.name}
+                          className="w-10 h-10 rounded-full object-cover"
+                        />
+                      );
+                    }
+                    return (
+                      <div className="w-10 h-10 rounded-full bg-accent-primary/20 flex items-center justify-center">
+                        <span className="text-sm font-bold text-accent-primary">
+                          {getInitials(selectedConversation.otherUser.name)}
+                        </span>
+                      </div>
+                    );
+                  })()}
                   <div
                     className="absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-white/[0.08]"
                     style={{ backgroundColor: getStatusColor(selectedConversation.otherUser.status) }}
@@ -336,11 +365,25 @@ export const Chat = () => {
             {/* Profile Info */}
             <div className="text-center mb-6">
               <div className="relative inline-block">
-                <div className="w-20 h-20 rounded-full bg-accent-primary/20 flex items-center justify-center mx-auto">
-                  <span className="text-2xl font-bold text-accent-primary">
-                    {getInitials(selectedUser.name)}
-                  </span>
-                </div>
+                {(() => {
+                  const profileImg = getProfileImage(selectedUser.name);
+                  if (profileImg) {
+                    return (
+                      <img
+                        src={profileImg}
+                        alt={selectedUser.name}
+                        className="w-20 h-20 rounded-full object-cover mx-auto"
+                      />
+                    );
+                  }
+                  return (
+                    <div className="w-20 h-20 rounded-full bg-accent-primary/20 flex items-center justify-center mx-auto">
+                      <span className="text-2xl font-bold text-accent-primary">
+                        {getInitials(selectedUser.name)}
+                      </span>
+                    </div>
+                  );
+                })()}
                 <div
                   className="absolute bottom-1 right-1 w-4 h-4 rounded-full border-2 border-white/[0.08]"
                   style={{ backgroundColor: getStatusColor(selectedUser.status) }}

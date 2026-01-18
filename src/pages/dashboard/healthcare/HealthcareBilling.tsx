@@ -13,7 +13,7 @@ import {
   MoreVertical,
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, StatusBadge, Dropdown } from '@/components/common';
-import { billings, HEALTHCARE_COLOR } from '@/data/healthcare/healthcareData';
+import { billings, HEALTHCARE_COLOR, getPatientProfileImage } from '@/data/healthcare/healthcareData';
 
 export const HealthcareBilling = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -166,7 +166,15 @@ export const HealthcareBilling = () => {
                         </div>
                         <div className="flex items-center gap-4 text-sm text-text-muted mt-1">
                           <span className="flex items-center gap-1">
-                            <User size={14} />
+                            {getPatientProfileImage(billing.patientName) ? (
+                              <img
+                                src={getPatientProfileImage(billing.patientName)}
+                                alt={billing.patientName}
+                                className="w-5 h-5 rounded-full object-cover"
+                              />
+                            ) : (
+                              <User size={14} />
+                            )}
                             {billing.patientName}
                           </span>
                           <span className="flex items-center gap-1">

@@ -12,7 +12,7 @@ import {
   MoreVertical,
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, StatusBadge, Dropdown } from '@/components/common';
-import { prescriptions, HEALTHCARE_COLOR } from '@/data/healthcare/healthcareData';
+import { prescriptions, HEALTHCARE_COLOR, getPatientProfileImage } from '@/data/healthcare/healthcareData';
 
 export const Prescriptions = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -127,15 +127,22 @@ export const Prescriptions = () => {
                 {/* Patient & Doctor Info */}
                 <div className="flex-1">
                   <div className="flex items-center gap-4 mb-4">
-                    <div
-                      className="w-12 h-12 rounded-full flex items-center justify-center"
-                      style={{ backgroundColor: `${HEALTHCARE_COLOR}20` }}
-                    >
-                      <Pill size={24} style={{ color: HEALTHCARE_COLOR }} />
-                    </div>
+                    {getPatientProfileImage(prescription.patientName) ? (
+                      <img
+                        src={getPatientProfileImage(prescription.patientName)}
+                        alt={prescription.patientName}
+                        className="w-12 h-12 rounded-full object-cover"
+                      />
+                    ) : (
+                      <div
+                        className="w-12 h-12 rounded-full flex items-center justify-center"
+                        style={{ backgroundColor: `${HEALTHCARE_COLOR}20` }}
+                      >
+                        <User size={24} style={{ color: HEALTHCARE_COLOR }} />
+                      </div>
+                    )}
                     <div className="flex-1">
                       <div className="flex items-center gap-2">
-                        <User size={14} className="text-text-muted" />
                         <p className="font-semibold text-text-primary">{prescription.patientName}</p>
                         <StatusBadge status={prescription.status} />
                       </div>

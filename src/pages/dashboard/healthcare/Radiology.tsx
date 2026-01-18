@@ -11,7 +11,7 @@ import {
   MoreVertical,
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, StatusBadge, Dropdown } from '@/components/common';
-import { radiologyStudies, HEALTHCARE_COLOR } from '@/data/healthcare/healthcareData';
+import { radiologyStudies, HEALTHCARE_COLOR, getPatientProfileImage } from '@/data/healthcare/healthcareData';
 
 export const Radiology = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -217,7 +217,15 @@ export const Radiology = () => {
 
                   {/* Patient */}
                   <div className="flex items-center gap-2">
-                    <User size={16} className="text-text-muted" />
+                    {getPatientProfileImage(study.patientName) ? (
+                      <img
+                        src={getPatientProfileImage(study.patientName)}
+                        alt={study.patientName}
+                        className="w-8 h-8 rounded-full object-cover"
+                      />
+                    ) : (
+                      <User size={16} className="text-text-muted" />
+                    )}
                     <span className="text-sm text-text-primary">{study.patientName}</span>
                   </div>
 

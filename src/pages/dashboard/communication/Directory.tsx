@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Input, Button } from '@/components/common';
 import { employeeDirectory, getStatusColor, type Employee } from '@/data/communicationData';
+import { getProfileImage } from '@/utils/profileImages';
 
 export const Directory = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -86,11 +87,25 @@ export const Directory = () => {
         {/* Avatar & Status */}
         <div className="flex flex-col items-center mb-4">
           <div className="relative">
-            <div className="w-16 h-16 rounded-full bg-accent-primary/20 flex items-center justify-center">
-              <span className="text-xl font-bold text-accent-primary">
-                {getInitials(employee.name)}
-              </span>
-            </div>
+            {(() => {
+              const profileImg = getProfileImage(employee.name);
+              if (profileImg) {
+                return (
+                  <img
+                    src={profileImg}
+                    alt={employee.name}
+                    className="w-16 h-16 rounded-full object-cover"
+                  />
+                );
+              }
+              return (
+                <div className="w-16 h-16 rounded-full bg-accent-primary/20 flex items-center justify-center">
+                  <span className="text-xl font-bold text-accent-primary">
+                    {getInitials(employee.name)}
+                  </span>
+                </div>
+              );
+            })()}
             <div
               className="absolute bottom-0 right-0 w-4 h-4 rounded-full border-2 border-white/[0.08]"
               style={{ backgroundColor: getStatusColor(employee.status) }}
@@ -147,11 +162,25 @@ export const Directory = () => {
       <td className="px-4 py-3">
         <div className="flex items-center gap-3">
           <div className="relative">
-            <div className="w-10 h-10 rounded-full bg-accent-primary/20 flex items-center justify-center">
-              <span className="text-sm font-bold text-accent-primary">
-                {getInitials(employee.name)}
-              </span>
-            </div>
+            {(() => {
+              const profileImg = getProfileImage(employee.name);
+              if (profileImg) {
+                return (
+                  <img
+                    src={profileImg}
+                    alt={employee.name}
+                    className="w-10 h-10 rounded-full object-cover"
+                  />
+                );
+              }
+              return (
+                <div className="w-10 h-10 rounded-full bg-accent-primary/20 flex items-center justify-center">
+                  <span className="text-sm font-bold text-accent-primary">
+                    {getInitials(employee.name)}
+                  </span>
+                </div>
+              );
+            })()}
             <div
               className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-white/[0.08]"
               style={{ backgroundColor: getStatusColor(employee.status) }}
@@ -394,11 +423,25 @@ export const Directory = () => {
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-4">
                   <div className="relative">
-                    <div className="w-16 h-16 rounded-full bg-accent-primary/20 flex items-center justify-center">
-                      <span className="text-xl font-bold text-accent-primary">
-                        {getInitials(selectedEmployee.name)}
-                      </span>
-                    </div>
+                    {(() => {
+                      const profileImg = getProfileImage(selectedEmployee.name);
+                      if (profileImg) {
+                        return (
+                          <img
+                            src={profileImg}
+                            alt={selectedEmployee.name}
+                            className="w-16 h-16 rounded-full object-cover"
+                          />
+                        );
+                      }
+                      return (
+                        <div className="w-16 h-16 rounded-full bg-accent-primary/20 flex items-center justify-center">
+                          <span className="text-xl font-bold text-accent-primary">
+                            {getInitials(selectedEmployee.name)}
+                          </span>
+                        </div>
+                      );
+                    })()}
                     <div
                       className="absolute bottom-0 right-0 w-4 h-4 rounded-full border-2 border-white/[0.08]"
                       style={{ backgroundColor: getStatusColor(selectedEmployee.status) }}

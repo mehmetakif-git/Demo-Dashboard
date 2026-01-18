@@ -40,6 +40,7 @@ export interface Patient {
   registrationDate: string;
   status: 'active' | 'inactive' | 'deceased';
   lastVisit?: string;
+  profileImage?: string;
 }
 
 export interface Appointment {
@@ -280,6 +281,7 @@ export const patients: Patient[] = [
     registrationDate: '2023-06-15',
     status: 'active',
     lastVisit: '2024-01-10',
+    profileImage: '/src/assets/images/profiles/pp-1.webp',
   },
   {
     id: 'pat-002',
@@ -304,6 +306,7 @@ export const patients: Patient[] = [
     registrationDate: '2023-08-20',
     status: 'active',
     lastVisit: '2024-01-12',
+    profileImage: '/src/assets/images/profiles/pp-2.webp',
   },
   {
     id: 'pat-003',
@@ -328,6 +331,7 @@ export const patients: Patient[] = [
     registrationDate: '2022-12-10',
     status: 'active',
     lastVisit: '2024-01-08',
+    profileImage: '/src/assets/images/profiles/pp-3.webp',
   },
   {
     id: 'pat-004',
@@ -352,6 +356,7 @@ export const patients: Patient[] = [
     registrationDate: '2023-01-05',
     status: 'active',
     lastVisit: '2024-01-15',
+    profileImage: '/src/assets/images/profiles/pp-4.webp',
   },
   {
     id: 'pat-005',
@@ -376,6 +381,7 @@ export const patients: Patient[] = [
     registrationDate: '2021-05-20',
     status: 'active',
     lastVisit: '2024-01-14',
+    profileImage: '/src/assets/images/profiles/pp-5.webp',
   },
   {
     id: 'pat-006',
@@ -400,6 +406,7 @@ export const patients: Patient[] = [
     registrationDate: '2023-10-12',
     status: 'active',
     lastVisit: '2024-01-11',
+    profileImage: '/src/assets/images/profiles/pp-6.webp',
   },
 ];
 
@@ -1140,3 +1147,11 @@ export const healthcareMenuItems = [
     path: '/dashboard/healthcare/bed-management',
   },
 ];
+
+// Helper function to get patient profile image by name
+export const getPatientProfileImage = (patientName: string): string | undefined => {
+  const patient = patients.find(
+    p => `${p.firstName} ${p.lastName}` === patientName
+  );
+  return patient?.profileImage;
+};
