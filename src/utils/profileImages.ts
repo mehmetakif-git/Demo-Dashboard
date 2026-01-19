@@ -63,6 +63,33 @@ import pp57 from '@/assets/images/profiles/pp-57.webp';
 import pp58 from '@/assets/images/profiles/pp-58.webp';
 import pp59 from '@/assets/images/profiles/pp-59.webp';
 import pp60 from '@/assets/images/profiles/pp-60.webp';
+import pp62 from '@/assets/images/profiles/pp-62.webp';
+import pp63 from '@/assets/images/profiles/pp-63.webp';
+import pp64 from '@/assets/images/profiles/pp-64.webp';
+import pp65 from '@/assets/images/profiles/pp-65.webp';
+import pp66 from '@/assets/images/profiles/pp-66.webp';
+import pp67 from '@/assets/images/profiles/pp-67.webp';
+import pp68 from '@/assets/images/profiles/pp-68.webp';
+import pp69 from '@/assets/images/profiles/pp-69.webp';
+import pp70 from '@/assets/images/profiles/pp-70.webp';
+import pp71 from '@/assets/images/profiles/pp-71.webp';
+import pp72 from '@/assets/images/profiles/pp-72.webp';
+import pp73 from '@/assets/images/profiles/pp-73.webp';
+import pp74 from '@/assets/images/profiles/pp-74.webp';
+import pp75 from '@/assets/images/profiles/pp-75.webp';
+import pp76 from '@/assets/images/profiles/pp-76.webp';
+import pp77 from '@/assets/images/profiles/pp-77.webp';
+import pp78 from '@/assets/images/profiles/pp-78.webp';
+import pp79 from '@/assets/images/profiles/pp-79.webp';
+import pp80 from '@/assets/images/profiles/pp-80.webp';
+import pp81 from '@/assets/images/profiles/pp-81.webp';
+import pp82 from '@/assets/images/profiles/pp-82.webp';
+import pp83 from '@/assets/images/profiles/pp-83.webp';
+import pp84 from '@/assets/images/profiles/pp-84.webp';
+import pp85 from '@/assets/images/profiles/pp-85.webp';
+import pp86 from '@/assets/images/profiles/pp-86.webp';
+import pp87 from '@/assets/images/profiles/pp-87.webp';
+import pp88 from '@/assets/images/profiles/pp-88.webp';
 
 // Company logo imports (comp1 through comp13)
 import comp1 from '@/assets/images/profiles/comp1.webp';
@@ -84,6 +111,16 @@ import comp16 from '@/assets/images/profiles/comp16.webp';
 import comp17 from '@/assets/images/profiles/comp17.webp';
 import comp18 from '@/assets/images/profiles/comp18.webp';
 import comp19 from '@/assets/images/profiles/comp19.webp';
+import comp20 from '@/assets/images/profiles/comp20.webp';
+import comp21 from '@/assets/images/profiles/comp21.webp';
+import comp22 from '@/assets/images/profiles/comp22.webp';
+import comp23 from '@/assets/images/profiles/comp23.webp';
+import comp24 from '@/assets/images/profiles/comp24.webp';
+import comp25 from '@/assets/images/profiles/comp25.webp';
+import comp26 from '@/assets/images/profiles/comp26.webp';
+import comp27 from '@/assets/images/profiles/comp27.webp';
+import comp28 from '@/assets/images/profiles/comp28.webp';
+import comp29 from '@/assets/images/profiles/comp29.webp';
 
 // Map person full names to their profile pictures
 export const profileImages: Record<string, string> = {
@@ -230,6 +267,43 @@ export const profileImages: Record<string, string> = {
   'You': pp61,
   'Demo User': pp61,
   'Guest User': pp61,
+
+  // Education Students
+  'Ahmet Yilmaz': pp62,
+  'Fatma Demir': pp63,
+  'Can Arslan': pp64,
+  'Mehmet Oz': pp65,
+  'Zeynep Kaya': pp66,
+  'Elif Celik': pp67,
+
+  // Education Teachers
+  'Ayse Sahin': pp68,
+  'Mehmet Yurt': pp69,
+  'Zeynep Demir': pp70,
+  'Can Yilmaz': pp71,
+  'Elif Ak': pp72,
+  'Ali Kara': pp73,
+
+  // Education Parents
+  'Mehmet Yilmaz': pp74,
+  'Ali Demir': pp75,
+  'Hasan Arslan': pp76,
+  'Burak Kaya': pp77,
+  'Kemal Oz': pp78,
+  'Murat Celik': pp79,
+
+  // Education Bus Drivers
+  'Hasan Yurt': pp80,
+  'Kemal Ak': pp81,
+  'Osman Yildiz': pp82,
+
+  // Logistics Drivers
+  'Khalid Rahman': pp83,
+  'Omar Bashar': pp84,
+  'Ravi Patel': pp85,
+  'Yusuf Ibrahim': pp86,
+  'Naeem Sheikh': pp87,
+  'Carlos Mendez': pp88,
 };
 
 // Helper function to get profile image by name
@@ -267,6 +341,18 @@ export const companyLogos: Record<string, string> = {
   'BeautyGlow': comp17,
   'Legacy Financial': comp18,
   'Digital Team': comp19,
+  // Construction Subcontractors
+  'Elite Electrical Works': comp20,
+  'Premium Plumbing Services': comp21,
+  'Gulf Steel Fabrication': comp22,
+  'Modern Painting & Finishing': comp23,
+  'Safe Scaffolding Systems': comp24,
+  // Logistics Clients
+  'Qatar Electronics Co.': comp25,
+  'Doha Retail Group': comp26,
+  'Gulf Pharmaceuticals': comp27,
+  'Qatar Construction Supplies': comp28,
+  'Lusail Trading LLC': comp29,
 };
 
 // Helper function to get company logo by name

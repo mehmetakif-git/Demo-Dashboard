@@ -9,10 +9,11 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button } from '@/components/common';
 import { grades, students, classes, EDUCATION_COLOR } from '@/data/education/educationData';
+import { getProfileImage } from '@/utils/profileImages';
 
 export const Grades = () => {
   const [selectedClass, setSelectedClass] = useState<string>('CLS001');
-  const [selectedTerm, setSelectedTerm] = useState<string>('1. Donem');
+  const [selectedTerm, setSelectedTerm] = useState<string>('1st Semester');
   const [viewMode, setViewMode] = useState<'view' | 'edit'>('view');
 
   const classStudents = useMemo(() => {
@@ -131,7 +132,7 @@ export const Grades = () => {
             ))}
           </div>
           <div className="flex gap-2">
-            {['1. Donem', '2. Donem'].map((term) => (
+            {['1st Semester', '2nd Semester'].map((term) => (
               <Button
                 key={term}
                 variant={selectedTerm === term ? 'secondary' : 'ghost'}
@@ -206,12 +207,23 @@ export const Grades = () => {
                   <td className="py-3 px-2 sticky left-0 bg-background-primary">
                     <div className="flex items-center gap-2">
                       <span className="text-xs text-text-muted w-6">#{student.rollNo}</span>
-                      <div
-                        className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs"
-                        style={{ backgroundColor: EDUCATION_COLOR }}
-                      >
-                        {student.name.split(' ').map(n => n[0]).join('')}
-                      </div>
+                      {(() => {
+                        const profileImg = getProfileImage(student.name);
+                        return profileImg ? (
+                          <img
+                            src={profileImg}
+                            alt={student.name}
+                            className="w-8 h-8 rounded-full object-cover"
+                          />
+                        ) : (
+                          <div
+                            className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs"
+                            style={{ backgroundColor: EDUCATION_COLOR }}
+                          >
+                            {student.name.split(' ').map(n => n[0]).join('')}
+                          </div>
+                        );
+                      })()}
                       <span className="text-sm font-medium text-text-primary">{student.name}</span>
                     </div>
                   </td>

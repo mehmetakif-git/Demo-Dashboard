@@ -92,43 +92,44 @@ const commonModules: ModuleDefinition[] = [
 ];
 
 // Sector-specific modules with unique colors
+// Keys must match sector IDs in sectors.ts exactly
 const sectorModules: Record<string, ModuleDefinition[]> = {
-  gym: [
+  'gym-fitness': [
     { id: 'gym-members', name: 'Members', icon: Users, description: 'Member management, memberships', color: '#22c55e' }, // Green
     { id: 'gym-classes', name: 'Classes', icon: Calendar, description: 'Class schedule, reservations', color: '#f97316' }, // Orange
     { id: 'gym-trainers', name: 'Trainers', icon: Dumbbell, description: 'PT management, appointments', color: '#ef4444' }, // Red
     { id: 'gym-equipment', name: 'Equipment', icon: Wrench, description: 'Equipment tracking, maintenance', color: '#64748b' }, // Slate
     { id: 'gym-assessments', name: 'Assessments', icon: FileText, description: 'Fitness tests', color: '#06b6d4' }, // Cyan
   ],
-  staffing: [
+  'manpower-staffing': [
     { id: 'staffing-candidates', name: 'Candidates', icon: Users, description: 'Candidate database', color: '#3b82f6' }, // Blue
     { id: 'staffing-jobs', name: 'Job Orders', icon: Briefcase, description: 'Open positions', color: '#8b5cf6' }, // Purple
     { id: 'staffing-placements', name: 'Placements', icon: Check, description: 'Active placements', color: '#22c55e' }, // Green
     { id: 'staffing-timesheets', name: 'Timesheets', icon: Calendar, description: 'Working hours', color: '#f59e0b' }, // Amber
     { id: 'staffing-payroll', name: 'Payroll', icon: Calculator, description: 'Payment management', color: '#10b981' }, // Emerald
   ],
-  realestate: [
+  'real-estate': [
     { id: 'realestate-properties', name: 'Properties', icon: Building, description: 'Listing management', color: '#6366f1' }, // Indigo
     { id: 'realestate-leads', name: 'Leads', icon: Users, description: 'Buyer/tenant management', color: '#f97316' }, // Orange
     { id: 'realestate-showings', name: 'Showings', icon: Calendar, description: 'Appointment tracking', color: '#ec4899' }, // Pink
     { id: 'realestate-transactions', name: 'Transactions', icon: FileText, description: 'Sales/rentals', color: '#14b8a6' }, // Teal
     { id: 'realestate-commissions', name: 'Commissions', icon: Calculator, description: 'Commission tracking', color: '#22c55e' }, // Green
   ],
-  agency: [
+  'advertising-agency': [
     { id: 'agency-campaigns', name: 'Campaigns', icon: Megaphone, description: 'Campaign management', color: '#ef4444' }, // Red
     { id: 'agency-projects', name: 'Projects', icon: FolderOpen, description: 'Creative projects', color: '#f59e0b' }, // Amber
     { id: 'agency-media', name: 'Media Planning', icon: Monitor, description: 'Media buying', color: '#3b82f6' }, // Blue
     { id: 'agency-creatives', name: 'Creatives', icon: Sparkles, description: 'Visual/video content', color: '#ec4899' }, // Pink
     { id: 'agency-talent', name: 'Influencers', icon: Users, description: 'Influencer management', color: '#a855f7' }, // Purple
   ],
-  events: [
+  'event-company': [
     { id: 'events-list', name: 'Events', icon: Calendar, description: 'Event management', color: '#8b5cf6' }, // Purple
     { id: 'events-venues', name: 'Venues', icon: Building, description: 'Venue database', color: '#6366f1' }, // Indigo
     { id: 'events-guests', name: 'Guests', icon: Users, description: 'Guest management', color: '#3b82f6' }, // Blue
     { id: 'events-catering', name: 'Catering', icon: UtensilsCrossed, description: 'Food organization', color: '#f97316' }, // Orange
     { id: 'events-budget', name: 'Budget', icon: Calculator, description: 'Event budget', color: '#10b981' }, // Emerald
   ],
-  beauty: [
+  'beauty-salon': [
     { id: 'beauty-appointments', name: 'Appointments', icon: Calendar, description: 'Schedule & calendar', color: '#ec4899' }, // Pink
     { id: 'beauty-clients', name: 'Clients', icon: Users, description: 'Client management', color: '#8b5cf6' }, // Purple
     { id: 'beauty-services', name: 'Services', icon: Scissors, description: 'Service catalog', color: '#f97316' }, // Orange
@@ -158,6 +159,33 @@ const sectorModules: Record<string, ModuleDefinition[]> = {
     { id: 'hardware-sales', name: 'Sales (POS)', icon: CheckSquare, description: 'Point of sale', color: '#22c55e' }, // Green
     { id: 'hardware-alerts', name: 'Alerts', icon: Target, description: 'Low stock alerts', color: '#ef4444' }, // Red
     { id: 'hardware-barcode', name: 'Barcode', icon: QrCode, description: 'Barcode management', color: '#64748b' }, // Slate
+  ],
+  hotel: [
+    { id: 'hotel', name: 'Hotel Management', icon: Building, description: 'Rooms, reservations, guests', color: '#14b8a6' }, // Teal
+  ],
+  ecommerce: [
+    { id: 'ecommerce', name: 'E-Commerce', icon: Package, description: 'Online store management', color: '#10b981' }, // Emerald
+  ],
+  restaurant: [
+    { id: 'restaurant', name: 'Restaurant', icon: UtensilsCrossed, description: 'Menu, orders, tables', color: '#f97316' }, // Orange
+  ],
+  healthcare: [
+    { id: 'healthcare', name: 'Healthcare', icon: Users, description: 'Patients, appointments', color: '#06b6d4' }, // Cyan
+  ],
+  education: [
+    { id: 'education', name: 'Education', icon: Users, description: 'Students, classes, curriculum', color: '#8b5cf6' }, // Purple
+  ],
+  construction: [
+    { id: 'construction', name: 'Construction', icon: Building, description: 'Projects, sites, materials', color: '#f97316' }, // Orange
+  ],
+  logistics: [
+    { id: 'logistics', name: 'Logistics', icon: Package, description: 'Fleet, shipments, tracking', color: '#3b82f6' }, // Blue
+  ],
+  manufacturing: [
+    { id: 'manufacturing', name: 'Manufacturing', icon: Settings, description: 'Production, inventory', color: '#64748b' }, // Slate
+  ],
+  law: [
+    { id: 'law', name: 'Law Firm', icon: FileText, description: 'Cases, clients, billing', color: '#f59e0b' }, // Amber
   ],
 };
 
@@ -195,10 +223,16 @@ const ModuleSelection = () => {
     { ref: chatWidgetRef, title: 'Need Help?', description: 'Click this button anytime to contact us, request a demo, or chat on WhatsApp!' },
   ];
 
-  // Start spotlight after delay
+  // Start spotlight after delay (only if not shown before in this session)
   useEffect(() => {
+    const hasSeenSpotlight = sessionStorage.getItem('moduleSelectionSpotlightShown');
+    if (hasSeenSpotlight) {
+      return; // Don't show spotlight again in this session
+    }
+
     const timer = setTimeout(() => {
       setSpotlightStep(0);
+      sessionStorage.setItem('moduleSelectionSpotlightShown', 'true');
     }, 2500);
     return () => clearTimeout(timer);
   }, []);
@@ -433,14 +467,7 @@ const ModuleSelection = () => {
             <ArrowLeft className="h-5 w-5" />
           </button>
           <div
-            onClick={() => {
-              if (spotlightStep === 2) {
-                setSpotlightStep(3);
-                return;
-              }
-              navigate(-2);
-            }}
-            className="relative z-10 flex items-center gap-3 px-4 py-2 rounded-lg bg-white/[0.05] border border-white/[0.08] cursor-pointer hover:bg-white/[0.08] hover:border-white/[0.12] transition-all"
+            className="relative z-10 flex items-center gap-3 px-4 py-2 rounded-lg bg-white/[0.08] border border-[#94B4C1]/50 cursor-default"
           >
             {SectorIcon && (
               <div
@@ -456,16 +483,10 @@ const ModuleSelection = () => {
                 {sector?.name || 'Unknown Sector'}
               </h2>
             </div>
+            <Check size={16} className="text-emerald-400 ml-2" />
           </div>
           <div
-            onClick={() => {
-              if (spotlightStep === 2) {
-                setSpotlightStep(3);
-                return;
-              }
-              navigate(-1);
-            }}
-            className="relative z-10 flex items-center gap-3 px-4 py-2 rounded-lg bg-white/[0.05] border border-white/[0.08] cursor-pointer hover:bg-white/[0.08] hover:border-white/[0.12] transition-all"
+            className="relative z-10 flex items-center gap-3 px-4 py-2 rounded-lg bg-white/[0.08] border border-[#94B4C1]/50 cursor-default"
           >
             <div
               className="w-8 h-8 rounded-lg bg-white/[0.08] flex items-center justify-center"
@@ -479,6 +500,7 @@ const ModuleSelection = () => {
                 {selectedAccountType === 'admin' ? 'Administrator' : 'Staff Member'}
               </h2>
             </div>
+            <Check size={16} className="text-emerald-400 ml-2" />
           </div>
         </motion.div>
 
@@ -663,16 +685,8 @@ const ModuleSelection = () => {
                     glareSize={300}
                     transitionDuration={800}
                     playOnce={false}
-                    onClick={() => spotlightStep === 1 ? setSpotlightStep(2) : toggleModule(module.id)}
-                    className={`
-                      p-4 rounded-xl text-left transition-all duration-300 group cursor-pointer
-                      bg-white/[0.03] backdrop-blur-2xl border
-                      before:absolute before:inset-0 before:rounded-xl before:bg-gradient-to-b before:from-white/[0.08] before:to-transparent before:pointer-events-none
-                      ${isSelected
-                        ? 'border-[#94B4C1] bg-white/[0.08]'
-                        : 'border-white/[0.08] hover:border-[#94B4C1]/30 hover:scale-[1.02] hover:bg-white/[0.05]'
-                      }
-                    `}
+                    onClick={() => spotlightStep === 1 ? setSpotlightStep(2) : undefined}
+                    className="p-4 rounded-xl text-left transition-all duration-300 group cursor-not-allowed opacity-70 bg-white/[0.03] backdrop-blur-2xl border border-[#94B4C1] before:absolute before:inset-0 before:rounded-xl before:bg-gradient-to-b before:from-white/[0.08] before:to-transparent before:pointer-events-none"
                   >
                     <div className="flex items-start justify-between">
                       <div
@@ -681,18 +695,15 @@ const ModuleSelection = () => {
                       >
                         <Icon size={20} />
                       </div>
-                      <div
-                        className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors z-10 ${
-                          isSelected
-                            ? 'bg-emerald-500 border-emerald-500'
-                            : 'border-white/20 group-hover:border-white/40'
-                        }`}
-                      >
-                        {isSelected && <Check size={12} className="text-white" />}
+                      <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors z-10 bg-emerald-500 border-emerald-500">
+                        <Check size={12} className="text-white" />
                       </div>
                     </div>
                     <h3 className="text-white font-medium text-sm mt-3">{module.name}</h3>
                     <p className="text-white/40 text-xs mt-1">{module.description}</p>
+                    <span className="inline-block mt-2 text-xs text-[#94B4C1] bg-[#94B4C1]/10 px-2 py-0.5 rounded">
+                      Included
+                    </span>
                   </GlareHover>
                 );
               })}

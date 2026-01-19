@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { feeStructure, feePayments, EDUCATION_COLOR } from '@/data/education/educationData';
+import { getProfileImage } from '@/utils/profileImages';
 
 export const Fees = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -185,12 +186,23 @@ export const Fees = () => {
                   <div className="flex flex-col lg:flex-row lg:items-center gap-4">
                     {/* Student Info */}
                     <div className="flex items-center gap-3 flex-1">
-                      <div
-                        className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold"
-                        style={{ backgroundColor: EDUCATION_COLOR }}
-                      >
-                        {payment.studentName.split(' ').map(n => n[0]).join('')}
-                      </div>
+                      {(() => {
+                        const studentImg = getProfileImage(payment.studentName);
+                        return studentImg ? (
+                          <img
+                            src={studentImg}
+                            alt={payment.studentName}
+                            className="w-12 h-12 rounded-full object-cover"
+                          />
+                        ) : (
+                          <div
+                            className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold"
+                            style={{ backgroundColor: EDUCATION_COLOR }}
+                          >
+                            {payment.studentName.split(' ').map(n => n[0]).join('')}
+                          </div>
+                        );
+                      })()}
                       <div>
                         <p className="font-semibold text-text-primary">{payment.studentName}</p>
                         <p className="text-sm text-text-muted">{payment.className}</p>

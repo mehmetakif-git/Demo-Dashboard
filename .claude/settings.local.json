@@ -27,7 +27,14 @@
       "Bash(powershell -Command \"Get-ChildItem -Recurse -Filter *.tsx | ForEach-Object { \\(Get-Content $_FullName -Raw\\) -replace ''bg-\\\\[#12121a\\\\]'', ''bg-background-secondary'' -replace ''border-\\\\[#1e1e2e\\\\]'', ''border-border-default'' | Set-Content $_FullName -NoNewline }\")",
       "Bash(powershell -Command \"$files = Get-ChildItem -Recurse -Filter ''*.tsx''; foreach \\($file in $files\\) { $content = Get-Content $file.FullName -Raw; if \\($content -match ''#12121a|#1e1e2e''\\) { $content = $content -replace ''bg-\\\\[#12121a\\\\]'', ''bg-background-secondary''; $content = $content -replace ''border-\\\\[#1e1e2e\\\\]'', ''border-border-default''; Set-Content -Path $file.FullName -Value $content -NoNewline; Write-Host \\(''Updated: '' + $file.Name\\) } }\")",
       "Bash(npx replace-in-files-cli:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(git -C \"e:/allync/Demo-Saas/Demo-Dashboard-Full\" status)",
+      "Bash(git -C \"e:/allync/Demo-Saas/Demo-Dashboard-Full\" diff --stat)",
+      "Bash(git -C \"e:/allync/Demo-Saas/Demo-Dashboard-Full\" log --oneline -3)",
+      "Bash(git -C \"e:/allync/Demo-Saas/Demo-Dashboard-Full\" add src/)",
+      "Bash(git -C \"e:/allync/Demo-Saas/Demo-Dashboard-Full\" commit -m \"$\\(cat <<''EOF''\nAdd profile images and menu images across multiple sectors\n\n- Add profile image utility with centralized mapping \\(profileImages.ts\\)\n- Add menu images utility for restaurant sector \\(menuImages.ts\\)\n- Add creative images utility for agency sector \\(creativeImages.ts\\)\n- Update Avatar component to auto-lookup profile images\n- Add profile pictures for Communication, Agency, E-Commerce, Restaurant, Real Estate, Healthcare sectors\n- Add company logos for Agency clients and Group Chats\n- Add menu item images for Restaurant menu page\n- Render profile images on multiple pages across all sectors\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git -C \"e:/allync/Demo-Saas/Demo-Dashboard-Full\" push)",
+      "Bash(git -C \"e:/allync/Demo-Saas/Demo-Dashboard-Full\" add .)"
     ]
   }
 }

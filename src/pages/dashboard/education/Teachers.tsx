@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { teachers, classes, EDUCATION_COLOR } from '@/data/education/educationData';
+import { getProfileImage } from '@/utils/profileImages';
 
 export const Teachers = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -53,14 +54,14 @@ export const Teachers = () => {
 
   const getSubjectColor = (subject: string) => {
     const colors: Record<string, string> = {
-      'Matematik': '#ef4444',
-      'Turkce': '#f59e0b',
-      'Ingilizce': '#3b82f6',
-      'Fizik': '#8b5cf6',
-      'Kimya': '#10b981',
-      'Biyoloji': '#06b6d4',
-      'Tarih': '#ec4899',
-      'Sosyal Bilgiler': '#6366f1',
+      'Mathematics': '#ef4444',
+      'English': '#f59e0b',
+      'Arabic': '#3b82f6',
+      'Physics': '#8b5cf6',
+      'Chemistry': '#10b981',
+      'Biology': '#06b6d4',
+      'Science': '#ec4899',
+      'Social Studies': '#6366f1',
     };
     return colors[subject] || EDUCATION_COLOR;
   };
@@ -189,12 +190,23 @@ export const Teachers = () => {
                 <div className="flex flex-col lg:flex-row lg:items-center gap-4">
                   {/* Teacher Info */}
                   <div className="flex items-center gap-4 flex-1">
-                    <div
-                      className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold"
-                      style={{ backgroundColor: EDUCATION_COLOR }}
-                    >
-                      {teacher.name.split(' ').map(n => n[0]).join('')}
-                    </div>
+                    {(() => {
+                      const profileImg = getProfileImage(teacher.name);
+                      return profileImg ? (
+                        <img
+                          src={profileImg}
+                          alt={teacher.name}
+                          className="w-12 h-12 rounded-full object-cover"
+                        />
+                      ) : (
+                        <div
+                          className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold"
+                          style={{ backgroundColor: EDUCATION_COLOR }}
+                        >
+                          {teacher.name.split(' ').map(n => n[0]).join('')}
+                        </div>
+                      );
+                    })()}
                     <div>
                       <p className="font-semibold text-text-primary">{teacher.name}</p>
                       <p className="text-sm text-text-muted">{teacher.employeeNo}</p>

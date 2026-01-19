@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { drivers, LOGISTICS_COLOR } from '@/data/logistics/logisticsData';
+import { getProfileImage } from '@/utils/profileImages';
 
 export const Drivers = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -190,12 +191,23 @@ export const Drivers = () => {
                 >
                   <td className="py-3 px-4">
                     <div className="flex items-center gap-3">
-                      <div
-                        className="w-10 h-10 rounded-full flex items-center justify-center"
-                        style={{ backgroundColor: `${LOGISTICS_COLOR}20` }}
-                      >
-                        <User size={20} style={{ color: LOGISTICS_COLOR }} />
-                      </div>
+                      {(() => {
+                        const profileImage = getProfileImage(driver.name);
+                        return profileImage ? (
+                          <img
+                            src={profileImage}
+                            alt={driver.name}
+                            className="w-10 h-10 rounded-full object-cover"
+                          />
+                        ) : (
+                          <div
+                            className="w-10 h-10 rounded-full flex items-center justify-center"
+                            style={{ backgroundColor: `${LOGISTICS_COLOR}20` }}
+                          >
+                            <User size={20} style={{ color: LOGISTICS_COLOR }} />
+                          </div>
+                        );
+                      })()}
                       <div>
                         <p className="font-medium text-text-primary">{driver.name}</p>
                         <p className="text-xs font-mono text-text-muted">{driver.employeeNo}</p>

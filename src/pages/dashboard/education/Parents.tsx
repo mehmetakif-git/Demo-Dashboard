@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { parents, students, EDUCATION_COLOR } from '@/data/education/educationData';
+import { getProfileImage } from '@/utils/profileImages';
 
 export const Parents = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -130,12 +131,23 @@ export const Parents = () => {
                 <div className="flex flex-col lg:flex-row lg:items-center gap-4">
                   {/* Parent Info */}
                   <div className="flex items-center gap-4 flex-1">
-                    <div
-                      className="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-lg"
-                      style={{ backgroundColor: EDUCATION_COLOR }}
-                    >
-                      {parent.name.split(' ').map(n => n[0]).join('')}
-                    </div>
+                    {(() => {
+                      const profileImg = getProfileImage(parent.name);
+                      return profileImg ? (
+                        <img
+                          src={profileImg}
+                          alt={parent.name}
+                          className="w-14 h-14 rounded-full object-cover"
+                        />
+                      ) : (
+                        <div
+                          className="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-lg"
+                          style={{ backgroundColor: EDUCATION_COLOR }}
+                        >
+                          {parent.name.split(' ').map(n => n[0]).join('')}
+                        </div>
+                      );
+                    })()}
                     <div>
                       <div className="flex items-center gap-2">
                         <p className="font-semibold text-text-primary">{parent.name}</p>
@@ -166,23 +178,34 @@ export const Parents = () => {
                   <div className="min-w-[200px]">
                     <p className="text-xs text-text-muted mb-2">Students</p>
                     <div className="flex flex-wrap gap-2">
-                      {parentStudents.map((student) => (
-                        <div
-                          key={student.id}
-                          className="flex items-center gap-2 px-2 py-1 bg-background-secondary rounded"
-                        >
+                      {parentStudents.map((student) => {
+                        const studentImg = getProfileImage(student.name);
+                        return (
                           <div
-                            className="w-6 h-6 rounded-full flex items-center justify-center text-white text-xs"
-                            style={{ backgroundColor: EDUCATION_COLOR }}
+                            key={student.id}
+                            className="flex items-center gap-2 px-2 py-1 bg-background-secondary rounded"
                           >
-                            {student.name.split(' ').map(n => n[0]).join('')}
+                            {studentImg ? (
+                              <img
+                                src={studentImg}
+                                alt={student.name}
+                                className="w-6 h-6 rounded-full object-cover"
+                              />
+                            ) : (
+                              <div
+                                className="w-6 h-6 rounded-full flex items-center justify-center text-white text-xs"
+                                style={{ backgroundColor: EDUCATION_COLOR }}
+                              >
+                                {student.name.split(' ').map(n => n[0]).join('')}
+                              </div>
+                            )}
+                            <div>
+                              <p className="text-xs font-medium text-text-primary">{student.name}</p>
+                              <p className="text-xs text-text-muted">{student.className}</p>
+                            </div>
                           </div>
-                          <div>
-                            <p className="text-xs font-medium text-text-primary">{student.name}</p>
-                            <p className="text-xs text-text-muted">{student.className}</p>
-                          </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   </div>
 

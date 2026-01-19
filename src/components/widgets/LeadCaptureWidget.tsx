@@ -29,7 +29,7 @@ const PHONE_NUMBER = '+97451079565';
 
 // Glassmorphism input styles
 const inputClassName = "w-full px-4 py-3 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl text-white placeholder-white/40 text-sm focus:outline-none focus:border-[#94B4C1]/50 focus:bg-white/[0.05] transition-all";
-const selectClassName = "w-full px-4 py-3 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl text-white text-sm focus:outline-none focus:border-[#94B4C1]/50 focus:bg-white/[0.05] transition-all cursor-pointer";
+const selectClassName = "w-full px-4 py-3 bg-[#1a2634] border border-white/[0.08] rounded-xl text-white text-sm focus:outline-none focus:border-[#94B4C1]/50 focus:bg-[#1f2d3d] transition-all cursor-pointer [&>option]:bg-[#1a2634] [&>option]:text-white";
 
 // Contact Form Component
 const ContactForm = () => {

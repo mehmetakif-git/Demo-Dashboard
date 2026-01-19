@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { busRoutes, transportStudents, EDUCATION_COLOR } from '@/data/education/educationData';
+import { getProfileImage } from '@/utils/profileImages';
 
 export const Transport = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -201,12 +202,23 @@ export const Transport = () => {
 
                   {/* Driver Info */}
                   <div className="flex items-center gap-3 p-3 bg-background-secondary rounded-lg mb-3">
-                    <div
-                      className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold"
-                      style={{ backgroundColor: EDUCATION_COLOR }}
-                    >
-                      {route.driverName.split(' ').map(n => n[0]).join('')}
-                    </div>
+                    {(() => {
+                      const driverImg = getProfileImage(route.driverName);
+                      return driverImg ? (
+                        <img
+                          src={driverImg}
+                          alt={route.driverName}
+                          className="w-10 h-10 rounded-full object-cover"
+                        />
+                      ) : (
+                        <div
+                          className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold"
+                          style={{ backgroundColor: EDUCATION_COLOR }}
+                        >
+                          {route.driverName.split(' ').map(n => n[0]).join('')}
+                        </div>
+                      );
+                    })()}
                     <div>
                       <p className="text-sm font-medium text-text-primary">{route.driverName}</p>
                       <div className="flex items-center gap-1 text-xs text-text-muted">
@@ -281,12 +293,23 @@ export const Transport = () => {
                   <div className="flex flex-col md:flex-row md:items-center gap-4">
                     {/* Student Info */}
                     <div className="flex items-center gap-3 flex-1">
-                      <div
-                        className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold"
-                        style={{ backgroundColor: EDUCATION_COLOR }}
-                      >
-                        {ts.studentName.split(' ').map(n => n[0]).join('')}
-                      </div>
+                      {(() => {
+                        const studentImg = getProfileImage(ts.studentName);
+                        return studentImg ? (
+                          <img
+                            src={studentImg}
+                            alt={ts.studentName}
+                            className="w-10 h-10 rounded-full object-cover"
+                          />
+                        ) : (
+                          <div
+                            className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold"
+                            style={{ backgroundColor: EDUCATION_COLOR }}
+                          >
+                            {ts.studentName.split(' ').map(n => n[0]).join('')}
+                          </div>
+                        );
+                      })()}
                       <div>
                         <p className="font-semibold text-text-primary">{ts.studentName}</p>
                         <p className="text-xs text-text-muted">{ts.className}</p>

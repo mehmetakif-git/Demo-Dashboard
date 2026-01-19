@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, Suspense, lazy } from 'react';
 import { motion } from 'framer-motion';
 import {
   MapPin,
@@ -8,9 +8,13 @@ import {
   Clock,
   Navigation,
   Package,
+  Loader2,
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input } from '@/components/common';
 import { vehicles, shipments, LOGISTICS_COLOR } from '@/data/logistics/logisticsData';
+
+// Lazy load the map component for better performance
+const TrackingMap = lazy(() => import('@/components/logistics/TrackingMap'));
 
 export const Tracking = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -51,35 +55,23 @@ export const Tracking = () => {
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Map Placeholder */}
+        {/* Map View */}
         <div className="lg:col-span-2">
           <Card className="p-4 h-[600px]">
-            <div className="w-full h-full bg-background-tertiary rounded-lg flex flex-col items-center justify-center">
-              <MapPin size={64} className="text-text-muted mb-4" />
-              <h3 className="text-lg font-semibold text-text-primary mb-2">Map View</h3>
-              <p className="text-text-muted text-center max-w-md">
-                Google Maps integration placeholder.
-                Real-time vehicle locations would be displayed here.
-              </p>
-              <div className="mt-6 flex gap-4">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-success"></div>
-                  <span className="text-xs text-text-muted">Active</span>
+            <Suspense
+              fallback={
+                <div className="w-full h-full bg-background-tertiary rounded-lg flex flex-col items-center justify-center">
+                  <Loader2 size={48} className="text-text-muted animate-spin mb-4" />
+                  <p className="text-text-muted">Loading map...</p>
                 </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-info"></div>
-                  <span className="text-xs text-text-muted">On Route</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-warning"></div>
-                  <span className="text-xs text-text-muted">Maintenance</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-text-muted"></div>
-                  <span className="text-xs text-text-muted">Parked</span>
-                </div>
-              </div>
-            </div>
+              }
+            >
+              <TrackingMap
+                vehicles={vehicles}
+                selectedVehicle={selectedVehicle}
+                onVehicleSelect={setSelectedVehicle}
+              />
+            </Suspense>
           </Card>
         </div>
 

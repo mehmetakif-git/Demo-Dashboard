@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { assignments, submissions, classes, EDUCATION_COLOR } from '@/data/education/educationData';
+import { getProfileImage } from '@/utils/profileImages';
 
 export const Assignments = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -201,12 +202,23 @@ export const Assignments = () => {
 
                   {/* Teacher */}
                   <div className="flex items-center gap-2">
-                    <div
-                      className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs"
-                      style={{ backgroundColor: EDUCATION_COLOR }}
-                    >
-                      {assignment.teacherName.split(' ').map(n => n[0]).join('')}
-                    </div>
+                    {(() => {
+                      const teacherImg = getProfileImage(assignment.teacherName);
+                      return teacherImg ? (
+                        <img
+                          src={teacherImg}
+                          alt={assignment.teacherName}
+                          className="w-8 h-8 rounded-full object-cover"
+                        />
+                      ) : (
+                        <div
+                          className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs"
+                          style={{ backgroundColor: EDUCATION_COLOR }}
+                        >
+                          {assignment.teacherName.split(' ').map(n => n[0]).join('')}
+                        </div>
+                      );
+                    })()}
                     <span className="text-sm text-text-primary">{assignment.teacherName}</span>
                   </div>
 

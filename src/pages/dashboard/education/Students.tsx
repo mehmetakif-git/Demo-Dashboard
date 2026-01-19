@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { students, classes, EDUCATION_COLOR } from '@/data/education/educationData';
+import { getProfileImage } from '@/utils/profileImages';
 
 export const Students = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -55,7 +56,7 @@ export const Students = () => {
   };
 
   const getGenderColor = (gender: string) => {
-    return gender === 'Erkek' ? '#3b82f6' : '#ec4899';
+    return gender === 'Male' ? '#3b82f6' : '#ec4899';
   };
 
   return (
@@ -170,12 +171,23 @@ export const Students = () => {
                 <div className="flex flex-col lg:flex-row lg:items-center gap-4">
                   {/* Student Info */}
                   <div className="flex items-center gap-4 flex-1">
-                    <div
-                      className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold"
-                      style={{ backgroundColor: EDUCATION_COLOR }}
-                    >
-                      {student.name.split(' ').map(n => n[0]).join('')}
-                    </div>
+                    {(() => {
+                      const profileImg = getProfileImage(student.name);
+                      return profileImg ? (
+                        <img
+                          src={profileImg}
+                          alt={student.name}
+                          className="w-12 h-12 rounded-full object-cover"
+                        />
+                      ) : (
+                        <div
+                          className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold"
+                          style={{ backgroundColor: EDUCATION_COLOR }}
+                        >
+                          {student.name.split(' ').map(n => n[0]).join('')}
+                        </div>
+                      );
+                    })()}
                     <div>
                       <div className="flex items-center gap-2">
                         <p className="font-semibold text-text-primary">{student.name}</p>

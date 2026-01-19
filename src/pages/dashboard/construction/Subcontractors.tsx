@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { subcontractors, CONSTRUCTION_COLOR } from '@/data/construction/constructionData';
+import { getCompanyLogo } from '@/utils/profileImages';
 
 export const Subcontractors = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -158,12 +159,23 @@ export const Subcontractors = () => {
             <Card className="p-4">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
-                  <div
-                    className="w-12 h-12 rounded-lg flex items-center justify-center text-white font-bold"
-                    style={{ backgroundColor: CONSTRUCTION_COLOR }}
-                  >
-                    {sub.name.split(' ').map(n => n[0]).join('').substring(0, 2)}
-                  </div>
+                  {(() => {
+                    const companyLogo = getCompanyLogo(sub.name);
+                    return companyLogo ? (
+                      <img
+                        src={companyLogo}
+                        alt={sub.name}
+                        className="w-12 h-12 rounded-lg object-cover"
+                      />
+                    ) : (
+                      <div
+                        className="w-12 h-12 rounded-lg flex items-center justify-center text-white font-bold"
+                        style={{ backgroundColor: CONSTRUCTION_COLOR }}
+                      >
+                        {sub.name.split(' ').map(n => n[0]).join('').substring(0, 2)}
+                      </div>
+                    );
+                  })()}
                   <div>
                     <h3 className="font-semibold text-text-primary">{sub.name}</h3>
                     <span

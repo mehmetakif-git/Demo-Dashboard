@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { clients, LOGISTICS_COLOR } from '@/data/logistics/logisticsData';
+import { getCompanyLogo } from '@/utils/profileImages';
 
 export const Clients = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -145,12 +146,23 @@ export const Clients = () => {
             <Card className="p-4">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
-                  <div
-                    className="w-12 h-12 rounded-lg flex items-center justify-center"
-                    style={{ backgroundColor: `${LOGISTICS_COLOR}20` }}
-                  >
-                    <Building2 size={24} style={{ color: LOGISTICS_COLOR }} />
-                  </div>
+                  {(() => {
+                    const companyLogo = getCompanyLogo(client.companyName);
+                    return companyLogo ? (
+                      <img
+                        src={companyLogo}
+                        alt={client.companyName}
+                        className="w-12 h-12 rounded-lg object-cover"
+                      />
+                    ) : (
+                      <div
+                        className="w-12 h-12 rounded-lg flex items-center justify-center"
+                        style={{ backgroundColor: `${LOGISTICS_COLOR}20` }}
+                      >
+                        <Building2 size={24} style={{ color: LOGISTICS_COLOR }} />
+                      </div>
+                    );
+                  })()}
                   <div>
                     <h3 className="font-semibold text-text-primary">{client.companyName}</h3>
                     <p className="text-sm text-text-muted">{client.industry}</p>

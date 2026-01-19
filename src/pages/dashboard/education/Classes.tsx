@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { classes, teachers, EDUCATION_COLOR } from '@/data/education/educationData';
+import { getProfileImage } from '@/utils/profileImages';
 
 export const Classes = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -184,12 +185,23 @@ export const Classes = () => {
 
                 {/* Class Teacher */}
                 <div className="flex items-center gap-2 mb-3">
-                  <div
-                    className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold"
-                    style={{ backgroundColor: EDUCATION_COLOR }}
-                  >
-                    {cls.classTeacherName.split(' ').map(n => n[0]).join('')}
-                  </div>
+                  {(() => {
+                    const teacherImg = getProfileImage(cls.classTeacherName);
+                    return teacherImg ? (
+                      <img
+                        src={teacherImg}
+                        alt={cls.classTeacherName}
+                        className="w-8 h-8 rounded-full object-cover"
+                      />
+                    ) : (
+                      <div
+                        className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold"
+                        style={{ backgroundColor: EDUCATION_COLOR }}
+                      >
+                        {cls.classTeacherName.split(' ').map(n => n[0]).join('')}
+                      </div>
+                    );
+                  })()}
                   <div>
                     <p className="text-sm font-medium text-text-primary">{cls.classTeacherName}</p>
                     <p className="text-xs text-text-muted">Class Teacher</p>

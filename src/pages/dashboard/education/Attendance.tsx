@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input } from '@/components/common';
 import { attendance, students, classes, EDUCATION_COLOR } from '@/data/education/educationData';
+import { getProfileImage } from '@/utils/profileImages';
 
 export const Attendance = () => {
   const [selectedDate, setSelectedDate] = useState('2024-01-17');
@@ -171,18 +172,29 @@ export const Attendance = () => {
                 className="flex items-center gap-4 p-3 bg-background-secondary rounded-lg"
               >
                 {/* Student Info */}
-                <div className="flex items-center gap-3 flex-1">
-                  <span className="w-8 text-center text-sm font-medium text-text-muted">
+                <div className="flex items-center gap-3 flex-1 min-w-50">
+                  <span className="w-8 text-center text-sm font-medium text-text-muted shrink-0">
                     #{student.rollNo}
                   </span>
-                  <div
-                    className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm"
-                    style={{ backgroundColor: EDUCATION_COLOR }}
-                  >
-                    {student.name.split(' ').map(n => n[0]).join('')}
-                  </div>
-                  <div>
-                    <p className="font-medium text-text-primary">{student.name}</p>
+                  {(() => {
+                    const studentImg = getProfileImage(student.name);
+                    return studentImg ? (
+                      <img
+                        src={studentImg}
+                        alt={student.name}
+                        className="w-10 h-10 rounded-full object-cover shrink-0"
+                      />
+                    ) : (
+                      <div
+                        className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm shrink-0"
+                        style={{ backgroundColor: EDUCATION_COLOR }}
+                      >
+                        {student.name.split(' ').map(n => n[0]).join('')}
+                      </div>
+                    );
+                  })()}
+                  <div className="min-w-0">
+                    <p className="font-medium text-text-primary truncate">{student.name}</p>
                     <p className="text-xs text-text-muted">{student.studentNo}</p>
                   </div>
                 </div>
