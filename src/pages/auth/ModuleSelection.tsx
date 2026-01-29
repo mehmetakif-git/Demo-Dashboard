@@ -674,7 +674,6 @@ const ModuleSelection = () => {
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {availableSectorModules.map((module) => {
                 const Icon = module.icon;
-                const isSelected = isModuleSelected(module.id);
 
                 return (
                   <GlareHover
