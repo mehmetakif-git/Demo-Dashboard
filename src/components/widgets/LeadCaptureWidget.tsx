@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import Lottie from 'lottie-react';
@@ -33,6 +34,7 @@ const selectClassName = "w-full px-4 py-3 bg-[#1a2634] border border-white/[0.08
 
 // Contact Form Component
 const ContactForm = () => {
+  const { t } = useTranslation('auth');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -81,13 +83,13 @@ ${formData.message || 'No message provided'}`;
         >
           <Check size={40} className="text-green-400" />
         </motion.div>
-        <h4 className="text-white font-semibold text-lg mb-2">Email Client Opened!</h4>
-        <p className="text-white/60 text-sm">Complete sending in your email app.</p>
+        <h4 className="text-white font-semibold text-lg mb-2">{t('widget.contact.successTitle')}</h4>
+        <p className="text-white/60 text-sm">{t('widget.contact.successDesc')}</p>
         <button
           onClick={() => setIsSubmitted(false)}
           className="mt-4 text-[#94B4C1] hover:text-[#94B4C1] text-sm font-medium transition-colors cursor-pointer"
         >
-          Send another message
+          {t('widget.contact.sendAnother')}
         </button>
       </motion.div>
     );
@@ -99,7 +101,7 @@ ${formData.message || 'No message provided'}`;
         <User size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
         <input
           type="text"
-          placeholder="Full Name *"
+          placeholder={t('widget.contact.fullName')}
           required
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -110,7 +112,7 @@ ${formData.message || 'No message provided'}`;
         <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
         <input
           type="email"
-          placeholder="Email Address *"
+          placeholder={t('widget.contact.email')}
           required
           value={formData.email}
           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -121,7 +123,7 @@ ${formData.message || 'No message provided'}`;
         <Phone size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
         <input
           type="tel"
-          placeholder="Phone Number"
+          placeholder={t('widget.contact.phone')}
           value={formData.phone}
           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
           className={`${inputClassName} pl-11`}
@@ -131,14 +133,14 @@ ${formData.message || 'No message provided'}`;
         <Building2 size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
         <input
           type="text"
-          placeholder="Company Name"
+          placeholder={t('widget.contact.company')}
           value={formData.company}
           onChange={(e) => setFormData({ ...formData, company: e.target.value })}
           className={`${inputClassName} pl-11`}
         />
       </div>
       <textarea
-        placeholder="Your Message..."
+        placeholder={t('widget.contact.message')}
         rows={3}
         value={formData.message}
         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -156,12 +158,12 @@ ${formData.message || 'No message provided'}`;
         {isSubmitting ? (
           <>
             <Loader2 size={18} className="animate-spin" />
-            Opening Email...
+            {t('widget.contact.sending')}
           </>
         ) : (
           <>
             <Send size={18} />
-            Send Message
+            {t('widget.contact.send')}
           </>
         )}
       </motion.button>
@@ -171,6 +173,7 @@ ${formData.message || 'No message provided'}`;
 
 // WhatsApp Contact Component
 const WhatsAppContact = () => {
+  const { t } = useTranslation('auth');
   const defaultMessage = 'Hello, I reviewed the demo panel and would like more information.';
 
   const openWhatsApp = () => {
@@ -192,9 +195,9 @@ const WhatsAppContact = () => {
           style={{ width: 56, height: 56 }}
         />
       </motion.div>
-      <h4 className="text-white font-semibold text-lg mb-2">Contact via WhatsApp</h4>
+      <h4 className="text-white font-semibold text-lg mb-2">{t('widget.whatsappSection.title')}</h4>
       <p className="text-white/50 text-sm mb-5">
-        Reach us instantly via WhatsApp. We'll answer your questions right away.
+        {t('widget.whatsappSection.description')}
       </p>
       <motion.button
         onClick={openWhatsApp}
@@ -203,15 +206,16 @@ const WhatsAppContact = () => {
         className="w-full py-3.5 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white rounded-xl font-medium flex items-center justify-center gap-2 transition-all cursor-pointer shadow-lg shadow-green-500/20"
       >
         <MessageSquare size={20} />
-        Chat on WhatsApp
+        {t('widget.whatsappSection.button')}
       </motion.button>
-      <p className="text-white/30 text-xs mt-4">Available 24/7</p>
+      <p className="text-white/30 text-xs mt-4">{t('widget.whatsappSection.available')}</p>
     </div>
   );
 };
 
 // Demo Request Component
 const DemoRequest = () => {
+  const { t } = useTranslation('auth');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -271,13 +275,13 @@ Employee Count: ${formData.employeeCount || 'Not specified'}`;
         >
           <Calendar size={40} className="text-[#94B4C1]" />
         </motion.div>
-        <h4 className="text-white font-semibold text-lg mb-2">Email Client Opened!</h4>
-        <p className="text-white/60 text-sm">Complete sending to request your demo.</p>
+        <h4 className="text-white font-semibold text-lg mb-2">{t('widget.demoRequest.successTitle')}</h4>
+        <p className="text-white/60 text-sm">{t('widget.demoRequest.successDesc')}</p>
         <button
           onClick={() => setIsSubmitted(false)}
           className="mt-4 text-[#94B4C1] hover:text-[#94B4C1] text-sm font-medium transition-colors cursor-pointer"
         >
-          Request another demo
+          {t('widget.demoRequest.requestAnother')}
         </button>
       </motion.div>
     );
@@ -289,7 +293,7 @@ Employee Count: ${formData.employeeCount || 'Not specified'}`;
         <User size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
         <input
           type="text"
-          placeholder="Full Name *"
+          placeholder={t('widget.demoRequest.fullName')}
           required
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -301,7 +305,7 @@ Employee Count: ${formData.employeeCount || 'Not specified'}`;
           <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
           <input
             type="email"
-            placeholder="Email *"
+            placeholder={t('widget.demoRequest.email')}
             required
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -312,7 +316,7 @@ Employee Count: ${formData.employeeCount || 'Not specified'}`;
           <Phone size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
           <input
             type="tel"
-            placeholder="Phone *"
+            placeholder={t('widget.demoRequest.phone')}
             required
             value={formData.phone}
             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
@@ -324,7 +328,7 @@ Employee Count: ${formData.employeeCount || 'Not specified'}`;
         <Building2 size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
         <input
           type="text"
-          placeholder="Company Name *"
+          placeholder={t('widget.demoRequest.company')}
           required
           value={formData.company}
           onChange={(e) => setFormData({ ...formData, company: e.target.value })}
@@ -336,7 +340,7 @@ Employee Count: ${formData.employeeCount || 'Not specified'}`;
         onChange={(e) => setFormData({ ...formData, sector: e.target.value })}
         className={selectClassName}
       >
-        <option value="">Select Sector</option>
+        <option value="">{t('widget.demoRequest.selectSector')}</option>
         {sectors.map((sector) => (
           <option key={sector} value={sector}>
             {sector}
@@ -348,7 +352,7 @@ Employee Count: ${formData.employeeCount || 'Not specified'}`;
         onChange={(e) => setFormData({ ...formData, employeeCount: e.target.value })}
         className={selectClassName}
       >
-        <option value="">Employee Count</option>
+        <option value="">{t('widget.demoRequest.employeeCount')}</option>
         {employeeCounts.map((count) => (
           <option key={count} value={count}>
             {count}
@@ -367,12 +371,12 @@ Employee Count: ${formData.employeeCount || 'Not specified'}`;
         {isSubmitting ? (
           <>
             <Loader2 size={18} className="animate-spin" />
-            Opening Email...
+            {t('widget.demoRequest.requesting')}
           </>
         ) : (
           <>
             <Calendar size={18} />
-            Request Demo
+            {t('widget.demoRequest.request')}
           </>
         )}
       </motion.button>
@@ -388,6 +392,7 @@ interface InterestPopupProps {
 }
 
 const InterestPopup = ({ isOpen, onClose, onOpenWidget }: InterestPopupProps) => {
+  const { t } = useTranslation('auth');
   return (
     <AnimatePresence>
       {isOpen && (
@@ -419,9 +424,9 @@ const InterestPopup = ({ isOpen, onClose, onOpenWidget }: InterestPopupProps) =>
                 <Sparkles size={40} className="text-white" />
               </div>
               <h2 className="text-2xl font-bold text-white mb-2">
-                Want This System for Your Company?
+                {t('widget.popup.title')}
               </h2>
-              <p className="text-white/80">If you liked the demo, let us prepare a custom offer for you!</p>
+              <p className="text-white/80">{t('widget.popup.subtitle')}</p>
             </div>
 
             {/* Features */}
@@ -432,8 +437,8 @@ const InterestPopup = ({ isOpen, onClose, onOpenWidget }: InterestPopupProps) =>
                     <Zap size={20} className="text-[#94B4C1]" />
                   </div>
                   <div>
-                    <h4 className="text-white font-medium text-sm">Fast Setup</h4>
-                    <p className="text-white/40 text-xs">Ready to use in 7 days</p>
+                    <h4 className="text-white font-medium text-sm">{t('widget.popup.fastSetup')}</h4>
+                    <p className="text-white/40 text-xs">{t('widget.popup.fastSetupDesc')}</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/[0.05]">
@@ -441,8 +446,8 @@ const InterestPopup = ({ isOpen, onClose, onOpenWidget }: InterestPopupProps) =>
                     <Shield size={20} className="text-green-400" />
                   </div>
                   <div>
-                    <h4 className="text-white font-medium text-sm">100% Secure</h4>
-                    <p className="text-white/40 text-xs">Your data under your control</p>
+                    <h4 className="text-white font-medium text-sm">{t('widget.popup.secure')}</h4>
+                    <p className="text-white/40 text-xs">{t('widget.popup.secureDesc')}</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/[0.05]">
@@ -450,8 +455,8 @@ const InterestPopup = ({ isOpen, onClose, onOpenWidget }: InterestPopupProps) =>
                     <Headphones size={20} className="text-[#94B4C1]" />
                   </div>
                   <div>
-                    <h4 className="text-white font-medium text-sm">24/7 Support</h4>
-                    <p className="text-white/40 text-xs">Always here to help</p>
+                    <h4 className="text-white font-medium text-sm">{t('widget.popup.support')}</h4>
+                    <p className="text-white/40 text-xs">{t('widget.popup.supportDesc')}</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/[0.05]">
@@ -459,8 +464,8 @@ const InterestPopup = ({ isOpen, onClose, onOpenWidget }: InterestPopupProps) =>
                     <Settings size={20} className="text-[#EAE0CF]" />
                   </div>
                   <div>
-                    <h4 className="text-white font-medium text-sm">Customizable</h4>
-                    <p className="text-white/40 text-xs">Tailored to your needs</p>
+                    <h4 className="text-white font-medium text-sm">{t('widget.popup.customizable')}</h4>
+                    <p className="text-white/40 text-xs">{t('widget.popup.customizableDesc')}</p>
                   </div>
                 </div>
               </div>
@@ -477,7 +482,7 @@ const InterestPopup = ({ isOpen, onClose, onOpenWidget }: InterestPopupProps) =>
                   className="w-full py-3.5 bg-gradient-to-r from-[#547792] to-[#94B4C1] text-white rounded-xl font-medium hover:opacity-90 transition-opacity flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-[#94B4C1]/20"
                 >
                   <Calendar size={20} />
-                  Request Free Demo
+                  {t('widget.popup.requestDemo')}
                 </motion.button>
                 <motion.button
                   onClick={() => {
@@ -491,13 +496,13 @@ const InterestPopup = ({ isOpen, onClose, onOpenWidget }: InterestPopupProps) =>
                   className="w-full py-3.5 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl font-medium transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-green-500/20"
                 >
                   <MessageSquare size={20} />
-                  Chat on WhatsApp
+                  {t('widget.popup.chatWhatsApp')}
                 </motion.button>
                 <button
                   onClick={onClose}
                   className="w-full py-3 text-white/40 hover:text-white transition-colors text-sm cursor-pointer"
                 >
-                  Remind me later
+                  {t('widget.popup.remindLater')}
                 </button>
               </div>
             </div>
@@ -529,6 +534,7 @@ export const LeadCaptureWidget = ({
   onSpotlightClick,
   buttonRef
 }: LeadCaptureWidgetProps) => {
+  const { t } = useTranslation('auth');
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<'contact' | 'whatsapp' | 'demo'>('contact');
@@ -644,8 +650,8 @@ export const LeadCaptureWidget = ({
                       <MessageCircle size={20} className="text-white" />
                     </div>
                     <div>
-                      <h3 className="text-white font-semibold">Get in Touch</h3>
-                      <p className="text-white/70 text-xs">How can we help you?</p>
+                      <h3 className="text-white font-semibold">{t('widget.getInTouch')}</h3>
+                      <p className="text-white/70 text-xs">{t('widget.howCanWeHelp')}</p>
                     </div>
                   </div>
                   <button
@@ -660,9 +666,9 @@ export const LeadCaptureWidget = ({
               {/* Tabs */}
               <div className="relative flex border-b border-white/[0.08]">
                 {[
-                  { id: 'contact', label: 'Form', icon: Mail },
-                  { id: 'whatsapp', label: 'WhatsApp', icon: MessageSquare },
-                  { id: 'demo', label: 'Demo', icon: Calendar },
+                  { id: 'contact', label: t('widget.form'), icon: Mail },
+                  { id: 'whatsapp', label: t('widget.whatsapp'), icon: MessageSquare },
+                  { id: 'demo', label: t('widget.demo'), icon: Calendar },
                 ].map((tab) => {
                   const Icon = tab.icon;
                   const isActive = activeTab === tab.id;
@@ -712,7 +718,7 @@ export const LeadCaptureWidget = ({
               {/* Footer */}
               <div className="relative px-4 py-3 border-t border-white/[0.05] bg-white/[0.02]">
                 <p className="text-center text-white/30 text-xs">
-                  Powered by <span className="text-[#94B4C1]">Allync</span>
+                  {t('widget.poweredBy')} <span className="text-[#94B4C1]">Allync</span>
                 </p>
               </div>
             </motion.div>

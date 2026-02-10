@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import { LogOut } from 'lucide-react';
 import { useAppStore } from '@/store/appStore';
@@ -11,6 +12,7 @@ import type { Sector } from '@/types';
 
 export const SectorSelect = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation('auth');
   const { setSector } = useAppStore();
   const logout = useAuthStore((state) => state.logout);
 
@@ -127,7 +129,7 @@ export const SectorSelect = () => {
             className="absolute top-8 right-8 flex items-center gap-2 px-4 py-2 bg-red-500/10 backdrop-blur-xl border border-red-500/20 rounded-lg text-red-400 cursor-pointer hover:bg-red-500/20 hover:border-red-500/30 hover:scale-105 active:scale-95 transition-all"
           >
             <LogOut className="w-4 h-4" />
-            <span className="text-sm font-medium">Logout</span>
+            <span className="text-sm font-medium">{t('sectorSelect.logout')}</span>
           </motion.button>
 
           {/* Header */}
@@ -136,8 +138,8 @@ export const SectorSelect = () => {
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-12"
           >
-            <h1 className="text-4xl font-bold text-white mb-3">Select Your Industry</h1>
-            <p className="text-white/60 text-lg">Configure your panel for your specific business needs</p>
+            <h1 className="text-4xl font-bold text-white mb-3">{t('sectorSelect.title')}</h1>
+            <p className="text-white/60 text-lg">{t('sectorSelect.subtitle')}</p>
           </motion.div>
 
           {/* Sector Grid */}
@@ -182,7 +184,7 @@ export const SectorSelect = () => {
                     {/* Soon Badge */}
                     {!isActive && (
                       <div className="absolute top-3 right-3 bg-white/[0.1] border border-white/[0.1] text-white/50 text-xs font-semibold px-2 py-1 rounded z-10">
-                        SOON
+                        {t('sectorSelect.soon')}
                       </div>
                     )}
 
@@ -269,13 +271,13 @@ export const SectorSelect = () => {
                 {/* Tooltip Content */}
                 <div className="relative bg-white/[0.05] backdrop-blur-2xl border border-white/[0.12] rounded-2xl p-5 max-w-xs shadow-2xl before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-b before:from-white/[0.1] before:to-transparent before:pointer-events-none">
                   <div className="relative z-10 mb-2">
-                    <span className="text-white text-lg font-bold">Start Here!</span>
+                    <span className="text-white text-lg font-bold">{t('sectorSelect.spotlight.title')}</span>
                   </div>
                   <p className="relative z-10 text-white/90 text-sm font-medium leading-relaxed mb-3">
-                    Pick your industry to unlock a dashboard customized for your business needs.
+                    {t('sectorSelect.spotlight.description')}
                   </p>
                   <p className="relative z-10 text-red-400 text-xs font-medium">
-                    Click anywhere to dismiss
+                    {t('sectorSelect.spotlight.dismiss')}
                   </p>
                 </div>
               </motion.div>

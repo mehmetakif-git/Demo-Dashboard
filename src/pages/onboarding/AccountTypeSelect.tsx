@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Shield, User, ArrowLeft, Check, ChevronRight } from 'lucide-react';
 import { useAppStore } from '@/store/appStore';
@@ -19,22 +20,23 @@ interface AccountOption {
 const accountOptions: AccountOption[] = [
   {
     type: 'admin',
-    title: 'Administrator',
-    description: 'Full access to all modules. Manage staff permissions and system settings.',
+    title: 'admin',
+    description: 'admin',
     icon: Shield,
-    color: '#f59e0b', // Amber - authority, power
+    color: '#f59e0b',
   },
   {
     type: 'staff',
-    title: 'Staff Member',
-    description: 'Access to assigned modules only. Limited administrative functions.',
+    title: 'staff',
+    description: 'staff',
     icon: User,
-    color: '#3b82f6', // Blue - trust, team
+    color: '#3b82f6',
   },
 ];
 
 export const AccountTypeSelect = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation('auth');
   const { selectedSector, setAccountType, setSector } = useAppStore();
   const [selected, setSelected] = useState<AccountType | null>(null);
 
@@ -166,9 +168,9 @@ export const AccountTypeSelect = () => {
               </div>
             )}
             <div>
-              <p className="text-xs text-text-muted">Selected Industry</p>
+              <p className="text-xs text-text-muted">{t('accountSelect.selectedIndustry')}</p>
               <h2 className="text-sm font-semibold text-white">
-                {sector?.name || 'Unknown Sector'}
+                {sector?.name || t('accountSelect.unknownSector')}
               </h2>
             </div>
           </div>
@@ -182,7 +184,7 @@ export const AccountTypeSelect = () => {
             transition={{ delay: 0.1 }}
             className="text-4xl font-bold text-white mb-3"
           >
-            Select Account Type
+            {t('accountSelect.title')}
           </motion.h1>
           <motion.p
             initial={{ y: -10, opacity: 0 }}
@@ -190,7 +192,7 @@ export const AccountTypeSelect = () => {
             transition={{ delay: 0.2 }}
             className="text-white/60 text-lg"
           >
-            Choose your access level for the demo
+            {t('accountSelect.subtitle')}
           </motion.p>
         </div>
 
@@ -258,10 +260,10 @@ export const AccountTypeSelect = () => {
 
                   {/* Content */}
                   <h3 className="relative z-10 text-xl font-semibold text-white mb-2">
-                    {option.title}
+                    {t(`accountSelect.${option.title}.title`)}
                   </h3>
                   <p className="relative z-10 text-white/60">
-                    {option.description}
+                    {t(`accountSelect.${option.title}.description`)}
                   </p>
 
                   {/* Hover Glow Effect */}
@@ -284,7 +286,7 @@ export const AccountTypeSelect = () => {
             disabled={!selected}
             className="relative px-8 py-3 bg-white/[0.03] backdrop-blur-2xl border border-white/[0.08] text-white font-semibold rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center gap-2 cursor-pointer group overflow-hidden before:absolute before:inset-0 before:rounded-xl before:bg-gradient-to-r before:from-[#547792]/20 before:to-[#94B4C1]/20 before:opacity-100 hover:border-[#94B4C1]/50 hover:bg-white/[0.06] hover:shadow-[0_0_30px_rgba(148,180,193,0.3)]"
           >
-            <span className="relative z-10">Continue</span>
+            <span className="relative z-10">{t('accountSelect.continue')}</span>
             <ChevronRight size={20} className="relative z-10 group-hover:translate-x-1 transition-transform" />
             {/* Animated gradient glow */}
             <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#547792]/0 via-[#94B4C1]/20 to-[#547792]/0 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -346,13 +348,13 @@ export const AccountTypeSelect = () => {
               {/* Tooltip Content */}
               <div className="relative bg-white/[0.05] backdrop-blur-2xl border border-white/[0.12] rounded-2xl p-5 max-w-xs shadow-2xl before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-b before:from-white/[0.1] before:to-transparent before:pointer-events-none">
                 <div className="relative z-10 mb-2">
-                  <span className="text-white text-lg font-bold">Choose Your Role!</span>
+                  <span className="text-white text-lg font-bold">{t('accountSelect.spotlight.title')}</span>
                 </div>
                 <p className="relative z-10 text-white/90 text-sm font-medium leading-relaxed mb-3">
-                  Select Admin for full access or Staff for limited permissions in the demo.
+                  {t('accountSelect.spotlight.description')}
                 </p>
                 <p className="relative z-10 text-red-400 text-xs font-medium">
-                  Click anywhere to dismiss
+                  {t('accountSelect.spotlight.dismiss')}
                 </p>
               </div>
             </motion.div>
