@@ -29,8 +29,10 @@ import {
   getTypeLabel,
   type QRCode,
 } from '@/data/qrCodeData';
+import { useTranslation } from 'react-i18next';
 
 export const QRCodeList = () => {
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedType, setSelectedType] = useState<string>('all');
@@ -109,7 +111,7 @@ export const QRCodeList = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="QR Code Management"
+        title={t('qr-codes.qrCodeManagement', 'QR Code Management')}
         subtitle="Create, manage and track your QR codes"
         actions={
           <div className="flex gap-2">

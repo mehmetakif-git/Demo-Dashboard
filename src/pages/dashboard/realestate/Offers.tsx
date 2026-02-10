@@ -13,8 +13,10 @@ import {
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { offers, REALESTATE_COLOR, getStatusColor } from '@/data/realestate/realestateData';
 import { getProfileImage, getCompanyLogo } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const Offers = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [typeFilter, setTypeFilter] = useState<string>('all');
@@ -53,7 +55,7 @@ export const Offers = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Offers"
+        title={t('realestate.offers', 'Offers')}
         subtitle="Manage property offers and negotiations"
         icon={Handshake}
       />

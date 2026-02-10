@@ -1,0 +1,35 @@
+{
+  "title": "Panel",
+  "welcomeBack": "Tekrar hoş geldiniz, {{name}}",
+  "kpis": {
+    "totalRevenue": "Toplam Gelir",
+    "activeMembers": "Aktif Üyeler",
+    "pendingTasks": "Bekleyen Görevler",
+    "monthlyGrowth": "Bu Ayın Büyümesi",
+    "fromLastMonth": "geçen aya göre",
+    "urgent": "acil",
+    "onTrack": "Hedefte"
+  },
+  "recentActivities": {
+    "title": "Son Aktiviteler",
+    "viewAll": "Tümünü Gör"
+  },
+  "upcomingTasks": {
+    "title": "Yaklaşan Görevler",
+    "viewAll": "Tümünü Gör"
+  },
+  "quickActions": {
+    "title": "Hızlı İşlemler",
+    "addEmployee": "Çalışan Ekle",
+    "createInvoice": "Fatura Oluştur",
+    "newTask": "Yeni Görev",
+    "generateReport": "Rapor Oluştur"
+  },
+  "charts": {
+    "revenue": "Gelir Özeti",
+    "tasks": "Görev Dağılımı",
+    "monthly": "Aylık",
+    "weekly": "Haftalık",
+    "daily": "Günlük"
+  }
+}

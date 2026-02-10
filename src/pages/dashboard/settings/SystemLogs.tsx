@@ -26,6 +26,7 @@ import {
   getStatusColor,
   type SystemLog,
 } from '@/data/settingsData';
+import { useTranslation } from 'react-i18next';
 
 const actionIcons: Record<string, React.ElementType> = {
   login: LogIn,
@@ -43,6 +44,7 @@ const actionIcons: Record<string, React.ElementType> = {
 };
 
 export const SystemLogs = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [userFilter, setUserFilter] = useState('all');
   const [actionFilter, setActionFilter] = useState('all');
@@ -119,7 +121,7 @@ export const SystemLogs = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="System Logs"
+        title={t('settings.systemLogs', 'System Logs')}
         subtitle="View and export system activity logs"
         actions={
           <div className="flex gap-2">

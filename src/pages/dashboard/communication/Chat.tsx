@@ -24,8 +24,10 @@ import {
   type Message,
 } from '@/data/communicationData';
 import { getProfileImage } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const Chat = () => {
+  const { t: _t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedConversation, setSelectedConversation] = useState<DirectMessage | null>(directMessages[0]);
   const [messageInput, setMessageInput] = useState('');

@@ -28,10 +28,12 @@ import {
 } from '@/data/staffing/staffingData';
 import { ROUTES } from '@/utils/constants';
 import { getProfileImage } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 type TabType = 'overview' | 'applications' | 'interviews' | 'documents' | 'notes';
 
 export const CandidateDetail = () => {
+  const { t: _t } = useTranslation('common');
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<TabType>('overview');

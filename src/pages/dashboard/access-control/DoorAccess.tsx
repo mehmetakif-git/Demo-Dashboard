@@ -18,8 +18,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, StatsCard, Input, Button } from '@/components/common';
 import { doors, getDoorStatusColor, type Door } from '@/data/accessControlData';
+import { useTranslation } from 'react-i18next';
 
 export const DoorAccess = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
   const [selectedType, setSelectedType] = useState<string>('all');
@@ -102,7 +104,7 @@ export const DoorAccess = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Door Access"
+        title={t('access-control.doorAccess', 'Door Access')}
         subtitle="Manage and monitor door access points"
         actions={
           <div className="flex items-center gap-2">

@@ -30,6 +30,7 @@ import {
 import { PageHeader, Card, Button, StatusBadge } from '@/components/common';
 import { ecommerceStats, orders, products } from '@/data/ecommerce/ecommerceData';
 import { ROUTES } from '@/utils/constants';
+import { useTranslation } from 'react-i18next';
 
 // Revenue data for chart (last 30 days)
 const revenueData = [
@@ -46,6 +47,7 @@ const revenueData = [
 const CHART_COLORS = ['#f59e0b', '#6366f1', '#0ea5e9', '#8b5cf6', '#10b981', '#ef4444', '#64748b'];
 
 export const Overview = () => {
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
 
   const stats = [
@@ -95,7 +97,7 @@ export const Overview = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="E-Commerce Dashboard"
+        title={t('ecommerce.dashboard', 'E-Commerce Dashboard')}
         subtitle="Overview of your online store performance"
         icon={ShoppingCart}
         actions={

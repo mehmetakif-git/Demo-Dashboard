@@ -13,6 +13,7 @@ import {
 import { PageHeader, StatsCard, Modal } from '@/components/common';
 import { bankAccounts, transactions, getTransactionsByAccount } from '@/data/accountingData';
 import type { BankAccount } from '@/data/accountingData';
+import { useTranslation } from 'react-i18next';
 
 const accountTypeLabels: Record<string, string> = {
   checking: 'Checking',
@@ -21,6 +22,7 @@ const accountTypeLabels: Record<string, string> = {
 };
 
 export const BankAccounts = () => {
+  const { t } = useTranslation('common');
   const [selectedAccount, setSelectedAccount] = useState<BankAccount | null>(null);
   const [showTransactions, setShowTransactions] = useState(false);
 
@@ -54,7 +56,7 @@ export const BankAccounts = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title="Bank Accounts"
+        title={t('accounting.bankAccounts', 'Bank Accounts')}
         subtitle="Manage your connected bank accounts"
         icon={Landmark}
         actions={

@@ -14,8 +14,10 @@ import {
   movementReasons,
   formatDateTime,
 } from '@/data/hardware/hardwareData';
+import { useTranslation } from 'react-i18next';
 
 export const StockMovements = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedType, setSelectedType] = useState<'all' | 'in' | 'out'>('all');
   const [selectedReason, setSelectedReason] = useState<string>('all');
@@ -58,7 +60,7 @@ export const StockMovements = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Stock Movements"
+        title={t('hardware.stockMovements', 'Stock Movements')}
         subtitle="Track all inventory changes"
         actions={
           <div className="flex gap-2">

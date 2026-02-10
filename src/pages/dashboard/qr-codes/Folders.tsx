@@ -23,8 +23,10 @@ import {
   getTypeColor,
   getTypeLabel,
 } from '@/data/qrCodeData';
+import { useTranslation } from 'react-i18next';
 
 export const Folders = () => {
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFolder, setSelectedFolder] = useState<string | null>(null);
@@ -71,7 +73,7 @@ export const Folders = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="QR Code Folders"
+        title={t('qr-codes.qrCodeFolders', 'QR Code Folders')}
         subtitle="Organize your QR codes into folders"
         actions={
           <Button leftIcon={<Plus size={16} />} onClick={() => setIsCreating(true)}>

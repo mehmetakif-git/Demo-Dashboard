@@ -12,8 +12,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { libraryBooks, borrowings, EDUCATION_COLOR } from '@/data/education/educationData';
+import { useTranslation } from 'react-i18next';
 
 export const Library = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [view, setView] = useState<'books' | 'borrowings'>('books');
@@ -73,7 +75,7 @@ export const Library = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Library Management"
+        title={t('education.libraryManagement', 'Library Management')}
         subtitle="Manage books and borrowings"
         icon={LibraryIcon}
         actions={

@@ -14,8 +14,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, StatusBadge, Dropdown } from '@/components/common';
 import { deliveryOrders, staffMembers } from '@/data/restaurant/restaurantData';
+import { useTranslation } from 'react-i18next';
 
 export const Delivery = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
@@ -57,7 +59,7 @@ export const Delivery = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Delivery Management"
+        title={t('restaurant.deliveryManagement', 'Delivery Management')}
         subtitle="Track and manage delivery orders"
         icon={Bike}
       />

@@ -14,8 +14,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, StatusBadge, Dropdown } from '@/components/common';
 import { billings, HEALTHCARE_COLOR, getPatientProfileImage } from '@/data/healthcare/healthcareData';
+import { useTranslation } from 'react-i18next';
 
 export const HealthcareBilling = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
@@ -55,7 +57,7 @@ export const HealthcareBilling = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Billing"
+        title={t('healthcare.billing', 'Billing')}
         subtitle="Manage patient invoices and payments"
         icon={CreditCard}
         actions={

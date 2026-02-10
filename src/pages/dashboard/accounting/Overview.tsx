@@ -32,8 +32,10 @@ import {
   incomeRecords,
   expenseRecords,
 } from '@/data/accountingData';
+import { useTranslation } from 'react-i18next';
 
 export const Overview = () => {
+  const { t } = useTranslation('common');
   const stats = useMemo(() => ({
     totalRevenue: financialSummary.totalRevenue,
     totalExpenses: financialSummary.totalExpenses,
@@ -55,7 +57,7 @@ export const Overview = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title="Financial Overview"
+        title={t('accounting.financialOverview', 'Financial Overview')}
         subtitle="Monitor your company's financial health"
         icon={PieChart}
       />

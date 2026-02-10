@@ -23,8 +23,10 @@ import {
 } from '@/data/staffing/staffingData';
 import { ROUTES } from '@/utils/constants';
 import { getCompanyLogo } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const ClientList = () => {
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -95,7 +97,7 @@ export const ClientList = () => {
       className="space-y-6"
     >
       <PageHeader
-        title="Clients"
+        title={t('staffing.clients', 'Clients')}
         subtitle="Manage client accounts and relationships"
         actions={
           <Button onClick={() => console.log('Add client')}>

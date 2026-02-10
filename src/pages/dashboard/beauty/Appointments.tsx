@@ -26,8 +26,10 @@ import {
   type Appointment,
 } from '@/data/beauty/beautyData';
 import { getProfileImage } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const Appointments = () => {
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
@@ -113,7 +115,7 @@ export const Appointments = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Appointments"
+        title={t('beauty.appointments', 'Appointments')}
         subtitle="Manage salon appointments and schedules"
         actions={
           <Button leftIcon={<Plus size={16} />}>New Appointment</Button>

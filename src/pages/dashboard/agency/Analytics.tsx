@@ -19,8 +19,10 @@ import {
   formatCurrency,
   formatNumber,
 } from '@/data/agency/agencyData';
+import { useTranslation } from 'react-i18next';
 
 export const Analytics = () => {
+  const { t } = useTranslation('common');
   // Calculate metrics from campaigns
   const totalBudget = campaigns.reduce((sum, c) => sum + c.budget.total, 0);
   const totalSpent = campaigns.reduce((sum, c) => sum + c.budget.spent, 0);
@@ -75,7 +77,7 @@ export const Analytics = () => {
       className="space-y-6"
     >
       <PageHeader
-        title="Analytics"
+        title={t('agency.analytics', 'Analytics')}
         subtitle="Performance metrics and campaign insights"
       />
 

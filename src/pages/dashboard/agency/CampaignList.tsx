@@ -23,8 +23,10 @@ import {
   formatCurrency,
   getCampaignStatusColor,
 } from '@/data/agency/agencyData';
+import { useTranslation } from 'react-i18next';
 
 export const CampaignList = () => {
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -74,7 +76,7 @@ export const CampaignList = () => {
       className="space-y-6"
     >
       <PageHeader
-        title="Campaigns"
+        title={t('agency.campaigns', 'Campaigns')}
         subtitle="Manage all marketing and advertising campaigns"
         actions={
           <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">

@@ -14,8 +14,10 @@ import {
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { customers, ecommerceStats } from '@/data/ecommerce/ecommerceData';
 import { getProfileImage } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const Customers = () => {
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [tagFilter, setTagFilter] = useState<string>('all');
@@ -46,7 +48,7 @@ export const Customers = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Customers"
+        title={t('ecommerce.customers', 'Customers')}
         subtitle="Manage your customer base"
         icon={Users}
         actions={

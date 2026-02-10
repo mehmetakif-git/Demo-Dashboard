@@ -14,8 +14,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button } from '@/components/common';
 import { trashFiles, formatDate } from '@/data/fileData';
+import { useTranslation } from 'react-i18next';
 
 export const Trash = () => {
+  const { t } = useTranslation('common');
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [showEmptyConfirm, setShowEmptyConfirm] = useState(false);
@@ -55,7 +57,7 @@ export const Trash = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Trash"
+        title={t('files.trash', 'Trash')}
         subtitle="Deleted files and folders"
         actions={
           <Button

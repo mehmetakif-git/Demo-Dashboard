@@ -15,8 +15,10 @@ import {
   deliverySchedule,
   dashboardStats,
 } from '@/data/laundry/laundryData';
+import { useTranslation } from 'react-i18next';
 
 export const Delivery = () => {
+  const { t } = useTranslation('common');
   const [selectedDriver, setSelectedDriver] = useState<string>('all');
   const [selectedType, setSelectedType] = useState<'all' | 'pickup' | 'delivery'>('all');
   const [selectedDate, setSelectedDate] = useState<string>(new Date().toISOString().split('T')[0]);
@@ -72,7 +74,7 @@ export const Delivery = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Pickup & Delivery"
+        title={t('laundry.pickupDelivery', 'Pickup & Delivery')}
         subtitle="Manage pickups, deliveries, and drivers"
       />
 

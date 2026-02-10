@@ -19,8 +19,10 @@ import {
   formatDate,
   formatCurrency,
 } from '@/data/beauty/beautyData';
+import { useTranslation } from 'react-i18next';
 
 export const ClientDetail = () => {
+  const { t } = useTranslation('common');
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
@@ -32,7 +34,7 @@ export const ClientDetail = () => {
     return (
       <div className="space-y-6">
         <PageHeader
-          title="Client Not Found"
+          title={t('beauty.clientNotFound', 'Client Not Found')}
           subtitle="The requested client could not be found"
           actions={
             <Button variant="secondary" leftIcon={<ArrowLeft size={16} />} onClick={() => navigate(-1)}>

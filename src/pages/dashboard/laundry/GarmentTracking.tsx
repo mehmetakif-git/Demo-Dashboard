@@ -16,8 +16,10 @@ import {
   garmentTracking,
   formatDateTime,
 } from '@/data/laundry/laundryData';
+import { useTranslation } from 'react-i18next';
 
 export const GarmentTracking = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
 
@@ -85,7 +87,7 @@ export const GarmentTracking = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Garment Tracking"
+        title={t('laundry.garmentTracking', 'Garment Tracking')}
         subtitle="Track individual garments through the cleaning process"
         actions={
           <Button variant="secondary" leftIcon={<QrCode size={16} />}>

@@ -13,8 +13,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, StatusBadge } from '@/components/common';
 import { restaurantOrders } from '@/data/restaurant/restaurantData';
+import { useTranslation } from 'react-i18next';
 
 export const Kitchen = () => {
+  const { t } = useTranslation('common');
   const [viewMode, setViewMode] = useState<'all' | 'pending' | 'preparing' | 'ready'>('all');
 
   // Get all order items that need kitchen attention
@@ -93,7 +95,7 @@ export const Kitchen = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Kitchen Display"
+        title={t('restaurant.kitchenDisplay', 'Kitchen Display')}
         subtitle="Real-time kitchen order management"
         icon={ChefHat}
         actions={

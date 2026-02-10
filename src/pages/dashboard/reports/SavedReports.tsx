@@ -27,8 +27,10 @@ import {
   formatDateTime,
   type SavedReport,
 } from '@/data/reportData';
+import { useTranslation } from 'react-i18next';
 
 export const SavedReports = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [templateFilter, setTemplateFilter] = useState('all');
   const [scheduleFilter, setScheduleFilter] = useState('all');
@@ -96,7 +98,7 @@ export const SavedReports = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Saved Reports"
+        title={t('reports.savedReports', 'Saved Reports')}
         subtitle="Manage your saved report configurations"
         actions={
           <Button leftIcon={<Plus size={16} />}>Create New</Button>

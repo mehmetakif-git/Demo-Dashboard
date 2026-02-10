@@ -22,6 +22,7 @@ import {
   formatDateTime,
   type ExportableData,
 } from '@/data/reportData';
+import { useTranslation } from 'react-i18next';
 
 const exportCategories = [
   { id: 'all', name: 'All Data' },
@@ -33,6 +34,7 @@ const exportCategories = [
 ];
 
 export const ExportCenter = () => {
+  const { t } = useTranslation('common');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedData, setSelectedData] = useState<ExportableData | null>(null);
   const [showExportModal, setShowExportModal] = useState(false);
@@ -101,7 +103,7 @@ export const ExportCenter = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Export Center"
+        title={t('reports.exportCenter', 'Export Center')}
         subtitle="Export your data in various formats"
       />
 

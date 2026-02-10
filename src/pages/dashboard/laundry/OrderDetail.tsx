@@ -21,8 +21,10 @@ import {
   formatDate,
   formatDateTime,
 } from '@/data/laundry/laundryData';
+import { useTranslation } from 'react-i18next';
 
 export const OrderDetail = () => {
+  const { t } = useTranslation('common');
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
@@ -34,7 +36,7 @@ export const OrderDetail = () => {
     return (
       <div className="space-y-6">
         <PageHeader
-          title="Order Not Found"
+          title={t('laundry.orderNotFound', 'Order Not Found')}
           subtitle="The requested order could not be found"
           actions={
             <Button variant="secondary" leftIcon={<ArrowLeft size={16} />} onClick={() => navigate(-1)}>

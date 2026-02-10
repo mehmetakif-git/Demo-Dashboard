@@ -17,8 +17,10 @@ import {
   customers,
   formatCurrency,
 } from '@/data/laundry/laundryData';
+import { useTranslation } from 'react-i18next';
 
 export const Reports = () => {
+  const { t } = useTranslation('common');
   const [dateRange, setDateRange] = useState('month');
   const stats = dashboardStats;
 
@@ -101,7 +103,7 @@ export const Reports = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Reports"
+        title={t('laundry.reports', 'Reports')}
         subtitle="Analytics and business insights"
         actions={
           <div className="flex gap-2">

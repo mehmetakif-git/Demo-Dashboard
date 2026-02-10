@@ -14,8 +14,10 @@ import {
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { feeStructure, feePayments, EDUCATION_COLOR } from '@/data/education/educationData';
 import { getProfileImage } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const Fees = () => {
+  const { t: _t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [view, setView] = useState<'payments' | 'structure'>('payments');

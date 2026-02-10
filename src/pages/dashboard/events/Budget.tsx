@@ -35,8 +35,10 @@ import {
   formatCurrency,
   getExpenseStatusColor,
 } from '@/data/events/eventsData';
+import { useTranslation } from 'react-i18next';
 
 export const Budget = () => {
+  const { t } = useTranslation('common');
   const [selectedEvent, setSelectedEvent] = useState<string>(events[0]?.id || '');
   const [searchTerm, setSearchTerm] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
@@ -120,7 +122,7 @@ export const Budget = () => {
       className="space-y-6"
     >
       <PageHeader
-        title="Budget Tracking"
+        title={t('events.budgetTracking', 'Budget Tracking')}
         subtitle="Monitor event budgets and expenses"
         actions={
           <div className="flex gap-2">

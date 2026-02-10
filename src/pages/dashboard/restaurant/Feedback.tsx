@@ -13,8 +13,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, StatusBadge, Dropdown, Avatar } from '@/components/common';
 import { customerFeedback } from '@/data/restaurant/restaurantData';
+import { useTranslation } from 'react-i18next';
 
 export const Feedback = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [ratingFilter, setRatingFilter] = useState<number | null>(null);
@@ -64,7 +66,7 @@ export const Feedback = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Customer Feedback"
+        title={t('restaurant.customerFeedback', 'Customer Feedback')}
         subtitle="Manage reviews and ratings"
         icon={MessageSquare}
       />

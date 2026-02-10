@@ -1,0 +1,19 @@
+{
+  "gymFitness": { "name": "Spor Salonu", "description": "Spor salonu ve fitness merkezi yönetimi" },
+  "manpowerStaffing": { "name": "İşgücü Yönetimi", "description": "Personel ve işgücü yönetimi" },
+  "realEstate": { "name": "Gayrimenkul", "description": "Mülk ve gayrimenkul yönetimi" },
+  "advertisingAgency": { "name": "Reklam Ajansı", "description": "Yaratıcı ajans ve kampanya yönetimi" },
+  "eventCompany": { "name": "Etkinlik Şirketi", "description": "Etkinlik planlama ve yönetimi" },
+  "beautySalon": { "name": "Güzellik Salonu", "description": "Güzellik ve bakım yönetimi" },
+  "laundry": { "name": "Çamaşırhane", "description": "Çamaşırhane ve kuru temizleme yönetimi" },
+  "hardware": { "name": "Nalburcu", "description": "Hırdavat mağazası ve envanter yönetimi" },
+  "ecommerce": { "name": "E-Ticaret", "description": "Online mağaza ve sipariş yönetimi" },
+  "restaurant": { "name": "Restoran", "description": "Restoran ve yemek hizmeti yönetimi" },
+  "healthcare": { "name": "Sağlık", "description": "Tıbbi ve sağlık hizmetleri yönetimi" },
+  "education": { "name": "Eğitim", "description": "Okul ve eğitim yönetimi" },
+  "hotel": { "name": "Otel", "description": "Otel ve konaklama yönetimi" },
+  "construction": { "name": "İnşaat", "description": "İnşaat proje yönetimi" },
+  "logistics": { "name": "Lojistik", "description": "Lojistik ve tedarik zinciri yönetimi" },
+  "manufacturing": { "name": "Üretim", "description": "Üretim ve imalat yönetimi" },
+  "law": { "name": "Hukuk Bürosu", "description": "Hukuk bürosu ve dava yönetimi" }
+}

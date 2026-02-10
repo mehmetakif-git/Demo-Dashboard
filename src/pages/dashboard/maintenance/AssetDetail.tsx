@@ -28,8 +28,10 @@ import {
   assetCategories,
   type Asset,
 } from '@/data/maintenanceData';
+import { useTranslation } from 'react-i18next';
 
 export const AssetDetail = () => {
+  const { t: _t } = useTranslation('common');
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 

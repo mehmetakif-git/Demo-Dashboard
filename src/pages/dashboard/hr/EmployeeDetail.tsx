@@ -19,6 +19,7 @@ import {
 import { Avatar, StatusBadge, Tabs } from '@/components/common';
 import { getEmployeeById, leaveRequests, payrollRecords, performanceReviews } from '@/data/hrData';
 import { profileImages } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 const tabs = [
   { id: 'overview', label: 'Overview' },
@@ -36,6 +37,7 @@ const mockDocuments = [
 ];
 
 export const EmployeeDetail = () => {
+  const { t: _t } = useTranslation('common');
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('overview');

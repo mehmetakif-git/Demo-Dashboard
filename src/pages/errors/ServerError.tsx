@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Home, RefreshCw, MessageCircle, ServerCrash, AlertTriangle } from 'lucide-react';
 
 export const ServerError = () => {
+  const { t } = useTranslation('errors');
   const navigate = useNavigate();
 
   const handleRetry = () => {
@@ -42,14 +44,13 @@ export const ServerError = () => {
         {/* Warning icon */}
         <div className="flex items-center justify-center gap-2 mb-4">
           <AlertTriangle className="h-5 w-5 text-amber-400" />
-          <span className="text-amber-400 text-sm font-medium">Server Error</span>
+          <span className="text-amber-400 text-sm font-medium">{t('serverError.title')}</span>
         </div>
 
         {/* Message */}
-        <h1 className="text-3xl font-bold text-white mb-3">Something Went Wrong</h1>
+        <h1 className="text-3xl font-bold text-white mb-3">{t('serverError.title')}</h1>
         <p className="text-text-secondary mb-8 max-w-md mx-auto">
-          We're experiencing technical difficulties. Our team has been notified
-          and is working to fix the issue. Please try again later.
+          {t('serverError.description')}
         </p>
 
         {/* Actions */}
@@ -59,14 +60,14 @@ export const ServerError = () => {
             className="flex items-center justify-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-6 py-3 text-sm font-medium text-white hover:bg-white/[0.05] transition-colors"
           >
             <RefreshCw className="h-4 w-4" />
-            Try Again
+            {t('serverError.retry')}
           </button>
           <button
             onClick={() => navigate('/dashboard')}
             className="flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-6 py-3 text-sm font-medium text-white hover:opacity-90 transition-opacity"
           >
             <Home className="h-4 w-4" />
-            Go to Dashboard
+            {t('serverError.goHome')}
           </button>
         </div>
 

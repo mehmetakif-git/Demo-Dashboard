@@ -24,8 +24,10 @@ import {
   getTypeColor,
   getTypeLabel,
 } from '@/data/qrCodeData';
+import { useTranslation } from 'react-i18next';
 
 export const Analytics = () => {
+  const { t } = useTranslation('common');
   const [selectedPeriod, setSelectedPeriod] = useState('month');
   const [selectedQRCode, setSelectedQRCode] = useState<string>('all');
 
@@ -92,7 +94,7 @@ export const Analytics = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="QR Code Analytics"
+        title={t('qr-codes.qrCodeAnalytics', 'QR Code Analytics')}
         subtitle="Track performance and scan statistics for your QR codes"
         actions={
           <div className="flex gap-2">

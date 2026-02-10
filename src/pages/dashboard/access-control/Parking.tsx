@@ -17,8 +17,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, StatsCard, Input, Button } from '@/components/common';
 import { parkingSpots, getParkingStatusColor, type ParkingSpot } from '@/data/accessControlData';
+import { useTranslation } from 'react-i18next';
 
 export const Parking = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedZone, setSelectedZone] = useState<string>('all');
   const [selectedType, setSelectedType] = useState<string>('all');
@@ -133,7 +135,7 @@ export const Parking = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Parking Management"
+        title={t('access-control.parkingManagement', 'Parking Management')}
         subtitle="Monitor and manage parking spaces across all zones"
         actions={
           <div className="flex items-center gap-2">

@@ -17,8 +17,10 @@ import {
   formatCurrency,
   formatDate,
 } from '@/data/laundry/laundryData';
+import { useTranslation } from 'react-i18next';
 
 export const Complaints = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
   const [selectedPriority, setSelectedPriority] = useState<string>('all');
@@ -116,7 +118,7 @@ export const Complaints = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Complaints"
+        title={t('laundry.complaints', 'Complaints')}
         subtitle="Manage customer complaints and issues"
         actions={<Button leftIcon={<Plus size={16} />}>New Complaint</Button>}
       />

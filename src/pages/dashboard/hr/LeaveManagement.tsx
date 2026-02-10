@@ -5,6 +5,7 @@ import { PageHeader, StatsCard, Tabs, StatusBadge, Avatar, DataTable } from '@/c
 import { leaveRequests } from '@/data/hrData';
 import { profileImages } from '@/utils/profileImages';
 import type { LeaveRequest } from '@/data/hrData';
+import { useTranslation } from 'react-i18next';
 
 const tabs = [
   { id: 'pending', label: 'Pending Requests', count: 0 },
@@ -13,6 +14,7 @@ const tabs = [
 ];
 
 export const LeaveManagement = () => {
+  const { t } = useTranslation('common');
   const [activeTab, setActiveTab] = useState('pending');
 
   const stats = useMemo(() => ({
@@ -188,7 +190,7 @@ export const LeaveManagement = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title="Leave Management"
+        title={t('hr.leaveManagement', 'Leave Management')}
         subtitle="Manage employee leave requests"
         icon={CalendarOff}
       />

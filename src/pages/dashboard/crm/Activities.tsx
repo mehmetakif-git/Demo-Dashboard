@@ -11,8 +11,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, StatsCard } from '@/components/common';
 import { activities, type Activity } from '@/data/crmData';
+import { useTranslation } from 'react-i18next';
 
 export const Activities = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [customerFilter, setCustomerFilter] = useState<string>('all');
@@ -104,7 +106,7 @@ export const Activities = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title="Activities"
+        title={t('crm.activities', 'Activities')}
         subtitle="Track customer interactions and tasks"
         actions={
           <button className="flex items-center gap-2 rounded-lg bg-[#547792] px-4 py-2 text-sm font-medium text-white hover:bg-[#5558e3] transition-colors">

@@ -21,8 +21,10 @@ import {
   getTypeLabel,
   type QRTemplate,
 } from '@/data/qrCodeData';
+import { useTranslation } from 'react-i18next';
 
 export const Templates = () => {
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedType, setSelectedType] = useState<string>('all');
@@ -81,7 +83,7 @@ export const Templates = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="QR Code Templates"
+        title={t('qr-codes.qrCodeTemplates', 'QR Code Templates')}
         subtitle="Save time with reusable QR code templates"
         actions={
           <Button leftIcon={<Plus size={16} />}>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { DollarSign, Users, Clock, TrendingUp } from 'lucide-react';
 import { useAuthStore } from '@/store/authStore';
 import { useAppStore } from '@/store/appStore';
@@ -14,8 +15,13 @@ import {
   QuickActions,
 } from '@/components/dashboard';
 
+const getLocale = (): string => {
+  const lang = localStorage.getItem('i18nextLng')?.substring(0, 2);
+  return lang === 'tr' ? 'tr-TR' : 'en-US';
+};
+
 const formatDate = (date: Date) => {
-  return date.toLocaleDateString('en-US', {
+  return date.toLocaleDateString(getLocale(), {
     weekday: 'long',
     year: 'numeric',
     month: 'long',
@@ -24,13 +30,14 @@ const formatDate = (date: Date) => {
 };
 
 const formatTime = (date: Date) => {
-  return date.toLocaleTimeString('en-US', {
+  return date.toLocaleTimeString(getLocale(), {
     hour: '2-digit',
     minute: '2-digit',
   });
 };
 
 export const Dashboard = () => {
+  const { t } = useTranslation('dashboard');
   const user = useAuthStore((state) => state.user);
   const { selectedSector } = useAppStore();
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -56,10 +63,10 @@ export const Dashboard = () => {
           animate={{ opacity: 1, x: 0 }}
         >
           <h1 className="text-2xl font-bold text-white">
-            Welcome back, {user?.name || 'User'}
+            {t('welcomeBack', { name: user?.name || 'User' })}
           </h1>
           <p className="text-white/60 mt-1">
-            {sector?.name || 'Business'} Dashboard
+            {sector?.name || 'Business'} {t('title')}
           </p>
         </motion.div>
 
@@ -77,7 +84,7 @@ export const Dashboard = () => {
       {/* KPI Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
         <KPICard
-          title="Total Revenue"
+          title={t('kpis.totalRevenue')}
           value={kpiData.totalRevenue.value}
           prefix="$"
           change={kpiData.totalRevenue.change}
@@ -89,7 +96,7 @@ export const Dashboard = () => {
           delay={0.1}
         />
         <KPICard
-          title="Active Clients"
+          title={t('kpis.activeMembers')}
           value={kpiData.activeClients.value}
           change={kpiData.activeClients.change}
           changeType={kpiData.activeClients.changeType}
@@ -100,7 +107,7 @@ export const Dashboard = () => {
           delay={0.15}
         />
         <KPICard
-          title="Pending Tasks"
+          title={t('kpis.pendingTasks')}
           value={kpiData.pendingTasks.value}
           change={kpiData.pendingTasks.change}
           changeType={kpiData.pendingTasks.changeType}
@@ -110,7 +117,7 @@ export const Dashboard = () => {
           delay={0.2}
         />
         <KPICard
-          title="Monthly Growth"
+          title={t('kpis.monthlyGrowth')}
           value={kpiData.growthRate.value}
           prefix="+"
           suffix="%"

@@ -14,8 +14,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, StatusBadge, Dropdown } from '@/components/common';
 import { products, categories, productStatuses } from '@/data/ecommerce/ecommerceData';
+import { useTranslation } from 'react-i18next';
 
 export const Products = () => {
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [viewMode, setViewMode] = useState<'grid' | 'table'>('table');
@@ -51,7 +53,7 @@ export const Products = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Products"
+        title={t('ecommerce.products', 'Products')}
         subtitle="Manage your product catalog"
         icon={Package}
         actions={

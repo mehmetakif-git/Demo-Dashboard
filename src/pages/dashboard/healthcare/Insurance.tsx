@@ -15,8 +15,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { billings, HEALTHCARE_COLOR } from '@/data/healthcare/healthcareData';
+import { useTranslation } from 'react-i18next';
 
 export const Insurance = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
@@ -83,7 +85,7 @@ export const Insurance = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Insurance Claims"
+        title={t('healthcare.insuranceClaims', 'Insurance Claims')}
         subtitle="Manage insurance claims and reimbursements"
         icon={Shield}
         actions={

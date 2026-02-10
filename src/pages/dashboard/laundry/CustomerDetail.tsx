@@ -20,8 +20,10 @@ import {
   formatDate,
 } from '@/data/laundry/laundryData';
 import { getProfileImage } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const CustomerDetail = () => {
+  const { t } = useTranslation('common');
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
@@ -32,7 +34,7 @@ export const CustomerDetail = () => {
     return (
       <div className="space-y-6">
         <PageHeader
-          title="Customer Not Found"
+          title={t('laundry.customerNotFound', 'Customer Not Found')}
           subtitle="The requested customer could not be found"
           actions={
             <Button variant="secondary" leftIcon={<ArrowLeft size={16} />} onClick={() => navigate(-1)}>

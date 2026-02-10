@@ -25,10 +25,12 @@ import {
 } from '@/data/staffing/staffingData';
 import { getProfileImage } from '@/utils/profileImages';
 import { ROUTES } from '@/utils/constants';
+import { useTranslation } from 'react-i18next';
 
 type ViewMode = 'grid' | 'table';
 
 export const CandidateList = () => {
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
   const [viewMode, setViewMode] = useState<ViewMode>('grid');
   const [searchQuery, setSearchQuery] = useState('');
@@ -95,7 +97,7 @@ export const CandidateList = () => {
       className="space-y-6"
     >
       <PageHeader
-        title="Candidates"
+        title={t('staffing.candidates', 'Candidates')}
         subtitle="Manage your talent pool"
         actions={
           <Button onClick={() => console.log('Add candidate')}>

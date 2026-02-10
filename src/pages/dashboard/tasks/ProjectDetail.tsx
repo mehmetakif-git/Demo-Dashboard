@@ -28,10 +28,12 @@ import {
   getTasksByProject,
   type Task,
 } from '@/data/taskData';
+import { useTranslation } from 'react-i18next';
 
 type TabType = 'tasks' | 'timeline' | 'team' | 'files';
 
 export const ProjectDetail = () => {
+  const { t: _t } = useTranslation('common');
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<TabType>('tasks');

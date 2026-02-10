@@ -13,8 +13,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, StatusBadge, Dropdown } from '@/components/common';
 import { discounts } from '@/data/ecommerce/ecommerceData';
+import { useTranslation } from 'react-i18next';
 
 export const Discounts = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<'all' | 'active' | 'expired'>('all');
 
@@ -59,7 +61,7 @@ export const Discounts = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Discounts & Coupons"
+        title={t('ecommerce.discountsCoupons', 'Discounts & Coupons')}
         subtitle="Manage promotional codes and offers"
         icon={Percent}
         actions={

@@ -14,8 +14,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { patients, consultations, prescriptions, labTests, radiologyStudies, HEALTHCARE_COLOR } from '@/data/healthcare/healthcareData';
+import { useTranslation } from 'react-i18next';
 
 export const MedicalRecords = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedPatient, setSelectedPatient] = useState<string | null>(null);
 
@@ -55,7 +57,7 @@ export const MedicalRecords = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Medical Records"
+        title={t('healthcare.medicalRecords', 'Medical Records')}
         subtitle="Access and manage patient medical records"
         icon={FileText}
       />

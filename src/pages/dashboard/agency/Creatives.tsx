@@ -22,8 +22,10 @@ import {
   getAssetStatusColor,
 } from '@/data/agency/agencyData';
 import { getCreativeThumbnail } from '@/utils/creativeImages';
+import { useTranslation } from 'react-i18next';
 
 export const Creatives = () => {
+  const { t } = useTranslation('common');
   const [searchTerm, setSearchTerm] = useState('');
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -85,7 +87,7 @@ export const Creatives = () => {
       className="space-y-6"
     >
       <PageHeader
-        title="Creatives"
+        title={t('agency.creatives', 'Creatives')}
         subtitle="Manage creative assets and design materials"
         actions={
           <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">

@@ -13,8 +13,10 @@ import {
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { tenants, REALESTATE_COLOR, getStatusColor } from '@/data/realestate/realestateData';
 import { getProfileImage, getCompanyLogo } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const Tenants = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
@@ -45,7 +47,7 @@ export const Tenants = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Tenants"
+        title={t('realestate.tenants', 'Tenants')}
         subtitle="Manage tenants and lease information"
         icon={UserCheck}
       />

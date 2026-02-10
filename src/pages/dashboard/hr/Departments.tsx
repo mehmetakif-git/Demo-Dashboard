@@ -4,8 +4,10 @@ import { Building2, Users, DollarSign, Plus, Eye, Pencil } from 'lucide-react';
 import { PageHeader, Avatar, Modal } from '@/components/common';
 import { departments, getEmployeesByDepartment } from '@/data/hrData';
 import { profileImages } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const Departments = () => {
+  const { t } = useTranslation('common');
   const [selectedDepartment, setSelectedDepartment] = useState<number | null>(null);
   const [showModal, setShowModal] = useState(false);
 
@@ -24,7 +26,7 @@ export const Departments = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title="Departments"
+        title={t('hr.departments', 'Departments')}
         subtitle={`${departments.length} departments in your organization`}
         icon={Building2}
         actions={

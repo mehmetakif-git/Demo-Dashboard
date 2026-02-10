@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button } from '@/components/common';
 import { categories } from '@/data/ecommerce/ecommerceData';
+import { useTranslation } from 'react-i18next';
 
 interface CategoryItemProps {
   category: typeof categories[0];
@@ -120,13 +121,14 @@ const CategoryItem = ({ category, level = 0 }: CategoryItemProps) => {
 };
 
 export const Categories = () => {
+  const { t } = useTranslation('common');
   const totalCategories = categories.length + categories.reduce((acc, cat) => acc + (cat.children?.length || 0), 0);
   const totalProducts = categories.reduce((acc, cat) => acc + cat.productCount, 0);
 
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Categories"
+        title={t('ecommerce.categories', 'Categories')}
         subtitle="Organize your product catalog"
         icon={FolderTree}
         actions={

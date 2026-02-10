@@ -13,8 +13,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, StatusBadge, Dropdown } from '@/components/common';
 import { prescriptions, HEALTHCARE_COLOR, getPatientProfileImage } from '@/data/healthcare/healthcareData';
+import { useTranslation } from 'react-i18next';
 
 export const Prescriptions = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
@@ -40,7 +42,7 @@ export const Prescriptions = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Prescriptions"
+        title={t('healthcare.prescriptions', 'Prescriptions')}
         subtitle="Manage patient prescriptions and medications"
         icon={Pill}
         actions={

@@ -20,8 +20,10 @@ import {
   formatCurrency,
 } from '@/data/beauty/beautyData';
 import { getProfileImage } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const StaffDetail = () => {
+  const { t } = useTranslation('common');
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
@@ -35,7 +37,7 @@ export const StaffDetail = () => {
     return (
       <div className="space-y-6">
         <PageHeader
-          title="Staff Not Found"
+          title={t('beauty.staffNotFound', 'Staff Not Found')}
           subtitle="The requested staff member could not be found"
           actions={
             <Button variant="secondary" leftIcon={<ArrowLeft size={16} />} onClick={() => navigate(-1)}>

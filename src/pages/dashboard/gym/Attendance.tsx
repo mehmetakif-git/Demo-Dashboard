@@ -21,8 +21,10 @@ import {
   type AttendanceRecord,
 } from '@/data/gym/gymData';
 import { profileImages } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const Attendance = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [dateFilter, setDateFilter] = useState<string>(new Date().toISOString().split('T')[0]);
 
@@ -92,7 +94,7 @@ export const Attendance = () => {
       transition={{ duration: 0.3 }}
       className="space-y-6"
     >
-      <PageHeader title="Attendance" subtitle="Track member check-ins and check-outs" />
+      <PageHeader title={t('gym.attendance', 'Attendance')} subtitle="Track member check-ins and check-outs" />
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">

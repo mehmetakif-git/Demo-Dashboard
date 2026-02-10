@@ -15,8 +15,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, StatusBadge, Dropdown } from '@/components/common';
 import { reservations, tables } from '@/data/restaurant/restaurantData';
+import { useTranslation } from 'react-i18next';
 
 export const Reservations = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [dateFilter, setDateFilter] = useState<string>('today');
@@ -62,7 +64,7 @@ export const Reservations = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Reservations"
+        title={t('restaurant.reservations', 'Reservations')}
         subtitle="Manage table reservations"
         icon={CalendarClock}
         actions={

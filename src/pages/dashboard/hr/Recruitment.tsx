@@ -14,8 +14,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, StatsCard, StatusBadge } from '@/components/common';
 import { jobPostings } from '@/data/hrData';
+import { useTranslation } from 'react-i18next';
 
 export const Recruitment = () => {
+  const { t } = useTranslation('common');
   const [viewMode, setViewMode] = useState<'cards' | 'table'>('cards');
 
   const stats = useMemo(() => ({
@@ -28,7 +30,7 @@ export const Recruitment = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title="Recruitment"
+        title={t('hr.recruitment', 'Recruitment')}
         subtitle="Manage job postings and candidates"
         icon={UserSearch}
         actions={

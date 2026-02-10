@@ -24,8 +24,10 @@ import {
 } from '@/data/staffing/staffingData';
 import { ROUTES } from '@/utils/constants';
 import { getProfileImage } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const Interviews = () => {
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -126,7 +128,7 @@ export const Interviews = () => {
       className="space-y-6"
     >
       <PageHeader
-        title="Interviews"
+        title={t('staffing.interviews', 'Interviews')}
         subtitle="Schedule and manage candidate interviews"
         actions={
           <Button onClick={() => console.log('Schedule interview')}>

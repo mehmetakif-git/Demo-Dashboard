@@ -19,8 +19,10 @@ import {
   guestStatuses,
   getGuestStatusColor,
 } from '@/data/events/eventsData';
+import { useTranslation } from 'react-i18next';
 
 export const Guests = () => {
+  const { t } = useTranslation('common');
   const [selectedEvent, setSelectedEvent] = useState<string>(events[0]?.id || '');
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -62,7 +64,7 @@ export const Guests = () => {
       className="space-y-6"
     >
       <PageHeader
-        title="Guests"
+        title={t('events.guests', 'Guests')}
         subtitle="Manage event guests and check-ins"
         actions={
           <div className="flex gap-2">

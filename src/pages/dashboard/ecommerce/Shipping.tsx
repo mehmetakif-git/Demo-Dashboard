@@ -15,8 +15,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, StatusBadge } from '@/components/common';
 import { shippingMethods, shippingZones, orders } from '@/data/ecommerce/ecommerceData';
+import { useTranslation } from 'react-i18next';
 
 export const Shipping = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [activeTab, setActiveTab] = useState<'methods' | 'zones' | 'shipments'>('shipments');
 
@@ -51,7 +53,7 @@ export const Shipping = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Shipping"
+        title={t('ecommerce.shipping', 'Shipping')}
         subtitle="Manage shipping methods, zones, and track deliveries"
         icon={Truck}
         actions={

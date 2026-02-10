@@ -23,8 +23,10 @@ import {
   agents,
   REALESTATE_COLOR,
 } from '@/data/realestate/realestateData';
+import { useTranslation } from 'react-i18next';
 
 export const Reports = () => {
+  const { t } = useTranslation('common');
   const propertyStats = useMemo(() => {
     const total = properties.length;
     const available = properties.filter(p => p.status === 'available').length;
@@ -180,7 +182,7 @@ export const Reports = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Reports"
+        title={t('realestate.reports', 'Reports')}
         subtitle="Analytics and performance metrics"
         icon={BarChart3}
       />

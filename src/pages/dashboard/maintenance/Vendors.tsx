@@ -25,8 +25,10 @@ import {
   getStatusColor,
   type Vendor,
 } from '@/data/maintenanceData';
+import { useTranslation } from 'react-i18next';
 
 export const Vendors = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedType, setSelectedType] = useState<string>('all');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
@@ -108,7 +110,7 @@ export const Vendors = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Vendors & Suppliers"
+        title={t('maintenance.vendorsSuppliers', 'Vendors & Suppliers')}
         subtitle="Manage maintenance vendors and service providers"
         actions={
           <Button leftIcon={<Plus size={16} />}>

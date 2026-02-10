@@ -18,8 +18,10 @@ import {
 import { PageHeader, Card, Input, Button } from '@/components/common';
 import { employeeDirectory, getStatusColor, type Employee } from '@/data/communicationData';
 import { getProfileImage } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const Directory = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDepartment, setSelectedDepartment] = useState<string>('all');
   const [selectedLocation, setSelectedLocation] = useState<string>('all');
@@ -223,7 +225,7 @@ export const Directory = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Employee Directory"
+        title={t('communication.employeeDirectory', 'Employee Directory')}
         subtitle="Find and connect with colleagues"
       />
 

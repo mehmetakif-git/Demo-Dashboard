@@ -19,8 +19,10 @@ import {
   formatDate,
   getAlertPriorityColor,
 } from '@/data/hardware/hardwareData';
+import { useTranslation } from 'react-i18next';
 
 export const Alerts = () => {
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
   const [selectedPriority, setSelectedPriority] = useState<string>('all');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
@@ -76,7 +78,7 @@ export const Alerts = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Low Stock Alerts"
+        title={t('hardware.lowStockAlerts', 'Low Stock Alerts')}
         subtitle="Monitor and manage inventory alerts"
         actions={
           <Button variant="secondary" leftIcon={<Bell size={16} />}>

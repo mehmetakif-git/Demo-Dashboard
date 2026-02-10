@@ -12,8 +12,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button } from '@/components/common';
 import { tables } from '@/data/restaurant/restaurantData';
+import { useTranslation } from 'react-i18next';
 
 export const TableQRCodes = () => {
+  const { t } = useTranslation('common');
   const [selectedTables, setSelectedTables] = useState<string[]>([]);
   const [sectionFilter, setSectionFilter] = useState<string>('all');
 
@@ -50,7 +52,7 @@ export const TableQRCodes = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Table QR Codes"
+        title={t('restaurant.tableQrCodes', 'Table QR Codes')}
         subtitle="Generate and manage QR codes for table ordering"
         icon={QrCode}
         actions={

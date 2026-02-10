@@ -23,8 +23,10 @@ import {
   type Message,
 } from '@/data/communicationData';
 import { getProfileImage, getCompanyLogo } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const GroupChats = () => {
+  const { t: _t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedGroup, setSelectedGroup] = useState<GroupChat | null>(groupChats[0]);
   const [messageInput, setMessageInput] = useState('');

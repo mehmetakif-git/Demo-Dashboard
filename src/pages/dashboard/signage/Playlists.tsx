@@ -34,6 +34,7 @@ import display9 from '@/assets/images/displays/display-9.webp';
 import display10 from '@/assets/images/displays/display-10.webp';
 import display11 from '@/assets/images/displays/display-11.webp';
 import display12 from '@/assets/images/displays/display-12.webp';
+import { useTranslation } from 'react-i18next';
 
 // Map content names to thumbnail images
 const contentImages: Record<string, string> = {
@@ -52,6 +53,7 @@ const contentImages: Record<string, string> = {
 };
 
 export const Playlists = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
   const [selectedPlaylist, setSelectedPlaylist] = useState<Playlist | null>(null);
@@ -115,7 +117,7 @@ export const Playlists = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Playlists"
+        title={t('signage.playlists', 'Playlists')}
         subtitle="Create and manage content playlists for your displays"
         actions={
           <Button leftIcon={<Plus size={16} />}>

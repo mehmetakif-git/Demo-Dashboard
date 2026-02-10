@@ -18,8 +18,10 @@ import {
   formatDuration,
   formatCurrency,
 } from '@/data/beauty/beautyData';
+import { useTranslation } from 'react-i18next';
 
 export const Services = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedCategories, setExpandedCategories] = useState<string[]>(
     serviceCategories.map((c) => c.id)
@@ -60,7 +62,7 @@ export const Services = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Services"
+        title={t('beauty.services', 'Services')}
         subtitle="Manage your salon services"
         actions={<Button leftIcon={<Plus size={16} />}>Add Service</Button>}
       />

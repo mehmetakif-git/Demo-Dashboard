@@ -19,8 +19,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, StatsCard, Input, Button } from '@/components/common';
 import { cameras, getCameraStatusColor, type Camera as CameraType } from '@/data/accessControlData';
+import { useTranslation } from 'react-i18next';
 
 export const Cameras = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
   const [selectedType, setSelectedType] = useState<string>('all');
@@ -88,7 +90,7 @@ export const Cameras = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Cameras"
+        title={t('access-control.cameras', 'Cameras')}
         subtitle="Manage and configure security cameras"
         actions={
           <Button leftIcon={<Plus size={16} />}>

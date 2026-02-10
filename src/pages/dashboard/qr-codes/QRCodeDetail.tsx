@@ -36,8 +36,10 @@ import {
   getTypeLabel,
   type QRCode,
 } from '@/data/qrCodeData';
+import { useTranslation } from 'react-i18next';
 
 export const QRCodeDetail = () => {
+  const { t } = useTranslation('common');
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
@@ -48,7 +50,7 @@ export const QRCodeDetail = () => {
     return (
       <div className="space-y-6">
         <PageHeader
-          title="QR Code Not Found"
+          title={t('qr-codes.qrCodeNotFound', 'QR Code Not Found')}
           subtitle="The requested QR code could not be found"
           actions={
             <Button

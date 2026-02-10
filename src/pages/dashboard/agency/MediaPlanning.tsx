@@ -20,8 +20,10 @@ import {
   mediaPlans,
   formatCurrency,
 } from '@/data/agency/agencyData';
+import { useTranslation } from 'react-i18next';
 
 export const MediaPlanning = () => {
+  const { t } = useTranslation('common');
   const [searchTerm, setSearchTerm] = useState('');
   const [channelFilter, setChannelFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -82,7 +84,7 @@ export const MediaPlanning = () => {
       className="space-y-6"
     >
       <PageHeader
-        title="Media Planning"
+        title={t('agency.mediaPlanning', 'Media Planning')}
         subtitle="Plan and manage media placements across channels"
         actions={
           <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">

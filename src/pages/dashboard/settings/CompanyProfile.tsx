@@ -24,8 +24,10 @@ import {
   countries,
   type CompanyProfile as CompanyProfileType,
 } from '@/data/settingsData';
+import { useTranslation } from 'react-i18next';
 
 export const CompanyProfile = () => {
+  const { t } = useTranslation('common');
   const [formData, setFormData] = useState<CompanyProfileType>(companyProfile);
   const [hasChanges, setHasChanges] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -55,7 +57,7 @@ export const CompanyProfile = () => {
   return (
     <div className="space-y-6 pb-20">
       <PageHeader
-        title="Company Profile"
+        title={t('settings.companyProfile', 'Company Profile')}
         subtitle="Manage your company information and branding"
       />
 

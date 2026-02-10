@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button } from '@/components/common';
 import { tasks, calendarEvents, getPriorityColor, getStatusColor, type Task, type CalendarEvent } from '@/data/taskData';
+import { useTranslation } from 'react-i18next';
 
 type ViewMode = 'month' | 'week';
 
@@ -21,6 +22,7 @@ interface DayCell {
 }
 
 export const Calendar = () => {
+  const { t } = useTranslation('common');
   const [currentDate, setCurrentDate] = useState(new Date(2024, 11, 1)); // December 2024
   const [viewMode, setViewMode] = useState<ViewMode>('month');
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -128,7 +130,7 @@ export const Calendar = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Task Calendar"
+        title={t('tasks.taskCalendar', 'Task Calendar')}
         subtitle="View tasks and deadlines in calendar format"
       />
 

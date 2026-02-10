@@ -34,8 +34,10 @@ import {
   getEventStatusColor,
   getEventTypeColor,
 } from '@/data/events/eventsData';
+import { useTranslation } from 'react-i18next';
 
 export const EventList = () => {
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -94,7 +96,7 @@ export const EventList = () => {
       className="space-y-6"
     >
       <PageHeader
-        title="Events"
+        title={t('events.events', 'Events')}
         subtitle="Plan and manage all your events"
         actions={
           <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">

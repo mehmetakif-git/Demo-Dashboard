@@ -5,8 +5,10 @@ import { PageHeader, StatsCard, StatusBadge, Avatar, DataTable } from '@/compone
 import { attendanceRecords } from '@/data/hrData';
 import { profileImages } from '@/utils/profileImages';
 import type { AttendanceRecord } from '@/data/hrData';
+import { useTranslation } from 'react-i18next';
 
 export const Attendance = () => {
+  const { t } = useTranslation('common');
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
 
   const stats = useMemo(() => {
@@ -77,7 +79,7 @@ export const Attendance = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title="Attendance"
+        title={t('hr.attendance', 'Attendance')}
         subtitle="Track employee attendance"
         icon={CalendarCheck}
         actions={

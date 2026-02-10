@@ -16,8 +16,10 @@ import {
   formatCurrency,
 } from '@/data/staffing/staffingData';
 import { getProfileImage } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const Payroll = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [periodFilter, setPeriodFilter] = useState<string>('current');
 
@@ -102,7 +104,7 @@ export const Payroll = () => {
       className="space-y-6"
     >
       <PageHeader
-        title="Payroll"
+        title={t('staffing.payroll', 'Payroll')}
         subtitle="Manage contractor payroll and billing"
         actions={
           <div className="flex items-center gap-2">

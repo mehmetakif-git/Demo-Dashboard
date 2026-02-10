@@ -33,6 +33,7 @@ import {
   cornerStyleOptions,
   getTypeColor,
 } from '@/data/qrCodeData';
+import { useTranslation } from 'react-i18next';
 
 type Step = 'type' | 'content' | 'style' | 'preview';
 
@@ -56,6 +57,7 @@ const typeIcons: Record<string, React.ElementType> = {
 };
 
 export const CreateQRCode = () => {
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState<Step>('type');
   const [formData, setFormData] = useState({
@@ -729,7 +731,7 @@ export const CreateQRCode = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Create QR Code"
+        title={t('qr-codes.createQrCode', 'Create QR Code')}
         subtitle="Generate a new QR code in a few simple steps"
         actions={
           <Button

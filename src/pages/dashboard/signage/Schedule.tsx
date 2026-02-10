@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, StatsCard, Input, Button } from '@/components/common';
 import { schedules, type Schedule as ScheduleType } from '@/data/signageData';
+import { useTranslation } from 'react-i18next';
 
 const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 const PLAYLIST_COLORS: Record<string, string> = {
@@ -33,6 +34,7 @@ const PLAYLIST_COLORS: Record<string, string> = {
 };
 
 export const Schedule = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDisplay, setSelectedDisplay] = useState<string>('all');
   const [selectedPlaylist, setSelectedPlaylist] = useState<string>('all');
@@ -110,7 +112,7 @@ export const Schedule = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Display Schedule"
+        title={t('signage.displaySchedule', 'Display Schedule')}
         subtitle="Manage content schedules for your displays"
         actions={
           <Button leftIcon={<Plus size={16} />}>

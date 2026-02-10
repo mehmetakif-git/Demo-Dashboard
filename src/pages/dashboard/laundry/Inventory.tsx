@@ -15,8 +15,10 @@ import {
   inventory,
   formatCurrency,
 } from '@/data/laundry/laundryData';
+import { useTranslation } from 'react-i18next';
 
 export const Inventory = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
@@ -74,7 +76,7 @@ export const Inventory = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Inventory"
+        title={t('laundry.inventory', 'Inventory')}
         subtitle="Manage supplies and inventory levels"
         actions={
           <div className="flex gap-2">

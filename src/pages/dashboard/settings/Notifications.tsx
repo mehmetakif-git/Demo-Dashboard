@@ -15,6 +15,7 @@ import {
   notificationSettings as initialSettings,
   type NotificationSettings,
 } from '@/data/settingsData';
+import { useTranslation } from 'react-i18next';
 
 interface ToggleProps {
   enabled: boolean;
@@ -37,6 +38,7 @@ const Toggle = ({ enabled, onChange }: ToggleProps) => (
 );
 
 export const Notifications = () => {
+  const { t } = useTranslation('common');
   const [settings, setSettings] = useState<NotificationSettings>(initialSettings);
   const [hasChanges, setHasChanges] = useState(false);
   const [testSent, setTestSent] = useState(false);
@@ -122,7 +124,7 @@ export const Notifications = () => {
   return (
     <div className="space-y-6 pb-20">
       <PageHeader
-        title="Notification Settings"
+        title={t('settings.notificationSettings', 'Notification Settings')}
         subtitle="Manage how and when you receive notifications"
         actions={
           <Button

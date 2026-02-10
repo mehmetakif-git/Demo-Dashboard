@@ -13,8 +13,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, StatsCard, Input, Button, DataTable } from '@/components/common';
 import { tasks, projects, taskStatuses, taskPriorities, getPriorityColor, getStatusColor, getStatusName, getPriorityName, type Task } from '@/data/taskData';
+import { useTranslation } from 'react-i18next';
 
 export const AllTasks = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
   const [selectedPriority, setSelectedPriority] = useState<string>('all');
@@ -195,7 +197,7 @@ export const AllTasks = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="All Tasks"
+        title={t('tasks.allTasks', 'All Tasks')}
         subtitle="View and manage all tasks across the organization"
         actions={
           <Button leftIcon={<Plus size={16} />}>

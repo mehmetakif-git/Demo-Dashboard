@@ -33,8 +33,10 @@ import {
   formatDate,
   type ReportTemplate,
 } from '@/data/reportData';
+import { useTranslation } from 'react-i18next';
 
 export const ReportBuilder = () => {
+  const { t } = useTranslation('common');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTemplate, setSelectedTemplate] = useState<ReportTemplate | null>(null);
@@ -124,7 +126,7 @@ export const ReportBuilder = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Report Builder"
+        title={t('reports.reportBuilder', 'Report Builder')}
         subtitle="Generate reports from templates"
       />
 

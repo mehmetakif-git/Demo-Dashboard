@@ -27,8 +27,10 @@ import {
   pipelineStages,
   activityTypeIcons,
 } from '@/data/crmData';
+import { useTranslation } from 'react-i18next';
 
 export const CustomerDetail = () => {
+  const { t: _t } = useTranslation('common');
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const [activeTab, setActiveTab] = useState('overview');

@@ -27,6 +27,7 @@ import cam7 from '@/assets/images/cameras/cam-7.webp';
 import cam8 from '@/assets/images/cameras/cam-8.webp';
 import cam9 from '@/assets/images/cameras/cam-9.webp';
 import cam10 from '@/assets/images/cameras/cam-10.webp';
+import { useTranslation } from 'react-i18next';
 
 // Map camera names to images
 const cameraImages: Record<string, string> = {
@@ -45,6 +46,7 @@ const cameraImages: Record<string, string> = {
 type GridLayout = '2x2' | '3x3' | '4x4';
 
 export const CCTVMonitoring = () => {
+  const { t } = useTranslation('common');
   const [gridLayout, setGridLayout] = useState<GridLayout>('3x3');
   const [selectedCamera, setSelectedCamera] = useState<string | null>(null);
   const [mutedCameras, setMutedCameras] = useState<Set<string>>(new Set());
@@ -99,7 +101,7 @@ export const CCTVMonitoring = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="CCTV Monitoring"
+        title={t('access-control.cctvMonitoring', 'CCTV Monitoring')}
         subtitle="Live camera feeds and surveillance monitoring"
         actions={
           <div className="flex items-center gap-2">

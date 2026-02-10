@@ -1,20 +1,15 @@
 import { Link, useLocation } from 'react-router-dom';
 import { ChevronRight, Home } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface BreadcrumbItem {
   label: string;
   path: string;
 }
 
-// Map paths to readable labels
-const pathLabels: Record<string, string> = {
-  '/dashboard': 'Dashboard',
-  '/select-sector': 'Select Sector',
-  '/select-account': 'Select Account',
-};
-
 export const Breadcrumb = () => {
   const location = useLocation();
+  const { t } = useTranslation('breadcrumb');
 
   // Generate breadcrumb items from current path
   const getBreadcrumbs = (): BreadcrumbItem[] => {
@@ -24,7 +19,10 @@ export const Breadcrumb = () => {
     let currentPath = '';
     pathSegments.forEach((segment) => {
       currentPath += `/${segment}`;
-      const label = pathLabels[currentPath] || segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, ' ');
+      // Convert segment to camelCase for translation lookup
+      const camelSegment = segment.replace(/-([a-z])/g, (_, c: string) => c.toUpperCase());
+      const translated = t(camelSegment, { defaultValue: '' });
+      const label = translated || segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, ' ');
       breadcrumbs.push({
         label,
         path: currentPath,

@@ -20,8 +20,10 @@ import {
   getStatusColor,
   type APIKey,
 } from '@/data/settingsData';
+import { useTranslation } from 'react-i18next';
 
 export const APIKeys = () => {
+  const { t } = useTranslation('common');
   const [selectedKey, setSelectedKey] = useState<APIKey | null>(null);
   const [showFullKey, setShowFullKey] = useState(false);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -61,7 +63,7 @@ export const APIKeys = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="API Keys"
+        title={t('settings.apiKeys', 'API Keys')}
         subtitle="Manage API keys for integrations and external access"
         actions={
           <Button leftIcon={<Plus size={16} />} onClick={() => setIsCreateModalOpen(true)}>

@@ -23,8 +23,10 @@ import {
   getClientTierColor,
 } from '@/data/agency/agencyData';
 import { getCompanyLogo } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const ClientList = () => {
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [tierFilter, setTierFilter] = useState<string>('all');
@@ -68,7 +70,7 @@ export const ClientList = () => {
       className="space-y-6"
     >
       <PageHeader
-        title="Clients"
+        title={t('agency.clients', 'Clients')}
         subtitle="Manage your agency's client portfolio"
         actions={
           <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">

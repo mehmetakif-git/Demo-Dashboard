@@ -1,0 +1,35 @@
+{
+  "title": "Dashboard",
+  "welcomeBack": "Welcome back, {{name}}",
+  "kpis": {
+    "totalRevenue": "Total Revenue",
+    "activeMembers": "Active Members",
+    "pendingTasks": "Pending Tasks",
+    "monthlyGrowth": "This Month's Growth",
+    "fromLastMonth": "from last month",
+    "urgent": "urgent",
+    "onTrack": "On track"
+  },
+  "recentActivities": {
+    "title": "Recent Activities",
+    "viewAll": "View All"
+  },
+  "upcomingTasks": {
+    "title": "Upcoming Tasks",
+    "viewAll": "View All"
+  },
+  "quickActions": {
+    "title": "Quick Actions",
+    "addEmployee": "Add Employee",
+    "createInvoice": "Create Invoice",
+    "newTask": "New Task",
+    "generateReport": "Generate Report"
+  },
+  "charts": {
+    "revenue": "Revenue Overview",
+    "tasks": "Task Distribution",
+    "monthly": "Monthly",
+    "weekly": "Weekly",
+    "daily": "Daily"
+  }
+}

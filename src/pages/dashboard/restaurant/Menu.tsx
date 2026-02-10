@@ -15,8 +15,10 @@ import {
 import { PageHeader, Card, Button, Input, StatusBadge } from '@/components/common';
 import { menuItems, menuCategories } from '@/data/restaurant/restaurantData';
 import { getMenuImage } from '@/utils/menuImages';
+import { useTranslation } from 'react-i18next';
 
 export const Menu = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [showUnavailable, setShowUnavailable] = useState(true);
@@ -44,7 +46,7 @@ export const Menu = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Menu Management"
+        title={t('restaurant.menuManagement', 'Menu Management')}
         subtitle="Manage your restaurant menu items"
         icon={UtensilsCrossed}
         actions={

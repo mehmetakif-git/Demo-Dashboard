@@ -18,8 +18,10 @@ import {
   products,
   formatCurrency,
 } from '@/data/hardware/hardwareData';
+import { useTranslation } from 'react-i18next';
 
 export const PriceLists = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<'all' | 'active' | 'inactive'>('all');
   const [selectedList, setSelectedList] = useState<string | null>(null);
@@ -69,7 +71,7 @@ export const PriceLists = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Price Lists"
+        title={t('hardware.priceLists', 'Price Lists')}
         subtitle="Manage custom pricing for different customer groups"
         actions={<Button leftIcon={<Plus size={16} />}>New Price List</Button>}
       />

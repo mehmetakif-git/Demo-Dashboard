@@ -13,10 +13,12 @@ import {
 import { employees, departments } from '@/data/hrData';
 import type { Employee } from '@/data/hrData';
 import { profileImages } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 const ITEMS_PER_PAGE = 10;
 
 export const EmployeeList = () => {
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [departmentFilter, setDepartmentFilter] = useState('all');
@@ -136,7 +138,7 @@ export const EmployeeList = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title="Employees"
+        title={t('hr.employees', 'Employees')}
         subtitle={`Manage your team of ${stats.total} employees`}
         icon={Users}
         actions={

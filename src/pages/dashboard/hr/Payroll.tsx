@@ -5,8 +5,10 @@ import { PageHeader, StatsCard, StatusBadge, Avatar, DataTable } from '@/compone
 import { payrollRecords } from '@/data/hrData';
 import { profileImages } from '@/utils/profileImages';
 import type { PayrollRecord } from '@/data/hrData';
+import { useTranslation } from 'react-i18next';
 
 export const Payroll = () => {
+  const { t } = useTranslation('common');
   const [selectedMonth, setSelectedMonth] = useState('December 2024');
 
   const stats = useMemo(() => {
@@ -100,7 +102,7 @@ export const Payroll = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title="Payroll"
+        title={t('hr.payroll', 'Payroll')}
         subtitle="Manage employee salaries and payments"
         icon={Wallet}
         actions={

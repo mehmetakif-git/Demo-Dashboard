@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input } from '@/components/common';
 import { moduleSettings, months, weekDays, type ModuleSettings as ModuleSettingsType } from '@/data/settingsData';
+import { useTranslation } from 'react-i18next';
 
 interface ToggleProps {
   enabled: boolean;
@@ -101,6 +102,7 @@ const TagInput = ({ label, tags, onChange }: TagInputProps) => {
 };
 
 export const ModuleSettings = () => {
+  const { t } = useTranslation('common');
   const [settings, setSettings] = useState<ModuleSettingsType>(moduleSettings);
   const [expandedModule, setExpandedModule] = useState<string | null>('hr');
   const [hasChanges, setHasChanges] = useState(false);
@@ -173,7 +175,7 @@ export const ModuleSettings = () => {
   return (
     <div className="space-y-6 pb-20">
       <PageHeader
-        title="Module Settings"
+        title={t('settings.moduleSettings', 'Module Settings')}
         subtitle="Configure individual module settings and options"
       />
 

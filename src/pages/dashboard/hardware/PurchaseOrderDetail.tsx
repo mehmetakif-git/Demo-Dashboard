@@ -22,8 +22,10 @@ import {
   formatDate,
   getPOStatusColor,
 } from '@/data/hardware/hardwareData';
+import { useTranslation } from 'react-i18next';
 
 export const PurchaseOrderDetail = () => {
+  const { t } = useTranslation('common');
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
@@ -34,7 +36,7 @@ export const PurchaseOrderDetail = () => {
     return (
       <div className="space-y-6">
         <PageHeader
-          title="Purchase Order Not Found"
+          title={t('hardware.purchaseOrderNotFound', 'Purchase Order Not Found')}
           subtitle="The requested purchase order does not exist"
         />
         <Card className="p-12 text-center">

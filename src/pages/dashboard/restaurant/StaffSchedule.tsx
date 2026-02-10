@@ -16,8 +16,10 @@ import {
 import { PageHeader, Card, Button, Input, StatusBadge, Dropdown } from '@/components/common';
 import { staffMembers, staffSchedule } from '@/data/restaurant/restaurantData';
 import { getProfileImage } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const StaffSchedule = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [roleFilter, setRoleFilter] = useState<string>('all');
   const [dateFilter, setDateFilter] = useState<string>('today');
@@ -80,7 +82,7 @@ export const StaffSchedule = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Staff Schedule"
+        title={t('restaurant.staffSchedule', 'Staff Schedule')}
         subtitle="Manage staff shifts and schedules"
         icon={Users}
         actions={

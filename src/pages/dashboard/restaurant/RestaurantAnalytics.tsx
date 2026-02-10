@@ -28,8 +28,10 @@ import {
 } from 'recharts';
 import { PageHeader, Card, Button } from '@/components/common';
 import { restaurantOrders, menuItems, customerFeedback } from '@/data/restaurant/restaurantData';
+import { useTranslation } from 'react-i18next';
 
 export const RestaurantAnalytics = () => {
+  const { t } = useTranslation('common');
   const [period, setPeriod] = useState<'today' | 'week' | 'month'>('week');
 
   // Calculate stats from mock data
@@ -90,7 +92,7 @@ export const RestaurantAnalytics = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Analytics"
+        title={t('restaurant.analytics', 'Analytics')}
         subtitle="Restaurant performance insights"
         icon={BarChart3}
         actions={

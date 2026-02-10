@@ -14,8 +14,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, StatusBadge, Dropdown } from '@/components/common';
 import { patients, HEALTHCARE_COLOR } from '@/data/healthcare/healthcareData';
+import { useTranslation } from 'react-i18next';
 
 export const Patients = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [genderFilter, setGenderFilter] = useState<string>('all');
@@ -69,7 +71,7 @@ export const Patients = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Patients"
+        title={t('healthcare.patients', 'Patients')}
         subtitle="Manage patient records and information"
         icon={Users}
         actions={

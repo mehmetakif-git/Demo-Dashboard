@@ -16,8 +16,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, StatsCard, Input, Button } from '@/components/common';
 import { accessLogs } from '@/data/accessControlData';
+import { useTranslation } from 'react-i18next';
 
 export const AccessLogs = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedAction, setSelectedAction] = useState<string>('all');
   const [selectedDoor, setSelectedDoor] = useState<string>('all');
@@ -111,7 +113,7 @@ export const AccessLogs = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Access Logs"
+        title={t('access-control.accessLogs', 'Access Logs')}
         subtitle="Monitor and audit access events across all entry points"
         actions={
           <div className="flex items-center gap-2">

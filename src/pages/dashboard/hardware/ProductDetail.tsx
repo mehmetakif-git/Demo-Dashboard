@@ -18,8 +18,10 @@ import {
   formatCurrency,
   formatDate,
 } from '@/data/hardware/hardwareData';
+import { useTranslation } from 'react-i18next';
 
 export const ProductDetail = () => {
+  const { t } = useTranslation('common');
   const { id } = useParams();
   const navigate = useNavigate();
   const product = getProductById(id || '');
@@ -30,7 +32,7 @@ export const ProductDetail = () => {
     return (
       <div className="space-y-6">
         <PageHeader
-          title="Product Not Found"
+          title={t('hardware.productNotFound', 'Product Not Found')}
           subtitle="The requested product could not be found"
           actions={
             <Button variant="secondary" leftIcon={<ArrowLeft size={16} />} onClick={() => navigate(-1)}>

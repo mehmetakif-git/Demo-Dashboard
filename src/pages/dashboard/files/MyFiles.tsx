@@ -35,8 +35,10 @@ import {
   formatDate,
   type FileItem,
 } from '@/data/fileData';
+import { useTranslation } from 'react-i18next';
 
 export const MyFiles = () => {
+  const { t } = useTranslation('common');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState<'name' | 'modified' | 'size' | 'type'>('modified');
@@ -260,7 +262,7 @@ export const MyFiles = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="My Files"
+        title={t('files.myFiles', 'My Files')}
         subtitle="Manage your personal files and folders"
         actions={
           <div className="flex items-center gap-2">

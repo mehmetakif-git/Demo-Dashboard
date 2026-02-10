@@ -20,8 +20,10 @@ import {
 } from '@/data/staffing/staffingData';
 import { ROUTES } from '@/utils/constants';
 import { getProfileImage } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const Placements = () => {
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -88,7 +90,7 @@ export const Placements = () => {
       className="space-y-6"
     >
       <PageHeader
-        title="Placements"
+        title={t('staffing.placements', 'Placements')}
         subtitle="Track active and completed placements"
         actions={
           <Button onClick={() => console.log('Add placement')}>

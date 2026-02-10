@@ -27,8 +27,10 @@ import {
 } from 'recharts';
 import { PageHeader, Card, Button } from '@/components/common';
 import { patients, appointments, consultations, labTests, beds, billings, HEALTHCARE_COLOR } from '@/data/healthcare/healthcareData';
+import { useTranslation } from 'react-i18next';
 
 export const HealthcareReports = () => {
+  const { t } = useTranslation('common');
   const [period, setPeriod] = useState<'today' | 'week' | 'month'>('week');
 
   const stats = useMemo(() => {
@@ -85,7 +87,7 @@ export const HealthcareReports = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Reports & Analytics"
+        title={t('healthcare.reportsAnalytics', 'Reports & Analytics')}
         subtitle="Healthcare performance insights"
         icon={BarChart3}
         actions={

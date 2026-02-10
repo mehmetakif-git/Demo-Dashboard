@@ -20,8 +20,10 @@ import {
   formatCurrency,
 } from '@/data/beauty/beautyData';
 import { getProfileImage } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const Clients = () => {
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFilter, setSelectedFilter] = useState<string>('all');
@@ -76,7 +78,7 @@ export const Clients = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Clients"
+        title={t('beauty.clients', 'Clients')}
         subtitle="Manage your salon clients"
         actions={
           <Button leftIcon={<Plus size={16} />}>Add Client</Button>

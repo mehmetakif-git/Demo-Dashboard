@@ -25,8 +25,10 @@ import {
   getTalentTierColor,
 } from '@/data/agency/agencyData';
 import { getProfileImage } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const Talent = () => {
+  const { t } = useTranslation('common');
   const [searchTerm, setSearchTerm] = useState('');
   const [tierFilter, setTierFilter] = useState<string>('all');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
@@ -84,7 +86,7 @@ export const Talent = () => {
       className="space-y-6"
     >
       <PageHeader
-        title="Talent & Influencers"
+        title={t('agency.talentInfluencers', 'Talent & Influencers')}
         subtitle="Manage talent roster and influencer partnerships"
         actions={
           <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">

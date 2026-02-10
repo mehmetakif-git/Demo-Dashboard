@@ -11,8 +11,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { contracts, agents, REALESTATE_COLOR, getStatusColor } from '@/data/realestate/realestateData';
+import { useTranslation } from 'react-i18next';
 
 export const Commissions = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [agentFilter, setAgentFilter] = useState<string>('all');
 
@@ -52,7 +54,7 @@ export const Commissions = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Commissions"
+        title={t('realestate.commissions', 'Commissions')}
         subtitle="Track agent commissions and earnings"
         icon={DollarSign}
       />

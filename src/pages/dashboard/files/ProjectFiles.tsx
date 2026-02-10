@@ -16,8 +16,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button } from '@/components/common';
 import { projectFiles, formatDate, type Project } from '@/data/fileData';
+import { useTranslation } from 'react-i18next';
 
 export const ProjectFiles = () => {
+  const { t } = useTranslation('common');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const getFileIcon = (type: string, size: number = 20) => {
@@ -173,7 +175,7 @@ export const ProjectFiles = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Project Files"
+        title={t('files.projectFiles', 'Project Files')}
         subtitle="Browse files organized by project"
       />
 

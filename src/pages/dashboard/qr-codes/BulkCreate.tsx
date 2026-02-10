@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input } from '@/components/common';
 import { qrFolders, qrCodeTypes } from '@/data/qrCodeData';
+import { useTranslation } from 'react-i18next';
 
 interface BulkQRItem {
   id: string;
@@ -30,6 +31,7 @@ interface BulkQRItem {
 }
 
 export const BulkCreate = () => {
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'upload' | 'manual'>('upload');
   const [items, setItems] = useState<BulkQRItem[]>([]);
@@ -102,7 +104,7 @@ export const BulkCreate = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Bulk Create QR Codes"
+        title={t('qr-codes.bulkCreateQrCodes', 'Bulk Create QR Codes')}
         subtitle="Create multiple QR codes at once"
         actions={
           <div className="flex gap-2">

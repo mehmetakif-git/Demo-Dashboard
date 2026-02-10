@@ -24,8 +24,10 @@ import {
   getStatusColor,
   type SparePart,
 } from '@/data/maintenanceData';
+import { useTranslation } from 'react-i18next';
 
 export const Inventory = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -96,7 +98,7 @@ export const Inventory = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Spare Parts Inventory"
+        title={t('maintenance.sparePartsInventory', 'Spare Parts Inventory')}
         subtitle="Track and manage maintenance spare parts"
         actions={
           <div className="flex gap-2">

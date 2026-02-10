@@ -14,8 +14,10 @@ import {
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { parents, students, EDUCATION_COLOR } from '@/data/education/educationData';
 import { getProfileImage } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const Parents = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
@@ -42,7 +44,7 @@ export const Parents = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Parent Portal"
+        title={t('education.parentPortal', 'Parent Portal')}
         subtitle="Manage parent information and communication"
         icon={UserPlus}
         actions={

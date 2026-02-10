@@ -17,8 +17,10 @@ import {
   type BeautyProduct,
 } from '@/data/beauty/beautyData';
 import { getProductImage } from '@/utils/productImages';
+import { useTranslation } from 'react-i18next';
 
 export const Products = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
@@ -71,7 +73,7 @@ export const Products = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Products"
+        title={t('beauty.products', 'Products')}
         subtitle="Manage your salon inventory"
         actions={<Button leftIcon={<Plus size={16} />}>Add Product</Button>}
       />

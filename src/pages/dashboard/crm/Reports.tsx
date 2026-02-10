@@ -26,8 +26,10 @@ import {
 } from 'recharts';
 import { PageHeader } from '@/components/common';
 import { opportunities, pipelineStages, leadSources } from '@/data/crmData';
+import { useTranslation } from 'react-i18next';
 
 export const Reports = () => {
+  const { t } = useTranslation('common');
   // Pipeline by Stage data
   const pipelineData = useMemo(() => {
     return pipelineStages
@@ -130,7 +132,7 @@ export const Reports = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title="CRM Reports"
+        title={t('crm.crmReports', 'CRM Reports')}
         subtitle="Analytics and insights for your sales performance"
       />
 

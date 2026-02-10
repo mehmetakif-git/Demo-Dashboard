@@ -12,8 +12,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { landlords, REALESTATE_COLOR, getStatusColor } from '@/data/realestate/realestateData';
+import { useTranslation } from 'react-i18next';
 
 export const Landlords = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState<string>('all');
 
@@ -52,7 +54,7 @@ export const Landlords = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Landlords"
+        title={t('realestate.landlords', 'Landlords')}
         subtitle="Manage property owners and landlords"
         icon={User}
       />

@@ -13,8 +13,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { properties, REALESTATE_COLOR, getStatusColor } from '@/data/realestate/realestateData';
+import { useTranslation } from 'react-i18next';
 
 export const Properties = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -58,7 +60,7 @@ export const Properties = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Properties"
+        title={t('realestate.properties', 'Properties')}
         subtitle="Manage your property portfolio"
         icon={Building}
       />

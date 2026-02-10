@@ -13,8 +13,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, StatusBadge, Dropdown, Avatar } from '@/components/common';
 import { reviews } from '@/data/ecommerce/ecommerceData';
+import { useTranslation } from 'react-i18next';
 
 export const Reviews = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<'all' | 'pending' | 'published' | 'rejected'>('all');
   const [ratingFilter, setRatingFilter] = useState<number | null>(null);
@@ -64,7 +66,7 @@ export const Reviews = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Reviews"
+        title={t('ecommerce.reviews', 'Reviews')}
         subtitle="Manage product reviews and customer feedback"
         icon={Star}
       />

@@ -16,6 +16,7 @@ import {
   getDifficultyColor,
   type GymClass,
 } from '@/data/gym/gymData';
+import { useTranslation } from 'react-i18next';
 
 type ViewMode = 'calendar' | 'list';
 
@@ -23,6 +24,7 @@ const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
 const TIME_SLOTS = ['06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'];
 
 export const ClassSchedule = () => {
+  const { t } = useTranslation('common');
   const [viewMode, setViewMode] = useState<ViewMode>('calendar');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [instructorFilter, setInstructorFilter] = useState<string>('all');
@@ -72,7 +74,7 @@ export const ClassSchedule = () => {
       className="space-y-6"
     >
       <PageHeader
-        title="Class Schedule"
+        title={t('gym.classSchedule', 'Class Schedule')}
         subtitle="Manage group fitness classes"
         actions={
           <Button onClick={() => console.log('Add class')}>

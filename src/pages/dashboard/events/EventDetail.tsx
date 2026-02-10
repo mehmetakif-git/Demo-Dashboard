@@ -28,10 +28,12 @@ import {
   getEventStatusColor,
   getGuestStatusColor,
 } from '@/data/events/eventsData';
+import { useTranslation } from 'react-i18next';
 
 type TabType = 'overview' | 'agenda' | 'guests' | 'vendors' | 'budget' | 'team';
 
 export const EventDetail = () => {
+  const { t: _t } = useTranslation('common');
   const { id } = useParams();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<TabType>('overview');

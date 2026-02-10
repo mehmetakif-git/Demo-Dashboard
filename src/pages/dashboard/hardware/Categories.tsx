@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button } from '@/components/common';
 import { categories } from '@/data/hardware/hardwareData';
+import { useTranslation } from 'react-i18next';
 
 const iconMap: Record<string, React.ElementType> = {
   Wrench,
@@ -31,6 +32,7 @@ const iconMap: Record<string, React.ElementType> = {
 };
 
 export const Categories = () => {
+  const { t } = useTranslation('common');
   const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
 
   const toggleCategory = (categoryId: string) => {
@@ -44,7 +46,7 @@ export const Categories = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Categories"
+        title={t('hardware.categories', 'Categories')}
         subtitle="Manage product categories and hierarchy"
         actions={<Button leftIcon={<Plus size={16} />}>Add Category</Button>}
       />

@@ -15,6 +15,7 @@ import {
 import { PageHeader, StatsCard, StatusBadge, Tabs, DataTable, Modal } from '@/components/common';
 import { invoices } from '@/data/accountingData';
 import type { Invoice } from '@/data/accountingData';
+import { useTranslation } from 'react-i18next';
 
 const tabs = [
   { id: 'all', label: 'All Invoices' },
@@ -25,6 +26,7 @@ const tabs = [
 ];
 
 export const Invoices = () => {
+  const { t } = useTranslation('common');
   const [activeTab, setActiveTab] = useState('all');
   const [selectedInvoice, setSelectedInvoice] = useState<Invoice | null>(null);
   const [showModal, setShowModal] = useState(false);
@@ -141,7 +143,7 @@ export const Invoices = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title="Invoices"
+        title={t('accounting.invoices', 'Invoices')}
         subtitle="Create and manage customer invoices"
         icon={FileText}
         actions={

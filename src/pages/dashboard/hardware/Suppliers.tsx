@@ -21,8 +21,10 @@ import {
   products,
   formatCurrency,
 } from '@/data/hardware/hardwareData';
+import { useTranslation } from 'react-i18next';
 
 export const Suppliers = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<'all' | 'active' | 'inactive'>('all');
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -64,7 +66,7 @@ export const Suppliers = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Suppliers"
+        title={t('hardware.suppliers', 'Suppliers')}
         subtitle="Manage your supplier relationships"
         actions={<Button leftIcon={<Plus size={16} />}>Add Supplier</Button>}
       />

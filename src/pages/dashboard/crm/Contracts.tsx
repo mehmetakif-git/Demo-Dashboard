@@ -16,8 +16,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, StatsCard, DataTable, Tabs } from '@/components/common';
 import { contracts, contractStatusColors, type Contract } from '@/data/crmData';
+import { useTranslation } from 'react-i18next';
 
 export const Contracts = () => {
+  const { t } = useTranslation('common');
   const [activeTab, setActiveTab] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -185,7 +187,7 @@ export const Contracts = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title="Contracts"
+        title={t('crm.contracts', 'Contracts')}
         subtitle="Manage your customer contracts"
         actions={
           <button className="flex items-center gap-2 rounded-lg bg-[#547792] px-4 py-2 text-sm font-medium text-white hover:bg-[#5558e3] transition-colors">

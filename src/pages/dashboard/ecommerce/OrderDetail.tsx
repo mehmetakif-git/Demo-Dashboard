@@ -16,6 +16,7 @@ import {
 import { PageHeader, Card, Button, StatusBadge } from '@/components/common';
 import { getOrderById, getCustomerById } from '@/data/ecommerce/ecommerceData';
 import { ROUTES } from '@/utils/constants';
+import { useTranslation } from 'react-i18next';
 
 const timelineSteps = [
   { id: 'pending', label: 'Order Placed', icon: Clock },
@@ -26,6 +27,7 @@ const timelineSteps = [
 ];
 
 export const OrderDetail = () => {
+  const { t: _t } = useTranslation('common');
   const { id } = useParams();
   const navigate = useNavigate();
   const order = getOrderById(id || '');

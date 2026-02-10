@@ -12,8 +12,10 @@ import {
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { students, classes, EDUCATION_COLOR } from '@/data/education/educationData';
 import { getProfileImage } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const Students = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [gradeFilter, setGradeFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -62,7 +64,7 @@ export const Students = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Student Management"
+        title={t('education.studentManagement', 'Student Management')}
         subtitle="Manage student registrations and records"
         icon={Users}
         actions={

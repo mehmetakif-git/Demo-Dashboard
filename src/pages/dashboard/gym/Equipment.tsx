@@ -19,10 +19,12 @@ import {
   formatCurrency,
   type GymEquipment,
 } from '@/data/gym/gymData';
+import { useTranslation } from 'react-i18next';
 
 type StatusFilter = 'all' | 'operational' | 'maintenance' | 'out-of-order';
 
 export const Equipment = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<StatusFilter>('all');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
@@ -77,7 +79,7 @@ export const Equipment = () => {
       className="space-y-6"
     >
       <PageHeader
-        title="Equipment"
+        title={t('gym.equipment', 'Equipment')}
         subtitle="Manage gym equipment and maintenance"
         actions={
           <Button onClick={() => console.log('Add equipment')}>

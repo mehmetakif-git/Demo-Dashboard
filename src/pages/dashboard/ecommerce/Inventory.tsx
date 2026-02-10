@@ -14,8 +14,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input } from '@/components/common';
 import { products, stockMovements } from '@/data/ecommerce/ecommerceData';
+import { useTranslation } from 'react-i18next';
 
 export const Inventory = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [stockFilter, setStockFilter] = useState<'all' | 'low' | 'out'>('all');
 
@@ -93,7 +95,7 @@ export const Inventory = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Inventory"
+        title={t('ecommerce.inventory', 'Inventory')}
         subtitle="Track and manage stock levels"
         icon={Warehouse}
         actions={

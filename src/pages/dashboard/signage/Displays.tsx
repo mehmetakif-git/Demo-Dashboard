@@ -45,8 +45,10 @@ const displayImages: Record<string, string> = {
   'DSP009': display9,  // Reception Desk
   'DSP010': display10, // Parking Entrance Sign
 };
+import { useTranslation } from 'react-i18next';
 
 export const Displays = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
   const [selectedGroup, setSelectedGroup] = useState<string>('all');
@@ -122,7 +124,7 @@ export const Displays = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Display Management"
+        title={t('signage.displayManagement', 'Display Management')}
         subtitle="Monitor and control all digital signage displays"
         actions={
           <div className="flex items-center gap-2">

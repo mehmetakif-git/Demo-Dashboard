@@ -17,8 +17,10 @@ import {
   formatCurrency,
   type MembershipPlan,
 } from '@/data/gym/gymData';
+import { useTranslation } from 'react-i18next';
 
 export const MembershipPlans = () => {
+  const { t } = useTranslation('common');
   const [, setSelectedPlan] = useState<MembershipPlan | null>(null);
   const [, setIsModalOpen] = useState(false);
 
@@ -58,7 +60,7 @@ export const MembershipPlans = () => {
       className="space-y-6"
     >
       <PageHeader
-        title="Membership Plans"
+        title={t('gym.membershipPlans', 'Membership Plans')}
         subtitle="Manage membership plans and pricing"
         actions={
           <Button onClick={() => setIsModalOpen(true)}>

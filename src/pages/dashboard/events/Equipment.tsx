@@ -21,8 +21,10 @@ import {
   formatCurrency,
   getEquipmentStatusColor,
 } from '@/data/events/eventsData';
+import { useTranslation } from 'react-i18next';
 
 export const Equipment = () => {
+  const { t } = useTranslation('common');
   const [selectedEvent, setSelectedEvent] = useState<string>(events[0]?.id || '');
   const [searchTerm, setSearchTerm] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
@@ -72,7 +74,7 @@ export const Equipment = () => {
       className="space-y-6"
     >
       <PageHeader
-        title="Equipment Rental"
+        title={t('events.equipmentRental', 'Equipment Rental')}
         subtitle="Manage event equipment and rentals"
         actions={
           <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">

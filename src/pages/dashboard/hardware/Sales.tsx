@@ -19,6 +19,7 @@ import {
   categories,
   formatCurrency,
 } from '@/data/hardware/hardwareData';
+import { useTranslation } from 'react-i18next';
 
 interface CartItem {
   productId: string;
@@ -29,6 +30,7 @@ interface CartItem {
 }
 
 export const Sales = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -122,7 +124,7 @@ export const Sales = () => {
       {/* Products Section */}
       <div className="flex-1 flex flex-col min-w-0">
         <PageHeader
-          title="Point of Sale"
+          title={t('hardware.pointOfSale', 'Point of Sale')}
           subtitle="Quick sales and checkout"
         />
 

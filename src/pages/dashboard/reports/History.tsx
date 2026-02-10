@@ -25,8 +25,10 @@ import {
   getFormatColor,
   type ExportHistoryItem,
 } from '@/data/reportData';
+import { useTranslation } from 'react-i18next';
 
 export const History = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState('all');
   const [statusFilter, setStatusFilter] = useState('all');
@@ -133,7 +135,7 @@ export const History = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Export & Import History"
+        title={t('reports.exportImportHistory', 'Export & Import History')}
         subtitle="View and manage your export and import history"
       />
 

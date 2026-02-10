@@ -12,8 +12,10 @@ import {
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { busRoutes, transportStudents, EDUCATION_COLOR } from '@/data/education/educationData';
 import { getProfileImage } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const Transport = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [view, setView] = useState<'routes' | 'students'>('routes');
   const [selectedRoute, setSelectedRoute] = useState<string | null>(null);
@@ -59,7 +61,7 @@ export const Transport = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Transport Management"
+        title={t('education.transportManagement', 'Transport Management')}
         subtitle="Manage school transport routes and students"
         icon={Bus}
         actions={

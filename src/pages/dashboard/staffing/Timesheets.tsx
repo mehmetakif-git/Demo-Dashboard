@@ -17,8 +17,10 @@ import {
   type Timesheet,
 } from '@/data/staffing/staffingData';
 import { getProfileImage } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const Timesheets = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [selectedTimesheet, setSelectedTimesheet] = useState<Timesheet | null>(null);
@@ -85,7 +87,7 @@ export const Timesheets = () => {
       className="space-y-6"
     >
       <PageHeader
-        title="Timesheets"
+        title={t('staffing.timesheets', 'Timesheets')}
         subtitle="Review and approve contractor timesheets"
       />
 

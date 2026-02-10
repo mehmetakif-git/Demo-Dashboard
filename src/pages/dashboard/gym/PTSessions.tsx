@@ -25,8 +25,10 @@ import {
   type PTSession,
 } from '@/data/gym/gymData';
 import { profileImages } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const PTSessions = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [trainerFilter, setTrainerFilter] = useState('all');
   const [statusFilter, setStatusFilter] = useState('all');
@@ -139,7 +141,7 @@ export const PTSessions = () => {
       className="space-y-6"
     >
       <PageHeader
-        title="PT Sessions"
+        title={t('gym.ptSessions', 'PT Sessions')}
         subtitle="Manage personal training sessions"
         actions={
           <Button leftIcon={<Plus size={16} />} onClick={() => setIsBookModalOpen(true)}>

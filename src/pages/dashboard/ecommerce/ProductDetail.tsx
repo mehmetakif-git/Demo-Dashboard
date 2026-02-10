@@ -15,8 +15,10 @@ import {
 import { PageHeader, Card, Button, StatusBadge, Tabs } from '@/components/common';
 import { getProductById, stockMovements } from '@/data/ecommerce/ecommerceData';
 import { ROUTES } from '@/utils/constants';
+import { useTranslation } from 'react-i18next';
 
 export const ProductDetail = () => {
+  const { t: _t } = useTranslation('common');
   const { id } = useParams();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('general');

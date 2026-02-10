@@ -20,8 +20,10 @@ import {
   formatCurrency,
   getInvoiceStatusColor,
 } from '@/data/agency/agencyData';
+import { useTranslation } from 'react-i18next';
 
 export const Invoicing = () => {
+  const { t } = useTranslation('common');
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
@@ -64,7 +66,7 @@ export const Invoicing = () => {
       className="space-y-6"
     >
       <PageHeader
-        title="Invoicing"
+        title={t('agency.invoicing', 'Invoicing')}
         subtitle="Manage invoices and billing"
         actions={
           <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">

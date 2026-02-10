@@ -23,8 +23,10 @@ import {
 } from 'recharts';
 import { PageHeader, StatsCard } from '@/components/common';
 import { cashFlowData } from '@/data/accountingData';
+import { useTranslation } from 'react-i18next';
 
 export const CashFlow = () => {
+  const { t } = useTranslation('common');
   const stats = useMemo(() => {
     const totalInflow = cashFlowData.reduce((acc, m) => acc + m.inflow, 0);
     const totalOutflow = cashFlowData.reduce((acc, m) => acc + m.outflow, 0);
@@ -75,7 +77,7 @@ export const CashFlow = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title="Cash Flow"
+        title={t('accounting.cashFlow', 'Cash Flow')}
         subtitle="Analyze your cash inflows and outflows"
         icon={Activity}
       />

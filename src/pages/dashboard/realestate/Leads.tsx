@@ -12,8 +12,10 @@ import {
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { leads, REALESTATE_COLOR, getStatusColor, getPriorityColor } from '@/data/realestate/realestateData';
 import { getProfileImage, getCompanyLogo } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const Leads = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [priorityFilter, setPriorityFilter] = useState<string>('all');
@@ -47,7 +49,7 @@ export const Leads = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Leads"
+        title={t('realestate.leads', 'Leads')}
         subtitle="Manage property leads and inquiries"
         icon={Users}
       />

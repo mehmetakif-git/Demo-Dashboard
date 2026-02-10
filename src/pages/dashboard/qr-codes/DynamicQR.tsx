@@ -30,8 +30,10 @@ import {
   getTypeLabel,
   type QRCode,
 } from '@/data/qrCodeData';
+import { useTranslation } from 'react-i18next';
 
 export const DynamicQR = () => {
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
@@ -91,7 +93,7 @@ export const DynamicQR = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Dynamic QR Codes"
+        title={t('qr-codes.dynamicQrCodes', 'Dynamic QR Codes')}
         subtitle="Manage QR codes with editable content"
         actions={
           <Button leftIcon={<Zap size={16} />} onClick={() => navigate('/dashboard/qr-codes/create')}>

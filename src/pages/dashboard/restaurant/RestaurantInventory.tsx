@@ -14,8 +14,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, StatusBadge, Dropdown } from '@/components/common';
 import { ingredients } from '@/data/restaurant/restaurantData';
+import { useTranslation } from 'react-i18next';
 
 export const RestaurantInventory = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
@@ -65,7 +67,7 @@ export const RestaurantInventory = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Inventory"
+        title={t('restaurant.inventory', 'Inventory')}
         subtitle="Manage ingredients and supplies"
         icon={Package}
         actions={

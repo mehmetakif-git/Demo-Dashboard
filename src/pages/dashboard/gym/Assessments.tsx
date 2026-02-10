@@ -26,8 +26,10 @@ import {
   type FitnessAssessment,
 } from '@/data/gym/gymData';
 import { getProfileImage } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const Assessments = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [memberFilter, setMemberFilter] = useState('all');
   const [selectedAssessment, setSelectedAssessment] = useState<FitnessAssessment | null>(null);
@@ -128,7 +130,7 @@ export const Assessments = () => {
       className="space-y-6"
     >
       <PageHeader
-        title="Fitness Assessments"
+        title={t('gym.fitnessAssessments', 'Fitness Assessments')}
         subtitle="Track member fitness progress and metrics"
         actions={
           <Button leftIcon={<Plus size={16} />} onClick={() => setIsNewAssessmentOpen(true)}>

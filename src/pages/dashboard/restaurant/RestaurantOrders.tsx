@@ -14,8 +14,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, StatusBadge, Dropdown } from '@/components/common';
 import { restaurantOrders } from '@/data/restaurant/restaurantData';
+import { useTranslation } from 'react-i18next';
 
 export const RestaurantOrders = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -52,7 +54,7 @@ export const RestaurantOrders = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Orders"
+        title={t('restaurant.orders', 'Orders')}
         subtitle="Manage restaurant orders"
         icon={ClipboardList}
       />

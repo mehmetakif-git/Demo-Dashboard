@@ -18,8 +18,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button } from '@/components/common';
 import { recentFiles, type RecentFile } from '@/data/fileData';
+import { useTranslation } from 'react-i18next';
 
 export const RecentFiles = () => {
+  const { t } = useTranslation('common');
   const [filterAction, setFilterAction] = useState<string>('all');
 
   const groupedFiles = useMemo(() => {
@@ -101,7 +103,7 @@ export const RecentFiles = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Recent Files"
+        title={t('files.recentFiles', 'Recent Files')}
         subtitle="Files you've recently accessed"
         actions={
           <Button variant="secondary" leftIcon={<Trash2 size={16} />}>

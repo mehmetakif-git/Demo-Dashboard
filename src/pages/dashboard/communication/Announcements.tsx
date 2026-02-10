@@ -17,8 +17,10 @@ import {
 import { PageHeader, Card, Input, Button } from '@/components/common';
 import { announcements, getPriorityColor, type Announcement } from '@/data/communicationData';
 import { getProfileImage } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const Announcements = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedPriority, setSelectedPriority] = useState<string>('all');
   const [selectedAnnouncement, setSelectedAnnouncement] = useState<Announcement | null>(null);
@@ -196,7 +198,7 @@ export const Announcements = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Announcements"
+        title={t('communication.announcements', 'Announcements')}
         subtitle="Company-wide announcements and updates"
         actions={
           <Button leftIcon={<Plus size={16} />}>

@@ -21,8 +21,10 @@ import {
   type OnboardingTask,
 } from '@/data/staffing/staffingData';
 import { getProfileImage } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const Onboarding = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
@@ -132,7 +134,7 @@ export const Onboarding = () => {
       className="space-y-6"
     >
       <PageHeader
-        title="Onboarding"
+        title={t('staffing.onboarding', 'Onboarding')}
         subtitle="Track new hire onboarding progress"
         actions={
           <Button onClick={() => console.log('Add task')}>

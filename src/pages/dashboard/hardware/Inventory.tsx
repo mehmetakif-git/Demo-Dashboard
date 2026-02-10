@@ -13,8 +13,10 @@ import {
   hardwareStats,
   formatCurrency,
 } from '@/data/hardware/hardwareData';
+import { useTranslation } from 'react-i18next';
 
 export const Inventory = () => {
+  const { t } = useTranslation('common');
   const [selectedFilter, setSelectedFilter] = useState<'all' | 'low' | 'critical' | 'out'>('all');
 
   const stats = hardwareStats;
@@ -46,7 +48,7 @@ export const Inventory = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Inventory Overview"
+        title={t('hardware.inventoryOverview', 'Inventory Overview')}
         subtitle="Monitor stock levels and inventory value"
         actions={
           <Button leftIcon={<ClipboardList size={16} />}>Start Stock Count</Button>

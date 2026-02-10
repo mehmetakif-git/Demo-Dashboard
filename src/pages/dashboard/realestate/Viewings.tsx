@@ -14,8 +14,10 @@ import {
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { viewings, REALESTATE_COLOR, getStatusColor } from '@/data/realestate/realestateData';
 import { getProfileImage, getCompanyLogo } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const Viewings = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [typeFilter, setTypeFilter] = useState<string>('all');
@@ -49,7 +51,7 @@ export const Viewings = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Viewings"
+        title={t('realestate.viewings', 'Viewings')}
         subtitle="Manage property viewings and tours"
         icon={Eye}
       />

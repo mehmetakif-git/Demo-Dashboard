@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Input, Button } from '@/components/common';
 import { broadcastHistory, displays, displayGroups, type BroadcastHistory } from '@/data/signageData';
+import { useTranslation } from 'react-i18next';
 
 const PRIORITY_COLORS = {
   normal: { bg: 'bg-blue-500', text: 'text-blue-400', label: 'Normal' },
@@ -30,6 +31,7 @@ const DURATION_OPTIONS = [
 ];
 
 export const Broadcast = () => {
+  const { t } = useTranslation('common');
   const [title, setTitle] = useState('');
   const [message, setMessage] = useState('');
   const [selectedDisplays, setSelectedDisplays] = useState<string[]>([]);
@@ -74,7 +76,7 @@ export const Broadcast = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Emergency Broadcast"
+        title={t('signage.emergencyBroadcast', 'Emergency Broadcast')}
         subtitle="Send urgent messages to all or selected displays"
       />
 

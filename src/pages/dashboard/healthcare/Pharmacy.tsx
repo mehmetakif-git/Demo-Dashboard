@@ -12,8 +12,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { medications, HEALTHCARE_COLOR } from '@/data/healthcare/healthcareData';
+import { useTranslation } from 'react-i18next';
 
 export const Pharmacy = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
@@ -59,7 +61,7 @@ export const Pharmacy = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Pharmacy"
+        title={t('healthcare.pharmacy', 'Pharmacy')}
         subtitle="Manage medications and inventory"
         icon={Building2}
         actions={

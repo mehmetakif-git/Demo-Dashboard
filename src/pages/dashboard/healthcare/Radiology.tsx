@@ -12,8 +12,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, StatusBadge, Dropdown } from '@/components/common';
 import { radiologyStudies, HEALTHCARE_COLOR, getPatientProfileImage } from '@/data/healthcare/healthcareData';
+import { useTranslation } from 'react-i18next';
 
 export const Radiology = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [studyTypeFilter, setStudyTypeFilter] = useState<string>('all');
@@ -73,7 +75,7 @@ export const Radiology = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Radiology"
+        title={t('healthcare.radiology', 'Radiology')}
         subtitle="Manage imaging studies and reports"
         icon={Scan}
         actions={

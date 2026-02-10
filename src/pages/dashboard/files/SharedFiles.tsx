@@ -19,8 +19,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Input, Button } from '@/components/common';
 import { sharedFiles, formatDate, type SharedFile } from '@/data/fileData';
+import { useTranslation } from 'react-i18next';
 
 export const SharedFiles = () => {
+  const { t } = useTranslation('common');
   const [activeTab, setActiveTab] = useState<'with-me' | 'by-me'>('with-me');
   const [searchQuery, setSearchQuery] = useState('');
   const [ownerFilter, setOwnerFilter] = useState<string>('all');
@@ -88,7 +90,7 @@ export const SharedFiles = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Shared Files"
+        title={t('files.sharedFiles', 'Shared Files')}
         subtitle="Files shared with you and by you"
       />
 

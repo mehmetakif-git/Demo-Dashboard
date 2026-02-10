@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronDown, LogOut } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -61,7 +62,35 @@ const moduleIdMap: Record<string, string> = {
   law: 'law',
 };
 
+// Map group IDs to translation keys
+const groupLabelMap: Record<string, string> = {
+  'main': 'groups.main',
+  'management': 'groups.management',
+  'operations': 'groups.operations',
+  'security': 'groups.security',
+  'communication': 'groups.communication',
+  'system': 'groups.system',
+  'gym-management': 'groups.gymManagement',
+  'staffing-management': 'groups.staffingManagement',
+  'realestate-management': 'groups.realEstate',
+  'agency-management': 'groups.agencyManagement',
+  'events-management': 'groups.eventsManagement',
+  'beauty-management': 'groups.beautySalon',
+  'laundry-management': 'groups.laundry',
+  'hardware-management': 'groups.hardwareStore',
+  'ecommerce-management': 'groups.ecommerce',
+  'restaurant-management': 'groups.restaurant',
+  'healthcare-management': 'groups.healthcare',
+  'education-management': 'groups.education',
+  'hotel-management': 'groups.hotelManagement',
+  'construction-management': 'groups.construction',
+  'logistics-management': 'groups.logistics',
+  'manufacturing-management': 'groups.manufacturing',
+  'law-management': 'groups.lawFirm',
+};
+
 export const Sidebar = () => {
+  const { t } = useTranslation('sidebar');
   const { sidebarCollapsed, toggleSidebar, selectedSector, isModuleEnabled } = useAppStore();
   const { logout } = useAuth();
   const location = useLocation();
@@ -455,7 +484,7 @@ export const Sidebar = () => {
               className="mb-2 px-4 overflow-hidden"
             >
               <span className="text-[10px] font-semibold uppercase tracking-wider text-[#64748b]">
-                {group.label}
+                {groupLabelMap[group.id] ? t(groupLabelMap[group.id]) : group.label}
               </span>
             </motion.div>
 
@@ -505,7 +534,7 @@ export const Sidebar = () => {
                         transition={{ duration: 0.2 }}
                         className="whitespace-nowrap overflow-hidden flex-1 text-left"
                       >
-                        {item.label}
+                        {t(`items.${item.id}`, { defaultValue: item.label })}
                       </motion.span>
                       {/* Always show chevron for items with children */}
                       {hasChildren(item) && (
@@ -581,7 +610,7 @@ export const Sidebar = () => {
                                       className="h-4 w-4 transition-colors"
                                       style={{ color: child.color || item.color || (isChildActive ? '#547792' : '#64748b') }}
                                     />
-                                    <span className="truncate">{child.label}</span>
+                                    <span className="truncate">{t(`items.${child.id}`, { defaultValue: child.label })}</span>
                                   </button>
                                 </motion.li>
                               );
@@ -608,7 +637,7 @@ export const Sidebar = () => {
           <LogOut className="h-5 w-5 flex-shrink-0" />
           {!sidebarCollapsed && (
             <span className="text-sm font-medium whitespace-nowrap">
-              Logout
+              {t('logout')}
             </span>
           )}
         </button>

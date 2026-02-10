@@ -17,8 +17,10 @@ import {
   type ComplianceDocument,
 } from '@/data/staffing/staffingData';
 import { getProfileImage } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const Compliance = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [typeFilter, setTypeFilter] = useState<string>('all');
@@ -107,7 +109,7 @@ export const Compliance = () => {
       className="space-y-6"
     >
       <PageHeader
-        title="Compliance"
+        title={t('staffing.compliance', 'Compliance')}
         subtitle="Track compliance documents and certifications"
         actions={
           <Button onClick={() => console.log('Add document')}>

@@ -16,8 +16,10 @@ import {
   formatDate,
 } from '@/data/beauty/beautyData';
 import { getProfileImage } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const Reviews = () => {
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedRating, setSelectedRating] = useState<string>('all');
@@ -78,7 +80,7 @@ export const Reviews = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Reviews"
+        title={t('beauty.reviews', 'Reviews')}
         subtitle="Customer feedback and ratings"
       />
 

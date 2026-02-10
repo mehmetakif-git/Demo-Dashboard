@@ -25,8 +25,10 @@ import {
   type Appointment,
 } from '@/data/beauty/beautyData';
 import { getProfileImage } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const AppointmentDetail = () => {
+  const { t } = useTranslation('common');
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
@@ -38,7 +40,7 @@ export const AppointmentDetail = () => {
     return (
       <div className="space-y-6">
         <PageHeader
-          title="Appointment Not Found"
+          title={t('beauty.appointmentNotFound', 'Appointment Not Found')}
           subtitle="The requested appointment could not be found"
           actions={
             <Button variant="secondary" leftIcon={<ArrowLeft size={16} />} onClick={() => navigate(-1)}>

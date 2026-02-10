@@ -17,8 +17,10 @@ import {
   formatCurrency,
 } from '@/data/beauty/beautyData';
 import { getProfileImage } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const Staff = () => {
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedRole, setSelectedRole] = useState<string>('all');
@@ -82,7 +84,7 @@ export const Staff = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Staff"
+        title={t('beauty.staff', 'Staff')}
         subtitle="Manage your salon team"
         actions={<Button leftIcon={<Plus size={16} />}>Add Staff</Button>}
       />

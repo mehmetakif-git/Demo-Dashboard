@@ -12,8 +12,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, StatusBadge, Dropdown } from '@/components/common';
 import { appointments, doctors, HEALTHCARE_COLOR, getPatientProfileImage } from '@/data/healthcare/healthcareData';
+import { useTranslation } from 'react-i18next';
 
 export const Appointments = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [dateFilter, setDateFilter] = useState<string>('today');
@@ -56,7 +58,7 @@ export const Appointments = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Appointments"
+        title={t('healthcare.appointments', 'Appointments')}
         subtitle="Manage patient appointments and schedules"
         icon={Calendar}
         actions={

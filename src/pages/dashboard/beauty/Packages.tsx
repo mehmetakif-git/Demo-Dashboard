@@ -18,8 +18,10 @@ import {
   formatDuration,
   formatCurrency,
 } from '@/data/beauty/beautyData';
+import { useTranslation } from 'react-i18next';
 
 export const Packages = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
 
@@ -68,7 +70,7 @@ export const Packages = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Packages"
+        title={t('beauty.packages', 'Packages')}
         subtitle="Manage service packages and bundles"
         actions={<Button leftIcon={<Plus size={16} />}>Create Package</Button>}
       />

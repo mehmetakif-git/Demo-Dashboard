@@ -14,6 +14,7 @@ import {
   Mail,
 } from 'lucide-react';
 import { PageHeader } from '@/components/common';
+import { useTranslation } from 'react-i18next';
 
 interface ReportType {
   id: string;
@@ -93,6 +94,7 @@ const reportTypes: ReportType[] = [
 const categories = ['All', 'Financial', 'Operational', 'Tax'];
 
 export const Reports = () => {
+  const { t } = useTranslation('common');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedPeriod, setSelectedPeriod] = useState('monthly');
   const [generatingReport, setGeneratingReport] = useState<string | null>(null);
@@ -112,7 +114,7 @@ export const Reports = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title="Financial Reports"
+        title={t('accounting.financialReports', 'Financial Reports')}
         subtitle="Generate and download financial reports"
         icon={ClipboardList}
       />

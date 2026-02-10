@@ -20,8 +20,10 @@ import {
 import { PageHeader, Card, StatsCard, Input, Button } from '@/components/common';
 import { accessCards, getCardStatusColor, type AccessCard } from '@/data/accessControlData';
 import { getProfileImage } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const AccessCards = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
   const [selectedDepartment, setSelectedDepartment] = useState<string>('all');
@@ -91,7 +93,7 @@ export const AccessCards = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Access Cards"
+        title={t('access-control.accessCards', 'Access Cards')}
         subtitle="Manage employee access cards and permissions"
         actions={
           <div className="flex items-center gap-2">

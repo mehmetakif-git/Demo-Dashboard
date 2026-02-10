@@ -23,6 +23,7 @@ import {
   getStatusColor,
   type Integration,
 } from '@/data/settingsData';
+import { useTranslation } from 'react-i18next';
 
 const iconMap: Record<string, React.ElementType> = {
   MessageSquare,
@@ -36,6 +37,7 @@ const iconMap: Record<string, React.ElementType> = {
 };
 
 export const Integrations = () => {
+  const { t } = useTranslation('common');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedIntegration, setSelectedIntegration] = useState<Integration | null>(null);
 
@@ -72,7 +74,7 @@ export const Integrations = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Integrations"
+        title={t('settings.integrations', 'Integrations')}
         subtitle="Connect third-party services and apps"
       />
 

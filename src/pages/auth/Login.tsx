@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Mail, Lock, Eye, EyeOff, ArrowRight, Copy, Check,
@@ -25,7 +26,7 @@ import ppMichael from '@/assets/images/profiles/pp-1.webp';
 import ppSarah from '@/assets/images/profiles/pp-2.webp';
 import ppEmily from '@/assets/images/profiles/pp-4.webp';
 import ppDavid from '@/assets/images/profiles/pp-5.webp';
-import { GlowInput, BottomGradient } from '@/components/common';
+import { GlowInput, BottomGradient, LanguageSwitcher } from '@/components/common';
 import { LayoutTextFlip } from '@/components/ui/LayoutTextFlip';
 import { LinkPreview } from '@/components/ui/LinkPreview';
 import { AnimatedCounter } from '@/components/dashboard/AnimatedCounter';
@@ -90,51 +91,52 @@ const modules = [
   }
 ];
 
-// Testimonials for right panel
+// Testimonials for right panel - quotes use translation keys, names stay as-is
 const testimonials = [
   {
-    quote: "This platform increased our operational efficiency by 40%. We manage all processes from one place.",
+    quoteKey: "testimonials.t1",
     author: "Michael Johnson",
-    role: "General Manager",
+    roleKey: "roles.generalManager",
     company: "FitZone Gyms",
     rating: 5,
     avatar: ppMichael
   },
   {
-    quote: "Customer tracking and project management have never been easier. Our team is very satisfied.",
+    quoteKey: "testimonials.t2",
     author: "Sarah Williams",
-    role: "Co-Founder",
+    roleKey: "roles.coFounder",
     company: "Creative Agency",
     rating: 5,
     avatar: ppSarah
   },
   {
-    quote: "Managing our real estate portfolio is now much easier. All listings and clients in one place.",
+    quoteKey: "testimonials.t3",
     author: "David Miller",
-    role: "CEO",
+    roleKey: "roles.ceo",
     company: "Premier Real Estate",
     rating: 5,
     avatar: ppDavid
   },
   {
-    quote: "24/7 support and ease of use made this exactly what we were looking for. Highly recommended.",
+    quoteKey: "testimonials.t4",
     author: "Emily Chen",
-    role: "Operations Manager",
+    roleKey: "roles.operationsManager",
     company: "EventPro Organization",
     rating: 5,
     avatar: ppEmily
   }
 ];
 
-// Stats data
+// Stats data - labels are translation keys
 const stats = [
-  { value: 100, suffix: '+', label: 'Active Businesses' },
-  { value: 500, suffix: '+', label: 'Users' },
-  { value: 99.9, suffix: '%', label: 'Uptime', decimals: 1 },
-  { value: 24, suffix: '/7', label: 'Support' }
+  { value: 100, suffix: '+', labelKey: 'stats.activeBusinesses' },
+  { value: 500, suffix: '+', labelKey: 'stats.users' },
+  { value: 99.9, suffix: '%', labelKey: 'stats.uptime', decimals: 1 },
+  { value: 24, suffix: '/7', labelKey: 'stats.support' }
 ];
 
 export const Login = () => {
+  const { t } = useTranslation('auth');
   const navigate = useNavigate();
   const storedUser = useAuthStore((state) => state.user);
   const storedRememberMe = useAuthStore((state) => state.rememberMe);
@@ -265,7 +267,7 @@ export const Login = () => {
     if (success) {
       navigate(ROUTES.selectSector);
     } else {
-      setError('Invalid credentials. Please use demo account.');
+      setError(t('login.invalidCredentials'));
     }
 
     setIsLoading(false);
@@ -321,6 +323,11 @@ export const Login = () => {
         />
       </div>
 
+      {/* Language Switcher - Top Right */}
+      <div className="absolute top-4 right-4 z-20">
+        <LanguageSwitcher />
+      </div>
+
       {/* Main Container */}
       <div className="relative z-10 w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
 
@@ -335,10 +342,10 @@ export const Login = () => {
             {/* Header */}
             <div className="relative z-10 mb-6">
               <h3 className="text-white/60 text-sm font-medium uppercase tracking-wider mb-1">
-                Platform Features
+                {t('login.platformFeatures')}
               </h3>
               <p className="text-white/40 text-xs">
-                Full control with {modules.length} modules
+                {t('login.fullControl', { count: modules.length })}
               </p>
             </div>
 
@@ -359,14 +366,14 @@ export const Login = () => {
                       {ModuleIcon && <ModuleIcon size={24} className="text-white" />}
                     </div>
                     <div>
-                      <h4 className="text-white font-semibold text-lg">{currentModule.title}</h4>
-                      <p className="text-white/40 text-xs">Module {currentModuleIndex + 1}/{modules.length}</p>
+                      <h4 className="text-white font-semibold text-lg">{t(`modules.${currentModule.id}.title`)}</h4>
+                      <p className="text-white/40 text-xs">{t('login.moduleOf', { current: currentModuleIndex + 1, total: modules.length })}</p>
                     </div>
                   </div>
 
                   {/* Description */}
                   <p className="text-white/60 text-sm leading-relaxed mb-4">
-                    {currentModule.description}
+                    {t(`modules.${currentModule.id}.description`)}
                   </p>
 
                   {/* Screenshot */}
@@ -474,8 +481,8 @@ export const Login = () => {
               className="mb-2"
             >
               <LayoutTextFlip
-                text="Manage Your"
-                words={['Business', 'Team', 'Projects', 'Growth', 'Success']}
+                text={t('login.manageYour')}
+                words={t('login.flipWords', { returnObjects: true }) as string[]}
                 duration={2500}
                 textClassName="text-xl md:text-2xl text-white/80"
                 wordClassName="text-xl md:text-2xl"
@@ -488,7 +495,7 @@ export const Login = () => {
               transition={{ delay: 0.4 }}
               className="text-white/50 text-sm mt-4"
             >
-              Enterprise Management Platform
+              {t('login.enterprisePlatform')}
             </motion.p>
           </div>
 
@@ -496,8 +503,8 @@ export const Login = () => {
           <div className="w-full max-w-md">
             <div className="relative bg-white/[0.03] backdrop-blur-2xl border border-white/[0.08] rounded-3xl p-8 shadow-2xl before:absolute before:inset-0 before:rounded-3xl before:bg-gradient-to-b before:from-white/[0.08] before:to-transparent before:pointer-events-none">
               <div className="text-center mb-6">
-                <h2 className="text-xl font-semibold text-white mb-1">Welcome Back</h2>
-                <p className="text-white/50 text-sm">Sign in to continue to your dashboard</p>
+                <h2 className="text-xl font-semibold text-white mb-1">{t('login.welcomeBack')}</h2>
+                <p className="text-white/50 text-sm">{t('login.signInSubtitle')}</p>
               </div>
 
               {/* Error Message */}
@@ -515,13 +522,13 @@ export const Login = () => {
                 {/* Email */}
                 <div>
                   <label className="block text-white/60 text-sm font-medium mb-2">
-                    Email Address
+                    {t('login.emailLabel')}
                   </label>
                   <GlowInput
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your email"
+                    placeholder={t('login.emailPlaceholder')}
                     icon={<Mail className="w-5 h-5" />}
                     required
                   />
@@ -530,13 +537,13 @@ export const Login = () => {
                 {/* Password */}
                 <div>
                   <label className="block text-white/60 text-sm font-medium mb-2">
-                    Password
+                    {t('login.passwordLabel')}
                   </label>
                   <GlowInput
                     type={showPassword ? 'text' : 'password'}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Enter your password"
+                    placeholder={t('login.passwordPlaceholder')}
                     icon={<Lock className="w-5 h-5" />}
                     rightElement={
                       <button
@@ -568,11 +575,11 @@ export const Login = () => {
                       onClick={() => setRememberMe(!rememberMe)}
                       className="text-white/60 text-sm select-none"
                     >
-                      Remember me
+                      {t('login.rememberMe')}
                     </span>
                   </label>
                   <button type="button" className="text-[#94B4C1] text-sm hover:text-[#EAE0CF] transition-colors cursor-pointer">
-                    Forgot password?
+                    {t('login.forgotPassword')}
                   </button>
                 </div>
 
@@ -611,11 +618,11 @@ export const Login = () => {
                     {isLoading ? (
                       <>
                         <Loader2 className="w-5 h-5 animate-spin" />
-                        Signing in...
+                        {t('login.signingIn')}
                       </>
                     ) : (
                       <>
-                        Sign In
+                        {t('login.signIn')}
                         <ArrowRight size={18} />
                       </>
                     )}
@@ -629,7 +636,7 @@ export const Login = () => {
                     <div className="w-full border-t border-white/[0.08]" />
                   </div>
                   <div className="relative flex justify-center">
-                    <span className="px-4 bg-transparent text-white/40 text-sm">or</span>
+                    <span className="px-4 bg-transparent text-white/40 text-sm">{t('login.or')}</span>
                   </div>
                 </div>
 
@@ -655,7 +662,7 @@ export const Login = () => {
                       autoplay
                       style={{ width: 20, height: 20 }}
                     />
-                    Quick Demo Login
+                    {t('login.quickDemoLogin')}
                   </motion.button>
                 </div>
               </form>
@@ -669,7 +676,7 @@ export const Login = () => {
               className="mt-4 bg-white/[0.02] border border-white/[0.05] rounded-2xl p-4"
             >
               <div className="flex items-center justify-center gap-4 text-sm flex-wrap">
-                <span className="text-white/40">Demo</span>
+                <span className="text-white/40">{t('login.demo')}</span>
 
                 <button
                   onClick={() => copyToClipboard(DEMO_CREDENTIALS.email, 'email')}
@@ -705,7 +712,7 @@ export const Login = () => {
                 autoplay
                 style={{ width: 16, height: 16 }}
               />
-              <span>256-bit SSL Secure Connection</span>
+              <span>{t('login.secureConnection')}</span>
             </div>
           </div>
         </motion.div>
@@ -736,7 +743,7 @@ export const Login = () => {
                       duration={1.5}
                     />
                   </div>
-                  <div className="text-white/40 text-xs mt-1">{stat.label}</div>
+                  <div className="text-white/40 text-xs mt-1">{t(stat.labelKey)}</div>
                 </motion.div>
               ))}
             </div>
@@ -747,7 +754,7 @@ export const Login = () => {
             {/* Testimonials */}
             <div className="relative z-10 flex-1 flex flex-col min-h-0 overflow-hidden">
               <h3 className="text-white/60 text-sm font-medium uppercase tracking-wider mb-4 flex-shrink-0">
-                Customer Reviews
+                {t('login.customerReviews')}
               </h3>
 
               <div className="flex-1 relative min-h-0 overflow-hidden">
@@ -764,7 +771,7 @@ export const Login = () => {
                     <div className="flex-1 min-h-0 overflow-hidden">
                       <div className="text-2xl text-[#94B4C1]/30 mb-1">"</div>
                       <p className="text-white/70 text-sm leading-relaxed italic line-clamp-4">
-                        {currentTestimonial.quote}
+                        {t(currentTestimonial.quoteKey)}
                       </p>
                     </div>
 
@@ -788,7 +795,7 @@ export const Login = () => {
                       />
                       <div>
                         <div className="text-white font-medium text-xs">{currentTestimonial.author}</div>
-                        <div className="text-white/40 text-[10px]">{currentTestimonial.role}, {currentTestimonial.company}</div>
+                        <div className="text-white/40 text-[10px]">{t(currentTestimonial.roleKey)}, {currentTestimonial.company}</div>
                       </div>
                     </div>
                   </motion.div>
@@ -887,13 +894,13 @@ export const Login = () => {
               {/* Tooltip Content */}
               <div className="relative bg-white/[0.05] backdrop-blur-2xl border border-white/[0.12] rounded-2xl p-5 w-[280px] shadow-2xl before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-b before:from-white/[0.1] before:to-transparent before:pointer-events-none">
                 <div className="relative z-10 mb-2">
-                  <span className="text-white text-lg font-bold">Start Here!</span>
+                  <span className="text-white text-lg font-bold">{t('login.startHere')}</span>
                 </div>
                 <p className="relative z-10 text-white/90 text-sm font-medium leading-relaxed mb-3">
-                  Click this button to instantly login with demo credentials and explore the platform.
+                  {t('login.spotlightDescription')}
                 </p>
                 <p className="relative z-10 text-red-400 text-xs font-medium">
-                  Click anywhere to dismiss
+                  {t('login.clickToDismiss')}
                 </p>
               </div>
             </motion.div>

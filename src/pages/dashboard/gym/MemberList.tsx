@@ -30,11 +30,13 @@ import {
 } from '@/data/gym/gymData';
 import { ROUTES } from '@/utils/constants';
 import { profileImages } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 type ViewMode = 'grid' | 'list';
 type StatusFilter = 'all' | 'active' | 'expiring' | 'expired' | 'frozen';
 
 export const MemberList = () => {
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [viewMode, setViewMode] = useState<ViewMode>('grid');
@@ -107,7 +109,7 @@ export const MemberList = () => {
       className="space-y-6"
     >
       <PageHeader
-        title="Members"
+        title={t('gym.members', 'Members')}
         subtitle="Manage gym members and their memberships"
         actions={
           <Button onClick={() => console.log('Add member')}>

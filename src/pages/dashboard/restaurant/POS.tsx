@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input } from '@/components/common';
 import { menuItems, menuCategories, tables } from '@/data/restaurant/restaurantData';
+import { useTranslation } from 'react-i18next';
 
 interface CartItem {
   menuItemId: string;
@@ -26,6 +27,7 @@ interface CartItem {
 }
 
 export const POS = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -101,7 +103,7 @@ export const POS = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Point of Sale"
+        title={t('restaurant.pointOfSale', 'Point of Sale')}
         subtitle="Process orders and payments"
         icon={CreditCard}
       />

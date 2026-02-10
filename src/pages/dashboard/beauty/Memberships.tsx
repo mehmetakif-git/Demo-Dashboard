@@ -19,8 +19,10 @@ import {
   formatDate,
   formatCurrency,
 } from '@/data/beauty/beautyData';
+import { useTranslation } from 'react-i18next';
 
 export const Memberships = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedPlan, setSelectedPlan] = useState<string>('all');
   const [activeTab, setActiveTab] = useState<'plans' | 'members'>('plans');
@@ -93,7 +95,7 @@ export const Memberships = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Memberships"
+        title={t('beauty.memberships', 'Memberships')}
         subtitle="Manage membership plans and subscribers"
         actions={<Button leftIcon={<Plus size={16} />}>Create Plan</Button>}
       />

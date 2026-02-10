@@ -14,10 +14,12 @@ import {
 } from 'lucide-react';
 import { PageHeader, StatsCard, DataTable } from '@/components/common';
 import { opportunities, pipelineStages, type Opportunity } from '@/data/crmData';
+import { useTranslation } from 'react-i18next';
 
 type ViewMode = 'pipeline' | 'list';
 
 export const Opportunities = () => {
+  const { t } = useTranslation('common');
   const [viewMode, setViewMode] = useState<ViewMode>('pipeline');
 
   // Group opportunities by stage
@@ -170,7 +172,7 @@ export const Opportunities = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title="Sales Pipeline"
+        title={t('crm.salesPipeline', 'Sales Pipeline')}
         subtitle="Track and manage your sales opportunities"
         actions={
           <div className="flex items-center gap-3">

@@ -15,8 +15,10 @@ import {
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { PageHeader, StatsCard, DataTable } from '@/components/common';
 import { leads, leadSources, leadStatusColors, type Lead } from '@/data/crmData';
+import { useTranslation } from 'react-i18next';
 
 export const Leads = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [sourceFilter, setSourceFilter] = useState<string>('all');
@@ -189,7 +191,7 @@ export const Leads = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title="Leads"
+        title={t('crm.leads', 'Leads')}
         subtitle="Track and manage your sales leads"
         actions={
           <button className="flex items-center gap-2 rounded-lg bg-[#547792] px-4 py-2 text-sm font-medium text-white hover:bg-[#5558e3] transition-colors">

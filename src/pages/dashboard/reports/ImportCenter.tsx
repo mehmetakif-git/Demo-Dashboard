@@ -23,10 +23,12 @@ import {
   formatDateTime,
   type ImportTemplate,
 } from '@/data/reportData';
+import { useTranslation } from 'react-i18next';
 
 type WizardStep = 'upload' | 'map' | 'validate' | 'complete';
 
 export const ImportCenter = () => {
+  const { t } = useTranslation('common');
   const [selectedTemplate, setSelectedTemplate] = useState<ImportTemplate | null>(null);
   const [showWizard, setShowWizard] = useState(false);
   const [currentStep, setCurrentStep] = useState<WizardStep>('upload');
@@ -105,7 +107,7 @@ export const ImportCenter = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Import Center"
+        title={t('reports.importCenter', 'Import Center')}
         subtitle="Import data from external files"
       />
 

@@ -12,8 +12,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button } from '@/components/common';
 import { tables } from '@/data/restaurant/restaurantData';
+import { useTranslation } from 'react-i18next';
 
 export const Tables = () => {
+  const { t } = useTranslation('common');
   const [sectionFilter, setSectionFilter] = useState<string>('all');
 
   const sections = useMemo(() => {
@@ -57,7 +59,7 @@ export const Tables = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Table Management"
+        title={t('restaurant.tableManagement', 'Table Management')}
         subtitle="Monitor and manage restaurant tables"
         icon={LayoutGrid}
         actions={

@@ -3,19 +3,35 @@ export const generateId = (): string => {
   return Math.random().toString(36).substring(2, 9);
 };
 
+// Get current locale from i18n
+const getLocale = (): string => {
+  const lang = localStorage.getItem('i18nextLng')?.substring(0, 2);
+  return lang === 'tr' ? 'tr-TR' : 'en-US';
+};
+
 // Format number with commas
 export const formatNumber = (num: number): string => {
-  return new Intl.NumberFormat('en-US').format(num);
+  return new Intl.NumberFormat(getLocale()).format(num);
 };
 
 // Format currency
 export const formatCurrency = (amount: number): string => {
-  return new Intl.NumberFormat('en-US', {
+  return new Intl.NumberFormat(getLocale(), {
     style: 'currency',
     currency: 'USD',
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(amount);
+};
+
+// Format date with locale
+export const formatDate = (date: Date, options?: Intl.DateTimeFormatOptions): string => {
+  return date.toLocaleDateString(getLocale(), options);
+};
+
+// Format time with locale
+export const formatTime = (date: Date, options?: Intl.DateTimeFormatOptions): string => {
+  return date.toLocaleTimeString(getLocale(), options);
 };
 
 // Capitalize first letter

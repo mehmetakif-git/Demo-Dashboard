@@ -33,6 +33,7 @@ import {
   Star,
   CreditCard,
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { useAppStore } from '@/store/appStore';
 import { getSectorById } from '@/data/sectors';
 import { GlareHover } from '@/components/common';
@@ -198,6 +199,7 @@ interface PresetConfig {
 }
 
 const ModuleSelection = () => {
+  const { t } = useTranslation('auth');
   const navigate = useNavigate();
   const { selectedSector, selectedAccountType, setSelectedModules } = useAppStore();
 
@@ -216,11 +218,11 @@ const ModuleSelection = () => {
   const chatWidgetRef = useRef<HTMLButtonElement>(null);
 
   const spotlightConfigs = [
-    { ref: presetsRef, title: 'Quick Start!', description: 'Choose a preset package to quickly enable recommended modules.' },
-    { ref: modulesRef, title: 'Customize Modules!', description: 'Toggle individual modules on/off to build your perfect dashboard.' },
-    { ref: navBarRef, title: 'Navigation!', description: 'Click these badges to go back and change your industry or account type.' },
-    { ref: continueButtonRef, title: 'Ready to Go!', description: 'Click here to enter your personalized dashboard with selected modules.' },
-    { ref: chatWidgetRef, title: 'Need Help?', description: 'Click this button anytime to contact us, request a demo, or chat on WhatsApp!' },
+    { ref: presetsRef, title: t('moduleSelection.spotlight.step0title'), description: t('moduleSelection.spotlight.step0desc') },
+    { ref: modulesRef, title: t('moduleSelection.spotlight.step1title'), description: t('moduleSelection.spotlight.step1desc') },
+    { ref: navBarRef, title: t('moduleSelection.spotlight.step2title'), description: t('moduleSelection.spotlight.step2desc') },
+    { ref: continueButtonRef, title: t('moduleSelection.spotlight.step3title'), description: t('moduleSelection.spotlight.step3desc') },
+    { ref: chatWidgetRef, title: t('moduleSelection.spotlight.step4title'), description: t('moduleSelection.spotlight.step4desc') },
   ];
 
   // Start spotlight after delay (only if not shown before in this session)
@@ -356,14 +358,14 @@ const ModuleSelection = () => {
     () => [
       {
         id: 'full',
-        name: 'Full Package',
-        description: 'All modules enabled',
+        name: t('moduleSelection.presets.full.name'),
+        description: t('moduleSelection.presets.full.description'),
         getModules: (sectorIds: string[]) => [...commonModules.map((m) => m.id), ...sectorIds],
       },
       {
         id: 'essential',
-        name: 'Essential Package',
-        description: 'Most commonly used modules',
+        name: t('moduleSelection.presets.essential.name'),
+        description: t('moduleSelection.presets.essential.description'),
         getModules: (sectorIds: string[]) => [
           'dashboard',
           'hr',
@@ -376,12 +378,12 @@ const ModuleSelection = () => {
       },
       {
         id: 'minimal',
-        name: 'Minimal Package',
-        description: 'Sector modules only',
+        name: t('moduleSelection.presets.minimal.name'),
+        description: t('moduleSelection.presets.minimal.description'),
         getModules: (sectorIds: string[]) => ['dashboard', 'settings', ...sectorIds],
       },
     ],
-    []
+    [t]
   );
 
   const toggleModule = (moduleId: string) => {
@@ -478,9 +480,9 @@ const ModuleSelection = () => {
               </div>
             )}
             <div>
-              <p className="text-xs text-text-muted">Selected Industry</p>
+              <p className="text-xs text-text-muted">{t('moduleSelection.selectedIndustry')}</p>
               <h2 className="text-sm font-semibold text-white">
-                {sector?.name || 'Unknown Sector'}
+                {sector?.name || t('moduleSelection.unknownSector')}
               </h2>
             </div>
             <Check size={16} className="text-emerald-400 ml-2" />
@@ -495,9 +497,9 @@ const ModuleSelection = () => {
               <AccountIcon className="w-4 h-4" />
             </div>
             <div>
-              <p className="text-xs text-text-muted">Account Type</p>
+              <p className="text-xs text-text-muted">{t('moduleSelection.accountType')}</p>
               <h2 className="text-sm font-semibold text-white">
-                {selectedAccountType === 'admin' ? 'Administrator' : 'Staff Member'}
+                {selectedAccountType === 'admin' ? t('moduleSelection.administrator') : t('moduleSelection.staffMember')}
               </h2>
             </div>
             <Check size={16} className="text-emerald-400 ml-2" />
@@ -512,7 +514,7 @@ const ModuleSelection = () => {
             transition={{ delay: 0.1 }}
             className="text-4xl font-bold text-white mb-3"
           >
-            Select Your Modules
+            {t('moduleSelection.selectYourModules')}
           </motion.h1>
           <motion.p
             initial={{ y: -10, opacity: 0 }}
@@ -520,7 +522,7 @@ const ModuleSelection = () => {
             transition={{ delay: 0.2 }}
             className="text-white/60 text-lg"
           >
-            Choose the modules you need. You can change these later in settings.
+            {t('moduleSelection.selectYourModulesDescription')}
           </motion.p>
         </div>
 
@@ -569,7 +571,7 @@ const ModuleSelection = () => {
                 </div>
                 <h3 className="relative z-10 text-white font-medium mb-1">{preset.name}</h3>
                 <p className="relative z-10 text-white/50 text-sm">{preset.description}</p>
-                <p className={`relative z-10 text-xs mt-2 ${isActive ? 'text-emerald-400' : 'text-[#94B4C1]'}`}>{presetModules.length} modules</p>
+                <p className={`relative z-10 text-xs mt-2 ${isActive ? 'text-emerald-400' : 'text-[#94B4C1]'}`}>{presetModules.length} {t('moduleSelection.modules')}</p>
                 {/* Hover Glow Effect */}
                 <div className={`absolute inset-0 rounded-xl bg-gradient-to-br from-[#547792]/0 via-[#94B4C1]/15 to-[#547792]/0 transition-opacity pointer-events-none ${isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`} />
               </GlareHover>
@@ -586,9 +588,9 @@ const ModuleSelection = () => {
           className={`mb-8 ${spotlightStep === 1 ? 'relative z-60' : ''}`}
         >
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-white">Common Modules</h2>
+            <h2 className="text-lg font-semibold text-white">{t('moduleSelection.weightedModules')}</h2>
             <span className="text-sm text-white/50">
-              {commonModules.filter((m) => isModuleSelected(m.id)).length}/{commonModules.length} selected
+              {commonModules.filter((m) => isModuleSelected(m.id)).length}/{commonModules.length} {t('moduleSelection.selected')}
             </span>
           </div>
           <div className="p-4 rounded-2xl bg-black/35 border border-white/[0.08]">
@@ -636,11 +638,11 @@ const ModuleSelection = () => {
                       {isSelected && <Check size={12} className="text-white" />}
                     </div>
                   </div>
-                  <h3 className="text-white font-medium text-sm mt-3">{module.name}</h3>
-                  <p className="text-white/40 text-xs mt-1">{module.description}</p>
+                  <h3 className="text-white font-medium text-sm mt-3">{t(`moduleSelection.commonModules.${module.id}.title`, module.name)}</h3>
+                  <p className="text-white/40 text-xs mt-1">{t(`moduleSelection.commonModules.${module.id}.description`, module.description)}</p>
                   {isRequired && (
                     <span className="inline-block mt-2 text-xs text-[#94B4C1] bg-[#94B4C1]/10 px-2 py-0.5 rounded">
-                      Required
+                      {t('moduleSelection.required')}
                     </span>
                   )}
                 </GlareHover>
@@ -660,14 +662,14 @@ const ModuleSelection = () => {
           >
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <h2 className="text-lg font-semibold text-white">Sector Modules</h2>
+                <h2 className="text-lg font-semibold text-white">{t('moduleSelection.sectorModules')}</h2>
                 <span className="text-xs bg-[#94B4C1]/20 text-[#94B4C1] px-2 py-0.5 rounded capitalize">
                   {selectedSector}
                 </span>
               </div>
               <span className="text-sm text-white/50">
                 {availableSectorModules.filter((m) => isModuleSelected(m.id)).length}/
-                {availableSectorModules.length} selected
+                {availableSectorModules.length} {t('moduleSelection.selected')}
               </span>
             </div>
             <div className="p-4 rounded-2xl bg-black/35 border border-white/[0.08]">
@@ -698,10 +700,10 @@ const ModuleSelection = () => {
                         <Check size={12} className="text-white" />
                       </div>
                     </div>
-                    <h3 className="text-white font-medium text-sm mt-3">{module.name}</h3>
-                    <p className="text-white/40 text-xs mt-1">{module.description}</p>
+                    <h3 className="text-white font-medium text-sm mt-3">{t(`moduleSelection.sectorModuleItems.${module.id}.title`, module.name)}</h3>
+                    <p className="text-white/40 text-xs mt-1">{t(`moduleSelection.sectorModuleItems.${module.id}.description`, module.description)}</p>
                     <span className="inline-block mt-2 text-xs text-[#94B4C1] bg-[#94B4C1]/10 px-2 py-0.5 rounded">
-                      Included
+                      {t('moduleSelection.included')}
                     </span>
                   </GlareHover>
                 );
@@ -720,10 +722,9 @@ const ModuleSelection = () => {
         >
           <Info size={20} className="text-[#60a5fa] flex-shrink-0 mt-0.5" />
           <div>
-            <h4 className="text-[#60a5fa] font-medium text-sm">About Module Selection</h4>
+            <h4 className="text-[#60a5fa] font-medium text-sm">{t('moduleSelection.aboutModuleSelection')}</h4>
             <p className="text-[#93c5fd]/70 text-sm mt-1">
-              Selected modules will appear in the sidebar menu. Disable unwanted modules for a cleaner
-              interface. You can always change this from the Settings menu.
+              {t('moduleSelection.aboutModuleSelectionDescription')}
             </p>
           </div>
         </motion.div>
@@ -740,7 +741,7 @@ const ModuleSelection = () => {
             onClick={handleContinue}
             className="relative px-8 py-3 bg-white/[0.03] backdrop-blur-2xl border border-white/[0.08] text-white font-semibold rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2 cursor-pointer group overflow-hidden before:absolute before:inset-0 before:rounded-xl before:bg-gradient-to-r before:from-[#547792]/20 before:to-[#94B4C1]/20 before:opacity-100 hover:border-[#94B4C1]/50 hover:bg-white/[0.06] hover:shadow-[0_0_30px_rgba(148,180,193,0.3)]"
           >
-            <span className="relative z-10">Continue to Dashboard</span>
+            <span className="relative z-10">{t('moduleSelection.continueToPanel')}</span>
             <ChevronRight size={20} className="relative z-10 group-hover:translate-x-1 transition-transform" />
             {/* Animated gradient glow */}
             <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#547792]/0 via-[#94B4C1]/20 to-[#547792]/0 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -860,7 +861,7 @@ const ModuleSelection = () => {
                   {spotlightConfigs[spotlightStep].description}
                 </p>
                 <p className="relative z-10 text-red-400 text-xs font-medium">
-                  {spotlightStep < spotlightConfigs.length - 1 ? 'Click to continue' : 'Click anywhere to dismiss'}
+                  {spotlightStep < spotlightConfigs.length - 1 ? t('moduleSelection.spotlight.clickToContinue') : t('moduleSelection.spotlight.clickToDismiss')}
                 </p>
               </div>
             </motion.div>

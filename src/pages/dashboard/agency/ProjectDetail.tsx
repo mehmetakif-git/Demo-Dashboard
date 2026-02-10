@@ -21,8 +21,10 @@ import {
   getProjectStatusColor,
 } from '@/data/agency/agencyData';
 import { getProfileImage } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const ProjectDetail = () => {
+  const { t: _t } = useTranslation('common');
   const { id } = useParams();
   const navigate = useNavigate();
 

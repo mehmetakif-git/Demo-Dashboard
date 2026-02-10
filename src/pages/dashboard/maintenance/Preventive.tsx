@@ -21,8 +21,10 @@ import {
   formatDate,
   type PreventiveSchedule,
 } from '@/data/maintenanceData';
+import { useTranslation } from 'react-i18next';
 
 export const Preventive = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFrequency, setSelectedFrequency] = useState<string>('all');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
@@ -114,7 +116,7 @@ export const Preventive = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Preventive Maintenance"
+        title={t('maintenance.preventiveMaintenance', 'Preventive Maintenance')}
         subtitle="Schedule and manage preventive maintenance tasks"
         actions={
           <Button leftIcon={<Plus size={16} />}>

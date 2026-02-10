@@ -20,8 +20,10 @@ import {
   formatCurrency,
   formatDateTime,
 } from '@/data/hardware/hardwareData';
+import { useTranslation } from 'react-i18next';
 
 export const SalesHistory = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedPayment, setSelectedPayment] = useState<string>('all');
   const [selectedSale, setSelectedSale] = useState<string | null>(null);
@@ -65,7 +67,7 @@ export const SalesHistory = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Sales History"
+        title={t('hardware.salesHistory', 'Sales History')}
         subtitle="View all completed transactions"
         actions={
           <Button variant="secondary" leftIcon={<Download size={16} />}>

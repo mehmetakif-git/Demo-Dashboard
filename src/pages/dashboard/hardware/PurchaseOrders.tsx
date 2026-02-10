@@ -20,8 +20,10 @@ import {
   formatDate,
   getPOStatusColor,
 } from '@/data/hardware/hardwareData';
+import { useTranslation } from 'react-i18next';
 
 export const PurchaseOrders = () => {
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
@@ -62,7 +64,7 @@ export const PurchaseOrders = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Purchase Orders"
+        title={t('hardware.purchaseOrders', 'Purchase Orders')}
         subtitle="Manage supplier purchase orders"
         actions={
           <div className="flex gap-2">

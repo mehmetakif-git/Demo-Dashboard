@@ -24,8 +24,10 @@ import {
   getProjectStatusColor,
 } from '@/data/agency/agencyData';
 import { getProfileImage } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const ProjectList = () => {
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -66,7 +68,7 @@ export const ProjectList = () => {
       className="space-y-6"
     >
       <PageHeader
-        title="Projects"
+        title={t('agency.projects', 'Projects')}
         subtitle="Track and manage all agency projects"
         actions={
           <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">

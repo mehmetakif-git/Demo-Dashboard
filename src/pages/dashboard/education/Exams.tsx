@@ -14,8 +14,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { exams, examSchedule, EDUCATION_COLOR } from '@/data/education/educationData';
+import { useTranslation } from 'react-i18next';
 
 export const Exams = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [selectedExam, setSelectedExam] = useState<string | null>('EXM002');
@@ -67,7 +69,7 @@ export const Exams = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Exam Management"
+        title={t('education.examManagement', 'Exam Management')}
         subtitle="Schedule and manage examinations"
         icon={FileText}
         actions={

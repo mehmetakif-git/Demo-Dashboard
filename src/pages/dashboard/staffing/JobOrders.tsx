@@ -23,8 +23,10 @@ import {
   type JobOrder,
 } from '@/data/staffing/staffingData';
 import { ROUTES } from '@/utils/constants';
+import { useTranslation } from 'react-i18next';
 
 export const JobOrders = () => {
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -89,7 +91,7 @@ export const JobOrders = () => {
       className="space-y-6"
     >
       <PageHeader
-        title="Job Orders"
+        title={t('staffing.jobOrders', 'Job Orders')}
         subtitle="Manage open positions and requisitions"
         actions={
           <Button onClick={() => console.log('Add job order')}>

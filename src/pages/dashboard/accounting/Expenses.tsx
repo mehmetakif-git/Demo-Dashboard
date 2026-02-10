@@ -21,6 +21,7 @@ import {
 import { PageHeader, StatsCard, StatusBadge, DataTable } from '@/components/common';
 import { expenseRecords, expenseCategories } from '@/data/accountingData';
 import type { ExpenseRecord } from '@/data/accountingData';
+import { useTranslation } from 'react-i18next';
 
 const categories = ['All', 'Rent', 'Technology', 'Payroll', 'Marketing', 'Operations', 'Professional Services', 'Insurance', 'Travel', 'Equipment', 'Utilities', 'Training'];
 
@@ -32,6 +33,7 @@ const paymentMethodLabels: Record<string, string> = {
 };
 
 export const Expenses = () => {
+  const { t } = useTranslation('common');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
 
@@ -115,7 +117,7 @@ export const Expenses = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title="Expenses"
+        title={t('accounting.expenses', 'Expenses')}
         subtitle="Track and manage all outgoing expenses"
         icon={ArrowDownCircle}
         actions={

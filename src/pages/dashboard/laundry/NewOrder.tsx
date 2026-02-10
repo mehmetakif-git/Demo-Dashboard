@@ -17,6 +17,7 @@ import {
   garmentTypes,
   formatCurrency,
 } from '@/data/laundry/laundryData';
+import { useTranslation } from 'react-i18next';
 
 interface OrderItem {
   garmentTypeId: string;
@@ -29,6 +30,7 @@ interface OrderItem {
 }
 
 export const NewOrder = () => {
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCustomer, setSelectedCustomer] = useState<string | null>(null);
@@ -95,7 +97,7 @@ export const NewOrder = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="New Order"
+        title={t('laundry.newOrder', 'New Order')}
         subtitle="Create a new laundry order"
         actions={
           <Button variant="secondary" leftIcon={<ArrowLeft size={16} />} onClick={() => navigate(-1)}>

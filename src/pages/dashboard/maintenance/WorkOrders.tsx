@@ -22,8 +22,10 @@ import {
   getStatusColor,
   type WorkOrder,
 } from '@/data/maintenanceData';
+import { useTranslation } from 'react-i18next';
 
 export const WorkOrders = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
   const [selectedType, setSelectedType] = useState<string>('all');
@@ -118,7 +120,7 @@ export const WorkOrders = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Work Orders"
+        title={t('maintenance.workOrders', 'Work Orders')}
         subtitle="Manage maintenance work orders and tasks"
         actions={
           <Button leftIcon={<Plus size={16} />}>

@@ -23,10 +23,12 @@ import {
   getCandidateStatusBgColor,
 } from '@/data/staffing/staffingData';
 import { ROUTES } from '@/utils/constants';
+import { useTranslation } from 'react-i18next';
 
 type TabType = 'overview' | 'candidates' | 'activity';
 
 export const JobOrderDetail = () => {
+  const { t: _t } = useTranslation('common');
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<TabType>('overview');

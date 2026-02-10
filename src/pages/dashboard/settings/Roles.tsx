@@ -21,8 +21,10 @@ import {
   type Role,
   type RolePermissions,
 } from '@/data/settingsData';
+import { useTranslation } from 'react-i18next';
 
 export const Roles = () => {
+  const { t } = useTranslation('common');
   const [selectedRole, setSelectedRole] = useState<Role | null>(null);
   const [isCreating, setIsCreating] = useState(false);
   const [expandedModule, setExpandedModule] = useState<string | null>(null);
@@ -92,7 +94,7 @@ export const Roles = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Roles & Permissions"
+        title={t('settings.rolesPermissions', 'Roles & Permissions')}
         subtitle="Manage user roles and access permissions"
         actions={
           <Button leftIcon={<Plus size={16} />} onClick={handleCreateRole}>

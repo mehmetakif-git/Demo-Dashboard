@@ -12,8 +12,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { payments, REALESTATE_COLOR, getStatusColor } from '@/data/realestate/realestateData';
+import { useTranslation } from 'react-i18next';
 
 export const Payments = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [typeFilter, setTypeFilter] = useState<string>('all');
@@ -47,7 +49,7 @@ export const Payments = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Payments"
+        title={t('realestate.payments', 'Payments')}
         subtitle="Track rent payments and collections"
         icon={CreditCard}
       />

@@ -25,10 +25,12 @@ import {
 } from '@/data/gym/gymData';
 import { ROUTES } from '@/utils/constants';
 import { profileImages } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 const DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 
 export const TrainerDetail = () => {
+  const { t: _t } = useTranslation('common');
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const [activeTab, setActiveTab] = useState('schedule');

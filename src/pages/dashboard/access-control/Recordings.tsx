@@ -16,8 +16,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, StatsCard, Input, Button } from '@/components/common';
 import { recordings, cameras } from '@/data/accessControlData';
+import { useTranslation } from 'react-i18next';
 
 export const Recordings = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCamera, setSelectedCamera] = useState<string>('all');
   const [selectedType, setSelectedType] = useState<string>('all');
@@ -107,7 +109,7 @@ export const Recordings = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Recordings"
+        title={t('access-control.recordings', 'Recordings')}
         subtitle="View and manage camera recordings"
         actions={
           <div className="flex items-center gap-2">

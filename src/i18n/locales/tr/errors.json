@@ -1,0 +1,17 @@
+{
+  "notFound": {
+    "title": "Sayfa Bulunamadı",
+    "code": "404",
+    "description": "Aradığınız sayfa mevcut değil veya taşınmış olabilir.",
+    "goBack": "Geri Dön",
+    "goHome": "Panele Git"
+  },
+  "serverError": {
+    "title": "Sunucu Hatası",
+    "code": "500",
+    "description": "Bir şeyler ters gitti. Lütfen daha sonra tekrar deneyin.",
+    "goBack": "Geri Dön",
+    "goHome": "Panele Git",
+    "retry": "Tekrar Dene"
+  }
+}

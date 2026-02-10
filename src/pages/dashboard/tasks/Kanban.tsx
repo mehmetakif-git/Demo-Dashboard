@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Input, Button } from '@/components/common';
 import { tasks, projects, taskStatuses, taskPriorities, getPriorityColor, type Task } from '@/data/taskData';
+import { useTranslation } from 'react-i18next';
 
 interface KanbanColumnProps {
   status: typeof taskStatuses[0];
@@ -169,6 +170,7 @@ const KanbanCard = ({ task, index }: KanbanCardProps) => {
 };
 
 export const Kanban = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedProject, setSelectedProject] = useState<string>('all');
   const [selectedAssignee, setSelectedAssignee] = useState<string>('all');
@@ -216,7 +218,7 @@ export const Kanban = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Kanban Board"
+        title={t('tasks.kanbanBoard', 'Kanban Board')}
         subtitle="Visualize and manage tasks with drag-and-drop"
         actions={
           <Button leftIcon={<Plus size={16} />}>

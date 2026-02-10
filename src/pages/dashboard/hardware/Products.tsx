@@ -20,8 +20,10 @@ import {
   formatCurrency,
   getStatusColor,
 } from '@/data/hardware/hardwareData';
+import { useTranslation } from 'react-i18next';
 
 export const Products = () => {
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -64,7 +66,7 @@ export const Products = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Products"
+        title={t('hardware.products', 'Products')}
         subtitle="Manage your product catalog"
         actions={<Button leftIcon={<Plus size={16} />}>Add Product</Button>}
       />

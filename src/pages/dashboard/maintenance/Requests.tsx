@@ -22,8 +22,10 @@ import {
   getPriorityColor,
   type MaintenanceRequest,
 } from '@/data/maintenanceData';
+import { useTranslation } from 'react-i18next';
 
 export const Requests = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
   const [selectedPriority, setSelectedPriority] = useState<string>('all');
@@ -103,7 +105,7 @@ export const Requests = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Maintenance Requests"
+        title={t('maintenance.maintenanceRequests', 'Maintenance Requests')}
         subtitle="View and manage incoming maintenance requests"
         actions={
           <Button leftIcon={<Plus size={16} />}>

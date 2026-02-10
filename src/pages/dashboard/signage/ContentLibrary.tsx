@@ -52,8 +52,10 @@ const contentImages: Record<string, string> = {
   'Meeting Room Instructions': display6,
   'Parking Rules': display10,
 };
+import { useTranslation } from 'react-i18next';
 
 export const ContentLibrary = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedType, setSelectedType] = useState<string>('all');
   const [selectedFolder, setSelectedFolder] = useState<string>('all');
@@ -152,7 +154,7 @@ export const ContentLibrary = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Content Library"
+        title={t('signage.contentLibrary', 'Content Library')}
         subtitle="Manage your digital signage content"
         actions={
           <div className="flex items-center gap-2">

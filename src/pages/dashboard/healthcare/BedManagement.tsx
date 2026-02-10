@@ -13,8 +13,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { beds, HEALTHCARE_COLOR, getPatientProfileImage } from '@/data/healthcare/healthcareData';
+import { useTranslation } from 'react-i18next';
 
 export const BedManagement = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [wardFilter, setWardFilter] = useState<string>('all');
@@ -93,7 +95,7 @@ export const BedManagement = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Bed Management"
+        title={t('healthcare.bedManagement', 'Bed Management')}
         subtitle="Monitor and manage hospital beds"
         icon={Bed}
       />

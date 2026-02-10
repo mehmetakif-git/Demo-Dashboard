@@ -5,8 +5,10 @@ import { PageHeader, StatsCard, StatusBadge, Avatar, DataTable } from '@/compone
 import { performanceReviews } from '@/data/hrData';
 import { profileImages } from '@/utils/profileImages';
 import type { PerformanceReview } from '@/data/hrData';
+import { useTranslation } from 'react-i18next';
 
 export const Performance = () => {
+  const { t } = useTranslation('common');
   const [currentPeriod] = useState('Q4 2024');
 
   const stats = useMemo(() => {
@@ -97,7 +99,7 @@ export const Performance = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title="Performance Reviews"
+        title={t('hr.performanceReviews', 'Performance Reviews')}
         subtitle="Evaluate and track employee performance"
         icon={Star}
         actions={

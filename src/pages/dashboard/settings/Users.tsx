@@ -26,8 +26,10 @@ import {
   getStatusColor,
   type User,
 } from '@/data/settingsData';
+import { useTranslation } from 'react-i18next';
 
 export const Users = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [roleFilter, setRoleFilter] = useState('all');
   const [departmentFilter, setDepartmentFilter] = useState('all');
@@ -80,7 +82,7 @@ export const Users = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="User Management"
+        title={t('settings.userManagement', 'User Management')}
         subtitle="Manage user accounts and permissions"
         actions={
           <Button leftIcon={<Plus size={16} />} onClick={() => setIsInviteModalOpen(true)}>

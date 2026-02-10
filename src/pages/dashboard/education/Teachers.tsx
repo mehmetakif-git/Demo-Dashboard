@@ -13,8 +13,10 @@ import {
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { teachers, classes, EDUCATION_COLOR } from '@/data/education/educationData';
 import { getProfileImage } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const Teachers = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [subjectFilter, setSubjectFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -69,7 +71,7 @@ export const Teachers = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Teacher Management"
+        title={t('education.teacherManagement', 'Teacher Management')}
         subtitle="Manage teachers and staff assignments"
         icon={UserCheck}
         actions={

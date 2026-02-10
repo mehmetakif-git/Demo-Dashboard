@@ -16,8 +16,10 @@ import {
   guests,
   eventVendors,
 } from '@/data/events/eventsData';
+import { useTranslation } from 'react-i18next';
 
 export const Catering = () => {
+  const { t } = useTranslation('common');
   const [selectedEvent, setSelectedEvent] = useState<string>(events[0]?.id || '');
 
   const selectedEventData = useMemo(() => {
@@ -70,7 +72,7 @@ export const Catering = () => {
       className="space-y-6"
     >
       <PageHeader
-        title="Catering"
+        title={t('events.catering', 'Catering')}
         subtitle="Manage event catering and dietary requirements"
         actions={
           <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">

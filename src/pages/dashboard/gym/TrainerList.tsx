@@ -18,8 +18,10 @@ import {
 } from '@/data/gym/gymData';
 import { ROUTES } from '@/utils/constants';
 import { profileImages } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const TrainerList = () => {
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
 
   const totalTrainers = trainers.length;
@@ -44,7 +46,7 @@ export const TrainerList = () => {
       className="space-y-6"
     >
       <PageHeader
-        title="Trainers"
+        title={t('gym.trainers', 'Trainers')}
         subtitle="Manage personal trainers and staff"
         actions={
           <Button onClick={() => console.log('Add trainer')}>

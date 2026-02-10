@@ -15,8 +15,10 @@ import {
   formatDate,
   formatCurrency,
 } from '@/data/beauty/beautyData';
+import { useTranslation } from 'react-i18next';
 
 export const GiftCards = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
 
@@ -70,7 +72,7 @@ export const GiftCards = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Gift Cards"
+        title={t('beauty.giftCards', 'Gift Cards')}
         subtitle="Manage gift cards and vouchers"
         actions={<Button leftIcon={<Plus size={16} />}>Create Gift Card</Button>}
       />

@@ -15,10 +15,12 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { PageHeader, StatsCard, DataTable, StatusBadge } from '@/components/common';
 import { customers, segmentColors, type Customer } from '@/data/crmData';
+import { useTranslation } from 'react-i18next';
 
 type ViewMode = 'table' | 'card';
 
 export const CustomerList = () => {
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [segmentFilter, setSegmentFilter] = useState<string>('all');
@@ -196,7 +198,7 @@ export const CustomerList = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title="Customers"
+        title={t('crm.customers', 'Customers')}
         subtitle="Manage your customer relationships"
         actions={
           <button className="flex items-center gap-2 rounded-lg bg-[#547792] px-4 py-2 text-sm font-medium text-white hover:bg-[#5558e3] transition-colors">

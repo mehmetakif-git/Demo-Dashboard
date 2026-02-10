@@ -15,8 +15,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, StatsCard, Input, Button } from '@/components/common';
 import { projects, tasks, getPriorityColor } from '@/data/taskData';
+import { useTranslation } from 'react-i18next';
 
 export const Projects = () => {
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
@@ -88,7 +90,7 @@ export const Projects = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Projects"
+        title={t('tasks.projects', 'Projects')}
         subtitle="Manage and track all project progress"
         actions={
           <Button leftIcon={<Plus size={16} />}>

@@ -12,6 +12,7 @@ import {
 import { PageHeader, StatsCard, StatusBadge, DataTable } from '@/components/common';
 import { incomeRecords } from '@/data/accountingData';
 import type { IncomeRecord } from '@/data/accountingData';
+import { useTranslation } from 'react-i18next';
 
 const categories = ['All', 'Software Sales', 'Consulting', 'Cloud Services', 'Development', 'Support', 'Training'];
 
@@ -23,6 +24,7 @@ const paymentMethodLabels: Record<string, string> = {
 };
 
 export const Income = () => {
+  const { t } = useTranslation('common');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
 
@@ -111,7 +113,7 @@ export const Income = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title="Income"
+        title={t('accounting.income', 'Income')}
         subtitle="Track and manage all incoming revenue"
         icon={ArrowUpCircle}
         actions={

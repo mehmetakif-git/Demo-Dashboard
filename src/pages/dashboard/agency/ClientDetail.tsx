@@ -23,8 +23,10 @@ import {
   getClientTierColor,
   getCampaignStatusColor,
 } from '@/data/agency/agencyData';
+import { useTranslation } from 'react-i18next';
 
 export const ClientDetail = () => {
+  const { t: _t } = useTranslation('common');
   const { id } = useParams();
   const navigate = useNavigate();
 

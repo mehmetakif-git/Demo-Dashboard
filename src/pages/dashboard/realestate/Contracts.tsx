@@ -12,8 +12,10 @@ import {
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { contracts, REALESTATE_COLOR, getStatusColor } from '@/data/realestate/realestateData';
 import { getProfileImage, getCompanyLogo } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const Contracts = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [typeFilter, setTypeFilter] = useState<string>('all');
@@ -47,7 +49,7 @@ export const Contracts = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Contracts"
+        title={t('realestate.contracts', 'Contracts')}
         subtitle="Manage sale and lease agreements"
         icon={FileSignature}
       />

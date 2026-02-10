@@ -24,8 +24,10 @@ import {
   type BackupSettings,
   type Backup as BackupType,
 } from '@/data/settingsData';
+import { useTranslation } from 'react-i18next';
 
 export const Backup = () => {
+  const { t } = useTranslation('common');
   const [settings, setSettings] = useState<BackupSettings>(initialBackupSettings);
   const [hasChanges, setHasChanges] = useState(false);
   const [isCreatingBackup, setIsCreatingBackup] = useState(false);
@@ -63,7 +65,7 @@ export const Backup = () => {
   return (
     <div className="space-y-6 pb-20">
       <PageHeader
-        title="Backup & Restore"
+        title={t('settings.backupRestore', 'Backup & Restore')}
         subtitle="Manage system backups and restore points"
       />
 

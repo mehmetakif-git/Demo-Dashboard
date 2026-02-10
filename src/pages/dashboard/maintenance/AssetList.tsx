@@ -23,8 +23,10 @@ import {
   formatDate,
   type Asset,
 } from '@/data/maintenanceData';
+import { useTranslation } from 'react-i18next';
 
 export const AssetList = () => {
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
@@ -110,7 +112,7 @@ export const AssetList = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Assets"
+        title={t('maintenance.assets', 'Assets')}
         subtitle="Manage and track all maintenance assets"
         actions={
           <Button leftIcon={<Plus size={16} />}>

@@ -20,8 +20,10 @@ import {
   categories,
   formatCurrency,
 } from '@/data/hardware/hardwareData';
+import { useTranslation } from 'react-i18next';
 
 export const Barcode = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
@@ -106,7 +108,7 @@ export const Barcode = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Barcode Management"
+        title={t('hardware.barcodeManagement', 'Barcode Management')}
         subtitle="Generate and print product barcodes"
         actions={
           <div className="flex gap-2">

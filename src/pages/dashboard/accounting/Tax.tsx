@@ -13,6 +13,7 @@ import {
 import { PageHeader, StatsCard, StatusBadge, Tabs, DataTable } from '@/components/common';
 import { taxRecords } from '@/data/accountingData';
 import type { TaxRecord } from '@/data/accountingData';
+import { useTranslation } from 'react-i18next';
 
 const tabs = [
   { id: 'all', label: 'All Records' },
@@ -22,6 +23,7 @@ const tabs = [
 ];
 
 export const Tax = () => {
+  const { t } = useTranslation('common');
   const [activeTab, setActiveTab] = useState('all');
 
   const stats = useMemo(() => {
@@ -136,7 +138,7 @@ export const Tax = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title="Tax Management"
+        title={t('accounting.taxManagement', 'Tax Management')}
         subtitle="Track tax obligations and deadlines"
         icon={Receipt}
         actions={

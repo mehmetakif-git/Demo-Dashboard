@@ -23,3 +23,4 @@ export { FormField, FormTextarea, FormSelect } from './FormField';
 export { default as GlareHover } from './GlareHover';
 export { GlowInput } from './GlowInput';
 export { BottomGradient } from './BottomGradient';
+export { LanguageSwitcher } from './LanguageSwitcher';

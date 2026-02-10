@@ -18,8 +18,10 @@ import {
   guestStatuses,
   getGuestStatusColor,
 } from '@/data/events/eventsData';
+import { useTranslation } from 'react-i18next';
 
 export const Registrations = () => {
+  const { t } = useTranslation('common');
   const [selectedEvent, setSelectedEvent] = useState<string>(events[0]?.id || '');
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -57,7 +59,7 @@ export const Registrations = () => {
       className="space-y-6"
     >
       <PageHeader
-        title="Registrations"
+        title={t('events.registrations', 'Registrations')}
         subtitle="Manage event registrations and attendees"
         actions={
           <div className="flex gap-2">

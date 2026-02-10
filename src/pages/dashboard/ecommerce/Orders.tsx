@@ -14,8 +14,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, StatusBadge, Dropdown } from '@/components/common';
 import { orders, orderStatuses } from '@/data/ecommerce/ecommerceData';
+import { useTranslation } from 'react-i18next';
 
 export const Orders = () => {
+  const { t } = useTranslation('common');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -44,7 +46,7 @@ export const Orders = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Orders"
+        title={t('ecommerce.orders', 'Orders')}
         subtitle="Manage and track customer orders"
         icon={ShoppingCart}
         actions={

@@ -12,8 +12,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { maintenanceRequests, REALESTATE_COLOR, getStatusColor, getPriorityColor } from '@/data/realestate/realestateData';
+import { useTranslation } from 'react-i18next';
 
 export const Maintenance = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [priorityFilter, setPriorityFilter] = useState<string>('all');
@@ -59,7 +61,7 @@ export const Maintenance = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Maintenance"
+        title={t('realestate.maintenance', 'Maintenance')}
         subtitle="Manage maintenance requests and repairs"
         icon={Wrench}
       />

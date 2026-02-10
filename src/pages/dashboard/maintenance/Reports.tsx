@@ -23,8 +23,10 @@ import {
   formatCurrency,
   assetCategories,
 } from '@/data/maintenanceData';
+import { useTranslation } from 'react-i18next';
 
 export const Reports = () => {
+  const { t } = useTranslation('common');
   const [selectedPeriod, setSelectedPeriod] = useState('month');
 
   // Calculate additional stats
@@ -77,7 +79,7 @@ export const Reports = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Maintenance Reports"
+        title={t('maintenance.maintenanceReports', 'Maintenance Reports')}
         subtitle="Analytics and insights for maintenance operations"
         actions={
           <div className="flex gap-2">

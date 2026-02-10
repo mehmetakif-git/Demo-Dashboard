@@ -17,10 +17,12 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, StatsCard, Input, Button } from '@/components/common';
 import { tasks, projects, taskPriorities, getPriorityColor } from '@/data/taskData';
+import { useTranslation } from 'react-i18next';
 
 const priorityOrder = { urgent: 0, high: 1, medium: 2, low: 3 };
 
 export const MyTasks = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
   const [selectedPriority, setSelectedPriority] = useState<string>('all');
@@ -140,7 +142,7 @@ export const MyTasks = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="My Tasks"
+        title={t('tasks.myTasks', 'My Tasks')}
         subtitle="Manage your assigned tasks and track progress"
         actions={
           <Button leftIcon={<Plus size={16} />}>

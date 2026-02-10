@@ -17,8 +17,10 @@ import {
   garmentTypes,
   formatCurrency,
 } from '@/data/laundry/laundryData';
+import { useTranslation } from 'react-i18next';
 
 export const Services = () => {
+  const { t } = useTranslation('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [activeTab, setActiveTab] = useState<'services' | 'garments'>('services');
@@ -48,7 +50,7 @@ export const Services = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Services & Pricing"
+        title={t('laundry.servicesPricing', 'Services & Pricing')}
         subtitle="Manage your service catalog and pricing"
         actions={<Button leftIcon={<Plus size={16} />}>Add Service</Button>}
       />

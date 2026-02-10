@@ -1,15 +1,17 @@
 import { motion } from 'framer-motion';
 import { Search, Bell, Mail, Menu, User, Settings, LogOut, Zap, ZapOff, Gauge } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useAppStore } from '@/store/appStore';
 import type { PerformanceMode } from '@/store/appStore';
 import { useAuth } from '@/hooks/useAuth';
-import { Dropdown, Avatar } from '@/components/common';
+import { Dropdown, Avatar, LanguageSwitcher } from '@/components/common';
 import { Breadcrumb } from './Breadcrumb';
 import { LAYOUT, ROUTES } from '@/utils/constants';
 import { usePerformanceMode } from '@/hooks/usePerformanceMode';
 
 export const Header = () => {
+  const { t } = useTranslation('common');
   const { sidebarCollapsed, toggleSidebar, selectedAccountType, performanceMode, setPerformanceMode } = useAppStore();
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -29,20 +31,20 @@ export const Header = () => {
       case 'performance':
         return {
           icon: <ZapOff className="h-5 w-5" />,
-          tooltip: 'Performance Mode (Effects Off)',
+          tooltip: t('performanceMode.performance'),
           color: 'text-amber-400',
         };
       case 'quality':
         return {
           icon: <Zap className="h-5 w-5" />,
-          tooltip: 'Quality Mode (Effects On)',
+          tooltip: t('performanceMode.quality'),
           color: 'text-emerald-400',
         };
       case 'auto':
       default:
         return {
           icon: <Gauge className="h-5 w-5" />,
-          tooltip: `Auto Mode ${isOnBattery ? '(Battery - Effects Off)' : '(Plugged - Effects On)'}`,
+          tooltip: isOnBattery ? t('performanceMode.autoBattery') : t('performanceMode.autoPlugged'),
           color: shouldOptimize ? 'text-amber-400' : 'text-[#64748b]',
         };
     }
@@ -58,13 +60,13 @@ export const Header = () => {
   const profileMenuItems = [
     {
       id: 'profile',
-      label: 'Profile',
+      label: t('nav.profile'),
       icon: <User className="h-4 w-4" />,
       onClick: () => {},
     },
     {
       id: 'settings',
-      label: 'Settings',
+      label: t('nav.settings'),
       icon: <Settings className="h-4 w-4" />,
       onClick: () => {},
     },
@@ -75,7 +77,7 @@ export const Header = () => {
     },
     {
       id: 'logout',
-      label: 'Logout',
+      label: t('nav.logout'),
       icon: <LogOut className="h-4 w-4" />,
       onClick: handleLogout,
     },
@@ -117,6 +119,9 @@ export const Header = () => {
         >
           {perfInfo.icon}
         </button>
+
+        {/* Language Switcher */}
+        <LanguageSwitcher variant="compact" />
 
         {/* Search Button */}
         <button className="flex h-9 w-9 items-center justify-center rounded-lg text-[#64748b] hover:bg-white/[0.05] hover:text-white transition-colors cursor-pointer">
