@@ -27,7 +27,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const Analytics = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('qrCodes');
   const [selectedPeriod, setSelectedPeriod] = useState('month');
   const [selectedQRCode, setSelectedQRCode] = useState<string>('all');
 
@@ -57,9 +57,9 @@ export const Analytics = () => {
   ], []);
 
   const deviceData = [
-    { device: 'Mobile', percentage: 68, icon: Smartphone, color: '#3b82f6' },
-    { device: 'Desktop', percentage: 22, icon: Monitor, color: '#10b981' },
-    { device: 'Tablet', percentage: 10, icon: Tablet, color: '#f59e0b' },
+    { device: t('analytics.mobile'), percentage: 68, icon: Smartphone, color: '#3b82f6' },
+    { device: t('analytics.desktop'), percentage: 22, icon: Monitor, color: '#10b981' },
+    { device: t('analytics.tablet'), percentage: 10, icon: Tablet, color: '#f59e0b' },
   ];
 
   const topLocations = [
@@ -94,8 +94,8 @@ export const Analytics = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('qr-codes.qrCodeAnalytics', 'QR Code Analytics')}
-        subtitle="Track performance and scan statistics for your QR codes"
+        title={t('analytics.title')}
+        subtitle={t('analytics.subtitle')}
         actions={
           <div className="flex gap-2">
             <select
@@ -103,16 +103,16 @@ export const Analytics = () => {
               onChange={(e) => setSelectedPeriod(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="week">Last 7 Days</option>
-              <option value="month">Last 30 Days</option>
-              <option value="quarter">Last 90 Days</option>
-              <option value="year">Last Year</option>
+              <option value="week">{t('analytics.last7Days')}</option>
+              <option value="month">{t('analytics.last30Days')}</option>
+              <option value="quarter">{t('analytics.last90Days')}</option>
+              <option value="year">{t('analytics.lastYear')}</option>
             </select>
             <Button variant="outline" leftIcon={<RefreshCw size={16} />}>
-              Refresh
+              {t('analytics.refresh')}
             </Button>
             <Button variant="outline" leftIcon={<Download size={16} />}>
-              Export Report
+              {t('analytics.exportReport')}
             </Button>
           </div>
         }
@@ -121,27 +121,27 @@ export const Analytics = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Scans"
+          title={t('analytics.totalScans')}
           value={formatNumber(stats.totalScans)}
-          subtitle="+12.5% from last period"
+          subtitle={t('analytics.fromLastPeriod', { value: '12.5%' })}
           icon={Scan}
           iconColor="#547792"
         />
         <StatsCard
-          title="Unique Visitors"
+          title={t('analytics.uniqueVisitors')}
           value={formatNumber(stats.uniqueScans)}
-          subtitle="+8.3% from last period"
+          subtitle={t('analytics.fromLastPeriod', { value: '8.3%' })}
           icon={Users}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Active QR Codes"
+          title={t('analytics.activeQrCodes')}
           value={stats.activeQRCodes.toString()}
           icon={QrCode}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Avg. Scans per QR"
+          title={t('analytics.avgScansPerQr')}
           value={formatNumber(stats.avgScansPerQR)}
           icon={BarChart3}
           iconColor="#94B4C1"
@@ -151,13 +151,13 @@ export const Analytics = () => {
       {/* QR Code Filter */}
       <Card className="p-4">
         <div className="flex items-center gap-4">
-          <label className="text-sm text-text-secondary">Filter by QR Code:</label>
+          <label className="text-sm text-text-secondary">{t('analytics.filterByQrCode')}</label>
           <select
             value={selectedQRCode}
             onChange={(e) => setSelectedQRCode(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All QR Codes</option>
+            <option value="all">{t('analytics.allQrCodes')}</option>
             {qrCodes.map(qr => (
               <option key={qr.id} value={qr.id}>{qr.name}</option>
             ))}
@@ -174,17 +174,17 @@ export const Analytics = () => {
         <Card className="p-6">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h3 className="text-lg font-semibold text-text-primary">Scan Trend</h3>
-              <p className="text-sm text-text-secondary">Total and unique scans over time</p>
+              <h3 className="text-lg font-semibold text-text-primary">{t('analytics.scanTrend')}</h3>
+              <p className="text-sm text-text-secondary">{t('analytics.scanTrendSubtitle')}</p>
             </div>
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 rounded bg-accent-primary" />
-                <span className="text-sm text-text-secondary">Total Scans</span>
+                <span className="text-sm text-text-secondary">{t('analytics.totalScansLegend')}</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 rounded bg-green-500" />
-                <span className="text-sm text-text-secondary">Unique Scans</span>
+                <span className="text-sm text-text-secondary">{t('analytics.uniqueScansLegend')}</span>
               </div>
             </div>
           </div>
@@ -222,7 +222,7 @@ export const Analytics = () => {
           transition={{ delay: 0.15 }}
         >
           <Card className="p-6">
-            <h3 className="text-lg font-semibold text-text-primary mb-6">Device Breakdown</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-6">{t('analytics.deviceBreakdown')}</h3>
             <div className="space-y-4">
               {deviceData.map((device) => (
                 <div key={device.device}>
@@ -256,7 +256,7 @@ export const Analytics = () => {
         >
           <Card className="p-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-text-primary">Top Locations</h3>
+              <h3 className="text-lg font-semibold text-text-primary">{t('analytics.topLocations')}</h3>
               <Globe size={20} className="text-text-muted" />
             </div>
             <div className="space-y-3">
@@ -286,7 +286,7 @@ export const Analytics = () => {
         >
           <Card className="p-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-text-primary">Peak Hours</h3>
+              <h3 className="text-lg font-semibold text-text-primary">{t('analytics.peakHours')}</h3>
               <Clock size={20} className="text-text-muted" />
             </div>
             <div className="h-40 flex items-end gap-2">
@@ -304,7 +304,7 @@ export const Analytics = () => {
               ))}
             </div>
             <div className="mt-4 p-3 bg-white/[0.03] backdrop-blur-xl rounded-lg">
-              <p className="text-xs text-text-muted">Best performing hour</p>
+              <p className="text-xs text-text-muted">{t('analytics.bestPerformingHour')}</p>
               <p className="text-lg font-semibold text-text-primary">3:00 PM - 6:00 PM</p>
             </div>
           </Card>
@@ -320,21 +320,21 @@ export const Analytics = () => {
         <Card className="p-6">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h3 className="text-lg font-semibold text-text-primary">Top Performing QR Codes</h3>
-              <p className="text-sm text-text-secondary">QR codes with the most scans</p>
+              <h3 className="text-lg font-semibold text-text-primary">{t('analytics.topPerformingQrCodes')}</h3>
+              <p className="text-sm text-text-secondary">{t('analytics.topPerformingSubtitle')}</p>
             </div>
-            <Button variant="outline" size="sm">View All</Button>
+            <Button variant="outline" size="sm">{t('analytics.viewAll')}</Button>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
                 <tr className="border-b border-white/[0.08]">
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Rank</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">QR Code</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Type</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Total Scans</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Unique Scans</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Trend</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('analytics.rank')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('analytics.qrCode')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('analytics.type')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('analytics.totalScansCol')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('analytics.uniqueScansCol')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('analytics.trend')}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border-default">
@@ -406,15 +406,15 @@ export const Analytics = () => {
         >
           <Card className="p-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold text-text-primary">Scan Rate</h3>
+              <h3 className="font-semibold text-text-primary">{t('analytics.scanRate')}</h3>
               <ArrowUpRight size={18} className="text-green-400" />
             </div>
             <p className="text-3xl font-bold text-text-primary mb-2">2.4K</p>
-            <p className="text-sm text-text-secondary">Average daily scans</p>
+            <p className="text-sm text-text-secondary">{t('analytics.avgDailyScans')}</p>
             <div className="mt-4 pt-4 border-t border-white/[0.08]">
               <div className="flex items-center gap-2 text-green-400">
                 <TrendingUp size={14} />
-                <span className="text-sm font-medium">+18.2% vs last month</span>
+                <span className="text-sm font-medium">{t('analytics.vsLastMonth', { value: '18.2%' })}</span>
               </div>
             </div>
           </Card>
@@ -427,15 +427,15 @@ export const Analytics = () => {
         >
           <Card className="p-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold text-text-primary">Engagement Rate</h3>
+              <h3 className="font-semibold text-text-primary">{t('analytics.engagementRate')}</h3>
               <Eye size={18} className="text-accent-primary" />
             </div>
             <p className="text-3xl font-bold text-text-primary mb-2">68.5%</p>
-            <p className="text-sm text-text-secondary">Unique vs total scans</p>
+            <p className="text-sm text-text-secondary">{t('analytics.uniqueVsTotal')}</p>
             <div className="mt-4 pt-4 border-t border-white/[0.08]">
               <div className="flex items-center gap-2 text-green-400">
                 <TrendingUp size={14} />
-                <span className="text-sm font-medium">+5.3% vs last month</span>
+                <span className="text-sm font-medium">{t('analytics.vsLastMonth', { value: '5.3%' })}</span>
               </div>
             </div>
           </Card>
@@ -448,15 +448,15 @@ export const Analytics = () => {
         >
           <Card className="p-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold text-text-primary">Growth Rate</h3>
+              <h3 className="font-semibold text-text-primary">{t('analytics.growthRate')}</h3>
               <BarChart3 size={18} className="text-[#94B4C1]" />
             </div>
             <p className="text-3xl font-bold text-text-primary mb-2">+24.8%</p>
-            <p className="text-sm text-text-secondary">Month over month growth</p>
+            <p className="text-sm text-text-secondary">{t('analytics.monthOverMonth')}</p>
             <div className="mt-4 pt-4 border-t border-white/[0.08]">
               <div className="flex items-center gap-2 text-green-400">
                 <TrendingUp size={14} />
-                <span className="text-sm font-medium">On track for goals</span>
+                <span className="text-sm font-medium">{t('analytics.onTrack')}</span>
               </div>
             </div>
           </Card>

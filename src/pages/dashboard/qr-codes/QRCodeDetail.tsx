@@ -39,7 +39,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const QRCodeDetail = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('qrCodes');
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
@@ -50,21 +50,21 @@ export const QRCodeDetail = () => {
     return (
       <div className="space-y-6">
         <PageHeader
-          title={t('qr-codes.qrCodeNotFound', 'QR Code Not Found')}
-          subtitle="The requested QR code could not be found"
+          title={t('qrCodeDetail.qrCodeNotFound')}
+          subtitle={t('qrCodeDetail.qrCodeNotFoundSubtitle')}
           actions={
             <Button
               variant="outline"
               leftIcon={<ArrowLeft size={16} />}
               onClick={() => navigate('/dashboard/qr-codes/list')}
             >
-              Back to List
+              {t('qrCodeDetail.backToList')}
             </Button>
           }
         />
         <Card className="p-12 text-center">
           <QrCode size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">QR Code with ID "{id}" was not found</p>
+          <p className="text-text-secondary">{t('qrCodeDetail.qrCodeNotFoundMessage', { id })}</p>
         </Card>
       </div>
     );
@@ -72,9 +72,9 @@ export const QRCodeDetail = () => {
 
   const getStatusBadge = (status: QRCode['status']) => {
     const config = {
-      active: { bg: 'bg-green-500/20', text: 'text-green-400', label: 'Active' },
-      expired: { bg: 'bg-red-500/20', text: 'text-red-400', label: 'Expired' },
-      disabled: { bg: 'bg-slate-500/20', text: 'text-slate-400', label: 'Disabled' },
+      active: { bg: 'bg-green-500/20', text: 'text-green-400', label: t('qrCodeDetail.active') },
+      expired: { bg: 'bg-red-500/20', text: 'text-red-400', label: t('qrCodeDetail.expired') },
+      disabled: { bg: 'bg-slate-500/20', text: 'text-slate-400', label: t('qrCodeDetail.disabled') },
     };
     const c = config[status];
     return (
@@ -140,25 +140,25 @@ export const QRCodeDetail = () => {
               leftIcon={<ArrowLeft size={16} />}
               onClick={() => navigate('/dashboard/qr-codes/list')}
             >
-              Back
+              {t('qrCodeDetail.back')}
             </Button>
             <Button
               variant="outline"
               leftIcon={<Edit size={16} />}
             >
-              Edit
+              {t('qrCodeDetail.edit')}
             </Button>
             <Button
               variant="outline"
               leftIcon={<Download size={16} />}
             >
-              Download
+              {t('qrCodeDetail.download')}
             </Button>
             <Button
               variant="outline"
               leftIcon={<Share2 size={16} />}
             >
-              Share
+              {t('qrCodeDetail.share')}
             </Button>
           </div>
         }
@@ -170,25 +170,25 @@ export const QRCodeDetail = () => {
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <StatsCard
-              title="Total Scans"
+              title={t('qrCodeDetail.totalScans')}
               value={formatNumber(qrCode.scans)}
               icon={Scan}
               iconColor="#547792"
             />
             <StatsCard
-              title="Unique Scans"
+              title={t('qrCodeDetail.uniqueScans')}
               value={formatNumber(qrCode.uniqueScans)}
               icon={Users}
               iconColor="#10b981"
             />
             <StatsCard
-              title="Views Today"
+              title={t('qrCodeDetail.viewsToday')}
               value="127"
               icon={Eye}
               iconColor="#f59e0b"
             />
             <StatsCard
-              title="Conversion Rate"
+              title={t('qrCodeDetail.conversionRate')}
               value="68%"
               icon={TrendingUp}
               iconColor="#94B4C1"
@@ -203,11 +203,11 @@ export const QRCodeDetail = () => {
           >
             <Card className="p-6">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-lg font-semibold text-text-primary">Scan Trend</h3>
+                <h3 className="text-lg font-semibold text-text-primary">{t('qrCodeDetail.scanTrend')}</h3>
                 <select className="px-3 py-1 bg-white/[0.05] border border-white/[0.08] rounded text-sm text-text-primary">
-                  <option>Last 7 days</option>
-                  <option>Last 30 days</option>
-                  <option>Last 90 days</option>
+                  <option>{t('qrCodeDetail.last7Days')}</option>
+                  <option>{t('qrCodeDetail.last30Days')}</option>
+                  <option>{t('qrCodeDetail.last90Days')}</option>
                 </select>
               </div>
               <div className="h-48 flex items-end gap-2">
@@ -235,12 +235,12 @@ export const QRCodeDetail = () => {
               transition={{ delay: 0.15 }}
             >
               <Card className="p-6">
-                <h3 className="text-lg font-semibold text-text-primary mb-4">Device Breakdown</h3>
+                <h3 className="text-lg font-semibold text-text-primary mb-4">{t('qrCodeDetail.deviceBreakdown')}</h3>
                 <div className="space-y-4">
                   {[
-                    { label: 'Mobile', value: mockAnalytics.deviceBreakdown.mobile, icon: Smartphone, color: '#3b82f6' },
-                    { label: 'Desktop', value: mockAnalytics.deviceBreakdown.desktop, icon: Monitor, color: '#10b981' },
-                    { label: 'Tablet', value: mockAnalytics.deviceBreakdown.tablet, icon: Monitor, color: '#f59e0b' },
+                    { label: t('qrCodeDetail.mobile'), value: mockAnalytics.deviceBreakdown.mobile, icon: Smartphone, color: '#3b82f6' },
+                    { label: t('qrCodeDetail.desktop'), value: mockAnalytics.deviceBreakdown.desktop, icon: Monitor, color: '#10b981' },
+                    { label: t('qrCodeDetail.tablet'), value: mockAnalytics.deviceBreakdown.tablet, icon: Monitor, color: '#f59e0b' },
                   ].map((device) => (
                     <div key={device.label}>
                       <div className="flex items-center justify-between mb-1">
@@ -271,7 +271,7 @@ export const QRCodeDetail = () => {
               transition={{ delay: 0.2 }}
             >
               <Card className="p-6">
-                <h3 className="text-lg font-semibold text-text-primary mb-4">Top Locations</h3>
+                <h3 className="text-lg font-semibold text-text-primary mb-4">{t('qrCodeDetail.topLocations')}</h3>
                 <div className="space-y-3">
                   {mockAnalytics.topLocations.map((location, index) => (
                     <div key={location.country} className="flex items-center justify-between p-2 hover:bg-white/[0.05] rounded transition-colors">
@@ -299,15 +299,15 @@ export const QRCodeDetail = () => {
             transition={{ delay: 0.25 }}
           >
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-text-primary mb-4">Recent Scans</h3>
+              <h3 className="text-lg font-semibold text-text-primary mb-4">{t('qrCodeDetail.recentScans')}</h3>
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
                     <tr className="border-b border-white/[0.08]">
-                      <th className="text-left py-2 px-3 text-sm font-medium text-text-secondary">Time</th>
-                      <th className="text-left py-2 px-3 text-sm font-medium text-text-secondary">Location</th>
-                      <th className="text-left py-2 px-3 text-sm font-medium text-text-secondary">Device</th>
-                      <th className="text-left py-2 px-3 text-sm font-medium text-text-secondary">Browser</th>
+                      <th className="text-left py-2 px-3 text-sm font-medium text-text-secondary">{t('qrCodeDetail.time')}</th>
+                      <th className="text-left py-2 px-3 text-sm font-medium text-text-secondary">{t('qrCodeDetail.location')}</th>
+                      <th className="text-left py-2 px-3 text-sm font-medium text-text-secondary">{t('qrCodeDetail.device')}</th>
+                      <th className="text-left py-2 px-3 text-sm font-medium text-text-secondary">{t('qrCodeDetail.browser')}</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-border-default">
@@ -325,7 +325,7 @@ export const QRCodeDetail = () => {
                       </tr>
                     )) : (
                       <tr>
-                        <td colSpan={4} className="py-8 text-center text-text-muted">No scan logs available</td>
+                        <td colSpan={4} className="py-8 text-center text-text-muted">{t('qrCodeDetail.noScanLogs')}</td>
                       </tr>
                     )}
                   </tbody>
@@ -369,7 +369,7 @@ export const QRCodeDetail = () => {
               {qrCode.isDynamic && (
                 <div className="flex justify-center mb-4">
                   <span className="px-3 py-1 bg-[#94B4C1]/20 text-[#94B4C1] rounded-full text-sm font-medium">
-                    Dynamic QR Code
+                    {t('qrCodeDetail.dynamicQrCode')}
                   </span>
                 </div>
               )}
@@ -395,7 +395,7 @@ export const QRCodeDetail = () => {
               transition={{ delay: 0.05 }}
             >
               <Card className="p-6">
-                <h3 className="font-semibold text-text-primary mb-3">Short URL</h3>
+                <h3 className="font-semibold text-text-primary mb-3">{t('qrCodeDetail.shortUrl')}</h3>
                 <div className="flex items-center gap-2 p-3 bg-white/[0.03] backdrop-blur-xl rounded-lg">
                   <ExternalLink size={16} className="text-text-muted flex-shrink-0" />
                   <span className="text-sm text-text-secondary truncate flex-1">{qrCode.shortUrl}</span>
@@ -417,19 +417,19 @@ export const QRCodeDetail = () => {
             transition={{ delay: 0.1 }}
           >
             <Card className="p-6">
-              <h3 className="font-semibold text-text-primary mb-4">Details</h3>
+              <h3 className="font-semibold text-text-primary mb-4">{t('qrCodeDetail.details')}</h3>
               <div className="space-y-3">
                 <div className="flex justify-between py-2 border-b border-white/[0.08]">
                   <span className="text-sm text-text-secondary flex items-center gap-2">
                     <Calendar size={14} />
-                    Created
+                    {t('qrCodeDetail.created')}
                   </span>
                   <span className="text-sm text-text-primary">{formatDate(qrCode.createdAt)}</span>
                 </div>
                 <div className="flex justify-between py-2 border-b border-white/[0.08]">
                   <span className="text-sm text-text-secondary flex items-center gap-2">
                     <Clock size={14} />
-                    Last Updated
+                    {t('qrCodeDetail.lastUpdated')}
                   </span>
                   <span className="text-sm text-text-primary">{formatDate(qrCode.updatedAt)}</span>
                 </div>
@@ -437,7 +437,7 @@ export const QRCodeDetail = () => {
                   <div className="flex justify-between py-2 border-b border-white/[0.08]">
                     <span className="text-sm text-text-secondary flex items-center gap-2">
                       <Scan size={14} />
-                      Last Scan
+                      {t('qrCodeDetail.lastScan')}
                     </span>
                     <span className="text-sm text-text-primary">{formatDate(qrCode.lastScan)}</span>
                   </div>
@@ -446,7 +446,7 @@ export const QRCodeDetail = () => {
                   <div className="flex justify-between py-2 border-b border-white/[0.08]">
                     <span className="text-sm text-text-secondary flex items-center gap-2">
                       <Clock size={14} />
-                      Expires
+                      {t('qrCodeDetail.expires')}
                     </span>
                     <span className={`text-sm ${new Date(qrCode.expiresAt) < new Date() ? 'text-red-400' : 'text-text-primary'}`}>
                       {formatDate(qrCode.expiresAt)}
@@ -454,7 +454,7 @@ export const QRCodeDetail = () => {
                   </div>
                 )}
                 <div className="flex justify-between py-2">
-                  <span className="text-sm text-text-secondary">Folder</span>
+                  <span className="text-sm text-text-secondary">{t('qrCodeDetail.folder')}</span>
                   <span className="text-sm text-text-primary">{qrCode.folder}</span>
                 </div>
               </div>
@@ -468,34 +468,34 @@ export const QRCodeDetail = () => {
             transition={{ delay: 0.15 }}
           >
             <Card className="p-6">
-              <h3 className="font-semibold text-text-primary mb-4">Quick Actions</h3>
+              <h3 className="font-semibold text-text-primary mb-4">{t('qrCodeDetail.quickActions')}</h3>
               <div className="space-y-2">
                 <button className="w-full flex items-center gap-3 p-3 text-left hover:bg-white/[0.05] rounded-lg transition-colors">
                   <Edit size={18} className="text-accent-primary" />
-                  <span className="text-sm text-text-primary">Edit QR Code</span>
+                  <span className="text-sm text-text-primary">{t('qrCodeDetail.editQrCode')}</span>
                 </button>
                 <button className="w-full flex items-center gap-3 p-3 text-left hover:bg-white/[0.05] rounded-lg transition-colors">
                   <BarChart3 size={18} className="text-blue-400" />
-                  <span className="text-sm text-text-primary">View Full Analytics</span>
+                  <span className="text-sm text-text-primary">{t('qrCodeDetail.viewFullAnalytics')}</span>
                 </button>
                 <button className="w-full flex items-center gap-3 p-3 text-left hover:bg-white/[0.05] rounded-lg transition-colors">
                   <Copy size={18} className="text-green-400" />
-                  <span className="text-sm text-text-primary">Duplicate QR Code</span>
+                  <span className="text-sm text-text-primary">{t('qrCodeDetail.duplicateQrCode')}</span>
                 </button>
                 {qrCode.status === 'active' ? (
                   <button className="w-full flex items-center gap-3 p-3 text-left hover:bg-white/[0.05] rounded-lg transition-colors">
                     <Pause size={18} className="text-yellow-400" />
-                    <span className="text-sm text-text-primary">Pause QR Code</span>
+                    <span className="text-sm text-text-primary">{t('qrCodeDetail.pauseQrCode')}</span>
                   </button>
                 ) : (
                   <button className="w-full flex items-center gap-3 p-3 text-left hover:bg-white/[0.05] rounded-lg transition-colors">
                     <Play size={18} className="text-green-400" />
-                    <span className="text-sm text-text-primary">Activate QR Code</span>
+                    <span className="text-sm text-text-primary">{t('qrCodeDetail.activateQrCode')}</span>
                   </button>
                 )}
                 <button className="w-full flex items-center gap-3 p-3 text-left hover:bg-red-500/10 rounded-lg transition-colors text-red-400">
                   <Trash2 size={18} />
-                  <span className="text-sm">Delete QR Code</span>
+                  <span className="text-sm">{t('qrCodeDetail.deleteQrCode')}</span>
                 </button>
               </div>
             </Card>

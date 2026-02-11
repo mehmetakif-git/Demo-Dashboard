@@ -31,7 +31,7 @@ interface BulkQRItem {
 }
 
 export const BulkCreate = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('qrCodes');
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'upload' | 'manual'>('upload');
   const [items, setItems] = useState<BulkQRItem[]>([]);
@@ -104,8 +104,8 @@ export const BulkCreate = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('qr-codes.bulkCreateQrCodes', 'Bulk Create QR Codes')}
-        subtitle="Create multiple QR codes at once"
+        title={t('bulkCreate.title')}
+        subtitle={t('bulkCreate.subtitle')}
         actions={
           <div className="flex gap-2">
             <Button
@@ -113,10 +113,10 @@ export const BulkCreate = () => {
               leftIcon={<ArrowLeft size={16} />}
               onClick={() => navigate('/dashboard/qr-codes/list')}
             >
-              Back to List
+              {t('bulkCreate.backToList')}
             </Button>
             <Button variant="outline" leftIcon={<Download size={16} />}>
-              Download Template
+              {t('bulkCreate.downloadTemplate')}
             </Button>
           </div>
         }
@@ -135,7 +135,7 @@ export const BulkCreate = () => {
           >
             <div className="flex items-center justify-center gap-2">
               <Upload size={18} />
-              Upload File
+              {t('bulkCreate.uploadFile')}
             </div>
           </button>
           <button
@@ -148,7 +148,7 @@ export const BulkCreate = () => {
           >
             <div className="flex items-center justify-center gap-2">
               <FileText size={18} />
-              Manual Entry
+              {t('bulkCreate.manualEntry')}
             </div>
           </button>
         </div>
@@ -156,10 +156,10 @@ export const BulkCreate = () => {
 
       {/* Settings */}
       <Card className="p-6">
-        <h3 className="font-semibold text-text-primary mb-4">Default Settings</h3>
+        <h3 className="font-semibold text-text-primary mb-4">{t('bulkCreate.defaultSettings')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
-            <label className="block text-sm font-medium text-text-secondary mb-2">Default Type</label>
+            <label className="block text-sm font-medium text-text-secondary mb-2">{t('bulkCreate.defaultType')}</label>
             <select
               value={selectedType}
               onChange={(e) => setSelectedType(e.target.value)}
@@ -171,7 +171,7 @@ export const BulkCreate = () => {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-text-secondary mb-2">Default Folder</label>
+            <label className="block text-sm font-medium text-text-secondary mb-2">{t('bulkCreate.defaultFolder')}</label>
             <select
               value={selectedFolder}
               onChange={(e) => setSelectedFolder(e.target.value)}
@@ -189,7 +189,7 @@ export const BulkCreate = () => {
                 defaultChecked
                 className="w-4 h-4 rounded border-white/[0.08] bg-white/[0.05] text-accent-primary focus:ring-accent-primary"
               />
-              <span className="text-sm text-text-secondary">Create as Dynamic QR Codes</span>
+              <span className="text-sm text-text-secondary">{t('bulkCreate.createAsDynamic')}</span>
             </label>
           </div>
         </div>
@@ -211,9 +211,9 @@ export const BulkCreate = () => {
           >
             <div className="text-center">
               <FileSpreadsheet size={48} className="mx-auto mb-4 text-text-muted" />
-              <h3 className="text-lg font-semibold text-text-primary mb-2">Upload your file</h3>
+              <h3 className="text-lg font-semibold text-text-primary mb-2">{t('bulkCreate.uploadYourFile')}</h3>
               <p className="text-text-secondary mb-4">
-                Drag and drop your CSV or Excel file here, or click to browse
+                {t('bulkCreate.dragAndDrop')}
               </p>
               <div className="flex items-center justify-center gap-4 mb-6">
                 <span className="px-3 py-1 bg-white/[0.05] rounded text-sm text-text-secondary">.csv</span>
@@ -230,7 +230,7 @@ export const BulkCreate = () => {
               <label htmlFor="file-upload">
                 <span className="inline-flex items-center gap-2 px-4 py-2 bg-accent-primary text-white rounded-lg font-medium cursor-pointer hover:bg-accent-primary/90 transition-colors">
                   <Upload size={16} />
-                  Browse Files
+                  {t('bulkCreate.browseFiles')}
                 </span>
               </label>
             </div>
@@ -246,12 +246,12 @@ export const BulkCreate = () => {
         >
           <Card className="p-12 text-center">
             <Plus size={48} className="mx-auto mb-4 text-text-muted" />
-            <h3 className="text-lg font-semibold text-text-primary mb-2">Add QR Codes Manually</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-2">{t('bulkCreate.addQrCodesManually')}</h3>
             <p className="text-text-secondary mb-4">
-              Click the button below to start adding QR codes one by one
+              {t('bulkCreate.addManuallyDescription')}
             </p>
             <Button leftIcon={<Plus size={16} />} onClick={addManualItem}>
-              Add First QR Code
+              {t('bulkCreate.addFirstQrCode')}
             </Button>
           </Card>
         </motion.div>
@@ -269,25 +269,25 @@ export const BulkCreate = () => {
               <div className="flex items-center gap-6">
                 <div className="flex items-center gap-2">
                   <QrCode size={18} className="text-text-muted" />
-                  <span className="text-sm text-text-secondary">Total: {items.length}</span>
+                  <span className="text-sm text-text-secondary">{t('bulkCreate.total')}: {items.length}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Check size={18} className="text-green-400" />
-                  <span className="text-sm text-green-400">Completed: {completedCount}</span>
+                  <span className="text-sm text-green-400">{t('bulkCreate.completed')}: {completedCount}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <AlertCircle size={18} className="text-red-400" />
-                  <span className="text-sm text-red-400">Errors: {errorCount}</span>
+                  <span className="text-sm text-red-400">{t('bulkCreate.errors')}: {errorCount}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Folder size={18} className="text-yellow-400" />
-                  <span className="text-sm text-yellow-400">Pending: {pendingCount}</span>
+                  <span className="text-sm text-yellow-400">{t('bulkCreate.pending')}: {pendingCount}</span>
                 </div>
               </div>
               <div className="flex items-center gap-2">
                 {activeTab === 'manual' && (
                   <Button variant="outline" size="sm" leftIcon={<Plus size={14} />} onClick={addManualItem}>
-                    Add More
+                    {t('bulkCreate.addMore')}
                   </Button>
                 )}
                 <Button
@@ -296,7 +296,7 @@ export const BulkCreate = () => {
                   onClick={processItems}
                   disabled={isProcessing || pendingCount === 0}
                 >
-                  {isProcessing ? 'Processing...' : 'Start Processing'}
+                  {isProcessing ? t('bulkCreate.processing') : t('bulkCreate.startProcessing')}
                 </Button>
               </div>
             </div>
@@ -320,12 +320,12 @@ export const BulkCreate = () => {
                 <thead>
                   <tr className="border-b border-white/[0.08]">
                     <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary w-12">#</th>
-                    <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Name</th>
-                    <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Type</th>
-                    <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Content</th>
-                    <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Folder</th>
-                    <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Status</th>
-                    <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary w-20">Actions</th>
+                    <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('bulkCreate.name')}</th>
+                    <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('bulkCreate.type')}</th>
+                    <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('bulkCreate.content')}</th>
+                    <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('bulkCreate.folder')}</th>
+                    <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('bulkCreate.status')}</th>
+                    <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary w-20">{t('bulkCreate.actions')}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border-default">
@@ -390,7 +390,7 @@ export const BulkCreate = () => {
                       <td className="py-3 px-4">
                         {item.status === 'pending' && (
                           <span className="px-2 py-0.5 bg-slate-500/20 text-slate-400 rounded text-xs font-medium">
-                            Pending
+                            {t('bulkCreate.statusPending')}
                           </span>
                         )}
                         {item.status === 'processing' && (
@@ -401,20 +401,20 @@ export const BulkCreate = () => {
                             >
                               <Folder size={12} />
                             </motion.div>
-                            Processing
+                            {t('bulkCreate.statusProcessing')}
                           </span>
                         )}
                         {item.status === 'completed' && (
                           <span className="px-2 py-0.5 bg-green-500/20 text-green-400 rounded text-xs font-medium flex items-center gap-1 w-fit">
                             <Check size={12} />
-                            Completed
+                            {t('bulkCreate.statusCompleted')}
                           </span>
                         )}
                         {item.status === 'error' && (
                           <div>
                             <span className="px-2 py-0.5 bg-red-500/20 text-red-400 rounded text-xs font-medium flex items-center gap-1 w-fit">
                               <AlertCircle size={12} />
-                              Error
+                              {t('bulkCreate.statusError')}
                             </span>
                             {item.error && (
                               <p className="text-xs text-red-400 mt-1">{item.error}</p>
@@ -453,31 +453,31 @@ export const BulkCreate = () => {
 
       {/* Help Section */}
       <Card className="p-6">
-        <h3 className="font-semibold text-text-primary mb-4">File Format Guide</h3>
+        <h3 className="font-semibold text-text-primary mb-4">{t('bulkCreate.fileFormatGuide')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <h4 className="text-sm font-medium text-text-secondary mb-2">Required Columns</h4>
+            <h4 className="text-sm font-medium text-text-secondary mb-2">{t('bulkCreate.requiredColumns')}</h4>
             <ul className="space-y-2 text-sm text-text-muted">
               <li className="flex items-center gap-2">
                 <Check size={14} className="text-green-400" />
-                <code className="px-1 bg-white/[0.05] rounded">name</code> - QR code name
+                <code className="px-1 bg-white/[0.05] rounded">name</code> - {t('bulkCreate.qrCodeNameDesc')}
               </li>
               <li className="flex items-center gap-2">
                 <Check size={14} className="text-green-400" />
-                <code className="px-1 bg-white/[0.05] rounded">content</code> - URL or content
+                <code className="px-1 bg-white/[0.05] rounded">content</code> - {t('bulkCreate.urlOrContent')}
               </li>
             </ul>
           </div>
           <div>
-            <h4 className="text-sm font-medium text-text-secondary mb-2">Optional Columns</h4>
+            <h4 className="text-sm font-medium text-text-secondary mb-2">{t('bulkCreate.optionalColumns')}</h4>
             <ul className="space-y-2 text-sm text-text-muted">
               <li className="flex items-center gap-2">
                 <AlertCircle size={14} className="text-yellow-400" />
-                <code className="px-1 bg-white/[0.05] rounded">type</code> - url, vcard, wifi, etc.
+                <code className="px-1 bg-white/[0.05] rounded">type</code> - {t('bulkCreate.typeDesc')}
               </li>
               <li className="flex items-center gap-2">
                 <AlertCircle size={14} className="text-yellow-400" />
-                <code className="px-1 bg-white/[0.05] rounded">folder</code> - Folder ID
+                <code className="px-1 bg-white/[0.05] rounded">folder</code> - {t('bulkCreate.folderDesc')}
               </li>
             </ul>
           </div>

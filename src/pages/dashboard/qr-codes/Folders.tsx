@@ -26,7 +26,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const Folders = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('qrCodes');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFolder, setSelectedFolder] = useState<string | null>(null);
@@ -73,11 +73,11 @@ export const Folders = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('qr-codes.qrCodeFolders', 'QR Code Folders')}
-        subtitle="Organize your QR codes into folders"
+        title={t('folders.title')}
+        subtitle={t('folders.subtitle')}
         actions={
           <Button leftIcon={<Plus size={16} />} onClick={() => setIsCreating(true)}>
-            New Folder
+            {t('folders.newFolder')}
           </Button>
         }
       />
@@ -85,25 +85,25 @@ export const Folders = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Folders"
+          title={t('folders.totalFolders')}
           value={stats.totalFolders.toString()}
           icon={Folder}
           iconColor="#547792"
         />
         <StatsCard
-          title="Total QR Codes"
+          title={t('folders.totalQrCodes')}
           value={stats.totalQRCodes.toString()}
           icon={QrCode}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Avg. per Folder"
+          title={t('folders.avgPerFolder')}
           value={stats.avgPerFolder.toString()}
           icon={FolderOpen}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Empty Folders"
+          title={t('folders.emptyFolders')}
           value={stats.emptyFolders.toString()}
           icon={Folder}
           iconColor="#64748b"
@@ -115,7 +115,7 @@ export const Folders = () => {
         <div className="flex gap-4 items-center">
           <div className="flex-1 max-w-md">
             <Input
-              placeholder="Search folders..."
+              placeholder={t('folders.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               leftIcon={<Search size={16} />}
@@ -138,20 +138,20 @@ export const Folders = () => {
             onClick={(e) => e.stopPropagation()}
           >
             <Card className="p-6 w-96">
-              <h3 className="text-lg font-semibold text-text-primary mb-4">Create New Folder</h3>
+              <h3 className="text-lg font-semibold text-text-primary mb-4">{t('folders.createNewFolder')}</h3>
               <Input
-                label="Folder Name"
-                placeholder="Enter folder name..."
+                label={t('folders.folderName')}
+                placeholder={t('folders.folderNamePlaceholder')}
                 value={newFolderName}
                 onChange={(e) => setNewFolderName(e.target.value)}
                 autoFocus
               />
               <div className="flex justify-end gap-2 mt-4">
                 <Button variant="outline" onClick={() => setIsCreating(false)}>
-                  Cancel
+                  {t('folders.cancel')}
                 </Button>
                 <Button onClick={handleCreateFolder} disabled={!newFolderName.trim()}>
-                  Create
+                  {t('folders.create')}
                 </Button>
               </div>
             </Card>
@@ -163,7 +163,7 @@ export const Folders = () => {
         {/* Folders List */}
         <div className="lg:col-span-1">
           <Card className="p-4">
-            <h3 className="font-semibold text-text-primary mb-4">All Folders</h3>
+            <h3 className="font-semibold text-text-primary mb-4">{t('folders.allFolders')}</h3>
             <div className="space-y-2">
               {filteredFolders.map((folder, index) => {
                 const folderStats = getFolderStats(folder.id);
@@ -195,7 +195,7 @@ export const Folders = () => {
                     <div className="flex-1 min-w-0">
                       <p className="font-medium text-text-primary truncate">{folder.name}</p>
                       <p className="text-xs text-text-muted">
-                        {folderStats.count} QR codes • {formatNumber(folderStats.totalScans)} scans
+                        {folderStats.count} {t('folders.qrCodes')} • {formatNumber(folderStats.totalScans)} {t('folders.scans')}
                       </p>
                     </div>
                     <ChevronRight size={16} className={`text-text-muted transition-transform ${isSelected ? 'rotate-90' : ''}`} />
@@ -227,7 +227,7 @@ export const Folders = () => {
                     <div>
                       <h3 className="text-lg font-semibold text-text-primary">{selectedFolderData.folder?.name}</h3>
                       <p className="text-sm text-text-secondary">
-                        {selectedFolderData.qrCodes.length} QR codes
+                        {selectedFolderData.qrCodes.length} {t('folders.qrCodes')}
                       </p>
                     </div>
                   </div>
@@ -244,17 +244,17 @@ export const Folders = () => {
                 {/* Folder Stats */}
                 <div className="grid grid-cols-3 gap-4 mb-6">
                   <div className="p-4 bg-white/[0.03] backdrop-blur-xl rounded-lg">
-                    <p className="text-sm text-text-muted mb-1">QR Codes</p>
+                    <p className="text-sm text-text-muted mb-1">{t('folders.qrCodesCount')}</p>
                     <p className="text-2xl font-bold text-text-primary">{selectedFolderData.qrCodes.length}</p>
                   </div>
                   <div className="p-4 bg-white/[0.03] backdrop-blur-xl rounded-lg">
-                    <p className="text-sm text-text-muted mb-1">Total Scans</p>
+                    <p className="text-sm text-text-muted mb-1">{t('folders.totalScans')}</p>
                     <p className="text-2xl font-bold text-text-primary">
                       {formatNumber(selectedFolderData.qrCodes.reduce((sum, q) => sum + q.scans, 0))}
                     </p>
                   </div>
                   <div className="p-4 bg-white/[0.03] backdrop-blur-xl rounded-lg">
-                    <p className="text-sm text-text-muted mb-1">Active</p>
+                    <p className="text-sm text-text-muted mb-1">{t('folders.active')}</p>
                     <p className="text-2xl font-bold text-text-primary">
                       {selectedFolderData.qrCodes.filter(q => q.status === 'active').length}
                     </p>
@@ -265,7 +265,7 @@ export const Folders = () => {
                 {selectedFolderData.qrCodes.length > 0 ? (
                   <div className="space-y-3">
                     <h4 className="font-medium text-text-secondary text-sm uppercase tracking-wide mb-3">
-                      QR Codes in this folder
+                      {t('folders.qrCodesInFolder')}
                     </h4>
                     {selectedFolderData.qrCodes.map((qr, index) => {
                       const typeColor = getTypeColor(qr.type);
@@ -336,13 +336,13 @@ export const Folders = () => {
                 ) : (
                   <div className="text-center py-12">
                     <QrCode size={48} className="mx-auto mb-4 text-text-muted" />
-                    <p className="text-text-secondary mb-4">This folder is empty</p>
+                    <p className="text-text-secondary mb-4">{t('folders.folderEmpty')}</p>
                     <Button
                       variant="outline"
                       leftIcon={<Plus size={16} />}
                       onClick={() => navigate('/dashboard/qr-codes/create')}
                     >
-                      Add QR Code
+                      {t('folders.addQrCode')}
                     </Button>
                   </div>
                 )}
@@ -351,7 +351,7 @@ export const Folders = () => {
           ) : (
             <Card className="p-12 text-center">
               <Folder size={48} className="mx-auto mb-4 text-text-muted" />
-              <p className="text-text-secondary">Select a folder to view its contents</p>
+              <p className="text-text-secondary">{t('folders.selectFolder')}</p>
             </Card>
           )}
         </div>
@@ -360,9 +360,9 @@ export const Folders = () => {
       {filteredFolders.length === 0 && (
         <Card className="p-12 text-center">
           <Folder size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary mb-4">No folders found</p>
+          <p className="text-text-secondary mb-4">{t('folders.noFoldersFound')}</p>
           <Button leftIcon={<Plus size={16} />} onClick={() => setIsCreating(true)}>
-            Create Your First Folder
+            {t('folders.createFirstFolder')}
           </Button>
         </Card>
       )}

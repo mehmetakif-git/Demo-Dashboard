@@ -24,7 +24,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const Templates = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('qrCodes');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedType, setSelectedType] = useState<string>('all');
@@ -37,8 +37,8 @@ export const Templates = () => {
   const stats = useMemo(() => ({
     total: qrTemplates.length,
     favorites: favorites.size,
-    custom: qrTemplates.filter(t => !t.isDefault).length,
-    default: qrTemplates.filter(t => t.isDefault).length,
+    custom: qrTemplates.filter(tp => !tp.isDefault).length,
+    default: qrTemplates.filter(tp => tp.isDefault).length,
   }), [favorites]);
 
   const filteredTemplates = useMemo(() => {
@@ -47,18 +47,18 @@ export const Templates = () => {
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter(
-        t =>
-          t.name.toLowerCase().includes(query) ||
-          t.type.toLowerCase().includes(query)
+        tp =>
+          tp.name.toLowerCase().includes(query) ||
+          tp.type.toLowerCase().includes(query)
       );
     }
 
     if (selectedType !== 'all') {
-      filtered = filtered.filter(t => t.type === selectedType);
+      filtered = filtered.filter(tp => tp.type === selectedType);
     }
 
     if (showFavorites) {
-      filtered = filtered.filter(t => favorites.has(t.id));
+      filtered = filtered.filter(tp => favorites.has(tp.id));
     }
 
     return filtered;
@@ -83,11 +83,11 @@ export const Templates = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('qr-codes.qrCodeTemplates', 'QR Code Templates')}
-        subtitle="Save time with reusable QR code templates"
+        title={t('templates.title')}
+        subtitle={t('templates.subtitle')}
         actions={
           <Button leftIcon={<Plus size={16} />}>
-            Create Template
+            {t('templates.createTemplate')}
           </Button>
         }
       />
@@ -95,25 +95,25 @@ export const Templates = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Templates"
+          title={t('templates.totalTemplates')}
           value={stats.total.toString()}
           icon={QrCode}
           iconColor="#547792"
         />
         <StatsCard
-          title="Favorite Templates"
+          title={t('templates.favoriteTemplates')}
           value={stats.favorites.toString()}
           icon={Star}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Custom Templates"
+          title={t('templates.customTemplates')}
           value={stats.custom.toString()}
           icon={Edit}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Default Templates"
+          title={t('templates.defaultTemplates')}
           value={stats.default.toString()}
           icon={QrCode}
           iconColor="#94B4C1"
@@ -126,7 +126,7 @@ export const Templates = () => {
           <div className="flex flex-wrap gap-4 items-center flex-1">
             <div className="flex-1 min-w-50 max-w-md">
               <Input
-                placeholder="Search templates..."
+                placeholder={t('templates.searchPlaceholder')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 leftIcon={<Search size={16} />}
@@ -138,7 +138,7 @@ export const Templates = () => {
               onChange={(e) => setSelectedType(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Types</option>
+              <option value="all">{t('templates.allTypes')}</option>
               {qrCodeTypes.map(type => (
                 <option key={type.id} value={type.id}>{type.label}</option>
               ))}
@@ -153,7 +153,7 @@ export const Templates = () => {
               }`}
             >
               <Star size={16} className={showFavorites ? 'fill-yellow-400' : ''} />
-              <span className="text-sm">Favorites</span>
+              <span className="text-sm">{t('templates.favorites')}</span>
             </button>
           </div>
 
@@ -245,7 +245,7 @@ export const Templates = () => {
                     {template.isDefault && (
                       <div className="flex justify-center mb-3">
                         <span className="px-2 py-0.5 bg-blue-500/20 text-blue-400 rounded text-xs font-medium">
-                          Default Template
+                          {t('templates.defaultTemplate')}
                         </span>
                       </div>
                     )}
@@ -273,7 +273,7 @@ export const Templates = () => {
                         className="flex-1"
                         onClick={() => handleUseTemplate(template)}
                       >
-                        Use Template
+                        {t('templates.useTemplate')}
                       </Button>
                       <button className="p-2 hover:bg-white/[0.05] rounded text-text-secondary hover:text-blue-400">
                         <Edit size={16} />
@@ -295,12 +295,12 @@ export const Templates = () => {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-white/[0.08]">
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Template</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Type</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Style</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Frame</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Default</th>
-                  <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">Actions</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('templates.template')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('templates.type')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('templates.style')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('templates.frame')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('templates.default')}</th>
+                  <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">{t('templates.actions')}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border-default">
@@ -372,7 +372,7 @@ export const Templates = () => {
                       <td className="py-3 px-4">
                         <div className="flex items-center justify-end gap-1">
                           <Button size="sm" onClick={() => handleUseTemplate(template)}>
-                            Use
+                            {t('templates.use')}
                           </Button>
                           <button className="p-2 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-blue-400">
                             <Edit size={14} />
@@ -397,9 +397,9 @@ export const Templates = () => {
       {filteredTemplates.length === 0 && (
         <Card className="p-12 text-center">
           <QrCode size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No templates found matching your filters</p>
+          <p className="text-text-secondary">{t('templates.noTemplatesFound')}</p>
           <Button className="mt-4" leftIcon={<Plus size={16} />}>
-            Create Your First Template
+            {t('templates.createFirstTemplate')}
           </Button>
         </Card>
       )}

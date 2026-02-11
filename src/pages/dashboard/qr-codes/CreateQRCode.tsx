@@ -37,13 +37,6 @@ import { useTranslation } from 'react-i18next';
 
 type Step = 'type' | 'content' | 'style' | 'preview';
 
-const steps: { id: Step; label: string; icon: React.ElementType }[] = [
-  { id: 'type', label: 'Select Type', icon: QrCode },
-  { id: 'content', label: 'Add Content', icon: FileText },
-  { id: 'style', label: 'Customize', icon: Palette },
-  { id: 'preview', label: 'Preview & Save', icon: Eye },
-];
-
 const typeIcons: Record<string, React.ElementType> = {
   url: Link,
   vcard: CreditCard,
@@ -57,8 +50,15 @@ const typeIcons: Record<string, React.ElementType> = {
 };
 
 export const CreateQRCode = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('qrCodes');
   const navigate = useNavigate();
+
+  const steps: { id: Step; label: string; icon: React.ElementType }[] = [
+    { id: 'type', label: t('createQrCode.selectType'), icon: QrCode },
+    { id: 'content', label: t('createQrCode.addContent'), icon: FileText },
+    { id: 'style', label: t('createQrCode.customize'), icon: Palette },
+    { id: 'preview', label: t('createQrCode.previewAndSave'), icon: Eye },
+  ];
   const [currentStep, setCurrentStep] = useState<Step>('type');
   const [formData, setFormData] = useState({
     name: '',
@@ -138,8 +138,8 @@ export const CreateQRCode = () => {
   const renderTypeSelection = () => (
     <div className="space-y-6">
       <div className="text-center mb-8">
-        <h2 className="text-xl font-semibold text-text-primary mb-2">What type of QR code do you want to create?</h2>
-        <p className="text-text-secondary">Select the content type for your QR code</p>
+        <h2 className="text-xl font-semibold text-text-primary mb-2">{t('createQrCode.whatType')}</h2>
+        <p className="text-text-secondary">{t('createQrCode.selectContentType')}</p>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -180,7 +180,7 @@ export const CreateQRCode = () => {
 
       {/* Templates Section */}
       <div className="mt-8">
-        <h3 className="text-lg font-semibold text-text-primary mb-4">Or start with a template</h3>
+        <h3 className="text-lg font-semibold text-text-primary mb-4">{t('createQrCode.orStartWithTemplate')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {qrTemplates.map((template) => (
             <Card
@@ -218,19 +218,19 @@ export const CreateQRCode = () => {
   );
 
   const renderContentForm = () => {
-    const selectedType = qrCodeTypes.find(t => t.id === formData.type);
+    const selectedType = qrCodeTypes.find(tp => tp.id === formData.type);
 
     return (
       <div className="max-w-2xl mx-auto space-y-6">
         <div className="text-center mb-8">
-          <h2 className="text-xl font-semibold text-text-primary mb-2">Enter your {selectedType?.label} details</h2>
-          <p className="text-text-secondary">Fill in the information for your QR code</p>
+          <h2 className="text-xl font-semibold text-text-primary mb-2">{t('createQrCode.enterDetails', { type: selectedType?.label })}</h2>
+          <p className="text-text-secondary">{t('createQrCode.fillInInfo')}</p>
         </div>
 
         <Card className="p-6 space-y-4">
           {formData.type === 'url' && (
             <Input
-              label="URL"
+              label={t('createQrCode.url')}
               placeholder="https://example.com"
               value={formData.content.url || ''}
               onChange={(e) => updateContent('url', e.target.value)}
@@ -241,44 +241,44 @@ export const CreateQRCode = () => {
             <>
               <div className="grid grid-cols-2 gap-4">
                 <Input
-                  label="First Name"
+                  label={t('createQrCode.firstName')}
                   placeholder="John"
                   value={formData.content.firstName || ''}
                   onChange={(e) => updateContent('firstName', e.target.value)}
                 />
                 <Input
-                  label="Last Name"
+                  label={t('createQrCode.lastName')}
                   placeholder="Doe"
                   value={formData.content.lastName || ''}
                   onChange={(e) => updateContent('lastName', e.target.value)}
                 />
               </div>
               <Input
-                label="Organization"
+                label={t('createQrCode.organization')}
                 placeholder="Company Name"
                 value={formData.content.organization || ''}
                 onChange={(e) => updateContent('organization', e.target.value)}
               />
               <Input
-                label="Title"
+                label={t('createQrCode.title_field')}
                 placeholder="Job Title"
                 value={formData.content.title || ''}
                 onChange={(e) => updateContent('title', e.target.value)}
               />
               <Input
-                label="Phone"
+                label={t('createQrCode.phone')}
                 placeholder="+1 234 567 8900"
                 value={formData.content.phone || ''}
                 onChange={(e) => updateContent('phone', e.target.value)}
               />
               <Input
-                label="Email"
+                label={t('createQrCode.email')}
                 placeholder="john@example.com"
                 value={formData.content.email || ''}
                 onChange={(e) => updateContent('email', e.target.value)}
               />
               <Input
-                label="Website"
+                label={t('createQrCode.website')}
                 placeholder="https://example.com"
                 value={formData.content.website || ''}
                 onChange={(e) => updateContent('website', e.target.value)}
@@ -289,20 +289,20 @@ export const CreateQRCode = () => {
           {formData.type === 'wifi' && (
             <>
               <Input
-                label="Network Name (SSID)"
+                label={t('createQrCode.networkName')}
                 placeholder="MyWiFiNetwork"
                 value={formData.content.ssid || ''}
                 onChange={(e) => updateContent('ssid', e.target.value)}
               />
               <Input
-                label="Password"
+                label={t('createQrCode.password')}
                 type="password"
                 placeholder="WiFi Password"
                 value={formData.content.password || ''}
                 onChange={(e) => updateContent('password', e.target.value)}
               />
               <div>
-                <label className="block text-sm font-medium text-text-secondary mb-2">Security Type</label>
+                <label className="block text-sm font-medium text-text-secondary mb-2">{t('createQrCode.securityType')}</label>
                 <select
                   value={formData.content.security || 'WPA'}
                   onChange={(e) => updateContent('security', e.target.value)}
@@ -319,19 +319,19 @@ export const CreateQRCode = () => {
           {formData.type === 'email' && (
             <>
               <Input
-                label="Email Address"
+                label={t('createQrCode.emailAddress')}
                 placeholder="contact@example.com"
                 value={formData.content.email || ''}
                 onChange={(e) => updateContent('email', e.target.value)}
               />
               <Input
-                label="Subject"
+                label={t('createQrCode.subject')}
                 placeholder="Email Subject"
                 value={formData.content.subject || ''}
                 onChange={(e) => updateContent('subject', e.target.value)}
               />
               <div>
-                <label className="block text-sm font-medium text-text-secondary mb-2">Message</label>
+                <label className="block text-sm font-medium text-text-secondary mb-2">{t('createQrCode.message')}</label>
                 <textarea
                   placeholder="Email body..."
                   value={formData.content.body || ''}
@@ -344,7 +344,7 @@ export const CreateQRCode = () => {
 
           {formData.type === 'phone' && (
             <Input
-              label="Phone Number"
+              label={t('createQrCode.phoneNumber')}
               placeholder="+1 234 567 8900"
               value={formData.content.phone || ''}
               onChange={(e) => updateContent('phone', e.target.value)}
@@ -354,7 +354,7 @@ export const CreateQRCode = () => {
           {formData.type === 'sms' && (
             <>
               <Input
-                label="Phone Number"
+                label={t('createQrCode.phoneNumber')}
                 placeholder="+1 234 567 8900"
                 value={formData.content.phone || ''}
                 onChange={(e) => updateContent('phone', e.target.value)}
@@ -375,20 +375,20 @@ export const CreateQRCode = () => {
             <>
               <div className="grid grid-cols-2 gap-4">
                 <Input
-                  label="Latitude"
+                  label={t('createQrCode.latitude')}
                   placeholder="40.7128"
                   value={formData.content.latitude || ''}
                   onChange={(e) => updateContent('latitude', e.target.value)}
                 />
                 <Input
-                  label="Longitude"
+                  label={t('createQrCode.longitude')}
                   placeholder="-74.0060"
                   value={formData.content.longitude || ''}
                   onChange={(e) => updateContent('longitude', e.target.value)}
                 />
               </div>
               <Input
-                label="Location Name (Optional)"
+                label={t('createQrCode.locationName')}
                 placeholder="Empire State Building"
                 value={formData.content.name || ''}
                 onChange={(e) => updateContent('name', e.target.value)}
@@ -399,33 +399,33 @@ export const CreateQRCode = () => {
           {formData.type === 'event' && (
             <>
               <Input
-                label="Event Title"
+                label={t('createQrCode.eventTitle')}
                 placeholder="Team Meeting"
                 value={formData.content.title || ''}
                 onChange={(e) => updateContent('title', e.target.value)}
               />
               <div className="grid grid-cols-2 gap-4">
                 <Input
-                  label="Start Date & Time"
+                  label={t('createQrCode.startDateTime')}
                   type="datetime-local"
                   value={formData.content.startDate || ''}
                   onChange={(e) => updateContent('startDate', e.target.value)}
                 />
                 <Input
-                  label="End Date & Time"
+                  label={t('createQrCode.endDateTime')}
                   type="datetime-local"
                   value={formData.content.endDate || ''}
                   onChange={(e) => updateContent('endDate', e.target.value)}
                 />
               </div>
               <Input
-                label="Location"
+                label={t('createQrCode.location')}
                 placeholder="Conference Room A"
                 value={formData.content.location || ''}
                 onChange={(e) => updateContent('location', e.target.value)}
               />
               <div>
-                <label className="block text-sm font-medium text-text-secondary mb-2">Description</label>
+                <label className="block text-sm font-medium text-text-secondary mb-2">{t('createQrCode.description')}</label>
                 <textarea
                   placeholder="Event description..."
                   value={formData.content.description || ''}
@@ -438,7 +438,7 @@ export const CreateQRCode = () => {
 
           {formData.type === 'text' && (
             <div>
-              <label className="block text-sm font-medium text-text-secondary mb-2">Text Content</label>
+              <label className="block text-sm font-medium text-text-secondary mb-2">{t('createQrCode.textContent')}</label>
               <textarea
                 placeholder="Enter your text..."
                 value={formData.content.text || ''}
@@ -451,9 +451,9 @@ export const CreateQRCode = () => {
 
         {/* Options */}
         <Card className="p-6 space-y-4">
-          <h3 className="font-semibold text-text-primary">Options</h3>
+          <h3 className="font-semibold text-text-primary">{t('createQrCode.options')}</h3>
           <div>
-            <label className="block text-sm font-medium text-text-secondary mb-2">Folder</label>
+            <label className="block text-sm font-medium text-text-secondary mb-2">{t('createQrCode.folder')}</label>
             <select
               value={formData.folder}
               onChange={(e) => setFormData(prev => ({ ...prev, folder: e.target.value }))}
@@ -473,7 +473,7 @@ export const CreateQRCode = () => {
               className="w-4 h-4 rounded border-white/[0.08] bg-white/[0.05] text-accent-primary focus:ring-accent-primary"
             />
             <label htmlFor="isDynamic" className="text-sm text-text-secondary">
-              Create as Dynamic QR Code (allows editing content after creation)
+              {t('createQrCode.createAsDynamic')}
             </label>
           </div>
         </Card>
@@ -486,10 +486,10 @@ export const CreateQRCode = () => {
       {/* Style Options */}
       <div className="space-y-6">
         <Card className="p-6 space-y-4">
-          <h3 className="font-semibold text-text-primary">Colors</h3>
+          <h3 className="font-semibold text-text-primary">{t('createQrCode.colors')}</h3>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-text-secondary mb-2">Foreground Color</label>
+              <label className="block text-sm font-medium text-text-secondary mb-2">{t('createQrCode.foregroundColor')}</label>
               <div className="flex items-center gap-2">
                 <input
                   type="color"
@@ -505,7 +505,7 @@ export const CreateQRCode = () => {
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-text-secondary mb-2">Background Color</label>
+              <label className="block text-sm font-medium text-text-secondary mb-2">{t('createQrCode.backgroundColor')}</label>
               <div className="flex items-center gap-2">
                 <input
                   type="color"
@@ -524,7 +524,7 @@ export const CreateQRCode = () => {
         </Card>
 
         <Card className="p-6 space-y-4">
-          <h3 className="font-semibold text-text-primary">Corner Style</h3>
+          <h3 className="font-semibold text-text-primary">{t('createQrCode.cornerStyle')}</h3>
           <div className="grid grid-cols-3 gap-3">
             {cornerStyleOptions.map((style) => {
               const icons: Record<string, React.ElementType> = {
@@ -552,7 +552,7 @@ export const CreateQRCode = () => {
         </Card>
 
         <Card className="p-6 space-y-4">
-          <h3 className="font-semibold text-text-primary">Frame</h3>
+          <h3 className="font-semibold text-text-primary">{t('createQrCode.frame')}</h3>
           <div className="grid grid-cols-4 gap-3">
             {frameOptions.map((frame) => (
               <button
@@ -571,12 +571,12 @@ export const CreateQRCode = () => {
         </Card>
 
         <Card className="p-6 space-y-4">
-          <h3 className="font-semibold text-text-primary">Logo</h3>
+          <h3 className="font-semibold text-text-primary">{t('createQrCode.logo')}</h3>
           <div className="border-2 border-dashed border-white/[0.08] rounded-lg p-8 text-center">
             <Image size={32} className="mx-auto mb-2 text-text-muted" />
-            <p className="text-sm text-text-secondary mb-2">Drag & drop your logo here</p>
+            <p className="text-sm text-text-secondary mb-2">{t('createQrCode.dragAndDrop')}</p>
             <Button variant="outline" size="sm">
-              Browse Files
+              {t('createQrCode.browseFiles')}
             </Button>
           </div>
         </Card>
@@ -585,7 +585,7 @@ export const CreateQRCode = () => {
       {/* Preview */}
       <div className="space-y-6">
         <Card className="p-6">
-          <h3 className="font-semibold text-text-primary mb-4">Preview</h3>
+          <h3 className="font-semibold text-text-primary mb-4">{t('createQrCode.preview')}</h3>
           <div className="flex justify-center">
             <div
               className="w-64 h-64 rounded-xl flex items-center justify-center shadow-lg"
@@ -599,13 +599,13 @@ export const CreateQRCode = () => {
           </div>
           {formData.style.frame !== 'none' && (
             <div className="mt-4 text-center">
-              <p className="text-sm text-text-secondary">Scan Me</p>
+              <p className="text-sm text-text-secondary">{t('createQrCode.scanMe')}</p>
             </div>
           )}
         </Card>
 
         <Card className="p-6">
-          <h3 className="font-semibold text-text-primary mb-4">Quick Presets</h3>
+          <h3 className="font-semibold text-text-primary mb-4">{t('createQrCode.quickPresets')}</h3>
           <div className="grid grid-cols-4 gap-2">
             {[
               { fg: '#000000', bg: '#ffffff' },
@@ -642,13 +642,13 @@ export const CreateQRCode = () => {
   const renderPreview = () => (
     <div className="max-w-3xl mx-auto space-y-6">
       <div className="text-center mb-8">
-        <h2 className="text-xl font-semibold text-text-primary mb-2">Review & Save Your QR Code</h2>
-        <p className="text-text-secondary">Give your QR code a name and save it</p>
+        <h2 className="text-xl font-semibold text-text-primary mb-2">{t('createQrCode.reviewAndSave')}</h2>
+        <p className="text-text-secondary">{t('createQrCode.giveNameAndSave')}</p>
       </div>
 
       <Card className="p-6">
         <Input
-          label="QR Code Name"
+          label={t('createQrCode.qrCodeName')}
           placeholder="My Awesome QR Code"
           value={formData.name}
           onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
@@ -658,7 +658,7 @@ export const CreateQRCode = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* QR Preview */}
         <Card className="p-6">
-          <h3 className="font-semibold text-text-primary mb-4 text-center">QR Code Preview</h3>
+          <h3 className="font-semibold text-text-primary mb-4 text-center">{t('createQrCode.qrCodePreview')}</h3>
           <div className="flex justify-center">
             <div
               className="w-48 h-48 rounded-xl flex items-center justify-center shadow-lg"
@@ -685,32 +685,32 @@ export const CreateQRCode = () => {
 
         {/* Summary */}
         <Card className="p-6">
-          <h3 className="font-semibold text-text-primary mb-4">Summary</h3>
+          <h3 className="font-semibold text-text-primary mb-4">{t('createQrCode.summary')}</h3>
           <div className="space-y-3">
             <div className="flex justify-between py-2 border-b border-white/[0.08]">
-              <span className="text-text-secondary">Type</span>
+              <span className="text-text-secondary">{t('qrCodeList.type')}</span>
               <span className="text-text-primary font-medium capitalize">{formData.type}</span>
             </div>
             <div className="flex justify-between py-2 border-b border-white/[0.08]">
-              <span className="text-text-secondary">Dynamic</span>
-              <span className="text-text-primary font-medium">{formData.isDynamic ? 'Yes' : 'No'}</span>
+              <span className="text-text-secondary">{t('createQrCode.dynamic')}</span>
+              <span className="text-text-primary font-medium">{formData.isDynamic ? t('createQrCode.yes') : t('createQrCode.no')}</span>
             </div>
             <div className="flex justify-between py-2 border-b border-white/[0.08]">
-              <span className="text-text-secondary">Folder</span>
+              <span className="text-text-secondary">{t('createQrCode.folder')}</span>
               <span className="text-text-primary font-medium">
                 {qrFolders.find(f => f.id === formData.folder)?.name || 'None'}
               </span>
             </div>
             <div className="flex justify-between py-2 border-b border-white/[0.08]">
-              <span className="text-text-secondary">Corner Style</span>
+              <span className="text-text-secondary">{t('createQrCode.cornerStyle')}</span>
               <span className="text-text-primary font-medium capitalize">{formData.style.cornerStyle}</span>
             </div>
             <div className="flex justify-between py-2 border-b border-white/[0.08]">
-              <span className="text-text-secondary">Frame</span>
+              <span className="text-text-secondary">{t('createQrCode.frame')}</span>
               <span className="text-text-primary font-medium capitalize">{formData.style.frame}</span>
             </div>
             <div className="flex justify-between py-2">
-              <span className="text-text-secondary">Colors</span>
+              <span className="text-text-secondary">{t('createQrCode.colors')}</span>
               <div className="flex items-center gap-2">
                 <div
                   className="w-6 h-6 rounded border border-white/[0.08]"
@@ -731,15 +731,15 @@ export const CreateQRCode = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('qr-codes.createQrCode', 'Create QR Code')}
-        subtitle="Generate a new QR code in a few simple steps"
+        title={t('createQrCode.title')}
+        subtitle={t('createQrCode.subtitle')}
         actions={
           <Button
             variant="outline"
             leftIcon={<ArrowLeft size={16} />}
             onClick={() => navigate('/dashboard/qr-codes/list')}
           >
-            Back to List
+            {t('createQrCode.backToList')}
           </Button>
         }
       />
@@ -814,7 +814,7 @@ export const CreateQRCode = () => {
             onClick={handleBack}
             disabled={isFirstStep}
           >
-            Back
+            {t('createQrCode.back')}
           </Button>
           <div className="flex gap-2">
             {isLastStep ? (
@@ -823,7 +823,7 @@ export const CreateQRCode = () => {
                 onClick={handleSave}
                 disabled={!canProceed}
               >
-                Save QR Code
+                {t('createQrCode.saveQrCode')}
               </Button>
             ) : (
               <Button
@@ -831,7 +831,7 @@ export const CreateQRCode = () => {
                 onClick={handleNext}
                 disabled={!canProceed}
               >
-                Continue
+                {t('createQrCode.continue')}
               </Button>
             )}
           </div>

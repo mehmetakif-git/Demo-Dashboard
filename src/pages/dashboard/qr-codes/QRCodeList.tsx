@@ -32,7 +32,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const QRCodeList = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('qrCodes');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedType, setSelectedType] = useState<string>('all');
@@ -77,9 +77,9 @@ export const QRCodeList = () => {
 
   const getStatusBadge = (status: QRCode['status']) => {
     const config = {
-      active: { bg: 'bg-green-500/20', text: 'text-green-400', label: 'Active' },
-      expired: { bg: 'bg-red-500/20', text: 'text-red-400', label: 'Expired' },
-      disabled: { bg: 'bg-slate-500/20', text: 'text-slate-400', label: 'Disabled' },
+      active: { bg: 'bg-green-500/20', text: 'text-green-400', label: t('qrCodeList.active') },
+      expired: { bg: 'bg-red-500/20', text: 'text-red-400', label: t('qrCodeList.expired') },
+      disabled: { bg: 'bg-slate-500/20', text: 'text-slate-400', label: t('qrCodeList.disabled') },
     };
     const c = config[status];
     return (
@@ -111,15 +111,15 @@ export const QRCodeList = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('qr-codes.qrCodeManagement', 'QR Code Management')}
-        subtitle="Create, manage and track your QR codes"
+        title={t('qrCodeList.title')}
+        subtitle={t('qrCodeList.subtitle')}
         actions={
           <div className="flex gap-2">
             <Button variant="outline" leftIcon={<Download size={16} />}>
-              Export
+              {t('qrCodeList.export')}
             </Button>
             <Button leftIcon={<Plus size={16} />} onClick={() => navigate('/dashboard/qr-codes/create')}>
-              Create QR Code
+              {t('qrCodeList.createQrCode')}
             </Button>
           </div>
         }
@@ -128,25 +128,25 @@ export const QRCodeList = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total QR Codes"
+          title={t('qrCodeList.totalQrCodes')}
           value={stats.total.toString()}
           icon={QrCode}
           iconColor="#547792"
         />
         <StatsCard
-          title="Active QR Codes"
+          title={t('qrCodeList.activeQrCodes')}
           value={stats.active.toString()}
           icon={QrCode}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Total Scans"
+          title={t('qrCodeList.totalScans')}
           value={formatNumber(stats.totalScans)}
           icon={Scan}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Dynamic QR Codes"
+          title={t('qrCodeList.dynamicQrCodes')}
           value={stats.dynamic.toString()}
           icon={BarChart3}
           iconColor="#94B4C1"
@@ -159,7 +159,7 @@ export const QRCodeList = () => {
           <div className="flex flex-wrap gap-4 items-center flex-1">
             <div className="flex-1 min-w-50 max-w-md">
               <Input
-                placeholder="Search QR codes..."
+                placeholder={t('qrCodeList.searchPlaceholder')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 leftIcon={<Search size={16} />}
@@ -171,7 +171,7 @@ export const QRCodeList = () => {
               onChange={(e) => setSelectedType(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Types</option>
+              <option value="all">{t('qrCodeList.allTypes')}</option>
               {qrCodeTypes.map(type => (
                 <option key={type.id} value={type.id}>{type.label}</option>
               ))}
@@ -182,10 +182,10 @@ export const QRCodeList = () => {
               onChange={(e) => setSelectedStatus(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Status</option>
-              <option value="active">Active</option>
-              <option value="expired">Expired</option>
-              <option value="disabled">Disabled</option>
+              <option value="all">{t('qrCodeList.allStatus')}</option>
+              <option value="active">{t('qrCodeList.active')}</option>
+              <option value="expired">{t('qrCodeList.expired')}</option>
+              <option value="disabled">{t('qrCodeList.disabled')}</option>
             </select>
 
             <select
@@ -193,7 +193,7 @@ export const QRCodeList = () => {
               onChange={(e) => setSelectedFolder(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Folders</option>
+              <option value="all">{t('qrCodeList.allFolders')}</option>
               {qrFolders.map(folder => (
                 <option key={folder.id} value={folder.id}>{folder.name}</option>
               ))}
@@ -273,7 +273,7 @@ export const QRCodeList = () => {
                   {qr.isDynamic && (
                     <div className="flex justify-center mb-3">
                       <span className="px-2 py-0.5 bg-[#94B4C1]/20 text-[#94B4C1] rounded text-xs font-medium">
-                        Dynamic
+                        {t('qrCodeList.dynamic')}
                       </span>
                     </div>
                   )}
@@ -282,7 +282,7 @@ export const QRCodeList = () => {
                   <div className="flex justify-between text-sm text-text-secondary mb-3">
                     <div className="flex items-center gap-1">
                       <Scan size={14} />
-                      <span>{formatNumber(qr.scans)} scans</span>
+                      <span>{formatNumber(qr.scans)} {t('qrCodeList.scans')}</span>
                     </div>
                     <div className="flex items-center gap-1">
                       <Calendar size={14} />
@@ -349,14 +349,14 @@ export const QRCodeList = () => {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-white/[0.08]">
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">QR Code</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Type</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Folder</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Scans</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Unique</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Created</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Status</th>
-                  <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">Actions</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('qrCodeList.qrCode')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('qrCodeList.type')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('qrCodeList.folder')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('qrCodeList.totalScans')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('qrCodeList.unique')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('qrCodeList.created')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('qrCodeList.status')}</th>
+                  <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">{t('qrCodeList.actions')}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border-default">
@@ -386,7 +386,7 @@ export const QRCodeList = () => {
                             <p className="text-xs text-text-secondary font-mono">{qr.id}</p>
                             {qr.isDynamic && (
                               <span className="px-1.5 py-0.5 bg-[#94B4C1]/20 text-[#94B4C1] rounded text-[10px] font-medium">
-                                Dynamic
+                                {t('qrCodeList.dynamic')}
                               </span>
                             )}
                           </div>
@@ -451,9 +451,9 @@ export const QRCodeList = () => {
       {filteredQRCodes.length === 0 && (
         <Card className="p-12 text-center">
           <QrCode size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No QR codes found matching your filters</p>
+          <p className="text-text-secondary">{t('qrCodeList.noQrCodesFound')}</p>
           <Button className="mt-4" leftIcon={<Plus size={16} />} onClick={() => navigate('/dashboard/qr-codes/create')}>
-            Create Your First QR Code
+            {t('qrCodeList.createFirstQrCode')}
           </Button>
         </Card>
       )}

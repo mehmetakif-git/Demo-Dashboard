@@ -33,7 +33,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const DynamicQR = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('qrCodes');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
@@ -71,9 +71,9 @@ export const DynamicQR = () => {
 
   const getStatusBadge = (status: QRCode['status']) => {
     const config = {
-      active: { bg: 'bg-green-500/20', text: 'text-green-400', label: 'Active', icon: CheckCircle },
-      expired: { bg: 'bg-red-500/20', text: 'text-red-400', label: 'Expired', icon: AlertCircle },
-      disabled: { bg: 'bg-slate-500/20', text: 'text-slate-400', label: 'Disabled', icon: AlertCircle },
+      active: { bg: 'bg-green-500/20', text: 'text-green-400', label: t('dynamicQr.active'), icon: CheckCircle },
+      expired: { bg: 'bg-red-500/20', text: 'text-red-400', label: t('dynamicQr.expired'), icon: AlertCircle },
+      disabled: { bg: 'bg-slate-500/20', text: 'text-slate-400', label: t('dynamicQr.disabled'), icon: AlertCircle },
     };
     const c = config[status];
     return (
@@ -93,11 +93,11 @@ export const DynamicQR = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('qr-codes.dynamicQrCodes', 'Dynamic QR Codes')}
-        subtitle="Manage QR codes with editable content"
+        title={t('dynamicQr.title')}
+        subtitle={t('dynamicQr.subtitle')}
         actions={
           <Button leftIcon={<Zap size={16} />} onClick={() => navigate('/dashboard/qr-codes/create')}>
-            Create Dynamic QR
+            {t('dynamicQr.createDynamic')}
           </Button>
         }
       />
@@ -109,14 +109,13 @@ export const DynamicQR = () => {
             <Zap size={20} className="text-[#94B4C1]" />
           </div>
           <div className="flex-1">
-            <h3 className="font-semibold text-text-primary mb-1">What are Dynamic QR Codes?</h3>
+            <h3 className="font-semibold text-text-primary mb-1">{t('dynamicQr.whatAreDynamic')}</h3>
             <p className="text-sm text-text-secondary">
-              Dynamic QR codes allow you to change the destination URL or content without reprinting the code.
-              They also provide detailed scan analytics and can be paused or disabled at any time.
+              {t('dynamicQr.dynamicDescription')}
             </p>
           </div>
           <Button variant="outline" size="sm" rightIcon={<ArrowRight size={14} />}>
-            Learn More
+            {t('dynamicQr.learnMore')}
           </Button>
         </div>
       </Card>
@@ -124,25 +123,25 @@ export const DynamicQR = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Dynamic QR Codes"
+          title={t('dynamicQr.dynamicQrCodes')}
           value={stats.total.toString()}
           icon={Zap}
           iconColor="#94B4C1"
         />
         <StatsCard
-          title="Active"
+          title={t('dynamicQr.active')}
           value={stats.active.toString()}
           icon={CheckCircle}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Total Scans"
+          title={t('dynamicQr.totalScans')}
           value={formatNumber(stats.totalScans)}
           icon={Scan}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="With Short URLs"
+          title={t('dynamicQr.withShortUrls')}
           value={stats.withShortUrl.toString()}
           icon={Link}
           iconColor="#3b82f6"
@@ -154,7 +153,7 @@ export const DynamicQR = () => {
         <div className="flex flex-wrap gap-4 items-center">
           <div className="flex-1 min-w-50 max-w-md">
             <Input
-              placeholder="Search by name, ID or short URL..."
+              placeholder={t('dynamicQr.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               leftIcon={<Search size={16} />}
@@ -165,10 +164,10 @@ export const DynamicQR = () => {
             onChange={(e) => setSelectedStatus(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Status</option>
-            <option value="active">Active</option>
-            <option value="expired">Expired</option>
-            <option value="disabled">Disabled</option>
+            <option value="all">{t('dynamicQr.allStatus')}</option>
+            <option value="active">{t('dynamicQr.active')}</option>
+            <option value="expired">{t('dynamicQr.expired')}</option>
+            <option value="disabled">{t('dynamicQr.disabled')}</option>
           </select>
         </div>
       </Card>
@@ -224,10 +223,10 @@ export const DynamicQR = () => {
                       </div>
                       <div className="flex gap-2">
                         <Button variant="outline" size="sm" leftIcon={<Edit size={14} />}>
-                          Edit Content
+                          {t('dynamicQr.editContent')}
                         </Button>
                         <Button variant="outline" size="sm" leftIcon={<BarChart3 size={14} />} onClick={() => navigate(`/dashboard/qr-codes/${qr.id}`)}>
-                          Analytics
+                          {t('dynamicQr.analytics')}
                         </Button>
                       </div>
                     </div>
@@ -237,7 +236,7 @@ export const DynamicQR = () => {
                       <div className="flex items-center gap-3 p-3 bg-white/[0.03] backdrop-blur-xl rounded-lg mb-4">
                         <Link size={16} className="text-accent-primary flex-shrink-0" />
                         <div className="flex-1 min-w-0">
-                          <p className="text-xs text-text-muted mb-0.5">Short URL</p>
+                          <p className="text-xs text-text-muted mb-0.5">{t('dynamicQr.shortUrl')}</p>
                           <p className="text-sm text-text-primary truncate">{qr.shortUrl}</p>
                         </div>
                         <button
@@ -259,7 +258,7 @@ export const DynamicQR = () => {
 
                     {/* Content Preview */}
                     <div className="p-3 bg-white/[0.03] backdrop-blur-xl rounded-lg mb-4">
-                      <p className="text-xs text-text-muted mb-1">Current Destination</p>
+                      <p className="text-xs text-text-muted mb-1">{t('dynamicQr.currentDestination')}</p>
                       <p className="text-sm text-text-primary truncate">
                         {typeof qr.content === 'string' ? qr.content : JSON.stringify(qr.content)}
                       </p>
@@ -269,22 +268,22 @@ export const DynamicQR = () => {
                     <div className="flex flex-wrap gap-6 text-sm">
                       <div className="flex items-center gap-2 text-text-secondary">
                         <Scan size={16} className="text-accent-primary" />
-                        <span>{formatNumber(qr.scans)} scans</span>
+                        <span>{formatNumber(qr.scans)} {t('dynamicQr.scans')}</span>
                       </div>
                       <div className="flex items-center gap-2 text-text-secondary">
                         <Calendar size={16} />
-                        <span>Created {formatDate(qr.createdAt)}</span>
+                        <span>{t('dynamicQr.created')} {formatDate(qr.createdAt)}</span>
                       </div>
                       {qr.lastScan && (
                         <div className="flex items-center gap-2 text-text-secondary">
                           <Clock size={16} />
-                          <span>Last scan {formatDate(qr.lastScan)}</span>
+                          <span>{t('dynamicQr.lastScan')} {formatDate(qr.lastScan)}</span>
                         </div>
                       )}
                       {qr.expiresAt && (
                         <div className={`flex items-center gap-2 ${new Date(qr.expiresAt) < new Date() ? 'text-red-400' : 'text-text-secondary'}`}>
                           <AlertCircle size={16} />
-                          <span>Expires {formatDate(qr.expiresAt)}</span>
+                          <span>{t('dynamicQr.expires')} {formatDate(qr.expiresAt)}</span>
                         </div>
                       )}
                     </div>
@@ -295,22 +294,22 @@ export const DynamicQR = () => {
                 <div className="flex items-center gap-2 mt-4 pt-4 border-t border-white/[0.08]">
                   <button className="flex items-center gap-2 px-3 py-1.5 text-sm text-text-secondary hover:text-text-primary hover:bg-white/[0.05] rounded transition-colors">
                     <RefreshCw size={14} />
-                    Update Content
+                    {t('dynamicQr.updateContent')}
                   </button>
                   <button className="flex items-center gap-2 px-3 py-1.5 text-sm text-text-secondary hover:text-text-primary hover:bg-white/[0.05] rounded transition-colors">
                     <Copy size={14} />
-                    Duplicate
+                    {t('dynamicQr.duplicate')}
                   </button>
                   <button className="flex items-center gap-2 px-3 py-1.5 text-sm text-text-secondary hover:text-text-primary hover:bg-white/[0.05] rounded transition-colors">
                     <Settings size={14} />
-                    Settings
+                    {t('dynamicQr.settings')}
                   </button>
                   <button
                     className="flex items-center gap-2 px-3 py-1.5 text-sm text-text-secondary hover:text-accent-primary hover:bg-white/[0.05] rounded transition-colors"
                     onClick={() => navigate(`/dashboard/qr-codes/${qr.id}`)}
                   >
                     <Eye size={14} />
-                    View Details
+                    {t('dynamicQr.viewDetails')}
                   </button>
                 </div>
               </Card>
@@ -322,25 +321,25 @@ export const DynamicQR = () => {
       {filteredQRCodes.length === 0 && (
         <Card className="p-12 text-center">
           <Zap size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary mb-4">No dynamic QR codes found</p>
+          <p className="text-text-secondary mb-4">{t('dynamicQr.noDynamicFound')}</p>
           <Button leftIcon={<Zap size={16} />} onClick={() => navigate('/dashboard/qr-codes/create')}>
-            Create Your First Dynamic QR Code
+            {t('dynamicQr.createFirstDynamic')}
           </Button>
         </Card>
       )}
 
       {/* Features Section */}
       <Card className="p-6">
-        <h3 className="font-semibold text-text-primary mb-6">Dynamic QR Code Features</h3>
+        <h3 className="font-semibold text-text-primary mb-6">{t('dynamicQr.features')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="flex items-start gap-4">
             <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center flex-shrink-0">
               <RefreshCw size={20} className="text-blue-400" />
             </div>
             <div>
-              <h4 className="font-medium text-text-primary mb-1">Editable Content</h4>
+              <h4 className="font-medium text-text-primary mb-1">{t('dynamicQr.editableContent')}</h4>
               <p className="text-sm text-text-secondary">
-                Change the destination URL anytime without reprinting the QR code
+                {t('dynamicQr.editableContentDesc')}
               </p>
             </div>
           </div>
@@ -349,9 +348,9 @@ export const DynamicQR = () => {
               <BarChart3 size={20} className="text-green-400" />
             </div>
             <div>
-              <h4 className="font-medium text-text-primary mb-1">Detailed Analytics</h4>
+              <h4 className="font-medium text-text-primary mb-1">{t('dynamicQr.detailedAnalytics')}</h4>
               <p className="text-sm text-text-secondary">
-                Track scans, locations, devices, and user behavior in real-time
+                {t('dynamicQr.detailedAnalyticsDesc')}
               </p>
             </div>
           </div>
@@ -360,9 +359,9 @@ export const DynamicQR = () => {
               <Link size={20} className="text-[#94B4C1]" />
             </div>
             <div>
-              <h4 className="font-medium text-text-primary mb-1">Short URLs</h4>
+              <h4 className="font-medium text-text-primary mb-1">{t('dynamicQr.shortUrls')}</h4>
               <p className="text-sm text-text-secondary">
-                Each dynamic QR includes a short URL for easy sharing
+                {t('dynamicQr.shortUrlsDesc')}
               </p>
             </div>
           </div>
