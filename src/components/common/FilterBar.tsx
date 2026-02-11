@@ -1,5 +1,6 @@
 import { Search, Grid, List, Filter } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 interface FilterOption {
   value: string;
@@ -24,12 +25,14 @@ interface FilterBarProps {
 export const FilterBar = ({
   searchValue,
   onSearchChange,
-  searchPlaceholder = 'Search...',
+  searchPlaceholder,
   filters = [],
   viewMode = 'table',
   onViewModeChange,
   showViewToggle = false,
 }: FilterBarProps) => {
+  const { t } = useTranslation('common');
+
   return (
     <motion.div
       initial={{ opacity: 0, y: -10 }}
@@ -44,7 +47,7 @@ export const FilterBar = ({
           type="text"
           value={searchValue}
           onChange={(e) => onSearchChange(e.target.value)}
-          placeholder={searchPlaceholder}
+          placeholder={searchPlaceholder || t('form.searchPlaceholder')}
           className="w-full pl-10 pr-4 py-2.5 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-white/20 hover:bg-white/[0.05] transition-all text-sm"
         />
       </div>

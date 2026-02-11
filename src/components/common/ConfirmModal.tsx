@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, AlertTriangle, Trash2, Info } from 'lucide-react';
 import { cn } from '@/utils/helpers';
+import { useTranslation } from 'react-i18next';
 
 interface ConfirmModalProps {
   isOpen: boolean;
@@ -41,11 +42,12 @@ export const ConfirmModal = ({
   onConfirm,
   title,
   message,
-  confirmText = 'Confirm',
-  cancelText = 'Cancel',
+  confirmText,
+  cancelText,
   variant = 'danger',
   loading = false,
 }: ConfirmModalProps) => {
+  const { t } = useTranslation('common');
   const styles = variantStyles[variant];
   const Icon = styles.icon;
 
@@ -110,7 +112,7 @@ export const ConfirmModal = ({
                     disabled={loading}
                     className="flex-1 rounded-lg border border-white/[0.08] bg-white/[0.03] px-4 py-2.5 text-sm font-medium text-white hover:bg-white/[0.08] transition-colors disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed"
                   >
-                    {cancelText}
+                    {cancelText || t('buttons.cancel')}
                   </button>
                   <button
                     onClick={handleConfirm}
@@ -141,10 +143,10 @@ export const ConfirmModal = ({
                             d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                           />
                         </svg>
-                        Processing...
+                        {t('buttons.processing')}
                       </span>
                     ) : (
-                      confirmText
+                      confirmText || t('buttons.confirm')
                     )}
                   </button>
                 </div>

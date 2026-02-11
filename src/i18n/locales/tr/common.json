@@ -40,7 +40,8 @@
     "send": "Gönder",
     "copy": "Kopyala",
     "copied": "Kopyalandı",
-    "contactSupport": "Destek Ekibi"
+    "contactSupport": "Destek Ekibi",
+    "processing": "İşleniyor..."
   },
   "status": {
     "active": "Aktif",
@@ -105,7 +106,7 @@
     "loading": "Yükleniyor..."
   },
   "pagination": {
-    "showing": "{{total}} kayıttan {{from}} - {{to}} arası gösteriliyor",
+    "showing": "{{total}} sonuçtan {{from}} - {{to}} arası gösteriliyor",
     "previous": "Önceki",
     "next": "Sonraki",
     "first": "İlk",

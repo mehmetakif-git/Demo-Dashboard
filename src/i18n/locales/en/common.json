@@ -40,7 +40,8 @@
     "send": "Send",
     "copy": "Copy",
     "copied": "Copied",
-    "contactSupport": "Contact Support"
+    "contactSupport": "Contact Support",
+    "processing": "Processing..."
   },
   "status": {
     "active": "Active",
@@ -105,7 +106,7 @@
     "loading": "Loading..."
   },
   "pagination": {
-    "showing": "Showing {{from}} to {{to}} of {{total}}",
+    "showing": "Showing {{from}} to {{to}} of {{total}} results",
     "previous": "Previous",
     "next": "Next",
     "first": "First",

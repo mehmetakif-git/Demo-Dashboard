@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
 import { cn } from '@/utils/helpers';
+import { useTranslation } from 'react-i18next';
 
 interface Column<T> {
   key: string;
@@ -37,13 +38,15 @@ export const DataTable = <T,>({
   keyExtractor,
   onRowClick,
   className,
-  emptyMessage = 'No data available',
+  emptyMessage,
   isLoading = false,
   pagination,
   selectable = false,
   selectedItems = [],
   onSelectionChange,
 }: DataTableProps<T>) => {
+  const { t } = useTranslation('common');
+
   const handleSelectAll = () => {
     if (!onSelectionChange) return;
     if (selectedItems.length === data.length) {
@@ -113,7 +116,7 @@ export const DataTable = <T,>({
                   colSpan={columns.length + (selectable ? 1 : 0)}
                   className="px-4 py-12 text-center text-sm text-white/40"
                 >
-                  {emptyMessage}
+                  {emptyMessage || t('table.noData')}
                 </td>
               </tr>
             ) : (
@@ -168,9 +171,11 @@ export const DataTable = <T,>({
       {pagination && pagination.totalPages > 1 && (
         <div className="flex items-center justify-between px-4 py-4 border-t border-white/[0.08]">
           <p className="text-sm text-white/40">
-            Showing {((pagination.currentPage - 1) * pagination.itemsPerPage) + 1} to{' '}
-            {Math.min(pagination.currentPage * pagination.itemsPerPage, pagination.totalItems)} of{' '}
-            {pagination.totalItems} results
+            {t('pagination.showing', {
+              from: ((pagination.currentPage - 1) * pagination.itemsPerPage) + 1,
+              to: Math.min(pagination.currentPage * pagination.itemsPerPage, pagination.totalItems),
+              total: pagination.totalItems,
+            })}
           </p>
           <div className="flex items-center gap-1">
             <button
