@@ -15,30 +15,23 @@ import { taxRecords } from '@/data/accountingData';
 import type { TaxRecord } from '@/data/accountingData';
 import { useTranslation } from 'react-i18next';
 
-const tabs = [
-  { id: 'all', label: 'All Records' },
-  { id: 'pending', label: 'Pending', count: 0 },
-  { id: 'paid', label: 'Paid' },
-  { id: 'overdue', label: 'Overdue', count: 0 },
-];
-
 export const Tax = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('accounting');
   const [activeTab, setActiveTab] = useState('all');
 
   const stats = useMemo(() => {
-    const totalTax = taxRecords.reduce((acc, t) => acc + t.amount, 0);
+    const totalTax = taxRecords.reduce((acc, r) => acc + r.amount, 0);
     const paidTax = taxRecords
-      .filter((t) => t.status === 'paid')
-      .reduce((acc, t) => acc + t.amount, 0);
+      .filter((r) => r.status === 'paid')
+      .reduce((acc, r) => acc + r.amount, 0);
     const pendingTax = taxRecords
-      .filter((t) => t.status === 'pending')
-      .reduce((acc, t) => acc + t.amount, 0);
+      .filter((r) => r.status === 'pending')
+      .reduce((acc, r) => acc + r.amount, 0);
     const overdueTax = taxRecords
-      .filter((t) => t.status === 'overdue')
-      .reduce((acc, t) => acc + t.amount, 0);
-    const pendingCount = taxRecords.filter((t) => t.status === 'pending').length;
-    const overdueCount = taxRecords.filter((t) => t.status === 'overdue').length;
+      .filter((r) => r.status === 'overdue')
+      .reduce((acc, r) => acc + r.amount, 0);
+    const pendingCount = taxRecords.filter((r) => r.status === 'pending').length;
+    const overdueCount = taxRecords.filter((r) => r.status === 'overdue').length;
 
     return {
       totalTax,
@@ -50,26 +43,36 @@ export const Tax = () => {
     };
   }, []);
 
-  // Update tab counts
-  tabs[1].count = stats.pendingCount;
-  tabs[3].count = stats.overdueCount;
+  const tabs = useMemo(() => [
+    { id: 'all', label: t('tax.tabs.all') },
+    { id: 'pending', label: t('tax.tabs.pending'), count: stats.pendingCount },
+    { id: 'paid', label: t('tax.tabs.paid') },
+    { id: 'overdue', label: t('tax.tabs.overdue'), count: stats.overdueCount },
+  ], [t, stats.pendingCount, stats.overdueCount]);
 
   const filteredRecords = useMemo(() => {
     if (activeTab === 'all') return taxRecords;
-    return taxRecords.filter((t) => t.status === activeTab);
+    return taxRecords.filter((r) => r.status === activeTab);
   }, [activeTab]);
 
   const upcomingDeadlines = useMemo(() => {
     return taxRecords
-      .filter((t) => t.status === 'pending')
+      .filter((r) => r.status === 'pending')
       .sort((a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime())
       .slice(0, 5);
   }, []);
 
+  const taxTypeLabels: Record<string, string> = useMemo(() => ({
+    'Corporate Income Tax': t('tax.taxTypes.corporateIncomeTax'),
+    'Payroll Tax': t('tax.taxTypes.payrollTax'),
+    'Sales Tax': t('tax.taxTypes.salesTax'),
+    'Other': t('tax.taxTypes.other'),
+  }), [t]);
+
   const columns = [
     {
       key: 'type',
-      header: 'Tax Type',
+      header: t('tax.taxType'),
       render: (record: TaxRecord) => (
         <div className="flex items-center gap-3">
           <div className="p-2 rounded-lg bg-[#547792]/20">
@@ -81,12 +84,12 @@ export const Tax = () => {
     },
     {
       key: 'period',
-      header: 'Period',
+      header: t('tax.period'),
       render: (record: TaxRecord) => <span className="text-white/60">{record.period}</span>,
     },
     {
       key: 'dueDate',
-      header: 'Due Date',
+      header: t('tax.dueDate'),
       render: (record: TaxRecord) => (
         <span className={record.status === 'overdue' ? 'text-red-400' : 'text-white/60'}>
           {new Date(record.dueDate).toLocaleDateString()}
@@ -95,19 +98,19 @@ export const Tax = () => {
     },
     {
       key: 'amount',
-      header: 'Amount',
+      header: t('tax.amount'),
       render: (record: TaxRecord) => (
         <span className="text-white font-semibold">${record.amount.toLocaleString()}</span>
       ),
     },
     {
       key: 'status',
-      header: 'Status',
+      header: t('tax.status'),
       render: (record: TaxRecord) => <StatusBadge status={record.status} />,
     },
     {
       key: 'paidDate',
-      header: 'Paid Date',
+      header: t('tax.paidDate'),
       render: (record: TaxRecord) => (
         <span className="text-white/60">
           {record.paidDate ? new Date(record.paidDate).toLocaleDateString() : '-'}
@@ -116,13 +119,13 @@ export const Tax = () => {
     },
     {
       key: 'actions',
-      header: 'Actions',
+      header: t('tax.actions'),
       render: (record: TaxRecord) => (
         <div className="flex items-center gap-1">
           {record.status === 'pending' && (
             <button className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 text-xs font-medium hover:bg-emerald-500/20 transition-colors cursor-pointer">
               <CheckCircle className="w-3 h-3" />
-              Mark Paid
+              {t('tax.markPaid')}
             </button>
           )}
           {record.reference && (
@@ -138,18 +141,18 @@ export const Tax = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title={t('accounting.taxManagement', 'Tax Management')}
-        subtitle="Track tax obligations and deadlines"
+        title={t('tax.title')}
+        subtitle={t('tax.subtitle')}
         icon={Receipt}
         actions={
           <div className="flex items-center gap-3">
             <button className="flex items-center gap-2 px-4 py-2 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-lg text-white hover:bg-[#1a1a24] transition-colors cursor-pointer">
               <Download className="w-4 h-4" />
-              Export Report
+              {t('tax.exportReport')}
             </button>
             <button className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#547792] to-[#94B4C1] hover:opacity-90 text-white font-medium rounded-lg transition-opacity cursor-pointer">
               <Receipt className="w-4 h-4" />
-              Record Tax Payment
+              {t('tax.recordTaxPayment')}
             </button>
           </div>
         }
@@ -158,7 +161,7 @@ export const Tax = () => {
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Tax (YTD)"
+          title={t('tax.totalTaxYTD')}
           value={`$${(stats.totalTax / 1000).toFixed(0)}K`}
           icon={DollarSign}
           iconColor="#547792"
@@ -166,7 +169,7 @@ export const Tax = () => {
           delay={0.1}
         />
         <StatsCard
-          title="Paid"
+          title={t('tax.paid')}
           value={`$${(stats.paidTax / 1000).toFixed(0)}K`}
           icon={CheckCircle}
           iconColor="#10b981"
@@ -174,7 +177,7 @@ export const Tax = () => {
           delay={0.15}
         />
         <StatsCard
-          title="Pending"
+          title={t('tax.pending')}
           value={`$${(stats.pendingTax / 1000).toFixed(0)}K`}
           icon={Clock}
           iconColor="#f59e0b"
@@ -182,7 +185,7 @@ export const Tax = () => {
           delay={0.2}
         />
         <StatsCard
-          title="Overdue"
+          title={t('tax.overdue')}
           value={`$${(stats.overdueTax / 1000).toFixed(0)}K`}
           icon={AlertCircle}
           iconColor="#ef4444"
@@ -201,7 +204,7 @@ export const Tax = () => {
         >
           <div className="flex items-center gap-2 mb-4">
             <Calendar className="w-5 h-5 text-[#547792]" />
-            <h3 className="text-lg font-semibold text-white">Upcoming Deadlines</h3>
+            <h3 className="text-lg font-semibold text-white">{t('tax.upcomingDeadlines')}</h3>
           </div>
           <div className="space-y-3">
             {upcomingDeadlines.map((tax) => {
@@ -237,7 +240,7 @@ export const Tax = () => {
                   <div className="text-right">
                     <p className="text-white font-semibold">${tax.amount.toLocaleString()}</p>
                     <p className={`text-xs ${isUrgent ? 'text-red-400' : 'text-white/40'}`}>
-                      Due in {daysUntilDue} days
+                      {t('tax.dueInDays', { count: daysUntilDue })}
                     </p>
                   </div>
                 </div>
@@ -254,23 +257,23 @@ export const Tax = () => {
         transition={{ delay: 0.35 }}
         className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
       >
-        <h3 className="text-lg font-semibold text-white mb-4">Tax Summary by Type</h3>
+        <h3 className="text-lg font-semibold text-white mb-4">{t('tax.taxSummaryByType')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {['Corporate Income Tax', 'Payroll Tax', 'Sales Tax', 'Other'].map((type) => {
             const typeRecords = taxRecords.filter(
-              (t) => type === 'Other' ? !['Corporate Income Tax', 'Payroll Tax', 'Sales Tax'].includes(t.type) : t.type === type
+              (r) => type === 'Other' ? !['Corporate Income Tax', 'Payroll Tax', 'Sales Tax'].includes(r.type) : r.type === type
             );
-            const total = typeRecords.reduce((acc, t) => acc + t.amount, 0);
+            const total = typeRecords.reduce((acc, r) => acc + r.amount, 0);
             const paid = typeRecords
-              .filter((t) => t.status === 'paid')
-              .reduce((acc, t) => acc + t.amount, 0);
+              .filter((r) => r.status === 'paid')
+              .reduce((acc, r) => acc + r.amount, 0);
 
             return (
               <div key={type} className="p-4 rounded-lg bg-[#1a1a24]">
-                <p className="text-white/60 text-sm mb-2">{type}</p>
+                <p className="text-white/60 text-sm mb-2">{taxTypeLabels[type] || type}</p>
                 <p className="text-xl font-bold text-white">${total.toLocaleString()}</p>
                 <div className="flex items-center justify-between mt-2">
-                  <span className="text-xs text-emerald-400">Paid: ${paid.toLocaleString()}</span>
+                  <span className="text-xs text-emerald-400">{t('tax.paid')}: ${paid.toLocaleString()}</span>
                   <span className="text-xs text-white/40">
                     {((paid / total) * 100 || 0).toFixed(0)}%
                   </span>
@@ -300,8 +303,8 @@ export const Tax = () => {
         <DataTable
           columns={columns}
           data={filteredRecords}
-          keyExtractor={(t) => String(t.id)}
-          emptyMessage="No tax records found"
+          keyExtractor={(r) => String(r.id)}
+          emptyMessage={t('tax.noRecords')}
         />
       </motion.div>
     </div>

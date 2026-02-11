@@ -26,7 +26,7 @@ import { cashFlowData } from '@/data/accountingData';
 import { useTranslation } from 'react-i18next';
 
 export const CashFlow = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('accounting');
   const stats = useMemo(() => {
     const totalInflow = cashFlowData.reduce((acc, m) => acc + m.inflow, 0);
     const totalOutflow = cashFlowData.reduce((acc, m) => acc + m.outflow, 0);
@@ -77,15 +77,15 @@ export const CashFlow = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title={t('accounting.cashFlow', 'Cash Flow')}
-        subtitle="Analyze your cash inflows and outflows"
+        title={t('cashFlow.title')}
+        subtitle={t('cashFlow.subtitle')}
         icon={Activity}
       />
 
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Inflow (YTD)"
+          title={t('cashFlow.totalInflowYTD')}
           value={`$${(stats.totalInflow / 1000000).toFixed(2)}M`}
           icon={TrendingUp}
           iconColor="#10b981"
@@ -93,7 +93,7 @@ export const CashFlow = () => {
           delay={0.1}
         />
         <StatsCard
-          title="Total Outflow (YTD)"
+          title={t('cashFlow.totalOutflowYTD')}
           value={`$${(stats.totalOutflow / 1000000).toFixed(2)}M`}
           icon={TrendingDown}
           iconColor="#ef4444"
@@ -101,7 +101,7 @@ export const CashFlow = () => {
           delay={0.15}
         />
         <StatsCard
-          title="Net Cash Flow"
+          title={t('cashFlow.netCashFlow')}
           value={`$${(stats.netCashFlow / 1000000).toFixed(2)}M`}
           icon={DollarSign}
           iconColor="#547792"
@@ -109,7 +109,7 @@ export const CashFlow = () => {
           delay={0.2}
         />
         <StatsCard
-          title="Avg. Monthly Net"
+          title={t('cashFlow.avgMonthlyNet')}
           value={`$${(stats.avgMonthlyNet / 1000).toFixed(0)}K`}
           icon={Activity}
           iconColor="#94B4C1"
@@ -130,7 +130,7 @@ export const CashFlow = () => {
             <div className="p-2 rounded-lg bg-emerald-500/20">
               <ArrowUpRight className="w-5 h-5 text-emerald-400" />
             </div>
-            <span className="text-white/60">This Month Inflow</span>
+            <span className="text-white/60">{t('cashFlow.thisMonthInflow')}</span>
           </div>
           <p className="text-3xl font-bold text-emerald-400">
             ${stats.currentMonthInflow.toLocaleString()}
@@ -147,7 +147,7 @@ export const CashFlow = () => {
             <div className="p-2 rounded-lg bg-red-500/20">
               <ArrowDownRight className="w-5 h-5 text-red-400" />
             </div>
-            <span className="text-white/60">This Month Outflow</span>
+            <span className="text-white/60">{t('cashFlow.thisMonthOutflow')}</span>
           </div>
           <p className="text-3xl font-bold text-red-400">
             ${stats.currentMonthOutflow.toLocaleString()}
@@ -164,7 +164,7 @@ export const CashFlow = () => {
             <div className="p-2 rounded-lg bg-[#547792]/20">
               <DollarSign className="w-5 h-5 text-[#547792]" />
             </div>
-            <span className="text-white/60">This Month Net</span>
+            <span className="text-white/60">{t('cashFlow.thisMonthNet')}</span>
           </div>
           <p className="text-3xl font-bold text-[#547792]">
             +${stats.currentMonthNet.toLocaleString()}
@@ -179,7 +179,7 @@ export const CashFlow = () => {
         transition={{ delay: 0.45 }}
         className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
       >
-        <h3 className="text-lg font-semibold text-white mb-4">Monthly Cash Flow</h3>
+        <h3 className="text-lg font-semibold text-white mb-4">{t('cashFlow.monthlyCashFlow')}</h3>
         <div className="h-[350px]">
           <ResponsiveContainer width="99%" height={350}>
             <ComposedChart data={cashFlowData}>
@@ -212,7 +212,7 @@ export const CashFlow = () => {
                 stroke="#10b981"
                 strokeWidth={2}
                 fill="url(#inflowGradient)"
-                name="Inflow"
+                name={t('cashFlow.inflow')}
               />
               <Area
                 type="monotone"
@@ -220,7 +220,7 @@ export const CashFlow = () => {
                 stroke="#ef4444"
                 strokeWidth={2}
                 fill="url(#outflowGradient)"
-                name="Outflow"
+                name={t('cashFlow.outflow')}
               />
               <Line
                 type="monotone"
@@ -228,7 +228,7 @@ export const CashFlow = () => {
                 stroke="#547792"
                 strokeWidth={3}
                 dot={{ fill: '#547792', strokeWidth: 2 }}
-                name="Net"
+                name={t('cashFlow.net')}
               />
             </ComposedChart>
           </ResponsiveContainer>
@@ -242,7 +242,7 @@ export const CashFlow = () => {
         transition={{ delay: 0.5 }}
         className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
       >
-        <h3 className="text-lg font-semibold text-white mb-4">Quarterly Comparison</h3>
+        <h3 className="text-lg font-semibold text-white mb-4">{t('cashFlow.quarterlyComparison')}</h3>
         <div className="h-[300px]">
           <ResponsiveContainer width="99%" height={300}>
             <BarChart data={quarterlyData}>
@@ -259,9 +259,9 @@ export const CashFlow = () => {
                 formatter={(value) => [`$${Number(value).toLocaleString()}`, '']}
               />
               <Legend />
-              <Bar dataKey="inflow" fill="#10b981" name="Inflow" radius={[4, 4, 0, 0]} />
-              <Bar dataKey="outflow" fill="#ef4444" name="Outflow" radius={[4, 4, 0, 0]} />
-              <Bar dataKey="net" fill="#547792" name="Net" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="inflow" fill="#10b981" name={t('cashFlow.inflow')} radius={[4, 4, 0, 0]} />
+              <Bar dataKey="outflow" fill="#ef4444" name={t('cashFlow.outflow')} radius={[4, 4, 0, 0]} />
+              <Bar dataKey="net" fill="#547792" name={t('cashFlow.net')} radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -275,25 +275,25 @@ export const CashFlow = () => {
         className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl overflow-hidden"
       >
         <div className="p-6 border-b border-white/[0.08]">
-          <h3 className="text-lg font-semibold text-white">Monthly Breakdown</h3>
+          <h3 className="text-lg font-semibold text-white">{t('cashFlow.monthlyBreakdown')}</h3>
         </div>
         <table className="w-full">
           <thead>
             <tr className="bg-[#1a1a24]">
               <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">
-                Month
+                {t('cashFlow.month')}
               </th>
               <th className="px-6 py-3 text-right text-xs font-semibold uppercase text-[#64748b]">
-                Inflow
+                {t('cashFlow.inflow')}
               </th>
               <th className="px-6 py-3 text-right text-xs font-semibold uppercase text-[#64748b]">
-                Outflow
+                {t('cashFlow.outflow')}
               </th>
               <th className="px-6 py-3 text-right text-xs font-semibold uppercase text-[#64748b]">
-                Net
+                {t('cashFlow.net')}
               </th>
               <th className="px-6 py-3 text-right text-xs font-semibold uppercase text-[#64748b]">
-                Margin
+                {t('cashFlow.margin')}
               </th>
             </tr>
           </thead>

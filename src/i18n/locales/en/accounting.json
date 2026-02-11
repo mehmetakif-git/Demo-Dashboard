@@ -1,0 +1,280 @@
+{
+  "overview": {
+    "title": "Financial Overview",
+    "subtitle": "Monitor your company's financial health",
+    "totalRevenue": "Total Revenue",
+    "totalExpenses": "Total Expenses",
+    "netProfit": "Net Profit",
+    "pendingInvoices": "Pending Invoices",
+    "cashFlow": "Cash Flow",
+    "inflow": "Inflow",
+    "outflow": "Outflow",
+    "expenseDistribution": "Expense Distribution",
+    "financialHealth": "Financial Health",
+    "profitMargin": "Profit Margin",
+    "cashBalance": "Cash Balance",
+    "receivables": "Receivables",
+    "payables": "Payables",
+    "recentIncome": "Recent Income",
+    "recentExpenses": "Recent Expenses",
+    "overdueInvoice": "{{count}} Overdue Invoice",
+    "overdueInvoices": "{{count}} Overdue Invoices",
+    "overdueInvoicesMessage": "You have overdue invoices that require immediate attention."
+  },
+  "income": {
+    "title": "Income",
+    "subtitle": "Track and manage all incoming revenue",
+    "export": "Export",
+    "recordIncome": "Record Income",
+    "totalIncome": "Total Income",
+    "received": "Received",
+    "pending": "Pending",
+    "avgTransaction": "Avg. Transaction",
+    "searchPlaceholder": "Search by description or client...",
+    "date": "Date",
+    "description": "Description",
+    "client": "Client",
+    "category": "Category",
+    "paymentMethod": "Payment Method",
+    "amount": "Amount",
+    "status": "Status",
+    "noRecords": "No income records found",
+    "categories": {
+      "all": "All",
+      "softwareSales": "Software Sales",
+      "consulting": "Consulting",
+      "cloudServices": "Cloud Services",
+      "development": "Development",
+      "support": "Support",
+      "training": "Training"
+    },
+    "paymentMethods": {
+      "bankTransfer": "Bank Transfer",
+      "creditCard": "Credit Card",
+      "cash": "Cash",
+      "check": "Check"
+    }
+  },
+  "expenses": {
+    "title": "Expenses",
+    "subtitle": "Track and manage all outgoing expenses",
+    "export": "Export",
+    "addExpense": "Add Expense",
+    "totalExpenses": "Total Expenses",
+    "paid": "Paid",
+    "pending": "Pending",
+    "avgExpense": "Avg. Expense",
+    "expenseByCategory": "Expense by Category",
+    "searchPlaceholder": "Search by description or vendor...",
+    "date": "Date",
+    "description": "Description",
+    "category": "Category",
+    "paymentMethod": "Payment Method",
+    "amount": "Amount",
+    "status": "Status",
+    "noRecords": "No expense records found",
+    "categories": {
+      "all": "All",
+      "rent": "Rent",
+      "technology": "Technology",
+      "payroll": "Payroll",
+      "marketing": "Marketing",
+      "operations": "Operations",
+      "professionalServices": "Professional Services",
+      "insurance": "Insurance",
+      "travel": "Travel",
+      "equipment": "Equipment",
+      "utilities": "Utilities",
+      "training": "Training"
+    },
+    "paymentMethods": {
+      "bankTransfer": "Bank Transfer",
+      "creditCard": "Credit Card",
+      "cash": "Cash",
+      "check": "Check"
+    }
+  },
+  "cashFlow": {
+    "title": "Cash Flow",
+    "subtitle": "Analyze your cash inflows and outflows",
+    "totalInflowYTD": "Total Inflow (YTD)",
+    "totalOutflowYTD": "Total Outflow (YTD)",
+    "netCashFlow": "Net Cash Flow",
+    "avgMonthlyNet": "Avg. Monthly Net",
+    "thisMonthInflow": "This Month Inflow",
+    "thisMonthOutflow": "This Month Outflow",
+    "thisMonthNet": "This Month Net",
+    "monthlyCashFlow": "Monthly Cash Flow",
+    "inflow": "Inflow",
+    "outflow": "Outflow",
+    "net": "Net",
+    "quarterlyComparison": "Quarterly Comparison",
+    "monthlyBreakdown": "Monthly Breakdown",
+    "month": "Month",
+    "margin": "Margin"
+  },
+  "bankAccounts": {
+    "title": "Bank Accounts",
+    "subtitle": "Manage your connected bank accounts",
+    "syncAll": "Sync All",
+    "addAccount": "Add Account",
+    "totalBalance": "Total Balance",
+    "checkingAccounts": "Checking Accounts",
+    "savings": "Savings",
+    "connectedAccounts": "Connected Accounts",
+    "accountName": "Account Name",
+    "accountNumber": "Account Number",
+    "currentBalance": "Current Balance",
+    "lastSynced": "Last synced: {{date}}",
+    "active": "Active",
+    "inactive": "Inactive",
+    "recentTransactions": "Recent Transactions",
+    "transactions": "Transactions",
+    "noTransactions": "No transactions found",
+    "accountTypes": {
+      "checking": "Checking",
+      "savings": "Savings",
+      "business": "Business"
+    }
+  },
+  "invoices": {
+    "title": "Invoices",
+    "subtitle": "Create and manage customer invoices",
+    "export": "Export",
+    "createInvoice": "Create Invoice",
+    "totalInvoiced": "Total Invoiced",
+    "paid": "Paid",
+    "pending": "Pending",
+    "overdue": "Overdue",
+    "invoiceNumber": "Invoice #",
+    "client": "Client",
+    "issueDate": "Issue Date",
+    "dueDate": "Due Date",
+    "amount": "Amount",
+    "status": "Status",
+    "actions": "Actions",
+    "noInvoices": "No invoices found",
+    "items": "Items",
+    "description": "Description",
+    "qty": "Qty",
+    "price": "Price",
+    "total": "Total",
+    "subtotal": "Subtotal",
+    "tax": "Tax",
+    "tabs": {
+      "all": "All Invoices",
+      "pending": "Pending",
+      "overdue": "Overdue",
+      "paid": "Paid",
+      "draft": "Draft"
+    }
+  },
+  "tax": {
+    "title": "Tax Management",
+    "subtitle": "Track tax obligations and deadlines",
+    "exportReport": "Export Report",
+    "recordTaxPayment": "Record Tax Payment",
+    "totalTaxYTD": "Total Tax (YTD)",
+    "paid": "Paid",
+    "pending": "Pending",
+    "overdue": "Overdue",
+    "upcomingDeadlines": "Upcoming Deadlines",
+    "dueInDays": "Due in {{count}} days",
+    "taxSummaryByType": "Tax Summary by Type",
+    "paidAmount": "Paid: ${{amount}}",
+    "taxType": "Tax Type",
+    "period": "Period",
+    "dueDate": "Due Date",
+    "amount": "Amount",
+    "status": "Status",
+    "paidDate": "Paid Date",
+    "actions": "Actions",
+    "markPaid": "Mark Paid",
+    "noRecords": "No tax records found",
+    "tabs": {
+      "all": "All Records",
+      "pending": "Pending",
+      "paid": "Paid",
+      "overdue": "Overdue"
+    },
+    "taxTypes": {
+      "corporateIncomeTax": "Corporate Income Tax",
+      "payrollTax": "Payroll Tax",
+      "salesTax": "Sales Tax",
+      "other": "Other"
+    }
+  },
+  "reports": {
+    "title": "Financial Reports",
+    "subtitle": "Generate and download financial reports",
+    "reportSettings": "Report Settings",
+    "reportingPeriod": "Reporting Period",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "monthly": "Monthly",
+    "quarterly": "Quarterly",
+    "yearly": "Yearly",
+    "customRange": "Custom Range",
+    "generateReport": "Generate Report",
+    "generating": "Generating...",
+    "lastGenerated": "Last generated: {{date}}",
+    "quickActions": "Quick Actions",
+    "exportAll": "Export All",
+    "downloadAllReports": "Download all reports",
+    "scheduleReports": "Schedule Reports",
+    "setupAutoGeneration": "Set up auto-generation",
+    "emailReports": "Email Reports",
+    "sendToStakeholders": "Send to stakeholders",
+    "customReport": "Custom Report",
+    "buildYourOwn": "Build your own report",
+    "categories": {
+      "all": "All",
+      "financial": "Financial",
+      "operational": "Operational",
+      "tax": "Tax"
+    },
+    "reportTypes": {
+      "incomeStatement": {
+        "name": "Income Statement",
+        "description": "Comprehensive profit and loss report showing revenues and expenses"
+      },
+      "balanceSheet": {
+        "name": "Balance Sheet",
+        "description": "Assets, liabilities, and equity at a specific point in time"
+      },
+      "cashFlowStatement": {
+        "name": "Cash Flow Statement",
+        "description": "Cash inflows and outflows from operating, investing, and financing"
+      },
+      "expenseReport": {
+        "name": "Expense Report",
+        "description": "Detailed breakdown of all expenses by category"
+      },
+      "accountsReceivable": {
+        "name": "Accounts Receivable Aging",
+        "description": "Outstanding invoices organized by age"
+      },
+      "accountsPayable": {
+        "name": "Accounts Payable Aging",
+        "description": "Outstanding bills and payments due"
+      },
+      "taxSummary": {
+        "name": "Tax Summary Report",
+        "description": "Summary of all tax obligations and payments"
+      },
+      "vendorPayments": {
+        "name": "Vendor Payment Report",
+        "description": "All payments made to vendors and suppliers"
+      }
+    }
+  },
+  "status": {
+    "paid": "Paid",
+    "pending": "Pending",
+    "overdue": "Overdue",
+    "received": "Received",
+    "draft": "Draft",
+    "active": "Active",
+    "inactive": "Inactive"
+  }
+}

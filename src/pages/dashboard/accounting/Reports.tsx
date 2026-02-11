@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import {
   ClipboardList,
@@ -18,86 +18,100 @@ import { useTranslation } from 'react-i18next';
 
 interface ReportType {
   id: string;
-  name: string;
-  description: string;
+  nameKey: string;
+  descriptionKey: string;
   icon: React.ElementType;
   category: string;
+  categoryKey: string;
   lastGenerated?: string;
 }
 
-const reportTypes: ReportType[] = [
-  {
-    id: 'income-statement',
-    name: 'Income Statement',
-    description: 'Comprehensive profit and loss report showing revenues and expenses',
-    icon: TrendingUp,
-    category: 'Financial',
-    lastGenerated: '2024-12-28',
-  },
-  {
-    id: 'balance-sheet',
-    name: 'Balance Sheet',
-    description: 'Assets, liabilities, and equity at a specific point in time',
-    icon: BarChart3,
-    category: 'Financial',
-    lastGenerated: '2024-12-27',
-  },
-  {
-    id: 'cash-flow-statement',
-    name: 'Cash Flow Statement',
-    description: 'Cash inflows and outflows from operating, investing, and financing',
-    icon: DollarSign,
-    category: 'Financial',
-    lastGenerated: '2024-12-26',
-  },
-  {
-    id: 'expense-report',
-    name: 'Expense Report',
-    description: 'Detailed breakdown of all expenses by category',
-    icon: PieChart,
-    category: 'Operational',
-    lastGenerated: '2024-12-25',
-  },
-  {
-    id: 'accounts-receivable',
-    name: 'Accounts Receivable Aging',
-    description: 'Outstanding invoices organized by age',
-    icon: FileText,
-    category: 'Operational',
-    lastGenerated: '2024-12-24',
-  },
-  {
-    id: 'accounts-payable',
-    name: 'Accounts Payable Aging',
-    description: 'Outstanding bills and payments due',
-    icon: FileText,
-    category: 'Operational',
-    lastGenerated: '2024-12-23',
-  },
-  {
-    id: 'tax-summary',
-    name: 'Tax Summary Report',
-    description: 'Summary of all tax obligations and payments',
-    icon: ClipboardList,
-    category: 'Tax',
-    lastGenerated: '2024-12-20',
-  },
-  {
-    id: 'vendor-payments',
-    name: 'Vendor Payment Report',
-    description: 'All payments made to vendors and suppliers',
-    icon: Users,
-    category: 'Operational',
-  },
-];
-
-const categories = ['All', 'Financial', 'Operational', 'Tax'];
-
 export const Reports = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('accounting');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedPeriod, setSelectedPeriod] = useState('monthly');
   const [generatingReport, setGeneratingReport] = useState<string | null>(null);
+
+  const reportTypes: ReportType[] = useMemo(() => [
+    {
+      id: 'income-statement',
+      nameKey: 'reports.reportTypes.incomeStatement.name',
+      descriptionKey: 'reports.reportTypes.incomeStatement.description',
+      icon: TrendingUp,
+      category: 'Financial',
+      categoryKey: 'reports.categories.financial',
+      lastGenerated: '2024-12-28',
+    },
+    {
+      id: 'balance-sheet',
+      nameKey: 'reports.reportTypes.balanceSheet.name',
+      descriptionKey: 'reports.reportTypes.balanceSheet.description',
+      icon: BarChart3,
+      category: 'Financial',
+      categoryKey: 'reports.categories.financial',
+      lastGenerated: '2024-12-27',
+    },
+    {
+      id: 'cash-flow-statement',
+      nameKey: 'reports.reportTypes.cashFlowStatement.name',
+      descriptionKey: 'reports.reportTypes.cashFlowStatement.description',
+      icon: DollarSign,
+      category: 'Financial',
+      categoryKey: 'reports.categories.financial',
+      lastGenerated: '2024-12-26',
+    },
+    {
+      id: 'expense-report',
+      nameKey: 'reports.reportTypes.expenseReport.name',
+      descriptionKey: 'reports.reportTypes.expenseReport.description',
+      icon: PieChart,
+      category: 'Operational',
+      categoryKey: 'reports.categories.operational',
+      lastGenerated: '2024-12-25',
+    },
+    {
+      id: 'accounts-receivable',
+      nameKey: 'reports.reportTypes.accountsReceivable.name',
+      descriptionKey: 'reports.reportTypes.accountsReceivable.description',
+      icon: FileText,
+      category: 'Operational',
+      categoryKey: 'reports.categories.operational',
+      lastGenerated: '2024-12-24',
+    },
+    {
+      id: 'accounts-payable',
+      nameKey: 'reports.reportTypes.accountsPayable.name',
+      descriptionKey: 'reports.reportTypes.accountsPayable.description',
+      icon: FileText,
+      category: 'Operational',
+      categoryKey: 'reports.categories.operational',
+      lastGenerated: '2024-12-23',
+    },
+    {
+      id: 'tax-summary',
+      nameKey: 'reports.reportTypes.taxSummary.name',
+      descriptionKey: 'reports.reportTypes.taxSummary.description',
+      icon: ClipboardList,
+      category: 'Tax',
+      categoryKey: 'reports.categories.tax',
+      lastGenerated: '2024-12-20',
+    },
+    {
+      id: 'vendor-payments',
+      nameKey: 'reports.reportTypes.vendorPayments.name',
+      descriptionKey: 'reports.reportTypes.vendorPayments.description',
+      icon: Users,
+      category: 'Operational',
+      categoryKey: 'reports.categories.operational',
+    },
+  ], []);
+
+  const categories = useMemo(() => [
+    { value: 'All', label: t('reports.categories.all') },
+    { value: 'Financial', label: t('reports.categories.financial') },
+    { value: 'Operational', label: t('reports.categories.operational') },
+    { value: 'Tax', label: t('reports.categories.tax') },
+  ], [t]);
 
   const filteredReports = reportTypes.filter(
     (report) => selectedCategory === 'All' || report.category === selectedCategory
@@ -114,8 +128,8 @@ export const Reports = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title={t('accounting.financialReports', 'Financial Reports')}
-        subtitle="Generate and download financial reports"
+        title={t('reports.title')}
+        subtitle={t('reports.subtitle')}
         icon={ClipboardList}
       />
 
@@ -125,26 +139,26 @@ export const Reports = () => {
         animate={{ opacity: 1, y: 0 }}
         className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
       >
-        <h3 className="text-lg font-semibold text-white mb-4">Report Settings</h3>
+        <h3 className="text-lg font-semibold text-white mb-4">{t('reports.reportSettings')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* Period Selection */}
           <div>
-            <label className="block text-sm text-white/60 mb-2">Reporting Period</label>
+            <label className="block text-sm text-white/60 mb-2">{t('reports.reportingPeriod')}</label>
             <select
               value={selectedPeriod}
               onChange={(e) => setSelectedPeriod(e.target.value)}
               className="w-full px-3 py-2.5 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-white text-sm focus:outline-none focus:border-[#547792]/50 cursor-pointer"
             >
-              <option value="monthly">Monthly</option>
-              <option value="quarterly">Quarterly</option>
-              <option value="yearly">Yearly</option>
-              <option value="custom">Custom Range</option>
+              <option value="monthly">{t('reports.monthly')}</option>
+              <option value="quarterly">{t('reports.quarterly')}</option>
+              <option value="yearly">{t('reports.yearly')}</option>
+              <option value="custom">{t('reports.customRange')}</option>
             </select>
           </div>
 
           {/* Date Range */}
           <div>
-            <label className="block text-sm text-white/60 mb-2">Start Date</label>
+            <label className="block text-sm text-white/60 mb-2">{t('reports.startDate')}</label>
             <div className="relative">
               <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
               <input
@@ -156,7 +170,7 @@ export const Reports = () => {
           </div>
 
           <div>
-            <label className="block text-sm text-white/60 mb-2">End Date</label>
+            <label className="block text-sm text-white/60 mb-2">{t('reports.endDate')}</label>
             <div className="relative">
               <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
               <input
@@ -178,15 +192,15 @@ export const Reports = () => {
       >
         {categories.map((category) => (
           <button
-            key={category}
-            onClick={() => setSelectedCategory(category)}
+            key={category.value}
+            onClick={() => setSelectedCategory(category.value)}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
-              selectedCategory === category
+              selectedCategory === category.value
                 ? 'bg-[#547792] text-white'
                 : 'bg-white/[0.03] backdrop-blur-xl text-white/60 hover:text-white border border-white/[0.08]'
             }`}
           >
-            {category}
+            {category.label}
           </button>
         ))}
       </motion.div>
@@ -212,21 +226,21 @@ export const Reports = () => {
                     <Icon className="w-6 h-6 text-[#547792]" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-white">{report.name}</h3>
+                    <h3 className="font-semibold text-white">{t(report.nameKey)}</h3>
                     <span className="text-xs px-2 py-0.5 rounded-full bg-white/5 text-white/40">
-                      {report.category}
+                      {t(report.categoryKey)}
                     </span>
                   </div>
                 </div>
               </div>
 
               {/* Description */}
-              <p className="text-sm text-white/60 mb-4">{report.description}</p>
+              <p className="text-sm text-white/60 mb-4">{t(report.descriptionKey)}</p>
 
               {/* Last Generated */}
               {report.lastGenerated && (
                 <p className="text-xs text-white/40 mb-4">
-                  Last generated: {new Date(report.lastGenerated).toLocaleDateString()}
+                  {t('reports.lastGenerated', { date: new Date(report.lastGenerated).toLocaleDateString() })}
                 </p>
               )}
 
@@ -244,12 +258,12 @@ export const Reports = () => {
                   {isGenerating ? (
                     <>
                       <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                      Generating...
+                      {t('reports.generating')}
                     </>
                   ) : (
                     <>
                       <Download className="w-4 h-4" />
-                      Generate Report
+                      {t('reports.generateReport')}
                     </>
                   )}
                 </button>
@@ -272,15 +286,15 @@ export const Reports = () => {
         transition={{ delay: 0.5 }}
         className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
       >
-        <h3 className="text-lg font-semibold text-white mb-4">Quick Actions</h3>
+        <h3 className="text-lg font-semibold text-white mb-4">{t('reports.quickActions')}</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <button className="flex items-center gap-3 p-4 rounded-lg bg-[#1a1a24] hover:bg-[#1a1a24]/80 transition-colors cursor-pointer">
             <div className="p-2 rounded-lg bg-emerald-500/20">
               <Download className="w-5 h-5 text-emerald-400" />
             </div>
             <div className="text-left">
-              <p className="text-white font-medium">Export All</p>
-              <p className="text-xs text-white/40">Download all reports</p>
+              <p className="text-white font-medium">{t('reports.exportAll')}</p>
+              <p className="text-xs text-white/40">{t('reports.downloadAllReports')}</p>
             </div>
           </button>
 
@@ -289,8 +303,8 @@ export const Reports = () => {
               <Calendar className="w-5 h-5 text-blue-400" />
             </div>
             <div className="text-left">
-              <p className="text-white font-medium">Schedule Reports</p>
-              <p className="text-xs text-white/40">Set up auto-generation</p>
+              <p className="text-white font-medium">{t('reports.scheduleReports')}</p>
+              <p className="text-xs text-white/40">{t('reports.setupAutoGeneration')}</p>
             </div>
           </button>
 
@@ -299,8 +313,8 @@ export const Reports = () => {
               <Mail className="w-5 h-5 text-purple-400" />
             </div>
             <div className="text-left">
-              <p className="text-white font-medium">Email Reports</p>
-              <p className="text-xs text-white/40">Send to stakeholders</p>
+              <p className="text-white font-medium">{t('reports.emailReports')}</p>
+              <p className="text-xs text-white/40">{t('reports.sendToStakeholders')}</p>
             </div>
           </button>
 
@@ -309,8 +323,8 @@ export const Reports = () => {
               <FileText className="w-5 h-5 text-orange-400" />
             </div>
             <div className="text-left">
-              <p className="text-white font-medium">Custom Report</p>
-              <p className="text-xs text-white/40">Build your own report</p>
+              <p className="text-white font-medium">{t('reports.customReport')}</p>
+              <p className="text-xs text-white/40">{t('reports.buildYourOwn')}</p>
             </div>
           </button>
         </div>

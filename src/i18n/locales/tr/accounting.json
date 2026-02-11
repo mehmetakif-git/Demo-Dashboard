@@ -1,0 +1,280 @@
+{
+  "overview": {
+    "title": "Finansal Genel Bakis",
+    "subtitle": "Sirketinizin finansal sagligini izleyin",
+    "totalRevenue": "Toplam Gelir",
+    "totalExpenses": "Toplam Giderler",
+    "netProfit": "Net Kar",
+    "pendingInvoices": "Bekleyen Faturalar",
+    "cashFlow": "Nakit Akisi",
+    "inflow": "Giris",
+    "outflow": "Cikis",
+    "expenseDistribution": "Gider Dagilimi",
+    "financialHealth": "Finansal Saglik",
+    "profitMargin": "Kar Marji",
+    "cashBalance": "Nakit Bakiye",
+    "receivables": "Alacaklar",
+    "payables": "Borclar",
+    "recentIncome": "Son Gelirler",
+    "recentExpenses": "Son Giderler",
+    "overdueInvoice": "{{count}} Gecikmiş Fatura",
+    "overdueInvoices": "{{count}} Gecikmiş Fatura",
+    "overdueInvoicesMessage": "Acil ilgi gerektiren gecikmiş faturalariniz var."
+  },
+  "income": {
+    "title": "Gelir",
+    "subtitle": "Tum gelen gelirleri takip edin ve yonetin",
+    "export": "Disa Aktar",
+    "recordIncome": "Gelir Kaydet",
+    "totalIncome": "Toplam Gelir",
+    "received": "Alinan",
+    "pending": "Bekliyor",
+    "avgTransaction": "Ort. Islem",
+    "searchPlaceholder": "Aciklama veya musteriye gore ara...",
+    "date": "Tarih",
+    "description": "Aciklama",
+    "client": "Musteri",
+    "category": "Kategori",
+    "paymentMethod": "Odeme Yontemi",
+    "amount": "Tutar",
+    "status": "Durum",
+    "noRecords": "Gelir kaydi bulunamadi",
+    "categories": {
+      "all": "Tumu",
+      "softwareSales": "Yazilim Satislari",
+      "consulting": "Danismanlik",
+      "cloudServices": "Bulut Hizmetleri",
+      "development": "Gelistirme",
+      "support": "Destek",
+      "training": "Egitim"
+    },
+    "paymentMethods": {
+      "bankTransfer": "Banka Havalesi",
+      "creditCard": "Kredi Karti",
+      "cash": "Nakit",
+      "check": "Cek"
+    }
+  },
+  "expenses": {
+    "title": "Giderler",
+    "subtitle": "Tum giderleri takip edin ve yonetin",
+    "export": "Disa Aktar",
+    "addExpense": "Gider Ekle",
+    "totalExpenses": "Toplam Giderler",
+    "paid": "Odendi",
+    "pending": "Bekliyor",
+    "avgExpense": "Ort. Gider",
+    "expenseByCategory": "Kategoriye Gore Gider",
+    "searchPlaceholder": "Aciklama veya tedarikciye gore ara...",
+    "date": "Tarih",
+    "description": "Aciklama",
+    "category": "Kategori",
+    "paymentMethod": "Odeme Yontemi",
+    "amount": "Tutar",
+    "status": "Durum",
+    "noRecords": "Gider kaydi bulunamadi",
+    "categories": {
+      "all": "Tumu",
+      "rent": "Kira",
+      "technology": "Teknoloji",
+      "payroll": "Bordro",
+      "marketing": "Pazarlama",
+      "operations": "Operasyonlar",
+      "professionalServices": "Profesyonel Hizmetler",
+      "insurance": "Sigorta",
+      "travel": "Seyahat",
+      "equipment": "Ekipman",
+      "utilities": "Faturalar",
+      "training": "Egitim"
+    },
+    "paymentMethods": {
+      "bankTransfer": "Banka Havalesi",
+      "creditCard": "Kredi Karti",
+      "cash": "Nakit",
+      "check": "Cek"
+    }
+  },
+  "cashFlow": {
+    "title": "Nakit Akisi",
+    "subtitle": "Nakit giris ve cikislarinizi analiz edin",
+    "totalInflowYTD": "Toplam Giris (YBB)",
+    "totalOutflowYTD": "Toplam Cikis (YBB)",
+    "netCashFlow": "Net Nakit Akisi",
+    "avgMonthlyNet": "Ort. Aylik Net",
+    "thisMonthInflow": "Bu Ay Giris",
+    "thisMonthOutflow": "Bu Ay Cikis",
+    "thisMonthNet": "Bu Ay Net",
+    "monthlyCashFlow": "Aylik Nakit Akisi",
+    "inflow": "Giris",
+    "outflow": "Cikis",
+    "net": "Net",
+    "quarterlyComparison": "Ceyreklik Karsilastirma",
+    "monthlyBreakdown": "Aylik Dokum",
+    "month": "Ay",
+    "margin": "Marj"
+  },
+  "bankAccounts": {
+    "title": "Banka Hesaplari",
+    "subtitle": "Bagli banka hesaplarinizi yonetin",
+    "syncAll": "Tumunu Senkronize Et",
+    "addAccount": "Hesap Ekle",
+    "totalBalance": "Toplam Bakiye",
+    "checkingAccounts": "Vadesiz Hesaplar",
+    "savings": "Birikim",
+    "connectedAccounts": "Bagli Hesaplar",
+    "accountName": "Hesap Adi",
+    "accountNumber": "Hesap Numarasi",
+    "currentBalance": "Guncel Bakiye",
+    "lastSynced": "Son senkronizasyon: {{date}}",
+    "active": "Aktif",
+    "inactive": "Pasif",
+    "recentTransactions": "Son Islemler",
+    "transactions": "Islemler",
+    "noTransactions": "Islem bulunamadi",
+    "accountTypes": {
+      "checking": "Vadesiz",
+      "savings": "Birikim",
+      "business": "Ticari"
+    }
+  },
+  "invoices": {
+    "title": "Faturalar",
+    "subtitle": "Musteri faturalarini olusturun ve yonetin",
+    "export": "Disa Aktar",
+    "createInvoice": "Fatura Olustur",
+    "totalInvoiced": "Toplam Faturalanan",
+    "paid": "Odendi",
+    "pending": "Bekliyor",
+    "overdue": "Gecikmiş",
+    "invoiceNumber": "Fatura #",
+    "client": "Musteri",
+    "issueDate": "Duzenleme Tarihi",
+    "dueDate": "Vade Tarihi",
+    "amount": "Tutar",
+    "status": "Durum",
+    "actions": "Islemler",
+    "noInvoices": "Fatura bulunamadi",
+    "items": "Kalemler",
+    "description": "Aciklama",
+    "qty": "Adet",
+    "price": "Fiyat",
+    "total": "Toplam",
+    "subtotal": "Ara Toplam",
+    "tax": "Vergi",
+    "tabs": {
+      "all": "Tum Faturalar",
+      "pending": "Bekliyor",
+      "overdue": "Gecikmiş",
+      "paid": "Odendi",
+      "draft": "Taslak"
+    }
+  },
+  "tax": {
+    "title": "Vergi Yonetimi",
+    "subtitle": "Vergi yukumluluklerini ve son tarihleri takip edin",
+    "exportReport": "Rapor Disa Aktar",
+    "recordTaxPayment": "Vergi Odemesi Kaydet",
+    "totalTaxYTD": "Toplam Vergi (YBB)",
+    "paid": "Odendi",
+    "pending": "Bekliyor",
+    "overdue": "Gecikmiş",
+    "upcomingDeadlines": "Yaklasan Son Tarihler",
+    "dueInDays": "{{count}} gun icinde",
+    "taxSummaryByType": "Ture Gore Vergi Ozeti",
+    "paidAmount": "Odenen: ${{amount}}",
+    "taxType": "Vergi Turu",
+    "period": "Donem",
+    "dueDate": "Vade Tarihi",
+    "amount": "Tutar",
+    "status": "Durum",
+    "paidDate": "Odeme Tarihi",
+    "actions": "Islemler",
+    "markPaid": "Odendi Isaretle",
+    "noRecords": "Vergi kaydi bulunamadi",
+    "tabs": {
+      "all": "Tum Kayitlar",
+      "pending": "Bekliyor",
+      "paid": "Odendi",
+      "overdue": "Gecikmiş"
+    },
+    "taxTypes": {
+      "corporateIncomeTax": "Kurumlar Vergisi",
+      "payrollTax": "Bordro Vergisi",
+      "salesTax": "Satis Vergisi",
+      "other": "Diger"
+    }
+  },
+  "reports": {
+    "title": "Finansal Raporlar",
+    "subtitle": "Finansal raporlar olusturun ve indirin",
+    "reportSettings": "Rapor Ayarlari",
+    "reportingPeriod": "Raporlama Donemi",
+    "startDate": "Baslangic Tarihi",
+    "endDate": "Bitis Tarihi",
+    "monthly": "Aylik",
+    "quarterly": "Ceyreklik",
+    "yearly": "Yillik",
+    "customRange": "Ozel Aralik",
+    "generateReport": "Rapor Olustur",
+    "generating": "Olusturuluyor...",
+    "lastGenerated": "Son olusturma: {{date}}",
+    "quickActions": "Hizli Islemler",
+    "exportAll": "Tumunu Disa Aktar",
+    "downloadAllReports": "Tum raporlari indir",
+    "scheduleReports": "Raporlari Zamanla",
+    "setupAutoGeneration": "Otomatik olusturma ayarla",
+    "emailReports": "Raporlari E-postala",
+    "sendToStakeholders": "Paydaşlara gonder",
+    "customReport": "Ozel Rapor",
+    "buildYourOwn": "Kendi raporunuzu olusturun",
+    "categories": {
+      "all": "Tumu",
+      "financial": "Finansal",
+      "operational": "Operasyonel",
+      "tax": "Vergi"
+    },
+    "reportTypes": {
+      "incomeStatement": {
+        "name": "Gelir Tablosu",
+        "description": "Gelir ve giderleri gosteren kapsamli kar ve zarar raporu"
+      },
+      "balanceSheet": {
+        "name": "Bilanco",
+        "description": "Belirli bir zamandaki varliklar, yukumlulukler ve ozkaynaklar"
+      },
+      "cashFlowStatement": {
+        "name": "Nakit Akis Tablosu",
+        "description": "Isletme, yatirim ve finansmandan nakit giris ve cikislari"
+      },
+      "expenseReport": {
+        "name": "Gider Raporu",
+        "description": "Kategoriye gore tum giderlerin ayrintili dokumu"
+      },
+      "accountsReceivable": {
+        "name": "Alacak Hesaplari Yaslandirma",
+        "description": "Yasa gore duzenlenmis odenmemis faturalar"
+      },
+      "accountsPayable": {
+        "name": "Borc Hesaplari Yaslandirma",
+        "description": "Odenmemis faturalar ve vadesi gelen odemeler"
+      },
+      "taxSummary": {
+        "name": "Vergi Ozet Raporu",
+        "description": "Tum vergi yukumlulukleri ve odemelerin ozeti"
+      },
+      "vendorPayments": {
+        "name": "Tedarikci Odeme Raporu",
+        "description": "Tedarikci ve saticirlara yapilan tum odemeler"
+      }
+    }
+  },
+  "status": {
+    "paid": "Odendi",
+    "pending": "Bekliyor",
+    "overdue": "Gecikmiş",
+    "received": "Alindi",
+    "draft": "Taslak",
+    "active": "Aktif",
+    "inactive": "Pasif"
+  }
+}

@@ -15,16 +15,16 @@ import { bankAccounts, transactions, getTransactionsByAccount } from '@/data/acc
 import type { BankAccount } from '@/data/accountingData';
 import { useTranslation } from 'react-i18next';
 
-const accountTypeLabels: Record<string, string> = {
-  checking: 'Checking',
-  savings: 'Savings',
-  business: 'Business',
-};
-
 export const BankAccounts = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('accounting');
   const [selectedAccount, setSelectedAccount] = useState<BankAccount | null>(null);
   const [showTransactions, setShowTransactions] = useState(false);
+
+  const accountTypeLabels: Record<string, string> = useMemo(() => ({
+    checking: t('bankAccounts.accountTypes.checking'),
+    savings: t('bankAccounts.accountTypes.savings'),
+    business: t('bankAccounts.accountTypes.business'),
+  }), [t]);
 
   const stats = useMemo(() => {
     const totalBalance = bankAccounts.reduce((acc, a) => acc + a.balance, 0);
@@ -56,18 +56,18 @@ export const BankAccounts = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title={t('accounting.bankAccounts', 'Bank Accounts')}
-        subtitle="Manage your connected bank accounts"
+        title={t('bankAccounts.title')}
+        subtitle={t('bankAccounts.subtitle')}
         icon={Landmark}
         actions={
           <div className="flex items-center gap-3">
             <button className="flex items-center gap-2 px-4 py-2 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-lg text-white hover:bg-[#1a1a24] transition-colors cursor-pointer">
               <RefreshCw className="w-4 h-4" />
-              Sync All
+              {t('bankAccounts.syncAll')}
             </button>
             <button className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#547792] to-[#94B4C1] hover:opacity-90 text-white font-medium rounded-lg transition-opacity cursor-pointer">
               <Plus className="w-4 h-4" />
-              Add Account
+              {t('bankAccounts.addAccount')}
             </button>
           </div>
         }
@@ -76,7 +76,7 @@ export const BankAccounts = () => {
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Balance"
+          title={t('bankAccounts.totalBalance')}
           value={`$${(stats.totalBalance / 1000).toFixed(0)}K`}
           icon={DollarSign}
           iconColor="#547792"
@@ -84,7 +84,7 @@ export const BankAccounts = () => {
           delay={0.1}
         />
         <StatsCard
-          title="Checking Accounts"
+          title={t('bankAccounts.checkingAccounts')}
           value={`$${(stats.checkingBalance / 1000).toFixed(0)}K`}
           icon={Landmark}
           iconColor="#10b981"
@@ -92,7 +92,7 @@ export const BankAccounts = () => {
           delay={0.15}
         />
         <StatsCard
-          title="Savings"
+          title={t('bankAccounts.savings')}
           value={`$${(stats.savingsBalance / 1000).toFixed(0)}K`}
           icon={Landmark}
           iconColor="#94B4C1"
@@ -100,7 +100,7 @@ export const BankAccounts = () => {
           delay={0.2}
         />
         <StatsCard
-          title="Connected Accounts"
+          title={t('bankAccounts.connectedAccounts')}
           value={stats.accountCount}
           icon={Landmark}
           iconColor="#f59e0b"
@@ -146,21 +146,21 @@ export const BankAccounts = () => {
             {/* Account Details */}
             <div className="space-y-3 mb-6">
               <div>
-                <p className="text-xs text-white/40 mb-1">Account Name</p>
+                <p className="text-xs text-white/40 mb-1">{t('bankAccounts.accountName')}</p>
                 <p className="text-white">{account.accountName}</p>
               </div>
               <div>
-                <p className="text-xs text-white/40 mb-1">Account Number</p>
+                <p className="text-xs text-white/40 mb-1">{t('bankAccounts.accountNumber')}</p>
                 <p className="text-white/60">{account.accountNumber}</p>
               </div>
             </div>
 
             {/* Balance */}
             <div className="p-4 rounded-lg bg-gradient-to-r from-[#547792]/10 to-[#94B4C1]/10 border border-[#547792]/20">
-              <p className="text-xs text-white/40 mb-1">Current Balance</p>
+              <p className="text-xs text-white/40 mb-1">{t('bankAccounts.currentBalance')}</p>
               <p className="text-2xl font-bold text-white">${account.balance.toLocaleString()}</p>
               <p className="text-xs text-white/40 mt-2">
-                Last synced: {new Date(account.lastSync).toLocaleString()}
+                {t('bankAccounts.lastSynced', { date: new Date(account.lastSync).toLocaleString() })}
               </p>
             </div>
 
@@ -176,7 +176,7 @@ export const BankAccounts = () => {
                     account.isActive ? 'bg-emerald-400' : 'bg-red-400'
                   }`}
                 />
-                {account.isActive ? 'Active' : 'Inactive'}
+                {account.isActive ? t('bankAccounts.active') : t('bankAccounts.inactive')}
               </span>
               <span className="text-xs text-white/40">{account.currency}</span>
             </div>
@@ -191,7 +191,7 @@ export const BankAccounts = () => {
         transition={{ delay: 0.5 }}
         className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
       >
-        <h3 className="text-lg font-semibold text-white mb-4">Recent Transactions</h3>
+        <h3 className="text-lg font-semibold text-white mb-4">{t('bankAccounts.recentTransactions')}</h3>
         <div className="space-y-3">
           {transactions.slice(0, 8).map((transaction) => (
             <div
@@ -238,7 +238,7 @@ export const BankAccounts = () => {
       <Modal
         isOpen={showTransactions}
         onClose={() => setShowTransactions(false)}
-        title={selectedAccount ? `${selectedAccount.bankName} - Transactions` : 'Transactions'}
+        title={selectedAccount ? `${selectedAccount.bankName} - ${t('bankAccounts.transactions')}` : t('bankAccounts.transactions')}
       >
         {selectedAccount && (
           <div className="space-y-4">
@@ -292,7 +292,7 @@ export const BankAccounts = () => {
                   </div>
                 ))
               ) : (
-                <p className="text-white/40 text-center py-8">No transactions found</p>
+                <p className="text-white/40 text-center py-8">{t('bankAccounts.noTransactions')}</p>
               )}
             </div>
           </div>

@@ -23,19 +23,32 @@ import { expenseRecords, expenseCategories } from '@/data/accountingData';
 import type { ExpenseRecord } from '@/data/accountingData';
 import { useTranslation } from 'react-i18next';
 
-const categories = ['All', 'Rent', 'Technology', 'Payroll', 'Marketing', 'Operations', 'Professional Services', 'Insurance', 'Travel', 'Equipment', 'Utilities', 'Training'];
-
-const paymentMethodLabels: Record<string, string> = {
-  bank_transfer: 'Bank Transfer',
-  credit_card: 'Credit Card',
-  cash: 'Cash',
-  check: 'Check',
-};
-
 export const Expenses = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('accounting');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
+
+  const categories = useMemo(() => [
+    { value: 'All', label: t('expenses.categories.all') },
+    { value: 'Rent', label: t('expenses.categories.rent') },
+    { value: 'Technology', label: t('expenses.categories.technology') },
+    { value: 'Payroll', label: t('expenses.categories.payroll') },
+    { value: 'Marketing', label: t('expenses.categories.marketing') },
+    { value: 'Operations', label: t('expenses.categories.operations') },
+    { value: 'Professional Services', label: t('expenses.categories.professionalServices') },
+    { value: 'Insurance', label: t('expenses.categories.insurance') },
+    { value: 'Travel', label: t('expenses.categories.travel') },
+    { value: 'Equipment', label: t('expenses.categories.equipment') },
+    { value: 'Utilities', label: t('expenses.categories.utilities') },
+    { value: 'Training', label: t('expenses.categories.training') },
+  ], [t]);
+
+  const paymentMethodLabels: Record<string, string> = useMemo(() => ({
+    bank_transfer: t('expenses.paymentMethods.bankTransfer'),
+    credit_card: t('expenses.paymentMethods.creditCard'),
+    cash: t('expenses.paymentMethods.cash'),
+    check: t('expenses.paymentMethods.check'),
+  }), [t]);
 
   const stats = useMemo(() => {
     const totalExpenses = expenseRecords.reduce((acc, r) => acc + r.amount, 0);
@@ -69,14 +82,14 @@ export const Expenses = () => {
   const columns = [
     {
       key: 'date',
-      header: 'Date',
+      header: t('expenses.date'),
       render: (record: ExpenseRecord) => (
         <span className="text-white/60">{new Date(record.date).toLocaleDateString()}</span>
       ),
     },
     {
       key: 'description',
-      header: 'Description',
+      header: t('expenses.description'),
       render: (record: ExpenseRecord) => (
         <div>
           <p className="text-white font-medium">{record.description}</p>
@@ -86,7 +99,7 @@ export const Expenses = () => {
     },
     {
       key: 'category',
-      header: 'Category',
+      header: t('expenses.category'),
       render: (record: ExpenseRecord) => (
         <span className="px-2 py-1 rounded-full bg-red-500/10 text-red-400 text-xs font-medium">
           {record.category}
@@ -95,21 +108,21 @@ export const Expenses = () => {
     },
     {
       key: 'paymentMethod',
-      header: 'Payment Method',
+      header: t('expenses.paymentMethod'),
       render: (record: ExpenseRecord) => (
         <span className="text-white/60">{paymentMethodLabels[record.paymentMethod]}</span>
       ),
     },
     {
       key: 'amount',
-      header: 'Amount',
+      header: t('expenses.amount'),
       render: (record: ExpenseRecord) => (
         <span className="text-red-400 font-semibold">-${record.amount.toLocaleString()}</span>
       ),
     },
     {
       key: 'status',
-      header: 'Status',
+      header: t('expenses.status'),
       render: (record: ExpenseRecord) => <StatusBadge status={record.status} />,
     },
   ];
@@ -117,18 +130,18 @@ export const Expenses = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title={t('accounting.expenses', 'Expenses')}
-        subtitle="Track and manage all outgoing expenses"
+        title={t('expenses.title')}
+        subtitle={t('expenses.subtitle')}
         icon={ArrowDownCircle}
         actions={
           <div className="flex items-center gap-3">
             <button className="flex items-center gap-2 px-4 py-2 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-lg text-white hover:bg-[#1a1a24] transition-colors cursor-pointer">
               <Download className="w-4 h-4" />
-              Export
+              {t('expenses.export')}
             </button>
             <button className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#547792] to-[#94B4C1] hover:opacity-90 text-white font-medium rounded-lg transition-opacity cursor-pointer">
               <Plus className="w-4 h-4" />
-              Add Expense
+              {t('expenses.addExpense')}
             </button>
           </div>
         }
@@ -137,7 +150,7 @@ export const Expenses = () => {
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Expenses"
+          title={t('expenses.totalExpenses')}
           value={`$${(stats.totalExpenses / 1000).toFixed(0)}K`}
           icon={DollarSign}
           iconColor="#ef4444"
@@ -145,7 +158,7 @@ export const Expenses = () => {
           delay={0.1}
         />
         <StatsCard
-          title="Paid"
+          title={t('expenses.paid')}
           value={`$${(stats.paidExpenses / 1000).toFixed(0)}K`}
           icon={TrendingDown}
           iconColor="#547792"
@@ -153,7 +166,7 @@ export const Expenses = () => {
           delay={0.15}
         />
         <StatsCard
-          title="Pending"
+          title={t('expenses.pending')}
           value={`$${(stats.pendingExpenses / 1000).toFixed(0)}K`}
           icon={Calendar}
           iconColor="#f59e0b"
@@ -161,7 +174,7 @@ export const Expenses = () => {
           delay={0.2}
         />
         <StatsCard
-          title="Avg. Expense"
+          title={t('expenses.avgExpense')}
           value={`$${(stats.avgExpense / 1000).toFixed(1)}K`}
           icon={TrendingDown}
           iconColor="#94B4C1"
@@ -177,7 +190,7 @@ export const Expenses = () => {
         transition={{ delay: 0.3 }}
         className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
       >
-        <h3 className="text-lg font-semibold text-white mb-4">Expense by Category</h3>
+        <h3 className="text-lg font-semibold text-white mb-4">{t('expenses.expenseByCategory')}</h3>
         <div className="h-[250px]">
           <ResponsiveContainer width="99%" height={250}>
             <PieChart>
@@ -227,7 +240,7 @@ export const Expenses = () => {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
           <input
             type="text"
-            placeholder="Search by description or vendor..."
+            placeholder={t('expenses.searchPlaceholder')}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full pl-10 pr-4 py-2.5 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-lg text-white placeholder-white/40 focus:outline-none focus:border-[#547792]/50"
@@ -241,8 +254,8 @@ export const Expenses = () => {
             className="px-3 py-2.5 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-lg text-white text-sm focus:outline-none focus:border-[#547792]/50 cursor-pointer"
           >
             {categories.map((category) => (
-              <option key={category} value={category}>
-                {category}
+              <option key={category.value} value={category.value}>
+                {category.label}
               </option>
             ))}
           </select>
@@ -260,7 +273,7 @@ export const Expenses = () => {
           columns={columns}
           data={filteredRecords}
           keyExtractor={(r) => String(r.id)}
-          emptyMessage="No expense records found"
+          emptyMessage={t('expenses.noRecords')}
         />
       </motion.div>
     </div>

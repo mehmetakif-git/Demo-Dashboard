@@ -35,7 +35,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const Overview = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('accounting');
   const stats = useMemo(() => ({
     totalRevenue: financialSummary.totalRevenue,
     totalExpenses: financialSummary.totalExpenses,
@@ -57,15 +57,15 @@ export const Overview = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title={t('accounting.financialOverview', 'Financial Overview')}
-        subtitle="Monitor your company's financial health"
+        title={t('overview.title')}
+        subtitle={t('overview.subtitle')}
         icon={PieChart}
       />
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Revenue"
+          title={t('overview.totalRevenue')}
           value={`$${(stats.totalRevenue / 1000000).toFixed(2)}M`}
           icon={TrendingUp}
           iconColor="#10b981"
@@ -73,7 +73,7 @@ export const Overview = () => {
           delay={0.1}
         />
         <StatsCard
-          title="Total Expenses"
+          title={t('overview.totalExpenses')}
           value={`$${(stats.totalExpenses / 1000000).toFixed(2)}M`}
           icon={TrendingDown}
           iconColor="#ef4444"
@@ -81,7 +81,7 @@ export const Overview = () => {
           delay={0.15}
         />
         <StatsCard
-          title="Net Profit"
+          title={t('overview.netProfit')}
           value={`$${(stats.netProfit / 1000).toFixed(0)}K`}
           icon={DollarSign}
           iconColor="#547792"
@@ -89,7 +89,7 @@ export const Overview = () => {
           delay={0.2}
         />
         <StatsCard
-          title="Pending Invoices"
+          title={t('overview.pendingInvoices')}
           value={stats.pendingInvoices}
           icon={FileText}
           iconColor="#f59e0b"
@@ -107,7 +107,7 @@ export const Overview = () => {
           transition={{ delay: 0.3 }}
           className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
         >
-          <h3 className="text-lg font-semibold text-white mb-4">Cash Flow</h3>
+          <h3 className="text-lg font-semibold text-white mb-4">{t('overview.cashFlow')}</h3>
           <div className="h-[300px]">
             <ResponsiveContainer width="99%" height={300}>
               <AreaChart data={cashFlowData}>
@@ -139,7 +139,7 @@ export const Overview = () => {
                   stroke="#10b981"
                   strokeWidth={2}
                   fill="url(#inflowGradient)"
-                  name="Inflow"
+                  name={t('overview.inflow')}
                 />
                 <Area
                   type="monotone"
@@ -147,7 +147,7 @@ export const Overview = () => {
                   stroke="#ef4444"
                   strokeWidth={2}
                   fill="url(#outflowGradient)"
-                  name="Outflow"
+                  name={t('overview.outflow')}
                 />
               </AreaChart>
             </ResponsiveContainer>
@@ -161,7 +161,7 @@ export const Overview = () => {
           transition={{ delay: 0.35 }}
           className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
         >
-          <h3 className="text-lg font-semibold text-white mb-4">Expense Distribution</h3>
+          <h3 className="text-lg font-semibold text-white mb-4">{t('overview.expenseDistribution')}</h3>
           <div className="h-[300px]">
             <ResponsiveContainer width="99%" height={300}>
               <RechartsPieChart>
@@ -210,24 +210,24 @@ export const Overview = () => {
           transition={{ delay: 0.4 }}
           className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
         >
-          <h3 className="text-sm font-medium text-white/60 mb-4">Financial Health</h3>
+          <h3 className="text-sm font-medium text-white/60 mb-4">{t('overview.financialHealth')}</h3>
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-white/80">Profit Margin</span>
+              <span className="text-white/80">{t('overview.profitMargin')}</span>
               <span className="text-emerald-400 font-semibold">{stats.profitMargin}%</span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-white/80">Cash Balance</span>
+              <span className="text-white/80">{t('overview.cashBalance')}</span>
               <span className="text-white font-semibold">${stats.cashBalance.toLocaleString()}</span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-white/80">Receivables</span>
+              <span className="text-white/80">{t('overview.receivables')}</span>
               <span className="text-blue-400 font-semibold">
                 ${financialSummary.accountsReceivable.toLocaleString()}
               </span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-white/80">Payables</span>
+              <span className="text-white/80">{t('overview.payables')}</span>
               <span className="text-orange-400 font-semibold">
                 ${financialSummary.accountsPayable.toLocaleString()}
               </span>
@@ -242,7 +242,7 @@ export const Overview = () => {
           transition={{ delay: 0.45 }}
           className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
         >
-          <h3 className="text-sm font-medium text-white/60 mb-4">Recent Income</h3>
+          <h3 className="text-sm font-medium text-white/60 mb-4">{t('overview.recentIncome')}</h3>
           <div className="space-y-3">
             {recentIncome.map((income) => (
               <div key={income.id} className="flex items-center justify-between">
@@ -265,7 +265,7 @@ export const Overview = () => {
           transition={{ delay: 0.5 }}
           className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
         >
-          <h3 className="text-sm font-medium text-white/60 mb-4">Recent Expenses</h3>
+          <h3 className="text-sm font-medium text-white/60 mb-4">{t('overview.recentExpenses')}</h3>
           <div className="space-y-3">
             {recentExpenses.map((expense) => (
               <div key={expense.id} className="flex items-center justify-between">
@@ -296,10 +296,10 @@ export const Overview = () => {
             </div>
             <div className="flex-1">
               <h3 className="font-semibold text-white mb-1">
-                {stats.overdueInvoices} Overdue Invoice{stats.overdueInvoices > 1 ? 's' : ''}
+                {t(stats.overdueInvoices > 1 ? 'overview.overdueInvoices' : 'overview.overdueInvoice', { count: stats.overdueInvoices })}
               </h3>
               <p className="text-white/60 text-sm mb-3">
-                You have overdue invoices that require immediate attention.
+                {t('overview.overdueInvoicesMessage')}
               </p>
               <div className="space-y-2">
                 {pendingInvoicesList

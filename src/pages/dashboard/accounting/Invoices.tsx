@@ -17,16 +17,8 @@ import { invoices } from '@/data/accountingData';
 import type { Invoice } from '@/data/accountingData';
 import { useTranslation } from 'react-i18next';
 
-const tabs = [
-  { id: 'all', label: 'All Invoices' },
-  { id: 'pending', label: 'Pending', count: 0 },
-  { id: 'overdue', label: 'Overdue', count: 0 },
-  { id: 'paid', label: 'Paid' },
-  { id: 'draft', label: 'Draft' },
-];
-
 export const Invoices = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('accounting');
   const [activeTab, setActiveTab] = useState('all');
   const [selectedInvoice, setSelectedInvoice] = useState<Invoice | null>(null);
   const [showModal, setShowModal] = useState(false);
@@ -56,9 +48,13 @@ export const Invoices = () => {
     };
   }, []);
 
-  // Update tab counts
-  tabs[1].count = stats.pendingCount;
-  tabs[2].count = stats.overdueCount;
+  const tabs = useMemo(() => [
+    { id: 'all', label: t('invoices.tabs.all') },
+    { id: 'pending', label: t('invoices.tabs.pending'), count: stats.pendingCount },
+    { id: 'overdue', label: t('invoices.tabs.overdue'), count: stats.overdueCount },
+    { id: 'paid', label: t('invoices.tabs.paid') },
+    { id: 'draft', label: t('invoices.tabs.draft') },
+  ], [t, stats.pendingCount, stats.overdueCount]);
 
   const filteredInvoices = useMemo(() => {
     if (activeTab === 'all') return invoices;
@@ -73,14 +69,14 @@ export const Invoices = () => {
   const columns = [
     {
       key: 'invoiceNumber',
-      header: 'Invoice #',
+      header: t('invoices.invoiceNumber'),
       render: (invoice: Invoice) => (
         <span className="text-[#547792] font-medium">{invoice.invoiceNumber}</span>
       ),
     },
     {
       key: 'client',
-      header: 'Client',
+      header: t('invoices.client'),
       render: (invoice: Invoice) => (
         <div>
           <p className="text-white font-medium">{invoice.client}</p>
@@ -90,14 +86,14 @@ export const Invoices = () => {
     },
     {
       key: 'issueDate',
-      header: 'Issue Date',
+      header: t('invoices.issueDate'),
       render: (invoice: Invoice) => (
         <span className="text-white/60">{new Date(invoice.issueDate).toLocaleDateString()}</span>
       ),
     },
     {
       key: 'dueDate',
-      header: 'Due Date',
+      header: t('invoices.dueDate'),
       render: (invoice: Invoice) => (
         <span className={`${invoice.status === 'overdue' ? 'text-red-400' : 'text-white/60'}`}>
           {new Date(invoice.dueDate).toLocaleDateString()}
@@ -106,19 +102,19 @@ export const Invoices = () => {
     },
     {
       key: 'total',
-      header: 'Amount',
+      header: t('invoices.amount'),
       render: (invoice: Invoice) => (
         <span className="text-white font-semibold">${invoice.total.toLocaleString()}</span>
       ),
     },
     {
       key: 'status',
-      header: 'Status',
+      header: t('invoices.status'),
       render: (invoice: Invoice) => <StatusBadge status={invoice.status} />,
     },
     {
       key: 'actions',
-      header: 'Actions',
+      header: t('invoices.actions'),
       render: (invoice: Invoice) => (
         <div className="flex items-center gap-1">
           <button
@@ -143,18 +139,18 @@ export const Invoices = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title={t('accounting.invoices', 'Invoices')}
-        subtitle="Create and manage customer invoices"
+        title={t('invoices.title')}
+        subtitle={t('invoices.subtitle')}
         icon={FileText}
         actions={
           <div className="flex items-center gap-3">
             <button className="flex items-center gap-2 px-4 py-2 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-lg text-white hover:bg-[#1a1a24] transition-colors cursor-pointer">
               <Download className="w-4 h-4" />
-              Export
+              {t('invoices.export')}
             </button>
             <button className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#547792] to-[#94B4C1] hover:opacity-90 text-white font-medium rounded-lg transition-opacity cursor-pointer">
               <Plus className="w-4 h-4" />
-              Create Invoice
+              {t('invoices.createInvoice')}
             </button>
           </div>
         }
@@ -163,7 +159,7 @@ export const Invoices = () => {
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Invoiced"
+          title={t('invoices.totalInvoiced')}
           value={`$${(stats.totalAmount / 1000).toFixed(0)}K`}
           icon={DollarSign}
           iconColor="#547792"
@@ -171,7 +167,7 @@ export const Invoices = () => {
           delay={0.1}
         />
         <StatsCard
-          title="Paid"
+          title={t('invoices.paid')}
           value={`$${(stats.paidAmount / 1000).toFixed(0)}K`}
           icon={CheckCircle}
           iconColor="#10b981"
@@ -179,7 +175,7 @@ export const Invoices = () => {
           delay={0.15}
         />
         <StatsCard
-          title="Pending"
+          title={t('invoices.pending')}
           value={`$${(stats.pendingAmount / 1000).toFixed(0)}K`}
           icon={Clock}
           iconColor="#f59e0b"
@@ -187,7 +183,7 @@ export const Invoices = () => {
           delay={0.2}
         />
         <StatsCard
-          title="Overdue"
+          title={t('invoices.overdue')}
           value={`$${(stats.overdueAmount / 1000).toFixed(0)}K`}
           icon={AlertCircle}
           iconColor="#ef4444"
@@ -210,7 +206,7 @@ export const Invoices = () => {
           columns={columns}
           data={filteredInvoices}
           keyExtractor={(inv) => inv.id}
-          emptyMessage="No invoices found"
+          emptyMessage={t('invoices.noInvoices')}
         />
       </motion.div>
 
@@ -218,13 +214,13 @@ export const Invoices = () => {
       <Modal
         isOpen={showModal}
         onClose={() => setShowModal(false)}
-        title={`Invoice ${selectedInvoice?.invoiceNumber || ''}`}
+        title={`${t('invoices.title').replace(/s$/, '')} ${selectedInvoice?.invoiceNumber || ''}`}
       >
         {selectedInvoice && (
           <div className="space-y-6">
             {/* Client Info */}
             <div className="p-4 rounded-lg bg-[#1a1a24]">
-              <p className="text-white/40 text-xs mb-1">Client</p>
+              <p className="text-white/40 text-xs mb-1">{t('invoices.client')}</p>
               <p className="text-white font-medium">{selectedInvoice.client}</p>
               <p className="text-white/60 text-sm">{selectedInvoice.clientEmail}</p>
             </div>
@@ -232,32 +228,32 @@ export const Invoices = () => {
             {/* Dates & Status */}
             <div className="grid grid-cols-3 gap-4">
               <div className="p-4 rounded-lg bg-[#1a1a24]">
-                <p className="text-white/40 text-xs mb-1">Issue Date</p>
+                <p className="text-white/40 text-xs mb-1">{t('invoices.issueDate')}</p>
                 <p className="text-white">{new Date(selectedInvoice.issueDate).toLocaleDateString()}</p>
               </div>
               <div className="p-4 rounded-lg bg-[#1a1a24]">
-                <p className="text-white/40 text-xs mb-1">Due Date</p>
+                <p className="text-white/40 text-xs mb-1">{t('invoices.dueDate')}</p>
                 <p className={selectedInvoice.status === 'overdue' ? 'text-red-400' : 'text-white'}>
                   {new Date(selectedInvoice.dueDate).toLocaleDateString()}
                 </p>
               </div>
               <div className="p-4 rounded-lg bg-[#1a1a24]">
-                <p className="text-white/40 text-xs mb-1">Status</p>
+                <p className="text-white/40 text-xs mb-1">{t('invoices.status')}</p>
                 <StatusBadge status={selectedInvoice.status} />
               </div>
             </div>
 
             {/* Items */}
             <div>
-              <h4 className="text-sm font-medium text-white mb-3">Items</h4>
+              <h4 className="text-sm font-medium text-white mb-3">{t('invoices.items')}</h4>
               <div className="bg-[#1a1a24] rounded-lg overflow-hidden">
                 <table className="w-full">
                   <thead>
                     <tr className="border-b border-[#2e2e3e]">
-                      <th className="px-4 py-2 text-left text-xs font-medium text-white/40">Description</th>
-                      <th className="px-4 py-2 text-right text-xs font-medium text-white/40">Qty</th>
-                      <th className="px-4 py-2 text-right text-xs font-medium text-white/40">Price</th>
-                      <th className="px-4 py-2 text-right text-xs font-medium text-white/40">Total</th>
+                      <th className="px-4 py-2 text-left text-xs font-medium text-white/40">{t('invoices.description')}</th>
+                      <th className="px-4 py-2 text-right text-xs font-medium text-white/40">{t('invoices.qty')}</th>
+                      <th className="px-4 py-2 text-right text-xs font-medium text-white/40">{t('invoices.price')}</th>
+                      <th className="px-4 py-2 text-right text-xs font-medium text-white/40">{t('invoices.total')}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -281,15 +277,15 @@ export const Invoices = () => {
             {/* Totals */}
             <div className="space-y-2 pt-4 border-t border-[#2e2e3e]">
               <div className="flex justify-between text-sm">
-                <span className="text-white/60">Subtotal</span>
+                <span className="text-white/60">{t('invoices.subtotal')}</span>
                 <span className="text-white">${selectedInvoice.subtotal.toLocaleString()}</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-white/60">Tax</span>
+                <span className="text-white/60">{t('invoices.tax')}</span>
                 <span className="text-white">${selectedInvoice.tax.toLocaleString()}</span>
               </div>
               <div className="flex justify-between text-lg font-semibold pt-2 border-t border-[#2e2e3e]">
-                <span className="text-white">Total</span>
+                <span className="text-white">{t('invoices.total')}</span>
                 <span className="text-[#547792]">${selectedInvoice.total.toLocaleString()}</span>
               </div>
             </div>
