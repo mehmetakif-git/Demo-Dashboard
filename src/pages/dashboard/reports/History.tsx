@@ -28,7 +28,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const History = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('reports');
   const [searchQuery, setSearchQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState('all');
   const [statusFilter, setStatusFilter] = useState('all');
@@ -74,9 +74,9 @@ export const History = () => {
 
   const getTypeBadge = (type: ExportHistoryItem['type']) => {
     const config = {
-      export: { bg: 'bg-blue-500/20', text: 'text-blue-400', label: 'Export' },
-      import: { bg: 'bg-green-500/20', text: 'text-green-400', label: 'Import' },
-      report: { bg: 'bg-[#94B4C1]/20', text: 'text-[#94B4C1]', label: 'Report' },
+      export: { bg: 'bg-blue-500/20', text: 'text-blue-400', label: t('history.exportLabel') },
+      import: { bg: 'bg-green-500/20', text: 'text-green-400', label: t('history.importLabel') },
+      report: { bg: 'bg-[#94B4C1]/20', text: 'text-[#94B4C1]', label: t('history.reportLabel') },
     };
     const c = config[type];
     return (
@@ -89,16 +89,16 @@ export const History = () => {
 
   const getStatusBadge = (status: ExportHistoryItem['status']) => {
     const config = {
-      completed: { bg: 'bg-green-500/20', text: 'text-green-400', icon: CheckCircle },
-      failed: { bg: 'bg-red-500/20', text: 'text-red-400', icon: XCircle },
-      processing: { bg: 'bg-orange-500/20', text: 'text-orange-400', icon: Loader2 },
+      completed: { bg: 'bg-green-500/20', text: 'text-green-400', icon: CheckCircle, label: t('history.completed') },
+      failed: { bg: 'bg-red-500/20', text: 'text-red-400', icon: XCircle, label: t('history.failed') },
+      processing: { bg: 'bg-orange-500/20', text: 'text-orange-400', icon: Loader2, label: t('history.processing') },
     };
     const c = config[status];
     const Icon = c.icon;
     return (
       <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium ${c.bg} ${c.text}`}>
         <Icon size={12} className={status === 'processing' ? 'animate-spin' : ''} />
-        {status.charAt(0).toUpperCase() + status.slice(1)}
+        {c.label}
       </span>
     );
   };
@@ -135,8 +135,8 @@ export const History = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('reports.exportImportHistory', 'Export & Import History')}
-        subtitle="View and manage your export and import history"
+        title={t('history.title')}
+        subtitle={t('history.subtitle')}
       />
 
       {/* Filter Bar */}
@@ -145,10 +145,10 @@ export const History = () => {
           <div className="flex items-center gap-2">
             <Calendar size={16} className="text-text-muted" />
             <select className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary">
-              <option value="all">All Time</option>
-              <option value="today">Today</option>
-              <option value="week">This Week</option>
-              <option value="month">This Month</option>
+              <option value="all">{t('history.allTime')}</option>
+              <option value="today">{t('history.today')}</option>
+              <option value="week">{t('history.thisWeek')}</option>
+              <option value="month">{t('history.thisMonth')}</option>
             </select>
           </div>
 
@@ -157,10 +157,10 @@ export const History = () => {
             onChange={(e) => setTypeFilter(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Types</option>
-            <option value="export">Exports</option>
-            <option value="import">Imports</option>
-            <option value="report">Reports</option>
+            <option value="all">{t('history.allTypes')}</option>
+            <option value="export">{t('history.exports')}</option>
+            <option value="import">{t('history.imports')}</option>
+            <option value="report">{t('history.reports')}</option>
           </select>
 
           <select
@@ -168,15 +168,15 @@ export const History = () => {
             onChange={(e) => setStatusFilter(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Status</option>
-            <option value="completed">Completed</option>
-            <option value="failed">Failed</option>
-            <option value="processing">Processing</option>
+            <option value="all">{t('history.allStatus')}</option>
+            <option value="completed">{t('history.completed')}</option>
+            <option value="failed">{t('history.failed')}</option>
+            <option value="processing">{t('history.processing')}</option>
           </select>
 
           <div className="flex-1 min-w-64 max-w-md">
             <Input
-              placeholder="Search history..."
+              placeholder={t('history.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               leftIcon={<Search size={16} />}
@@ -190,17 +190,17 @@ export const History = () => {
         <Card className="p-4">
           <div className="flex items-center gap-4">
             <span className="text-sm text-text-secondary">
-              {selectedItems.length} selected
+              {t('history.selected', { count: selectedItems.length })}
             </span>
             <button
               onClick={() => setSelectedItems([])}
               className="text-sm text-accent-primary hover:underline"
             >
-              Clear selection
+              {t('history.clearSelection')}
             </button>
             <div className="flex-1" />
             <Button variant="secondary" size="sm" leftIcon={<Download size={14} />}>
-              Download Selected
+              {t('history.downloadSelected')}
             </Button>
             <Button
               variant="secondary"
@@ -208,7 +208,7 @@ export const History = () => {
               leftIcon={<Trash2 size={14} />}
               className="text-red-400 hover:bg-red-500/10"
             >
-              Delete Selected
+              {t('history.deleteSelected')}
             </Button>
           </div>
         </Card>
@@ -243,31 +243,31 @@ export const History = () => {
                   </div>
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                  Name
+                  {t('history.name')}
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                  Type
+                  {t('history.type')}
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                  Format
+                  {t('history.format')}
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                  Records
+                  {t('history.records')}
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                  Size
+                  {t('history.size')}
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                  Status
+                  {t('history.status')}
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                  Created By
+                  {t('history.createdBy')}
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                  Date
+                  {t('history.date')}
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                  Actions
+                  {t('history.actions')}
                 </th>
               </tr>
             </thead>
@@ -335,14 +335,14 @@ export const History = () => {
                       {item.downloadUrl && item.status === 'completed' && (
                         <button
                           className="p-1.5 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-accent-primary"
-                          title="Download"
+                          title={t('history.download')}
                         >
                           <Download size={14} />
                         </button>
                       )}
                       <button
                         className="p-1.5 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-accent-primary"
-                        title="View Details"
+                        title={t('history.viewDetails')}
                         onClick={() => showDetails(item)}
                       >
                         <Eye size={14} />
@@ -350,14 +350,14 @@ export const History = () => {
                       {item.type === 'report' && (
                         <button
                           className="p-1.5 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-green-400"
-                          title="Re-run"
+                          title={t('history.reRun')}
                         >
                           <RefreshCw size={14} />
                         </button>
                       )}
                       <button
                         className="p-1.5 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-red-400"
-                        title="Delete"
+                        title={t('history.delete')}
                       >
                         <Trash2 size={14} />
                       </button>
@@ -374,21 +374,21 @@ export const History = () => {
       {filteredHistory.length === 0 && (
         <Card className="p-12 text-center">
           <Clock size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No history found</p>
+          <p className="text-text-secondary">{t('history.noHistoryFound')}</p>
         </Card>
       )}
 
       {/* Pagination */}
       <div className="flex items-center justify-between">
         <p className="text-sm text-text-muted">
-          Showing {filteredHistory.length} of {exportHistory.length} entries
+          {t('history.showingEntries', { filtered: filteredHistory.length, total: exportHistory.length })}
         </p>
         <div className="flex items-center gap-2">
           <Button variant="secondary" size="sm" disabled>
-            Previous
+            {t('history.previous')}
           </Button>
           <Button variant="secondary" size="sm" disabled>
-            Next
+            {t('history.next')}
           </Button>
         </div>
       </div>
@@ -423,15 +423,15 @@ export const History = () => {
             <div className="p-6 space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-xs text-text-muted mb-1">Type</p>
+                  <p className="text-xs text-text-muted mb-1">{t('history.typeLabel')}</p>
                   {getTypeBadge(selectedDetail.type)}
                 </div>
                 <div>
-                  <p className="text-xs text-text-muted mb-1">Status</p>
+                  <p className="text-xs text-text-muted mb-1">{t('history.statusLabel')}</p>
                   {getStatusBadge(selectedDetail.status)}
                 </div>
                 <div>
-                  <p className="text-xs text-text-muted mb-1">Format</p>
+                  <p className="text-xs text-text-muted mb-1">{t('history.formatLabel')}</p>
                   <div className="flex items-center gap-2">
                     <span style={{ color: getFormatColor(selectedDetail.format) }}>
                       {getFormatIcon(selectedDetail.format)}
@@ -440,23 +440,23 @@ export const History = () => {
                   </div>
                 </div>
                 <div>
-                  <p className="text-xs text-text-muted mb-1">Size</p>
+                  <p className="text-xs text-text-muted mb-1">{t('history.sizeLabel')}</p>
                   <p className="text-sm text-text-primary">{selectedDetail.size}</p>
                 </div>
                 <div>
-                  <p className="text-xs text-text-muted mb-1">Records</p>
+                  <p className="text-xs text-text-muted mb-1">{t('history.recordsLabel')}</p>
                   <p className="text-sm text-text-primary">
                     {selectedDetail.records?.toLocaleString() || 'N/A'}
                   </p>
                 </div>
                 <div>
-                  <p className="text-xs text-text-muted mb-1">Created By</p>
+                  <p className="text-xs text-text-muted mb-1">{t('history.createdByLabel')}</p>
                   <p className="text-sm text-text-primary">{selectedDetail.createdBy}</p>
                 </div>
               </div>
 
               <div>
-                <p className="text-xs text-text-muted mb-1">Date & Time</p>
+                <p className="text-xs text-text-muted mb-1">{t('history.dateTimeLabel')}</p>
                 <p className="text-sm text-text-primary">
                   {formatDateTime(selectedDetail.createdAt)}
                 </p>
@@ -466,7 +466,7 @@ export const History = () => {
                 <div className="p-4 bg-red-500/10 rounded-lg">
                   <div className="flex items-center gap-2 mb-2">
                     <AlertCircle size={16} className="text-red-400" />
-                    <span className="text-sm font-medium text-red-400">Error Details</span>
+                    <span className="text-sm font-medium text-red-400">{t('history.errorDetails')}</span>
                   </div>
                   <p className="text-sm text-red-400">{selectedDetail.error}</p>
                 </div>
@@ -477,17 +477,17 @@ export const History = () => {
             <div className="p-6 border-t border-white/[0.08] bg-white/[0.05] flex justify-end gap-3">
               {selectedDetail.type === 'report' && (
                 <Button variant="secondary" leftIcon={<RefreshCw size={14} />}>
-                  Re-run Report
+                  {t('history.reRunReport')}
                 </Button>
               )}
               {selectedDetail.downloadUrl && selectedDetail.status === 'completed' && (
                 <Button leftIcon={<Download size={14} />}>
-                  Download
+                  {t('history.download')}
                 </Button>
               )}
               {!selectedDetail.downloadUrl && (
                 <Button variant="secondary" onClick={() => setShowDetailModal(false)}>
-                  Close
+                  {t('history.close')}
                 </Button>
               )}
             </div>

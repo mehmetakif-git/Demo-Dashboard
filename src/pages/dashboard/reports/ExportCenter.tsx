@@ -24,17 +24,17 @@ import {
 } from '@/data/reportData';
 import { useTranslation } from 'react-i18next';
 
-const exportCategories = [
-  { id: 'all', name: 'All Data' },
-  { id: 'HR', name: 'HR' },
-  { id: 'CRM', name: 'CRM' },
-  { id: 'Finance', name: 'Finance' },
-  { id: 'Operations', name: 'Operations' },
-  { id: 'Security', name: 'Security' },
-];
-
 export const ExportCenter = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('reports');
+
+  const exportCategories = [
+    { id: 'all', name: t('exportCenter.allData') },
+    { id: 'HR', name: 'HR' },
+    { id: 'CRM', name: 'CRM' },
+    { id: 'Finance', name: 'Finance' },
+    { id: 'Operations', name: 'Operations' },
+    { id: 'Security', name: 'Security' },
+  ];
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedData, setSelectedData] = useState<ExportableData | null>(null);
   const [showExportModal, setShowExportModal] = useState(false);
@@ -103,14 +103,14 @@ export const ExportCenter = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('reports.exportCenter', 'Export Center')}
-        subtitle="Export your data in various formats"
+        title={t('exportCenter.title')}
+        subtitle={t('exportCenter.subtitle')}
       />
 
       <div className="flex gap-6">
         {/* Category Sidebar */}
         <Card className="w-64 p-4 h-fit sticky top-24">
-          <h3 className="text-sm font-semibold text-text-primary mb-4">Categories</h3>
+          <h3 className="text-sm font-semibold text-text-primary mb-4">{t('exportCenter.categories')}</h3>
           <div className="space-y-1">
             {exportCategories.map((category) => (
               <button
@@ -167,16 +167,16 @@ export const ExportCenter = () => {
                   {/* Stats */}
                   <div className="flex items-center gap-4 mb-4 text-sm">
                     <span className="text-text-muted">
-                      <strong className="text-text-primary">{data.recordCount.toLocaleString()}</strong> records
+                      <strong className="text-text-primary">{data.recordCount.toLocaleString()}</strong> {t('exportCenter.records')}
                     </span>
                     <span className="text-text-muted">
-                      <strong className="text-text-primary">{data.fields.length}</strong> fields
+                      <strong className="text-text-primary">{data.fields.length}</strong> {t('exportCenter.fields')}
                     </span>
                   </div>
 
                   {/* Formats */}
                   <div className="flex items-center gap-2 mb-4">
-                    <span className="text-xs text-text-muted">Formats:</span>
+                    <span className="text-xs text-text-muted">{t('exportCenter.formats')}:</span>
                     {data.formats.map((format) => (
                       <span
                         key={format}
@@ -196,14 +196,14 @@ export const ExportCenter = () => {
                   <div className="flex items-center justify-between pt-4 border-t border-white/[0.08]">
                     <span className="flex items-center gap-1 text-xs text-text-muted">
                       <Clock size={12} />
-                      Last exported: {formatDateTime(data.lastExported)}
+                      {t('exportCenter.lastExported', { date: formatDateTime(data.lastExported) })}
                     </span>
                     <Button
                       size="sm"
                       leftIcon={<Download size={14} />}
                       onClick={() => handleExport(data)}
                     >
-                      Export
+                      {t('exportCenter.export')}
                     </Button>
                   </div>
                 </Card>
@@ -215,7 +215,7 @@ export const ExportCenter = () => {
           {filteredData.length === 0 && (
             <Card className="p-12 text-center">
               <Database size={48} className="mx-auto mb-4 text-text-muted" />
-              <p className="text-text-secondary">No exportable data found in this category</p>
+              <p className="text-text-secondary">{t('exportCenter.noDataFound')}</p>
             </Card>
           )}
         </div>
@@ -241,10 +241,10 @@ export const ExportCenter = () => {
                   </div>
                   <div>
                     <h2 className="text-lg font-semibold text-text-primary">
-                      Export {selectedData.name}
+                      {t('exportCenter.exportData', { name: selectedData.name })}
                     </h2>
                     <p className="text-sm text-text-muted">
-                      {selectedData.recordCount.toLocaleString()} records available
+                      {t('exportCenter.recordsAvailable', { count: selectedData.recordCount })}
                     </p>
                   </div>
                 </div>
@@ -263,15 +263,15 @@ export const ExportCenter = () => {
               <div>
                 <div className="flex items-center justify-between mb-3">
                   <label className="text-sm font-medium text-text-primary">
-                    Select Fields to Export
+                    {t('exportCenter.selectFields')}
                   </label>
                   <button
                     onClick={toggleAllFields}
                     className="text-xs text-accent-primary hover:underline"
                   >
                     {selectedFields.length === selectedData.fields.length
-                      ? 'Deselect All'
-                      : 'Select All'}
+                      ? t('exportCenter.deselectAll')
+                      : t('exportCenter.selectAll')}
                   </button>
                 </div>
                 <div className="grid grid-cols-2 gap-2 p-4 bg-white/[0.05] rounded-lg">
@@ -299,25 +299,25 @@ export const ExportCenter = () => {
               {/* Filters */}
               <div>
                 <label className="block text-sm font-medium text-text-primary mb-3">
-                  Filters
+                  {t('exportCenter.filters')}
                 </label>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs text-text-muted mb-1">Date Range</label>
+                    <label className="block text-xs text-text-muted mb-1">{t('exportCenter.dateRange')}</label>
                     <select className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary">
-                      <option value="all">All Time</option>
-                      <option value="today">Today</option>
-                      <option value="this-week">This Week</option>
-                      <option value="this-month">This Month</option>
-                      <option value="this-year">This Year</option>
+                      <option value="all">{t('exportCenter.allTime')}</option>
+                      <option value="today">{t('exportCenter.today')}</option>
+                      <option value="this-week">{t('exportCenter.thisWeek')}</option>
+                      <option value="this-month">{t('exportCenter.thisMonth')}</option>
+                      <option value="this-year">{t('exportCenter.thisYear')}</option>
                     </select>
                   </div>
                   <div>
-                    <label className="block text-xs text-text-muted mb-1">Status</label>
+                    <label className="block text-xs text-text-muted mb-1">{t('exportCenter.status')}</label>
                     <select className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary">
-                      <option value="all">All</option>
-                      <option value="active">Active</option>
-                      <option value="inactive">Inactive</option>
+                      <option value="all">{t('exportCenter.all')}</option>
+                      <option value="active">{t('exportCenter.activeStatus')}</option>
+                      <option value="inactive">{t('exportCenter.inactive')}</option>
                     </select>
                   </div>
                 </div>
@@ -326,7 +326,7 @@ export const ExportCenter = () => {
               {/* Format Selection */}
               <div>
                 <label className="block text-sm font-medium text-text-primary mb-3">
-                  Export Format
+                  {t('exportCenter.exportFormat')}
                 </label>
                 <div className="flex flex-wrap gap-2">
                   {selectedData.formats.map((format) => (
@@ -351,7 +351,7 @@ export const ExportCenter = () => {
               {/* Options */}
               <div>
                 <label className="block text-sm font-medium text-text-primary mb-3">
-                  Options
+                  {t('exportCenter.options')}
                 </label>
                 <div className="space-y-2">
                   <label className="flex items-center gap-3 cursor-pointer">
@@ -360,7 +360,7 @@ export const ExportCenter = () => {
                       defaultChecked
                       className="w-4 h-4 rounded border-white/[0.08] text-accent-primary focus:ring-accent-primary"
                     />
-                    <span className="text-sm text-text-secondary">Include headers</span>
+                    <span className="text-sm text-text-secondary">{t('exportCenter.includeHeaders')}</span>
                   </label>
                   <label className="flex items-center gap-3 cursor-pointer">
                     <input
@@ -368,7 +368,7 @@ export const ExportCenter = () => {
                       defaultChecked
                       className="w-4 h-4 rounded border-white/[0.08] text-accent-primary focus:ring-accent-primary"
                     />
-                    <span className="text-sm text-text-secondary">UTF-8 encoding</span>
+                    <span className="text-sm text-text-secondary">{t('exportCenter.utf8Encoding')}</span>
                   </label>
                 </div>
               </div>
@@ -377,7 +377,7 @@ export const ExportCenter = () => {
               <div>
                 <div className="flex items-center gap-2 mb-3">
                   <Eye size={16} className="text-text-muted" />
-                  <label className="text-sm font-medium text-text-primary">Preview (first 3 rows)</label>
+                  <label className="text-sm font-medium text-text-primary">{t('exportCenter.preview')}</label>
                 </div>
                 <div className="overflow-x-auto">
                   <table className="w-full text-xs">
@@ -395,7 +395,7 @@ export const ExportCenter = () => {
                         <tr key={row} className="border-b border-white/[0.08]">
                           {selectedFields.slice(0, 5).map((field) => (
                             <td key={field} className="px-3 py-2 text-text-muted">
-                              Sample data {row}
+                              {t('exportCenter.sampleData', { row })}
                             </td>
                           ))}
                         </tr>
@@ -409,14 +409,14 @@ export const ExportCenter = () => {
             {/* Footer */}
             <div className="p-6 border-t border-white/[0.08] bg-white/[0.05] flex justify-end gap-3">
               <Button variant="secondary" onClick={() => setShowExportModal(false)}>
-                Cancel
+                {t('exportCenter.cancel')}
               </Button>
               <Button
                 leftIcon={<Download size={14} />}
                 onClick={startExport}
                 disabled={selectedFields.length === 0}
               >
-                Export {selectedData.recordCount.toLocaleString()} Records
+                {t('exportCenter.exportRecords', { count: selectedData.recordCount })}
               </Button>
             </div>
           </motion.div>
@@ -437,7 +437,7 @@ export const ExportCenter = () => {
                   <Loader2 size={32} className="text-accent-primary animate-spin" />
                 </div>
                 <h3 className="text-lg font-semibold text-text-primary mb-2">
-                  Exporting Data...
+                  {t('exportCenter.exportingData')}
                 </h3>
                 <p className="text-sm text-text-secondary mb-4">{selectedData.name}</p>
                 <div className="w-full bg-white/[0.05] rounded-full h-2 mb-2">
@@ -449,7 +449,7 @@ export const ExportCenter = () => {
                   />
                 </div>
                 <p className="text-xs text-text-muted">
-                  Processing {selectedData.recordCount.toLocaleString()} records...
+                  {t('exportCenter.processingRecords', { count: selectedData.recordCount })}
                 </p>
                 <Button
                   variant="secondary"
@@ -457,7 +457,7 @@ export const ExportCenter = () => {
                   className="mt-4"
                   onClick={closeProgressModal}
                 >
-                  Cancel
+                  {t('exportCenter.cancel')}
                 </Button>
               </div>
             ) : exportComplete ? (
@@ -466,17 +466,17 @@ export const ExportCenter = () => {
                   <CheckCircle size={32} className="text-green-500" />
                 </div>
                 <h3 className="text-lg font-semibold text-text-primary mb-2">
-                  Export Complete!
+                  {t('exportCenter.exportComplete')}
                 </h3>
                 <p className="text-sm text-text-secondary mb-6">
-                  {selectedData.recordCount.toLocaleString()} records exported successfully
+                  {t('exportCenter.recordsExported', { count: selectedData.recordCount })}
                 </p>
                 <div className="flex items-center justify-center gap-3">
                   <Button variant="secondary" onClick={closeProgressModal}>
-                    Close
+                    {t('exportCenter.close')}
                   </Button>
                   <Button leftIcon={<Download size={14} />}>
-                    Download {selectedFormat}
+                    {t('exportCenter.download')} {selectedFormat}
                   </Button>
                 </div>
               </div>

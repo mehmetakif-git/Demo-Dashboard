@@ -28,7 +28,7 @@ import { useTranslation } from 'react-i18next';
 type WizardStep = 'upload' | 'map' | 'validate' | 'complete';
 
 export const ImportCenter = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('reports');
   const [selectedTemplate, setSelectedTemplate] = useState<ImportTemplate | null>(null);
   const [showWizard, setShowWizard] = useState(false);
   const [currentStep, setCurrentStep] = useState<WizardStep>('upload');
@@ -96,10 +96,10 @@ export const ImportCenter = () => {
   };
 
   const steps: { key: WizardStep; label: string; number: number }[] = [
-    { key: 'upload', label: 'Upload File', number: 1 },
-    { key: 'map', label: 'Map Fields', number: 2 },
-    { key: 'validate', label: 'Validate', number: 3 },
-    { key: 'complete', label: 'Complete', number: 4 },
+    { key: 'upload', label: t('importCenter.uploadFile'), number: 1 },
+    { key: 'map', label: t('importCenter.mapFields'), number: 2 },
+    { key: 'validate', label: t('importCenter.validate'), number: 3 },
+    { key: 'complete', label: t('importCenter.complete'), number: 4 },
   ];
 
   const getStepIndex = (step: WizardStep) => steps.findIndex((s) => s.key === step);
@@ -107,8 +107,8 @@ export const ImportCenter = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('reports.importCenter', 'Import Center')}
-        subtitle="Import data from external files"
+        title={t('importCenter.title')}
+        subtitle={t('importCenter.subtitle')}
       />
 
       {/* Import Templates Grid */}
@@ -150,7 +150,7 @@ export const ImportCenter = () => {
 
               {/* Required Fields */}
               <div className="mb-3">
-                <p className="text-xs text-text-muted mb-2">Required fields:</p>
+                <p className="text-xs text-text-muted mb-2">{t('importCenter.requiredFields')}</p>
                 <div className="flex flex-wrap gap-1">
                   {template.requiredFields.map((field) => (
                     <span
@@ -165,7 +165,7 @@ export const ImportCenter = () => {
 
               {/* Optional Fields */}
               <div className="mb-4">
-                <p className="text-xs text-text-muted mb-2">Optional fields:</p>
+                <p className="text-xs text-text-muted mb-2">{t('importCenter.optionalFields')}</p>
                 <div className="flex flex-wrap gap-1">
                   {template.optionalFields.map((field) => (
                     <span
@@ -183,10 +183,10 @@ export const ImportCenter = () => {
                 <div className="flex items-center justify-between">
                   <span className="flex items-center gap-1">
                     <Clock size={12} />
-                    Last import: {formatDateTime(template.lastImport)}
+                    {t('importCenter.lastImport', { date: formatDateTime(template.lastImport) })}
                   </span>
                   <span className="text-text-secondary">
-                    {template.lastImportCount} records
+                    {t('importCenter.recordsCount', { count: template.lastImportCount })}
                   </span>
                 </div>
               </div>
@@ -199,7 +199,7 @@ export const ImportCenter = () => {
                   leftIcon={<Download size={14} />}
                   className="flex-1"
                 >
-                  Download Template
+                  {t('importCenter.downloadTemplate')}
                 </Button>
                 <Button
                   size="sm"
@@ -207,7 +207,7 @@ export const ImportCenter = () => {
                   className="flex-1"
                   onClick={() => startImport(template)}
                 >
-                  Start Import
+                  {t('importCenter.startImport')}
                 </Button>
               </div>
             </Card>
@@ -227,7 +227,7 @@ export const ImportCenter = () => {
             <div className="p-6 border-b border-white/[0.08]">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-lg font-semibold text-text-primary">
-                  Import: {selectedTemplate.name}
+                  {t('importCenter.importTitle', { name: selectedTemplate.name })}
                 </h2>
                 <button
                   onClick={closeWizard}
@@ -307,17 +307,17 @@ export const ImportCenter = () => {
                           size="sm"
                           onClick={() => setUploadedFile(null)}
                         >
-                          Remove
+                          {t('importCenter.remove')}
                         </Button>
                       </div>
                     ) : (
                       <div>
                         <Upload size={48} className="mx-auto mb-4 text-text-muted" />
                         <p className="text-lg font-medium text-text-primary mb-2">
-                          Drag and drop your file here
+                          {t('importCenter.dragAndDrop')}
                         </p>
                         <p className="text-sm text-text-muted mb-4">
-                          or click to browse
+                          {t('importCenter.orClickBrowse')}
                         </p>
                         <label className="cursor-pointer">
                           <input
@@ -327,7 +327,7 @@ export const ImportCenter = () => {
                             className="hidden"
                           />
                           <span className="inline-flex items-center justify-center px-4 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm font-medium text-text-secondary hover:bg-white/[0.03] backdrop-blur-xl transition-colors">
-                            Browse Files
+                            {t('importCenter.browseFiles')}
                           </span>
                         </label>
                       </div>
@@ -351,7 +351,7 @@ export const ImportCenter = () => {
               {currentStep === 'map' && (
                 <div className="space-y-4">
                   <p className="text-sm text-text-secondary mb-4">
-                    Map the columns from your file to the target fields
+                    {t('importCenter.mapColumnsDesc')}
                   </p>
 
                   <div className="overflow-x-auto">
@@ -359,19 +359,19 @@ export const ImportCenter = () => {
                       <thead>
                         <tr className="bg-white/[0.05]">
                           <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase">
-                            Source Column
+                            {t('importCenter.sourceColumn')}
                           </th>
                           <th className="px-4 py-3 text-center text-xs font-semibold text-text-secondary uppercase">
                             →
                           </th>
                           <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase">
-                            Target Field
+                            {t('importCenter.targetField')}
                           </th>
                           <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase">
-                            Sample Data
+                            {t('importCenter.sampleData')}
                           </th>
                           <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase">
-                            Status
+                            {t('history.status')}
                           </th>
                         </tr>
                       </thead>
@@ -389,7 +389,7 @@ export const ImportCenter = () => {
                                 <option>
                                   {selectedTemplate.requiredFields[index] ||
                                     selectedTemplate.optionalFields[index - selectedTemplate.requiredFields.length] ||
-                                    '-- Select --'}
+                                    t('importCenter.selectField')}
                                 </option>
                                 {[...selectedTemplate.requiredFields, ...selectedTemplate.optionalFields].map(
                                   (field) => (
@@ -398,11 +398,11 @@ export const ImportCenter = () => {
                                     </option>
                                   )
                                 )}
-                                <option value="">-- Skip --</option>
+                                <option value="">{t('importCenter.skipField')}</option>
                               </select>
                             </td>
                             <td className="px-4 py-3 text-sm text-text-muted">
-                              Sample value {index + 1}
+                              {t('importCenter.sampleValue', { index: index + 1 })}
                             </td>
                             <td className="px-4 py-3">
                               <CheckCircle size={16} className="text-green-500" />
@@ -420,10 +420,10 @@ export const ImportCenter = () => {
                 <div className="space-y-6">
                   <div className="text-center mb-6">
                     <p className="text-lg font-medium text-text-primary mb-2">
-                      Validation Complete
+                      {t('importCenter.validationComplete')}
                     </p>
                     <p className="text-sm text-text-secondary">
-                      {mockValidation.total} records found in your file
+                      {t('importCenter.recordsFound', { count: mockValidation.total })}
                     </p>
                   </div>
 
@@ -431,15 +431,15 @@ export const ImportCenter = () => {
                   <div className="grid grid-cols-3 gap-4">
                     <Card className="p-4 text-center border-l-4 border-green-500">
                       <p className="text-2xl font-bold text-green-500">{mockValidation.valid}</p>
-                      <p className="text-sm text-text-secondary">Valid Records</p>
+                      <p className="text-sm text-text-secondary">{t('importCenter.validRecords')}</p>
                     </Card>
                     <Card className="p-4 text-center border-l-4 border-orange-500">
                       <p className="text-2xl font-bold text-orange-500">{mockValidation.warnings}</p>
-                      <p className="text-sm text-text-secondary">With Warnings</p>
+                      <p className="text-sm text-text-secondary">{t('importCenter.withWarnings')}</p>
                     </Card>
                     <Card className="p-4 text-center border-l-4 border-red-500">
                       <p className="text-2xl font-bold text-red-500">{mockValidation.invalid}</p>
-                      <p className="text-sm text-text-secondary">Invalid Records</p>
+                      <p className="text-sm text-text-secondary">{t('importCenter.invalidRecords')}</p>
                     </Card>
                   </div>
 
@@ -449,7 +449,7 @@ export const ImportCenter = () => {
                       <div className="flex items-center gap-2 mb-3">
                         <AlertCircle size={16} className="text-red-500" />
                         <span className="text-sm font-medium text-text-primary">
-                          Invalid Records Details
+                          {t('importCenter.invalidRecordDetails')}
                         </span>
                       </div>
                       <div className="space-y-2">
@@ -474,14 +474,14 @@ export const ImportCenter = () => {
                         defaultChecked
                         className="w-4 h-4 rounded border-white/[0.08] text-accent-primary focus:ring-accent-primary"
                       />
-                      <span className="text-sm text-text-secondary">Skip invalid records</span>
+                      <span className="text-sm text-text-secondary">{t('importCenter.skipInvalidRecords')}</span>
                     </label>
                     <label className="flex items-center gap-3 cursor-pointer">
                       <input
                         type="checkbox"
                         className="w-4 h-4 rounded border-white/[0.08] text-accent-primary focus:ring-accent-primary"
                       />
-                      <span className="text-sm text-text-secondary">Update existing records</span>
+                      <span className="text-sm text-text-secondary">{t('importCenter.updateExistingRecords')}</span>
                     </label>
                   </div>
                 </div>
@@ -494,33 +494,33 @@ export const ImportCenter = () => {
                     <CheckCircle size={40} className="text-green-500" />
                   </div>
                   <h3 className="text-xl font-semibold text-text-primary mb-2">
-                    Import Successful!
+                    {t('importCenter.importSuccessful')}
                   </h3>
                   <p className="text-text-secondary mb-8">
-                    Your data has been imported successfully
+                    {t('importCenter.dataImportedSuccessfully')}
                   </p>
 
                   <div className="grid grid-cols-3 gap-4 max-w-md mx-auto mb-8">
                     <div className="p-4 bg-white/[0.05] rounded-lg">
                       <p className="text-2xl font-bold text-green-500">{mockValidation.valid}</p>
-                      <p className="text-xs text-text-muted">Imported</p>
+                      <p className="text-xs text-text-muted">{t('importCenter.imported')}</p>
                     </div>
                     <div className="p-4 bg-white/[0.05] rounded-lg">
                       <p className="text-2xl font-bold text-blue-500">0</p>
-                      <p className="text-xs text-text-muted">Updated</p>
+                      <p className="text-xs text-text-muted">{t('importCenter.updated')}</p>
                     </div>
                     <div className="p-4 bg-white/[0.05] rounded-lg">
                       <p className="text-2xl font-bold text-red-500">{mockValidation.invalid}</p>
-                      <p className="text-xs text-text-muted">Skipped</p>
+                      <p className="text-xs text-text-muted">{t('importCenter.skipped')}</p>
                     </div>
                   </div>
 
                   <div className="flex items-center justify-center gap-3">
                     <Button variant="secondary" leftIcon={<Eye size={14} />}>
-                      View Imported Data
+                      {t('importCenter.viewImportedData')}
                     </Button>
                     <Button leftIcon={<Upload size={14} />} onClick={closeWizard}>
-                      Import Another
+                      {t('importCenter.importAnother')}
                     </Button>
                   </div>
                 </div>
@@ -531,9 +531,9 @@ export const ImportCenter = () => {
                 <div className="text-center py-12">
                   <Loader2 size={48} className="mx-auto mb-4 text-accent-primary animate-spin" />
                   <p className="text-lg font-medium text-text-primary mb-2">
-                    {currentStep === 'map' ? 'Validating data...' : 'Importing records...'}
+                    {currentStep === 'map' ? t('importCenter.validatingData') : t('importCenter.importingRecords')}
                   </p>
-                  <p className="text-sm text-text-muted">Please wait</p>
+                  <p className="text-sm text-text-muted">{t('importCenter.pleaseWait')}</p>
                 </div>
               )}
             </div>
@@ -547,14 +547,14 @@ export const ImportCenter = () => {
                   onClick={prevStep}
                   disabled={currentStep === 'upload'}
                 >
-                  Back
+                  {t('importCenter.back')}
                 </Button>
                 <Button
                   rightIcon={<ArrowRight size={14} />}
                   onClick={nextStep}
                   disabled={currentStep === 'upload' && !uploadedFile}
                 >
-                  {currentStep === 'validate' ? 'Import' : 'Next'}
+                  {currentStep === 'validate' ? t('importCenter.import') : t('importCenter.next')}
                 </Button>
               </div>
             )}

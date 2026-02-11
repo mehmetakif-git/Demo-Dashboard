@@ -30,7 +30,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const SavedReports = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('reports');
   const [searchQuery, setSearchQuery] = useState('');
   const [templateFilter, setTemplateFilter] = useState('all');
   const [scheduleFilter, setScheduleFilter] = useState('all');
@@ -98,10 +98,10 @@ export const SavedReports = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('reports.savedReports', 'Saved Reports')}
-        subtitle="Manage your saved report configurations"
+        title={t('savedReports.title')}
+        subtitle={t('savedReports.subtitle')}
         actions={
-          <Button leftIcon={<Plus size={16} />}>Create New</Button>
+          <Button leftIcon={<Plus size={16} />}>{t('savedReports.createNew')}</Button>
         }
       />
 
@@ -114,7 +114,7 @@ export const SavedReports = () => {
             </div>
             <div>
               <p className="text-2xl font-bold text-text-primary">{stats.total}</p>
-              <p className="text-sm text-text-secondary">Total Saved</p>
+              <p className="text-sm text-text-secondary">{t('savedReports.totalSaved')}</p>
             </div>
           </div>
         </Card>
@@ -125,7 +125,7 @@ export const SavedReports = () => {
             </div>
             <div>
               <p className="text-2xl font-bold text-text-primary">{stats.scheduled}</p>
-              <p className="text-sm text-text-secondary">Scheduled</p>
+              <p className="text-sm text-text-secondary">{t('savedReports.scheduled')}</p>
             </div>
           </div>
         </Card>
@@ -136,7 +136,7 @@ export const SavedReports = () => {
             </div>
             <div>
               <p className="text-2xl font-bold text-text-primary">{stats.runToday}</p>
-              <p className="text-sm text-text-secondary">Run Today</p>
+              <p className="text-sm text-text-secondary">{t('savedReports.runToday')}</p>
             </div>
           </div>
         </Card>
@@ -147,7 +147,7 @@ export const SavedReports = () => {
             </div>
             <div>
               <p className="text-2xl font-bold text-text-primary">{stats.active}</p>
-              <p className="text-sm text-text-secondary">Active Schedules</p>
+              <p className="text-sm text-text-secondary">{t('savedReports.activeSchedules')}</p>
             </div>
           </div>
         </Card>
@@ -158,7 +158,7 @@ export const SavedReports = () => {
         <div className="flex flex-wrap items-center gap-4">
           <div className="flex-1 min-w-64 max-w-md">
             <Input
-              placeholder="Search saved reports..."
+              placeholder={t('savedReports.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               leftIcon={<Search size={16} />}
@@ -170,7 +170,7 @@ export const SavedReports = () => {
             onChange={(e) => setTemplateFilter(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Templates</option>
+            <option value="all">{t('savedReports.allTemplates')}</option>
             {templates.map((template) => (
               <option key={template} value={template}>
                 {template}
@@ -183,9 +183,9 @@ export const SavedReports = () => {
             onChange={(e) => setScheduleFilter(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Schedules</option>
-            <option value="scheduled">Scheduled</option>
-            <option value="manual">Manual</option>
+            <option value="all">{t('savedReports.allSchedules')}</option>
+            <option value="scheduled">{t('savedReports.scheduled')}</option>
+            <option value="manual">{t('savedReports.manual')}</option>
           </select>
 
           <select
@@ -193,9 +193,9 @@ export const SavedReports = () => {
             onChange={(e) => setStatusFilter(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Status</option>
-            <option value="active">Active</option>
-            <option value="paused">Paused</option>
+            <option value="all">{t('savedReports.allStatus')}</option>
+            <option value="active">{t('savedReports.active')}</option>
+            <option value="paused">{t('savedReports.paused')}</option>
           </select>
         </div>
       </Card>
@@ -207,28 +207,28 @@ export const SavedReports = () => {
             <thead>
               <tr className="bg-white/[0.05] border-b border-white/[0.08]">
                 <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                  Name
+                  {t('savedReports.name')}
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                  Template
+                  {t('savedReports.template')}
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                  Schedule
+                  {t('savedReports.schedule')}
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                  Last Run
+                  {t('savedReports.lastRun')}
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                  Format
+                  {t('savedReports.format')}
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                  Status
+                  {t('savedReports.status')}
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                  Recipients
+                  {t('savedReports.recipients')}
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                  Actions
+                  {t('savedReports.actions')}
                 </th>
               </tr>
             </thead>
@@ -243,7 +243,7 @@ export const SavedReports = () => {
                   <td className="px-4 py-3">
                     <div>
                       <p className="font-medium text-text-primary">{report.name}</p>
-                      <p className="text-xs text-text-muted">by {report.createdBy}</p>
+                      <p className="text-xs text-text-muted">{t('savedReports.by')} {report.createdBy}</p>
                     </div>
                   </td>
                   <td className="px-4 py-3 text-sm text-text-secondary">
@@ -252,7 +252,7 @@ export const SavedReports = () => {
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2 text-sm text-text-secondary">
                       {report.schedule === 'None (Manual)' ? (
-                        <span className="text-text-muted">Manual</span>
+                        <span className="text-text-muted">{t('savedReports.manual')}</span>
                       ) : (
                         <>
                           <Clock size={14} className="text-[#94B4C1]" />
@@ -283,14 +283,14 @@ export const SavedReports = () => {
                       ) : (
                         <AlertCircle size={12} />
                       )}
-                      {report.status === 'active' ? 'Active' : 'Paused'}
+                      {report.status === 'active' ? t('savedReports.active') : t('savedReports.paused')}
                     </span>
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-1">
                       <Mail size={14} className="text-text-muted" />
                       <span className="text-sm text-text-secondary">
-                        {report.recipients.length} recipient(s)
+                        {t('savedReports.recipientCount', { count: report.recipients.length })}
                       </span>
                     </div>
                   </td>
@@ -298,41 +298,41 @@ export const SavedReports = () => {
                     <div className="flex items-center gap-1">
                       <button
                         className="p-1.5 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-green-400"
-                        title="Run Now"
+                        title={t('savedReports.runNow')}
                       >
                         <Play size={14} />
                       </button>
                       <button
                         className="p-1.5 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-accent-primary"
-                        title="Edit"
+                        title={t('savedReports.edit')}
                         onClick={() => handleEdit(report)}
                       >
                         <Edit size={14} />
                       </button>
                       <button
                         className="p-1.5 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-blue-400"
-                        title="Duplicate"
+                        title={t('savedReports.duplicate')}
                       >
                         <Copy size={14} />
                       </button>
                       {report.status === 'active' ? (
                         <button
                           className="p-1.5 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-orange-400"
-                          title="Pause"
+                          title={t('savedReports.pause')}
                         >
                           <Pause size={14} />
                         </button>
                       ) : (
                         <button
                           className="p-1.5 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-green-400"
-                          title="Resume"
+                          title={t('savedReports.resume')}
                         >
                           <PlayCircle size={14} />
                         </button>
                       )}
                       <button
                         className="p-1.5 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-secondary hover:text-red-400"
-                        title="Delete"
+                        title={t('savedReports.delete')}
                       >
                         <Trash2 size={14} />
                       </button>
@@ -349,7 +349,7 @@ export const SavedReports = () => {
       {filteredReports.length === 0 && (
         <Card className="p-12 text-center">
           <FileText size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No saved reports found</p>
+          <p className="text-text-secondary">{t('savedReports.noReportsFound')}</p>
         </Card>
       )}
 
@@ -365,7 +365,7 @@ export const SavedReports = () => {
             <div className="p-6 border-b border-white/[0.08]">
               <div className="flex items-center justify-between">
                 <h2 className="text-lg font-semibold text-text-primary">
-                  Edit Report Configuration
+                  {t('savedReports.editReportConfig')}
                 </h2>
                 <button
                   onClick={() => setShowEditModal(false)}
@@ -381,7 +381,7 @@ export const SavedReports = () => {
               {/* Report Name */}
               <div>
                 <label className="block text-sm font-medium text-text-primary mb-2">
-                  Report Name
+                  {t('savedReports.reportName')}
                 </label>
                 <Input defaultValue={selectedReport.name} />
               </div>
@@ -389,7 +389,7 @@ export const SavedReports = () => {
               {/* Template Info */}
               <div>
                 <label className="block text-sm font-medium text-text-primary mb-2">
-                  Template
+                  {t('savedReports.template')}
                 </label>
                 <div className="p-3 bg-white/[0.05] rounded-lg">
                   <p className="text-text-secondary">{selectedReport.template}</p>
@@ -399,7 +399,7 @@ export const SavedReports = () => {
               {/* Parameters */}
               <div>
                 <label className="block text-sm font-medium text-text-primary mb-2">
-                  Parameters
+                  {t('savedReports.parameters')}
                 </label>
                 <div className="space-y-3">
                   {Object.entries(selectedReport.parameters).map(([key, value]) => (
@@ -424,7 +424,7 @@ export const SavedReports = () => {
               <div>
                 <label className="block text-sm font-medium text-text-primary mb-2">
                   <Calendar size={14} className="inline mr-2" />
-                  Schedule
+                  {t('savedReports.schedule')}
                 </label>
                 <select
                   defaultValue={selectedReport.schedule.includes('Daily') ? 'daily' :
@@ -444,7 +444,7 @@ export const SavedReports = () => {
               <div>
                 <label className="block text-sm font-medium text-text-primary mb-2">
                   <Users size={14} className="inline mr-2" />
-                  Recipients
+                  {t('savedReports.recipients')}
                 </label>
                 <div className="space-y-2">
                   {selectedReport.recipients.map((email, index) => (
@@ -458,14 +458,14 @@ export const SavedReports = () => {
                       </button>
                     </div>
                   ))}
-                  <Input placeholder="Add email address" leftIcon={<Mail size={14} />} />
+                  <Input placeholder={t('savedReports.addEmail')} leftIcon={<Mail size={14} />} />
                 </div>
               </div>
 
               {/* Format */}
               <div>
                 <label className="block text-sm font-medium text-text-primary mb-2">
-                  Output Format
+                  {t('savedReports.outputFormat')}
                 </label>
                 <div className="flex gap-2">
                   {['PDF', 'Excel', 'CSV'].map((format) => (
@@ -492,7 +492,7 @@ export const SavedReports = () => {
                     defaultChecked={selectedReport.status === 'active'}
                     className="w-4 h-4 rounded border-white/[0.08] text-accent-primary focus:ring-accent-primary"
                   />
-                  <span className="text-sm text-text-secondary">Enable this report</span>
+                  <span className="text-sm text-text-secondary">{t('savedReports.enableReport')}</span>
                 </label>
               </div>
             </div>
@@ -500,9 +500,9 @@ export const SavedReports = () => {
             {/* Footer */}
             <div className="p-6 border-t border-white/[0.08] bg-white/[0.05] flex justify-end gap-3">
               <Button variant="secondary" onClick={() => setShowEditModal(false)}>
-                Cancel
+                {t('savedReports.cancel')}
               </Button>
-              <Button leftIcon={<Save size={14} />}>Save Changes</Button>
+              <Button leftIcon={<Save size={14} />}>{t('savedReports.saveChanges')}</Button>
             </div>
           </motion.div>
         </div>

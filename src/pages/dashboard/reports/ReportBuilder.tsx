@@ -36,7 +36,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const ReportBuilder = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('reports');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTemplate, setSelectedTemplate] = useState<ReportTemplate | null>(null);
@@ -126,8 +126,8 @@ export const ReportBuilder = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('reports.reportBuilder', 'Report Builder')}
-        subtitle="Generate reports from templates"
+        title={t('reportBuilder.title')}
+        subtitle={t('reportBuilder.subtitle')}
       />
 
       {/* Category Tabs */}
@@ -158,7 +158,7 @@ export const ReportBuilder = () => {
       <Card className="p-4">
         <div className="max-w-md">
           <Input
-            placeholder="Search report templates..."
+            placeholder={t('reportBuilder.searchPlaceholder')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             leftIcon={<Search size={16} />}
@@ -207,7 +207,7 @@ export const ReportBuilder = () => {
 
               {/* Formats */}
               <div className="flex items-center gap-2 mb-4">
-                <span className="text-xs text-text-muted">Formats:</span>
+                <span className="text-xs text-text-muted">{t('reportBuilder.formats')}:</span>
                 <div className="flex items-center gap-1">
                   {template.formats.map((format) => (
                     <span
@@ -229,7 +229,7 @@ export const ReportBuilder = () => {
               <div className="flex items-center justify-between text-xs text-text-muted mb-4 pt-4 border-t border-white/[0.08]">
                 <span className="flex items-center gap-1">
                   <BarChart3 size={12} />
-                  Used {template.usageCount} times
+                  {t('reportBuilder.usedTimes', { count: template.usageCount })}
                 </span>
                 <span className="flex items-center gap-1">
                   <Clock size={12} />
@@ -240,14 +240,14 @@ export const ReportBuilder = () => {
               {/* Footer */}
               <div className="flex items-center justify-between">
                 <span className="text-xs text-text-muted">
-                  Last used: {formatDate(template.lastUsed)}
+                  {t('reportBuilder.lastUsed', { date: formatDate(template.lastUsed) })}
                 </span>
                 <Button
                   size="sm"
                   leftIcon={<Play size={14} />}
                   onClick={() => handleGenerate(template)}
                 >
-                  Generate
+                  {t('reportBuilder.generate')}
                 </Button>
               </div>
             </Card>
@@ -259,7 +259,7 @@ export const ReportBuilder = () => {
       {filteredTemplates.length === 0 && (
         <Card className="p-12 text-center">
           <FileText size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No report templates found</p>
+          <p className="text-text-secondary">{t('reportBuilder.noTemplatesFound')}</p>
         </Card>
       )}
 
@@ -287,7 +287,7 @@ export const ReportBuilder = () => {
                     <h2 className="text-lg font-semibold text-text-primary">
                       {selectedTemplate.name}
                     </h2>
-                    <p className="text-sm text-text-muted">Configure report parameters</p>
+                    <p className="text-sm text-text-muted">{t('reportBuilder.configureParameters')}</p>
                   </div>
                 </div>
                 <button
@@ -305,35 +305,35 @@ export const ReportBuilder = () => {
               <div>
                 <label className="block text-sm font-medium text-text-primary mb-2">
                   <Calendar size={14} className="inline mr-2" />
-                  Date Range
+                  {t('reportBuilder.dateRange')}
                 </label>
                 <select
                   value={dateRange}
                   onChange={(e) => setDateRange(e.target.value)}
                   className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
                 >
-                  <option value="today">Today</option>
-                  <option value="yesterday">Yesterday</option>
-                  <option value="this-week">This Week</option>
-                  <option value="last-week">Last Week</option>
-                  <option value="this-month">This Month</option>
-                  <option value="last-month">Last Month</option>
-                  <option value="this-quarter">This Quarter</option>
-                  <option value="custom">Custom Range</option>
+                  <option value="today">{t('reportBuilder.today')}</option>
+                  <option value="yesterday">{t('reportBuilder.yesterday')}</option>
+                  <option value="this-week">{t('reportBuilder.thisWeek')}</option>
+                  <option value="last-week">{t('reportBuilder.lastWeek')}</option>
+                  <option value="this-month">{t('reportBuilder.thisMonth')}</option>
+                  <option value="last-month">{t('reportBuilder.lastMonth')}</option>
+                  <option value="this-quarter">{t('reportBuilder.thisQuarter')}</option>
+                  <option value="custom">{t('reportBuilder.customRange')}</option>
                 </select>
               </div>
 
               {/* Dynamic Filters */}
               <div>
                 <label className="block text-sm font-medium text-text-primary mb-2">
-                  Filters
+                  {t('reportBuilder.filters')}
                 </label>
                 <div className="space-y-3">
                   {selectedTemplate.fields.slice(1).map((field) => (
                     <div key={field}>
                       <label className="block text-xs text-text-muted mb-1">{field}</label>
                       <select className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary text-sm focus:outline-none focus:border-accent-primary">
-                        <option value="all">All</option>
+                        <option value="all">{t('reportBuilder.all')}</option>
                         <option value="option1">Option 1</option>
                         <option value="option2">Option 2</option>
                       </select>
@@ -345,7 +345,7 @@ export const ReportBuilder = () => {
               {/* Output Format */}
               <div>
                 <label className="block text-sm font-medium text-text-primary mb-2">
-                  Output Format
+                  {t('reportBuilder.outputFormat')}
                 </label>
                 <div className="flex flex-wrap gap-2">
                   {selectedTemplate.formats.map((format) => (
@@ -368,7 +368,7 @@ export const ReportBuilder = () => {
               {/* Options */}
               <div>
                 <label className="block text-sm font-medium text-text-primary mb-2">
-                  Options
+                  {t('reportBuilder.options')}
                 </label>
                 <div className="space-y-2">
                   <label className="flex items-center gap-3 cursor-pointer">
@@ -378,7 +378,7 @@ export const ReportBuilder = () => {
                       onChange={(e) => setIncludeCharts(e.target.checked)}
                       className="w-4 h-4 rounded border-white/[0.08] text-accent-primary focus:ring-accent-primary"
                     />
-                    <span className="text-sm text-text-secondary">Include charts</span>
+                    <span className="text-sm text-text-secondary">{t('reportBuilder.includeCharts')}</span>
                   </label>
                   <label className="flex items-center gap-3 cursor-pointer">
                     <input
@@ -387,7 +387,7 @@ export const ReportBuilder = () => {
                       onChange={(e) => setIncludeSummary(e.target.checked)}
                       className="w-4 h-4 rounded border-white/[0.08] text-accent-primary focus:ring-accent-primary"
                     />
-                    <span className="text-sm text-text-secondary">Include summary</span>
+                    <span className="text-sm text-text-secondary">{t('reportBuilder.includeSummary')}</span>
                   </label>
                 </div>
               </div>
@@ -395,7 +395,7 @@ export const ReportBuilder = () => {
               {/* Delivery Method */}
               <div>
                 <label className="block text-sm font-medium text-text-primary mb-2">
-                  Delivery Method
+                  {t('reportBuilder.deliveryMethod')}
                 </label>
                 <div className="space-y-2">
                   <label className="flex items-center gap-3 cursor-pointer">
@@ -407,7 +407,7 @@ export const ReportBuilder = () => {
                       className="w-4 h-4 border-white/[0.08] text-accent-primary focus:ring-accent-primary"
                     />
                     <Download size={16} className="text-text-muted" />
-                    <span className="text-sm text-text-secondary">Download immediately</span>
+                    <span className="text-sm text-text-secondary">{t('reportBuilder.downloadImmediately')}</span>
                   </label>
                   <label className="flex items-center gap-3 cursor-pointer">
                     <input
@@ -418,7 +418,7 @@ export const ReportBuilder = () => {
                       className="w-4 h-4 border-white/[0.08] text-accent-primary focus:ring-accent-primary"
                     />
                     <Send size={16} className="text-text-muted" />
-                    <span className="text-sm text-text-secondary">Send to email</span>
+                    <span className="text-sm text-text-secondary">{t('reportBuilder.sendToEmail')}</span>
                   </label>
                   <label className="flex items-center gap-3 cursor-pointer">
                     <input
@@ -429,14 +429,14 @@ export const ReportBuilder = () => {
                       className="w-4 h-4 border-white/[0.08] text-accent-primary focus:ring-accent-primary"
                     />
                     <Clock size={16} className="text-text-muted" />
-                    <span className="text-sm text-text-secondary">Schedule report</span>
+                    <span className="text-sm text-text-secondary">{t('reportBuilder.scheduleReport')}</span>
                   </label>
                 </div>
 
                 {deliveryMethod === 'email' && (
                   <div className="mt-3">
                     <Input
-                      placeholder="Enter email address"
+                      placeholder={t('reportBuilder.enterEmail')}
                       value={emailRecipient}
                       onChange={(e) => setEmailRecipient(e.target.value)}
                       leftIcon={<Send size={14} />}
@@ -453,14 +453,14 @@ export const ReportBuilder = () => {
                 leftIcon={<Save size={14} />}
                 onClick={() => setShowConfigModal(false)}
               >
-                Save as Template
+                {t('reportBuilder.saveAsTemplate')}
               </Button>
               <div className="flex items-center gap-3">
                 <Button variant="secondary" onClick={() => setShowConfigModal(false)}>
-                  Cancel
+                  {t('reportBuilder.cancel')}
                 </Button>
                 <Button leftIcon={<Play size={14} />} onClick={startGeneration}>
-                  Generate Report
+                  {t('reportBuilder.generateReport')}
                 </Button>
               </div>
             </div>
@@ -482,7 +482,7 @@ export const ReportBuilder = () => {
                   <Loader2 size={32} className="text-accent-primary animate-spin" />
                 </div>
                 <h3 className="text-lg font-semibold text-text-primary mb-2">
-                  Generating Report...
+                  {t('reportBuilder.generatingReport')}
                 </h3>
                 <p className="text-sm text-text-secondary mb-4">
                   {selectedTemplate.name}
@@ -496,7 +496,7 @@ export const ReportBuilder = () => {
                   />
                 </div>
                 <p className="text-xs text-text-muted">
-                  Estimated time: {selectedTemplate.estimatedTime}
+                  {t('reportBuilder.estimatedTime', { time: selectedTemplate.estimatedTime })}
                 </p>
                 <Button
                   variant="secondary"
@@ -504,7 +504,7 @@ export const ReportBuilder = () => {
                   className="mt-4"
                   onClick={closeProgressModal}
                 >
-                  Cancel
+                  {t('reportBuilder.cancel')}
                 </Button>
               </div>
             ) : generationComplete ? (
@@ -513,17 +513,17 @@ export const ReportBuilder = () => {
                   <CheckCircle size={32} className="text-green-500" />
                 </div>
                 <h3 className="text-lg font-semibold text-text-primary mb-2">
-                  Report Generated!
+                  {t('reportBuilder.reportGenerated')}
                 </h3>
                 <p className="text-sm text-text-secondary mb-6">
-                  Your report is ready for download
+                  {t('reportBuilder.readyForDownload')}
                 </p>
                 <div className="flex items-center justify-center gap-3">
                   <Button variant="secondary" onClick={closeProgressModal}>
-                    Close
+                    {t('reportBuilder.close')}
                   </Button>
                   <Button leftIcon={<Download size={14} />}>
-                    Download {outputFormat}
+                    {t('reportBuilder.download')} {outputFormat}
                   </Button>
                 </div>
               </div>
