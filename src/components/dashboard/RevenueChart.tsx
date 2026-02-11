@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import {
   AreaChart,
   Area,
@@ -25,6 +26,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 };
 
 export const RevenueChart = () => {
+  const { t } = useTranslation('dashboard');
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -37,8 +39,8 @@ export const RevenueChart = () => {
 
       {/* Header */}
       <div className="relative z-10 mb-6">
-        <h3 className="text-lg font-semibold text-white mb-1">Revenue Overview</h3>
-        <p className="text-white/40 text-sm">Monthly revenue for the current year</p>
+        <h3 className="text-lg font-semibold text-white mb-1">{t('charts.revenue')}</h3>
+        <p className="text-white/40 text-sm">{t('charts.revenueSubtitle')}</p>
       </div>
 
       {/* Chart */}

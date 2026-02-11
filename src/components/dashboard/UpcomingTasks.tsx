@@ -1,13 +1,20 @@
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { ChevronRight } from 'lucide-react';
-import { upcomingTasks } from '@/data/dashboardData';
 
 const priorityColors = {
   high: 'bg-red-500',
   medium: 'bg-orange-500',
   low: 'bg-blue-500',
 };
+
+const tasks = [
+  { id: 1, titleKey: "reviewMarketing", dueDateKey: "today", priority: "high" as const, assignee: "JD" },
+  { id: 2, titleKey: "clientMeeting", dueDateKey: "tomorrow", priority: "high" as const, assignee: "AS" },
+  { id: 3, titleKey: "updateHandbook", dueDate: "Dec 28", priority: "medium" as const, assignee: "MK" },
+  { id: 4, titleKey: "serverMaintenance", dueDate: "Dec 29", priority: "medium" as const, assignee: "RW" },
+  { id: 5, titleKey: "annualReport", dueDate: "Dec 30", priority: "low" as const, assignee: "LP" },
+];
 
 export const UpcomingTasks = () => {
   const { t } = useTranslation('dashboard');
@@ -28,7 +35,7 @@ export const UpcomingTasks = () => {
 
       {/* Tasks List */}
       <div className="relative z-10 space-y-3">
-        {upcomingTasks.map((task, index) => (
+        {tasks.map((task, index) => (
           <motion.div
             key={task.id}
             initial={{ opacity: 0, x: -10 }}
@@ -41,8 +48,12 @@ export const UpcomingTasks = () => {
 
             {/* Task info */}
             <div className="flex-1 min-w-0">
-              <p className="text-white/80 text-sm font-medium truncate">{task.title}</p>
-              <p className="text-white/40 text-xs mt-0.5">{task.dueDate}</p>
+              <p className="text-white/80 text-sm font-medium truncate">
+                {t(`upcomingTasks.${task.titleKey}`)}
+              </p>
+              <p className="text-white/40 text-xs mt-0.5">
+                {task.dueDateKey ? t(`upcomingTasks.${task.dueDateKey}`) : task.dueDate}
+              </p>
             </div>
 
             {/* Assignee avatar */}

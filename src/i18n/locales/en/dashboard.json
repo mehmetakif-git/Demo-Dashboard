@@ -7,16 +7,33 @@
     "pendingTasks": "Pending Tasks",
     "monthlyGrowth": "This Month's Growth",
     "fromLastMonth": "from last month",
-    "urgent": "urgent",
+    "urgent_one": "{{count}} urgent",
+    "urgent_other": "{{count}} urgent",
     "onTrack": "On track"
   },
   "recentActivities": {
     "title": "Recent Activities",
-    "viewAll": "View All"
+    "viewAll": "View All",
+    "newMember": "New member registered: {{name}}",
+    "invoicePaid": "Invoice #{{id}} was paid",
+    "taskCompleted": "Task completed: {{task}}",
+    "newTicket": "New support ticket opened",
+    "leaveApproved": "Employee leave approved",
+    "reportGenerated": "Monthly report generated",
+    "hoursAgo": "{{count}} hours ago",
+    "dayAgo": "{{count}} day ago",
+    "daysAgo": "{{count}} days ago"
   },
   "upcomingTasks": {
     "title": "Upcoming Tasks",
-    "viewAll": "View All"
+    "viewAll": "View All",
+    "reviewMarketing": "Review Q4 marketing plan",
+    "clientMeeting": "Client meeting preparation",
+    "updateHandbook": "Update employee handbook",
+    "serverMaintenance": "Server maintenance",
+    "annualReport": "Annual report draft",
+    "today": "Today",
+    "tomorrow": "Tomorrow"
   },
   "quickActions": {
     "title": "Quick Actions",
@@ -29,9 +46,18 @@
   },
   "charts": {
     "revenue": "Revenue Overview",
-    "tasks": "Task Distribution",
+    "revenueSubtitle": "Monthly revenue for the current year",
+    "tasks": "Tasks Overview",
+    "tasksSubtitle": "Current task distribution",
+    "total": "Total",
     "monthly": "Monthly",
     "weekly": "Weekly",
     "daily": "Daily"
+  },
+  "taskStatus": {
+    "completed": "Completed",
+    "inProgress": "In Progress",
+    "pending": "Pending",
+    "overdue": "Overdue"
   }
 }

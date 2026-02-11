@@ -1,22 +1,32 @@
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { taskStatusData } from '@/data/dashboardData';
 
-const CustomTooltip = ({ active, payload }: any) => {
-  if (active && payload && payload.length) {
-    return (
-      <div className="bg-white/[0.08] backdrop-blur-xl border border-white/[0.12] rounded-lg px-4 py-3 shadow-xl">
-        <p className="text-white font-semibold">
-          {payload[0].name}: {payload[0].value}
-        </p>
-      </div>
-    );
-  }
-  return null;
+const statusKeyMap: Record<string, string> = {
+  'Completed': 'completed',
+  'In Progress': 'inProgress',
+  'Pending': 'pending',
+  'Overdue': 'overdue',
 };
 
 export const TasksChart = () => {
+  const { t } = useTranslation('dashboard');
   const total = taskStatusData.reduce((sum, item) => sum + item.value, 0);
+
+  const CustomTooltip = ({ active, payload }: any) => {
+    if (active && payload && payload.length) {
+      const key = statusKeyMap[payload[0].name];
+      return (
+        <div className="bg-white/[0.08] backdrop-blur-xl border border-white/[0.12] rounded-lg px-4 py-3 shadow-xl">
+          <p className="text-white font-semibold">
+            {key ? t(`taskStatus.${key}`) : payload[0].name}: {payload[0].value}
+          </p>
+        </div>
+      );
+    }
+    return null;
+  };
 
   return (
     <motion.div
@@ -30,8 +40,8 @@ export const TasksChart = () => {
 
       {/* Header */}
       <div className="relative z-10 mb-6">
-        <h3 className="text-lg font-semibold text-white mb-1">Tasks Overview</h3>
-        <p className="text-white/40 text-sm">Current task distribution</p>
+        <h3 className="text-lg font-semibold text-white mb-1">{t('charts.tasks')}</h3>
+        <p className="text-white/40 text-sm">{t('charts.tasksSubtitle')}</p>
       </div>
 
       {/* Chart */}
@@ -59,7 +69,7 @@ export const TasksChart = () => {
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <div className="text-center">
             <p className="text-3xl font-bold text-white">{total}</p>
-            <p className="text-white/40 text-sm">Total</p>
+            <p className="text-white/40 text-sm">{t('charts.total')}</p>
           </div>
         </div>
       </div>
@@ -72,7 +82,7 @@ export const TasksChart = () => {
               className="w-3 h-3 rounded-full"
               style={{ backgroundColor: item.color }}
             />
-            <span className="text-white/60 text-sm">{item.name}</span>
+            <span className="text-white/60 text-sm">{t(`taskStatus.${statusKeyMap[item.name]}`)}</span>
             <span className="text-white font-medium text-sm ml-auto">{item.value}</span>
           </div>
         ))}

@@ -89,7 +89,7 @@ export const Dashboard = () => {
           prefix="$"
           change={kpiData.totalRevenue.change}
           changeType={kpiData.totalRevenue.changeType}
-          changeLabel={kpiData.totalRevenue.label}
+          changeLabel={t('kpis.fromLastMonth')}
           icon={DollarSign}
           iconColor="#10b981"
           iconBg="rgba(16, 185, 129, 0.2)"
@@ -100,7 +100,7 @@ export const Dashboard = () => {
           value={kpiData.activeClients.value}
           change={kpiData.activeClients.change}
           changeType={kpiData.activeClients.changeType}
-          changeLabel={kpiData.activeClients.label}
+          changeLabel={t('kpis.fromLastMonth')}
           icon={Users}
           iconColor="#547792"
           iconBg="rgba(84, 119, 146, 0.2)"
@@ -109,7 +109,7 @@ export const Dashboard = () => {
         <KPICard
           title={t('kpis.pendingTasks')}
           value={kpiData.pendingTasks.value}
-          change={kpiData.pendingTasks.change}
+          change={t('kpis.urgent_other', { count: 5 })}
           changeType={kpiData.pendingTasks.changeType}
           icon={Clock}
           iconColor="#f59e0b"
@@ -122,7 +122,7 @@ export const Dashboard = () => {
           prefix="+"
           suffix="%"
           decimals={1}
-          change={kpiData.growthRate.change}
+          change={t('kpis.onTrack')}
           changeType={kpiData.growthRate.changeType}
           icon={TrendingUp}
           iconColor="#94B4C1"

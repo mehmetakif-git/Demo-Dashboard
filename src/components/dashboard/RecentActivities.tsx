@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { User, DollarSign, Check, Ticket, Calendar, FileText, ChevronRight } from 'lucide-react';
-import { recentActivities } from '@/data/dashboardData';
 
 const iconMap: Record<string, any> = {
   user: User,
@@ -11,6 +10,15 @@ const iconMap: Record<string, any> = {
   calendar: Calendar,
   file: FileText,
 };
+
+const activities = [
+  { id: 1, icon: "user", color: "#10b981", textKey: "newMember", textParams: { name: "John Smith" }, timeKey: "hoursAgo", timeParams: { count: 2 } },
+  { id: 2, icon: "dollar", color: "#6366f1", textKey: "invoicePaid", textParams: { id: "1234" }, timeKey: "hoursAgo", timeParams: { count: 3 } },
+  { id: 3, icon: "check", color: "#10b981", textKey: "taskCompleted", textParams: { task: "Website redesign" }, timeKey: "hoursAgo", timeParams: { count: 5 } },
+  { id: 4, icon: "ticket", color: "#f59e0b", textKey: "newTicket", textParams: {}, timeKey: "hoursAgo", timeParams: { count: 6 } },
+  { id: 5, icon: "calendar", color: "#8b5cf6", textKey: "leaveApproved", textParams: {}, timeKey: "hoursAgo", timeParams: { count: 8 } },
+  { id: 6, icon: "file", color: "#6366f1", textKey: "reportGenerated", textParams: {}, timeKey: "dayAgo", timeParams: { count: 1 } },
+];
 
 export const RecentActivities = () => {
   const { t } = useTranslation('dashboard');
@@ -31,7 +39,7 @@ export const RecentActivities = () => {
 
       {/* Activities List */}
       <div className="relative z-10 space-y-4">
-        {recentActivities.map((activity, index) => {
+        {activities.map((activity, index) => {
           const Icon = iconMap[activity.icon] || FileText;
           return (
             <motion.div
@@ -49,9 +57,11 @@ export const RecentActivities = () => {
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-white/80 text-sm leading-relaxed truncate">
-                  {activity.text}
+                  {t(`recentActivities.${activity.textKey}`, activity.textParams)}
                 </p>
-                <p className="text-white/40 text-xs mt-0.5">{activity.time}</p>
+                <p className="text-white/40 text-xs mt-0.5">
+                  {t(`recentActivities.${activity.timeKey}`, activity.timeParams)}
+                </p>
               </div>
             </motion.div>
           );

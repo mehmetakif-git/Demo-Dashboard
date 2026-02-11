@@ -7,16 +7,33 @@
     "pendingTasks": "Bekleyen Görevler",
     "monthlyGrowth": "Bu Ayın Büyümesi",
     "fromLastMonth": "geçen aya göre",
-    "urgent": "acil",
+    "urgent_one": "{{count}} acil",
+    "urgent_other": "{{count}} acil",
     "onTrack": "Hedefte"
   },
   "recentActivities": {
     "title": "Son Aktiviteler",
-    "viewAll": "Tümünü Gör"
+    "viewAll": "Tümünü Gör",
+    "newMember": "Yeni üye kaydı: {{name}}",
+    "invoicePaid": "#{{id}} numaralı fatura ödendi",
+    "taskCompleted": "Görev tamamlandı: {{task}}",
+    "newTicket": "Yeni destek talebi açıldı",
+    "leaveApproved": "Çalışan izni onaylandı",
+    "reportGenerated": "Aylık rapor oluşturuldu",
+    "hoursAgo": "{{count}} saat önce",
+    "dayAgo": "{{count}} gün önce",
+    "daysAgo": "{{count}} gün önce"
   },
   "upcomingTasks": {
     "title": "Yaklaşan Görevler",
-    "viewAll": "Tümünü Gör"
+    "viewAll": "Tümünü Gör",
+    "reviewMarketing": "Q4 pazarlama planını incele",
+    "clientMeeting": "Müşteri toplantısı hazırlığı",
+    "updateHandbook": "Çalışan el kitabını güncelle",
+    "serverMaintenance": "Sunucu bakımı",
+    "annualReport": "Yıllık rapor taslağı",
+    "today": "Bugün",
+    "tomorrow": "Yarın"
   },
   "quickActions": {
     "title": "Hızlı İşlemler",
@@ -29,9 +46,18 @@
   },
   "charts": {
     "revenue": "Gelir Özeti",
+    "revenueSubtitle": "Yıllık aylık gelir özeti",
     "tasks": "Görev Dağılımı",
+    "tasksSubtitle": "Mevcut görev dağılımı",
+    "total": "Toplam",
     "monthly": "Aylık",
     "weekly": "Haftalık",
     "daily": "Günlük"
+  },
+  "taskStatus": {
+    "completed": "Tamamlanan",
+    "inProgress": "Devam Eden",
+    "pending": "Bekleyen",
+    "overdue": "Geciken"
   }
 }
