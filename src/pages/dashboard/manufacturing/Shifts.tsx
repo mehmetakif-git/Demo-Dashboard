@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   Clock,
@@ -16,9 +17,18 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { shifts, shiftAssignments, MANUFACTURING_COLOR } from '@/data/manufacturing/manufacturingData';
 
 export const Shifts = () => {
+  const { t } = useTranslation('manufacturing');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDate, setSelectedDate] = useState<string>(new Date().toISOString().split('T')[0]);
   const [statusFilter, setStatusFilter] = useState<string>('all');
+
+  const statusMap: Record<string, string> = {
+    'all': t('status.all'),
+    'active': t('status.active'),
+    'inactive': t('status.inactive'),
+    'scheduled': t('status.scheduled'),
+    'completed': t('status.completed'),
+  };
 
   const stats = useMemo(() => {
     const totalShifts = shifts.length;
@@ -63,13 +73,13 @@ export const Shifts = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Shift Management"
-        subtitle="Manage work shifts and assignments"
+        title={t('shifts.title')}
+        subtitle={t('shifts.subtitle')}
         icon={Clock}
         actions={
           <Button>
             <Plus size={18} />
-            Create Shift
+            {t('shifts.createShift')}
           </Button>
         }
       />
@@ -77,10 +87,10 @@ export const Shifts = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Shifts', value: stats.totalShifts, icon: Clock, color: MANUFACTURING_COLOR },
-          { label: 'Active Shifts', value: stats.activeShifts, icon: CheckCircle, color: '#10b981' },
-          { label: 'Today\'s Assignments', value: stats.todayAssignments, icon: Calendar, color: '#3b82f6' },
-          { label: 'Total Workers', value: stats.totalWorkers, icon: Users, color: '#f59e0b' },
+          { label: t('shifts.totalShifts'), value: stats.totalShifts, icon: Clock, color: MANUFACTURING_COLOR },
+          { label: t('shifts.activeShifts'), value: stats.activeShifts, icon: CheckCircle, color: '#10b981' },
+          { label: t('shifts.todaysAssignments'), value: stats.todayAssignments, icon: Calendar, color: '#3b82f6' },
+          { label: t('shifts.totalWorkers'), value: stats.totalWorkers, icon: Users, color: '#f59e0b' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -111,7 +121,7 @@ export const Shifts = () => {
 
       {/* Shifts Overview */}
       <Card className="p-4">
-        <h3 className="font-semibold text-text-primary mb-4">Shift Schedule</h3>
+        <h3 className="font-semibold text-text-primary mb-4">{t('shifts.shiftSchedule')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {shifts.map((shift, index) => (
             <motion.div
@@ -127,24 +137,24 @@ export const Shifts = () => {
                   <span className="font-medium text-text-primary">{shift.shiftName}</span>
                 </div>
                 <span
-                  className={`px-2 py-0.5 rounded-full text-xs font-medium capitalize ${
+                  className={`px-2 py-0.5 rounded-full text-xs font-medium ${
                     shift.status === 'active' ? 'bg-success/20 text-success' : 'bg-text-muted/20 text-text-muted'
                   }`}
                 >
-                  {shift.status}
+                  {statusMap[shift.status] || shift.status}
                 </span>
               </div>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-text-muted">Time:</span>
+                  <span className="text-text-muted">{t('shifts.time')}</span>
                   <span className="text-text-primary">{shift.startTime} - {shift.endTime}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-text-muted">Duration:</span>
-                  <span className="text-text-primary">{shift.duration} hours</span>
+                  <span className="text-text-muted">{t('shifts.duration')}</span>
+                  <span className="text-text-primary">{shift.duration} {t('shifts.hours')}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-text-muted">Days:</span>
+                  <span className="text-text-muted">{t('shifts.days')}</span>
                   <span className="text-text-primary text-right">{shift.days.slice(0, 3).join(', ')}{shift.days.length > 3 ? '...' : ''}</span>
                 </div>
               </div>
@@ -153,13 +163,13 @@ export const Shifts = () => {
                   trigger={
                     <Button variant="ghost" size="sm" className="w-full">
                       <MoreVertical size={16} className="mr-1" />
-                      Actions
+                      {t('shifts.actions')}
                     </Button>
                   }
                   items={[
-                    { id: 'view', label: 'View Details', onClick: () => {} },
-                    { id: 'edit', label: 'Edit', onClick: () => {} },
-                    { id: 'delete', label: 'Delete', onClick: () => {} },
+                    { id: 'view', label: t('shifts.viewDetails'), onClick: () => {} },
+                    { id: 'edit', label: t('shifts.edit'), onClick: () => {} },
+                    { id: 'delete', label: t('shifts.delete'), onClick: () => {} },
                   ]}
                 />
               </div>
@@ -171,13 +181,13 @@ export const Shifts = () => {
       {/* Shift Assignments */}
       <Card className="p-4">
         <div className="flex flex-col md:flex-row gap-4 mb-4">
-          <h3 className="font-semibold text-text-primary">Shift Assignments</h3>
+          <h3 className="font-semibold text-text-primary">{t('shifts.shiftAssignments')}</h3>
           <div className="flex-1" />
           <div className="flex gap-4">
             <div className="relative">
               <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
               <Input
-                placeholder="Search..."
+                placeholder={t('shifts.searchPlaceholder')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10 w-48"
@@ -197,7 +207,7 @@ export const Shifts = () => {
                   size="sm"
                   onClick={() => setStatusFilter(status)}
                 >
-                  {status === 'all' ? 'All' : status.charAt(0).toUpperCase() + status.slice(1)}
+                  {statusMap[status] || status}
                 </Button>
               ))}
             </div>
@@ -206,7 +216,7 @@ export const Shifts = () => {
 
         <Button size="sm" className="mb-4">
           <Plus size={16} className="mr-1" />
-          Create Assignment
+          {t('shifts.createAssignment')}
         </Button>
 
         {/* Assignments Table */}
@@ -214,12 +224,12 @@ export const Shifts = () => {
           <table className="w-full">
             <thead className="bg-background-tertiary">
               <tr>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Shift</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Production Line</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Supervisor</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Workers</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Status</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Actions</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('shifts.shift')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('shifts.productionLine')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('shifts.supervisor')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('shifts.workers')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('shifts.status')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('shifts.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -260,11 +270,11 @@ export const Shifts = () => {
                     </td>
                     <td className="py-3 px-4 text-center">
                       <span
-                        className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium capitalize"
+                        className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium"
                         style={{ backgroundColor: `${getStatusColor(assignment.status)}20`, color: getStatusColor(assignment.status) }}
                       >
                         <StatusIcon size={10} />
-                        {assignment.status}
+                        {statusMap[assignment.status] || assignment.status}
                       </span>
                     </td>
                     <td className="py-3 px-4 text-center">
@@ -275,8 +285,8 @@ export const Shifts = () => {
                           </Button>
                         }
                         items={[
-                          { id: 'view', label: 'View Workers', onClick: () => {} },
-                          { id: 'edit', label: 'Edit', onClick: () => {} },
+                          { id: 'view', label: t('shifts.viewWorkers'), onClick: () => {} },
+                          { id: 'edit', label: t('shifts.edit'), onClick: () => {} },
                         ]}
                       />
                     </td>
@@ -289,7 +299,7 @@ export const Shifts = () => {
 
         {filteredAssignments.length === 0 && (
           <div className="py-8 text-center text-text-muted">
-            No assignments found for this date
+            {t('shifts.noAssignmentsFound')}
           </div>
         )}
       </Card>

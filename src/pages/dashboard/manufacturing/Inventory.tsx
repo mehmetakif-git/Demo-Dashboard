@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   Package,
@@ -16,9 +17,17 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { rawMaterials, MANUFACTURING_COLOR } from '@/data/manufacturing/manufacturingData';
 
 export const Inventory = () => {
+  const { t } = useTranslation('manufacturing');
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
+
+  const statusMap: Record<string, string> = {
+    'all': t('status.all'),
+    'in-stock': t('status.inStock'),
+    'low-stock': t('status.lowStock'),
+    'out-of-stock': t('status.outOfStock'),
+  };
 
   const categories = useMemo(() => {
     return ['all', ...new Set(rawMaterials.map(m => m.category))];
@@ -67,13 +76,13 @@ export const Inventory = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Raw Materials Inventory"
-        subtitle="Manage raw materials and stock levels"
+        title={t('inventory.title')}
+        subtitle={t('inventory.subtitle')}
         icon={Package}
         actions={
           <Button>
             <Plus size={18} />
-            Add Material
+            {t('inventory.addMaterial')}
           </Button>
         }
       />
@@ -81,10 +90,10 @@ export const Inventory = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Materials', value: stats.totalMaterials, icon: Package, color: MANUFACTURING_COLOR },
-          { label: 'Total Value', value: `QAR ${stats.totalValue.toLocaleString()}`, icon: DollarSign, color: '#10b981' },
-          { label: 'Low Stock Alerts', value: stats.lowStockAlerts, icon: AlertTriangle, color: stats.lowStockAlerts > 0 ? '#ef4444' : '#10b981' },
-          { label: 'Categories', value: stats.categoriesCount, icon: Package, color: '#3b82f6' },
+          { label: t('inventory.totalMaterials'), value: stats.totalMaterials, icon: Package, color: MANUFACTURING_COLOR },
+          { label: t('inventory.totalValue'), value: `QAR ${stats.totalValue.toLocaleString()}`, icon: DollarSign, color: '#10b981' },
+          { label: t('inventory.lowStockAlerts'), value: stats.lowStockAlerts, icon: AlertTriangle, color: stats.lowStockAlerts > 0 ? '#ef4444' : '#10b981' },
+          { label: t('inventory.categories'), value: stats.categoriesCount, icon: Package, color: '#3b82f6' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -119,7 +128,7 @@ export const Inventory = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by code, name, or supplier..."
+              placeholder={t('inventory.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -131,7 +140,7 @@ export const Inventory = () => {
             onChange={(e) => setCategoryFilter(e.target.value)}
           >
             {categories.map(cat => (
-              <option key={cat} value={cat}>{cat === 'all' ? 'All Categories' : cat}</option>
+              <option key={cat} value={cat}>{cat === 'all' ? t('inventory.allCategories') : cat}</option>
             ))}
           </select>
           <div className="flex gap-2">
@@ -142,7 +151,7 @@ export const Inventory = () => {
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status === 'all' ? 'All' : status.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                {statusMap[status]}
               </Button>
             ))}
           </div>
@@ -155,14 +164,14 @@ export const Inventory = () => {
           <table className="w-full">
             <thead className="bg-background-tertiary">
               <tr>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Material</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Category</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Stock</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Status</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Unit Cost</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Total Value</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Supplier</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Actions</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('inventory.material')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('inventory.category')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('inventory.stock')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('inventory.status')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('inventory.unitCost')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('inventory.totalValue2')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('inventory.supplier')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('inventory.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -214,11 +223,11 @@ export const Inventory = () => {
                     </td>
                     <td className="py-3 px-4 text-center">
                       <span
-                        className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium capitalize"
+                        className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium"
                         style={{ backgroundColor: `${getStatusColor(material.status)}20`, color: getStatusColor(material.status) }}
                       >
                         <StatusIcon size={10} />
-                        {material.status.replace(/-/g, ' ')}
+                        {statusMap[material.status]}
                       </span>
                     </td>
                     <td className="py-3 px-4 text-right">
@@ -245,10 +254,10 @@ export const Inventory = () => {
                           </Button>
                         }
                         items={[
-                          { id: 'view', label: 'View Details', onClick: () => {} },
-                          { id: 'edit', label: 'Edit', onClick: () => {} },
-                          { id: 'restock', label: 'Restock', onClick: () => {} },
-                          { id: 'allocate', label: 'Allocate', onClick: () => {} },
+                          { id: 'view', label: t('inventory.viewDetails'), onClick: () => {} },
+                          { id: 'edit', label: t('inventory.edit'), onClick: () => {} },
+                          { id: 'restock', label: t('inventory.restock'), onClick: () => {} },
+                          { id: 'allocate', label: t('inventory.allocate'), onClick: () => {} },
                         ]}
                       />
                     </td>
@@ -263,7 +272,7 @@ export const Inventory = () => {
       {filteredMaterials.length === 0 && (
         <Card className="p-12 text-center">
           <Package size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No materials found</p>
+          <p className="text-text-secondary">{t('inventory.noMaterialsFound')}</p>
         </Card>
       )}
     </div>

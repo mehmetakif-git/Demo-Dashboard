@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   Trash2,
@@ -16,6 +17,7 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { wasteRecords, MANUFACTURING_COLOR } from '@/data/manufacturing/manufacturingData';
 
 export const Waste = () => {
+  const { t } = useTranslation('manufacturing');
   const [searchQuery, setSearchQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [methodFilter, setMethodFilter] = useState<string>('all');
@@ -71,13 +73,13 @@ export const Waste = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Waste Management"
-        subtitle="Track and manage production waste"
+        title={t('waste.title')}
+        subtitle={t('waste.subtitle')}
         icon={Trash2}
         actions={
           <Button>
             <Plus size={18} />
-            Record Waste
+            {t('waste.recordWaste')}
           </Button>
         }
       />
@@ -85,10 +87,10 @@ export const Waste = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Records', value: stats.totalRecords, icon: Trash2, color: MANUFACTURING_COLOR },
-          { label: 'Total Cost', value: `QAR ${stats.totalCost.toLocaleString()}`, icon: DollarSign, color: '#ef4444' },
-          { label: 'Recycled', value: stats.recycled, icon: Recycle, color: '#10b981' },
-          { label: 'Recycling Rate', value: `${stats.recyclingRate}%`, icon: Recycle, color: stats.recyclingRate >= 50 ? '#10b981' : '#f59e0b' },
+          { label: t('waste.totalRecords'), value: stats.totalRecords, icon: Trash2, color: MANUFACTURING_COLOR },
+          { label: t('waste.totalCost'), value: `QAR ${stats.totalCost.toLocaleString()}`, icon: DollarSign, color: '#ef4444' },
+          { label: t('waste.recycled'), value: stats.recycled, icon: Recycle, color: '#10b981' },
+          { label: t('waste.recyclingRate'), value: `${stats.recyclingRate}%`, icon: Recycle, color: stats.recyclingRate >= 50 ? '#10b981' : '#f59e0b' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -123,7 +125,7 @@ export const Waste = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by work order, product, or reason..."
+              placeholder={t('waste.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -135,7 +137,7 @@ export const Waste = () => {
             onChange={(e) => setTypeFilter(e.target.value)}
           >
             {wasteTypes.map(type => (
-              <option key={type} value={type}>{type === 'all' ? 'All Types' : type}</option>
+              <option key={type} value={type}>{type === 'all' ? t('waste.allTypes') : type}</option>
             ))}
           </select>
           <select
@@ -144,7 +146,7 @@ export const Waste = () => {
             onChange={(e) => setMethodFilter(e.target.value)}
           >
             {disposalMethods.map(method => (
-              <option key={method} value={method}>{method === 'all' ? 'All Disposal Methods' : method}</option>
+              <option key={method} value={method}>{method === 'all' ? t('waste.allDisposalMethods') : method}</option>
             ))}
           </select>
         </div>
@@ -156,15 +158,15 @@ export const Waste = () => {
           <table className="w-full">
             <thead className="bg-background-tertiary">
               <tr>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Date</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Work Order</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Product</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Waste Type</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Quantity</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Reason</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Disposal</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Cost</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Actions</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('waste.date')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('waste.workOrder')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('waste.product')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('waste.wasteType')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('waste.quantity')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('waste.reason')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('waste.disposal')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('waste.cost')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('waste.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -228,8 +230,8 @@ export const Waste = () => {
                         </Button>
                       }
                       items={[
-                        { id: 'view', label: 'View Details', onClick: () => {} },
-                        { id: 'edit', label: 'Edit', onClick: () => {} },
+                        { id: 'view', label: t('waste.viewDetails'), onClick: () => {} },
+                        { id: 'edit', label: t('waste.edit'), onClick: () => {} },
                       ]}
                     />
                   </td>
@@ -242,9 +244,9 @@ export const Waste = () => {
 
       {/* Waste by Type Summary */}
       <Card className="p-4">
-        <h3 className="font-semibold text-text-primary mb-4">Waste by Type</h3>
+        <h3 className="font-semibold text-text-primary mb-4">{t('waste.wasteByType')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {wasteTypes.filter(t => t !== 'all').map((type, index) => {
+          {wasteTypes.filter(wt => wt !== 'all').map((type, index) => {
             const typeRecords = wasteRecords.filter(w => w.wasteType === type);
             const totalQty = typeRecords.reduce((acc, w) => acc + w.quantity, 0);
             const totalCost = typeRecords.reduce((acc, w) => acc + w.cost, 0);
@@ -263,15 +265,15 @@ export const Waste = () => {
                 </div>
                 <div className="space-y-1 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-text-muted">Records:</span>
+                    <span className="text-text-muted">{t('waste.records')}</span>
                     <span className="text-text-primary">{typeRecords.length}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-text-muted">Quantity:</span>
-                    <span className="text-text-primary">{totalQty.toLocaleString()} kg</span>
+                    <span className="text-text-muted">{t('waste.quantityLabel')}</span>
+                    <span className="text-text-primary">{totalQty.toLocaleString()} {t('waste.kg')}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-text-muted">Total Cost:</span>
+                    <span className="text-text-muted">{t('waste.totalCostLabel')}</span>
                     <span className="text-error font-medium">QAR {totalCost.toLocaleString()}</span>
                   </div>
                 </div>
@@ -284,7 +286,7 @@ export const Waste = () => {
       {filteredWaste.length === 0 && (
         <Card className="p-12 text-center">
           <Trash2 size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No waste records found</p>
+          <p className="text-text-secondary">{t('waste.noWasteRecordsFound')}</p>
         </Card>
       )}
     </div>

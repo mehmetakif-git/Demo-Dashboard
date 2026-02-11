@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   CalendarClock,
@@ -17,9 +18,24 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { productionPlan, MANUFACTURING_COLOR } from '@/data/manufacturing/manufacturingData';
 
 export const Planning = () => {
+  const { t } = useTranslation('manufacturing');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [priorityFilter, setPriorityFilter] = useState<string>('all');
+
+  const statusMap: Record<string, string> = {
+    'all': t('status.all'),
+    'planned': t('status.planned'),
+    'scheduled': t('status.scheduled'),
+    'in-progress': t('status.inProgress'),
+    'completed': t('status.completed'),
+  };
+
+  const priorityMap: Record<string, string> = {
+    'high': t('planning.high'),
+    'normal': t('planning.normal'),
+    'low': t('planning.low'),
+  };
 
   const stats = useMemo(() => {
     const totalPlans = productionPlan.length;
@@ -68,13 +84,13 @@ export const Planning = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Production Planning"
-        subtitle="Plan and schedule production activities"
+        title={t('planning.title')}
+        subtitle={t('planning.subtitle')}
         icon={CalendarClock}
         actions={
           <Button>
             <Plus size={18} />
-            Create Plan
+            {t('planning.createPlan')}
           </Button>
         }
       />
@@ -82,15 +98,15 @@ export const Planning = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Plans', value: stats.totalPlans, icon: CalendarClock, color: MANUFACTURING_COLOR },
-          { label: 'Scheduled', value: stats.scheduled, icon: CheckCircle, color: '#3b82f6' },
-          { label: 'Material Shortages', value: stats.materialShortages, icon: AlertTriangle, color: stats.materialShortages > 0 ? '#ef4444' : '#10b981' },
-          { label: 'Total Planned Qty', value: stats.totalPlannedQty.toLocaleString(), icon: Package, color: '#10b981' },
+          { label: t('planning.totalPlans'), value: stats.totalPlans, icon: CalendarClock, color: MANUFACTURING_COLOR },
+          { label: t('planning.scheduled'), value: stats.scheduled, icon: CheckCircle, color: '#3b82f6' },
+          { label: t('planning.materialShortages'), value: stats.materialShortages, icon: AlertTriangle, color: stats.materialShortages > 0 ? '#ef4444' : '#10b981' },
+          { label: t('planning.totalPlannedQty'), value: stats.totalPlannedQty.toLocaleString(), icon: Package, color: '#10b981' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
             <motion.div
-              key={stat.label}
+              key={index}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}
@@ -120,7 +136,7 @@ export const Planning = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by product or production line..."
+              placeholder={t('planning.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -131,20 +147,20 @@ export const Planning = () => {
             value={priorityFilter}
             onChange={(e) => setPriorityFilter(e.target.value)}
           >
-            <option value="all">All Priorities</option>
-            <option value="high">High</option>
-            <option value="normal">Normal</option>
-            <option value="low">Low</option>
+            <option value="all">{t('planning.allPriorities')}</option>
+            <option value="high">{t('planning.high')}</option>
+            <option value="normal">{t('planning.normal')}</option>
+            <option value="low">{t('planning.low')}</option>
           </select>
           <div className="flex gap-2 flex-wrap">
-            {['all', 'planned', 'scheduled', 'in-progress', 'completed'].map((status) => (
+            {(['all', 'planned', 'scheduled', 'in-progress', 'completed'] as const).map((status) => (
               <Button
                 key={status}
                 variant={statusFilter === status ? 'primary' : 'ghost'}
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status === 'all' ? 'All' : status.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                {statusMap[status]}
               </Button>
             ))}
           </div>
@@ -189,16 +205,16 @@ export const Planning = () => {
                 </div>
                 <div className="flex items-center gap-3">
                   <span
-                    className="px-2 py-1 rounded-full text-xs font-medium capitalize"
+                    className="px-2 py-1 rounded-full text-xs font-medium"
                     style={{ backgroundColor: `${getPriorityColor(plan.priority)}20`, color: getPriorityColor(plan.priority) }}
                   >
-                    {plan.priority}
+                    {priorityMap[plan.priority]}
                   </span>
                   <span
-                    className="px-2 py-1 rounded-full text-xs font-medium capitalize"
+                    className="px-2 py-1 rounded-full text-xs font-medium"
                     style={{ backgroundColor: `${getStatusColor(plan.status)}20`, color: getStatusColor(plan.status) }}
                   >
-                    {plan.status}
+                    {statusMap[plan.status]}
                   </span>
                   <Dropdown
                     trigger={
@@ -207,10 +223,10 @@ export const Planning = () => {
                       </Button>
                     }
                     items={[
-                      { id: 'view', label: 'View Details', onClick: () => {} },
-                      { id: 'edit', label: 'Edit', onClick: () => {} },
-                      { id: 'create-wo', label: 'Create Work Order', onClick: () => {} },
-                      { id: 'cancel', label: 'Cancel', onClick: () => {} },
+                      { id: 'view', label: t('planning.viewDetails'), onClick: () => {} },
+                      { id: 'edit', label: t('planning.edit'), onClick: () => {} },
+                      { id: 'create-wo', label: t('planning.createWorkOrder'), onClick: () => {} },
+                      { id: 'cancel', label: t('planning.cancel'), onClick: () => {} },
                     ]}
                   />
                 </div>
@@ -219,29 +235,29 @@ export const Planning = () => {
               {/* Plan Details */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                 <div className="p-3 bg-background-tertiary rounded-lg">
-                  <p className="text-xs text-text-muted">Planned Quantity</p>
+                  <p className="text-xs text-text-muted">{t('planning.plannedQuantity')}</p>
                   <p className="text-lg font-bold text-text-primary">{plan.plannedQty.toLocaleString()}</p>
                 </div>
                 <div className="p-3 bg-background-tertiary rounded-lg">
-                  <p className="text-xs text-text-muted">Production Line</p>
+                  <p className="text-xs text-text-muted">{t('planning.productionLine')}</p>
                   <p className="text-sm font-medium text-text-primary">{plan.lineName}</p>
                 </div>
                 <div className="p-3 bg-background-tertiary rounded-lg">
-                  <p className="text-xs text-text-muted">Shift</p>
+                  <p className="text-xs text-text-muted">{t('planning.shift')}</p>
                   <p className="text-sm font-medium text-text-primary">{plan.shift}</p>
                 </div>
                 <div className="p-3 bg-background-tertiary rounded-lg">
-                  <p className="text-xs text-text-muted">Material Status</p>
+                  <p className="text-xs text-text-muted">{t('planning.materialStatus')}</p>
                   <div className="flex items-center gap-1">
                     {hasMaterialShortage(plan) ? (
                       <>
                         <AlertTriangle size={14} className="text-error" />
-                        <p className="text-sm font-medium text-error">Shortage</p>
+                        <p className="text-sm font-medium text-error">{t('planning.shortage')}</p>
                       </>
                     ) : (
                       <>
                         <CheckCircle size={14} className="text-success" />
-                        <p className="text-sm font-medium text-success">Available</p>
+                        <p className="text-sm font-medium text-success">{t('planning.available')}</p>
                       </>
                     )}
                   </div>
@@ -251,7 +267,7 @@ export const Planning = () => {
               {/* Material Requirements */}
               {plan.requiredMaterials.length > 0 && (
                 <div className="border-t border-border-default pt-4">
-                  <p className="text-sm font-medium text-text-primary mb-2">Material Requirements:</p>
+                  <p className="text-sm font-medium text-text-primary mb-2">{t('planning.materialRequirements')}</p>
                   <div className="space-y-2">
                     {plan.requiredMaterials.map((material, idx) => (
                       <div
@@ -265,12 +281,12 @@ export const Planning = () => {
                           <span className="text-sm text-text-primary">{material.materialName}</span>
                         </div>
                         <div className="flex items-center gap-4 text-sm">
-                          <span className="text-text-muted">Required: {material.required}</span>
+                          <span className="text-text-muted">{t('planning.required')} {material.required}</span>
                           <span className={material.available < 0 ? 'text-error' : 'text-text-muted'}>
-                            Available: {material.available}
+                            {t('planning.availableQty')} {material.available}
                           </span>
                           {material.shortage > 0 && (
-                            <span className="text-error font-medium">Shortage: {material.shortage}</span>
+                            <span className="text-error font-medium">{t('planning.shortageQty')} {material.shortage}</span>
                           )}
                         </div>
                       </div>
@@ -283,10 +299,10 @@ export const Planning = () => {
               <div className="flex justify-end gap-2 mt-4 pt-4 border-t border-border-default">
                 <Button variant="ghost" size="sm">
                   <ClipboardList size={16} className="mr-1" />
-                  Check Materials
+                  {t('planning.checkMaterials')}
                 </Button>
                 <Button size="sm">
-                  Create Work Order
+                  {t('planning.createWorkOrder')}
                 </Button>
               </div>
             </Card>
@@ -297,7 +313,7 @@ export const Planning = () => {
       {filteredPlans.length === 0 && (
         <Card className="p-12 text-center">
           <CalendarClock size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No production plans found</p>
+          <p className="text-text-secondary">{t('planning.noPlansFound')}</p>
         </Card>
       )}
     </div>

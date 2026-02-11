@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   PackageCheck,
@@ -16,9 +17,23 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { finishedGoods, MANUFACTURING_COLOR } from '@/data/manufacturing/manufacturingData';
 
 export const FinishedGoods = () => {
+  const { t } = useTranslation('manufacturing');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [qualityFilter, setQualityFilter] = useState<string>('all');
+
+  const statusMap: Record<string, string> = {
+    'all': t('status.all'),
+    'in-stock': t('status.inStock'),
+    'in-production': t('status.inProduction'),
+    'reserved': t('status.reserved'),
+  };
+
+  const qualityMap: Record<string, string> = {
+    'passed': t('finishedGoods.passed'),
+    'pending': t('finishedGoods.pending'),
+    'failed': t('finishedGoods.failed'),
+  };
 
   const stats = useMemo(() => {
     const totalItems = finishedGoods.length;
@@ -71,18 +86,18 @@ export const FinishedGoods = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Finished Goods Inventory"
-        subtitle="Track finished products and inventory"
+        title={t('finishedGoods.title')}
+        subtitle={t('finishedGoods.subtitle')}
         icon={PackageCheck}
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Items', value: stats.totalItems, icon: PackageCheck, color: MANUFACTURING_COLOR },
-          { label: 'Total Value', value: `QAR ${stats.totalValue.toLocaleString()}`, icon: DollarSign, color: '#10b981' },
-          { label: 'In Stock', value: stats.inStock, icon: CheckCircle, color: '#10b981' },
-          { label: 'Awaiting QC', value: stats.awaitingQC, icon: Clock, color: stats.awaitingQC > 0 ? '#f59e0b' : '#10b981' },
+          { label: t('finishedGoods.totalItems'), value: stats.totalItems, icon: PackageCheck, color: MANUFACTURING_COLOR },
+          { label: t('finishedGoods.totalValue'), value: `QAR ${stats.totalValue.toLocaleString()}`, icon: DollarSign, color: '#10b981' },
+          { label: t('finishedGoods.inStock'), value: stats.inStock, icon: CheckCircle, color: '#10b981' },
+          { label: t('finishedGoods.awaitingQC'), value: stats.awaitingQC, icon: Clock, color: stats.awaitingQC > 0 ? '#f59e0b' : '#10b981' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -117,7 +132,7 @@ export const FinishedGoods = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by product or batch no..."
+              placeholder={t('finishedGoods.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -128,10 +143,10 @@ export const FinishedGoods = () => {
             value={qualityFilter}
             onChange={(e) => setQualityFilter(e.target.value)}
           >
-            <option value="all">All Quality Status</option>
-            <option value="passed">Passed</option>
-            <option value="pending">Pending</option>
-            <option value="failed">Failed</option>
+            <option value="all">{t('finishedGoods.allQualityStatus')}</option>
+            <option value="passed">{t('finishedGoods.passed')}</option>
+            <option value="pending">{t('finishedGoods.pending')}</option>
+            <option value="failed">{t('finishedGoods.failed')}</option>
           </select>
           <div className="flex gap-2">
             {['all', 'in-stock', 'in-production', 'reserved'].map((status) => (
@@ -141,7 +156,7 @@ export const FinishedGoods = () => {
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status === 'all' ? 'All' : status.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                {statusMap[status]}
               </Button>
             ))}
           </div>
@@ -154,15 +169,15 @@ export const FinishedGoods = () => {
           <table className="w-full">
             <thead className="bg-background-tertiary">
               <tr>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Product</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Batch No</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Quantity</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Status</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Quality</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Location</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Unit Cost</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Total Value</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Actions</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('finishedGoods.product')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('finishedGoods.batchNo')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('finishedGoods.quantity')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('finishedGoods.status')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('finishedGoods.quality')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('finishedGoods.location')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('finishedGoods.unitCost')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('finishedGoods.totalValue2')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('finishedGoods.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -209,19 +224,19 @@ export const FinishedGoods = () => {
                     </td>
                     <td className="py-3 px-4 text-center">
                       <span
-                        className="px-2 py-1 rounded-full text-xs font-medium capitalize"
+                        className="px-2 py-1 rounded-full text-xs font-medium"
                         style={{ backgroundColor: `${getStatusColor(item.status)}20`, color: getStatusColor(item.status) }}
                       >
-                        {item.status.replace(/-/g, ' ')}
+                        {statusMap[item.status]}
                       </span>
                     </td>
                     <td className="py-3 px-4 text-center">
                       <span
-                        className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium capitalize"
+                        className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium"
                         style={{ backgroundColor: `${getQualityColor(item.qualityStatus)}20`, color: getQualityColor(item.qualityStatus) }}
                       >
                         <QualityIcon size={10} />
-                        {item.qualityStatus}
+                        {qualityMap[item.qualityStatus]}
                       </span>
                     </td>
                     <td className="py-3 px-4">
@@ -244,10 +259,10 @@ export const FinishedGoods = () => {
                           </Button>
                         }
                         items={[
-                          { id: 'view', label: 'View Details', onClick: () => {} },
-                          { id: 'reserve', label: 'Reserve', onClick: () => {} },
-                          { id: 'release', label: 'Release', onClick: () => {} },
-                          { id: 'transfer', label: 'Transfer', onClick: () => {} },
+                          { id: 'view', label: t('finishedGoods.viewDetails'), onClick: () => {} },
+                          { id: 'reserve', label: t('finishedGoods.reserve'), onClick: () => {} },
+                          { id: 'release', label: t('finishedGoods.release'), onClick: () => {} },
+                          { id: 'transfer', label: t('finishedGoods.transfer'), onClick: () => {} },
                         ]}
                       />
                     </td>
@@ -262,7 +277,7 @@ export const FinishedGoods = () => {
       {filteredGoods.length === 0 && (
         <Card className="p-12 text-center">
           <PackageCheck size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No finished goods found</p>
+          <p className="text-text-secondary">{t('finishedGoods.noFinishedGoodsFound')}</p>
         </Card>
       )}
     </div>

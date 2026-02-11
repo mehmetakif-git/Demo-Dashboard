@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   Layers,
@@ -15,9 +16,16 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { billOfMaterials, MANUFACTURING_COLOR } from '@/data/manufacturing/manufacturingData';
 
 export const BOM = () => {
+  const { t } = useTranslation('manufacturing');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [expandedBOM, setExpandedBOM] = useState<string | null>(null);
+
+  const statusMap: Record<string, string> = {
+    'all': t('status.all'),
+    'active': t('status.active'),
+    'inactive': t('status.inactive'),
+  };
 
   const stats = useMemo(() => {
     const totalProducts = billOfMaterials.length;
@@ -46,13 +54,13 @@ export const BOM = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Bill of Materials"
-        subtitle="Manage product material specifications"
+        title={t('bom.title')}
+        subtitle={t('bom.subtitle')}
         icon={Layers}
         actions={
           <Button>
             <Plus size={18} />
-            Create BOM
+            {t('bom.createBOM')}
           </Button>
         }
       />
@@ -60,10 +68,10 @@ export const BOM = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Products', value: stats.totalProducts, icon: Layers, color: MANUFACTURING_COLOR },
-          { label: 'Active BOMs', value: stats.activeBOMs, icon: CheckCircle, color: '#10b981' },
-          { label: 'Avg Materials/BOM', value: stats.avgMaterials, icon: Package, color: '#3b82f6' },
-          { label: 'Avg Cost', value: `QAR ${Math.round(stats.totalCost / stats.totalProducts).toLocaleString()}`, icon: DollarSign, color: '#f59e0b' },
+          { label: t('bom.totalProducts'), value: stats.totalProducts, icon: Layers, color: MANUFACTURING_COLOR },
+          { label: t('bom.activeBOMs'), value: stats.activeBOMs, icon: CheckCircle, color: '#10b981' },
+          { label: t('bom.avgMaterials'), value: stats.avgMaterials, icon: Package, color: '#3b82f6' },
+          { label: t('bom.avgCost'), value: `QAR ${Math.round(stats.totalCost / stats.totalProducts).toLocaleString()}`, icon: DollarSign, color: '#f59e0b' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -98,7 +106,7 @@ export const BOM = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by product or version..."
+              placeholder={t('bom.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -112,7 +120,7 @@ export const BOM = () => {
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status === 'all' ? 'All' : status.charAt(0).toUpperCase() + status.slice(1)}
+                {statusMap[status]}
               </Button>
             ))}
           </div>
@@ -146,11 +154,11 @@ export const BOM = () => {
                     <div className="flex items-center gap-3 mt-1">
                       <span className="text-sm text-text-muted">{bom.version}</span>
                       <span
-                        className={`px-2 py-0.5 rounded-full text-xs font-medium capitalize ${
+                        className={`px-2 py-0.5 rounded-full text-xs font-medium ${
                           bom.status === 'active' ? 'bg-success/20 text-success' : 'bg-text-muted/20 text-text-muted'
                         }`}
                       >
-                        {bom.status}
+                        {statusMap[bom.status]}
                       </span>
                     </div>
                   </div>
@@ -167,10 +175,10 @@ export const BOM = () => {
                       </Button>
                     }
                     items={[
-                      { id: 'view', label: 'View Details', onClick: () => {} },
-                      { id: 'edit', label: 'Edit', onClick: () => {} },
-                      { id: 'duplicate', label: 'Duplicate', onClick: () => {} },
-                      { id: 'toggle', label: bom.status === 'active' ? 'Deactivate' : 'Activate', onClick: () => {} },
+                      { id: 'view', label: t('bom.viewDetails'), onClick: () => {} },
+                      { id: 'edit', label: t('bom.edit'), onClick: () => {} },
+                      { id: 'duplicate', label: t('bom.duplicate'), onClick: () => {} },
+                      { id: 'toggle', label: bom.status === 'active' ? t('bom.deactivate') : t('bom.activate'), onClick: () => {} },
                     ]}
                   />
                   {expandedBOM === bom.id ? (
@@ -187,11 +195,11 @@ export const BOM = () => {
                   <table className="w-full">
                     <thead className="bg-background-tertiary">
                       <tr>
-                        <th className="text-left py-2 px-4 text-sm font-medium text-text-muted">Material</th>
-                        <th className="text-center py-2 px-4 text-sm font-medium text-text-muted">Quantity</th>
-                        <th className="text-center py-2 px-4 text-sm font-medium text-text-muted">Unit</th>
-                        <th className="text-right py-2 px-4 text-sm font-medium text-text-muted">Unit Cost</th>
-                        <th className="text-right py-2 px-4 text-sm font-medium text-text-muted">Total Cost</th>
+                        <th className="text-left py-2 px-4 text-sm font-medium text-text-muted">{t('bom.material')}</th>
+                        <th className="text-center py-2 px-4 text-sm font-medium text-text-muted">{t('bom.quantity')}</th>
+                        <th className="text-center py-2 px-4 text-sm font-medium text-text-muted">{t('bom.unit')}</th>
+                        <th className="text-right py-2 px-4 text-sm font-medium text-text-muted">{t('bom.unitCost')}</th>
+                        <th className="text-right py-2 px-4 text-sm font-medium text-text-muted">{t('bom.totalCost')}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -212,7 +220,7 @@ export const BOM = () => {
                     </tbody>
                     <tfoot className="bg-background-tertiary">
                       <tr>
-                        <td colSpan={4} className="py-2 px-4 text-right font-medium text-text-primary">Total Cost:</td>
+                        <td colSpan={4} className="py-2 px-4 text-right font-medium text-text-primary">{t('bom.totalCostLabel')}</td>
                         <td className="py-2 px-4 text-right font-bold text-text-primary">QAR {bom.totalCost.toLocaleString()}</td>
                       </tr>
                     </tfoot>
@@ -227,7 +235,7 @@ export const BOM = () => {
       {filteredBOMs.length === 0 && (
         <Card className="p-12 text-center">
           <Layers size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No bills of materials found</p>
+          <p className="text-text-secondary">{t('bom.noBOMsFound')}</p>
         </Card>
       )}
     </div>

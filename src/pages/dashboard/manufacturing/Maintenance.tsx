@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   Wrench,
@@ -17,9 +18,17 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { maintenanceSchedule, MANUFACTURING_COLOR } from '@/data/manufacturing/manufacturingData';
 
 export const MaintenancePage = () => {
+  const { t } = useTranslation('manufacturing');
   const [searchQuery, setSearchQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
+
+  const statusMap: Record<string, string> = {
+    'all': t('status.all'),
+    'scheduled': t('status.scheduled'),
+    'in-progress': t('status.inProgress'),
+    'completed': t('status.completed'),
+  };
 
   const maintenanceTypes = useMemo(() => {
     return ['all', ...new Set(maintenanceSchedule.map(m => m.maintenanceType))];
@@ -68,13 +77,13 @@ export const MaintenancePage = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Preventive Maintenance"
-        subtitle="Manage machine maintenance schedules"
+        title={t('maintenance.title')}
+        subtitle={t('maintenance.subtitle')}
         icon={Wrench}
         actions={
           <Button>
             <Plus size={18} />
-            Schedule Maintenance
+            {t('maintenance.scheduleMaintenance')}
           </Button>
         }
       />
@@ -82,15 +91,15 @@ export const MaintenancePage = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Scheduled', value: stats.scheduled, icon: Clock, color: '#3b82f6' },
-          { label: 'In Progress', value: stats.inProgress, icon: PlayCircle, color: '#f59e0b' },
-          { label: 'Completed', value: stats.completed, icon: CheckCircle, color: '#10b981' },
-          { label: 'Total Cost', value: `QAR ${stats.totalCost.toLocaleString()}`, icon: DollarSign, color: MANUFACTURING_COLOR },
+          { label: t('maintenance.scheduled'), value: stats.scheduled, icon: Clock, color: '#3b82f6' },
+          { label: t('maintenance.inProgress'), value: stats.inProgress, icon: PlayCircle, color: '#f59e0b' },
+          { label: t('maintenance.completed'), value: stats.completed, icon: CheckCircle, color: '#10b981' },
+          { label: t('maintenance.totalCost'), value: `QAR ${stats.totalCost.toLocaleString()}`, icon: DollarSign, color: MANUFACTURING_COLOR },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
             <motion.div
-              key={stat.label}
+              key={index}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}
@@ -120,7 +129,7 @@ export const MaintenancePage = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by machine or technician..."
+              placeholder={t('maintenance.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -132,18 +141,18 @@ export const MaintenancePage = () => {
             onChange={(e) => setTypeFilter(e.target.value)}
           >
             {maintenanceTypes.map(type => (
-              <option key={type} value={type}>{type === 'all' ? 'All Types' : type}</option>
+              <option key={type} value={type}>{type === 'all' ? t('maintenance.allTypes') : type}</option>
             ))}
           </select>
           <div className="flex gap-2">
-            {['all', 'scheduled', 'in-progress', 'completed'].map((status) => (
+            {(['all', 'scheduled', 'in-progress', 'completed'] as const).map((status) => (
               <Button
                 key={status}
                 variant={statusFilter === status ? 'primary' : 'ghost'}
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status === 'all' ? 'All' : status.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                {statusMap[status]}
               </Button>
             ))}
           </div>
@@ -156,15 +165,15 @@ export const MaintenancePage = () => {
           <table className="w-full">
             <thead className="bg-background-tertiary">
               <tr>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Machine</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Maintenance Type</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Scheduled Date</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Status</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Technician</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Duration</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Cost</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Next Maintenance</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Actions</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('maintenance.machine')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('maintenance.maintenanceType')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('maintenance.scheduledDate')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('maintenance.status')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('maintenance.technician')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('maintenance.duration')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('maintenance.cost')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('maintenance.nextMaintenance')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('maintenance.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -206,11 +215,11 @@ export const MaintenancePage = () => {
                     </td>
                     <td className="py-3 px-4 text-center">
                       <span
-                        className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium capitalize"
+                        className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium"
                         style={{ backgroundColor: `${getStatusColor(record.status)}20`, color: getStatusColor(record.status) }}
                       >
                         <StatusIcon size={10} />
-                        {record.status.replace(/-/g, ' ')}
+                        {statusMap[record.status]}
                       </span>
                     </td>
                     <td className="py-3 px-4">
@@ -222,7 +231,7 @@ export const MaintenancePage = () => {
                     <td className="py-3 px-4 text-center">
                       <div className="flex items-center justify-center gap-1 text-sm text-text-secondary">
                         <Clock size={12} />
-                        <span>{record.duration ? `${record.duration} min` : '-'}</span>
+                        <span>{record.duration ? `${record.duration} ${t('maintenance.min')}` : '-'}</span>
                       </div>
                     </td>
                     <td className="py-3 px-4 text-right">
@@ -244,9 +253,9 @@ export const MaintenancePage = () => {
                           </Button>
                         }
                         items={[
-                          { id: 'view', label: 'View Details', onClick: () => {} },
-                          { id: 'edit', label: 'Edit', onClick: () => {} },
-                          { id: 'start', label: record.status === 'scheduled' ? 'Start' : 'Complete', onClick: () => {} },
+                          { id: 'view', label: t('maintenance.viewDetails'), onClick: () => {} },
+                          { id: 'edit', label: t('maintenance.edit'), onClick: () => {} },
+                          { id: 'start', label: record.status === 'scheduled' ? t('maintenance.start') : t('maintenance.complete'), onClick: () => {} },
                         ]}
                       />
                     </td>
@@ -260,7 +269,7 @@ export const MaintenancePage = () => {
 
       {/* Parts Used Summary */}
       <Card className="p-4">
-        <h3 className="font-semibold text-text-primary mb-4">Parts Used in Completed Maintenance</h3>
+        <h3 className="font-semibold text-text-primary mb-4">{t('maintenance.partsUsed')}</h3>
         <div className="flex flex-wrap gap-2">
           {maintenanceSchedule
             .filter(m => m.status === 'completed')
@@ -280,7 +289,7 @@ export const MaintenancePage = () => {
       {filteredMaintenance.length === 0 && (
         <Card className="p-12 text-center">
           <Wrench size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No maintenance records found</p>
+          <p className="text-text-secondary">{t('maintenance.noMaintenanceFound')}</p>
         </Card>
       )}
     </div>

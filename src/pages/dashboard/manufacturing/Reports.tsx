@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   BarChart3,
@@ -27,7 +28,23 @@ import {
 } from '@/data/manufacturing/manufacturingData';
 
 export const Reports = () => {
+  const { t } = useTranslation('manufacturing');
   const [dateRange, setDateRange] = useState('month');
+
+  const statusMap: Record<string, string> = {
+    'pending': t('status.pending'),
+    'in-progress': t('status.inProgress'),
+    'completed': t('status.completed'),
+    'on-hold': t('status.planned'),
+    'cancelled': t('status.cancelled'),
+    'scheduled': t('status.scheduled'),
+    'passed': t('status.passed'),
+    'failed': t('status.failed'),
+    'running': t('status.running'),
+    'idle': t('status.idle'),
+    'maintenance': t('status.maintenance'),
+    'offline': t('status.outOfService'),
+  };
 
   const stats = useMemo(() => {
     const totalProduction = productionLines.reduce((acc, p) => acc + p.currentOutput, 0);
@@ -97,8 +114,8 @@ export const Reports = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Reports & Analytics"
-        subtitle="View production metrics and generate reports"
+        title={t('reports.title')}
+        subtitle={t('reports.subtitle')}
         icon={BarChart3}
         actions={
           <div className="flex gap-2">
@@ -107,14 +124,14 @@ export const Reports = () => {
               value={dateRange}
               onChange={(e) => setDateRange(e.target.value)}
             >
-              <option value="week">This Week</option>
-              <option value="month">This Month</option>
-              <option value="quarter">This Quarter</option>
-              <option value="year">This Year</option>
+              <option value="week">{t('reports.thisWeek')}</option>
+              <option value="month">{t('reports.thisMonth')}</option>
+              <option value="quarter">{t('reports.thisQuarter')}</option>
+              <option value="year">{t('reports.thisYear')}</option>
             </select>
             <Button>
               <Download size={18} />
-              Export Report
+              {t('reports.exportReport')}
             </Button>
           </div>
         }
@@ -123,10 +140,10 @@ export const Reports = () => {
       {/* Key Metrics */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Production', value: stats.totalProduction.toLocaleString(), icon: Factory, color: MANUFACTURING_COLOR },
-          { label: 'Work Orders', value: `${stats.completedWorkOrders}/${stats.totalWorkOrders}`, icon: Package, color: '#3b82f6' },
-          { label: 'Quality Rate', value: `${stats.qualityRate}%`, icon: CheckCircle, color: stats.qualityRate >= 90 ? '#10b981' : '#f59e0b' },
-          { label: 'Avg Efficiency', value: `${stats.avgEfficiency}%`, icon: Gauge, color: stats.avgEfficiency >= 80 ? '#10b981' : '#f59e0b' },
+          { label: t('reports.totalProduction'), value: stats.totalProduction.toLocaleString(), icon: Factory, color: MANUFACTURING_COLOR },
+          { label: t('reports.workOrders'), value: `${stats.completedWorkOrders}/${stats.totalWorkOrders}`, icon: Package, color: '#3b82f6' },
+          { label: t('reports.qualityRate'), value: `${stats.qualityRate}%`, icon: CheckCircle, color: stats.qualityRate >= 90 ? '#10b981' : '#f59e0b' },
+          { label: t('reports.avgEfficiency'), value: `${stats.avgEfficiency}%`, icon: Gauge, color: stats.avgEfficiency >= 80 ? '#10b981' : '#f59e0b' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -158,10 +175,10 @@ export const Reports = () => {
       {/* Secondary Metrics */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Machine Utilization', value: `${stats.machineUtilization}%`, icon: Wrench, color: stats.machineUtilization >= 70 ? '#10b981' : '#f59e0b' },
-          { label: 'Active Shifts', value: stats.activeShifts, icon: Clock, color: '#3b82f6' },
-          { label: 'Finished Goods Value', value: `QAR ${stats.finishedGoodsValue.toLocaleString()}`, icon: DollarSign, color: '#10b981' },
-          { label: 'Total Waste', value: `${stats.totalWaste.toLocaleString()} kg`, icon: Trash2, color: '#ef4444' },
+          { label: t('reports.machineUtilization'), value: `${stats.machineUtilization}%`, icon: Wrench, color: stats.machineUtilization >= 70 ? '#10b981' : '#f59e0b' },
+          { label: t('reports.activeShifts'), value: stats.activeShifts, icon: Clock, color: '#3b82f6' },
+          { label: t('reports.finishedGoodsValue'), value: `QAR ${stats.finishedGoodsValue.toLocaleString()}`, icon: DollarSign, color: '#10b981' },
+          { label: t('reports.totalWaste'), value: `${stats.totalWaste.toLocaleString()} kg`, icon: Trash2, color: '#ef4444' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -193,7 +210,7 @@ export const Reports = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Work Orders by Status */}
         <Card className="p-4">
-          <h3 className="font-semibold text-text-primary mb-4">Work Orders by Status</h3>
+          <h3 className="font-semibold text-text-primary mb-4">{t('reports.workOrdersByStatus')}</h3>
           <div className="space-y-3">
             {workOrdersByStatus.map((item, index) => {
               const percentage = Math.round((item.count / workOrders.length) * 100);
@@ -205,7 +222,7 @@ export const Reports = () => {
                   transition={{ delay: index * 0.05 }}
                 >
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-sm text-text-secondary capitalize">{item.status.replace(/-/g, ' ')}</span>
+                    <span className="text-sm text-text-secondary">{statusMap[item.status] || item.status}</span>
                     <span className="text-sm font-medium text-text-primary">{item.count} ({percentage}%)</span>
                   </div>
                   <div className="w-full bg-background-tertiary rounded-full h-2">
@@ -222,7 +239,7 @@ export const Reports = () => {
 
         {/* Quality Results */}
         <Card className="p-4">
-          <h3 className="font-semibold text-text-primary mb-4">Quality Check Results</h3>
+          <h3 className="font-semibold text-text-primary mb-4">{t('reports.qualityCheckResults')}</h3>
           <div className="space-y-3">
             {qualityByResult.map((item, index) => {
               const percentage = Math.round((item.count / qualityChecks.length) * 100);
@@ -234,7 +251,7 @@ export const Reports = () => {
                   transition={{ delay: index * 0.05 }}
                 >
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-sm text-text-secondary capitalize">{item.result}</span>
+                    <span className="text-sm text-text-secondary">{statusMap[item.result] || item.result}</span>
                     <span className="text-sm font-medium text-text-primary">{item.count} ({percentage}%)</span>
                   </div>
                   <div className="w-full bg-background-tertiary rounded-full h-2">
@@ -251,7 +268,7 @@ export const Reports = () => {
 
         {/* Top Production Lines */}
         <Card className="p-4">
-          <h3 className="font-semibold text-text-primary mb-4">Top Production Lines by Efficiency</h3>
+          <h3 className="font-semibold text-text-primary mb-4">{t('reports.topProductionLines')}</h3>
           <div className="space-y-3">
             {topProductionLines.map((line, index) => (
               <motion.div
@@ -277,7 +294,7 @@ export const Reports = () => {
                 </div>
                 <div className="text-right">
                   <p className="font-medium text-text-primary">{line.efficiency}%</p>
-                  <p className="text-xs text-text-muted">efficiency</p>
+                  <p className="text-xs text-text-muted">{t('production.efficiency')}</p>
                 </div>
               </motion.div>
             ))}
@@ -286,33 +303,33 @@ export const Reports = () => {
 
         {/* Production Trend Placeholder */}
         <Card className="p-4">
-          <h3 className="font-semibold text-text-primary mb-4">Production Trend</h3>
+          <h3 className="font-semibold text-text-primary mb-4">{t('reports.productionTrend')}</h3>
           <div className="h-64 flex items-center justify-center bg-background-tertiary rounded-lg">
             <div className="text-center">
               <TrendingUp size={48} className="mx-auto text-text-muted mb-2" />
-              <p className="text-text-muted">Chart placeholder</p>
-              <p className="text-xs text-text-muted mt-1">Production trend visualization would appear here</p>
+              <p className="text-text-muted">{t('reports.chartPlaceholder')}</p>
+              <p className="text-xs text-text-muted mt-1">{t('reports.chartDescription')}</p>
             </div>
           </div>
         </Card>
 
         {/* Waste Analysis */}
         <Card className="p-4">
-          <h3 className="font-semibold text-text-primary mb-4">Waste Analysis</h3>
+          <h3 className="font-semibold text-text-primary mb-4">{t('reports.wasteAnalysis')}</h3>
           <div className="grid grid-cols-2 gap-4 mb-4">
             <div className="p-4 bg-background-tertiary rounded-lg text-center">
               <Trash2 size={24} className="mx-auto text-error mb-2" />
               <p className="text-2xl font-bold text-text-primary">{stats.totalWaste.toLocaleString()}</p>
-              <p className="text-xs text-text-muted">Total Waste (kg)</p>
+              <p className="text-xs text-text-muted">{t('reports.totalWasteKg')}</p>
             </div>
             <div className="p-4 bg-background-tertiary rounded-lg text-center">
               <CheckCircle size={24} className="mx-auto text-success mb-2" />
               <p className="text-2xl font-bold text-text-primary">{stats.recycledWaste.toLocaleString()}</p>
-              <p className="text-xs text-text-muted">Recycled (kg)</p>
+              <p className="text-xs text-text-muted">{t('reports.recycledKg')}</p>
             </div>
           </div>
           <div className="flex items-center justify-between p-3 bg-background-tertiary rounded-lg">
-            <span className="text-sm text-text-secondary">Recycling Rate</span>
+            <span className="text-sm text-text-secondary">{t('reports.recyclingRate')}</span>
             <span className="font-medium text-success">
               {Math.round((stats.recycledWaste / stats.totalWaste) * 100)}%
             </span>
@@ -321,14 +338,14 @@ export const Reports = () => {
 
         {/* Machine Status Overview */}
         <Card className="p-4">
-          <h3 className="font-semibold text-text-primary mb-4">Machine Status Overview</h3>
+          <h3 className="font-semibold text-text-primary mb-4">{t('reports.machineStatusOverview')}</h3>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
                 <tr className="border-b border-border-default">
-                  <th className="text-left py-2 text-sm font-medium text-text-muted">Status</th>
-                  <th className="text-center py-2 text-sm font-medium text-text-muted">Count</th>
-                  <th className="text-center py-2 text-sm font-medium text-text-muted">Percentage</th>
+                  <th className="text-left py-2 text-sm font-medium text-text-muted">{t('reports.status')}</th>
+                  <th className="text-center py-2 text-sm font-medium text-text-muted">{t('reports.count')}</th>
+                  <th className="text-center py-2 text-sm font-medium text-text-muted">{t('reports.percentage')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -349,7 +366,7 @@ export const Reports = () => {
                             className="w-2 h-2 rounded-full"
                             style={{ backgroundColor: status === 'running' ? '#10b981' : status === 'idle' ? '#64748b' : status === 'maintenance' ? '#f59e0b' : '#ef4444' }}
                           />
-                          <span className="text-text-primary capitalize">{status}</span>
+                          <span className="text-text-primary">{statusMap[status] || status}</span>
                         </div>
                       </td>
                       <td className="py-3 text-center">
@@ -369,14 +386,14 @@ export const Reports = () => {
 
       {/* Export Options */}
       <Card className="p-4">
-        <h3 className="font-semibold text-text-primary mb-4">Export Reports</h3>
+        <h3 className="font-semibold text-text-primary mb-4">{t('reports.exportReports')}</h3>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
           {[
-            { label: 'Production Report', icon: Factory },
-            { label: 'Quality Report', icon: CheckCircle },
-            { label: 'Machine Report', icon: Wrench },
-            { label: 'Waste Report', icon: Trash2 },
-            { label: 'Shift Report', icon: Users },
+            { label: t('reports.productionReport'), icon: Factory },
+            { label: t('reports.qualityReport'), icon: CheckCircle },
+            { label: t('reports.machineReport'), icon: Wrench },
+            { label: t('reports.wasteReport'), icon: Trash2 },
+            { label: t('reports.shiftReport'), icon: Users },
           ].map((report, index) => {
             const Icon = report.icon;
             return (

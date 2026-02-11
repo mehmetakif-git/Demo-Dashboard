@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   Cog,
@@ -19,9 +20,18 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { machines, MANUFACTURING_COLOR } from '@/data/manufacturing/manufacturingData';
 
 export const Machines = () => {
+  const { t } = useTranslation('manufacturing');
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
+
+  const statusMap: Record<string, string> = {
+    'all': t('status.all'),
+    'running': t('status.running'),
+    'idle': t('status.idle'),
+    'maintenance': t('status.maintenance'),
+    'out-of-service': t('status.outOfService'),
+  };
 
   const categories = useMemo(() => {
     return ['all', ...new Set(machines.map(m => m.category))];
@@ -75,13 +85,13 @@ export const Machines = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Machine Management"
-        subtitle="Monitor and manage production machines"
+        title={t('machines.title')}
+        subtitle={t('machines.subtitle')}
         icon={Cog}
         actions={
           <Button>
             <Plus size={18} />
-            Add Machine
+            {t('machines.addMachine')}
           </Button>
         }
       />
@@ -89,11 +99,11 @@ export const Machines = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         {[
-          { label: 'Total Machines', value: stats.totalMachines, icon: Cog, color: MANUFACTURING_COLOR },
-          { label: 'Running', value: stats.running, icon: CheckCircle, color: '#10b981' },
-          { label: 'Idle', value: stats.idle, icon: Pause, color: '#64748b' },
-          { label: 'Maintenance', value: stats.maintenance, icon: Wrench, color: '#f59e0b' },
-          { label: 'Avg Efficiency', value: `${stats.avgEfficiency}%`, icon: Gauge, color: stats.avgEfficiency >= 85 ? '#10b981' : '#f59e0b' },
+          { label: t('machines.totalMachines'), value: stats.totalMachines, icon: Cog, color: MANUFACTURING_COLOR },
+          { label: t('machines.running'), value: stats.running, icon: CheckCircle, color: '#10b981' },
+          { label: t('machines.idle'), value: stats.idle, icon: Pause, color: '#64748b' },
+          { label: t('machines.maintenance'), value: stats.maintenance, icon: Wrench, color: '#f59e0b' },
+          { label: t('machines.avgEfficiency'), value: `${stats.avgEfficiency}%`, icon: Gauge, color: stats.avgEfficiency >= 85 ? '#10b981' : '#f59e0b' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -128,7 +138,7 @@ export const Machines = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by machine no, name, or manufacturer..."
+              placeholder={t('machines.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -140,7 +150,7 @@ export const Machines = () => {
             onChange={(e) => setCategoryFilter(e.target.value)}
           >
             {categories.map(cat => (
-              <option key={cat} value={cat}>{cat === 'all' ? 'All Categories' : cat}</option>
+              <option key={cat} value={cat}>{cat === 'all' ? t('machines.allCategories') : cat}</option>
             ))}
           </select>
           <div className="flex gap-2 flex-wrap">
@@ -151,7 +161,7 @@ export const Machines = () => {
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status === 'all' ? 'All' : status.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                {statusMap[status]}
               </Button>
             ))}
           </div>
@@ -164,15 +174,15 @@ export const Machines = () => {
           <table className="w-full">
             <thead className="bg-background-tertiary">
               <tr>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Machine</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Category</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Production Line</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Status</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Efficiency</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Operating Hours</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Next Maintenance</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Maintenance Cost</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Actions</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('machines.machine')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('machines.category')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('machines.productionLine')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('machines.status')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('machines.efficiency')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('machines.operatingHours')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('machines.nextMaintenance')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('machines.maintenanceCost')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('machines.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -212,11 +222,11 @@ export const Machines = () => {
                     </td>
                     <td className="py-3 px-4 text-center">
                       <span
-                        className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium capitalize"
+                        className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium"
                         style={{ backgroundColor: `${getStatusColor(machine.status)}20`, color: getStatusColor(machine.status) }}
                       >
                         <StatusIcon size={10} />
-                        {machine.status.replace(/-/g, ' ')}
+                        {statusMap[machine.status]}
                       </span>
                     </td>
                     <td className="py-3 px-4 text-center">
@@ -230,7 +240,7 @@ export const Machines = () => {
                     <td className="py-3 px-4 text-center">
                       <div className="flex items-center justify-center gap-1 text-text-secondary">
                         <Clock size={12} />
-                        <span>{machine.operatingHours.toLocaleString()} hrs</span>
+                        <span>{machine.operatingHours.toLocaleString()} {t('machines.hrs')}</span>
                       </div>
                     </td>
                     <td className="py-3 px-4 text-center">
@@ -253,10 +263,10 @@ export const Machines = () => {
                           </Button>
                         }
                         items={[
-                          { id: 'view', label: 'View Details', onClick: () => {} },
-                          { id: 'edit', label: 'Edit', onClick: () => {} },
-                          { id: 'maintenance', label: 'Schedule Maintenance', onClick: () => {} },
-                          { id: 'monitor', label: 'Monitor', onClick: () => {} },
+                          { id: 'view', label: t('machines.viewDetails'), onClick: () => {} },
+                          { id: 'edit', label: t('machines.edit'), onClick: () => {} },
+                          { id: 'maintenance', label: t('machines.scheduleMaintenance'), onClick: () => {} },
+                          { id: 'monitor', label: t('machines.monitor'), onClick: () => {} },
                         ]}
                       />
                     </td>
@@ -271,7 +281,7 @@ export const Machines = () => {
       {filteredMachines.length === 0 && (
         <Card className="p-12 text-center">
           <Cog size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No machines found</p>
+          <p className="text-text-secondary">{t('machines.noMachinesFound')}</p>
         </Card>
       )}
     </div>

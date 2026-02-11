@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   Factory,
@@ -16,9 +17,17 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { productionLines, MANUFACTURING_COLOR } from '@/data/manufacturing/manufacturingData';
 
 export const Production = () => {
+  const { t } = useTranslation('manufacturing');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [departmentFilter, setDepartmentFilter] = useState<string>('all');
+
+  const statusMap: Record<string, string> = {
+    'all': t('status.all'),
+    'running': t('status.running'),
+    'maintenance': t('status.maintenance'),
+    'idle': t('status.idle'),
+  };
 
   const departments = useMemo(() => {
     return ['all', ...new Set(productionLines.map(l => l.department))];
@@ -69,23 +78,23 @@ export const Production = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Production Management"
-        subtitle="Monitor and manage production lines"
+        title={t('production.title')}
+        subtitle={t('production.subtitle')}
         icon={Factory}
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Active Lines', value: stats.activeLines, icon: Factory, color: '#10b981' },
-          { label: 'Total Output Today', value: stats.totalOutput.toLocaleString(), icon: CheckCircle, color: MANUFACTURING_COLOR },
-          { label: 'Avg Efficiency', value: `${stats.avgEfficiency}%`, icon: Gauge, color: stats.avgEfficiency >= 85 ? '#10b981' : '#f59e0b' },
-          { label: 'Total Downtime', value: `${stats.totalDowntime} min`, icon: Clock, color: stats.totalDowntime > 60 ? '#ef4444' : '#10b981' },
+          { label: t('production.activeLines'), value: stats.activeLines, icon: Factory, color: '#10b981' },
+          { label: t('production.totalOutputToday'), value: stats.totalOutput.toLocaleString(), icon: CheckCircle, color: MANUFACTURING_COLOR },
+          { label: t('production.avgEfficiency'), value: `${stats.avgEfficiency}%`, icon: Gauge, color: stats.avgEfficiency >= 85 ? '#10b981' : '#f59e0b' },
+          { label: t('production.totalDowntime'), value: `${stats.totalDowntime} min`, icon: Clock, color: stats.totalDowntime > 60 ? '#ef4444' : '#10b981' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
             <motion.div
-              key={stat.label}
+              key={index}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}
@@ -115,7 +124,7 @@ export const Production = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by line, department, or product..."
+              placeholder={t('production.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -127,18 +136,18 @@ export const Production = () => {
             onChange={(e) => setDepartmentFilter(e.target.value)}
           >
             {departments.map(dept => (
-              <option key={dept} value={dept}>{dept === 'all' ? 'All Departments' : dept}</option>
+              <option key={dept} value={dept}>{dept === 'all' ? t('production.allDepartments') : dept}</option>
             ))}
           </select>
           <div className="flex gap-2">
-            {['all', 'running', 'maintenance', 'idle'].map((status) => (
+            {(['all', 'running', 'maintenance', 'idle'] as const).map((status) => (
               <Button
                 key={status}
                 variant={statusFilter === status ? 'primary' : 'ghost'}
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status === 'all' ? 'All' : status.charAt(0).toUpperCase() + status.slice(1)}
+                {statusMap[status]}
               </Button>
             ))}
           </div>
@@ -171,10 +180,10 @@ export const Production = () => {
                       <h3 className="font-semibold text-text-primary">{line.lineName}</h3>
                       <p className="text-sm text-text-muted">{line.department}</p>
                       <span
-                        className="inline-block px-2 py-0.5 rounded-full text-xs font-medium capitalize mt-1"
+                        className="inline-block px-2 py-0.5 rounded-full text-xs font-medium mt-1"
                         style={{ backgroundColor: `${getStatusColor(line.status)}20`, color: getStatusColor(line.status) }}
                       >
-                        {line.status}
+                        {statusMap[line.status]}
                       </span>
                     </div>
                   </div>
@@ -185,9 +194,9 @@ export const Production = () => {
                       </Button>
                     }
                     items={[
-                      { id: 'view', label: 'View Details', onClick: () => {} },
-                      { id: 'monitor', label: 'Monitor', onClick: () => {} },
-                      { id: 'stop', label: line.status === 'running' ? 'Stop Line' : 'Start Line', onClick: () => {} },
+                      { id: 'view', label: t('production.viewDetails'), onClick: () => {} },
+                      { id: 'monitor', label: t('production.monitor'), onClick: () => {} },
+                      { id: 'stop', label: line.status === 'running' ? t('production.stopLine') : t('production.startLine'), onClick: () => {} },
                     ]}
                   />
                 </div>
@@ -195,19 +204,19 @@ export const Production = () => {
                 {/* Current Product */}
                 {line.productName ? (
                   <div className="mb-4 p-3 bg-background-tertiary rounded-lg">
-                    <p className="text-xs text-text-muted mb-1">Currently Producing</p>
+                    <p className="text-xs text-text-muted mb-1">{t('production.currentlyProducing')}</p>
                     <p className="font-medium text-text-primary">{line.productName}</p>
                   </div>
                 ) : (
                   <div className="mb-4 p-3 bg-background-tertiary rounded-lg">
-                    <p className="text-sm text-text-muted">No active production</p>
+                    <p className="text-sm text-text-muted">{t('production.noActiveProduction')}</p>
                   </div>
                 )}
 
                 {/* Progress */}
                 <div className="mb-4">
                   <div className="flex justify-between text-sm mb-1">
-                    <span className="text-text-muted">Output Progress</span>
+                    <span className="text-text-muted">{t('production.outputProgress')}</span>
                     <span className="font-medium text-text-primary">{line.currentOutput} / {line.targetOutput}</span>
                   </div>
                   <div className="w-full bg-background-tertiary rounded-full h-2">
@@ -216,7 +225,7 @@ export const Production = () => {
                       style={{ width: `${progressPercent}%`, backgroundColor: getStatusColor(line.status) }}
                     />
                   </div>
-                  <p className="text-xs text-text-muted mt-1 text-right">{progressPercent}% complete</p>
+                  <p className="text-xs text-text-muted mt-1 text-right">{progressPercent}{t('production.percentComplete')}</p>
                 </div>
 
                 {/* Metrics */}
@@ -224,17 +233,17 @@ export const Production = () => {
                   <div className="text-center p-2 bg-background-tertiary rounded-lg">
                     <Gauge size={16} className="mx-auto text-text-muted mb-1" />
                     <p className="text-lg font-bold text-text-primary">{line.efficiency}%</p>
-                    <p className="text-xs text-text-muted">Efficiency</p>
+                    <p className="text-xs text-text-muted">{t('production.efficiency')}</p>
                   </div>
                   <div className="text-center p-2 bg-background-tertiary rounded-lg">
                     <Users size={16} className="mx-auto text-text-muted mb-1" />
                     <p className="text-lg font-bold text-text-primary">{line.workers}</p>
-                    <p className="text-xs text-text-muted">Workers</p>
+                    <p className="text-xs text-text-muted">{t('production.workers')}</p>
                   </div>
                   <div className="text-center p-2 bg-background-tertiary rounded-lg">
                     <AlertTriangle size={16} className="mx-auto text-text-muted mb-1" />
                     <p className="text-lg font-bold text-text-primary">{line.downtime}</p>
-                    <p className="text-xs text-text-muted">Downtime (min)</p>
+                    <p className="text-xs text-text-muted">{t('production.downtimeMin')}</p>
                   </div>
                 </div>
 
@@ -256,7 +265,7 @@ export const Production = () => {
       {filteredLines.length === 0 && (
         <Card className="p-12 text-center">
           <Factory size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No production lines found</p>
+          <p className="text-text-secondary">{t('production.noProductionLinesFound')}</p>
         </Card>
       )}
     </div>

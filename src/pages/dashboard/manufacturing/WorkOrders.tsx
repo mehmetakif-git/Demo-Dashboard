@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   ClipboardList,
@@ -17,9 +18,24 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { workOrders, MANUFACTURING_COLOR } from '@/data/manufacturing/manufacturingData';
 
 export const WorkOrders = () => {
+  const { t } = useTranslation('manufacturing');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [priorityFilter, setPriorityFilter] = useState<string>('all');
+
+  const statusMap: Record<string, string> = {
+    'all': t('status.all'),
+    'scheduled': t('status.scheduled'),
+    'in-progress': t('status.inProgress'),
+    'completed': t('status.completed'),
+    'cancelled': t('status.cancelled'),
+  };
+
+  const priorityMap: Record<string, string> = {
+    'high': t('workOrders.high'),
+    'normal': t('workOrders.normal'),
+    'low': t('workOrders.low'),
+  };
 
   const stats = useMemo(() => {
     const total = workOrders.length;
@@ -75,13 +91,13 @@ export const WorkOrders = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Work Orders"
-        subtitle="Manage production work orders"
+        title={t('workOrders.title')}
+        subtitle={t('workOrders.subtitle')}
         icon={ClipboardList}
         actions={
           <Button>
             <Plus size={18} />
-            Create Work Order
+            {t('workOrders.createWorkOrder')}
           </Button>
         }
       />
@@ -89,10 +105,10 @@ export const WorkOrders = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Orders', value: stats.total, icon: ClipboardList, color: MANUFACTURING_COLOR },
-          { label: 'In Progress', value: stats.inProgress, icon: PlayCircle, color: '#f59e0b' },
-          { label: 'Completed', value: stats.completed, icon: CheckCircle, color: '#10b981' },
-          { label: 'Scheduled', value: stats.scheduled, icon: Clock, color: '#3b82f6' },
+          { label: t('workOrders.totalOrders'), value: stats.total, icon: ClipboardList, color: MANUFACTURING_COLOR },
+          { label: t('workOrders.inProgress'), value: stats.inProgress, icon: PlayCircle, color: '#f59e0b' },
+          { label: t('workOrders.completed'), value: stats.completed, icon: CheckCircle, color: '#10b981' },
+          { label: t('workOrders.scheduled'), value: stats.scheduled, icon: Clock, color: '#3b82f6' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -127,7 +143,7 @@ export const WorkOrders = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by order no, product, or batch..."
+              placeholder={t('workOrders.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -138,10 +154,10 @@ export const WorkOrders = () => {
             value={priorityFilter}
             onChange={(e) => setPriorityFilter(e.target.value)}
           >
-            <option value="all">All Priorities</option>
-            <option value="high">High</option>
-            <option value="normal">Normal</option>
-            <option value="low">Low</option>
+            <option value="all">{t('workOrders.allPriorities')}</option>
+            <option value="high">{t('workOrders.high')}</option>
+            <option value="normal">{t('workOrders.normal')}</option>
+            <option value="low">{t('workOrders.low')}</option>
           </select>
           <div className="flex gap-2 flex-wrap">
             {['all', 'scheduled', 'in-progress', 'completed', 'cancelled'].map((status) => (
@@ -151,7 +167,7 @@ export const WorkOrders = () => {
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status === 'all' ? 'All' : status.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                {statusMap[status] || status}
               </Button>
             ))}
           </div>
@@ -164,15 +180,15 @@ export const WorkOrders = () => {
           <table className="w-full">
             <thead className="bg-background-tertiary">
               <tr>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Work Order</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Product</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Quantity</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Due Date</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Line</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Priority</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Quality</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Status</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Actions</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('workOrders.workOrder')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('workOrders.product')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('workOrders.quantity')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('workOrders.dueDate')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('workOrders.line')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('workOrders.priority')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('workOrders.quality')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('workOrders.status')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('workOrders.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -230,10 +246,10 @@ export const WorkOrders = () => {
                     </td>
                     <td className="py-3 px-4 text-center">
                       <span
-                        className="px-2 py-1 rounded-full text-xs font-medium capitalize"
+                        className="px-2 py-1 rounded-full text-xs font-medium"
                         style={{ backgroundColor: `${getPriorityColor(order.priority)}20`, color: getPriorityColor(order.priority) }}
                       >
-                        {order.priority}
+                        {priorityMap[order.priority] || order.priority}
                       </span>
                     </td>
                     <td className="py-3 px-4 text-center">
@@ -244,10 +260,10 @@ export const WorkOrders = () => {
                     </td>
                     <td className="py-3 px-4 text-center">
                       <span
-                        className="px-2 py-1 rounded-full text-xs font-medium capitalize"
+                        className="px-2 py-1 rounded-full text-xs font-medium"
                         style={{ backgroundColor: `${getStatusColor(order.status)}20`, color: getStatusColor(order.status) }}
                       >
-                        {order.status.replace(/-/g, ' ')}
+                        {statusMap[order.status] || order.status}
                       </span>
                     </td>
                     <td className="py-3 px-4 text-center">
@@ -258,10 +274,10 @@ export const WorkOrders = () => {
                           </Button>
                         }
                         items={[
-                          { id: 'view', label: 'View Details', onClick: () => {} },
-                          { id: 'edit', label: 'Edit', onClick: () => {} },
-                          { id: 'start', label: order.status === 'scheduled' ? 'Start Production' : 'Complete', onClick: () => {} },
-                          { id: 'cancel', label: 'Cancel', onClick: () => {} },
+                          { id: 'view', label: t('workOrders.viewDetails'), onClick: () => {} },
+                          { id: 'edit', label: t('workOrders.edit'), onClick: () => {} },
+                          { id: 'start', label: order.status === 'scheduled' ? t('workOrders.startProduction') : t('workOrders.complete'), onClick: () => {} },
+                          { id: 'cancel', label: t('workOrders.cancel'), onClick: () => {} },
                         ]}
                       />
                     </td>
@@ -276,7 +292,7 @@ export const WorkOrders = () => {
       {filteredOrders.length === 0 && (
         <Card className="p-12 text-center">
           <ClipboardList size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No work orders found</p>
+          <p className="text-text-secondary">{t('workOrders.noWorkOrdersFound')}</p>
         </Card>
       )}
     </div>

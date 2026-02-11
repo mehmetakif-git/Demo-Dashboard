@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   CheckSquare,
@@ -17,9 +18,16 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { qualityChecks, MANUFACTURING_COLOR } from '@/data/manufacturing/manufacturingData';
 
 export const Quality = () => {
+  const { t } = useTranslation('manufacturing');
   const [searchQuery, setSearchQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
+
+  const statusMap: Record<string, string> = {
+    'all': t('status.all'),
+    'passed': t('status.passed'),
+    'failed': t('status.failed'),
+  };
 
   const checkTypes = useMemo(() => {
     return ['all', ...new Set(qualityChecks.map(q => q.checkType))];
@@ -69,13 +77,13 @@ export const Quality = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Quality Control"
-        subtitle="Manage quality checks and inspections"
+        title={t('quality.title')}
+        subtitle={t('quality.subtitle')}
         icon={CheckSquare}
         actions={
           <Button>
             <Plus size={18} />
-            New Quality Check
+            {t('quality.newQualityCheck')}
           </Button>
         }
       />
@@ -83,15 +91,15 @@ export const Quality = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Checks Today', value: stats.totalChecks, icon: CheckSquare, color: MANUFACTURING_COLOR },
-          { label: 'Passed', value: stats.passed, icon: CheckCircle, color: '#10b981' },
-          { label: 'Failed', value: stats.failed, icon: XCircle, color: stats.failed > 0 ? '#ef4444' : '#10b981' },
-          { label: 'Avg Defect Rate', value: `${stats.avgDefectRate}%`, icon: AlertTriangle, color: parseFloat(stats.avgDefectRate) > 5 ? '#f59e0b' : '#10b981' },
+          { label: t('quality.totalChecksToday'), value: stats.totalChecks, icon: CheckSquare, color: MANUFACTURING_COLOR },
+          { label: t('quality.passed'), value: stats.passed, icon: CheckCircle, color: '#10b981' },
+          { label: t('quality.failed'), value: stats.failed, icon: XCircle, color: stats.failed > 0 ? '#ef4444' : '#10b981' },
+          { label: t('quality.avgDefectRate'), value: `${stats.avgDefectRate}%`, icon: AlertTriangle, color: parseFloat(stats.avgDefectRate) > 5 ? '#f59e0b' : '#10b981' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
             <motion.div
-              key={stat.label}
+              key={index}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}
@@ -121,7 +129,7 @@ export const Quality = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by work order, product, or inspector..."
+              placeholder={t('quality.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -133,18 +141,18 @@ export const Quality = () => {
             onChange={(e) => setTypeFilter(e.target.value)}
           >
             {checkTypes.map(type => (
-              <option key={type} value={type}>{type === 'all' ? 'All Types' : type}</option>
+              <option key={type} value={type}>{type === 'all' ? t('quality.allTypes') : type}</option>
             ))}
           </select>
           <div className="flex gap-2">
-            {['all', 'passed', 'failed'].map((status) => (
+            {(['all', 'passed', 'failed'] as const).map((status) => (
               <Button
                 key={status}
                 variant={statusFilter === status ? 'primary' : 'ghost'}
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status === 'all' ? 'All' : status.charAt(0).toUpperCase() + status.slice(1)}
+                {statusMap[status]}
               </Button>
             ))}
           </div>
@@ -193,10 +201,10 @@ export const Quality = () => {
                 </div>
                 <div className="flex items-center gap-3">
                   <span
-                    className="px-3 py-1 rounded-full text-xs font-medium capitalize"
+                    className="px-3 py-1 rounded-full text-xs font-medium"
                     style={{ backgroundColor: `${getStatusColor(check.status)}20`, color: getStatusColor(check.status) }}
                   >
-                    {check.status}
+                    {statusMap[check.status]}
                   </span>
                   <Dropdown
                     trigger={
@@ -205,9 +213,9 @@ export const Quality = () => {
                       </Button>
                     }
                     items={[
-                      { id: 'view', label: 'View Details', onClick: () => {} },
-                      { id: 'edit', label: 'Edit', onClick: () => {} },
-                      { id: 'print', label: 'Print Report', onClick: () => {} },
+                      { id: 'view', label: t('quality.viewDetails'), onClick: () => {} },
+                      { id: 'edit', label: t('quality.edit'), onClick: () => {} },
+                      { id: 'print', label: t('quality.printReport'), onClick: () => {} },
                     ]}
                   />
                 </div>
@@ -216,25 +224,25 @@ export const Quality = () => {
               {/* Check Details */}
               <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-4">
                 <div className="p-3 bg-background-tertiary rounded-lg">
-                  <p className="text-xs text-text-muted">Check Type</p>
+                  <p className="text-xs text-text-muted">{t('quality.checkType')}</p>
                   <p className="text-sm font-medium text-text-primary">{check.checkType}</p>
                 </div>
                 <div className="p-3 bg-background-tertiary rounded-lg">
-                  <p className="text-xs text-text-muted">Sample Size</p>
-                  <p className="text-sm font-medium text-text-primary">{check.sampleSize} units</p>
+                  <p className="text-xs text-text-muted">{t('quality.sampleSize')}</p>
+                  <p className="text-sm font-medium text-text-primary">{check.sampleSize} {t('quality.units')}</p>
                 </div>
                 <div className="p-3 bg-background-tertiary rounded-lg">
-                  <p className="text-xs text-text-muted">Defects Found</p>
+                  <p className="text-xs text-text-muted">{t('quality.defectsFound')}</p>
                   <p className="text-sm font-medium text-text-primary">{check.defectsFound}</p>
                 </div>
                 <div className="p-3 bg-background-tertiary rounded-lg">
-                  <p className="text-xs text-text-muted">Defect Rate</p>
+                  <p className="text-xs text-text-muted">{t('quality.defectRate')}</p>
                   <p className={`text-sm font-medium ${check.defectRate > 10 ? 'text-error' : check.defectRate > 5 ? 'text-warning' : 'text-success'}`}>
                     {check.defectRate}%
                   </p>
                 </div>
                 <div className="p-3 bg-background-tertiary rounded-lg">
-                  <p className="text-xs text-text-muted">Inspector</p>
+                  <p className="text-xs text-text-muted">{t('quality.inspector')}</p>
                   <div className="flex items-center gap-1">
                     <User size={12} className="text-text-muted" />
                     <p className="text-sm font-medium text-text-primary">{check.inspector}</p>
@@ -245,7 +253,7 @@ export const Quality = () => {
               {/* Defects List */}
               {check.defects.length > 0 && (
                 <div className="border-t border-border-default pt-4">
-                  <p className="text-sm font-medium text-text-primary mb-2">Defects Found:</p>
+                  <p className="text-sm font-medium text-text-primary mb-2">{t('quality.defectsFoundLabel')}</p>
                   <div className="space-y-2">
                     {check.defects.map((defect, idx) => (
                       <div key={idx} className="flex items-center justify-between p-2 bg-background-tertiary rounded-lg">
@@ -280,7 +288,7 @@ export const Quality = () => {
       {filteredChecks.length === 0 && (
         <Card className="p-12 text-center">
           <CheckSquare size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No quality checks found</p>
+          <p className="text-text-secondary">{t('quality.noQualityChecksFound')}</p>
         </Card>
       )}
     </div>
