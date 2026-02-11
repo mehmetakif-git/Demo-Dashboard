@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   BarChart3,
@@ -28,7 +29,16 @@ import {
 } from '@/data/logistics/logisticsData';
 
 export const Reports = () => {
+  const { t } = useTranslation('logistics');
   const [dateRange, setDateRange] = useState('month');
+
+  const shipmentStatusMap: Record<string, string> = {
+    'pending': t('status.pending'),
+    'scheduled': t('status.scheduled'),
+    'in-transit': t('status.inTransit'),
+    'delivered': t('status.delivered'),
+    'cancelled': t('status.cancelled'),
+  };
 
   const stats = useMemo(() => {
     const totalRevenue = invoices.reduce((acc, i) => acc + i.total, 0);
@@ -76,8 +86,8 @@ export const Reports = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Reports & Analytics"
-        subtitle="View performance metrics and generate reports"
+        title={t('reports.title')}
+        subtitle={t('reports.subtitle')}
         icon={BarChart3}
         actions={
           <div className="flex gap-2">
@@ -86,14 +96,14 @@ export const Reports = () => {
               value={dateRange}
               onChange={(e) => setDateRange(e.target.value)}
             >
-              <option value="week">This Week</option>
-              <option value="month">This Month</option>
-              <option value="quarter">This Quarter</option>
-              <option value="year">This Year</option>
+              <option value="week">{t('reports.thisWeek')}</option>
+              <option value="month">{t('reports.thisMonth')}</option>
+              <option value="quarter">{t('reports.thisQuarter')}</option>
+              <option value="year">{t('reports.thisYear')}</option>
             </select>
             <Button>
               <Download size={18} />
-              Export Report
+              {t('reports.exportReport')}
             </Button>
           </div>
         }
@@ -102,10 +112,10 @@ export const Reports = () => {
       {/* Key Metrics */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Revenue', value: `QAR ${stats.totalRevenue.toLocaleString()}`, icon: DollarSign, color: '#10b981' },
-          { label: 'Total Shipments', value: stats.totalShipments, icon: Package, color: LOGISTICS_COLOR },
-          { label: 'Total Distance', value: `${(stats.totalDistance / 1000).toFixed(0)}K km`, icon: Truck, color: '#3b82f6' },
-          { label: 'Avg Delivery Time', value: `${stats.avgDeliveryTime} min`, icon: Clock, color: '#f59e0b' },
+          { label: t('reports.totalRevenue'), value: `QAR ${stats.totalRevenue.toLocaleString()}`, icon: DollarSign, color: '#10b981' },
+          { label: t('reports.totalShipments'), value: stats.totalShipments, icon: Package, color: LOGISTICS_COLOR },
+          { label: t('reports.totalDistance'), value: `${(stats.totalDistance / 1000).toFixed(0)}K km`, icon: Truck, color: '#3b82f6' },
+          { label: t('reports.avgDeliveryTime'), value: `${stats.avgDeliveryTime} min`, icon: Clock, color: '#f59e0b' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -137,10 +147,10 @@ export const Reports = () => {
       {/* Secondary Metrics */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Fuel Cost', value: `QAR ${stats.fuelCost.toLocaleString()}`, icon: Fuel, color: '#ef4444' },
-          { label: 'Maintenance Cost', value: `QAR ${stats.maintenanceCost.toLocaleString()}`, icon: Wrench, color: '#f59e0b' },
-          { label: 'Fleet Utilization', value: `${stats.fleetUtilization}%`, icon: Gauge, color: stats.fleetUtilization >= 70 ? '#10b981' : '#f59e0b' },
-          { label: 'On-time Delivery', value: `${stats.onTimeDelivery}%`, icon: CheckCircle, color: stats.onTimeDelivery >= 90 ? '#10b981' : '#f59e0b' },
+          { label: t('reports.fuelCost'), value: `QAR ${stats.fuelCost.toLocaleString()}`, icon: Fuel, color: '#ef4444' },
+          { label: t('reports.maintenanceCost'), value: `QAR ${stats.maintenanceCost.toLocaleString()}`, icon: Wrench, color: '#f59e0b' },
+          { label: t('reports.fleetUtilization'), value: `${stats.fleetUtilization}%`, icon: Gauge, color: stats.fleetUtilization >= 70 ? '#10b981' : '#f59e0b' },
+          { label: t('reports.onTimeDelivery'), value: `${stats.onTimeDelivery}%`, icon: CheckCircle, color: stats.onTimeDelivery >= 90 ? '#10b981' : '#f59e0b' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -172,7 +182,7 @@ export const Reports = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Shipments by Status */}
         <Card className="p-4">
-          <h3 className="font-semibold text-text-primary mb-4">Shipments by Status</h3>
+          <h3 className="font-semibold text-text-primary mb-4">{t('reports.shipmentsByStatus')}</h3>
           <div className="space-y-3">
             {shipmentsByStatus.map((item, index) => {
               const percentage = Math.round((item.count / shipments.length) * 100);
@@ -184,7 +194,7 @@ export const Reports = () => {
                   transition={{ delay: index * 0.05 }}
                 >
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-sm text-text-secondary capitalize">{item.status.replace(/-/g, ' ')}</span>
+                    <span className="text-sm text-text-secondary">{shipmentStatusMap[item.status] || item.status}</span>
                     <span className="text-sm font-medium text-text-primary">{item.count} ({percentage}%)</span>
                   </div>
                   <div className="w-full bg-background-tertiary rounded-full h-2">
@@ -201,7 +211,7 @@ export const Reports = () => {
 
         {/* Top Clients */}
         <Card className="p-4">
-          <h3 className="font-semibold text-text-primary mb-4">Top Clients by Shipments</h3>
+          <h3 className="font-semibold text-text-primary mb-4">{t('reports.topClients')}</h3>
           <div className="space-y-3">
             {topClients.map((client, index) => (
               <motion.div
@@ -227,7 +237,7 @@ export const Reports = () => {
                 </div>
                 <div className="text-right">
                   <p className="font-medium text-text-primary">{client.totalShipments}</p>
-                  <p className="text-xs text-text-muted">shipments</p>
+                  <p className="text-xs text-text-muted">{t('reports.shipments')}</p>
                 </div>
               </motion.div>
             ))}
@@ -236,14 +246,14 @@ export const Reports = () => {
 
         {/* Driver Performance */}
         <Card className="p-4">
-          <h3 className="font-semibold text-text-primary mb-4">Driver Performance</h3>
+          <h3 className="font-semibold text-text-primary mb-4">{t('reports.driverPerformance')}</h3>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
                 <tr className="border-b border-border-default">
-                  <th className="text-left py-2 text-sm font-medium text-text-muted">Driver</th>
-                  <th className="text-center py-2 text-sm font-medium text-text-muted">Trips</th>
-                  <th className="text-center py-2 text-sm font-medium text-text-muted">Rating</th>
+                  <th className="text-left py-2 text-sm font-medium text-text-muted">{t('reports.driver')}</th>
+                  <th className="text-center py-2 text-sm font-medium text-text-muted">{t('reports.trips')}</th>
+                  <th className="text-center py-2 text-sm font-medium text-text-muted">{t('reports.rating')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -279,12 +289,12 @@ export const Reports = () => {
 
         {/* Revenue Placeholder Chart */}
         <Card className="p-4">
-          <h3 className="font-semibold text-text-primary mb-4">Revenue Trend</h3>
+          <h3 className="font-semibold text-text-primary mb-4">{t('reports.revenueTrend')}</h3>
           <div className="h-64 flex items-center justify-center bg-background-tertiary rounded-lg">
             <div className="text-center">
               <TrendingUp size={48} className="mx-auto text-text-muted mb-2" />
-              <p className="text-text-muted">Chart placeholder</p>
-              <p className="text-xs text-text-muted mt-1">Revenue trend visualization would appear here</p>
+              <p className="text-text-muted">{t('reports.chartPlaceholder')}</p>
+              <p className="text-xs text-text-muted mt-1">{t('reports.chartDescription')}</p>
             </div>
           </div>
         </Card>
@@ -292,14 +302,14 @@ export const Reports = () => {
 
       {/* Export Options */}
       <Card className="p-4">
-        <h3 className="font-semibold text-text-primary mb-4">Export Reports</h3>
+        <h3 className="font-semibold text-text-primary mb-4">{t('reports.exportReports')}</h3>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
           {[
-            { label: 'Financial Summary', icon: DollarSign },
-            { label: 'Shipment Report', icon: Package },
-            { label: 'Fleet Report', icon: Truck },
-            { label: 'Fuel Report', icon: Fuel },
-            { label: 'Maintenance Report', icon: Wrench },
+            { label: t('reports.financialSummary'), icon: DollarSign },
+            { label: t('reports.shipmentReport'), icon: Package },
+            { label: t('reports.fleetReport'), icon: Truck },
+            { label: t('reports.fuelReport'), icon: Fuel },
+            { label: t('reports.maintenanceReport'), icon: Wrench },
           ].map((report, index) => {
             const Icon = report.icon;
             return (

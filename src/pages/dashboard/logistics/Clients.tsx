@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   Building2,
@@ -19,9 +20,16 @@ import { clients, LOGISTICS_COLOR } from '@/data/logistics/logisticsData';
 import { getCompanyLogo } from '@/utils/profileImages';
 
 export const Clients = () => {
+  const { t } = useTranslation('logistics');
   const [searchQuery, setSearchQuery] = useState('');
   const [industryFilter, setIndustryFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
+
+  const statusMap: Record<string, string> = {
+    'all': t('status.all'),
+    'active': t('status.active'),
+    'inactive': t('status.inactive'),
+  };
 
   const industries = useMemo(() => {
     return ['all', ...new Set(clients.map(c => c.industry))];
@@ -52,13 +60,13 @@ export const Clients = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Client Management"
-        subtitle="Manage clients and relationships"
+        title={t('clients.title')}
+        subtitle={t('clients.subtitle')}
         icon={Building2}
         actions={
           <Button>
             <Plus size={18} />
-            Add Client
+            {t('clients.addClient')}
           </Button>
         }
       />
@@ -66,10 +74,10 @@ export const Clients = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Clients', value: stats.total, icon: Building2, color: LOGISTICS_COLOR },
-          { label: 'Active Clients', value: stats.active, icon: User, color: '#10b981' },
-          { label: 'Outstanding Balance', value: `QAR ${stats.totalRevenue.toLocaleString()}`, icon: DollarSign, color: '#f59e0b' },
-          { label: 'Avg Shipments', value: stats.avgShipments, icon: Package, color: '#3b82f6' },
+          { label: t('clients.totalClients'), value: stats.total, icon: Building2, color: LOGISTICS_COLOR },
+          { label: t('clients.activeClients'), value: stats.active, icon: User, color: '#10b981' },
+          { label: t('clients.outstandingBalance'), value: `QAR ${stats.totalRevenue.toLocaleString()}`, icon: DollarSign, color: '#f59e0b' },
+          { label: t('clients.avgShipments'), value: stats.avgShipments, icon: Package, color: '#3b82f6' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -104,7 +112,7 @@ export const Clients = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by company, contact, or email..."
+              placeholder={t('clients.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -116,7 +124,7 @@ export const Clients = () => {
             onChange={(e) => setIndustryFilter(e.target.value)}
           >
             {industries.map(ind => (
-              <option key={ind} value={ind}>{ind === 'all' ? 'All Industries' : ind}</option>
+              <option key={ind} value={ind}>{ind === 'all' ? t('clients.allIndustries') : ind}</option>
             ))}
           </select>
           <div className="flex gap-2">
@@ -127,7 +135,7 @@ export const Clients = () => {
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status === 'all' ? 'All' : status.charAt(0).toUpperCase() + status.slice(1)}
+                {statusMap[status]}
               </Button>
             ))}
           </div>
@@ -167,11 +175,11 @@ export const Clients = () => {
                     <h3 className="font-semibold text-text-primary">{client.companyName}</h3>
                     <p className="text-sm text-text-muted">{client.industry}</p>
                     <span
-                      className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium capitalize mt-1 ${
+                      className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium mt-1 ${
                         client.status === 'active' ? 'bg-success/20 text-success' : 'bg-text-muted/20 text-text-muted'
                       }`}
                     >
-                      {client.status}
+                      {statusMap[client.status]}
                     </span>
                   </div>
                 </div>
@@ -182,10 +190,10 @@ export const Clients = () => {
                     </Button>
                   }
                   items={[
-                    { id: 'view', label: 'View Profile', onClick: () => {} },
-                    { id: 'edit', label: 'Edit', onClick: () => {} },
-                    { id: 'shipment', label: 'New Shipment', onClick: () => {} },
-                    { id: 'statement', label: 'View Statement', onClick: () => {} },
+                    { id: 'view', label: t('clients.viewProfile'), onClick: () => {} },
+                    { id: 'edit', label: t('clients.edit'), onClick: () => {} },
+                    { id: 'shipment', label: t('clients.newShipment'), onClick: () => {} },
+                    { id: 'statement', label: t('clients.viewStatement'), onClick: () => {} },
                   ]}
                 />
               </div>
@@ -213,11 +221,11 @@ export const Clients = () => {
               {/* Stats */}
               <div className="grid grid-cols-2 gap-4 mb-4 p-3 bg-background-tertiary rounded-lg">
                 <div>
-                  <p className="text-xs text-text-muted">Credit Limit</p>
+                  <p className="text-xs text-text-muted">{t('clients.creditLimit')}</p>
                   <p className="text-sm font-medium text-text-primary">QAR {client.creditLimit.toLocaleString()}</p>
                 </div>
                 <div>
-                  <p className="text-xs text-text-muted">Balance</p>
+                  <p className="text-xs text-text-muted">{t('clients.balance')}</p>
                   <p className={`text-sm font-medium ${client.currentBalance > 0 ? 'text-warning' : 'text-success'}`}>
                     QAR {client.currentBalance.toLocaleString()}
                   </p>
@@ -232,7 +240,7 @@ export const Clients = () => {
                 </div>
                 <div className="flex items-center gap-1 text-sm text-text-muted">
                   <Package size={14} />
-                  <span>{client.totalShipments} shipments</span>
+                  <span>{client.totalShipments} {t('clients.shipments')}</span>
                 </div>
                 <div className="flex items-center gap-1 text-sm text-text-muted">
                   <CreditCard size={14} />
@@ -247,7 +255,7 @@ export const Clients = () => {
       {filteredClients.length === 0 && (
         <Card className="p-12 text-center">
           <Building2 size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No clients found</p>
+          <p className="text-text-secondary">{t('clients.noClientsFound')}</p>
         </Card>
       )}
     </div>

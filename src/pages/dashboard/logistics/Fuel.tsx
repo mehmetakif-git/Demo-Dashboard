@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   Fuel,
@@ -17,6 +18,7 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { fuelRecords, vehicles, LOGISTICS_COLOR } from '@/data/logistics/logisticsData';
 
 export const FuelPage = () => {
+  const { t } = useTranslation('logistics');
   const [searchQuery, setSearchQuery] = useState('');
   const [vehicleFilter, setVehicleFilter] = useState<string>('all');
   const [paymentFilter, setPaymentFilter] = useState<string>('all');
@@ -54,13 +56,13 @@ export const FuelPage = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Fuel Management"
-        subtitle="Track fuel consumption and costs"
+        title={t('fuel.title')}
+        subtitle={t('fuel.subtitle')}
         icon={Fuel}
         actions={
           <Button>
             <Plus size={18} />
-            Add Fuel Record
+            {t('fuel.addFuelRecord')}
           </Button>
         }
       />
@@ -68,10 +70,10 @@ export const FuelPage = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Fuel Cost', value: `QAR ${stats.totalCost.toLocaleString()}`, icon: DollarSign, color: '#ef4444' },
-          { label: 'Total Liters', value: stats.totalLiters.toLocaleString(), icon: Droplets, color: LOGISTICS_COLOR },
-          { label: 'Avg Efficiency', value: `${stats.avgEfficiency} km/L`, icon: Gauge, color: '#10b981' },
-          { label: 'Top Consumer', value: stats.topConsumer, icon: Truck, color: '#f59e0b' },
+          { label: t('fuel.totalFuelCost'), value: `QAR ${stats.totalCost.toLocaleString()}`, icon: DollarSign, color: '#ef4444' },
+          { label: t('fuel.totalLiters'), value: stats.totalLiters.toLocaleString(), icon: Droplets, color: LOGISTICS_COLOR },
+          { label: t('fuel.avgEfficiency'), value: `${stats.avgEfficiency} ${t('fuel.kmPerLiter')}`, icon: Gauge, color: '#10b981' },
+          { label: t('fuel.topConsumer'), value: stats.topConsumer, icon: Truck, color: '#f59e0b' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -106,7 +108,7 @@ export const FuelPage = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by vehicle, driver, or station..."
+              placeholder={t('fuel.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -117,7 +119,7 @@ export const FuelPage = () => {
             value={vehicleFilter}
             onChange={(e) => setVehicleFilter(e.target.value)}
           >
-            <option value="all">All Vehicles</option>
+            <option value="all">{t('fuel.allVehicles')}</option>
             {vehicles.map(v => (
               <option key={v.id} value={v.id}>{v.plateNo}</option>
             ))}
@@ -127,9 +129,9 @@ export const FuelPage = () => {
             value={paymentFilter}
             onChange={(e) => setPaymentFilter(e.target.value)}
           >
-            <option value="all">All Payment Methods</option>
-            <option value="Company Card">Company Card</option>
-            <option value="Cash">Cash</option>
+            <option value="all">{t('fuel.allPaymentMethods')}</option>
+            <option value="Company Card">{t('fuel.companyCard')}</option>
+            <option value="Cash">{t('fuel.cash')}</option>
           </select>
         </div>
       </Card>
@@ -140,15 +142,15 @@ export const FuelPage = () => {
           <table className="w-full">
             <thead className="bg-background-tertiary">
               <tr>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Date / Time</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Vehicle</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Driver</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Station</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Quantity</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Cost</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Efficiency</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Payment</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Actions</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('fuel.dateTime')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('fuel.vehicle')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('fuel.driver')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('fuel.station')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('fuel.quantity')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('fuel.cost')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('fuel.efficiency')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('fuel.payment')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('fuel.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -174,7 +176,7 @@ export const FuelPage = () => {
                       <Truck size={14} className="text-text-muted" />
                       <span className="font-medium text-text-primary">{record.vehiclePlate}</span>
                     </div>
-                    <p className="text-xs text-text-muted mt-1">Mileage: {record.mileage.toLocaleString()} km</p>
+                    <p className="text-xs text-text-muted mt-1">{t('fuel.mileage')} {record.mileage.toLocaleString()} km</p>
                   </td>
                   <td className="py-3 px-4">
                     <div className="flex items-center gap-2">
@@ -192,9 +194,9 @@ export const FuelPage = () => {
                     <div className="flex items-center justify-center gap-1">
                       <Droplets size={14} style={{ color: LOGISTICS_COLOR }} />
                       <span className="font-medium text-text-primary">{record.quantity}</span>
-                      <span className="text-text-muted text-xs">L</span>
+                      <span className="text-text-muted text-xs">{t('fuel.liters')}</span>
                     </div>
-                    <p className="text-xs text-text-muted mt-1">@ QAR {record.pricePerLiter}/L</p>
+                    <p className="text-xs text-text-muted mt-1">@ QAR {record.pricePerLiter}{t('fuel.perLiter')}</p>
                   </td>
                   <td className="py-3 px-4 text-right">
                     <p className="font-medium text-text-primary">QAR {record.totalCost.toFixed(2)}</p>
@@ -205,7 +207,7 @@ export const FuelPage = () => {
                       <span className={`font-medium ${record.fuelEfficiency >= 7 ? 'text-success' : 'text-warning'}`}>
                         {record.fuelEfficiency}
                       </span>
-                      <span className="text-text-muted text-xs">km/L</span>
+                      <span className="text-text-muted text-xs">{t('fuel.kmPerLiter')}</span>
                     </div>
                   </td>
                   <td className="py-3 px-4 text-center">
@@ -221,9 +223,9 @@ export const FuelPage = () => {
                         </Button>
                       }
                       items={[
-                        { id: 'view', label: 'View Details', onClick: () => {} },
-                        { id: 'edit', label: 'Edit', onClick: () => {} },
-                        { id: 'delete', label: 'Delete', onClick: () => {} },
+                        { id: 'view', label: t('fuel.viewDetails'), onClick: () => {} },
+                        { id: 'edit', label: t('fuel.edit'), onClick: () => {} },
+                        { id: 'delete', label: t('fuel.delete'), onClick: () => {} },
                       ]}
                     />
                   </td>
@@ -237,7 +239,7 @@ export const FuelPage = () => {
       {filteredRecords.length === 0 && (
         <Card className="p-12 text-center">
           <Fuel size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No fuel records found</p>
+          <p className="text-text-secondary">{t('fuel.noFuelRecordsFound')}</p>
         </Card>
       )}
     </div>

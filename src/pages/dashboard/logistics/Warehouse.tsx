@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   Warehouse,
@@ -15,10 +16,24 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { warehouseInventory, clients, LOGISTICS_COLOR } from '@/data/logistics/logisticsData';
 
 export const WarehousePage = () => {
+  const { t } = useTranslation('logistics');
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [clientFilter, setClientFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
+
+  const statusFilterMap: Record<string, string> = {
+    'all': t('status.all'),
+    'in-stock': t('status.inStock'),
+    'reserved': t('status.reserved'),
+    'low-stock': t('status.lowStock'),
+  };
+
+  const itemStatusMap: Record<string, string> = {
+    'in-stock': t('status.inStock'),
+    'reserved': t('status.reserved'),
+    'low-stock': t('status.lowStock'),
+  };
 
   const categories = useMemo(() => {
     return ['all', ...new Set(warehouseInventory.map(i => i.category))];
@@ -59,13 +74,13 @@ export const WarehousePage = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Warehouse Inventory"
-        subtitle="Manage warehouse inventory and stock"
+        title={t('warehouse.title')}
+        subtitle={t('warehouse.subtitle')}
         icon={Warehouse}
         actions={
           <Button>
             <Plus size={18} />
-            Receive Inventory
+            {t('warehouse.receiveInventory')}
           </Button>
         }
       />
@@ -73,10 +88,10 @@ export const WarehousePage = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Items', value: stats.totalItems, icon: Package, color: LOGISTICS_COLOR },
-          { label: 'Total Value', value: `QAR ${stats.totalValue.toLocaleString()}`, icon: DollarSign, color: '#10b981' },
-          { label: 'Clients', value: stats.totalClients, icon: Building2, color: '#3b82f6' },
-          { label: 'Low Stock', value: stats.lowStock, icon: AlertTriangle, color: stats.lowStock > 0 ? '#f59e0b' : '#10b981' },
+          { label: t('warehouse.totalItems'), value: stats.totalItems, icon: Package, color: LOGISTICS_COLOR },
+          { label: t('warehouse.totalValue'), value: `QAR ${stats.totalValue.toLocaleString()}`, icon: DollarSign, color: '#10b981' },
+          { label: t('warehouse.clients'), value: stats.totalClients, icon: Building2, color: '#3b82f6' },
+          { label: t('warehouse.lowStock'), value: stats.lowStock, icon: AlertTriangle, color: stats.lowStock > 0 ? '#f59e0b' : '#10b981' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -111,7 +126,7 @@ export const WarehousePage = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by item code, name, or client..."
+              placeholder={t('warehouse.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -123,7 +138,7 @@ export const WarehousePage = () => {
             onChange={(e) => setCategoryFilter(e.target.value)}
           >
             {categories.map(cat => (
-              <option key={cat} value={cat}>{cat === 'all' ? 'All Categories' : cat}</option>
+              <option key={cat} value={cat}>{cat === 'all' ? t('warehouse.allCategories') : cat}</option>
             ))}
           </select>
           <select
@@ -131,7 +146,7 @@ export const WarehousePage = () => {
             value={clientFilter}
             onChange={(e) => setClientFilter(e.target.value)}
           >
-            <option value="all">All Clients</option>
+            <option value="all">{t('warehouse.allClients')}</option>
             {clients.map(c => (
               <option key={c.id} value={c.id}>{c.companyName}</option>
             ))}
@@ -144,7 +159,7 @@ export const WarehousePage = () => {
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status === 'all' ? 'All' : status.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                {statusFilterMap[status]}
               </Button>
             ))}
           </div>
@@ -157,14 +172,14 @@ export const WarehousePage = () => {
           <table className="w-full">
             <thead className="bg-background-tertiary">
               <tr>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Item</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Category</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Client</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Quantity</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Location</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Value</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Status</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Actions</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('warehouse.item')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('warehouse.category')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('warehouse.client')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('warehouse.quantity')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('warehouse.location')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('warehouse.value')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('warehouse.status')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('warehouse.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -201,7 +216,7 @@ export const WarehousePage = () => {
                       <p className="font-medium text-text-primary">{item.availableQty} / {item.quantity}</p>
                       <p className="text-xs text-text-muted">{item.unit}</p>
                       {item.reservedQty > 0 && (
-                        <p className="text-xs text-info mt-1">Reserved: {item.reservedQty}</p>
+                        <p className="text-xs text-info mt-1">{t('warehouse.reserved')} {item.reservedQty}</p>
                       )}
                     </div>
                   </td>
@@ -216,10 +231,10 @@ export const WarehousePage = () => {
                   </td>
                   <td className="py-3 px-4 text-center">
                     <span
-                      className="px-2 py-1 rounded-full text-xs font-medium capitalize"
+                      className="px-2 py-1 rounded-full text-xs font-medium"
                       style={{ backgroundColor: `${getStatusColor(item.status)}20`, color: getStatusColor(item.status) }}
                     >
-                      {item.status.replace(/-/g, ' ')}
+                      {itemStatusMap[item.status] || item.status}
                     </span>
                   </td>
                   <td className="py-3 px-4 text-center">
@@ -230,10 +245,10 @@ export const WarehousePage = () => {
                         </Button>
                       }
                       items={[
-                        { id: 'view', label: 'View Details', onClick: () => {} },
-                        { id: 'edit', label: 'Edit', onClick: () => {} },
-                        { id: 'reserve', label: 'Reserve', onClick: () => {} },
-                        { id: 'dispatch', label: 'Dispatch', onClick: () => {} },
+                        { id: 'view', label: t('warehouse.viewDetails'), onClick: () => {} },
+                        { id: 'edit', label: t('warehouse.edit'), onClick: () => {} },
+                        { id: 'reserve', label: t('warehouse.reserve'), onClick: () => {} },
+                        { id: 'dispatch', label: t('warehouse.dispatch'), onClick: () => {} },
                       ]}
                     />
                   </td>
@@ -247,7 +262,7 @@ export const WarehousePage = () => {
       {filteredInventory.length === 0 && (
         <Card className="p-12 text-center">
           <Warehouse size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No inventory items found</p>
+          <p className="text-text-secondary">{t('warehouse.noItemsFound')}</p>
         </Card>
       )}
     </div>

@@ -1,4 +1,5 @@
 import { useState, useMemo, Suspense, lazy } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   MapPin,
@@ -17,9 +18,24 @@ import { vehicles, shipments, LOGISTICS_COLOR } from '@/data/logistics/logistics
 const TrackingMap = lazy(() => import('@/components/logistics/TrackingMap'));
 
 export const Tracking = () => {
+  const { t } = useTranslation('logistics');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [selectedVehicle, setSelectedVehicle] = useState<string | null>(null);
+
+  const statusFilterMap: Record<string, string> = {
+    'all': t('status.all'),
+    'on-route': t('status.onRoute'),
+    'active': t('status.active'),
+    'maintenance': t('status.maintenance'),
+  };
+
+  const vehicleStatusMap: Record<string, string> = {
+    'active': t('status.active'),
+    'on-route': t('status.onRoute'),
+    'maintenance': t('status.maintenance'),
+    'out-of-service': t('status.outOfService'),
+  };
 
   const filteredVehicles = useMemo(() => {
     return vehicles.filter(vehicle => {
@@ -49,8 +65,8 @@ export const Tracking = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Real-time Vehicle Tracking"
-        subtitle="Track vehicles and shipments in real-time"
+        title={t('tracking.title')}
+        subtitle={t('tracking.subtitle')}
         icon={MapPin}
       />
 
@@ -62,7 +78,7 @@ export const Tracking = () => {
               fallback={
                 <div className="w-full h-full bg-background-tertiary rounded-lg flex flex-col items-center justify-center">
                   <Loader2 size={48} className="text-text-muted animate-spin mb-4" />
-                  <p className="text-text-muted">Loading map...</p>
+                  <p className="text-text-muted">{t('tracking.loadingMap')}</p>
                 </div>
               }
             >
@@ -79,11 +95,11 @@ export const Tracking = () => {
         <div className="lg:col-span-1">
           <Card className="p-4 h-[600px] flex flex-col">
             <div className="mb-4">
-              <h3 className="font-semibold text-text-primary mb-3">Vehicle List</h3>
+              <h3 className="font-semibold text-text-primary mb-3">{t('tracking.vehicleList')}</h3>
               <div className="relative">
                 <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
                 <Input
-                  placeholder="Search vehicles..."
+                  placeholder={t('tracking.searchPlaceholder')}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="pl-9 text-sm"
@@ -98,7 +114,7 @@ export const Tracking = () => {
                     onClick={() => setStatusFilter(status)}
                     className="text-xs px-2 py-1"
                   >
-                    {status === 'all' ? 'All' : status.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                    {statusFilterMap[status]}
                   </Button>
                 ))}
               </div>
@@ -133,10 +149,10 @@ export const Tracking = () => {
                         <div>
                           <p className="font-medium text-text-primary text-sm">{vehicle.plateNo}</p>
                           <span
-                            className="inline-block px-1.5 py-0.5 rounded text-xs font-medium capitalize"
+                            className="inline-block px-1.5 py-0.5 rounded text-xs font-medium"
                             style={{ backgroundColor: `${getStatusColor(vehicle.status)}20`, color: getStatusColor(vehicle.status) }}
                           >
-                            {vehicle.status.replace(/-/g, ' ')}
+                            {vehicleStatusMap[vehicle.status] || vehicle.status}
                           </span>
                         </div>
                       </div>
@@ -169,7 +185,7 @@ export const Tracking = () => {
 
                     <div className="flex items-center gap-1 text-xs text-text-muted mt-2">
                       <Clock size={10} />
-                      <span>Last updated: Just now</span>
+                      <span>{t('tracking.lastUpdated')}</span>
                     </div>
                   </motion.div>
                 );
@@ -181,16 +197,16 @@ export const Tracking = () => {
 
       {/* Shipment Tracking Section */}
       <Card className="p-4">
-        <h3 className="font-semibold text-text-primary mb-4">Track Shipment</h3>
+        <h3 className="font-semibold text-text-primary mb-4">{t('tracking.trackShipment')}</h3>
         <div className="flex gap-4 mb-4">
           <div className="relative flex-1 max-w-md">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Enter tracking number (e.g., QTR-2024-001)"
+              placeholder={t('tracking.trackingPlaceholder')}
               className="pl-10"
             />
           </div>
-          <Button>Track</Button>
+          <Button>{t('tracking.track')}</Button>
         </div>
 
         {/* Active Shipments */}
@@ -206,7 +222,7 @@ export const Tracking = () => {
               <div className="flex items-center justify-between mb-3">
                 <span className="font-mono font-medium text-text-primary">{shipment.trackingNo}</span>
                 <span className="px-2 py-1 bg-warning/20 text-warning rounded text-xs font-medium">
-                  In Transit
+                  {t('tracking.inTransit')}
                 </span>
               </div>
 
@@ -229,7 +245,7 @@ export const Tracking = () => {
                   </div>
                   <div className="flex items-center gap-1 text-xs text-text-muted">
                     <Clock size={12} />
-                    <span>ETA: {shipment.estimatedDelivery}</span>
+                    <span>{t('tracking.eta')} {shipment.estimatedDelivery}</span>
                   </div>
                 </div>
                 <p className="text-xs text-text-secondary mt-2">{shipment.currentLocation}</p>
@@ -242,7 +258,7 @@ export const Tracking = () => {
       {filteredVehicles.length === 0 && (
         <Card className="p-12 text-center">
           <Truck size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No vehicles found</p>
+          <p className="text-text-secondary">{t('tracking.noVehiclesFound')}</p>
         </Card>
       )}
     </div>

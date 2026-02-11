@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   Receipt,
@@ -18,9 +19,18 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { invoices, clients, LOGISTICS_COLOR } from '@/data/logistics/logisticsData';
 
 export const Invoicing = () => {
+  const { t } = useTranslation('logistics');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [clientFilter, setClientFilter] = useState<string>('all');
+
+  const statusMap: Record<string, string> = {
+    'all': t('status.all'),
+    'paid': t('status.paid'),
+    'pending': t('status.pending'),
+    'overdue': t('status.overdue'),
+    'cancelled': t('status.cancelled'),
+  };
 
   const stats = useMemo(() => {
     const totalRevenue = invoices.reduce((acc, i) => acc + i.total, 0);
@@ -66,13 +76,13 @@ export const Invoicing = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Invoicing & Billing"
-        subtitle="Manage invoices and payments"
+        title={t('invoicing.title')}
+        subtitle={t('invoicing.subtitle')}
         icon={Receipt}
         actions={
           <Button>
             <Plus size={18} />
-            Create Invoice
+            {t('invoicing.createInvoice')}
           </Button>
         }
       />
@@ -80,10 +90,10 @@ export const Invoicing = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Revenue', value: `QAR ${stats.totalRevenue.toLocaleString()}`, icon: DollarSign, color: '#10b981' },
-          { label: 'Pending', value: stats.pending, icon: Clock, color: '#f59e0b' },
-          { label: 'Paid', value: stats.paid, icon: CheckCircle, color: '#10b981' },
-          { label: 'Overdue', value: stats.overdue, icon: AlertTriangle, color: stats.overdue > 0 ? '#ef4444' : '#10b981' },
+          { label: t('invoicing.totalRevenue'), value: `QAR ${stats.totalRevenue.toLocaleString()}`, icon: DollarSign, color: '#10b981' },
+          { label: t('invoicing.pending'), value: stats.pending, icon: Clock, color: '#f59e0b' },
+          { label: t('invoicing.paid'), value: stats.paid, icon: CheckCircle, color: '#10b981' },
+          { label: t('invoicing.overdue'), value: stats.overdue, icon: AlertTriangle, color: stats.overdue > 0 ? '#ef4444' : '#10b981' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -118,7 +128,7 @@ export const Invoicing = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by invoice no or client..."
+              placeholder={t('invoicing.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -129,7 +139,7 @@ export const Invoicing = () => {
             value={clientFilter}
             onChange={(e) => setClientFilter(e.target.value)}
           >
-            <option value="all">All Clients</option>
+            <option value="all">{t('invoicing.allClients')}</option>
             {clients.map(c => (
               <option key={c.id} value={c.id}>{c.companyName}</option>
             ))}
@@ -142,7 +152,7 @@ export const Invoicing = () => {
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status === 'all' ? 'All' : status.charAt(0).toUpperCase() + status.slice(1)}
+                {statusMap[status]}
               </Button>
             ))}
           </div>
@@ -155,15 +165,15 @@ export const Invoicing = () => {
           <table className="w-full">
             <thead className="bg-background-tertiary">
               <tr>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Invoice No</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Client</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Date</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Due Date</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Total</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Paid</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Balance</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Status</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Actions</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('invoicing.invoiceNo')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('invoicing.client')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('invoicing.date')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('invoicing.dueDate')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('invoicing.total')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('invoicing.paid')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('invoicing.balance')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('invoicing.status')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('invoicing.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -188,7 +198,7 @@ export const Invoicing = () => {
                         </div>
                         <div>
                           <p className="font-mono font-medium text-text-primary">{invoice.invoiceNo}</p>
-                          <p className="text-xs text-text-muted">{invoice.shipments.length} shipment(s)</p>
+                          <p className="text-xs text-text-muted">{invoice.shipments.length} {t('invoicing.shipments')}</p>
                         </div>
                       </div>
                     </td>
@@ -220,21 +230,21 @@ export const Invoicing = () => {
                     </td>
                     <td className="py-3 px-4 text-center">
                       <span
-                        className="px-2 py-1 rounded-full text-xs font-medium capitalize"
+                        className="px-2 py-1 rounded-full text-xs font-medium"
                         style={{ backgroundColor: `${getStatusColor(invoice.status)}20`, color: getStatusColor(invoice.status) }}
                       >
-                        {invoice.status}
+                        {statusMap[invoice.status]}
                       </span>
                     </td>
                     <td className="py-3 px-4 text-center">
                       <div className="flex items-center justify-center gap-1">
-                        <Button variant="ghost" size="sm" title="View">
+                        <Button variant="ghost" size="sm" title={t('invoicing.view')}>
                           <FileText size={16} />
                         </Button>
-                        <Button variant="ghost" size="sm" title="Print">
+                        <Button variant="ghost" size="sm" title={t('invoicing.print')}>
                           <Printer size={16} />
                         </Button>
-                        <Button variant="ghost" size="sm" title="Send Email">
+                        <Button variant="ghost" size="sm" title={t('invoicing.sendEmail')}>
                           <Mail size={16} />
                         </Button>
                         <Dropdown
@@ -244,10 +254,10 @@ export const Invoicing = () => {
                             </Button>
                           }
                           items={[
-                            { id: 'view', label: 'View Details', onClick: () => {} },
-                            { id: 'edit', label: 'Edit', onClick: () => {} },
-                            { id: 'payment', label: 'Record Payment', onClick: () => {} },
-                            { id: 'cancel', label: 'Cancel Invoice', onClick: () => {} },
+                            { id: 'view', label: t('invoicing.viewDetails'), onClick: () => {} },
+                            { id: 'edit', label: t('invoicing.edit'), onClick: () => {} },
+                            { id: 'payment', label: t('invoicing.recordPayment'), onClick: () => {} },
+                            { id: 'cancel', label: t('invoicing.cancelInvoice'), onClick: () => {} },
                           ]}
                         />
                       </div>
@@ -263,7 +273,7 @@ export const Invoicing = () => {
       {filteredInvoices.length === 0 && (
         <Card className="p-12 text-center">
           <Receipt size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No invoices found</p>
+          <p className="text-text-secondary">{t('invoicing.noInvoicesFound')}</p>
         </Card>
       )}
     </div>

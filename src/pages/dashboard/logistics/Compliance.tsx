@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   FileCheck,
@@ -19,10 +20,18 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { complianceDocuments, vehicles, drivers, LOGISTICS_COLOR } from '@/data/logistics/logisticsData';
 
 export const Compliance = () => {
+  const { t } = useTranslation('logistics');
   const [searchQuery, setSearchQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [entityFilter, setEntityFilter] = useState<string>('all');
+
+  const statusMap: Record<string, string> = {
+    'all': t('status.all'),
+    'valid': t('status.valid'),
+    'expiring-soon': t('status.expiringSoon'),
+    'expired': t('status.expired'),
+  };
 
   const documentTypes = useMemo(() => {
     return ['all', ...new Set(complianceDocuments.map(d => d.documentType))];
@@ -79,33 +88,33 @@ export const Compliance = () => {
 
     return [
       {
-        label: 'All vehicles have valid registration',
+        label: t('compliance.vehicleRegistration'),
         passed: vehicleRegistrations.every(d => d.status === 'valid'),
         count: `${vehicleRegistrations.filter(d => d.status === 'valid').length}/${vehicles.length}`,
       },
       {
-        label: 'All vehicles have valid insurance',
+        label: t('compliance.vehicleInsurance'),
         passed: vehicleInsurance.every(d => d.status === 'valid'),
         count: `${vehicleInsurance.filter(d => d.status === 'valid').length}/${vehicles.length}`,
       },
       {
-        label: 'All drivers have valid licenses',
+        label: t('compliance.driverLicenses'),
         passed: driverLicenses.every(d => d.status === 'valid'),
         count: `${driverLicenses.filter(d => d.status === 'valid').length}/${drivers.length}`,
       },
     ];
-  }, []);
+  }, [t]);
 
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Compliance & Documents"
-        subtitle="Manage regulatory documents and compliance"
+        title={t('compliance.title')}
+        subtitle={t('compliance.subtitle')}
         icon={FileCheck}
         actions={
           <Button>
             <Plus size={18} />
-            Add Document
+            {t('compliance.addDocument')}
           </Button>
         }
       />
@@ -113,10 +122,10 @@ export const Compliance = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Documents', value: stats.total, icon: FileText, color: LOGISTICS_COLOR },
-          { label: 'Valid', value: stats.valid, icon: CheckCircle, color: '#10b981' },
-          { label: 'Expiring Soon', value: stats.expiringSoon, icon: AlertTriangle, color: '#f59e0b' },
-          { label: 'Expired', value: stats.expired, icon: XCircle, color: stats.expired > 0 ? '#ef4444' : '#10b981' },
+          { label: t('compliance.totalDocuments'), value: stats.total, icon: FileText, color: LOGISTICS_COLOR },
+          { label: t('compliance.valid'), value: stats.valid, icon: CheckCircle, color: '#10b981' },
+          { label: t('compliance.expiringSoon'), value: stats.expiringSoon, icon: AlertTriangle, color: '#f59e0b' },
+          { label: t('compliance.expired'), value: stats.expired, icon: XCircle, color: stats.expired > 0 ? '#ef4444' : '#10b981' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -147,7 +156,7 @@ export const Compliance = () => {
 
       {/* Compliance Checklist */}
       <Card className="p-4">
-        <h3 className="font-semibold text-text-primary mb-4">Compliance Checklist</h3>
+        <h3 className="font-semibold text-text-primary mb-4">{t('compliance.complianceChecklist')}</h3>
         <div className="space-y-3">
           {complianceChecks.map((check, index) => (
             <motion.div
@@ -179,7 +188,7 @@ export const Compliance = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by vehicle, driver, or document no..."
+              placeholder={t('compliance.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -191,7 +200,7 @@ export const Compliance = () => {
             onChange={(e) => setTypeFilter(e.target.value)}
           >
             {documentTypes.map(type => (
-              <option key={type} value={type}>{type === 'all' ? 'All Types' : type}</option>
+              <option key={type} value={type}>{type === 'all' ? t('compliance.allTypes') : type}</option>
             ))}
           </select>
           <select
@@ -199,9 +208,9 @@ export const Compliance = () => {
             value={entityFilter}
             onChange={(e) => setEntityFilter(e.target.value)}
           >
-            <option value="all">All Entities</option>
-            <option value="vehicles">Vehicles</option>
-            <option value="drivers">Drivers</option>
+            <option value="all">{t('compliance.allEntities')}</option>
+            <option value="vehicles">{t('compliance.vehicles')}</option>
+            <option value="drivers">{t('compliance.drivers')}</option>
           </select>
           <div className="flex gap-2">
             {['all', 'valid', 'expiring-soon', 'expired'].map((status) => (
@@ -211,7 +220,7 @@ export const Compliance = () => {
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status === 'all' ? 'All' : status.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                {statusMap[status]}
               </Button>
             ))}
           </div>
@@ -224,14 +233,14 @@ export const Compliance = () => {
           <table className="w-full">
             <thead className="bg-background-tertiary">
               <tr>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Entity</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Document Type</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Document No</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Issue Date</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Expiry Date</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Status</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Authority</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Actions</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('compliance.entity')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('compliance.documentType')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('compliance.documentNo')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('compliance.issueDate')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('compliance.expiryDate')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('compliance.status')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('compliance.authority')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('compliance.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -263,7 +272,7 @@ export const Compliance = () => {
                             {doc.vehiclePlate || doc.driverName}
                           </p>
                           <p className="text-xs text-text-muted">
-                            {doc.vehicleId ? 'Vehicle' : 'Driver'}
+                            {doc.vehicleId ? t('compliance.vehicleLabel') : t('compliance.driverLabel')}
                           </p>
                         </div>
                       </div>
@@ -288,11 +297,11 @@ export const Compliance = () => {
                     </td>
                     <td className="py-3 px-4 text-center">
                       <span
-                        className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium capitalize"
+                        className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium"
                         style={{ backgroundColor: `${getStatusColor(doc.status)}20`, color: getStatusColor(doc.status) }}
                       >
                         <StatusIcon size={10} />
-                        {doc.status.replace(/-/g, ' ')}
+                        {statusMap[doc.status]}
                       </span>
                     </td>
                     <td className="py-3 px-4">
@@ -300,13 +309,13 @@ export const Compliance = () => {
                     </td>
                     <td className="py-3 px-4 text-center">
                       <div className="flex items-center justify-center gap-1">
-                        <Button variant="ghost" size="sm" title="View">
+                        <Button variant="ghost" size="sm" title={t('compliance.viewBtn')}>
                           <FileText size={16} />
                         </Button>
-                        <Button variant="ghost" size="sm" title="Download">
+                        <Button variant="ghost" size="sm" title={t('compliance.download')}>
                           <Download size={16} />
                         </Button>
-                        <Button variant="ghost" size="sm" title="Upload">
+                        <Button variant="ghost" size="sm" title={t('compliance.upload')}>
                           <Upload size={16} />
                         </Button>
                         <Dropdown
@@ -316,10 +325,10 @@ export const Compliance = () => {
                             </Button>
                           }
                           items={[
-                            { id: 'view', label: 'View Details', onClick: () => {} },
-                            { id: 'edit', label: 'Edit', onClick: () => {} },
-                            { id: 'renew', label: 'Renew', onClick: () => {} },
-                            { id: 'delete', label: 'Delete', onClick: () => {} },
+                            { id: 'view', label: t('compliance.viewDetails'), onClick: () => {} },
+                            { id: 'edit', label: t('compliance.edit'), onClick: () => {} },
+                            { id: 'renew', label: t('compliance.renew'), onClick: () => {} },
+                            { id: 'delete', label: t('compliance.delete'), onClick: () => {} },
                           ]}
                         />
                       </div>
@@ -335,7 +344,7 @@ export const Compliance = () => {
       {filteredDocuments.length === 0 && (
         <Card className="p-12 text-center">
           <FileCheck size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No documents found</p>
+          <p className="text-text-secondary">{t('compliance.noDocumentsFound')}</p>
         </Card>
       )}
     </div>

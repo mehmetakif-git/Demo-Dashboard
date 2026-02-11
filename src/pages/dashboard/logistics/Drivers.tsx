@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   Users,
@@ -20,9 +21,17 @@ import { drivers, LOGISTICS_COLOR } from '@/data/logistics/logisticsData';
 import { getProfileImage } from '@/utils/profileImages';
 
 export const Drivers = () => {
+  const { t } = useTranslation('logistics');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [licenseExpiryAlert, setLicenseExpiryAlert] = useState(false);
+
+  const statusMap: Record<string, string> = {
+    'all': t('status.all'),
+    'active': t('status.active'),
+    'on-leave': t('status.onLeave'),
+    'inactive': t('status.inactive'),
+  };
 
   const stats = useMemo(() => {
     const total = drivers.length;
@@ -82,13 +91,13 @@ export const Drivers = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Driver Management"
-        subtitle="Manage drivers and assignments"
+        title={t('drivers.title')}
+        subtitle={t('drivers.subtitle')}
         icon={Users}
         actions={
           <Button>
             <Plus size={18} />
-            Add Driver
+            {t('drivers.addDriver')}
           </Button>
         }
       />
@@ -96,11 +105,11 @@ export const Drivers = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         {[
-          { label: 'Total Drivers', value: stats.total, icon: Users, color: LOGISTICS_COLOR },
-          { label: 'Active', value: stats.active, icon: CheckCircle, color: '#10b981' },
-          { label: 'On Leave', value: stats.onLeave, icon: Clock, color: '#f59e0b' },
-          { label: 'Avg Rating', value: stats.avgRating, icon: Star, color: '#f59e0b' },
-          { label: 'License Alerts', value: stats.expiringLicenses, icon: AlertTriangle, color: stats.expiringLicenses > 0 ? '#ef4444' : '#10b981' },
+          { label: t('drivers.totalDrivers'), value: stats.total, icon: Users, color: LOGISTICS_COLOR },
+          { label: t('drivers.active'), value: stats.active, icon: CheckCircle, color: '#10b981' },
+          { label: t('drivers.onLeave'), value: stats.onLeave, icon: Clock, color: '#f59e0b' },
+          { label: t('drivers.avgRating'), value: stats.avgRating, icon: Star, color: '#f59e0b' },
+          { label: t('drivers.licenseAlerts'), value: stats.expiringLicenses, icon: AlertTriangle, color: stats.expiringLicenses > 0 ? '#ef4444' : '#10b981' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -135,7 +144,7 @@ export const Drivers = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by name, employee no, or license..."
+              placeholder={t('drivers.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -147,7 +156,7 @@ export const Drivers = () => {
             onClick={() => setLicenseExpiryAlert(!licenseExpiryAlert)}
           >
             <AlertTriangle size={16} />
-            License Expiring
+            {t('drivers.licenseExpiring')}
           </Button>
           <div className="flex gap-2">
             {['all', 'active', 'on-leave', 'inactive'].map((status) => (
@@ -157,7 +166,7 @@ export const Drivers = () => {
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status === 'all' ? 'All' : status.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                {statusMap[status]}
               </Button>
             ))}
           </div>
@@ -170,14 +179,14 @@ export const Drivers = () => {
           <table className="w-full">
             <thead className="bg-background-tertiary">
               <tr>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Driver</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">License</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Contact</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Status</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Vehicle</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Rating</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Trips</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Actions</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('drivers.driver')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('drivers.license')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('drivers.contact')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('drivers.status')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('drivers.vehicle')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('drivers.rating')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('drivers.trips')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('drivers.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -219,7 +228,7 @@ export const Drivers = () => {
                     <div className="flex items-center gap-1 mt-1">
                       <Calendar size={10} className={isLicenseExpiringSoon(driver.licenseExpiry) ? 'text-warning' : 'text-text-muted'} />
                       <span className={`text-xs ${isLicenseExpiringSoon(driver.licenseExpiry) ? 'text-warning' : 'text-text-muted'}`}>
-                        Exp: {new Date(driver.licenseExpiry).toLocaleDateString()}
+                        {t('drivers.exp')} {new Date(driver.licenseExpiry).toLocaleDateString()}
                       </span>
                     </div>
                   </td>
@@ -235,10 +244,10 @@ export const Drivers = () => {
                   </td>
                   <td className="py-3 px-4 text-center">
                     <span
-                      className="px-2 py-1 rounded-full text-xs font-medium capitalize"
+                      className="px-2 py-1 rounded-full text-xs font-medium"
                       style={{ backgroundColor: `${getStatusColor(driver.status)}20`, color: getStatusColor(driver.status) }}
                     >
-                      {driver.status.replace(/-/g, ' ')}
+                      {statusMap[driver.status]}
                     </span>
                   </td>
                   <td className="py-3 px-4">
@@ -248,7 +257,7 @@ export const Drivers = () => {
                         <span className="text-text-primary">{driver.vehiclePlate}</span>
                       </div>
                     ) : (
-                      <span className="text-xs text-text-muted">Unassigned</span>
+                      <span className="text-xs text-text-muted">{t('drivers.unassigned')}</span>
                     )}
                   </td>
                   <td className="py-3 px-4 text-center">
@@ -268,10 +277,10 @@ export const Drivers = () => {
                         </Button>
                       }
                       items={[
-                        { id: 'view', label: 'View Profile', onClick: () => {} },
-                        { id: 'edit', label: 'Edit', onClick: () => {} },
-                        { id: 'assign', label: 'Assign Vehicle', onClick: () => {} },
-                        { id: 'performance', label: 'Performance', onClick: () => {} },
+                        { id: 'view', label: t('drivers.viewProfile'), onClick: () => {} },
+                        { id: 'edit', label: t('drivers.edit'), onClick: () => {} },
+                        { id: 'assign', label: t('drivers.assignVehicle'), onClick: () => {} },
+                        { id: 'performance', label: t('drivers.performance'), onClick: () => {} },
                       ]}
                     />
                   </td>
@@ -285,7 +294,7 @@ export const Drivers = () => {
       {filteredDrivers.length === 0 && (
         <Card className="p-12 text-center">
           <Users size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No drivers found</p>
+          <p className="text-text-secondary">{t('drivers.noDriversFound')}</p>
         </Card>
       )}
     </div>

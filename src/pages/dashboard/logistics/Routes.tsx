@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   Route,
@@ -16,8 +17,15 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { routes, LOGISTICS_COLOR } from '@/data/logistics/logisticsData';
 
 export const Routes = () => {
+  const { t } = useTranslation('logistics');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
+
+  const statusMap: Record<string, string> = {
+    'all': t('status.all'),
+    'active': t('status.active'),
+    'inactive': t('status.inactive'),
+  };
 
   const stats = useMemo(() => {
     const total = routes.length;
@@ -47,13 +55,13 @@ export const Routes = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Routes & Dispatching"
-        subtitle="Manage delivery routes and dispatching"
+        title={t('routes.title')}
+        subtitle={t('routes.subtitle')}
         icon={Route}
         actions={
           <Button>
             <Plus size={18} />
-            Create Route
+            {t('routes.createRoute')}
           </Button>
         }
       />
@@ -61,10 +69,10 @@ export const Routes = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Routes', value: stats.total, icon: Route, color: LOGISTICS_COLOR },
-          { label: 'Active Routes', value: stats.active, icon: CheckCircle, color: '#10b981' },
-          { label: 'Avg Distance', value: `${stats.avgDistance} km`, icon: MapPin, color: '#3b82f6' },
-          { label: 'Avg Duration', value: `${stats.avgDuration} min`, icon: Clock, color: '#f59e0b' },
+          { label: t('routes.totalRoutes'), value: stats.total, icon: Route, color: LOGISTICS_COLOR },
+          { label: t('routes.activeRoutes'), value: stats.active, icon: CheckCircle, color: '#10b981' },
+          { label: t('routes.avgDistance'), value: `${stats.avgDistance} ${t('routes.km')}`, icon: MapPin, color: '#3b82f6' },
+          { label: t('routes.avgDuration'), value: `${stats.avgDuration} ${t('routes.min')}`, icon: Clock, color: '#f59e0b' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -99,7 +107,7 @@ export const Routes = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by route name, origin, or destination..."
+              placeholder={t('routes.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -113,7 +121,7 @@ export const Routes = () => {
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status === 'all' ? 'All' : status.charAt(0).toUpperCase() + status.slice(1)}
+                {statusMap[status]}
               </Button>
             ))}
           </div>
@@ -141,14 +149,14 @@ export const Routes = () => {
                   <div>
                     <h3 className="font-semibold text-text-primary">{route.routeName}</h3>
                     <span
-                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium capitalize mt-1"
+                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium mt-1"
                       style={{
                         backgroundColor: route.status === 'active' ? '#10b98120' : '#64748b20',
                         color: route.status === 'active' ? '#10b981' : '#64748b'
                       }}
                     >
                       {route.status === 'active' ? <CheckCircle size={10} /> : <XCircle size={10} />}
-                      {route.status}
+                      {statusMap[route.status]}
                     </span>
                   </div>
                 </div>
@@ -159,10 +167,10 @@ export const Routes = () => {
                     </Button>
                   }
                   items={[
-                    { id: 'view', label: 'View Details', onClick: () => {} },
-                    { id: 'edit', label: 'Edit Route', onClick: () => {} },
-                    { id: 'assign', label: 'Assign Vehicle', onClick: () => {} },
-                    { id: 'dispatch', label: 'Dispatch', onClick: () => {} },
+                    { id: 'view', label: t('routes.viewDetails'), onClick: () => {} },
+                    { id: 'edit', label: t('routes.editRoute'), onClick: () => {} },
+                    { id: 'assign', label: t('routes.assignVehicle'), onClick: () => {} },
+                    { id: 'dispatch', label: t('routes.dispatch'), onClick: () => {} },
                   ]}
                 />
               </div>
@@ -170,7 +178,7 @@ export const Routes = () => {
               {/* Origin to Destination */}
               <div className="flex items-center gap-3 mb-4 p-3 bg-background-tertiary rounded-lg">
                 <div className="flex-1">
-                  <p className="text-xs text-text-muted mb-1">Origin</p>
+                  <p className="text-xs text-text-muted mb-1">{t('routes.origin')}</p>
                   <div className="flex items-center gap-1">
                     <MapPin size={14} style={{ color: LOGISTICS_COLOR }} />
                     <p className="text-sm font-medium text-text-primary">{route.origin}</p>
@@ -178,7 +186,7 @@ export const Routes = () => {
                 </div>
                 <ArrowRight size={20} className="text-text-muted" />
                 <div className="flex-1">
-                  <p className="text-xs text-text-muted mb-1">Destination</p>
+                  <p className="text-xs text-text-muted mb-1">{t('routes.destination')}</p>
                   <div className="flex items-center gap-1">
                     <MapPin size={14} className="text-success" />
                     <p className="text-sm font-medium text-text-primary">{route.destination}</p>
@@ -190,22 +198,22 @@ export const Routes = () => {
               <div className="grid grid-cols-3 gap-4 mb-4">
                 <div className="text-center p-2 bg-background-tertiary rounded-lg">
                   <p className="text-lg font-bold" style={{ color: LOGISTICS_COLOR }}>{route.distance}</p>
-                  <p className="text-xs text-text-muted">km</p>
+                  <p className="text-xs text-text-muted">{t('routes.km')}</p>
                 </div>
                 <div className="text-center p-2 bg-background-tertiary rounded-lg">
                   <p className="text-lg font-bold text-text-primary">{route.duration}</p>
-                  <p className="text-xs text-text-muted">min</p>
+                  <p className="text-xs text-text-muted">{t('routes.min')}</p>
                 </div>
                 <div className="text-center p-2 bg-background-tertiary rounded-lg">
                   <p className="text-lg font-bold text-text-primary">{route.trafficZone}</p>
-                  <p className="text-xs text-text-muted">Zone</p>
+                  <p className="text-xs text-text-muted">{t('routes.zone')}</p>
                 </div>
               </div>
 
               {/* Waypoints */}
               {route.waypoints.length > 0 && (
                 <div className="mb-4">
-                  <p className="text-xs text-text-muted mb-2">Waypoints</p>
+                  <p className="text-xs text-text-muted mb-2">{t('routes.waypoints')}</p>
                   <div className="flex flex-wrap gap-2">
                     {route.waypoints.map((waypoint, i) => (
                       <span
@@ -222,11 +230,11 @@ export const Routes = () => {
               {/* Footer */}
               <div className="flex items-center justify-between pt-4 border-t border-border-default">
                 <div>
-                  <p className="text-xs text-text-muted">Frequency</p>
+                  <p className="text-xs text-text-muted">{t('routes.frequency')}</p>
                   <p className="text-sm font-medium text-text-primary">{route.frequency}</p>
                 </div>
                 <div>
-                  <p className="text-xs text-text-muted">Assigned Vehicles</p>
+                  <p className="text-xs text-text-muted">{t('routes.assignedVehicles')}</p>
                   <div className="flex items-center gap-1">
                     <Truck size={14} className="text-text-muted" />
                     <span className="text-sm font-medium text-text-primary">
@@ -235,7 +243,7 @@ export const Routes = () => {
                   </div>
                 </div>
                 <div>
-                  <p className="text-xs text-text-muted">Preferred Time</p>
+                  <p className="text-xs text-text-muted">{t('routes.preferredTime')}</p>
                   <p className="text-sm font-medium text-text-primary">{route.preferredTime}</p>
                 </div>
               </div>
@@ -247,7 +255,7 @@ export const Routes = () => {
       {filteredRoutes.length === 0 && (
         <Card className="p-12 text-center">
           <Route size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No routes found</p>
+          <p className="text-text-secondary">{t('routes.noRoutesFound')}</p>
         </Card>
       )}
     </div>

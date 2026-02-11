@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   Wrench,
@@ -17,10 +18,31 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { maintenanceRecords, vehicles, LOGISTICS_COLOR } from '@/data/logistics/logisticsData';
 
 export const Maintenance = () => {
+  const { t } = useTranslation('logistics');
   const [searchQuery, setSearchQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [vehicleFilter, setVehicleFilter] = useState<string>('all');
+
+  const statusFilterMap: Record<string, string> = {
+    'all': t('status.all'),
+    'scheduled': t('status.scheduled'),
+    'in-progress': t('status.inProgress'),
+    'completed': t('status.completed'),
+  };
+
+  const maintenanceStatusMap: Record<string, string> = {
+    'scheduled': t('status.scheduled'),
+    'in-progress': t('status.inProgress'),
+    'completed': t('status.completed'),
+  };
+
+  const typeFilterMap: Record<string, string> = {
+    'all': t('maintenance.allTypes'),
+    'Routine Service': t('maintenance.routineService'),
+    'Repair': t('maintenance.repair'),
+    'Inspection': t('maintenance.inspection'),
+  };
 
   const stats = useMemo(() => {
     const totalCost = maintenanceRecords.filter(m => m.status === 'completed').reduce((acc, m) => acc + m.cost, 0);
@@ -66,13 +88,13 @@ export const Maintenance = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Vehicle Maintenance"
-        subtitle="Manage vehicle maintenance and repairs"
+        title={t('maintenance.title')}
+        subtitle={t('maintenance.subtitle')}
         icon={Wrench}
         actions={
           <Button>
             <Plus size={18} />
-            Schedule Maintenance
+            {t('maintenance.scheduleMaintenance')}
           </Button>
         }
       />
@@ -80,10 +102,10 @@ export const Maintenance = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Cost (Month)', value: `QAR ${stats.totalCost.toLocaleString()}`, icon: DollarSign, color: '#ef4444' },
-          { label: 'In Progress', value: stats.inProgress, icon: Clock, color: '#f59e0b' },
-          { label: 'Scheduled', value: stats.scheduled, icon: Calendar, color: '#3b82f6' },
-          { label: 'Total Downtime', value: `${stats.totalDowntime}h`, icon: AlertTriangle, color: '#64748b' },
+          { label: t('maintenance.totalCostMonth'), value: `QAR ${stats.totalCost.toLocaleString()}`, icon: DollarSign, color: '#ef4444' },
+          { label: t('maintenance.inProgress'), value: stats.inProgress, icon: Clock, color: '#f59e0b' },
+          { label: t('maintenance.scheduled'), value: stats.scheduled, icon: Calendar, color: '#3b82f6' },
+          { label: t('maintenance.totalDowntime'), value: `${stats.totalDowntime}${t('maintenance.h')}`, icon: AlertTriangle, color: '#64748b' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -118,7 +140,7 @@ export const Maintenance = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by vehicle, description, or provider..."
+              placeholder={t('maintenance.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -129,7 +151,7 @@ export const Maintenance = () => {
             value={vehicleFilter}
             onChange={(e) => setVehicleFilter(e.target.value)}
           >
-            <option value="all">All Vehicles</option>
+            <option value="all">{t('maintenance.allVehicles')}</option>
             {vehicles.map(v => (
               <option key={v.id} value={v.id}>{v.plateNo}</option>
             ))}
@@ -139,10 +161,9 @@ export const Maintenance = () => {
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value)}
           >
-            <option value="all">All Types</option>
-            <option value="Routine Service">Routine Service</option>
-            <option value="Repair">Repair</option>
-            <option value="Inspection">Inspection</option>
+            {Object.entries(typeFilterMap).map(([value, label]) => (
+              <option key={value} value={value}>{label}</option>
+            ))}
           </select>
           <div className="flex gap-2">
             {['all', 'scheduled', 'in-progress', 'completed'].map((status) => (
@@ -152,7 +173,7 @@ export const Maintenance = () => {
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status === 'all' ? 'All' : status.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                {statusFilterMap[status]}
               </Button>
             ))}
           </div>
@@ -187,10 +208,10 @@ export const Maintenance = () => {
                       </div>
                       <p className="text-sm text-text-muted">{record.maintenanceType}</p>
                       <span
-                        className="inline-block px-2 py-0.5 rounded-full text-xs font-medium capitalize mt-1"
+                        className="inline-block px-2 py-0.5 rounded-full text-xs font-medium mt-1"
                         style={{ backgroundColor: `${getStatusColor(record.status)}20`, color: getStatusColor(record.status) }}
                       >
-                        {record.status.replace(/-/g, ' ')}
+                        {maintenanceStatusMap[record.status] || record.status}
                       </span>
                     </div>
                   </div>
@@ -201,10 +222,10 @@ export const Maintenance = () => {
                       </Button>
                     }
                     items={[
-                      { id: 'view', label: 'View Details', onClick: () => {} },
-                      { id: 'edit', label: 'Edit', onClick: () => {} },
-                      { id: 'complete', label: 'Mark Complete', onClick: () => {} },
-                      { id: 'invoice', label: 'View Invoice', onClick: () => {} },
+                      { id: 'view', label: t('maintenance.viewDetails'), onClick: () => {} },
+                      { id: 'edit', label: t('maintenance.edit'), onClick: () => {} },
+                      { id: 'complete', label: t('maintenance.markComplete'), onClick: () => {} },
+                      { id: 'invoice', label: t('maintenance.viewInvoice'), onClick: () => {} },
                     ]}
                   />
                 </div>
@@ -217,30 +238,30 @@ export const Maintenance = () => {
                 {/* Info Grid */}
                 <div className="grid grid-cols-2 gap-4 mb-4">
                   <div>
-                    <p className="text-xs text-text-muted">Date</p>
+                    <p className="text-xs text-text-muted">{t('maintenance.date')}</p>
                     <div className="flex items-center gap-1 mt-1">
                       <Calendar size={12} className="text-text-muted" />
                       <span className="text-sm text-text-primary">{new Date(record.maintenanceDate).toLocaleDateString()}</span>
                     </div>
                   </div>
                   <div>
-                    <p className="text-xs text-text-muted">Service Provider</p>
+                    <p className="text-xs text-text-muted">{t('maintenance.serviceProvider')}</p>
                     <p className="text-sm text-text-primary mt-1">{record.serviceProvider}</p>
                   </div>
                   <div>
-                    <p className="text-xs text-text-muted">Mileage</p>
-                    <p className="text-sm text-text-primary mt-1">{record.mileage.toLocaleString()} km</p>
+                    <p className="text-xs text-text-muted">{t('maintenance.mileageLabel')}</p>
+                    <p className="text-sm text-text-primary mt-1">{record.mileage.toLocaleString()} {t('maintenance.km')}</p>
                   </div>
                   <div>
-                    <p className="text-xs text-text-muted">Labor Hours</p>
-                    <p className="text-sm text-text-primary mt-1">{record.laborHours}h</p>
+                    <p className="text-xs text-text-muted">{t('maintenance.laborHours')}</p>
+                    <p className="text-sm text-text-primary mt-1">{record.laborHours}{t('maintenance.h')}</p>
                   </div>
                 </div>
 
                 {/* Parts */}
                 {record.parts.length > 0 && (
                   <div className="mb-4">
-                    <p className="text-xs text-text-muted mb-2">Parts Used</p>
+                    <p className="text-xs text-text-muted mb-2">{t('maintenance.partsUsed')}</p>
                     <div className="flex flex-wrap gap-2">
                       {record.parts.map((part, i) => (
                         <span
@@ -258,21 +279,21 @@ export const Maintenance = () => {
                 {/* Footer */}
                 <div className="flex items-center justify-between pt-4 border-t border-border-default">
                   <div>
-                    <p className="text-xs text-text-muted">Cost</p>
+                    <p className="text-xs text-text-muted">{t('maintenance.cost')}</p>
                     <p className="text-lg font-bold" style={{ color: LOGISTICS_COLOR }}>
                       QAR {record.cost.toLocaleString()}
                     </p>
                   </div>
                   {record.downtime && (
                     <div className="text-right">
-                      <p className="text-xs text-text-muted">Downtime</p>
-                      <p className="text-sm font-medium text-warning">{record.downtime} hours</p>
+                      <p className="text-xs text-text-muted">{t('maintenance.downtime')}</p>
+                      <p className="text-sm font-medium text-warning">{record.downtime} {t('maintenance.hours')}</p>
                     </div>
                   )}
                   {record.nextServiceMileage && (
                     <div className="text-right">
-                      <p className="text-xs text-text-muted">Next Service</p>
-                      <p className="text-sm font-medium text-text-primary">{record.nextServiceMileage.toLocaleString()} km</p>
+                      <p className="text-xs text-text-muted">{t('maintenance.nextService')}</p>
+                      <p className="text-sm font-medium text-text-primary">{record.nextServiceMileage.toLocaleString()} {t('maintenance.km')}</p>
                     </div>
                   )}
                 </div>
@@ -285,7 +306,7 @@ export const Maintenance = () => {
       {filteredRecords.length === 0 && (
         <Card className="p-12 text-center">
           <Wrench size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No maintenance records found</p>
+          <p className="text-text-secondary">{t('maintenance.noMaintenanceFound')}</p>
         </Card>
       )}
     </div>

@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   Package,
@@ -17,9 +18,19 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { shipments, LOGISTICS_COLOR } from '@/data/logistics/logisticsData';
 
 export const Shipments = () => {
+  const { t } = useTranslation('logistics');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [priorityFilter, setPriorityFilter] = useState<string>('all');
+
+  const statusMap: Record<string, string> = {
+    'all': t('status.all'),
+    'pending': t('status.pending'),
+    'scheduled': t('status.scheduled'),
+    'in-transit': t('status.inTransit'),
+    'delivered': t('status.delivered'),
+    'cancelled': t('status.cancelled'),
+  };
 
   const stats = useMemo(() => {
     const total = shipments.length;
@@ -68,13 +79,13 @@ export const Shipments = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Shipment Management"
-        subtitle="Track and manage shipments"
+        title={t('shipments.title')}
+        subtitle={t('shipments.subtitle')}
         icon={Package}
         actions={
           <Button>
             <Plus size={18} />
-            Create Shipment
+            {t('shipments.createShipment')}
           </Button>
         }
       />
@@ -82,10 +93,10 @@ export const Shipments = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Shipments', value: stats.total, icon: Package, color: LOGISTICS_COLOR },
-          { label: 'In Transit', value: stats.inTransit, icon: Truck, color: '#f59e0b' },
-          { label: 'Delivered', value: stats.delivered, icon: CheckCircle, color: '#10b981' },
-          { label: 'Pending', value: stats.pending, icon: Clock, color: '#64748b' },
+          { label: t('shipments.totalShipments'), value: stats.total, icon: Package, color: LOGISTICS_COLOR },
+          { label: t('shipments.inTransit'), value: stats.inTransit, icon: Truck, color: '#f59e0b' },
+          { label: t('shipments.delivered'), value: stats.delivered, icon: CheckCircle, color: '#10b981' },
+          { label: t('shipments.pending'), value: stats.pending, icon: Clock, color: '#64748b' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -120,7 +131,7 @@ export const Shipments = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by tracking no, client, or destination..."
+              placeholder={t('shipments.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -131,9 +142,9 @@ export const Shipments = () => {
             value={priorityFilter}
             onChange={(e) => setPriorityFilter(e.target.value)}
           >
-            <option value="all">All Priority</option>
-            <option value="standard">Standard</option>
-            <option value="express">Express</option>
+            <option value="all">{t('shipments.allPriority')}</option>
+            <option value="standard">{t('shipments.standard')}</option>
+            <option value="express">{t('shipments.express')}</option>
           </select>
           <div className="flex gap-2 flex-wrap">
             {['all', 'pending', 'scheduled', 'in-transit', 'delivered', 'cancelled'].map((status) => (
@@ -143,7 +154,7 @@ export const Shipments = () => {
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status === 'all' ? 'All' : status.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                {statusMap[status]}
               </Button>
             ))}
           </div>
@@ -156,14 +167,14 @@ export const Shipments = () => {
           <table className="w-full">
             <thead className="bg-background-tertiary">
               <tr>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Tracking No</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Client</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Route</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Status</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Vehicle / Driver</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Pickup</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Est. Delivery</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Actions</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('shipments.trackingNo')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('shipments.client')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('shipments.route')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('shipments.status')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('shipments.vehicleDriver')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('shipments.pickup')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('shipments.estDelivery')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('shipments.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -217,10 +228,10 @@ export const Shipments = () => {
                     </td>
                     <td className="py-3 px-4 text-center">
                       <span
-                        className="px-2 py-1 rounded-full text-xs font-medium capitalize"
+                        className="px-2 py-1 rounded-full text-xs font-medium"
                         style={{ backgroundColor: `${getStatusColor(shipment.status)}20`, color: getStatusColor(shipment.status) }}
                       >
-                        {shipment.status.replace(/-/g, ' ')}
+                        {statusMap[shipment.status]}
                       </span>
                       {shipment.currentLocation && shipment.status === 'in-transit' && (
                         <p className="text-xs text-text-muted mt-1">{shipment.currentLocation}</p>
@@ -239,7 +250,7 @@ export const Shipments = () => {
                           </div>
                         </div>
                       ) : (
-                        <span className="text-xs text-text-muted">Unassigned</span>
+                        <span className="text-xs text-text-muted">{t('shipments.unassigned')}</span>
                       )}
                     </td>
                     <td className="py-3 px-4">
@@ -252,7 +263,7 @@ export const Shipments = () => {
                     <td className="py-3 px-4">
                       <p className="text-sm text-text-primary">{shipment.estimatedDelivery}</p>
                       {shipment.actualDelivery && (
-                        <p className="text-xs text-success mt-1">Delivered: {shipment.actualDelivery}</p>
+                        <p className="text-xs text-success mt-1">{t('shipments.deliveredDate')} {shipment.actualDelivery}</p>
                       )}
                     </td>
                     <td className="py-3 px-4 text-center">
@@ -263,10 +274,10 @@ export const Shipments = () => {
                           </Button>
                         }
                         items={[
-                          { id: 'view', label: 'View Details', onClick: () => {} },
-                          { id: 'track', label: 'Track Shipment', onClick: () => {} },
-                          { id: 'pod', label: 'View POD', onClick: () => {} },
-                          { id: 'edit', label: 'Edit', onClick: () => {} },
+                          { id: 'view', label: t('shipments.viewDetails'), onClick: () => {} },
+                          { id: 'track', label: t('shipments.trackShipment'), onClick: () => {} },
+                          { id: 'pod', label: t('shipments.viewPOD'), onClick: () => {} },
+                          { id: 'edit', label: t('shipments.edit'), onClick: () => {} },
                         ]}
                       />
                     </td>
@@ -281,7 +292,7 @@ export const Shipments = () => {
       {filteredShipments.length === 0 && (
         <Card className="p-12 text-center">
           <Package size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No shipments found</p>
+          <p className="text-text-secondary">{t('shipments.noShipmentsFound')}</p>
         </Card>
       )}
     </div>
