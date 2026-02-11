@@ -22,12 +22,20 @@ interface DayCell {
 }
 
 export const Calendar = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('tasks');
   const [currentDate, setCurrentDate] = useState(new Date(2024, 11, 1)); // December 2024
   const [viewMode, setViewMode] = useState<ViewMode>('month');
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
-  const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const daysOfWeek = [
+    t('calendar.sun'),
+    t('calendar.mon'),
+    t('calendar.tue'),
+    t('calendar.wed'),
+    t('calendar.thu'),
+    t('calendar.fri'),
+    t('calendar.sat'),
+  ];
 
   const calendarDays = useMemo(() => {
     const year = currentDate.getFullYear();
@@ -130,8 +138,8 @@ export const Calendar = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('tasks.taskCalendar', 'Task Calendar')}
-        subtitle="View tasks and deadlines in calendar format"
+        title={t('calendar.title')}
+        subtitle={t('calendar.subtitle')}
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
@@ -145,7 +153,7 @@ export const Calendar = () => {
                   {formatMonth(currentDate)}
                 </h2>
                 <Button variant="secondary" size="sm" onClick={goToToday}>
-                  Today
+                  {t('calendar.today')}
                 </Button>
               </div>
 
@@ -160,7 +168,7 @@ export const Calendar = () => {
                         : 'text-text-secondary hover:text-text-primary'
                     }`}
                   >
-                    Month
+                    {t('calendar.month')}
                   </button>
                   <button
                     onClick={() => setViewMode('week')}
@@ -170,7 +178,7 @@ export const Calendar = () => {
                         : 'text-text-secondary hover:text-text-primary'
                     }`}
                   >
-                    Week
+                    {t('calendar.week')}
                   </button>
                 </div>
 
@@ -256,7 +264,7 @@ export const Calendar = () => {
                       ))}
                       {(day.tasks.length + day.events.length) > 2 && (
                         <div className="text-xs text-text-muted px-1">
-                          +{day.tasks.length + day.events.length - 2} more
+                          {t('calendar.more', { count: day.tasks.length + day.events.length - 2 })}
                         </div>
                       )}
                     </div>
@@ -267,23 +275,23 @@ export const Calendar = () => {
 
             {/* Legend */}
             <div className="flex items-center gap-6 mt-4 pt-4 border-t border-white/[0.08]">
-              <span className="text-sm text-text-secondary">Priority:</span>
+              <span className="text-sm text-text-secondary">{t('calendar.priority')}</span>
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-1">
                   <div className="w-3 h-3 rounded-full bg-red-500" />
-                  <span className="text-xs text-text-secondary">Urgent</span>
+                  <span className="text-xs text-text-secondary">{t('calendar.urgent')}</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <div className="w-3 h-3 rounded-full bg-orange-500" />
-                  <span className="text-xs text-text-secondary">High</span>
+                  <span className="text-xs text-text-secondary">{t('calendar.high')}</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <div className="w-3 h-3 rounded-full bg-[#547792]" />
-                  <span className="text-xs text-text-secondary">Medium</span>
+                  <span className="text-xs text-text-secondary">{t('calendar.medium')}</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <div className="w-3 h-3 rounded-full bg-gray-500" />
-                  <span className="text-xs text-text-secondary">Low</span>
+                  <span className="text-xs text-text-secondary">{t('calendar.low')}</span>
                 </div>
               </div>
             </div>
@@ -319,7 +327,7 @@ export const Calendar = () => {
 
                   {selectedDayData.tasks.length === 0 && selectedDayData.events.length === 0 ? (
                     <p className="text-sm text-text-secondary text-center py-4">
-                      No tasks or events for this day
+                      {t('calendar.noTasksOrEvents')}
                     </p>
                   ) : (
                     <div className="space-y-3">
@@ -382,12 +390,12 @@ export const Calendar = () => {
           <Card className="p-4">
             <h3 className="font-semibold text-text-primary mb-4 flex items-center gap-2">
               <Clock size={16} className="text-orange-400" />
-              Upcoming Deadlines
+              {t('calendar.upcomingDeadlines')}
             </h3>
 
             {upcomingDeadlines.length === 0 ? (
               <p className="text-sm text-text-secondary text-center py-4">
-                No upcoming deadlines
+                {t('calendar.noUpcomingDeadlines')}
               </p>
             ) : (
               <div className="space-y-3">
@@ -421,9 +429,9 @@ export const Calendar = () => {
                           }`}
                         >
                           {isToday
-                            ? 'Due Today'
+                            ? t('calendar.dueToday')
                             : isOverdue
-                            ? 'Overdue'
+                            ? t('calendar.overdue')
                             : dueDate.toLocaleDateString('en-US', {
                                 month: 'short',
                                 day: 'numeric',

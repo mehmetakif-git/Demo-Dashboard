@@ -22,7 +22,7 @@ import { useTranslation } from 'react-i18next';
 const priorityOrder = { urgent: 0, high: 1, medium: 2, low: 3 };
 
 export const MyTasks = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('tasks');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
   const [selectedPriority, setSelectedPriority] = useState<string>('all');
@@ -125,28 +125,28 @@ export const MyTasks = () => {
     const tomorrow = new Date(today);
     tomorrow.setDate(tomorrow.getDate() + 1);
 
-    if (dateStr === today.toISOString().split('T')[0]) return 'Today';
-    if (dateStr === tomorrow.toISOString().split('T')[0]) return 'Tomorrow';
+    if (dateStr === today.toISOString().split('T')[0]) return t('myTasks.today');
+    if (dateStr === tomorrow.toISOString().split('T')[0]) return t('myTasks.tomorrow');
 
     return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
   };
 
   const statusTabs = [
-    { id: 'all', label: 'All' },
-    { id: 'todo', label: 'To Do' },
-    { id: 'in-progress', label: 'In Progress' },
-    { id: 'review', label: 'In Review' },
-    { id: 'done', label: 'Completed' },
+    { id: 'all', label: t('myTasks.all') },
+    { id: 'todo', label: t('myTasks.toDo') },
+    { id: 'in-progress', label: t('myTasks.inProgress') },
+    { id: 'review', label: t('myTasks.inReview') },
+    { id: 'done', label: t('myTasks.completed') },
   ];
 
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('tasks.myTasks', 'My Tasks')}
-        subtitle="Manage your assigned tasks and track progress"
+        title={t('myTasks.title')}
+        subtitle={t('myTasks.subtitle')}
         actions={
           <Button leftIcon={<Plus size={16} />}>
-            Create Task
+            {t('myTasks.createTask')}
           </Button>
         }
       />
@@ -154,30 +154,30 @@ export const MyTasks = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Tasks"
+          title={t('myTasks.totalTasks')}
           value={stats.total.toString()}
           icon={CheckCircle}
           iconColor="#547792"
         />
         <StatsCard
-          title="In Progress"
+          title={t('myTasks.inProgress')}
           value={stats.inProgress.toString()}
           icon={Clock}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Due Today"
+          title={t('myTasks.dueToday')}
           value={stats.dueToday.toString()}
           icon={Calendar}
           iconColor={stats.dueToday > 0 ? '#f59e0b' : '#10b981'}
-          trend={stats.dueToday > 0 ? { value: 'Needs attention', type: 'neutral' } : undefined}
+          trend={stats.dueToday > 0 ? { value: t('myTasks.needsAttention'), type: 'neutral' } : undefined}
         />
         <StatsCard
-          title="Overdue"
+          title={t('myTasks.overdue')}
           value={stats.overdue.toString()}
           icon={AlertTriangle}
           iconColor={stats.overdue > 0 ? '#ef4444' : '#10b981'}
-          trend={stats.overdue > 0 ? { value: 'Action required', type: 'down' } : undefined}
+          trend={stats.overdue > 0 ? { value: t('myTasks.actionRequired'), type: 'down' } : undefined}
         />
       </div>
 
@@ -203,7 +203,7 @@ export const MyTasks = () => {
         <div className="flex flex-wrap gap-4 items-center">
           <div className="flex-1 min-w-[200px] max-w-md">
             <Input
-              placeholder="Search tasks..."
+              placeholder={t('myTasks.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               leftIcon={<Search size={16} />}
@@ -216,7 +216,7 @@ export const MyTasks = () => {
               onChange={(e) => setSelectedPriority(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Priorities</option>
+              <option value="all">{t('myTasks.allPriorities')}</option>
               {taskPriorities.map(p => (
                 <option key={p.id} value={p.id}>{p.name}</option>
               ))}
@@ -227,7 +227,7 @@ export const MyTasks = () => {
               onChange={(e) => setSelectedProject(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Projects</option>
+              <option value="all">{t('myTasks.allProjects')}</option>
               {projects.map(p => (
                 <option key={p.id} value={p.id}>{p.name}</option>
               ))}
@@ -238,10 +238,10 @@ export const MyTasks = () => {
               onChange={(e) => setDueDateFilter(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Dates</option>
-              <option value="today">Today</option>
-              <option value="week">This Week</option>
-              <option value="month">This Month</option>
+              <option value="all">{t('myTasks.allDates')}</option>
+              <option value="today">{t('myTasks.today')}</option>
+              <option value="week">{t('myTasks.thisWeek')}</option>
+              <option value="month">{t('myTasks.thisMonth')}</option>
             </select>
 
             <select
@@ -249,9 +249,9 @@ export const MyTasks = () => {
               onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="dueDate">Sort: Due Date</option>
-              <option value="priority">Sort: Priority</option>
-              <option value="createdAt">Sort: Created</option>
+              <option value="dueDate">{t('myTasks.sortDueDate')}</option>
+              <option value="priority">{t('myTasks.sortPriority')}</option>
+              <option value="createdAt">{t('myTasks.sortCreated')}</option>
             </select>
           </div>
         </div>
@@ -261,7 +261,7 @@ export const MyTasks = () => {
       <div className="space-y-3">
         {filteredTasks.length === 0 ? (
           <Card className="p-12 text-center">
-            <p className="text-text-secondary">No tasks found matching your filters</p>
+            <p className="text-text-secondary">{t('myTasks.noTasksFound')}</p>
           </Card>
         ) : (
           filteredTasks.map((task, index) => {
@@ -426,7 +426,7 @@ export const MyTasks = () => {
                         {/* Subtasks */}
                         {task.subtasks.length > 0 && (
                           <div className="space-y-2">
-                            <h4 className="text-sm font-medium text-text-primary">Subtasks</h4>
+                            <h4 className="text-sm font-medium text-text-primary">{t('myTasks.subtasks')}</h4>
                             {task.subtasks.map(subtask => (
                               <div key={subtask.id} className="flex items-center gap-3">
                                 <button
@@ -452,9 +452,9 @@ export const MyTasks = () => {
 
                         {/* Meta Info */}
                         <div className="flex items-center gap-6 text-xs text-text-secondary pt-2 border-t border-white/[0.08]">
-                          <span>Reporter: {task.reporter}</span>
-                          <span>Created: {new Date(task.createdAt).toLocaleDateString()}</span>
-                          <span>Updated: {new Date(task.updatedAt).toLocaleDateString()}</span>
+                          <span>{t('myTasks.reporter')}: {task.reporter}</span>
+                          <span>{t('myTasks.created')}: {new Date(task.createdAt).toLocaleDateString()}</span>
+                          <span>{t('myTasks.updated')}: {new Date(task.updatedAt).toLocaleDateString()}</span>
                         </div>
                       </div>
                     </motion.div>

@@ -33,7 +33,7 @@ import { useTranslation } from 'react-i18next';
 type TabType = 'tasks' | 'timeline' | 'team' | 'files';
 
 export const ProjectDetail = () => {
-  const { t: _t } = useTranslation('common');
+  const { t } = useTranslation('tasks');
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<TabType>('tasks');
@@ -46,9 +46,9 @@ export const ProjectDetail = () => {
     return (
       <div className="flex items-center justify-center h-96">
         <div className="text-center">
-          <p className="text-text-secondary mb-4">Project not found</p>
+          <p className="text-text-secondary mb-4">{t('projectDetail.projectNotFound')}</p>
           <Button onClick={() => navigate('/dashboard/tasks/projects')}>
-            Back to Projects
+            {t('projectDetail.backToProjects')}
           </Button>
         </div>
       </div>
@@ -60,10 +60,10 @@ export const ProjectDetail = () => {
     : projectTasks.filter(t => t.status === taskStatusFilter);
 
   const tabs = [
-    { id: 'tasks' as TabType, label: 'Tasks', count: projectTasks.length },
-    { id: 'timeline' as TabType, label: 'Timeline' },
-    { id: 'team' as TabType, label: 'Team', count: project.team.length },
-    { id: 'files' as TabType, label: 'Files', count: 5 },
+    { id: 'tasks' as TabType, label: t('projectDetail.tabTasks'), count: projectTasks.length },
+    { id: 'timeline' as TabType, label: t('projectDetail.tabTimeline') },
+    { id: 'team' as TabType, label: t('projectDetail.tabTeam'), count: project.team.length },
+    { id: 'files' as TabType, label: t('projectDetail.tabFiles'), count: 5 },
   ];
 
   const formatDate = (dateStr: string) => {
@@ -116,7 +116,7 @@ export const ProjectDetail = () => {
   const taskColumns = [
     {
       key: 'title' as keyof Task,
-      header: 'Task',
+      header: t('projectDetail.task'),
       sortable: true,
       render: (task: Task) => (
         <div className="flex items-center gap-3">
@@ -135,7 +135,7 @@ export const ProjectDetail = () => {
     },
     {
       key: 'assignee' as keyof Task,
-      header: 'Assignee',
+      header: t('projectDetail.assignee'),
       render: (task: Task) => (
         <div className="flex items-center gap-2">
           <div className="w-6 h-6 rounded-full bg-accent-primary/20 flex items-center justify-center">
@@ -149,7 +149,7 @@ export const ProjectDetail = () => {
     },
     {
       key: 'status' as keyof Task,
-      header: 'Status',
+      header: t('projectDetail.status'),
       render: (task: Task) => (
         <span
           className="px-2 py-1 rounded text-xs font-medium"
@@ -164,7 +164,7 @@ export const ProjectDetail = () => {
     },
     {
       key: 'dueDate' as keyof Task,
-      header: 'Due Date',
+      header: t('projectDetail.dueDate'),
       render: (task: Task) => (
         <span className={`text-sm ${getDueDateClass(task.dueDate, task.status)}`}>
           {new Date(task.dueDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
@@ -214,16 +214,16 @@ export const ProjectDetail = () => {
           <p className="text-text-secondary mt-1">{project.description}</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="secondary" leftIcon={<Edit2 size={16} />}>Edit</Button>
-          <Button variant="secondary" leftIcon={<Archive size={16} />}>Archive</Button>
-          <Button leftIcon={<Plus size={16} />}>Add Task</Button>
+          <Button variant="secondary" leftIcon={<Edit2 size={16} />}>{t('projectDetail.edit')}</Button>
+          <Button variant="secondary" leftIcon={<Archive size={16} />}>{t('projectDetail.archive')}</Button>
+          <Button leftIcon={<Plus size={16} />}>{t('projectDetail.addTask')}</Button>
         </div>
       </div>
 
       {/* Progress Bar */}
       <Card className="p-4">
         <div className="flex items-center justify-between mb-2">
-          <span className="text-sm text-text-secondary">Overall Progress</span>
+          <span className="text-sm text-text-secondary">{t('projectDetail.overallProgress')}</span>
           <span className="text-lg font-semibold text-text-primary">{project.progress}%</span>
         </div>
         <div className="w-full h-3 bg-white/[0.05] rounded-full overflow-hidden">
@@ -245,7 +245,7 @@ export const ProjectDetail = () => {
               <Calendar size={20} className="text-accent-primary" />
             </div>
             <div>
-              <p className="text-xs text-text-secondary">Date Range</p>
+              <p className="text-xs text-text-secondary">{t('projectDetail.dateRange')}</p>
               <p className="text-sm font-medium text-text-primary">
                 {formatDate(project.startDate)} - {formatDate(project.endDate)}
               </p>
@@ -261,7 +261,7 @@ export const ProjectDetail = () => {
               </span>
             </div>
             <div>
-              <p className="text-xs text-text-secondary">Owner</p>
+              <p className="text-xs text-text-secondary">{t('projectDetail.owner')}</p>
               <p className="text-sm font-medium text-text-primary">{project.owner}</p>
             </div>
           </div>
@@ -273,9 +273,9 @@ export const ProjectDetail = () => {
               <CheckCircle size={20} className="text-green-400" />
             </div>
             <div>
-              <p className="text-xs text-text-secondary">Tasks</p>
+              <p className="text-xs text-text-secondary">{t('projectDetail.tasks')}</p>
               <p className="text-sm font-medium text-text-primary">
-                {project.completedTasks}/{project.totalTasks} completed
+                {t('projectDetail.completedCount', { completed: project.completedTasks, total: project.totalTasks })}
               </p>
             </div>
           </div>
@@ -287,8 +287,8 @@ export const ProjectDetail = () => {
               <Users size={20} className="text-[#94B4C1]" />
             </div>
             <div>
-              <p className="text-xs text-text-secondary">Team</p>
-              <p className="text-sm font-medium text-text-primary">{project.team.length} members</p>
+              <p className="text-xs text-text-secondary">{t('projectDetail.team')}</p>
+              <p className="text-sm font-medium text-text-primary">{t('projectDetail.membersCount', { count: project.team.length })}</p>
             </div>
           </div>
         </Card>
@@ -336,25 +336,25 @@ export const ProjectDetail = () => {
                         : 'text-text-secondary hover:bg-white/[0.05]'
                     }`}
                   >
-                    {status === 'all' ? 'All' : getStatusName(status)}
+                    {status === 'all' ? t('projectDetail.all') : getStatusName(status)}
                   </button>
                 ))}
               </div>
-              <Button size="sm" leftIcon={<Plus size={14} />}>Add Task</Button>
+              <Button size="sm" leftIcon={<Plus size={14} />}>{t('projectDetail.addTask')}</Button>
             </div>
           </div>
           <DataTable
             data={filteredTasks}
             columns={taskColumns}
             keyExtractor={(task) => task.id}
-            emptyMessage="No tasks in this project"
+            emptyMessage={t('projectDetail.noTasksInProject')}
           />
         </Card>
       )}
 
       {activeTab === 'timeline' && (
         <Card className="p-6">
-          <h3 className="font-semibold text-text-primary mb-6">Project Timeline</h3>
+          <h3 className="font-semibold text-text-primary mb-6">{t('projectDetail.projectTimeline')}</h3>
           <div className="relative">
             {/* Timeline Line */}
             <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-border-default" />
@@ -397,7 +397,7 @@ export const ProjectDetail = () => {
                     </div>
                     {milestone.completed && (
                       <span className="text-xs text-green-400 mt-1 inline-block">
-                        Completed
+                        {t('projectDetail.completed')}
                       </span>
                     )}
                   </div>
@@ -411,8 +411,8 @@ export const ProjectDetail = () => {
       {activeTab === 'team' && (
         <Card className="p-6">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="font-semibold text-text-primary">Team Members</h3>
-            <Button size="sm" leftIcon={<UserPlus size={14} />}>Add Member</Button>
+            <h3 className="font-semibold text-text-primary">{t('projectDetail.teamMembers')}</h3>
+            <Button size="sm" leftIcon={<UserPlus size={14} />}>{t('projectDetail.addMember')}</Button>
           </div>
           <div className="space-y-4">
             {project.team.map((member, index) => {
@@ -438,12 +438,12 @@ export const ProjectDetail = () => {
                         <p className="font-medium text-text-primary">{member}</p>
                         {isOwner && (
                           <span className="px-2 py-0.5 bg-accent-primary/20 rounded text-xs text-accent-primary">
-                            Owner
+                            {t('projectDetail.owner')}
                           </span>
                         )}
                       </div>
                       <p className="text-sm text-text-secondary">
-                        {memberTasks.length} tasks assigned
+                        {t('projectDetail.tasksAssigned', { count: memberTasks.length })}
                       </p>
                     </div>
                   </div>
@@ -462,18 +462,18 @@ export const ProjectDetail = () => {
       {activeTab === 'files' && (
         <Card className="p-6">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="font-semibold text-text-primary">Project Files</h3>
-            <Button size="sm" leftIcon={<Upload size={14} />}>Upload File</Button>
+            <h3 className="font-semibold text-text-primary">{t('projectDetail.projectFiles')}</h3>
+            <Button size="sm" leftIcon={<Upload size={14} />}>{t('projectDetail.uploadFile')}</Button>
           </div>
 
           {/* Upload Area */}
           <div className="border-2 border-dashed border-white/[0.08] rounded-lg p-8 mb-6 text-center hover:border-accent-primary transition-colors cursor-pointer">
             <Upload size={32} className="mx-auto text-text-muted mb-2" />
             <p className="text-sm text-text-secondary">
-              Drag and drop files here, or click to browse
+              {t('projectDetail.dragAndDrop')}
             </p>
             <p className="text-xs text-text-muted mt-1">
-              Max file size: 50MB
+              {t('projectDetail.maxFileSize')}
             </p>
           </div>
 
@@ -492,7 +492,7 @@ export const ProjectDetail = () => {
                   <div>
                     <p className="text-sm font-medium text-text-primary">{file.name}</p>
                     <p className="text-xs text-text-muted">
-                      {file.size} • Uploaded by {file.uploadedBy} • {formatDate(file.date)}
+                      {file.size} • {t('projectDetail.uploadedBy')} {file.uploadedBy} • {formatDate(file.date)}
                     </p>
                   </div>
                 </div>

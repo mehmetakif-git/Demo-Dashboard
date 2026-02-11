@@ -16,7 +16,7 @@ import { tasks, projects, taskStatuses, taskPriorities, getPriorityColor, getSta
 import { useTranslation } from 'react-i18next';
 
 export const AllTasks = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('tasks');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
   const [selectedPriority, setSelectedPriority] = useState<string>('all');
@@ -91,7 +91,7 @@ export const AllTasks = () => {
   const columns = [
     {
       key: 'title',
-      header: 'Task',
+      header: t('allTasks.task'),
       sortable: true,
       render: (task: Task) => (
         <div className="flex items-center gap-3">
@@ -110,7 +110,7 @@ export const AllTasks = () => {
     },
     {
       key: 'project',
-      header: 'Project',
+      header: t('allTasks.project'),
       sortable: true,
       render: (task: Task) => (
         <span className="px-2 py-1 bg-white/[0.05] rounded text-xs text-text-secondary">
@@ -120,7 +120,7 @@ export const AllTasks = () => {
     },
     {
       key: 'assignee',
-      header: 'Assignee',
+      header: t('allTasks.assignee'),
       sortable: true,
       render: (task: Task) => (
         <div className="flex items-center gap-2">
@@ -135,7 +135,7 @@ export const AllTasks = () => {
     },
     {
       key: 'priority',
-      header: 'Priority',
+      header: t('allTasks.priority'),
       sortable: true,
       render: (task: Task) => (
         <span
@@ -151,7 +151,7 @@ export const AllTasks = () => {
     },
     {
       key: 'status',
-      header: 'Status',
+      header: t('allTasks.status'),
       sortable: true,
       render: (task: Task) => (
         <span
@@ -167,7 +167,7 @@ export const AllTasks = () => {
     },
     {
       key: 'dueDate',
-      header: 'Due Date',
+      header: t('allTasks.dueDate'),
       sortable: true,
       render: (task: Task) => (
         <span className={`text-sm ${getDueDateClass(task.dueDate, task.status)}`}>
@@ -177,7 +177,7 @@ export const AllTasks = () => {
     },
     {
       key: 'actions',
-      header: 'Actions',
+      header: t('allTasks.actions'),
       render: () => (
         <div className="flex items-center gap-1">
           <button className="p-1.5 hover:bg-white/[0.05] rounded text-text-secondary hover:text-text-primary">
@@ -197,11 +197,11 @@ export const AllTasks = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('tasks.allTasks', 'All Tasks')}
-        subtitle="View and manage all tasks across the organization"
+        title={t('allTasks.title')}
+        subtitle={t('allTasks.subtitle')}
         actions={
           <Button leftIcon={<Plus size={16} />}>
-            Create Task
+            {t('allTasks.createTask')}
           </Button>
         }
       />
@@ -209,25 +209,25 @@ export const AllTasks = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Tasks"
+          title={t('allTasks.totalTasks')}
           value={stats.total.toString()}
           icon={CheckCircle}
           iconColor="#547792"
         />
         <StatsCard
-          title="In Progress"
+          title={t('allTasks.inProgress')}
           value={stats.inProgress.toString()}
           icon={Clock}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Completed"
+          title={t('allTasks.completed')}
           value={stats.completed.toString()}
           icon={CheckCircle}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Overdue"
+          title={t('allTasks.overdue')}
           value={stats.overdue.toString()}
           icon={AlertTriangle}
           iconColor={stats.overdue > 0 ? '#ef4444' : '#10b981'}
@@ -240,7 +240,7 @@ export const AllTasks = () => {
           <div className="flex flex-wrap gap-4 items-center flex-1">
             <div className="flex-1 min-w-50 max-w-md">
               <Input
-                placeholder="Search tasks, assignees..."
+                placeholder={t('allTasks.searchPlaceholder')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 leftIcon={<Search size={16} />}
@@ -252,7 +252,7 @@ export const AllTasks = () => {
               onChange={(e) => setSelectedStatus(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Status</option>
+              <option value="all">{t('allTasks.allStatus')}</option>
               {taskStatuses.map(s => (
                 <option key={s.id} value={s.id}>{s.name}</option>
               ))}
@@ -263,7 +263,7 @@ export const AllTasks = () => {
               onChange={(e) => setSelectedPriority(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Priorities</option>
+              <option value="all">{t('allTasks.allPriorities')}</option>
               {taskPriorities.map(p => (
                 <option key={p.id} value={p.id}>{p.name}</option>
               ))}
@@ -274,7 +274,7 @@ export const AllTasks = () => {
               onChange={(e) => setSelectedProject(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Projects</option>
+              <option value="all">{t('allTasks.allProjects')}</option>
               {projects.map(p => (
                 <option key={p.id} value={p.id}>{p.name}</option>
               ))}
@@ -285,7 +285,7 @@ export const AllTasks = () => {
               onChange={(e) => setSelectedAssignee(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Assignees</option>
+              <option value="all">{t('allTasks.allAssignees')}</option>
               {assignees.map(a => (
                 <option key={a} value={a}>{a}</option>
               ))}
@@ -296,16 +296,16 @@ export const AllTasks = () => {
           {selectedTasks.length > 0 && (
             <div className="flex items-center gap-2">
               <span className="text-sm text-text-secondary">
-                {selectedTasks.length} selected
+                {t('allTasks.selected', { count: selectedTasks.length })}
               </span>
               <Button variant="secondary" size="sm" leftIcon={<UserPlus size={14} />}>
-                Assign
+                {t('allTasks.assign')}
               </Button>
               <Button variant="secondary" size="sm" leftIcon={<ArrowUpDown size={14} />}>
-                Change Status
+                {t('allTasks.changeStatus')}
               </Button>
               <Button variant="secondary" size="sm" leftIcon={<Trash2 size={14} />}>
-                Delete
+                {t('allTasks.delete')}
               </Button>
             </div>
           )}
@@ -321,7 +321,7 @@ export const AllTasks = () => {
           selectable
           selectedItems={selectedTasks}
           onSelectionChange={setSelectedTasks}
-          emptyMessage="No tasks found"
+          emptyMessage={t('allTasks.noTasksFound')}
         />
       </Card>
     </div>

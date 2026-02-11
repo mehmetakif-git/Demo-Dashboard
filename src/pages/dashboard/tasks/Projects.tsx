@@ -18,7 +18,7 @@ import { projects, tasks, getPriorityColor } from '@/data/taskData';
 import { useTranslation } from 'react-i18next';
 
 export const Projects = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('tasks');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
@@ -64,10 +64,10 @@ export const Projects = () => {
 
   const getStatusBadge = (status: string) => {
     const statusConfig: Record<string, { bg: string; text: string; label: string }> = {
-      active: { bg: 'bg-green-500/20', text: 'text-green-400', label: 'Active' },
-      planning: { bg: 'bg-blue-500/20', text: 'text-blue-400', label: 'Planning' },
-      completed: { bg: 'bg-gray-500/20', text: 'text-gray-400', label: 'Completed' },
-      'on-hold': { bg: 'bg-orange-500/20', text: 'text-orange-400', label: 'On Hold' },
+      active: { bg: 'bg-green-500/20', text: 'text-green-400', label: t('projects.active') },
+      planning: { bg: 'bg-blue-500/20', text: 'text-blue-400', label: t('projects.planning') },
+      completed: { bg: 'bg-gray-500/20', text: 'text-gray-400', label: t('projects.completed') },
+      'on-hold': { bg: 'bg-orange-500/20', text: 'text-orange-400', label: t('projects.onHold') },
     };
     const config = statusConfig[status] || statusConfig.active;
     return (
@@ -90,11 +90,11 @@ export const Projects = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('tasks.projects', 'Projects')}
-        subtitle="Manage and track all project progress"
+        title={t('projects.title')}
+        subtitle={t('projects.subtitle')}
         actions={
           <Button leftIcon={<Plus size={16} />}>
-            Create Project
+            {t('projects.createProject')}
           </Button>
         }
       />
@@ -102,25 +102,25 @@ export const Projects = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Active Projects"
+          title={t('projects.activeProjects')}
           value={stats.active.toString()}
           icon={CheckCircle}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Completed This Month"
+          title={t('projects.completedThisMonth')}
           value={stats.completed.toString()}
           icon={Clock}
           iconColor="#547792"
         />
         <StatsCard
-          title="Overdue Tasks"
+          title={t('projects.overdueTasks')}
           value={stats.overdueTasks.toString()}
           icon={AlertTriangle}
           iconColor={stats.overdueTasks > 0 ? '#ef4444' : '#10b981'}
         />
         <StatsCard
-          title="Team Members"
+          title={t('projects.teamMembers')}
           value={stats.teamMembers.toString()}
           icon={Users}
           iconColor="#94B4C1"
@@ -133,7 +133,7 @@ export const Projects = () => {
           <div className="flex flex-wrap gap-4 items-center flex-1">
             <div className="flex-1 min-w-50 max-w-md">
               <Input
-                placeholder="Search projects..."
+                placeholder={t('projects.searchPlaceholder')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 leftIcon={<Search size={16} />}
@@ -145,11 +145,11 @@ export const Projects = () => {
               onChange={(e) => setSelectedStatus(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Status</option>
-              <option value="active">Active</option>
-              <option value="planning">Planning</option>
-              <option value="completed">Completed</option>
-              <option value="on-hold">On Hold</option>
+              <option value="all">{t('projects.allStatus')}</option>
+              <option value="active">{t('projects.active')}</option>
+              <option value="planning">{t('projects.planning')}</option>
+              <option value="completed">{t('projects.completed')}</option>
+              <option value="on-hold">{t('projects.onHold')}</option>
             </select>
 
             <select
@@ -157,11 +157,11 @@ export const Projects = () => {
               onChange={(e) => setSelectedPriority(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Priorities</option>
-              <option value="urgent">Urgent</option>
-              <option value="high">High</option>
-              <option value="medium">Medium</option>
-              <option value="low">Low</option>
+              <option value="all">{t('projects.allPriorities')}</option>
+              <option value="urgent">{t('projects.urgent')}</option>
+              <option value="high">{t('projects.high')}</option>
+              <option value="medium">{t('projects.medium')}</option>
+              <option value="low">{t('projects.low')}</option>
             </select>
           </div>
 
@@ -231,7 +231,7 @@ export const Projects = () => {
                   {/* Progress */}
                   <div className="mb-4">
                     <div className="flex items-center justify-between text-sm mb-1">
-                      <span className="text-text-secondary">Progress</span>
+                      <span className="text-text-secondary">{t('projects.progress')}</span>
                       <span className="font-medium text-text-primary">{project.progress}%</span>
                     </div>
                     <div className="w-full h-2 bg-white/[0.05] rounded-full overflow-hidden">
@@ -249,7 +249,7 @@ export const Projects = () => {
                   <div className="flex items-center gap-2 mb-4 text-sm">
                     <CheckCircle size={14} className="text-text-muted" />
                     <span className="text-text-secondary">
-                      {project.completedTasks}/{project.totalTasks} tasks completed
+                      {t('projects.tasksCompleted', { completed: project.completedTasks, total: project.totalTasks })}
                     </span>
                   </div>
 
@@ -352,7 +352,7 @@ export const Projects = () => {
                 {/* Progress */}
                 <div className="w-32 flex-shrink-0">
                   <div className="flex items-center justify-between text-xs mb-1">
-                    <span className="text-text-secondary">Progress</span>
+                    <span className="text-text-secondary">{t('projects.progress')}</span>
                     <span className="font-medium text-text-primary">{project.progress}%</span>
                   </div>
                   <div className="w-full h-1.5 bg-white/[0.05] rounded-full overflow-hidden">
@@ -368,7 +368,7 @@ export const Projects = () => {
 
                 {/* Tasks */}
                 <div className="text-sm text-text-secondary flex-shrink-0 w-28">
-                  {project.completedTasks}/{project.totalTasks} tasks
+                  {t('projects.tasks', { completed: project.completedTasks, total: project.totalTasks })}
                 </div>
 
                 {/* Owner */}
@@ -395,7 +395,7 @@ export const Projects = () => {
 
       {filteredProjects.length === 0 && (
         <Card className="p-12 text-center">
-          <p className="text-text-secondary">No projects found matching your filters</p>
+          <p className="text-text-secondary">{t('projects.noProjectsFound')}</p>
         </Card>
       )}
     </div>

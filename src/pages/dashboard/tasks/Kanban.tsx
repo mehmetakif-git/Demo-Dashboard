@@ -16,9 +16,10 @@ interface KanbanColumnProps {
   status: typeof taskStatuses[0];
   tasks: Task[];
   onAddTask?: () => void;
+  t: (key: string) => string;
 }
 
-const KanbanColumn = ({ status, tasks: columnTasks, onAddTask }: KanbanColumnProps) => {
+const KanbanColumn = ({ status, tasks: columnTasks, onAddTask, t }: KanbanColumnProps) => {
   return (
     <div className="flex-1 min-w-[300px] max-w-[350px]">
       <div
@@ -43,7 +44,7 @@ const KanbanColumn = ({ status, tasks: columnTasks, onAddTask }: KanbanColumnPro
       <div className="bg-white/[0.03] backdrop-blur-xl/50 rounded-b-lg p-2 min-h-[500px] max-h-[calc(100vh-350px)] overflow-y-auto">
         <div className="space-y-2">
           {columnTasks.map((task, index) => (
-            <KanbanCard key={task.id} task={task} index={index} />
+            <KanbanCard key={task.id} task={task} index={index} t={t} />
           ))}
         </div>
 
@@ -52,7 +53,7 @@ const KanbanColumn = ({ status, tasks: columnTasks, onAddTask }: KanbanColumnPro
           className="w-full mt-2 p-3 border border-dashed border-white/[0.08] rounded-lg text-text-secondary hover:text-text-primary hover:border-accent-primary transition-colors flex items-center justify-center gap-2"
         >
           <Plus size={16} />
-          <span className="text-sm">Add Task</span>
+          <span className="text-sm">{t('kanban.addTask')}</span>
         </button>
       </div>
     </div>
@@ -62,9 +63,10 @@ const KanbanColumn = ({ status, tasks: columnTasks, onAddTask }: KanbanColumnPro
 interface KanbanCardProps {
   task: Task;
   index: number;
+  t: (key: string) => string;
 }
 
-const KanbanCard = ({ task, index }: KanbanCardProps) => {
+const KanbanCard = ({ task, index, t }: KanbanCardProps) => {
   const completedSubtasks = task.subtasks.filter(s => s.completed).length;
   const today = new Date().toISOString().split('T')[0];
   const isOverdue = task.dueDate < today && task.status !== 'done';
@@ -114,7 +116,7 @@ const KanbanCard = ({ task, index }: KanbanCardProps) => {
           {task.subtasks.length > 0 && (
             <div className="mb-2">
               <div className="flex items-center justify-between text-xs text-text-secondary mb-1">
-                <span>Subtasks</span>
+                <span>{t('kanban.subtasks')}</span>
                 <span>{completedSubtasks}/{task.subtasks.length}</span>
               </div>
               <div className="w-full h-1 bg-white/[0.05] rounded-full overflow-hidden">
@@ -170,7 +172,7 @@ const KanbanCard = ({ task, index }: KanbanCardProps) => {
 };
 
 export const Kanban = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('tasks');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedProject, setSelectedProject] = useState<string>('all');
   const [selectedAssignee, setSelectedAssignee] = useState<string>('all');
@@ -218,11 +220,11 @@ export const Kanban = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('tasks.kanbanBoard', 'Kanban Board')}
-        subtitle="Visualize and manage tasks with drag-and-drop"
+        title={t('kanban.title')}
+        subtitle={t('kanban.subtitle')}
         actions={
           <Button leftIcon={<Plus size={16} />}>
-            Create Task
+            {t('kanban.createTask')}
           </Button>
         }
       />
@@ -232,7 +234,7 @@ export const Kanban = () => {
         <div className="flex flex-wrap gap-4 items-center">
           <div className="flex-1 min-w-50 max-w-md">
             <Input
-              placeholder="Search tasks..."
+              placeholder={t('kanban.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               leftIcon={<Search size={16} />}
@@ -244,7 +246,7 @@ export const Kanban = () => {
             onChange={(e) => setSelectedProject(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Projects</option>
+            <option value="all">{t('kanban.allProjects')}</option>
             {projects.map(p => (
               <option key={p.id} value={p.id}>{p.name}</option>
             ))}
@@ -255,7 +257,7 @@ export const Kanban = () => {
             onChange={(e) => setSelectedAssignee(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Assignees</option>
+            <option value="all">{t('kanban.allAssignees')}</option>
             {assignees.map(a => (
               <option key={a} value={a}>{a}</option>
             ))}
@@ -266,7 +268,7 @@ export const Kanban = () => {
             onChange={(e) => setSelectedPriority(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Priorities</option>
+            <option value="all">{t('kanban.allPriorities')}</option>
             {taskPriorities.map(p => (
               <option key={p.id} value={p.id}>{p.name}</option>
             ))}
@@ -281,13 +283,14 @@ export const Kanban = () => {
             key={status.id}
             status={status}
             tasks={tasksByStatus[status.id] || []}
+            t={t}
           />
         ))}
       </div>
 
       {/* Info Note */}
       <p className="text-xs text-text-muted text-center">
-        Tip: Drag and drop tasks between columns to change their status (visual demo only)
+        {t('kanban.tip')}
       </p>
     </div>
   );
