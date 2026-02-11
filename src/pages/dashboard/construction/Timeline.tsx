@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   Calendar,
@@ -15,8 +16,16 @@ import { PageHeader, Card, Button } from '@/components/common';
 import { timelinePhases, projects, CONSTRUCTION_COLOR } from '@/data/construction/constructionData';
 
 export const Timeline = () => {
+  const { t } = useTranslation('construction');
   const [selectedProject, setSelectedProject] = useState<string>('PRJ001');
   const [viewMode, setViewMode] = useState<'gantt' | 'list'>('gantt');
+
+  const statusMap: Record<string, string> = {
+    'completed': t('status.completed'),
+    'in-progress': t('status.inProgress'),
+    'scheduled': t('status.scheduled'),
+    'behind': t('status.behind'),
+  };
 
   const projectPhases = useMemo(() => {
     return timelinePhases.filter(p => p.projectId === selectedProject);
@@ -90,8 +99,8 @@ export const Timeline = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Project Timeline"
-        subtitle="Visualize project phases and milestones"
+        title={t('timeline.title')}
+        subtitle={t('timeline.subtitle')}
         icon={Calendar}
         actions={
           <div className="flex gap-2">
@@ -100,18 +109,18 @@ export const Timeline = () => {
               onClick={() => setViewMode('gantt')}
             >
               <BarChart3 size={18} />
-              Gantt
+              {t('timeline.gantt')}
             </Button>
             <Button
               variant={viewMode === 'list' ? 'primary' : 'ghost'}
               onClick={() => setViewMode('list')}
             >
               <List size={18} />
-              List
+              {t('timeline.list')}
             </Button>
             <Button>
               <Plus size={18} />
-              Add Phase
+              {t('timeline.addPhase')}
             </Button>
           </div>
         }
@@ -120,7 +129,7 @@ export const Timeline = () => {
       {/* Project Selector */}
       <Card className="p-4">
         <div className="flex items-center gap-4">
-          <span className="text-text-muted">Select Project:</span>
+          <span className="text-text-muted">{t('timeline.selectProject')}</span>
           <select
             className="px-4 py-2 bg-background-secondary border border-border-default rounded-lg text-text-primary flex-1 max-w-md"
             value={selectedProject}
@@ -136,10 +145,10 @@ export const Timeline = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Phases', value: stats.total, icon: Calendar, color: CONSTRUCTION_COLOR },
-          { label: 'In Progress', value: stats.inProgress, icon: Clock, color: '#3b82f6' },
-          { label: 'Completed', value: stats.completed, icon: CheckCircle, color: '#10b981' },
-          { label: 'Behind Schedule', value: stats.behind, icon: AlertCircle, color: stats.behind > 0 ? '#ef4444' : '#10b981' },
+          { label: t('timeline.totalPhases'), value: stats.total, icon: Calendar, color: CONSTRUCTION_COLOR },
+          { label: t('timeline.inProgress'), value: stats.inProgress, icon: Clock, color: '#3b82f6' },
+          { label: t('timeline.completed'), value: stats.completed, icon: CheckCircle, color: '#10b981' },
+          { label: t('timeline.behindSchedule'), value: stats.behind, icon: AlertCircle, color: stats.behind > 0 ? '#ef4444' : '#10b981' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -171,12 +180,12 @@ export const Timeline = () => {
       {/* Gantt Chart View */}
       {viewMode === 'gantt' && (
         <Card className="p-4 overflow-hidden">
-          <h3 className="font-semibold text-text-primary mb-4">Gantt Chart</h3>
+          <h3 className="font-semibold text-text-primary mb-4">{t('timeline.ganttChart')}</h3>
 
           {/* Timeline Header */}
           <div className="flex border-b border-border-default mb-4">
             <div className="w-64 flex-shrink-0 py-2 px-4 font-medium text-text-muted text-sm">
-              Phase
+              {t('timeline.phase')}
             </div>
             <div className="flex-1 flex">
               {timelineBounds.months.map((month, i) => (
@@ -240,7 +249,7 @@ export const Timeline = () => {
                   className="w-3 h-3 rounded"
                   style={{ backgroundColor: getStatusColor(status) }}
                 />
-                <span className="text-xs text-text-muted capitalize">{status.replace('-', ' ')}</span>
+                <span className="text-xs text-text-muted">{statusMap[status]}</span>
               </div>
             ))}
           </div>
@@ -254,14 +263,14 @@ export const Timeline = () => {
             <table className="w-full">
               <thead className="bg-background-tertiary">
                 <tr>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Phase</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Start Date</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">End Date</th>
-                  <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Duration</th>
-                  <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Status</th>
-                  <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Completion</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Team</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Milestones</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('timeline.phase')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('timeline.startDate')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('timeline.endDate')}</th>
+                  <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('timeline.duration')}</th>
+                  <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('timeline.status')}</th>
+                  <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('timeline.completion')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('timeline.team')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('timeline.milestones')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -284,7 +293,7 @@ export const Timeline = () => {
                         {phase.dependencies.length > 0 && (
                           <div className="flex items-center gap-1 mt-1 text-xs text-text-muted">
                             <ChevronRight size={12} />
-                            <span>Depends on: {phase.dependencies.join(', ')}</span>
+                            <span>{t('timeline.dependsOn')} {phase.dependencies.join(', ')}</span>
                           </div>
                         )}
                       </td>
@@ -295,14 +304,14 @@ export const Timeline = () => {
                         {new Date(phase.endDate).toLocaleDateString()}
                       </td>
                       <td className="py-3 px-4 text-center text-text-primary">
-                        {phase.duration} days
+                        {phase.duration} {t('timeline.days')}
                       </td>
                       <td className="py-3 px-4 text-center">
                         <span
-                          className="px-2 py-1 rounded-full text-xs font-medium capitalize"
+                          className="px-2 py-1 rounded-full text-xs font-medium"
                           style={{ backgroundColor: `${getStatusColor(phase.status)}20`, color: getStatusColor(phase.status) }}
                         >
-                          {phase.status.replace('-', ' ')}
+                          {statusMap[phase.status]}
                         </span>
                       </td>
                       <td className="py-3 px-4">
@@ -352,7 +361,7 @@ export const Timeline = () => {
       {projectPhases.length === 0 && (
         <Card className="p-12 text-center">
           <Calendar size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No phases defined for this project</p>
+          <p className="text-text-secondary">{t('timeline.noPhases')}</p>
         </Card>
       )}
     </div>

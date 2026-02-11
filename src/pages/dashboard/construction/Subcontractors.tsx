@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   Users,
@@ -18,9 +19,16 @@ import { subcontractors, CONSTRUCTION_COLOR } from '@/data/construction/construc
 import { getCompanyLogo } from '@/utils/profileImages';
 
 export const Subcontractors = () => {
+  const { t } = useTranslation('construction');
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
+
+  const statusMap: Record<string, string> = {
+    'all': t('subcontractors.all'),
+    'active': t('status.active'),
+    'inactive': t('status.inactive'),
+  };
 
   const categories = useMemo(() => {
     return ['all', ...new Set(subcontractors.map(s => s.category))];
@@ -65,13 +73,13 @@ export const Subcontractors = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Subcontractor Management"
-        subtitle="Manage subcontractors and vendor relationships"
+        title={t('subcontractors.title')}
+        subtitle={t('subcontractors.subtitle')}
         icon={Users}
         actions={
           <Button>
             <Plus size={18} />
-            Add Subcontractor
+            {t('subcontractors.addSubcontractor')}
           </Button>
         }
       />
@@ -79,10 +87,10 @@ export const Subcontractors = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Subcontractors', value: stats.total, icon: Users, color: CONSTRUCTION_COLOR },
-          { label: 'Active', value: stats.active, icon: CheckCircle, color: '#10b981' },
-          { label: 'Avg Rating', value: stats.avgRating, icon: Star, color: '#f59e0b' },
-          { label: 'Active Contracts', value: stats.activeContracts, icon: Briefcase, color: '#3b82f6' },
+          { label: t('subcontractors.totalSubcontractors'), value: stats.total, icon: Users, color: CONSTRUCTION_COLOR },
+          { label: t('subcontractors.active'), value: stats.active, icon: CheckCircle, color: '#10b981' },
+          { label: t('subcontractors.avgRating'), value: stats.avgRating, icon: Star, color: '#f59e0b' },
+          { label: t('subcontractors.activeContracts'), value: stats.activeContracts, icon: Briefcase, color: '#3b82f6' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -117,7 +125,7 @@ export const Subcontractors = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by name or contact person..."
+              placeholder={t('subcontractors.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -129,7 +137,7 @@ export const Subcontractors = () => {
             onChange={(e) => setCategoryFilter(e.target.value)}
           >
             {categories.map(cat => (
-              <option key={cat} value={cat}>{cat === 'all' ? 'All Categories' : cat}</option>
+              <option key={cat} value={cat}>{cat === 'all' ? t('subcontractors.allCategories') : cat}</option>
             ))}
           </select>
           <div className="flex gap-2">
@@ -140,7 +148,7 @@ export const Subcontractors = () => {
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status === 'all' ? 'All' : status.charAt(0).toUpperCase() + status.slice(1)}
+                {statusMap[status]}
               </Button>
             ))}
           </div>
@@ -193,10 +201,10 @@ export const Subcontractors = () => {
                     </Button>
                   }
                   items={[
-                    { id: 'view', label: 'View Profile', onClick: () => {} },
-                    { id: 'edit', label: 'Edit Details', onClick: () => {} },
-                    { id: 'assign', label: 'Assign to Project', onClick: () => {} },
-                    { id: 'rate', label: 'Rate Performance', onClick: () => {} },
+                    { id: 'view', label: t('subcontractors.viewProfile'), onClick: () => {} },
+                    { id: 'edit', label: t('subcontractors.editDetails'), onClick: () => {} },
+                    { id: 'assign', label: t('subcontractors.assignToProject'), onClick: () => {} },
+                    { id: 'rate', label: t('subcontractors.ratePerformance'), onClick: () => {} },
                   ]}
                 />
               </div>
@@ -228,7 +236,7 @@ export const Subcontractors = () => {
 
               {/* Specializations */}
               <div className="mb-4">
-                <p className="text-xs text-text-muted mb-2">Specializations</p>
+                <p className="text-xs text-text-muted mb-2">{t('subcontractors.specializations')}</p>
                 <div className="flex flex-wrap gap-1">
                   {sub.specialization.map((spec, i) => (
                     <span
@@ -243,7 +251,7 @@ export const Subcontractors = () => {
 
               {/* Certifications */}
               <div className="mb-4">
-                <p className="text-xs text-text-muted mb-2">Certifications</p>
+                <p className="text-xs text-text-muted mb-2">{t('subcontractors.certifications')}</p>
                 <div className="flex flex-wrap gap-1">
                   {sub.certifications.map((cert, i) => (
                     <span
@@ -261,18 +269,18 @@ export const Subcontractors = () => {
               <div className="flex items-center justify-between pt-4 border-t border-border-default">
                 <div className="text-center">
                   <p className="text-lg font-bold" style={{ color: CONSTRUCTION_COLOR }}>{sub.activeProjects}</p>
-                  <p className="text-xs text-text-muted">Active Projects</p>
+                  <p className="text-xs text-text-muted">{t('subcontractors.activeProjects')}</p>
                 </div>
                 <div className="text-center">
                   <p className="text-lg font-bold text-text-primary">{sub.completedProjects}</p>
-                  <p className="text-xs text-text-muted">Completed</p>
+                  <p className="text-xs text-text-muted">{t('subcontractors.completed')}</p>
                 </div>
                 <span
                   className={`px-2 py-1 rounded-full text-xs font-medium ${
                     sub.status === 'active' ? 'bg-success/20 text-success' : 'bg-background-tertiary text-text-muted'
                   }`}
                 >
-                  {sub.status.charAt(0).toUpperCase() + sub.status.slice(1)}
+                  {statusMap[sub.status]}
                 </span>
               </div>
             </Card>
@@ -283,7 +291,7 @@ export const Subcontractors = () => {
       {filteredSubcontractors.length === 0 && (
         <Card className="p-12 text-center">
           <Users size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No subcontractors found</p>
+          <p className="text-text-secondary">{t('subcontractors.noSubcontractorsFound')}</p>
         </Card>
       )}
     </div>

@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   Truck,
@@ -17,9 +18,18 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { equipment, projects, CONSTRUCTION_COLOR } from '@/data/construction/constructionData';
 
 export const Equipment = () => {
+  const { t } = useTranslation('construction');
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
+
+  const statusMap: Record<string, string> = {
+    'all': t('equipment.all'),
+    'in-use': t('status.inUse'),
+    'available': t('status.available'),
+    'maintenance': t('status.maintenance'),
+    'out-of-service': t('status.outOfService'),
+  };
 
   const categories = useMemo(() => {
     return ['all', ...new Set(equipment.map(e => e.category))];
@@ -74,13 +84,13 @@ export const Equipment = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Equipment Management"
-        subtitle="Track and manage construction equipment"
+        title={t('equipment.title')}
+        subtitle={t('equipment.subtitle')}
         icon={Truck}
         actions={
           <Button>
             <Plus size={18} />
-            Add Equipment
+            {t('equipment.addEquipment')}
           </Button>
         }
       />
@@ -88,11 +98,11 @@ export const Equipment = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         {[
-          { label: 'Total Equipment', value: stats.total, icon: Truck, color: CONSTRUCTION_COLOR },
-          { label: 'In Use', value: stats.inUse, icon: CheckCircle, color: '#3b82f6' },
-          { label: 'Available', value: stats.available, icon: CheckCircle, color: '#10b981' },
-          { label: 'Maintenance', value: stats.maintenance, icon: Wrench, color: '#f59e0b' },
-          { label: 'Total Value', value: formatCurrency(stats.totalValue), icon: DollarSign, color: '#8b5cf6' },
+          { label: t('equipment.totalEquipment'), value: stats.total, icon: Truck, color: CONSTRUCTION_COLOR },
+          { label: t('equipment.inUse'), value: stats.inUse, icon: CheckCircle, color: '#3b82f6' },
+          { label: t('equipment.available'), value: stats.available, icon: CheckCircle, color: '#10b981' },
+          { label: t('equipment.maintenance'), value: stats.maintenance, icon: Wrench, color: '#f59e0b' },
+          { label: t('equipment.totalValue'), value: formatCurrency(stats.totalValue), icon: DollarSign, color: '#8b5cf6' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -127,7 +137,7 @@ export const Equipment = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by name, model, or serial no..."
+              placeholder={t('equipment.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -139,7 +149,7 @@ export const Equipment = () => {
             onChange={(e) => setCategoryFilter(e.target.value)}
           >
             {categories.map(cat => (
-              <option key={cat} value={cat}>{cat === 'all' ? 'All Categories' : cat}</option>
+              <option key={cat} value={cat}>{cat === 'all' ? t('equipment.allCategories') : cat}</option>
             ))}
           </select>
           <div className="flex gap-2">
@@ -150,7 +160,7 @@ export const Equipment = () => {
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status === 'all' ? 'All' : status.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                {statusMap[status]}
               </Button>
             ))}
           </div>
@@ -163,13 +173,13 @@ export const Equipment = () => {
           <table className="w-full">
             <thead className="bg-background-tertiary">
               <tr>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Equipment</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Category</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Status</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Current Assignment</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('equipment.equipment')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('equipment.category')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('equipment.status')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('equipment.currentAssignment')}</th>
                 <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Maintenance</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Daily Rate</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Actions</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('equipment.dailyRate')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('equipment.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -200,12 +210,12 @@ export const Equipment = () => {
                   </td>
                   <td className="py-3 px-4 text-center">
                     <span
-                      className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium capitalize"
+                      className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium"
                       style={{ backgroundColor: `${getStatusColor(eq.status)}20`, color: getStatusColor(eq.status) }}
                     >
                       {eq.status === 'maintenance' && <Wrench size={12} />}
                       {eq.status === 'out-of-service' && <AlertCircle size={12} />}
-                      {eq.status.replace('-', ' ')}
+                      {statusMap[eq.status]}
                     </span>
                   </td>
                   <td className="py-3 px-4">
@@ -230,11 +240,11 @@ export const Equipment = () => {
                     <div className="text-sm">
                       <div className="flex items-center gap-1 text-text-muted">
                         <Calendar size={12} />
-                        <span>Last: {new Date(eq.lastMaintenance).toLocaleDateString()}</span>
+                        <span>{t('equipment.last')} {new Date(eq.lastMaintenance).toLocaleDateString()}</span>
                       </div>
                       <div className="flex items-center gap-1 text-text-muted mt-1">
                         <Calendar size={12} />
-                        <span>Next: {new Date(eq.nextMaintenance).toLocaleDateString()}</span>
+                        <span>{t('equipment.next')} {new Date(eq.nextMaintenance).toLocaleDateString()}</span>
                       </div>
                     </div>
                   </td>
@@ -251,10 +261,10 @@ export const Equipment = () => {
                         </Button>
                       }
                       items={[
-                        { id: 'view', label: 'View Details', onClick: () => {} },
-                        { id: 'edit', label: 'Edit Equipment', onClick: () => {} },
-                        { id: 'assign', label: 'Assign to Project', onClick: () => {} },
-                        { id: 'maintenance', label: 'Maintenance Log', onClick: () => {} },
+                        { id: 'view', label: t('equipment.viewDetails'), onClick: () => {} },
+                        { id: 'edit', label: t('equipment.editEquipment'), onClick: () => {} },
+                        { id: 'assign', label: t('equipment.assignToProject'), onClick: () => {} },
+                        { id: 'maintenance', label: t('equipment.maintenanceLog'), onClick: () => {} },
                       ]}
                     />
                   </td>
@@ -268,7 +278,7 @@ export const Equipment = () => {
       {filteredEquipment.length === 0 && (
         <Card className="p-12 text-center">
           <Truck size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No equipment found</p>
+          <p className="text-text-secondary">{t('equipment.noEquipmentFound')}</p>
         </Card>
       )}
     </div>

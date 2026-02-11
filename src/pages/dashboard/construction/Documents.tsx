@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   FileText,
@@ -18,10 +19,18 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { documents, projects, CONSTRUCTION_COLOR } from '@/data/construction/constructionData';
 
 export const Documents = () => {
+  const { t } = useTranslation('construction');
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [projectFilter, setProjectFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
+
+  const statusMap: Record<string, string> = {
+    'all': t('documents.all'),
+    'draft': t('status.draft'),
+    'under-review': t('status.underReview'),
+    'approved': t('status.approved'),
+  };
 
   const categories = useMemo(() => {
     return ['all', ...new Set(documents.map(d => d.category))];
@@ -86,13 +95,13 @@ export const Documents = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Document Management"
-        subtitle="Manage project documents and files"
+        title={t('documents.title')}
+        subtitle={t('documents.subtitle')}
         icon={FileText}
         actions={
           <Button>
             <Plus size={18} />
-            Upload Document
+            {t('documents.uploadDocument')}
           </Button>
         }
       />
@@ -100,10 +109,10 @@ export const Documents = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Documents', value: stats.total, icon: FileText, color: CONSTRUCTION_COLOR },
-          { label: 'Drawings', value: stats.byCategory['Drawings'] || 0, icon: Image, color: '#3b82f6' },
-          { label: 'Contracts', value: stats.byCategory['Contracts'] || 0, icon: File, color: '#8b5cf6' },
-          { label: 'Recent Uploads', value: stats.recentUploads, icon: Calendar, color: '#10b981' },
+          { label: t('documents.totalDocuments'), value: stats.total, icon: FileText, color: CONSTRUCTION_COLOR },
+          { label: t('documents.drawings'), value: stats.byCategory['Drawings'] || 0, icon: Image, color: '#3b82f6' },
+          { label: t('documents.contracts'), value: stats.byCategory['Contracts'] || 0, icon: File, color: '#8b5cf6' },
+          { label: t('documents.recentUploads'), value: stats.recentUploads, icon: Calendar, color: '#10b981' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -138,7 +147,7 @@ export const Documents = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by name, file, or tags..."
+              placeholder={t('documents.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -149,7 +158,7 @@ export const Documents = () => {
             value={projectFilter}
             onChange={(e) => setProjectFilter(e.target.value)}
           >
-            <option value="all">All Projects</option>
+            <option value="all">{t('documents.allProjects')}</option>
             {projects.map(p => (
               <option key={p.id} value={p.id}>{p.name}</option>
             ))}
@@ -160,7 +169,7 @@ export const Documents = () => {
             onChange={(e) => setCategoryFilter(e.target.value)}
           >
             {categories.map(cat => (
-              <option key={cat} value={cat}>{cat === 'all' ? 'All Categories' : cat}</option>
+              <option key={cat} value={cat}>{cat === 'all' ? t('documents.allCategories') : cat}</option>
             ))}
           </select>
           <div className="flex gap-2">
@@ -171,7 +180,7 @@ export const Documents = () => {
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status === 'all' ? 'All' : status.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                {statusMap[status]}
               </Button>
             ))}
           </div>
@@ -184,14 +193,14 @@ export const Documents = () => {
           <table className="w-full">
             <thead className="bg-background-tertiary">
               <tr>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Document</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Category</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Project</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Uploaded</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Version</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Status</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Tags</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Actions</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('documents.document')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('documents.category')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('documents.project')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('documents.uploaded')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('documents.version')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('documents.status')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('documents.tags')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('documents.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -247,10 +256,10 @@ export const Documents = () => {
                     </td>
                     <td className="py-3 px-4 text-center">
                       <span
-                        className="px-2 py-1 rounded-full text-xs font-medium capitalize"
+                        className="px-2 py-1 rounded-full text-xs font-medium"
                         style={{ backgroundColor: `${getStatusColor(doc.status)}20`, color: getStatusColor(doc.status) }}
                       >
-                        {doc.status.replace('-', ' ')}
+                        {statusMap[doc.status]}
                       </span>
                     </td>
                     <td className="py-3 px-4">
@@ -284,9 +293,9 @@ export const Documents = () => {
                             </Button>
                           }
                           items={[
-                            { id: 'edit', label: 'Edit Details', onClick: () => {} },
-                            { id: 'version', label: 'Version History', onClick: () => {} },
-                            { id: 'delete', label: 'Delete', onClick: () => {} },
+                            { id: 'edit', label: t('documents.editDetails'), onClick: () => {} },
+                            { id: 'version', label: t('documents.versionHistory'), onClick: () => {} },
+                            { id: 'delete', label: t('documents.delete'), onClick: () => {} },
                           ]}
                         />
                       </div>
@@ -302,7 +311,7 @@ export const Documents = () => {
       {filteredDocuments.length === 0 && (
         <Card className="p-12 text-center">
           <FileText size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No documents found</p>
+          <p className="text-text-secondary">{t('documents.noDocumentsFound')}</p>
         </Card>
       )}
     </div>

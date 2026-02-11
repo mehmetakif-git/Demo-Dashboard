@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   CheckSquare,
@@ -16,9 +17,17 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { qualityInspections, projects, CONSTRUCTION_COLOR } from '@/data/construction/constructionData';
 
 export const Quality = () => {
+  const { t } = useTranslation('construction');
   const [searchQuery, setSearchQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
+
+  const statusMap: Record<string, string> = {
+    'all': t('quality.all'),
+    'passed': t('status.passed'),
+    'failed': t('status.failed'),
+    'passed-with-comments': t('quality.passedWithComments'),
+  };
 
   const inspectionTypes = useMemo(() => {
     return ['all', ...new Set(qualityInspections.map(i => i.inspectionType))];
@@ -82,13 +91,13 @@ export const Quality = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Quality Control"
-        subtitle="Manage quality inspections and defect tracking"
+        title={t('quality.title')}
+        subtitle={t('quality.subtitle')}
         icon={CheckSquare}
         actions={
           <Button>
             <Plus size={18} />
-            New Inspection
+            {t('quality.newInspection')}
           </Button>
         }
       />
@@ -96,11 +105,11 @@ export const Quality = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         {[
-          { label: 'Total Inspections', value: stats.total, icon: CheckSquare, color: CONSTRUCTION_COLOR },
-          { label: 'Passed', value: stats.passed, icon: CheckCircle, color: '#10b981' },
-          { label: 'Failed', value: stats.failed, icon: XCircle, color: '#ef4444' },
-          { label: 'With Comments', value: stats.withComments, icon: AlertCircle, color: '#f59e0b' },
-          { label: 'Pass Rate', value: `${stats.passRate}%`, icon: FileText, color: stats.passRate >= 80 ? '#10b981' : '#f59e0b' },
+          { label: t('quality.totalInspections'), value: stats.total, icon: CheckSquare, color: CONSTRUCTION_COLOR },
+          { label: t('quality.passed'), value: stats.passed, icon: CheckCircle, color: '#10b981' },
+          { label: t('quality.failed'), value: stats.failed, icon: XCircle, color: '#ef4444' },
+          { label: t('quality.withComments'), value: stats.withComments, icon: AlertCircle, color: '#f59e0b' },
+          { label: t('quality.passRate'), value: `${stats.passRate}%`, icon: FileText, color: stats.passRate >= 80 ? '#10b981' : '#f59e0b' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -135,7 +144,7 @@ export const Quality = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by inspection type, phase, or inspector..."
+              placeholder={t('quality.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -147,7 +156,7 @@ export const Quality = () => {
             onChange={(e) => setTypeFilter(e.target.value)}
           >
             {inspectionTypes.map(type => (
-              <option key={type} value={type}>{type === 'all' ? 'All Types' : type}</option>
+              <option key={type} value={type}>{type === 'all' ? t('quality.allTypes') : type}</option>
             ))}
           </select>
           <div className="flex gap-2">
@@ -158,7 +167,7 @@ export const Quality = () => {
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status === 'all' ? 'All' : status.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                {statusMap[status]}
               </Button>
             ))}
           </div>
@@ -190,10 +199,10 @@ export const Quality = () => {
                       <h3 className="font-semibold text-text-primary">{inspection.inspectionType}</h3>
                       <p className="text-sm text-text-muted">{inspection.phase}</p>
                       <span
-                        className="inline-block px-2 py-0.5 rounded-full text-xs font-medium capitalize mt-1"
+                        className="inline-block px-2 py-0.5 rounded-full text-xs font-medium mt-1"
                         style={{ backgroundColor: `${getStatusColor(inspection.status)}20`, color: getStatusColor(inspection.status) }}
                       >
-                        {inspection.status.replace(/-/g, ' ')}
+                        {statusMap[inspection.status]}
                       </span>
                     </div>
                   </div>
@@ -204,9 +213,9 @@ export const Quality = () => {
                       </Button>
                     }
                     items={[
-                      { id: 'view', label: 'View Details', onClick: () => {} },
-                      { id: 'edit', label: 'Edit Inspection', onClick: () => {} },
-                      { id: 'reinspect', label: 'Schedule Re-inspection', onClick: () => {} },
+                      { id: 'view', label: t('quality.viewDetails'), onClick: () => {} },
+                      { id: 'edit', label: t('quality.editInspection'), onClick: () => {} },
+                      { id: 'reinspect', label: t('quality.scheduleReinspection'), onClick: () => {} },
                     ]}
                   />
                 </div>
@@ -228,21 +237,21 @@ export const Quality = () => {
                   {inspection.nextInspection && (
                     <div className="flex items-center gap-2 text-sm text-text-muted">
                       <Calendar size={14} />
-                      <span>Next: {new Date(inspection.nextInspection).toLocaleDateString()}</span>
+                      <span>{t('quality.next')} {new Date(inspection.nextInspection).toLocaleDateString()}</span>
                     </div>
                   )}
                 </div>
 
                 {/* Findings */}
                 <div className="mb-4 p-3 bg-background-tertiary rounded-lg">
-                  <p className="text-xs text-text-muted mb-1">Findings</p>
+                  <p className="text-xs text-text-muted mb-1">{t('quality.findings')}</p>
                   <p className="text-sm text-text-primary">{inspection.findings}</p>
                 </div>
 
                 {/* Defects */}
                 {inspection.defects.length > 0 && (
                   <div className="mb-4">
-                    <p className="text-xs text-text-muted mb-2">Defects ({inspection.defects.length})</p>
+                    <p className="text-xs text-text-muted mb-2">{t('quality.defects')} ({inspection.defects.length})</p>
                     <div className="space-y-2">
                       {inspection.defects.map((defect, i) => (
                         <div
@@ -272,7 +281,7 @@ export const Quality = () => {
                 {/* Corrective Actions */}
                 {inspection.correctiveActions.length > 0 && (
                   <div className="pt-4 border-t border-border-default">
-                    <p className="text-xs text-text-muted mb-2">Corrective Actions</p>
+                    <p className="text-xs text-text-muted mb-2">{t('quality.correctiveActions')}</p>
                     <div className="space-y-2">
                       {inspection.correctiveActions.map((action, i) => (
                         <div
@@ -302,7 +311,7 @@ export const Quality = () => {
       {filteredInspections.length === 0 && (
         <Card className="p-12 text-center">
           <CheckSquare size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No inspections found</p>
+          <p className="text-text-secondary">{t('quality.noInspectionsFound')}</p>
         </Card>
       )}
     </div>

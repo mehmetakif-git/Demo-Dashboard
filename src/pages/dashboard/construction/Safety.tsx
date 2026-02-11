@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   Shield,
@@ -17,10 +18,18 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { safetyIncidents, projects, sites, CONSTRUCTION_COLOR } from '@/data/construction/constructionData';
 
 export const Safety = () => {
+  const { t } = useTranslation('construction');
   const [searchQuery, setSearchQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [severityFilter, setSeverityFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
+
+  const statusMap: Record<string, string> = {
+    'all': t('safety.all'),
+    'open': t('status.open'),
+    'under-investigation': t('status.underInvestigation'),
+    'closed': t('status.closed'),
+  };
 
   const stats = useMemo(() => {
     const total = safetyIncidents.length;
@@ -88,13 +97,13 @@ export const Safety = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Safety Management"
-        subtitle="Track and manage safety incidents"
+        title={t('safety.title')}
+        subtitle={t('safety.subtitle')}
         icon={Shield}
         actions={
           <Button>
             <Plus size={18} />
-            Report Incident
+            {t('safety.reportIncident')}
           </Button>
         }
       />
@@ -102,10 +111,10 @@ export const Safety = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Incidents', value: stats.total, icon: AlertTriangle, color: CONSTRUCTION_COLOR },
-          { label: 'This Month', value: stats.thisMonth, icon: Calendar, color: '#3b82f6' },
-          { label: 'Lost Time Injuries', value: stats.lostTimeInjuries, icon: TrendingDown, color: stats.lostTimeInjuries > 0 ? '#ef4444' : '#10b981' },
-          { label: 'Days Since Last', value: stats.daysSinceLast, icon: CheckCircle, color: stats.daysSinceLast > 30 ? '#10b981' : '#f59e0b' },
+          { label: t('safety.totalIncidents'), value: stats.total, icon: AlertTriangle, color: CONSTRUCTION_COLOR },
+          { label: t('safety.thisMonth'), value: stats.thisMonth, icon: Calendar, color: '#3b82f6' },
+          { label: t('safety.lostTimeInjuries'), value: stats.lostTimeInjuries, icon: TrendingDown, color: stats.lostTimeInjuries > 0 ? '#ef4444' : '#10b981' },
+          { label: t('safety.daysSinceLast'), value: stats.daysSinceLast, icon: CheckCircle, color: stats.daysSinceLast > 30 ? '#10b981' : '#f59e0b' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -140,7 +149,7 @@ export const Safety = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by description or location..."
+              placeholder={t('safety.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -151,22 +160,22 @@ export const Safety = () => {
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value)}
           >
-            <option value="all">All Types</option>
-            <option value="Minor Injury">Minor Injury</option>
-            <option value="Major Injury">Major Injury</option>
-            <option value="Near Miss">Near Miss</option>
-            <option value="Property Damage">Property Damage</option>
+            <option value="all">{t('safety.allTypes')}</option>
+            <option value="Minor Injury">{t('safety.minorInjury')}</option>
+            <option value="Major Injury">{t('safety.majorInjury')}</option>
+            <option value="Near Miss">{t('safety.nearMiss')}</option>
+            <option value="Property Damage">{t('safety.propertyDamage')}</option>
           </select>
           <select
             className="px-3 py-2 bg-background-secondary border border-border-default rounded-lg text-text-primary"
             value={severityFilter}
             onChange={(e) => setSeverityFilter(e.target.value)}
           >
-            <option value="all">All Severity</option>
-            <option value="Low">Low</option>
-            <option value="Medium">Medium</option>
-            <option value="High">High</option>
-            <option value="Critical">Critical</option>
+            <option value="all">{t('safety.allSeverity')}</option>
+            <option value="Low">{t('safety.low')}</option>
+            <option value="Medium">{t('safety.medium')}</option>
+            <option value="High">{t('safety.high')}</option>
+            <option value="Critical">{t('safety.critical')}</option>
           </select>
           <div className="flex gap-2">
             {['all', 'open', 'under-investigation', 'closed'].map((status) => (
@@ -176,7 +185,7 @@ export const Safety = () => {
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status === 'all' ? 'All' : status.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                {statusMap[status]}
               </Button>
             ))}
           </div>
@@ -189,14 +198,14 @@ export const Safety = () => {
           <table className="w-full">
             <thead className="bg-background-tertiary">
               <tr>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">ID</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Date/Time</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Project/Site</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Type</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Severity</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Description</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Status</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Actions</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('safety.id')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('safety.dateTime')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('safety.projectSite')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('safety.type')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('safety.severity')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('safety.description')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('safety.status')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('safety.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -252,10 +261,10 @@ export const Safety = () => {
                   </td>
                   <td className="py-3 px-4 text-center">
                     <span
-                      className="px-2 py-1 rounded-full text-xs font-medium capitalize"
+                      className="px-2 py-1 rounded-full text-xs font-medium"
                       style={{ backgroundColor: `${getStatusColor(incident.status)}20`, color: getStatusColor(incident.status) }}
                     >
-                      {incident.status.replace('-', ' ')}
+                      {statusMap[incident.status]}
                     </span>
                   </td>
                   <td className="py-3 px-4 text-center">
@@ -266,9 +275,9 @@ export const Safety = () => {
                         </Button>
                       }
                       items={[
-                        { id: 'view', label: 'View Details', onClick: () => {} },
-                        { id: 'edit', label: 'Edit Incident', onClick: () => {} },
-                        { id: 'close', label: 'Close Incident', onClick: () => {} },
+                        { id: 'view', label: t('safety.viewDetails'), onClick: () => {} },
+                        { id: 'edit', label: t('safety.editIncident'), onClick: () => {} },
+                        { id: 'close', label: t('safety.closeIncident'), onClick: () => {} },
                       ]}
                     />
                   </td>
@@ -282,7 +291,7 @@ export const Safety = () => {
       {filteredIncidents.length === 0 && (
         <Card className="p-12 text-center">
           <Shield size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No safety incidents found</p>
+          <p className="text-text-secondary">{t('safety.noIncidentsFound')}</p>
         </Card>
       )}
     </div>

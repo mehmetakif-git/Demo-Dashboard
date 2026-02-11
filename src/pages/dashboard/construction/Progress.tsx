@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   BarChart3,
@@ -18,7 +19,20 @@ import { PageHeader, Card, Button, Dropdown } from '@/components/common';
 import { progressReports, projects, CONSTRUCTION_COLOR } from '@/data/construction/constructionData';
 
 export const Progress = () => {
+  const { t } = useTranslation('construction');
   const [projectFilter, setProjectFilter] = useState<string>('all');
+
+  const scheduleMap: Record<string, string> = {
+    'On Track': t('progress.onTrack'),
+    'Behind': t('progress.behind'),
+    'Ahead': t('progress.ahead'),
+  };
+
+  const budgetMap: Record<string, string> = {
+    'Within Budget': t('progress.withinBudget'),
+    'Over Budget': t('progress.overBudget'),
+    'Under Budget': t('progress.underBudget'),
+  };
 
   const filteredReports = useMemo(() => {
     if (projectFilter === 'all') return progressReports;
@@ -60,13 +74,13 @@ export const Progress = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Progress Reports"
-        subtitle="View and create project progress reports"
+        title={t('progress.title')}
+        subtitle={t('progress.subtitle')}
         icon={BarChart3}
         actions={
           <Button>
             <Plus size={18} />
-            Create Report
+            {t('progress.createReport')}
           </Button>
         }
       />
@@ -74,13 +88,13 @@ export const Progress = () => {
       {/* Project Filter */}
       <Card className="p-4">
         <div className="flex items-center gap-4">
-          <span className="text-text-muted">Filter by Project:</span>
+          <span className="text-text-muted">{t('progress.filterByProject')}</span>
           <select
             className="px-4 py-2 bg-background-secondary border border-border-default rounded-lg text-text-primary flex-1 max-w-md"
             value={projectFilter}
             onChange={(e) => setProjectFilter(e.target.value)}
           >
-            <option value="all">All Projects</option>
+            <option value="all">{t('progress.allProjects')}</option>
             {projects.map(p => (
               <option key={p.id} value={p.id}>{p.projectNo} - {p.name}</option>
             ))}
@@ -122,10 +136,10 @@ export const Progress = () => {
                       </Button>
                     }
                     items={[
-                      { id: 'view', label: 'View Full Report', onClick: () => {} },
-                      { id: 'edit', label: 'Edit Report', onClick: () => {} },
-                      { id: 'print', label: 'Print Report', onClick: () => {} },
-                      { id: 'pdf', label: 'Download PDF', onClick: () => {} },
+                      { id: 'view', label: t('progress.viewFullReport'), onClick: () => {} },
+                      { id: 'edit', label: t('progress.editReport'), onClick: () => {} },
+                      { id: 'print', label: t('progress.printReport'), onClick: () => {} },
+                      { id: 'pdf', label: t('progress.downloadPdf'), onClick: () => {} },
                     ]}
                   />
                 </div>
@@ -136,34 +150,34 @@ export const Progress = () => {
                     <p className="text-2xl font-bold" style={{ color: CONSTRUCTION_COLOR }}>
                       {report.overallCompletion}%
                     </p>
-                    <p className="text-xs text-text-muted">Completion</p>
+                    <p className="text-xs text-text-muted">{t('progress.completion')}</p>
                   </div>
                   <div className="text-center p-3 bg-background-tertiary rounded-lg">
                     <div className="flex items-center justify-center gap-1">
                       <ScheduleIcon size={18} style={{ color: getScheduleColor(report.schedule) }} />
                       <p className="text-sm font-medium" style={{ color: getScheduleColor(report.schedule) }}>
-                        {report.schedule}
+                        {scheduleMap[report.schedule]}
                       </p>
                     </div>
-                    <p className="text-xs text-text-muted">Schedule</p>
+                    <p className="text-xs text-text-muted">{t('progress.schedule')}</p>
                   </div>
                   <div className="text-center p-3 bg-background-tertiary rounded-lg">
                     <p className="text-sm font-medium" style={{ color: getBudgetColor(report.budget) }}>
-                      {report.budget}
+                      {budgetMap[report.budget]}
                     </p>
-                    <p className="text-xs text-text-muted">Budget</p>
+                    <p className="text-xs text-text-muted">{t('progress.budget')}</p>
                   </div>
                 </div>
 
                 {/* Summary */}
                 <div className="mb-4 p-3 bg-background-tertiary rounded-lg">
-                  <p className="text-xs text-text-muted mb-1">Summary</p>
+                  <p className="text-xs text-text-muted mb-1">{t('progress.summary')}</p>
                   <p className="text-sm text-text-primary">{report.summary}</p>
                 </div>
 
                 {/* Achievements */}
                 <div className="mb-4">
-                  <p className="text-xs text-text-muted mb-2">Achievements</p>
+                  <p className="text-xs text-text-muted mb-2">{t('progress.achievements')}</p>
                   <ul className="space-y-1">
                     {report.achievements.map((achievement, i) => (
                       <li key={i} className="flex items-start gap-2 text-sm">
@@ -177,7 +191,7 @@ export const Progress = () => {
                 {/* Challenges */}
                 {report.challenges.length > 0 && (
                   <div className="mb-4">
-                    <p className="text-xs text-text-muted mb-2">Challenges</p>
+                    <p className="text-xs text-text-muted mb-2">{t('progress.challenges')}</p>
                     <ul className="space-y-1">
                       {report.challenges.map((challenge, i) => (
                         <li key={i} className="flex items-start gap-2 text-sm">
@@ -191,7 +205,7 @@ export const Progress = () => {
 
                 {/* Upcoming */}
                 <div className="mb-4">
-                  <p className="text-xs text-text-muted mb-2">Upcoming Activities</p>
+                  <p className="text-xs text-text-muted mb-2">{t('progress.upcomingActivities')}</p>
                   <ul className="space-y-1">
                     {report.upcomingActivities.map((activity, i) => (
                       <li key={i} className="flex items-start gap-2 text-sm">
@@ -208,13 +222,13 @@ export const Progress = () => {
                     <div className="flex items-center gap-1">
                       <AlertTriangle size={14} className={report.safetyIncidents > 0 ? 'text-error' : 'text-success'} />
                       <span className={`text-sm ${report.safetyIncidents > 0 ? 'text-error' : 'text-text-muted'}`}>
-                        {report.safetyIncidents} Safety
+                        {report.safetyIncidents} {t('progress.safety')}
                       </span>
                     </div>
                     <div className="flex items-center gap-1">
                       <AlertTriangle size={14} className={report.qualityIssues > 0 ? 'text-warning' : 'text-success'} />
                       <span className={`text-sm ${report.qualityIssues > 0 ? 'text-warning' : 'text-text-muted'}`}>
-                        {report.qualityIssues} Quality
+                        {report.qualityIssues} {t('progress.quality')}
                       </span>
                     </div>
                   </div>
@@ -236,7 +250,7 @@ export const Progress = () => {
       {filteredReports.length === 0 && (
         <Card className="p-12 text-center">
           <BarChart3 size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No progress reports found</p>
+          <p className="text-text-secondary">{t('progress.noReportsFound')}</p>
         </Card>
       )}
     </div>

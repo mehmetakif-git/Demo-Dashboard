@@ -12,6 +12,7 @@ import enErrors from './locales/en/errors.json';
 import enSectors from './locales/en/sectors.json';
 import enCommunication from './locales/en/communication.json';
 import enHotel from './locales/en/hotel.json';
+import enConstruction from './locales/en/construction.json';
 
 // TR translations
 import trCommon from './locales/tr/common.json';
@@ -23,6 +24,7 @@ import trErrors from './locales/tr/errors.json';
 import trSectors from './locales/tr/sectors.json';
 import trCommunication from './locales/tr/communication.json';
 import trHotel from './locales/tr/hotel.json';
+import trConstruction from './locales/tr/construction.json';
 
 i18n
   .use(LanguageDetector)
@@ -39,6 +41,7 @@ i18n
         sectors: enSectors,
         communication: enCommunication,
         hotel: enHotel,
+        construction: enConstruction,
       },
       tr: {
         common: trCommon,
@@ -50,11 +53,12 @@ i18n
         sectors: trSectors,
         communication: trCommunication,
         hotel: trHotel,
+        construction: trConstruction,
       },
     },
     fallbackLng: 'en',
     defaultNS: 'common',
-    ns: ['common', 'auth', 'sidebar', 'dashboard', 'breadcrumb', 'errors', 'sectors', 'communication', 'hotel'],
+    ns: ['common', 'auth', 'sidebar', 'dashboard', 'breadcrumb', 'errors', 'sectors', 'communication', 'hotel', 'construction'],
     interpolation: {
       escapeValue: false,
     },

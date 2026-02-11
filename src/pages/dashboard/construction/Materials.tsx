@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   Package,
@@ -15,9 +16,17 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { materials, CONSTRUCTION_COLOR } from '@/data/construction/constructionData';
 
 export const Materials = () => {
+  const { t } = useTranslation('construction');
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [stockFilter, setStockFilter] = useState<string>('all');
+
+  const stockFilterMap: Record<string, string> = {
+    'all': t('materials.all'),
+    'in-stock': t('materials.inStock'),
+    'low': t('materials.lowStock'),
+    'out': t('materials.outOfStock'),
+  };
 
   const categories = useMemo(() => {
     return ['all', ...new Set(materials.map(m => m.category))];
@@ -53,9 +62,9 @@ export const Materials = () => {
   }, [searchQuery, categoryFilter, stockFilter]);
 
   const getStockStatus = (material: typeof materials[0]) => {
-    if (material.currentStock === 0) return { label: 'Out of Stock', color: '#ef4444' };
-    if (material.currentStock <= material.minStock) return { label: 'Low Stock', color: '#f59e0b' };
-    return { label: 'In Stock', color: '#10b981' };
+    if (material.currentStock === 0) return { label: t('materials.outOfStock'), color: '#ef4444' };
+    if (material.currentStock <= material.minStock) return { label: t('materials.lowStock'), color: '#f59e0b' };
+    return { label: t('materials.inStock'), color: '#10b981' };
   };
 
   const formatCurrency = (amount: number) => {
@@ -68,13 +77,13 @@ export const Materials = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Materials & Inventory"
-        subtitle="Manage construction materials and stock levels"
+        title={t('materials.title')}
+        subtitle={t('materials.subtitle')}
         icon={Package}
         actions={
           <Button>
             <Plus size={18} />
-            Add Material
+            {t('materials.addMaterial')}
           </Button>
         }
       />
@@ -82,10 +91,10 @@ export const Materials = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Items', value: stats.total, icon: Package, color: CONSTRUCTION_COLOR },
-          { label: 'Low Stock Alerts', value: stats.lowStock, icon: AlertTriangle, color: stats.lowStock > 0 ? '#ef4444' : '#10b981' },
-          { label: 'Total Value', value: formatCurrency(stats.totalValue), icon: DollarSign, color: '#3b82f6' },
-          { label: 'Categories', value: stats.categoryCount, icon: Warehouse, color: '#8b5cf6' },
+          { label: t('materials.totalItems'), value: stats.total, icon: Package, color: CONSTRUCTION_COLOR },
+          { label: t('materials.lowStockAlerts'), value: stats.lowStock, icon: AlertTriangle, color: stats.lowStock > 0 ? '#ef4444' : '#10b981' },
+          { label: t('materials.totalValue'), value: formatCurrency(stats.totalValue), icon: DollarSign, color: '#3b82f6' },
+          { label: t('materials.categories'), value: stats.categoryCount, icon: Warehouse, color: '#8b5cf6' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -120,7 +129,7 @@ export const Materials = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by material name or supplier..."
+              placeholder={t('materials.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -132,23 +141,18 @@ export const Materials = () => {
             onChange={(e) => setCategoryFilter(e.target.value)}
           >
             {categories.map(cat => (
-              <option key={cat} value={cat}>{cat === 'all' ? 'All Categories' : cat}</option>
+              <option key={cat} value={cat}>{cat === 'all' ? t('materials.allCategories') : cat}</option>
             ))}
           </select>
           <div className="flex gap-2">
-            {[
-              { id: 'all', label: 'All' },
-              { id: 'in-stock', label: 'In Stock' },
-              { id: 'low', label: 'Low Stock' },
-              { id: 'out', label: 'Out of Stock' },
-            ].map((filter) => (
+            {['all', 'in-stock', 'low', 'out'].map((filterId) => (
               <Button
-                key={filter.id}
-                variant={stockFilter === filter.id ? 'primary' : 'ghost'}
+                key={filterId}
+                variant={stockFilter === filterId ? 'primary' : 'ghost'}
                 size="sm"
-                onClick={() => setStockFilter(filter.id)}
+                onClick={() => setStockFilter(filterId)}
               >
-                {filter.label}
+                {stockFilterMap[filterId]}
               </Button>
             ))}
           </div>
@@ -161,14 +165,14 @@ export const Materials = () => {
           <table className="w-full">
             <thead className="bg-background-tertiary">
               <tr>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Material</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Category</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Stock</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Status</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Unit Cost</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Total Value</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Supplier</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Actions</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('materials.material')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('materials.category')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('materials.stock')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('materials.status')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('materials.unitCost')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('materials.totalValueCol')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('materials.supplier')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('materials.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -214,7 +218,7 @@ export const Materials = () => {
                           />
                         </div>
                         <p className="text-xs text-text-muted mt-0.5">
-                          Min: {material.minStock} | Max: {material.maxStock}
+                          {t('materials.min')} {material.minStock} | {t('materials.max')} {material.maxStock}
                         </p>
                       </div>
                     </td>
@@ -223,7 +227,7 @@ export const Materials = () => {
                         className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium"
                         style={{ backgroundColor: `${stockStatus.color}20`, color: stockStatus.color }}
                       >
-                        {stockStatus.label === 'Low Stock' && <TrendingDown size={12} />}
+                        {stockStatus.label === t('materials.lowStock') && <TrendingDown size={12} />}
                         {stockStatus.label}
                       </span>
                     </td>
@@ -252,10 +256,10 @@ export const Materials = () => {
                           </Button>
                         }
                         items={[
-                          { id: 'view', label: 'View Details', onClick: () => {} },
-                          { id: 'edit', label: 'Edit Material', onClick: () => {} },
-                          { id: 'restock', label: 'Restock', onClick: () => {} },
-                          { id: 'allocate', label: 'Allocate to Project', onClick: () => {} },
+                          { id: 'view', label: t('materials.viewDetails'), onClick: () => {} },
+                          { id: 'edit', label: t('materials.editMaterial'), onClick: () => {} },
+                          { id: 'restock', label: t('materials.restock'), onClick: () => {} },
+                          { id: 'allocate', label: t('materials.allocateToProject'), onClick: () => {} },
                         ]}
                       />
                     </td>
@@ -270,7 +274,7 @@ export const Materials = () => {
       {filteredMaterials.length === 0 && (
         <Card className="p-12 text-center">
           <Package size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No materials found</p>
+          <p className="text-text-secondary">{t('materials.noMaterialsFound')}</p>
         </Card>
       )}
     </div>

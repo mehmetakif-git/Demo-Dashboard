@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   ClipboardCheck,
@@ -18,9 +19,18 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { inspectionApprovals, projects, CONSTRUCTION_COLOR } from '@/data/construction/constructionData';
 
 export const Inspections = () => {
+  const { t } = useTranslation('construction');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [projectFilter, setProjectFilter] = useState<string>('all');
+
+  const statusMap: Record<string, string> = {
+    'all': t('inspections.all'),
+    'pending': t('status.pending'),
+    'approved': t('status.approved'),
+    'approved-with-conditions': t('inspections.approvedWithConditions'),
+    'rejected': t('status.rejected'),
+  };
 
   const stats = useMemo(() => {
     const pending = inspectionApprovals.filter(i => i.status === 'pending').length;
@@ -82,13 +92,13 @@ export const Inspections = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Inspections & Approvals"
-        subtitle="Track regulatory inspections and approvals"
+        title={t('inspections.title')}
+        subtitle={t('inspections.subtitle')}
         icon={ClipboardCheck}
         actions={
           <Button>
             <Plus size={18} />
-            Schedule Inspection
+            {t('inspections.scheduleInspection')}
           </Button>
         }
       />
@@ -96,9 +106,9 @@ export const Inspections = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-3 gap-4">
         {[
-          { label: 'Pending Approvals', value: stats.pending, icon: Clock, color: '#f59e0b' },
-          { label: 'Approved This Month', value: stats.approvedThisMonth, icon: CheckCircle, color: '#10b981' },
-          { label: 'Upcoming Inspections', value: stats.upcoming, icon: Calendar, color: '#3b82f6' },
+          { label: t('inspections.pendingApprovals'), value: stats.pending, icon: Clock, color: '#f59e0b' },
+          { label: t('inspections.approvedThisMonth'), value: stats.approvedThisMonth, icon: CheckCircle, color: '#10b981' },
+          { label: t('inspections.upcomingInspections'), value: stats.upcoming, icon: Calendar, color: '#3b82f6' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -133,7 +143,7 @@ export const Inspections = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by inspection type or inspector..."
+              placeholder={t('inspections.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -144,7 +154,7 @@ export const Inspections = () => {
             value={projectFilter}
             onChange={(e) => setProjectFilter(e.target.value)}
           >
-            <option value="all">All Projects</option>
+            <option value="all">{t('inspections.allProjects')}</option>
             {projects.map(p => (
               <option key={p.id} value={p.id}>{p.name}</option>
             ))}
@@ -157,7 +167,7 @@ export const Inspections = () => {
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status === 'all' ? 'All' : status.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                {statusMap[status]}
               </Button>
             ))}
           </div>
@@ -170,13 +180,13 @@ export const Inspections = () => {
           <table className="w-full">
             <thead className="bg-background-tertiary">
               <tr>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Inspection Type</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Project</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Inspector</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Date</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Status</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Findings</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Actions</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('inspections.inspectionType')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('inspections.project')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('inspections.inspector')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('inspections.date')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('inspections.status')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('inspections.findings')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('inspections.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -202,7 +212,7 @@ export const Inspections = () => {
                         <div>
                           <p className="font-medium text-text-primary">{inspection.inspectionType}</p>
                           {inspection.nextInspection && (
-                            <p className="text-xs text-text-muted">Next: {inspection.nextInspection}</p>
+                            <p className="text-xs text-text-muted">{t('inspections.next')} {inspection.nextInspection}</p>
                           )}
                         </div>
                       </div>
@@ -225,23 +235,23 @@ export const Inspections = () => {
                       </div>
                       {inspection.approvalDate && (
                         <p className="text-xs text-text-muted mt-0.5">
-                          Approved: {new Date(inspection.approvalDate).toLocaleDateString()}
+                          {t('inspections.approvedDate')} {new Date(inspection.approvalDate).toLocaleDateString()}
                         </p>
                       )}
                     </td>
                     <td className="py-3 px-4 text-center">
                       <span
-                        className="px-2 py-1 rounded-full text-xs font-medium capitalize"
+                        className="px-2 py-1 rounded-full text-xs font-medium"
                         style={{ backgroundColor: `${getStatusColor(inspection.status)}20`, color: getStatusColor(inspection.status) }}
                       >
-                        {inspection.status.replace(/-/g, ' ')}
+                        {statusMap[inspection.status]}
                       </span>
                     </td>
                     <td className="py-3 px-4">
                       <p className="text-sm text-text-primary truncate max-w-[200px]">{inspection.findings}</p>
                       {inspection.conditions.length > 0 && (
                         <p className="text-xs text-warning mt-0.5">
-                          {inspection.conditions.length} condition(s)
+                          {inspection.conditions.length} {t('inspections.conditions')}
                         </p>
                       )}
                     </td>
@@ -262,9 +272,9 @@ export const Inspections = () => {
                             </Button>
                           }
                           items={[
-                            { id: 'view', label: 'View Details', onClick: () => {} },
-                            { id: 'edit', label: 'Edit Inspection', onClick: () => {} },
-                            { id: 'upload', label: 'Upload Documents', onClick: () => {} },
+                            { id: 'view', label: t('inspections.viewDetails'), onClick: () => {} },
+                            { id: 'edit', label: t('inspections.editInspection'), onClick: () => {} },
+                            { id: 'upload', label: t('inspections.uploadDocuments'), onClick: () => {} },
                           ]}
                         />
                       </div>
@@ -280,7 +290,7 @@ export const Inspections = () => {
       {filteredInspections.length === 0 && (
         <Card className="p-12 text-center">
           <ClipboardCheck size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No inspections found</p>
+          <p className="text-text-secondary">{t('inspections.noInspectionsFound')}</p>
         </Card>
       )}
     </div>

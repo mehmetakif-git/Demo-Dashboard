@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   Briefcase,
@@ -18,9 +19,26 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { projects, CONSTRUCTION_COLOR } from '@/data/construction/constructionData';
 
 export const Projects = () => {
+  const { t } = useTranslation('construction');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [typeFilter, setTypeFilter] = useState<string>('all');
+
+  const statusMap: Record<string, string> = {
+    'all': t('projects.allStatus'),
+    'planning': t('status.planning'),
+    'in-progress': t('status.inProgress'),
+    'on-hold': t('status.onHold'),
+    'completed': t('status.completed'),
+  };
+
+  const typeMap: Record<string, string> = {
+    'all': t('projects.allTypes'),
+    'Residential': t('projects.residential'),
+    'Commercial': t('projects.commercial'),
+    'Infrastructure': t('projects.infrastructure'),
+    'Industrial': t('projects.industrial'),
+  };
 
   const stats = useMemo(() => {
     const total = projects.length;
@@ -75,13 +93,13 @@ export const Projects = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Project Management"
-        subtitle="Manage construction projects and track progress"
+        title={t('projects.title')}
+        subtitle={t('projects.subtitle')}
         icon={Briefcase}
         actions={
           <Button>
             <Plus size={18} />
-            Create New Project
+            {t('projects.createNew')}
           </Button>
         }
       />
@@ -89,11 +107,11 @@ export const Projects = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         {[
-          { label: 'Total Projects', value: stats.total, icon: Briefcase, color: CONSTRUCTION_COLOR },
-          { label: 'In Progress', value: stats.inProgress, icon: Clock, color: '#3b82f6' },
-          { label: 'Completed', value: stats.completed, icon: CheckCircle, color: '#10b981' },
-          { label: 'Total Budget', value: formatCurrency(stats.totalBudget), icon: DollarSign, color: '#f59e0b' },
-          { label: 'Total Spent', value: formatCurrency(stats.totalSpent), icon: TrendingUp, color: '#8b5cf6' },
+          { label: t('projects.totalProjects'), value: stats.total, icon: Briefcase, color: CONSTRUCTION_COLOR },
+          { label: t('projects.inProgress'), value: stats.inProgress, icon: Clock, color: '#3b82f6' },
+          { label: t('projects.completed'), value: stats.completed, icon: CheckCircle, color: '#10b981' },
+          { label: t('projects.totalBudget'), value: formatCurrency(stats.totalBudget), icon: DollarSign, color: '#f59e0b' },
+          { label: t('projects.totalSpent'), value: formatCurrency(stats.totalSpent), icon: TrendingUp, color: '#8b5cf6' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -128,7 +146,7 @@ export const Projects = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by project no, name, or client..."
+              placeholder={t('projects.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -142,7 +160,7 @@ export const Projects = () => {
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status === 'all' ? 'All Status' : status.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                {statusMap[status]}
               </Button>
             ))}
           </div>
@@ -154,7 +172,7 @@ export const Projects = () => {
                 size="sm"
                 onClick={() => setTypeFilter(type)}
               >
-                {type === 'all' ? 'All Types' : type}
+                {typeMap[type]}
               </Button>
             ))}
           </div>
@@ -184,10 +202,10 @@ export const Projects = () => {
                     <h3 className="font-semibold text-text-primary">{project.name}</h3>
                     <div className="flex items-center gap-2 mt-1">
                       <span
-                        className="px-2 py-0.5 rounded-full text-xs font-medium capitalize"
+                        className="px-2 py-0.5 rounded-full text-xs font-medium"
                         style={{ backgroundColor: `${getStatusColor(project.status)}20`, color: getStatusColor(project.status) }}
                       >
-                        {project.status.replace('-', ' ')}
+                        {statusMap[project.status]}
                       </span>
                       <span
                         className="px-2 py-0.5 rounded text-xs"
@@ -205,10 +223,10 @@ export const Projects = () => {
                     </Button>
                   }
                   items={[
-                    { id: 'view', label: 'View Details', onClick: () => {} },
-                    { id: 'edit', label: 'Edit Project', onClick: () => {} },
-                    { id: 'timeline', label: 'View Timeline', onClick: () => {} },
-                    { id: 'reports', label: 'View Reports', onClick: () => {} },
+                    { id: 'view', label: t('projects.viewDetails'), onClick: () => {} },
+                    { id: 'edit', label: t('projects.editProject'), onClick: () => {} },
+                    { id: 'timeline', label: t('projects.viewTimeline'), onClick: () => {} },
+                    { id: 'reports', label: t('projects.viewReports'), onClick: () => {} },
                   ]}
                 />
               </div>
@@ -236,7 +254,7 @@ export const Projects = () => {
               {/* Progress */}
               <div className="mb-4">
                 <div className="flex justify-between text-sm mb-1">
-                  <span className="text-text-muted">Completion</span>
+                  <span className="text-text-muted">{t('projects.completion')}</span>
                   <span className="font-medium" style={{ color: CONSTRUCTION_COLOR }}>{project.completion}%</span>
                 </div>
                 <div className="h-2 bg-background-tertiary rounded-full overflow-hidden">
@@ -253,17 +271,17 @@ export const Projects = () => {
               {/* Budget */}
               <div className="flex items-center justify-between pt-4 border-t border-border-default">
                 <div>
-                  <p className="text-xs text-text-muted">Budget</p>
+                  <p className="text-xs text-text-muted">{t('projects.budget')}</p>
                   <p className="font-semibold text-text-primary">{formatCurrency(project.budget)}</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-xs text-text-muted">Spent</p>
+                  <p className="text-xs text-text-muted">{t('projects.spent')}</p>
                   <p className="font-semibold" style={{ color: project.spent > project.budget * 0.9 ? '#ef4444' : '#10b981' }}>
                     {formatCurrency(project.spent)}
                   </p>
                 </div>
                 <div className="text-right">
-                  <p className="text-xs text-text-muted">Manager</p>
+                  <p className="text-xs text-text-muted">{t('projects.manager')}</p>
                   <p className="font-medium text-text-primary">{project.projectManager}</p>
                 </div>
               </div>
@@ -275,7 +293,7 @@ export const Projects = () => {
       {filteredProjects.length === 0 && (
         <Card className="p-12 text-center">
           <Briefcase size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No projects found</p>
+          <p className="text-text-secondary">{t('projects.noProjectsFound')}</p>
         </Card>
       )}
     </div>
