@@ -15,7 +15,7 @@ import { maintenanceRequests, REALESTATE_COLOR, getStatusColor, getPriorityColor
 import { useTranslation } from 'react-i18next';
 
 export const Maintenance = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('realestate');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [priorityFilter, setPriorityFilter] = useState<string>('all');
@@ -61,18 +61,18 @@ export const Maintenance = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('realestate.maintenance', 'Maintenance')}
-        subtitle="Manage maintenance requests and repairs"
+        title={t('maintenance.title')}
+        subtitle={t('maintenance.subtitle')}
         icon={Wrench}
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Requests', value: stats.total, color: REALESTATE_COLOR },
-          { label: 'Pending', value: stats.pending, color: '#f59e0b' },
-          { label: 'In Progress', value: stats.inProgress, color: '#3b82f6' },
-          { label: 'Urgent', value: stats.urgent, color: '#ef4444' },
+          { label: t('maintenance.totalRequests'), value: stats.total, color: REALESTATE_COLOR },
+          { label: t('maintenance.pending'), value: stats.pending, color: '#f59e0b' },
+          { label: t('maintenance.inProgress'), value: stats.inProgress, color: '#3b82f6' },
+          { label: t('maintenance.urgent'), value: stats.urgent, color: '#ef4444' },
         ].map((stat, index) => (
           <motion.div
             key={stat.label}
@@ -104,7 +104,7 @@ export const Maintenance = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search maintenance requests..."
+              placeholder={t('maintenance.searchMaintenance')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -118,7 +118,7 @@ export const Maintenance = () => {
             >
               {statuses.map(status => (
                 <option key={status} value={status}>
-                  {status === 'all' ? 'All Status' : status.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                  {status === 'all' ? t('maintenance.allStatus') : status.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
                 </option>
               ))}
             </select>
@@ -129,7 +129,7 @@ export const Maintenance = () => {
             >
               {priorities.map(priority => (
                 <option key={priority} value={priority}>
-                  {priority === 'all' ? 'All Priorities' : priority.charAt(0).toUpperCase() + priority.slice(1)}
+                  {priority === 'all' ? t('maintenance.allPriorities') : priority.charAt(0).toUpperCase() + priority.slice(1)}
                 </option>
               ))}
             </select>
@@ -143,14 +143,14 @@ export const Maintenance = () => {
           <table className="w-full">
             <thead className="bg-background-tertiary">
               <tr>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Request</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Property</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Tenant</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Category</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Priority</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Est. Cost</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Status</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Actions</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('maintenance.request')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('maintenance.property')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('maintenance.tenant')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('maintenance.category')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('maintenance.priority')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('maintenance.estCost')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('maintenance.status')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('maintenance.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -240,9 +240,9 @@ export const Maintenance = () => {
                         </Button>
                       }
                       items={[
-                        { id: 'view', label: 'View Details', onClick: () => {} },
-                        { id: 'assign', label: 'Assign Technician', onClick: () => {} },
-                        { id: 'complete', label: 'Mark Complete', onClick: () => {} },
+                        { id: 'view', label: t('maintenance.viewDetails'), onClick: () => {} },
+                        { id: 'assign', label: t('maintenance.assignTechnician'), onClick: () => {} },
+                        { id: 'complete', label: t('maintenance.markComplete'), onClick: () => {} },
                       ]}
                     />
                   </td>
@@ -255,7 +255,7 @@ export const Maintenance = () => {
         {filteredRequests.length === 0 && (
           <div className="py-12 text-center text-text-muted">
             <Wrench size={48} className="mx-auto mb-4 opacity-50" />
-            <p>No maintenance requests found</p>
+            <p>{t('maintenance.noMaintenanceFound')}</p>
           </div>
         )}
       </Card>

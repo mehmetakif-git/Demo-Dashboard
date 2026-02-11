@@ -15,7 +15,7 @@ import { payments, REALESTATE_COLOR, getStatusColor } from '@/data/realestate/re
 import { useTranslation } from 'react-i18next';
 
 export const Payments = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('realestate');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [typeFilter, setTypeFilter] = useState<string>('all');
@@ -49,18 +49,18 @@ export const Payments = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('realestate.payments', 'Payments')}
-        subtitle="Track rent payments and collections"
+        title={t('payments.title')}
+        subtitle={t('payments.subtitle')}
         icon={CreditCard}
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Due', value: `QAR ${stats.totalDue.toLocaleString()}`, color: REALESTATE_COLOR },
-          { label: 'Collected', value: `QAR ${stats.collected.toLocaleString()}`, color: '#10b981' },
-          { label: 'Pending', value: `QAR ${stats.pending.toLocaleString()}`, color: '#f59e0b' },
-          { label: 'Overdue', value: `QAR ${stats.overdue.toLocaleString()}`, color: '#ef4444' },
+          { label: t('payments.totalDue'), value: `QAR ${stats.totalDue.toLocaleString()}`, color: REALESTATE_COLOR },
+          { label: t('payments.collected'), value: `QAR ${stats.collected.toLocaleString()}`, color: '#10b981' },
+          { label: t('payments.pending'), value: `QAR ${stats.pending.toLocaleString()}`, color: '#f59e0b' },
+          { label: t('payments.overdue'), value: `QAR ${stats.overdue.toLocaleString()}`, color: '#ef4444' },
         ].map((stat, index) => (
           <motion.div
             key={stat.label}
@@ -92,7 +92,7 @@ export const Payments = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search payments..."
+              placeholder={t('payments.searchPayments')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -106,7 +106,7 @@ export const Payments = () => {
             >
               {statuses.map(status => (
                 <option key={status} value={status}>
-                  {status === 'all' ? 'All Status' : status.charAt(0).toUpperCase() + status.slice(1)}
+                  {status === 'all' ? t('payments.allStatus') : status.charAt(0).toUpperCase() + status.slice(1)}
                 </option>
               ))}
             </select>
@@ -117,7 +117,7 @@ export const Payments = () => {
             >
               {types.map(type => (
                 <option key={type} value={type}>
-                  {type === 'all' ? 'All Types' : type}
+                  {type === 'all' ? t('payments.allTypes') : type}
                 </option>
               ))}
             </select>
@@ -131,15 +131,15 @@ export const Payments = () => {
           <table className="w-full">
             <thead className="bg-background-tertiary">
               <tr>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Payment</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Type</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Property</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Tenant/Landlord</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Due Date</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Amount</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Paid</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Status</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Actions</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('payments.payment')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('payments.type')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('payments.property')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('payments.tenantLandlord')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('payments.dueDate')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('payments.amount')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('payments.paid')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('payments.status')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('payments.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -162,7 +162,7 @@ export const Payments = () => {
                       <div>
                         <p className="font-medium text-text-primary font-mono">{payment.paymentNo}</p>
                         {payment.referenceNo && (
-                          <p className="text-xs text-text-muted">Ref: {payment.referenceNo}</p>
+                          <p className="text-xs text-text-muted">{t('payments.ref', { ref: payment.referenceNo })}</p>
                         )}
                       </div>
                     </div>
@@ -194,7 +194,7 @@ export const Payments = () => {
                           <span className="text-text-secondary">{payment.tenantName}</span>
                         </div>
                       )}
-                      <p className="text-xs text-text-muted">To: {payment.landlordName}</p>
+                      <p className="text-xs text-text-muted">{t('payments.to', { name: payment.landlordName })}</p>
                     </div>
                   </td>
                   <td className="py-3 px-4">
@@ -205,7 +205,7 @@ export const Payments = () => {
                     {payment.status === 'overdue' && (
                       <div className="flex items-center gap-1 text-xs text-red-500 mt-1">
                         <AlertCircle size={10} />
-                        <span>Overdue</span>
+                        <span>{t('payments.overdueLabel')}</span>
                       </div>
                     )}
                   </td>
@@ -214,7 +214,7 @@ export const Payments = () => {
                       QAR {payment.amount.toLocaleString()}
                     </span>
                     {payment.lateFee > 0 && (
-                      <p className="text-xs text-red-500">+{payment.lateFee} late fee</p>
+                      <p className="text-xs text-red-500">{t('payments.lateFee', { amount: payment.lateFee })}</p>
                     )}
                   </td>
                   <td className="py-3 px-4 text-right">
@@ -248,9 +248,9 @@ export const Payments = () => {
                         </Button>
                       }
                       items={[
-                        { id: 'view', label: 'View Details', onClick: () => {} },
-                        { id: 'record', label: 'Record Payment', onClick: () => {} },
-                        { id: 'reminder', label: 'Send Reminder', onClick: () => {} },
+                        { id: 'view', label: t('payments.viewDetails'), onClick: () => {} },
+                        { id: 'record', label: t('payments.recordPayment'), onClick: () => {} },
+                        { id: 'reminder', label: t('payments.sendReminder'), onClick: () => {} },
                       ]}
                     />
                   </td>
@@ -263,7 +263,7 @@ export const Payments = () => {
         {filteredPayments.length === 0 && (
           <div className="py-12 text-center text-text-muted">
             <CreditCard size={48} className="mx-auto mb-4 opacity-50" />
-            <p>No payments found</p>
+            <p>{t('payments.noPaymentsFound')}</p>
           </div>
         )}
       </Card>

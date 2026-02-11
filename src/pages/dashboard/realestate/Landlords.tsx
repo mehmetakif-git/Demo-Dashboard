@@ -15,7 +15,7 @@ import { landlords, REALESTATE_COLOR, getStatusColor } from '@/data/realestate/r
 import { useTranslation } from 'react-i18next';
 
 export const Landlords = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('realestate');
   const [searchQuery, setSearchQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState<string>('all');
 
@@ -54,18 +54,18 @@ export const Landlords = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('realestate.landlords', 'Landlords')}
-        subtitle="Manage property owners and landlords"
+        title={t('landlords.title')}
+        subtitle={t('landlords.subtitle')}
         icon={User}
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Landlords', value: stats.total, color: REALESTATE_COLOR },
-          { label: 'Individual', value: stats.individual, color: '#8b5cf6' },
-          { label: 'Corporate', value: stats.corporate, color: '#3b82f6' },
-          { label: 'Total Properties', value: stats.totalProperties, color: '#f59e0b' },
+          { label: t('landlords.totalLandlords'), value: stats.total, color: REALESTATE_COLOR },
+          { label: t('landlords.individual'), value: stats.individual, color: '#8b5cf6' },
+          { label: t('landlords.corporate'), value: stats.corporate, color: '#3b82f6' },
+          { label: t('landlords.totalProperties'), value: stats.totalProperties, color: '#f59e0b' },
         ].map((stat, index) => (
           <motion.div
             key={stat.label}
@@ -97,7 +97,7 @@ export const Landlords = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search landlords..."
+              placeholder={t('landlords.searchLandlords')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -111,7 +111,7 @@ export const Landlords = () => {
                 size="sm"
                 onClick={() => setTypeFilter(type)}
               >
-                {type === 'all' ? 'All Types' : type}
+                {type === 'all' ? t('landlords.allTypes') : type}
               </Button>
             ))}
           </div>
@@ -154,9 +154,9 @@ export const Landlords = () => {
                       </Button>
                     }
                     items={[
-                      { id: 'view', label: 'View Details', onClick: () => {} },
-                      { id: 'edit', label: 'Edit', onClick: () => {} },
-                      { id: 'properties', label: 'View Properties', onClick: () => {} },
+                      { id: 'view', label: t('landlords.viewDetails'), onClick: () => {} },
+                      { id: 'edit', label: t('landlords.edit'), onClick: () => {} },
+                      { id: 'properties', label: t('landlords.viewProperties'), onClick: () => {} },
                     ]}
                   />
                 </div>
@@ -192,11 +192,11 @@ export const Landlords = () => {
                   <div className="flex items-center gap-4">
                     <div className="flex items-center gap-1">
                       <Building size={14} className="text-text-muted" />
-                      <span className="text-sm text-text-secondary">{landlord.totalProperties} properties</span>
+                      <span className="text-sm text-text-secondary">{t('landlords.properties', { count: landlord.totalProperties })}</span>
                     </div>
                     <div className="flex items-center gap-1">
                       <Users size={14} className="text-text-muted" />
-                      <span className="text-sm text-text-secondary">{landlord.activeTenancies} tenants</span>
+                      <span className="text-sm text-text-secondary">{t('landlords.tenants', { count: landlord.activeTenancies })}</span>
                     </div>
                   </div>
                   <span
@@ -216,7 +216,7 @@ export const Landlords = () => {
         <Card className="p-12">
           <div className="text-center text-text-muted">
             <User size={48} className="mx-auto mb-4 opacity-50" />
-            <p>No landlords found</p>
+            <p>{t('landlords.noLandlordsFound')}</p>
           </div>
         </Card>
       )}

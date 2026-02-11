@@ -14,7 +14,7 @@ import { contracts, agents, REALESTATE_COLOR, getStatusColor } from '@/data/real
 import { useTranslation } from 'react-i18next';
 
 export const Commissions = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('realestate');
   const [searchQuery, setSearchQuery] = useState('');
   const [agentFilter, setAgentFilter] = useState<string>('all');
 
@@ -54,18 +54,18 @@ export const Commissions = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('realestate.commissions', 'Commissions')}
-        subtitle="Track agent commissions and earnings"
+        title={t('commissions.title')}
+        subtitle={t('commissions.subtitle')}
         icon={DollarSign}
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Commission', value: `QAR ${stats.totalCommission.toLocaleString()}`, color: REALESTATE_COLOR },
-          { label: 'Paid', value: `QAR ${stats.paidCommission.toLocaleString()}`, color: '#10b981' },
-          { label: 'Pending', value: `QAR ${stats.pendingCommission.toLocaleString()}`, color: '#f59e0b' },
-          { label: 'Avg. Commission', value: `QAR ${Math.round(stats.avgCommission).toLocaleString()}`, color: '#8b5cf6' },
+          { label: t('commissions.totalCommission'), value: `QAR ${stats.totalCommission.toLocaleString()}`, color: REALESTATE_COLOR },
+          { label: t('commissions.paid'), value: `QAR ${stats.paidCommission.toLocaleString()}`, color: '#10b981' },
+          { label: t('commissions.pending'), value: `QAR ${stats.pendingCommission.toLocaleString()}`, color: '#f59e0b' },
+          { label: t('commissions.avgCommission'), value: `QAR ${Math.round(stats.avgCommission).toLocaleString()}`, color: '#8b5cf6' },
         ].map((stat, index) => (
           <motion.div
             key={stat.label}
@@ -93,7 +93,7 @@ export const Commissions = () => {
 
       {/* Agent Summary */}
       <Card className="p-4">
-        <h3 className="text-lg font-semibold text-text-primary mb-4">Commission by Agent</h3>
+        <h3 className="text-lg font-semibold text-text-primary mb-4">{t('commissions.commissionByAgent')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {agentCommissions.map((agent, index) => (
             <motion.div
@@ -112,13 +112,13 @@ export const Commissions = () => {
                 </div>
                 <div>
                   <p className="font-medium text-text-primary">{agent.name}</p>
-                  <p className="text-xs text-text-muted">{agent.count} deals</p>
+                  <p className="text-xs text-text-muted">{t('commissions.deals', { count: agent.count })}</p>
                 </div>
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1">
                   <TrendingUp size={14} className="text-text-muted" />
-                  <span className="text-sm text-text-secondary">Total</span>
+                  <span className="text-sm text-text-secondary">{t('commissions.total')}</span>
                 </div>
                 <span className="font-bold" style={{ color: REALESTATE_COLOR }}>
                   QAR {agent.total.toLocaleString()}
@@ -135,7 +135,7 @@ export const Commissions = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search commissions..."
+              placeholder={t('commissions.searchCommissions')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -146,7 +146,7 @@ export const Commissions = () => {
             onChange={(e) => setAgentFilter(e.target.value)}
             className="px-3 py-2 rounded-lg bg-background-secondary border border-border-default text-text-primary text-sm"
           >
-            <option value="all">All Agents</option>
+            <option value="all">{t('commissions.allAgents')}</option>
             {agents.map(agent => (
               <option key={agent.id} value={agent.id}>{agent.name}</option>
             ))}
@@ -156,19 +156,19 @@ export const Commissions = () => {
 
       {/* Commission Details Table */}
       <Card className="p-4">
-        <h3 className="text-lg font-semibold text-text-primary mb-4">Commission Details</h3>
+        <h3 className="text-lg font-semibold text-text-primary mb-4">{t('commissions.commissionDetails')}</h3>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-background-tertiary">
               <tr>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Contract</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Type</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Value</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Rate</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Commission</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Agent</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Status</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Actions</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('commissions.contract')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('commissions.type')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('commissions.value')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('commissions.rate')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('commissions.commission')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('commissions.agent')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('commissions.status')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('commissions.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -202,7 +202,7 @@ export const Commissions = () => {
                         color: contract.contractType === 'Sale Agreement' ? '#10b981' : '#3b82f6'
                       }}
                     >
-                      {contract.contractType === 'Sale Agreement' ? 'Sale' : 'Lease'}
+                      {contract.contractType === 'Sale Agreement' ? t('commissions.sale') : t('commissions.lease')}
                     </span>
                   </td>
                   <td className="py-3 px-4 text-right">
@@ -243,8 +243,8 @@ export const Commissions = () => {
                         </Button>
                       }
                       items={[
-                        { id: 'view', label: 'View Details', onClick: () => {} },
-                        { id: 'payout', label: 'Process Payout', onClick: () => {} },
+                        { id: 'view', label: t('commissions.viewDetails'), onClick: () => {} },
+                        { id: 'payout', label: t('commissions.processPayout'), onClick: () => {} },
                       ]}
                     />
                   </td>
@@ -257,7 +257,7 @@ export const Commissions = () => {
         {filteredContracts.length === 0 && (
           <div className="py-12 text-center text-text-muted">
             <DollarSign size={48} className="mx-auto mb-4 opacity-50" />
-            <p>No commission records found</p>
+            <p>{t('commissions.noCommissionsFound')}</p>
           </div>
         )}
       </Card>

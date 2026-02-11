@@ -15,7 +15,7 @@ import { getProfileImage, getCompanyLogo } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const Leads = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('realestate');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [priorityFilter, setPriorityFilter] = useState<string>('all');
@@ -49,18 +49,18 @@ export const Leads = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('realestate.leads', 'Leads')}
-        subtitle="Manage property leads and inquiries"
+        title={t('leads.title')}
+        subtitle={t('leads.subtitle')}
         icon={Users}
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Leads', value: stats.total, color: REALESTATE_COLOR },
-          { label: 'New', value: stats.newLeads, color: '#0ea5e9' },
-          { label: 'Qualified', value: stats.qualified, color: '#10b981' },
-          { label: 'Converted', value: stats.converted, color: '#8b5cf6' },
+          { label: t('leads.totalLeads'), value: stats.total, color: REALESTATE_COLOR },
+          { label: t('leads.new'), value: stats.newLeads, color: '#0ea5e9' },
+          { label: t('leads.qualified'), value: stats.qualified, color: '#10b981' },
+          { label: t('leads.converted'), value: stats.converted, color: '#8b5cf6' },
         ].map((stat, index) => (
           <motion.div
             key={stat.label}
@@ -92,7 +92,7 @@ export const Leads = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search leads..."
+              placeholder={t('leads.searchLeads')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -106,7 +106,7 @@ export const Leads = () => {
             >
               {statuses.map(status => (
                 <option key={status} value={status}>
-                  {status === 'all' ? 'All Status' : status.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                  {status === 'all' ? t('leads.allStatus') : status.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
                 </option>
               ))}
             </select>
@@ -117,7 +117,7 @@ export const Leads = () => {
             >
               {priorities.map(priority => (
                 <option key={priority} value={priority}>
-                  {priority === 'all' ? 'All Priorities' : priority.charAt(0).toUpperCase() + priority.slice(1)}
+                  {priority === 'all' ? t('leads.allPriorities') : priority.charAt(0).toUpperCase() + priority.slice(1)}
                 </option>
               ))}
             </select>
@@ -131,14 +131,14 @@ export const Leads = () => {
           <table className="w-full">
             <thead className="bg-background-tertiary">
               <tr>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Lead</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Type</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Looking For</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Budget</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Agent</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Priority</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Status</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Actions</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('leads.lead')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('leads.type')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('leads.lookingFor')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('leads.budget')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('leads.agent')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('leads.priority')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('leads.status')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('leads.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -239,9 +239,9 @@ export const Leads = () => {
                         </Button>
                       }
                       items={[
-                        { id: 'view', label: 'View Details', onClick: () => {} },
-                        { id: 'contact', label: 'Contact', onClick: () => {} },
-                        { id: 'schedule', label: 'Schedule Viewing', onClick: () => {} },
+                        { id: 'view', label: t('leads.viewDetails'), onClick: () => {} },
+                        { id: 'contact', label: t('leads.contact'), onClick: () => {} },
+                        { id: 'schedule', label: t('leads.scheduleViewing'), onClick: () => {} },
                       ]}
                     />
                   </td>
@@ -254,7 +254,7 @@ export const Leads = () => {
         {filteredLeads.length === 0 && (
           <div className="py-12 text-center text-text-muted">
             <Users size={48} className="mx-auto mb-4 opacity-50" />
-            <p>No leads found</p>
+            <p>{t('leads.noLeadsFound')}</p>
           </div>
         )}
       </Card>

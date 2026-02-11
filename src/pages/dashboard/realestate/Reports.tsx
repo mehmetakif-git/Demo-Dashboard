@@ -26,7 +26,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const Reports = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('realestate');
   const propertyStats = useMemo(() => {
     const total = properties.length;
     const available = properties.filter(p => p.status === 'available').length;
@@ -103,78 +103,78 @@ export const Reports = () => {
 
   const reportSections = [
     {
-      title: 'Property Overview',
+      title: t('reports.propertyOverview'),
       icon: Building,
       color: REALESTATE_COLOR,
       stats: [
-        { label: 'Total Properties', value: propertyStats.total },
-        { label: 'Available', value: propertyStats.available },
-        { label: 'Rented', value: propertyStats.rented },
-        { label: 'For Sale', value: propertyStats.forSale },
-        { label: 'For Rent', value: propertyStats.forRent },
-        { label: 'Total Portfolio Value', value: `QAR ${(propertyStats.totalValue / 1000000).toFixed(1)}M` },
+        { label: t('reports.totalProperties'), value: propertyStats.total },
+        { label: t('reports.available'), value: propertyStats.available },
+        { label: t('reports.rented'), value: propertyStats.rented },
+        { label: t('reports.forSale'), value: propertyStats.forSale },
+        { label: t('reports.forRent'), value: propertyStats.forRent },
+        { label: t('reports.totalPortfolioValue'), value: `QAR ${(propertyStats.totalValue / 1000000).toFixed(1)}M` },
       ],
     },
     {
-      title: 'Lead Analytics',
+      title: t('reports.leadAnalytics'),
       icon: Users,
       color: '#3b82f6',
       stats: [
-        { label: 'Total Leads', value: leadStats.total },
-        { label: 'New Leads', value: leadStats.newLeads },
-        { label: 'Qualified', value: leadStats.qualified },
-        { label: 'Converted', value: leadStats.converted },
-        { label: 'Conversion Rate', value: `${leadStats.conversionRate}%` },
-        { label: 'Buyers', value: leadStats.buyers },
+        { label: t('reports.totalLeads'), value: leadStats.total },
+        { label: t('reports.newLeads'), value: leadStats.newLeads },
+        { label: t('reports.qualified'), value: leadStats.qualified },
+        { label: t('reports.converted'), value: leadStats.converted },
+        { label: t('reports.conversionRate'), value: `${leadStats.conversionRate}%` },
+        { label: t('reports.buyers'), value: leadStats.buyers },
       ],
     },
     {
-      title: 'Viewing Performance',
+      title: t('reports.viewingPerformance'),
       icon: Eye,
       color: '#8b5cf6',
       stats: [
-        { label: 'Total Viewings', value: viewingStats.total },
-        { label: 'Scheduled', value: viewingStats.scheduled },
-        { label: 'Completed', value: viewingStats.completed },
-        { label: 'Interested', value: viewingStats.interested },
-        { label: 'Interest Rate', value: `${viewingStats.interestRate}%` },
+        { label: t('reports.totalViewings'), value: viewingStats.total },
+        { label: t('reports.scheduled'), value: viewingStats.scheduled },
+        { label: t('reports.completed'), value: viewingStats.completed },
+        { label: t('reports.interested'), value: viewingStats.interested },
+        { label: t('reports.interestRate'), value: `${viewingStats.interestRate}%` },
       ],
     },
     {
-      title: 'Offer Analysis',
+      title: t('reports.offerAnalysis'),
       icon: Handshake,
       color: '#f59e0b',
       stats: [
-        { label: 'Total Offers', value: offerStats.total },
-        { label: 'Accepted', value: offerStats.accepted },
-        { label: 'Pending/Negotiating', value: offerStats.pending },
-        { label: 'Success Rate', value: `${offerStats.successRate}%` },
-        { label: 'Accepted Value', value: `QAR ${(offerStats.totalValue / 1000000).toFixed(1)}M` },
+        { label: t('reports.totalOffers'), value: offerStats.total },
+        { label: t('reports.accepted'), value: offerStats.accepted },
+        { label: t('reports.pendingNegotiating'), value: offerStats.pending },
+        { label: t('reports.successRate'), value: `${offerStats.successRate}%` },
+        { label: t('reports.acceptedValue'), value: `QAR ${(offerStats.totalValue / 1000000).toFixed(1)}M` },
       ],
     },
     {
-      title: 'Contract Summary',
+      title: t('reports.contractSummary'),
       icon: FileSignature,
       color: '#0ea5e9',
       stats: [
-        { label: 'Total Contracts', value: contractStats.total },
-        { label: 'Active Leases', value: contractStats.active },
-        { label: 'Completed Sales', value: contractStats.completed },
-        { label: 'Total Commission', value: `QAR ${contractStats.totalCommission.toLocaleString()}` },
-        { label: 'Avg Commission', value: `QAR ${Math.round(contractStats.avgCommission).toLocaleString()}` },
+        { label: t('reports.totalContracts'), value: contractStats.total },
+        { label: t('reports.activeLeases'), value: contractStats.active },
+        { label: t('reports.completedSales'), value: contractStats.completed },
+        { label: t('reports.totalCommission'), value: `QAR ${contractStats.totalCommission.toLocaleString()}` },
+        { label: t('reports.avgCommission'), value: `QAR ${Math.round(contractStats.avgCommission).toLocaleString()}` },
       ],
     },
     {
-      title: 'Payment Collection',
+      title: t('reports.paymentCollection'),
       icon: CreditCard,
       color: '#10b981',
       stats: [
-        { label: 'Total Payments', value: paymentStats.total },
-        { label: 'Paid', value: paymentStats.paid },
-        { label: 'Pending', value: paymentStats.pending },
-        { label: 'Overdue', value: paymentStats.overdue },
-        { label: 'Total Collected', value: `QAR ${paymentStats.totalCollected.toLocaleString()}` },
-        { label: 'Collection Rate', value: `${paymentStats.collectionRate}%` },
+        { label: t('reports.totalPayments'), value: paymentStats.total },
+        { label: t('reports.paid'), value: paymentStats.paid },
+        { label: t('reports.pending'), value: paymentStats.pending },
+        { label: t('reports.overdue'), value: paymentStats.overdue },
+        { label: t('reports.totalCollected'), value: `QAR ${paymentStats.totalCollected.toLocaleString()}` },
+        { label: t('reports.collectionRate'), value: `${paymentStats.collectionRate}%` },
       ],
     },
   ];
@@ -182,18 +182,18 @@ export const Reports = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('realestate.reports', 'Reports')}
-        subtitle="Analytics and performance metrics"
+        title={t('reports.title')}
+        subtitle={t('reports.subtitle')}
         icon={BarChart3}
       />
 
       {/* Summary Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Properties', value: propertyStats.total, icon: Building, color: REALESTATE_COLOR },
-          { label: 'Active Tenants', value: tenants.filter(t => t.status === 'active').length, icon: Users, color: '#3b82f6' },
-          { label: 'Total Commission', value: `QAR ${(contractStats.totalCommission / 1000).toFixed(0)}K`, icon: DollarSign, color: '#10b981' },
-          { label: 'Top Agent', value: agentStats.topAgent?.name || 'N/A', icon: TrendingUp, color: '#8b5cf6' },
+          { label: t('reports.totalProperties'), value: propertyStats.total, icon: Building, color: REALESTATE_COLOR },
+          { label: t('reports.activeTenants'), value: tenants.filter(tn => tn.status === 'active').length, icon: Users, color: '#3b82f6' },
+          { label: t('reports.totalCommission'), value: `QAR ${(contractStats.totalCommission / 1000).toFixed(0)}K`, icon: DollarSign, color: '#10b981' },
+          { label: t('reports.topAgent'), value: agentStats.topAgent?.name || 'N/A', icon: TrendingUp, color: '#8b5cf6' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -269,17 +269,17 @@ export const Reports = () => {
           >
             <TrendingUp size={20} style={{ color: REALESTATE_COLOR }} />
           </div>
-          <h3 className="text-lg font-semibold text-text-primary">Agent Performance</h3>
+          <h3 className="text-lg font-semibold text-text-primary">{t('reports.agentPerformance')}</h3>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-background-tertiary">
               <tr>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Agent</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Active Listings</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Total Sales</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Total Commission</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Status</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('reports.agent')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('reports.activeListings')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('reports.totalSales')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('reports.totalCommission')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('reports.status')}</th>
               </tr>
             </thead>
             <tbody>

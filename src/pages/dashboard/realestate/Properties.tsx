@@ -16,7 +16,7 @@ import { properties, REALESTATE_COLOR, getStatusColor } from '@/data/realestate/
 import { useTranslation } from 'react-i18next';
 
 export const Properties = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('realestate');
   const [searchQuery, setSearchQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -60,18 +60,18 @@ export const Properties = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('realestate.properties', 'Properties')}
-        subtitle="Manage your property portfolio"
+        title={t('properties.title')}
+        subtitle={t('properties.subtitle')}
         icon={Building}
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Properties', value: stats.total, color: REALESTATE_COLOR },
-          { label: 'Available', value: stats.available, color: '#10b981' },
-          { label: 'Rented', value: stats.rented, color: '#3b82f6' },
-          { label: 'Under Offer', value: stats.underOffer, color: '#f59e0b' },
+          { label: t('properties.totalProperties'), value: stats.total, color: REALESTATE_COLOR },
+          { label: t('properties.available'), value: stats.available, color: '#10b981' },
+          { label: t('properties.rented'), value: stats.rented, color: '#3b82f6' },
+          { label: t('properties.underOffer'), value: stats.underOffer, color: '#f59e0b' },
         ].map((stat, index) => (
           <motion.div
             key={stat.label}
@@ -103,7 +103,7 @@ export const Properties = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search properties..."
+              placeholder={t('properties.searchProperties')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -117,7 +117,7 @@ export const Properties = () => {
             >
               {propertyTypes.map(type => (
                 <option key={type} value={type}>
-                  {type === 'all' ? 'All Types' : type}
+                  {type === 'all' ? t('properties.allTypes') : type}
                 </option>
               ))}
             </select>
@@ -128,7 +128,7 @@ export const Properties = () => {
             >
               {statuses.map(status => (
                 <option key={status} value={status}>
-                  {status === 'all' ? 'All Status' : status.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                  {status === 'all' ? t('properties.allStatus') : status.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
                 </option>
               ))}
             </select>
@@ -168,9 +168,9 @@ export const Properties = () => {
                       </Button>
                     }
                     items={[
-                      { id: 'view', label: 'View Details', onClick: () => {} },
-                      { id: 'edit', label: 'Edit', onClick: () => {} },
-                      { id: 'schedule', label: 'Schedule Viewing', onClick: () => {} },
+                      { id: 'view', label: t('properties.viewDetails'), onClick: () => {} },
+                      { id: 'edit', label: t('properties.edit'), onClick: () => {} },
+                      { id: 'schedule', label: t('properties.scheduleViewing'), onClick: () => {} },
                     ]}
                   />
                 </div>
@@ -231,7 +231,7 @@ export const Properties = () => {
         <Card className="p-12">
           <div className="text-center text-text-muted">
             <Building size={48} className="mx-auto mb-4 opacity-50" />
-            <p>No properties found</p>
+            <p>{t('properties.noPropertiesFound')}</p>
           </div>
         </Card>
       )}

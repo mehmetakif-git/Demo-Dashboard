@@ -16,7 +16,7 @@ import { getProfileImage, getCompanyLogo } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const Tenants = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('realestate');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
@@ -47,18 +47,18 @@ export const Tenants = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('realestate.tenants', 'Tenants')}
-        subtitle="Manage tenants and lease information"
+        title={t('tenants.title')}
+        subtitle={t('tenants.subtitle')}
         icon={UserCheck}
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Tenants', value: stats.total, color: REALESTATE_COLOR },
-          { label: 'Active Leases', value: stats.active, color: '#10b981' },
-          { label: 'Monthly Rent', value: `QAR ${stats.totalRent.toLocaleString()}`, color: '#3b82f6' },
-          { label: 'Total Deposits', value: `QAR ${stats.totalDeposits.toLocaleString()}`, color: '#f59e0b' },
+          { label: t('tenants.totalTenants'), value: stats.total, color: REALESTATE_COLOR },
+          { label: t('tenants.activeLeases'), value: stats.active, color: '#10b981' },
+          { label: t('tenants.monthlyRent'), value: `QAR ${stats.totalRent.toLocaleString()}`, color: '#3b82f6' },
+          { label: t('tenants.totalDeposits'), value: `QAR ${stats.totalDeposits.toLocaleString()}`, color: '#f59e0b' },
         ].map((stat, index) => (
           <motion.div
             key={stat.label}
@@ -90,7 +90,7 @@ export const Tenants = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search tenants..."
+              placeholder={t('tenants.searchTenants')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -104,7 +104,7 @@ export const Tenants = () => {
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status === 'all' ? 'All' : status.charAt(0).toUpperCase() + status.slice(1)}
+                {status === 'all' ? t('tenants.all') : status === 'active' ? t('tenants.active') : status === 'expired' ? t('tenants.expired') : t('tenants.terminated')}
               </Button>
             ))}
           </div>
@@ -117,14 +117,14 @@ export const Tenants = () => {
           <table className="w-full">
             <thead className="bg-background-tertiary">
               <tr>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Tenant</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Property</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Contact</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Lease Period</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Monthly Rent</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Deposit</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Status</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Actions</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('tenants.tenant')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('tenants.property')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('tenants.contactCol')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('tenants.leasePeriod')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('tenants.monthlyRentCol')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('tenants.deposit')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('tenants.status')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('tenants.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -194,7 +194,7 @@ export const Tenants = () => {
                         <Calendar size={12} className="text-text-muted" />
                         <span className="text-text-secondary">{tenant.leaseStart}</span>
                       </div>
-                      <p className="text-xs text-text-muted">to {tenant.leaseEnd}</p>
+                      <p className="text-xs text-text-muted">{t('tenants.to', { date: tenant.leaseEnd })}</p>
                     </div>
                   </td>
                   <td className="py-3 px-4 text-right">
@@ -226,9 +226,9 @@ export const Tenants = () => {
                         </Button>
                       }
                       items={[
-                        { id: 'view', label: 'View Details', onClick: () => {} },
-                        { id: 'renew', label: 'Renew Lease', onClick: () => {} },
-                        { id: 'contact', label: 'Contact', onClick: () => {} },
+                        { id: 'view', label: t('tenants.viewDetails'), onClick: () => {} },
+                        { id: 'renew', label: t('tenants.renewLease'), onClick: () => {} },
+                        { id: 'contact', label: t('tenants.contact'), onClick: () => {} },
                       ]}
                     />
                   </td>
@@ -241,7 +241,7 @@ export const Tenants = () => {
         {filteredTenants.length === 0 && (
           <div className="py-12 text-center text-text-muted">
             <UserCheck size={48} className="mx-auto mb-4 opacity-50" />
-            <p>No tenants found</p>
+            <p>{t('tenants.noTenantsFound')}</p>
           </div>
         )}
       </Card>

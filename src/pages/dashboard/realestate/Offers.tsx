@@ -16,7 +16,7 @@ import { getProfileImage, getCompanyLogo } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const Offers = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('realestate');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [typeFilter, setTypeFilter] = useState<string>('all');
@@ -55,18 +55,18 @@ export const Offers = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('realestate.offers', 'Offers')}
-        subtitle="Manage property offers and negotiations"
+        title={t('offers.title')}
+        subtitle={t('offers.subtitle')}
         icon={Handshake}
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Offers', value: stats.total, color: REALESTATE_COLOR },
-          { label: 'Pending/Negotiating', value: stats.pending, color: '#f59e0b' },
-          { label: 'Accepted', value: stats.accepted, color: '#10b981' },
-          { label: 'Accepted Value', value: `QAR ${(stats.totalValue / 1000000).toFixed(1)}M`, color: '#8b5cf6' },
+          { label: t('offers.totalOffers'), value: stats.total, color: REALESTATE_COLOR },
+          { label: t('offers.pendingNegotiating'), value: stats.pending, color: '#f59e0b' },
+          { label: t('offers.accepted'), value: stats.accepted, color: '#10b981' },
+          { label: t('offers.acceptedValue'), value: `QAR ${(stats.totalValue / 1000000).toFixed(1)}M`, color: '#8b5cf6' },
         ].map((stat, index) => (
           <motion.div
             key={stat.label}
@@ -98,7 +98,7 @@ export const Offers = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search offers..."
+              placeholder={t('offers.searchOffers')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -112,7 +112,7 @@ export const Offers = () => {
             >
               {statuses.map(status => (
                 <option key={status} value={status}>
-                  {status === 'all' ? 'All Status' : status.charAt(0).toUpperCase() + status.slice(1)}
+                  {status === 'all' ? t('offers.allStatus') : status.charAt(0).toUpperCase() + status.slice(1)}
                 </option>
               ))}
             </select>
@@ -123,7 +123,7 @@ export const Offers = () => {
             >
               {types.map(type => (
                 <option key={type} value={type}>
-                  {type === 'all' ? 'All Types' : type}
+                  {type === 'all' ? t('offers.allTypes') : type}
                 </option>
               ))}
             </select>
@@ -137,15 +137,15 @@ export const Offers = () => {
           <table className="w-full">
             <thead className="bg-background-tertiary">
               <tr>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Property</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Buyer</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Type</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Offered</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Asking</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Diff</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Valid Until</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Status</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Actions</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('offers.property')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('offers.buyer')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('offers.type')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('offers.offered')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('offers.asking')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('offers.diff')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('offers.validUntil')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('offers.status')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('offers.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -251,9 +251,9 @@ export const Offers = () => {
                           </Button>
                         }
                         items={[
-                          { id: 'view', label: 'View Details', onClick: () => {} },
-                          { id: 'counter', label: 'Counter Offer', onClick: () => {} },
-                          { id: 'accept', label: 'Accept', onClick: () => {} },
+                          { id: 'view', label: t('offers.viewDetails'), onClick: () => {} },
+                          { id: 'counter', label: t('offers.counterOffer'), onClick: () => {} },
+                          { id: 'accept', label: t('offers.accept'), onClick: () => {} },
                         ]}
                       />
                     </td>
@@ -267,7 +267,7 @@ export const Offers = () => {
         {filteredOffers.length === 0 && (
           <div className="py-12 text-center text-text-muted">
             <Handshake size={48} className="mx-auto mb-4 opacity-50" />
-            <p>No offers found</p>
+            <p>{t('offers.noOffersFound')}</p>
           </div>
         )}
       </Card>

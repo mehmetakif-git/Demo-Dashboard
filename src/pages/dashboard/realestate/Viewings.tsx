@@ -17,7 +17,7 @@ import { getProfileImage, getCompanyLogo } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const Viewings = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('realestate');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [typeFilter, setTypeFilter] = useState<string>('all');
@@ -51,18 +51,18 @@ export const Viewings = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('realestate.viewings', 'Viewings')}
-        subtitle="Manage property viewings and tours"
+        title={t('viewings.title')}
+        subtitle={t('viewings.subtitle')}
         icon={Eye}
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Viewings', value: stats.total, color: REALESTATE_COLOR },
-          { label: 'Scheduled', value: stats.scheduled, color: '#3b82f6' },
-          { label: 'Completed', value: stats.completed, color: '#10b981' },
-          { label: 'Interested', value: stats.interested, color: '#8b5cf6' },
+          { label: t('viewings.totalViewings'), value: stats.total, color: REALESTATE_COLOR },
+          { label: t('viewings.scheduled'), value: stats.scheduled, color: '#3b82f6' },
+          { label: t('viewings.completed'), value: stats.completed, color: '#10b981' },
+          { label: t('viewings.interested'), value: stats.interested, color: '#8b5cf6' },
         ].map((stat, index) => (
           <motion.div
             key={stat.label}
@@ -94,7 +94,7 @@ export const Viewings = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search viewings..."
+              placeholder={t('viewings.searchViewings')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -108,7 +108,7 @@ export const Viewings = () => {
             >
               {statuses.map(status => (
                 <option key={status} value={status}>
-                  {status === 'all' ? 'All Status' : status.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                  {status === 'all' ? t('viewings.allStatus') : status.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
                 </option>
               ))}
             </select>
@@ -119,7 +119,7 @@ export const Viewings = () => {
             >
               {types.map(type => (
                 <option key={type} value={type}>
-                  {type === 'all' ? 'All Types' : type}
+                  {type === 'all' ? t('viewings.allTypes') : type}
                 </option>
               ))}
             </select>
@@ -133,14 +133,14 @@ export const Viewings = () => {
           <table className="w-full">
             <thead className="bg-background-tertiary">
               <tr>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Property</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Client</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Date & Time</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Type</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Agent</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Interested</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Status</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Actions</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('viewings.property')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('viewings.client')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('viewings.dateTime')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('viewings.type')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('viewings.agent')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('viewings.interestedCol')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('viewings.status')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('viewings.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -195,7 +195,7 @@ export const Viewings = () => {
                       </div>
                       <div className="flex items-center gap-1 text-xs text-text-muted">
                         <Clock size={10} />
-                        <span>{viewing.viewingTime} ({viewing.duration} min)</span>
+                        <span>{viewing.viewingTime} ({t('viewings.min', { count: viewing.duration })})</span>
                       </div>
                     </div>
                   </td>
@@ -217,11 +217,11 @@ export const Viewings = () => {
                       <span className="text-text-muted text-sm">-</span>
                     ) : viewing.interested ? (
                       <span className="inline-flex px-2 py-1 rounded-full text-xs font-medium bg-green-500/20 text-green-500">
-                        Yes
+                        {t('viewings.yes')}
                       </span>
                     ) : (
                       <span className="inline-flex px-2 py-1 rounded-full text-xs font-medium bg-red-500/20 text-red-500">
-                        No
+                        {t('viewings.no')}
                       </span>
                     )}
                   </td>
@@ -241,9 +241,9 @@ export const Viewings = () => {
                         </Button>
                       }
                       items={[
-                        { id: 'view', label: 'View Details', onClick: () => {} },
-                        { id: 'reschedule', label: 'Reschedule', onClick: () => {} },
-                        { id: 'feedback', label: 'Add Feedback', onClick: () => {} },
+                        { id: 'view', label: t('viewings.viewDetails'), onClick: () => {} },
+                        { id: 'reschedule', label: t('viewings.reschedule'), onClick: () => {} },
+                        { id: 'feedback', label: t('viewings.addFeedback'), onClick: () => {} },
                       ]}
                     />
                   </td>
@@ -256,7 +256,7 @@ export const Viewings = () => {
         {filteredViewings.length === 0 && (
           <div className="py-12 text-center text-text-muted">
             <Eye size={48} className="mx-auto mb-4 opacity-50" />
-            <p>No viewings found</p>
+            <p>{t('viewings.noViewingsFound')}</p>
           </div>
         )}
       </Card>

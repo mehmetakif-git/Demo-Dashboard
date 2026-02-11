@@ -16,7 +16,7 @@ import { properties, REALESTATE_COLOR, getStatusColor } from '@/data/realestate/
 import { useTranslation } from 'react-i18next';
 
 export const Listings = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('realestate');
   const [searchQuery, setSearchQuery] = useState('');
   const [listingTypeFilter, setListingTypeFilter] = useState<string>('all');
 
@@ -54,18 +54,18 @@ export const Listings = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('realestate.listings', 'Listings')}
-        subtitle="Active property listings"
+        title={t('listings.title')}
+        subtitle={t('listings.subtitle')}
         icon={Home}
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'For Sale', value: stats.forSale, color: REALESTATE_COLOR },
-          { label: 'For Rent', value: stats.forRent, color: '#3b82f6' },
-          { label: 'Available', value: stats.available, color: '#10b981' },
-          { label: 'Total Value', value: `QAR ${(stats.totalValue / 1000000).toFixed(1)}M`, color: '#f59e0b' },
+          { label: t('listings.forSale'), value: stats.forSale, color: REALESTATE_COLOR },
+          { label: t('listings.forRent'), value: stats.forRent, color: '#3b82f6' },
+          { label: t('listings.available'), value: stats.available, color: '#10b981' },
+          { label: t('listings.totalValue'), value: `QAR ${(stats.totalValue / 1000000).toFixed(1)}M`, color: '#f59e0b' },
         ].map((stat, index) => (
           <motion.div
             key={stat.label}
@@ -97,7 +97,7 @@ export const Listings = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search listings..."
+              placeholder={t('listings.searchListings')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -111,7 +111,7 @@ export const Listings = () => {
                 size="sm"
                 onClick={() => setListingTypeFilter(type)}
               >
-                {type === 'all' ? 'All Listings' : type}
+                {type === 'all' ? t('listings.allListings') : type}
               </Button>
             ))}
           </div>
@@ -124,13 +124,13 @@ export const Listings = () => {
           <table className="w-full">
             <thead className="bg-background-tertiary">
               <tr>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Property</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Type</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Details</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Price</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Agent</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Status</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Actions</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('listings.property')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('listings.type')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('listings.details')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('listings.price')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('listings.agent')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('listings.status')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('listings.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -222,9 +222,9 @@ export const Listings = () => {
                         </Button>
                       }
                       items={[
-                        { id: 'view', label: 'View Listing', onClick: () => {} },
-                        { id: 'edit', label: 'Edit Listing', onClick: () => {} },
-                        { id: 'share', label: 'Share', onClick: () => {} },
+                        { id: 'view', label: t('listings.viewListing'), onClick: () => {} },
+                        { id: 'edit', label: t('listings.editListing'), onClick: () => {} },
+                        { id: 'share', label: t('listings.share'), onClick: () => {} },
                       ]}
                     />
                   </td>
@@ -237,7 +237,7 @@ export const Listings = () => {
         {filteredListings.length === 0 && (
           <div className="py-12 text-center text-text-muted">
             <Home size={48} className="mx-auto mb-4 opacity-50" />
-            <p>No listings found</p>
+            <p>{t('listings.noListingsFound')}</p>
           </div>
         )}
       </Card>

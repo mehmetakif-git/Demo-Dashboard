@@ -15,7 +15,7 @@ import { getProfileImage, getCompanyLogo } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const Contracts = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('realestate');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [typeFilter, setTypeFilter] = useState<string>('all');
@@ -49,18 +49,18 @@ export const Contracts = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('realestate.contracts', 'Contracts')}
-        subtitle="Manage sale and lease agreements"
+        title={t('contracts.title')}
+        subtitle={t('contracts.subtitle')}
         icon={FileSignature}
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Contracts', value: stats.total, color: REALESTATE_COLOR },
-          { label: 'Active Leases', value: stats.active, color: '#10b981' },
-          { label: 'Pending Completion', value: stats.pendingCompletion, color: '#f59e0b' },
-          { label: 'Total Value', value: `QAR ${(stats.totalValue / 1000000).toFixed(1)}M`, color: '#8b5cf6' },
+          { label: t('contracts.totalContracts'), value: stats.total, color: REALESTATE_COLOR },
+          { label: t('contracts.activeLeases'), value: stats.active, color: '#10b981' },
+          { label: t('contracts.pendingCompletion'), value: stats.pendingCompletion, color: '#f59e0b' },
+          { label: t('contracts.totalValue'), value: `QAR ${(stats.totalValue / 1000000).toFixed(1)}M`, color: '#8b5cf6' },
         ].map((stat, index) => (
           <motion.div
             key={stat.label}
@@ -92,7 +92,7 @@ export const Contracts = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search contracts..."
+              placeholder={t('contracts.searchContracts')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -106,7 +106,7 @@ export const Contracts = () => {
             >
               {statuses.map(status => (
                 <option key={status} value={status}>
-                  {status === 'all' ? 'All Status' : status.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                  {status === 'all' ? t('contracts.allStatus') : status.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
                 </option>
               ))}
             </select>
@@ -117,7 +117,7 @@ export const Contracts = () => {
             >
               {types.map(type => (
                 <option key={type} value={type}>
-                  {type === 'all' ? 'All Types' : type}
+                  {type === 'all' ? t('contracts.allTypes') : type}
                 </option>
               ))}
             </select>
@@ -131,15 +131,15 @@ export const Contracts = () => {
           <table className="w-full">
             <thead className="bg-background-tertiary">
               <tr>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Contract</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Type</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Client</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Owner</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Value</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Commission</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Date</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Status</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Actions</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('contracts.contract')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('contracts.type')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('contracts.client')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('contracts.owner')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('contracts.value')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('contracts.commission')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('contracts.date')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('contracts.status')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('contracts.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -173,7 +173,7 @@ export const Contracts = () => {
                         color: contract.contractType === 'Sale Agreement' ? '#10b981' : '#3b82f6'
                       }}
                     >
-                      {contract.contractType === 'Sale Agreement' ? 'Sale' : 'Lease'}
+                      {contract.contractType === 'Sale Agreement' ? t('contracts.sale') : t('contracts.lease')}
                     </span>
                   </td>
                   <td className="py-3 px-4">
@@ -208,7 +208,7 @@ export const Contracts = () => {
                       QAR {(contract.salePrice || contract.rentAmount || 0).toLocaleString()}
                     </span>
                     {contract.rentAmount && (
-                      <p className="text-xs text-text-muted">/month</p>
+                      <p className="text-xs text-text-muted">{t('contracts.perMonth')}</p>
                     )}
                   </td>
                   <td className="py-3 px-4 text-right">
@@ -226,7 +226,7 @@ export const Contracts = () => {
                       <span>{contract.contractDate}</span>
                     </div>
                     {contract.leaseEnd && (
-                      <p className="text-xs text-text-muted">Ends: {contract.leaseEnd}</p>
+                      <p className="text-xs text-text-muted">{t('contracts.ends', { date: contract.leaseEnd })}</p>
                     )}
                   </td>
                   <td className="py-3 px-4 text-center">
@@ -245,9 +245,9 @@ export const Contracts = () => {
                         </Button>
                       }
                       items={[
-                        { id: 'view', label: 'View Contract', onClick: () => {} },
-                        { id: 'download', label: 'Download PDF', onClick: () => {} },
-                        { id: 'renew', label: 'Renew', onClick: () => {} },
+                        { id: 'view', label: t('contracts.viewContract'), onClick: () => {} },
+                        { id: 'download', label: t('contracts.downloadPDF'), onClick: () => {} },
+                        { id: 'renew', label: t('contracts.renew'), onClick: () => {} },
                       ]}
                     />
                   </td>
@@ -260,7 +260,7 @@ export const Contracts = () => {
         {filteredContracts.length === 0 && (
           <div className="py-12 text-center text-text-muted">
             <FileSignature size={48} className="mx-auto mb-4 opacity-50" />
-            <p>No contracts found</p>
+            <p>{t('contracts.noContractsFound')}</p>
           </div>
         )}
       </Card>

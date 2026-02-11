@@ -26,6 +26,10 @@ import enReports from './locales/en/reports.json';
 import enMaintenance from './locales/en/maintenance.json';
 import enSignage from './locales/en/signage.json';
 import enFiles from './locales/en/files.json';
+import enQrCodes from './locales/en/qrCodes.json';
+import enGym from './locales/en/gym.json';
+import enStaffing from './locales/en/staffing.json';
+import enRealestate from './locales/en/realestate.json';
 
 // TR translations
 import trCommon from './locales/tr/common.json';
@@ -51,6 +55,10 @@ import trReports from './locales/tr/reports.json';
 import trMaintenance from './locales/tr/maintenance.json';
 import trSignage from './locales/tr/signage.json';
 import trFiles from './locales/tr/files.json';
+import trQrCodes from './locales/tr/qrCodes.json';
+import trGym from './locales/tr/gym.json';
+import trStaffing from './locales/tr/staffing.json';
+import trRealestate from './locales/tr/realestate.json';
 
 i18n
   .use(LanguageDetector)
@@ -81,6 +89,10 @@ i18n
         maintenance: enMaintenance,
         signage: enSignage,
         files: enFiles,
+        qrCodes: enQrCodes,
+        gym: enGym,
+        staffing: enStaffing,
+        realestate: enRealestate,
       },
       tr: {
         common: trCommon,
@@ -106,11 +118,15 @@ i18n
         maintenance: trMaintenance,
         signage: trSignage,
         files: trFiles,
+        qrCodes: trQrCodes,
+        gym: trGym,
+        staffing: trStaffing,
+        realestate: trRealestate,
       },
     },
     fallbackLng: 'en',
     defaultNS: 'common',
-    ns: ['common', 'auth', 'sidebar', 'dashboard', 'breadcrumb', 'errors', 'sectors', 'communication', 'hotel', 'construction', 'logistics', 'manufacturing', 'law', 'education', 'hr', 'accounting', 'crm', 'tasks', 'accessControl', 'reports', 'maintenance', 'signage', 'files'],
+    ns: ['common', 'auth', 'sidebar', 'dashboard', 'breadcrumb', 'errors', 'sectors', 'communication', 'hotel', 'construction', 'logistics', 'manufacturing', 'law', 'education', 'hr', 'accounting', 'crm', 'tasks', 'accessControl', 'reports', 'maintenance', 'signage', 'files', 'qrCodes', 'gym', 'staffing', 'realestate'],
     interpolation: {
       escapeValue: false,
     },
