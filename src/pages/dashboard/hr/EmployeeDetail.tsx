@@ -21,14 +21,6 @@ import { getEmployeeById, leaveRequests, payrollRecords, performanceReviews } fr
 import { profileImages } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
-const tabs = [
-  { id: 'overview', label: 'Overview' },
-  { id: 'documents', label: 'Documents' },
-  { id: 'leave', label: 'Leave History' },
-  { id: 'payroll', label: 'Payroll' },
-  { id: 'performance', label: 'Performance' },
-];
-
 const mockDocuments = [
   { id: 1, name: 'Employment Contract', type: 'PDF', uploadDate: '2021-03-15', size: '245 KB' },
   { id: 2, name: 'ID Copy', type: 'PDF', uploadDate: '2021-03-15', size: '1.2 MB' },
@@ -37,7 +29,15 @@ const mockDocuments = [
 ];
 
 export const EmployeeDetail = () => {
-  const { t: _t } = useTranslation('common');
+  const { t } = useTranslation('hr');
+
+  const tabs = [
+    { id: 'overview', label: t('employeeDetail.tabs.overview') },
+    { id: 'documents', label: t('employeeDetail.tabs.documents') },
+    { id: 'leave', label: t('employeeDetail.tabs.leave') },
+    { id: 'payroll', label: t('employeeDetail.tabs.payroll') },
+    { id: 'performance', label: t('employeeDetail.tabs.performance') },
+  ];
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('overview');
@@ -48,12 +48,12 @@ export const EmployeeDetail = () => {
     return (
       <div className="p-6">
         <div className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-12 text-center">
-          <p className="text-white/60">Employee not found</p>
+          <p className="text-white/60">{t('employeeDetail.notFound')}</p>
           <button
             onClick={() => navigate('/dashboard/hr/employees')}
             className="mt-4 text-[#547792] hover:underline cursor-pointer"
           >
-            Back to Employees
+            {t('employeeDetail.backToEmployees')}
           </button>
         </div>
       </div>
@@ -114,11 +114,11 @@ export const EmployeeDetail = () => {
           <div className="flex items-center gap-3">
             <button className="flex items-center gap-2 px-4 py-2 bg-[#547792]/10 text-[#547792] rounded-lg hover:bg-[#547792]/20 transition-colors cursor-pointer">
               <Pencil className="w-4 h-4" />
-              Edit
+              {t('employeeDetail.edit')}
             </button>
             <button className="flex items-center gap-2 px-4 py-2 bg-red-500/10 text-red-400 rounded-lg hover:bg-red-500/20 transition-colors cursor-pointer">
               <UserX className="w-4 h-4" />
-              Deactivate
+              {t('employeeDetail.deactivate')}
             </button>
           </div>
         </div>
@@ -137,14 +137,14 @@ export const EmployeeDetail = () => {
             transition={{ delay: 0.2 }}
             className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
           >
-            <h3 className="text-lg font-semibold text-white mb-4">Personal Information</h3>
+            <h3 className="text-lg font-semibold text-white mb-4">{t('employeeDetail.personalInfo')}</h3>
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-lg bg-[#547792]/10 flex items-center justify-center">
                   <Mail className="w-4 h-4 text-[#547792]" />
                 </div>
                 <div>
-                  <p className="text-xs text-white/40">Email</p>
+                  <p className="text-xs text-white/40">{t('employeeDetail.email')}</p>
                   <p className="text-sm text-white">{employee.email}</p>
                 </div>
               </div>
@@ -153,7 +153,7 @@ export const EmployeeDetail = () => {
                   <Phone className="w-4 h-4 text-[#10b981]" />
                 </div>
                 <div>
-                  <p className="text-xs text-white/40">Phone</p>
+                  <p className="text-xs text-white/40">{t('employeeDetail.phone')}</p>
                   <p className="text-sm text-white">{employee.phone}</p>
                 </div>
               </div>
@@ -162,7 +162,7 @@ export const EmployeeDetail = () => {
                   <MapPin className="w-4 h-4 text-[#f59e0b]" />
                 </div>
                 <div>
-                  <p className="text-xs text-white/40">Location</p>
+                  <p className="text-xs text-white/40">{t('employeeDetail.location')}</p>
                   <p className="text-sm text-white">{employee.location}</p>
                 </div>
               </div>
@@ -171,7 +171,7 @@ export const EmployeeDetail = () => {
                   <Calendar className="w-4 h-4 text-[#94B4C1]" />
                 </div>
                 <div>
-                  <p className="text-xs text-white/40">Start Date</p>
+                  <p className="text-xs text-white/40">{t('employeeDetail.startDate')}</p>
                   <p className="text-sm text-white">
                     {new Date(employee.startDate).toLocaleDateString('en-US', {
                       year: 'numeric',
@@ -191,14 +191,14 @@ export const EmployeeDetail = () => {
             transition={{ delay: 0.25 }}
             className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
           >
-            <h3 className="text-lg font-semibold text-white mb-4">Job Information</h3>
+            <h3 className="text-lg font-semibold text-white mb-4">{t('employeeDetail.jobInfo')}</h3>
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-lg bg-[#547792]/10 flex items-center justify-center">
                   <Building2 className="w-4 h-4 text-[#547792]" />
                 </div>
                 <div>
-                  <p className="text-xs text-white/40">Department</p>
+                  <p className="text-xs text-white/40">{t('employeeDetail.department')}</p>
                   <p className="text-sm text-white">{employee.department}</p>
                 </div>
               </div>
@@ -207,7 +207,7 @@ export const EmployeeDetail = () => {
                   <User className="w-4 h-4 text-[#10b981]" />
                 </div>
                 <div>
-                  <p className="text-xs text-white/40">Manager</p>
+                  <p className="text-xs text-white/40">{t('employeeDetail.manager')}</p>
                   <p className="text-sm text-white">{employee.manager}</p>
                 </div>
               </div>
@@ -216,7 +216,7 @@ export const EmployeeDetail = () => {
                   <DollarSign className="w-4 h-4 text-[#f59e0b]" />
                 </div>
                 <div>
-                  <p className="text-xs text-white/40">Annual Salary</p>
+                  <p className="text-xs text-white/40">{t('employeeDetail.annualSalary')}</p>
                   <p className="text-sm text-white">
                     ${employee.salary.toLocaleString()}
                   </p>
@@ -227,7 +227,7 @@ export const EmployeeDetail = () => {
                   <FileText className="w-4 h-4 text-[#94B4C1]" />
                 </div>
                 <div>
-                  <p className="text-xs text-white/40">Employment Type</p>
+                  <p className="text-xs text-white/40">{t('employeeDetail.employmentType')}</p>
                   <p className="text-sm text-white capitalize">{employee.type}</p>
                 </div>
               </div>
@@ -241,22 +241,22 @@ export const EmployeeDetail = () => {
             transition={{ delay: 0.3 }}
             className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
           >
-            <h3 className="text-lg font-semibold text-white mb-4">Quick Stats</h3>
+            <h3 className="text-lg font-semibold text-white mb-4">{t('employeeDetail.quickStats')}</h3>
             <div className="space-y-4">
               <div className="p-4 rounded-lg bg-[#10b981]/10 border border-[#10b981]/20">
-                <p className="text-xs text-[#10b981] mb-1">Leave Balance</p>
-                <p className="text-2xl font-bold text-white">12 days</p>
-                <p className="text-xs text-white/40">remaining this year</p>
+                <p className="text-xs text-[#10b981] mb-1">{t('employeeDetail.leaveBalance')}</p>
+                <p className="text-2xl font-bold text-white">{t('employeeDetail.days', { count: 12 })}</p>
+                <p className="text-xs text-white/40">{t('employeeDetail.remainingThisYear')}</p>
               </div>
               <div className="p-4 rounded-lg bg-[#547792]/10 border border-[#547792]/20">
-                <p className="text-xs text-[#547792] mb-1">Attendance Rate</p>
+                <p className="text-xs text-[#547792] mb-1">{t('employeeDetail.attendanceRate')}</p>
                 <p className="text-2xl font-bold text-white">98%</p>
-                <p className="text-xs text-white/40">last 30 days</p>
+                <p className="text-xs text-white/40">{t('employeeDetail.last30Days')}</p>
               </div>
               <div className="p-4 rounded-lg bg-[#f59e0b]/10 border border-[#f59e0b]/20">
-                <p className="text-xs text-[#f59e0b] mb-1">Performance Score</p>
+                <p className="text-xs text-[#f59e0b] mb-1">{t('employeeDetail.performanceScore')}</p>
                 <p className="text-2xl font-bold text-white">4.5/5</p>
-                <p className="text-xs text-white/40">Q4 2024 review</p>
+                <p className="text-xs text-white/40">{t('employeeDetail.q4Review')}</p>
               </div>
             </div>
           </motion.div>
@@ -273,19 +273,19 @@ export const EmployeeDetail = () => {
             <thead>
               <tr className="bg-[#1a1a24]">
                 <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">
-                  Document Name
+                  {t('employeeDetail.documentName')}
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">
-                  Type
+                  {t('employeeDetail.type')}
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">
-                  Upload Date
+                  {t('employeeDetail.uploadDate')}
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">
-                  Size
+                  {t('employeeDetail.size')}
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">
-                  Actions
+                  {t('employees.actions')}
                 </th>
               </tr>
             </thead>
@@ -329,12 +329,12 @@ export const EmployeeDetail = () => {
           <table className="w-full">
             <thead>
               <tr className="bg-[#1a1a24]">
-                <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">Type</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">Start Date</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">End Date</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">Days</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">Status</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">Reason</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">{t('leave.leaveType')}</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">{t('leave.startDate')}</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">{t('leave.endDate')}</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">{t('leave.days')}</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">{t('leave.status')}</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">{t('leave.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -352,7 +352,7 @@ export const EmployeeDetail = () => {
               ) : (
                 <tr>
                   <td colSpan={6} className="px-4 py-12 text-center text-white/40">
-                    No leave history found
+                    {t('employeeDetail.noLeaveHistory')}
                   </td>
                 </tr>
               )}
@@ -370,12 +370,12 @@ export const EmployeeDetail = () => {
           <table className="w-full">
             <thead>
               <tr className="bg-[#1a1a24]">
-                <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">Month</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">Base Salary</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">Bonus</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">Deductions</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">Net Salary</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">Status</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">{t('employeeDetail.month')}</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">{t('employeeDetail.baseSalary')}</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">{t('employeeDetail.bonus')}</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">{t('employeeDetail.deductions')}</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">{t('employeeDetail.netSalary')}</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">{t('employees.status')}</th>
               </tr>
             </thead>
             <tbody>
@@ -393,7 +393,7 @@ export const EmployeeDetail = () => {
               ) : (
                 <tr>
                   <td colSpan={6} className="px-4 py-12 text-center text-white/40">
-                    No payroll records found
+                    {t('employeeDetail.noPayrollRecords')}
                   </td>
                 </tr>
               )}
@@ -420,11 +420,11 @@ export const EmployeeDetail = () => {
                 </div>
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-white/60 text-sm">Reviewer</span>
+                    <span className="text-white/60 text-sm">{t('employeeDetail.reviewer')}</span>
                     <span className="text-white text-sm">{review.reviewer}</span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-white/60 text-sm">Rating</span>
+                    <span className="text-white/60 text-sm">{t('employeeDetail.rating')}</span>
                     <div className="flex items-center gap-1">
                       {review.rating ? (
                         <>
@@ -438,7 +438,7 @@ export const EmployeeDetail = () => {
                   </div>
                   {review.completedDate && (
                     <div className="flex items-center justify-between">
-                      <span className="text-white/60 text-sm">Completed</span>
+                      <span className="text-white/60 text-sm">{t('employeeDetail.completed')}</span>
                       <span className="text-white text-sm">
                         {new Date(review.completedDate).toLocaleDateString()}
                       </span>
@@ -449,7 +449,7 @@ export const EmployeeDetail = () => {
             ))
           ) : (
             <div className="col-span-2 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-12 text-center">
-              <p className="text-white/40">No performance reviews found</p>
+              <p className="text-white/40">{t('employeeDetail.noPerformanceReviews')}</p>
             </div>
           )}
         </motion.div>

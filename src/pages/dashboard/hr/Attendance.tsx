@@ -8,7 +8,7 @@ import type { AttendanceRecord } from '@/data/hrData';
 import { useTranslation } from 'react-i18next';
 
 export const Attendance = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('hr');
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
 
   const stats = useMemo(() => {
@@ -28,7 +28,7 @@ export const Attendance = () => {
   const columns = [
     {
       key: 'employee',
-      header: 'Employee',
+      header: t('attendance.employee'),
       render: (record: AttendanceRecord) => (
         <div className="flex items-center gap-3">
           <Avatar name={record.employee} src={profileImages[record.employee]} size="sm" />
@@ -38,7 +38,7 @@ export const Attendance = () => {
     },
     {
       key: 'checkIn',
-      header: 'Check In',
+      header: t('attendance.checkIn'),
       render: (record: AttendanceRecord) => (
         <span className={`font-mono ${
           record.checkIn && record.checkIn > '09:00' ? 'text-orange-400' : 'text-white/80'
@@ -49,19 +49,19 @@ export const Attendance = () => {
     },
     {
       key: 'checkOut',
-      header: 'Check Out',
+      header: t('attendance.checkOut'),
       render: (record: AttendanceRecord) => (
         <span className="text-white/80 font-mono">{record.checkOut || '-'}</span>
       ),
     },
     {
       key: 'status',
-      header: 'Status',
+      header: t('attendance.status'),
       render: (record: AttendanceRecord) => <StatusBadge status={record.status} />,
     },
     {
       key: 'hoursWorked',
-      header: 'Hours Worked',
+      header: t('attendance.hoursWorked'),
       render: (record: AttendanceRecord) => (
         <div className="flex items-center gap-2">
           <div className="flex-1 h-2 bg-[#1a1a24] rounded-full overflow-hidden max-w-[100px]">
@@ -79,8 +79,8 @@ export const Attendance = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title={t('hr.attendance', 'Attendance')}
-        subtitle="Track employee attendance"
+        title={t('attendance.title')}
+        subtitle={t('attendance.subtitle')}
         icon={CalendarCheck}
         actions={
           <div className="flex items-center gap-3">
@@ -100,7 +100,7 @@ export const Attendance = () => {
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Present"
+          title={t('attendance.present')}
           value={stats.present}
           icon={UserCheck}
           iconColor="#10b981"
@@ -108,7 +108,7 @@ export const Attendance = () => {
           delay={0.1}
         />
         <StatsCard
-          title="Late"
+          title={t('attendance.late')}
           value={stats.late}
           icon={Clock}
           iconColor="#f59e0b"
@@ -116,7 +116,7 @@ export const Attendance = () => {
           delay={0.15}
         />
         <StatsCard
-          title="Absent"
+          title={t('attendance.absent')}
           value={stats.absent}
           icon={UserX}
           iconColor="#ef4444"
@@ -124,7 +124,7 @@ export const Attendance = () => {
           delay={0.2}
         />
         <StatsCard
-          title="On Leave"
+          title={t('attendance.onLeave')}
           value={stats.onLeave}
           icon={CalendarCheck}
           iconColor="#547792"
@@ -141,7 +141,7 @@ export const Attendance = () => {
         className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
       >
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-white">Daily Summary</h3>
+          <h3 className="text-lg font-semibold text-white">{t('attendance.dailySummary')}</h3>
           <p className="text-white/40 text-sm">
             {new Date(selectedDate).toLocaleDateString('en-US', {
               weekday: 'long',
@@ -156,7 +156,7 @@ export const Attendance = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div className="p-4 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-emerald-400 text-sm">Present</span>
+              <span className="text-emerald-400 text-sm">{t('attendance.present')}</span>
               <span className="text-white font-medium">{stats.present}</span>
             </div>
             <div className="h-2 bg-emerald-500/20 rounded-full overflow-hidden">
@@ -170,7 +170,7 @@ export const Attendance = () => {
           </div>
           <div className="p-4 rounded-lg bg-orange-500/10 border border-orange-500/20">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-orange-400 text-sm">Late</span>
+              <span className="text-orange-400 text-sm">{t('attendance.late')}</span>
               <span className="text-white font-medium">{stats.late}</span>
             </div>
             <div className="h-2 bg-orange-500/20 rounded-full overflow-hidden">
@@ -184,7 +184,7 @@ export const Attendance = () => {
           </div>
           <div className="p-4 rounded-lg bg-red-500/10 border border-red-500/20">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-red-400 text-sm">Absent</span>
+              <span className="text-red-400 text-sm">{t('attendance.absent')}</span>
               <span className="text-white font-medium">{stats.absent}</span>
             </div>
             <div className="h-2 bg-red-500/20 rounded-full overflow-hidden">
@@ -198,7 +198,7 @@ export const Attendance = () => {
           </div>
           <div className="p-4 rounded-lg bg-blue-500/10 border border-blue-500/20">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-blue-400 text-sm">On Leave</span>
+              <span className="text-blue-400 text-sm">{t('attendance.onLeave')}</span>
               <span className="text-white font-medium">{stats.onLeave}</span>
             </div>
             <div className="h-2 bg-blue-500/20 rounded-full overflow-hidden">
@@ -224,7 +224,7 @@ export const Attendance = () => {
           columns={columns}
           data={filteredRecords}
           keyExtractor={(r) => String(r.id)}
-          emptyMessage="No attendance records for this date"
+          emptyMessage={t('attendance.noRecords')}
         />
       </motion.div>
     </div>

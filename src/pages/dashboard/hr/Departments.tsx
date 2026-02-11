@@ -7,7 +7,7 @@ import { profileImages } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const Departments = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('hr');
   const [selectedDepartment, setSelectedDepartment] = useState<number | null>(null);
   const [showModal, setShowModal] = useState(false);
 
@@ -26,13 +26,13 @@ export const Departments = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title={t('hr.departments', 'Departments')}
-        subtitle={`${departments.length} departments in your organization`}
+        title={t('departments.title')}
+        subtitle={t('departments.subtitle', { count: departments.length })}
         icon={Building2}
         actions={
           <button className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#547792] to-[#94B4C1] hover:opacity-90 text-white font-medium rounded-lg transition-opacity cursor-pointer">
             <Plus className="w-4 h-4" />
-            Add Department
+            {t('departments.addDepartment')}
           </button>
         }
       />
@@ -58,7 +58,7 @@ export const Departments = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold text-white">{dept.name}</h3>
-                  <p className="text-xs text-white/40">Department</p>
+                  <p className="text-xs text-white/40">{t('departments.department')}</p>
                 </div>
               </div>
               <div className="flex items-center gap-1">
@@ -79,7 +79,7 @@ export const Departments = () => {
               <Avatar name={dept.head} src={profileImages[dept.head]} size="sm" />
               <div>
                 <p className="text-sm text-white">{dept.head}</p>
-                <p className="text-xs text-white/40">Department Head</p>
+                <p className="text-xs text-white/40">{t('departments.departmentHead')}</p>
               </div>
             </div>
 
@@ -90,7 +90,7 @@ export const Departments = () => {
                   <Users className="w-4 h-4 text-[#547792]" />
                   <span className="text-xl font-bold text-white">{dept.employeeCount}</span>
                 </div>
-                <p className="text-xs text-white/40">Employees</p>
+                <p className="text-xs text-white/40">{t('departments.employees')}</p>
               </div>
               <div className="text-center p-3 rounded-lg bg-white/[0.02]">
                 <div className="flex items-center justify-center gap-1 mb-1">
@@ -99,7 +99,7 @@ export const Departments = () => {
                     {(dept.budget / 1000000).toFixed(1)}M
                   </span>
                 </div>
-                <p className="text-xs text-white/40">Budget</p>
+                <p className="text-xs text-white/40">{t('departments.budget')}</p>
               </div>
             </div>
           </motion.div>
@@ -110,7 +110,7 @@ export const Departments = () => {
       <Modal
         isOpen={showModal}
         onClose={() => setShowModal(false)}
-        title={selectedDeptData?.name || 'Department'}
+        title={selectedDeptData?.name || t('departments.department')}
       >
         {selectedDeptData && (
           <div className="space-y-4">
@@ -123,17 +123,17 @@ export const Departments = () => {
               </div>
               <div>
                 <h3 className="font-semibold text-white">{selectedDeptData.name}</h3>
-                <p className="text-sm text-white/60">Head: {selectedDeptData.head}</p>
+                <p className="text-sm text-white/60">{t('departments.head', { name: selectedDeptData.head })}</p>
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div className="p-4 rounded-lg bg-[#1a1a24]">
-                <p className="text-white/40 text-xs mb-1">Employees</p>
+                <p className="text-white/40 text-xs mb-1">{t('departments.employees')}</p>
                 <p className="text-2xl font-bold text-white">{selectedDeptData.employeeCount}</p>
               </div>
               <div className="p-4 rounded-lg bg-[#1a1a24]">
-                <p className="text-white/40 text-xs mb-1">Budget</p>
+                <p className="text-white/40 text-xs mb-1">{t('departments.budget')}</p>
                 <p className="text-2xl font-bold text-white">
                   ${selectedDeptData.budget.toLocaleString()}
                 </p>
@@ -141,7 +141,7 @@ export const Departments = () => {
             </div>
 
             <div>
-              <h4 className="text-sm font-medium text-white mb-3">Team Members</h4>
+              <h4 className="text-sm font-medium text-white mb-3">{t('departments.teamMembers')}</h4>
               <div className="space-y-2 max-h-60 overflow-y-auto">
                 {deptEmployees.map((emp) => (
                   <div

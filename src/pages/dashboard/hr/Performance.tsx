@@ -8,7 +8,7 @@ import type { PerformanceReview } from '@/data/hrData';
 import { useTranslation } from 'react-i18next';
 
 export const Performance = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('hr');
   const [currentPeriod] = useState('Q4 2024');
 
   const stats = useMemo(() => {
@@ -51,7 +51,7 @@ export const Performance = () => {
   const columns = [
     {
       key: 'employee',
-      header: 'Employee',
+      header: t('performance.employee'),
       render: (review: PerformanceReview) => (
         <div className="flex items-center gap-3">
           <Avatar name={review.employee} src={profileImages[review.employee]} size="sm" />
@@ -61,31 +61,31 @@ export const Performance = () => {
     },
     {
       key: 'reviewer',
-      header: 'Reviewer',
+      header: t('performance.reviewer'),
       render: (review: PerformanceReview) => (
         <span className="text-white/80">{review.reviewer}</span>
       ),
     },
     {
       key: 'period',
-      header: 'Period',
+      header: t('performance.period'),
       render: (review: PerformanceReview) => (
         <span className="text-white/60">{review.period}</span>
       ),
     },
     {
       key: 'rating',
-      header: 'Rating',
+      header: t('performance.rating'),
       render: (review: PerformanceReview) => renderStars(review.rating),
     },
     {
       key: 'status',
-      header: 'Status',
+      header: t('performance.status'),
       render: (review: PerformanceReview) => <StatusBadge status={review.status} />,
     },
     {
       key: 'completedDate',
-      header: 'Completed',
+      header: t('performance.completedDate'),
       render: (review: PerformanceReview) => (
         <span className="text-white/60">
           {review.completedDate
@@ -99,13 +99,13 @@ export const Performance = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title={t('hr.performanceReviews', 'Performance Reviews')}
-        subtitle="Evaluate and track employee performance"
+        title={t('performance.title')}
+        subtitle={t('performance.subtitle')}
         icon={Star}
         actions={
           <button className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#547792] to-[#94B4C1] hover:opacity-90 text-white font-medium rounded-lg transition-opacity cursor-pointer">
             <Play className="w-4 h-4" />
-            Start Review Cycle
+            {t('performance.startReviewCycle')}
           </button>
         }
       />
@@ -119,16 +119,16 @@ export const Performance = () => {
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
             <h3 className="text-lg font-semibold text-white mb-1">
-              {currentPeriod} Performance Review
+              {t('performance.periodReview', { period: currentPeriod })}
             </h3>
             <p className="text-white/60 text-sm">
-              Review cycle in progress. {stats.pending} reviews pending.
+              {t('performance.reviewInProgress', { count: stats.pending })}
             </p>
           </div>
           <div className="flex items-center gap-4">
             <div className="text-right">
               <p className="text-2xl font-bold text-white">{completionPercentage}%</p>
-              <p className="text-xs text-white/40">completed</p>
+              <p className="text-xs text-white/40">{t('performance.completed')}</p>
             </div>
             <div className="w-32 h-32">
               <svg className="w-full h-full transform -rotate-90">
@@ -161,7 +161,7 @@ export const Performance = () => {
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Reviews"
+          title={t('performance.totalReviews')}
           value={stats.totalReviews}
           icon={Users}
           iconColor="#547792"
@@ -169,7 +169,7 @@ export const Performance = () => {
           delay={0.1}
         />
         <StatsCard
-          title="Completed"
+          title={t('performance.completedCount')}
           value={stats.completed}
           icon={CheckCircle}
           iconColor="#10b981"
@@ -177,7 +177,7 @@ export const Performance = () => {
           delay={0.15}
         />
         <StatsCard
-          title="In Progress"
+          title={t('performance.inProgress')}
           value={stats.inProgress}
           icon={Clock}
           iconColor="#f59e0b"
@@ -185,7 +185,7 @@ export const Performance = () => {
           delay={0.2}
         />
         <StatsCard
-          title="Pending"
+          title={t('performance.pending')}
           value={stats.pending}
           icon={AlertCircle}
           iconColor="#ef4444"
@@ -201,7 +201,7 @@ export const Performance = () => {
         transition={{ delay: 0.3 }}
         className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
       >
-        <h3 className="text-lg font-semibold text-white mb-4">Rating Distribution</h3>
+        <h3 className="text-lg font-semibold text-white mb-4">{t('performance.ratingDistribution')}</h3>
         <div className="space-y-3">
           {[5, 4, 3, 2, 1].map((rating) => {
             const count = filteredReviews.filter(
@@ -242,7 +242,7 @@ export const Performance = () => {
           columns={columns}
           data={filteredReviews}
           keyExtractor={(r) => String(r.id)}
-          emptyMessage="No performance reviews found"
+          emptyMessage={t('performance.noReviews')}
         />
       </motion.div>
     </div>

@@ -18,7 +18,7 @@ import { useTranslation } from 'react-i18next';
 const ITEMS_PER_PAGE = 10;
 
 export const EmployeeList = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('hr');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [departmentFilter, setDepartmentFilter] = useState('all');
@@ -60,7 +60,7 @@ export const EmployeeList = () => {
   const columns = [
     {
       key: 'employee',
-      header: 'Employee',
+      header: t('employees.employee'),
       render: (employee: Employee) => (
         <div className="flex items-center gap-3">
           <Avatar name={employee.name} src={profileImages[employee.name]} size="sm" />
@@ -73,33 +73,33 @@ export const EmployeeList = () => {
     },
     {
       key: 'id',
-      header: 'ID',
+      header: t('employees.id'),
       render: (employee: Employee) => (
         <span className="text-white/60 font-mono text-xs">{employee.id}</span>
       ),
     },
     {
       key: 'department',
-      header: 'Department',
+      header: t('employees.department'),
       render: (employee: Employee) => (
         <span className="text-white/80">{employee.department}</span>
       ),
     },
     {
       key: 'position',
-      header: 'Position',
+      header: t('employees.position'),
       render: (employee: Employee) => (
         <span className="text-white/80">{employee.position}</span>
       ),
     },
     {
       key: 'status',
-      header: 'Status',
+      header: t('employees.status'),
       render: (employee: Employee) => <StatusBadge status={employee.status} />,
     },
     {
       key: 'startDate',
-      header: 'Start Date',
+      header: t('employees.startDate'),
       render: (employee: Employee) => (
         <span className="text-white/60">
           {new Date(employee.startDate).toLocaleDateString()}
@@ -108,25 +108,25 @@ export const EmployeeList = () => {
     },
     {
       key: 'actions',
-      header: 'Actions',
+      header: t('employees.actions'),
       render: (employee: Employee) => (
         <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
           <button
             onClick={() => navigate(`/dashboard/hr/employees/${employee.id}`)}
             className="p-2 rounded-lg text-white/40 hover:text-white hover:bg-white/5 transition-colors cursor-pointer"
-            title="View"
+            title={t('employees.view')}
           >
             <Eye className="w-4 h-4" />
           </button>
           <button
             className="p-2 rounded-lg text-white/40 hover:text-[#547792] hover:bg-[#547792]/10 transition-colors cursor-pointer"
-            title="Edit"
+            title={t('employees.edit')}
           >
             <Pencil className="w-4 h-4" />
           </button>
           <button
             className="p-2 rounded-lg text-white/40 hover:text-red-400 hover:bg-red-400/10 transition-colors cursor-pointer"
-            title="Delete"
+            title={t('employees.delete')}
           >
             <Trash2 className="w-4 h-4" />
           </button>
@@ -138,13 +138,13 @@ export const EmployeeList = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title={t('hr.employees', 'Employees')}
-        subtitle={`Manage your team of ${stats.total} employees`}
+        title={t('employees.title')}
+        subtitle={t('employees.subtitle', { count: stats.total })}
         icon={Users}
         actions={
           <button className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#547792] to-[#94B4C1] hover:opacity-90 text-white font-medium rounded-lg transition-opacity cursor-pointer">
             <Plus className="w-4 h-4" />
-            Add Employee
+            {t('employees.addEmployee')}
           </button>
         }
       />
@@ -152,7 +152,7 @@ export const EmployeeList = () => {
       {/* Stats Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Employees"
+          title={t('employees.title')}
           value={stats.total}
           icon={Users}
           iconColor="#547792"
@@ -160,7 +160,7 @@ export const EmployeeList = () => {
           delay={0.1}
         />
         <StatsCard
-          title="Active"
+          title={t('status.active')}
           value={stats.active}
           icon={UserCheck}
           iconColor="#10b981"
@@ -168,7 +168,7 @@ export const EmployeeList = () => {
           delay={0.15}
         />
         <StatsCard
-          title="On Leave"
+          title={t('status.onLeave')}
           value={stats.onLeave}
           icon={UserX}
           iconColor="#f59e0b"
@@ -176,7 +176,7 @@ export const EmployeeList = () => {
           delay={0.2}
         />
         <StatsCard
-          title="Departments"
+          title={t('departments.title')}
           value={stats.departments}
           icon={Building2}
           iconColor="#94B4C1"
@@ -189,14 +189,14 @@ export const EmployeeList = () => {
       <FilterBar
         searchValue={searchQuery}
         onSearchChange={setSearchQuery}
-        searchPlaceholder="Search by name, email, or ID..."
+        searchPlaceholder={t('employees.searchPlaceholder')}
         filters={[
           {
             name: 'department',
             value: departmentFilter,
             onChange: setDepartmentFilter,
             options: [
-              { value: 'all', label: 'All Departments' },
+              { value: 'all', label: t('employees.allDepartments') },
               ...departments.map((d) => ({ value: d.name, label: d.name })),
             ],
           },
@@ -205,10 +205,10 @@ export const EmployeeList = () => {
             value: statusFilter,
             onChange: setStatusFilter,
             options: [
-              { value: 'all', label: 'All Status' },
-              { value: 'active', label: 'Active' },
-              { value: 'on-leave', label: 'On Leave' },
-              { value: 'inactive', label: 'Inactive' },
+              { value: 'all', label: t('employees.allStatus') },
+              { value: 'active', label: t('status.active') },
+              { value: 'on-leave', label: t('status.onLeave') },
+              { value: 'inactive', label: t('status.inactive') },
             ],
           },
         ]}
@@ -232,7 +232,7 @@ export const EmployeeList = () => {
             selectable
             selectedItems={selectedEmployees}
             onSelectionChange={setSelectedEmployees}
-            emptyMessage="No employees found"
+            emptyMessage={t('employees.noEmployees')}
             pagination={{
               currentPage,
               totalPages,

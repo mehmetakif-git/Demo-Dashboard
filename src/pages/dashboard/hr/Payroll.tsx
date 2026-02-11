@@ -8,7 +8,7 @@ import type { PayrollRecord } from '@/data/hrData';
 import { useTranslation } from 'react-i18next';
 
 export const Payroll = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('hr');
   const [selectedMonth, setSelectedMonth] = useState('December 2024');
 
   const stats = useMemo(() => {
@@ -28,7 +28,7 @@ export const Payroll = () => {
   const columns = [
     {
       key: 'employee',
-      header: 'Employee',
+      header: t('payroll.employee'),
       render: (record: PayrollRecord) => (
         <div className="flex items-center gap-3">
           <Avatar name={record.employee} src={profileImages[record.employee]} size="sm" />
@@ -38,14 +38,14 @@ export const Payroll = () => {
     },
     {
       key: 'baseSalary',
-      header: 'Base Salary',
+      header: t('payroll.baseSalary'),
       render: (record: PayrollRecord) => (
         <span className="text-white/80">${record.baseSalary.toLocaleString()}</span>
       ),
     },
     {
       key: 'bonus',
-      header: 'Bonus',
+      header: t('payroll.bonus'),
       render: (record: PayrollRecord) => (
         <span className={record.bonus > 0 ? 'text-emerald-400' : 'text-white/40'}>
           {record.bonus > 0 ? `+$${record.bonus.toLocaleString()}` : '-'}
@@ -54,26 +54,26 @@ export const Payroll = () => {
     },
     {
       key: 'deductions',
-      header: 'Deductions',
+      header: t('payroll.deductions'),
       render: (record: PayrollRecord) => (
         <span className="text-red-400">-${record.deductions.toLocaleString()}</span>
       ),
     },
     {
       key: 'netSalary',
-      header: 'Net Salary',
+      header: t('payroll.netSalary'),
       render: (record: PayrollRecord) => (
         <span className="text-white font-medium">${record.netSalary.toLocaleString()}</span>
       ),
     },
     {
       key: 'status',
-      header: 'Status',
+      header: t('payroll.status'),
       render: (record: PayrollRecord) => <StatusBadge status={record.status} />,
     },
     {
       key: 'paidDate',
-      header: 'Paid Date',
+      header: t('payroll.paidDate'),
       render: (record: PayrollRecord) => (
         <span className="text-white/60">
           {record.paidDate ? new Date(record.paidDate).toLocaleDateString() : '-'}
@@ -82,7 +82,7 @@ export const Payroll = () => {
     },
     {
       key: 'actions',
-      header: 'Actions',
+      header: t('payroll.actions'),
       render: (record: PayrollRecord) => (
         <div className="flex items-center gap-1">
           <button className="p-2 rounded-lg text-white/40 hover:text-white hover:bg-white/5 transition-colors cursor-pointer">
@@ -91,7 +91,7 @@ export const Payroll = () => {
           {record.status === 'pending' && (
             <button className="flex items-center gap-1 px-2 py-1 rounded-lg bg-emerald-500/10 text-emerald-400 text-xs font-medium hover:bg-emerald-500/20 transition-colors cursor-pointer">
               <CheckCircle className="w-3 h-3" />
-              Mark Paid
+              {t('payroll.markPaid')}
             </button>
           )}
         </div>
@@ -102,8 +102,8 @@ export const Payroll = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title={t('hr.payroll', 'Payroll')}
-        subtitle="Manage employee salaries and payments"
+        title={t('payroll.title')}
+        subtitle={t('payroll.subtitle')}
         icon={Wallet}
         actions={
           <div className="flex items-center gap-3">
@@ -118,11 +118,11 @@ export const Payroll = () => {
             </select>
             <button className="flex items-center gap-2 px-4 py-2 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-lg text-white hover:bg-[#1a1a24] transition-colors cursor-pointer">
               <Download className="w-4 h-4" />
-              Export
+              {t('payroll.export')}
             </button>
             <button className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#547792] to-[#94B4C1] hover:opacity-90 text-white font-medium rounded-lg transition-opacity cursor-pointer">
               <Play className="w-4 h-4" />
-              Run Payroll
+              {t('payroll.runPayroll')}
             </button>
           </div>
         }
@@ -131,7 +131,7 @@ export const Payroll = () => {
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Payroll"
+          title={t('payroll.totalPayroll')}
           value={`$${stats.totalPayroll.toLocaleString()}`}
           icon={DollarSign}
           iconColor="#547792"
@@ -139,7 +139,7 @@ export const Payroll = () => {
           delay={0.1}
         />
         <StatsCard
-          title="Paid"
+          title={t('payroll.paid')}
           value={stats.paid}
           icon={CheckCircle}
           iconColor="#10b981"
@@ -147,7 +147,7 @@ export const Payroll = () => {
           delay={0.15}
         />
         <StatsCard
-          title="Pending"
+          title={t('payroll.pending')}
           value={stats.pending}
           icon={Clock}
           iconColor="#f59e0b"
@@ -155,7 +155,7 @@ export const Payroll = () => {
           delay={0.2}
         />
         <StatsCard
-          title="Total Bonus"
+          title={t('payroll.totalBonus')}
           value={`$${stats.totalBonus.toLocaleString()}`}
           icon={Wallet}
           iconColor="#94B4C1"
@@ -171,22 +171,22 @@ export const Payroll = () => {
         transition={{ delay: 0.3 }}
         className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
       >
-        <h3 className="text-lg font-semibold text-white mb-4">{selectedMonth} Summary</h3>
+        <h3 className="text-lg font-semibold text-white mb-4">{t('payroll.monthSummary', { month: selectedMonth })}</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
-            <p className="text-white/40 text-sm mb-2">Total Base Salaries</p>
+            <p className="text-white/40 text-sm mb-2">{t('payroll.totalBaseSalaries')}</p>
             <p className="text-2xl font-bold text-white">
               ${filteredRecords.reduce((acc, r) => acc + r.baseSalary, 0).toLocaleString()}
             </p>
           </div>
           <div>
-            <p className="text-white/40 text-sm mb-2">Total Deductions</p>
+            <p className="text-white/40 text-sm mb-2">{t('payroll.totalDeductions')}</p>
             <p className="text-2xl font-bold text-red-400">
               -${filteredRecords.reduce((acc, r) => acc + r.deductions, 0).toLocaleString()}
             </p>
           </div>
           <div>
-            <p className="text-white/40 text-sm mb-2">Net Payable</p>
+            <p className="text-white/40 text-sm mb-2">{t('payroll.netPayable')}</p>
             <p className="text-2xl font-bold text-emerald-400">
               ${stats.totalPayroll.toLocaleString()}
             </p>
@@ -205,7 +205,7 @@ export const Payroll = () => {
           columns={columns}
           data={filteredRecords}
           keyExtractor={(r) => String(r.id)}
-          emptyMessage="No payroll records for this month"
+          emptyMessage={t('payroll.noRecords')}
         />
       </motion.div>
     </div>

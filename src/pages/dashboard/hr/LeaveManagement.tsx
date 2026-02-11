@@ -7,14 +7,14 @@ import { profileImages } from '@/utils/profileImages';
 import type { LeaveRequest } from '@/data/hrData';
 import { useTranslation } from 'react-i18next';
 
-const tabs = [
-  { id: 'pending', label: 'Pending Requests', count: 0 },
-  { id: 'all', label: 'All Requests' },
-  { id: 'calendar', label: 'Leave Calendar' },
-];
-
 export const LeaveManagement = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('hr');
+
+  const tabs = [
+    { id: 'pending', label: t('leave.pendingRequests'), count: 0 },
+    { id: 'all', label: t('leave.allRequests') },
+    { id: 'calendar', label: t('leave.leaveCalendar') },
+  ];
   const [activeTab, setActiveTab] = useState('pending');
 
   const stats = useMemo(() => ({
@@ -37,7 +37,7 @@ export const LeaveManagement = () => {
   const columns = [
     {
       key: 'employee',
-      header: 'Employee',
+      header: t('leave.employee'),
       render: (request: LeaveRequest) => (
         <div className="flex items-center gap-3">
           <Avatar name={request.employee} src={profileImages[request.employee]} size="sm" />
@@ -47,50 +47,50 @@ export const LeaveManagement = () => {
     },
     {
       key: 'type',
-      header: 'Leave Type',
+      header: t('leave.leaveType'),
       render: (request: LeaveRequest) => (
         <span className="text-white/80">{request.type}</span>
       ),
     },
     {
       key: 'startDate',
-      header: 'Start Date',
+      header: t('leave.startDate'),
       render: (request: LeaveRequest) => (
         <span className="text-white/60">{request.startDate}</span>
       ),
     },
     {
       key: 'endDate',
-      header: 'End Date',
+      header: t('leave.endDate'),
       render: (request: LeaveRequest) => (
         <span className="text-white/60">{request.endDate}</span>
       ),
     },
     {
       key: 'days',
-      header: 'Days',
+      header: t('leave.days'),
       render: (request: LeaveRequest) => (
         <span className="text-white font-medium">{request.days}</span>
       ),
     },
     {
       key: 'status',
-      header: 'Status',
+      header: t('leave.status'),
       render: (request: LeaveRequest) => <StatusBadge status={request.status} />,
     },
     {
       key: 'actions',
-      header: 'Actions',
+      header: t('leave.actions'),
       render: (request: LeaveRequest) => (
         request.status === 'pending' ? (
           <div className="flex items-center gap-2">
             <button className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 text-xs font-medium hover:bg-emerald-500/20 transition-colors cursor-pointer">
               <Check className="w-3 h-3" />
-              Approve
+              {t('leave.approve')}
             </button>
             <button className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-red-500/10 text-red-400 text-xs font-medium hover:bg-red-500/20 transition-colors cursor-pointer">
               <X className="w-3 h-3" />
-              Reject
+              {t('leave.reject')}
             </button>
           </div>
         ) : (
@@ -164,7 +164,7 @@ export const LeaveManagement = () => {
                     </div>
                   ))}
                   {leavesOnDay.length > 2 && (
-                    <div className="text-[10px] text-white/40">+{leavesOnDay.length - 2} more</div>
+                    <div className="text-[10px] text-white/40">{t('leave.more', { count: leavesOnDay.length - 2 })}</div>
                   )}
                 </div>
               </div>
@@ -176,11 +176,11 @@ export const LeaveManagement = () => {
         <div className="flex items-center gap-4 mt-4 pt-4 border-t border-white/[0.08]">
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded bg-emerald-500/20 border border-emerald-500/30" />
-            <span className="text-xs text-white/60">Approved</span>
+            <span className="text-xs text-white/60">{t('leave.approved')}</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded bg-orange-500/20 border border-orange-500/30" />
-            <span className="text-xs text-white/60">Pending</span>
+            <span className="text-xs text-white/60">{t('leave.pending')}</span>
           </div>
         </div>
       </motion.div>
@@ -190,15 +190,15 @@ export const LeaveManagement = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title={t('hr.leaveManagement', 'Leave Management')}
-        subtitle="Manage employee leave requests"
+        title={t('leave.title')}
+        subtitle={t('leave.subtitle')}
         icon={CalendarOff}
       />
 
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Pending Requests"
+          title={t('leave.pendingRequests')}
           value={stats.pending}
           icon={Clock}
           iconColor="#f59e0b"
@@ -206,7 +206,7 @@ export const LeaveManagement = () => {
           delay={0.1}
         />
         <StatsCard
-          title="Approved This Month"
+          title={t('leave.approvedThisMonth')}
           value={stats.approved}
           icon={CheckCircle}
           iconColor="#10b981"
@@ -214,7 +214,7 @@ export const LeaveManagement = () => {
           delay={0.15}
         />
         <StatsCard
-          title="Rejected"
+          title={t('leave.rejected')}
           value={stats.rejected}
           icon={XCircle}
           iconColor="#ef4444"
@@ -222,7 +222,7 @@ export const LeaveManagement = () => {
           delay={0.2}
         />
         <StatsCard
-          title="Total Leave Days Used"
+          title={t('leave.totalLeaveDays')}
           value={stats.totalDays}
           icon={Calendar}
           iconColor="#547792"
@@ -247,7 +247,7 @@ export const LeaveManagement = () => {
             columns={columns}
             data={filteredRequests}
             keyExtractor={(r) => String(r.id)}
-            emptyMessage="No leave requests found"
+            emptyMessage={t('leave.noRequests')}
           />
         </motion.div>
       )}

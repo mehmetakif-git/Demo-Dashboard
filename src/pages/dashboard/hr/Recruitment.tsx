@@ -17,7 +17,7 @@ import { jobPostings } from '@/data/hrData';
 import { useTranslation } from 'react-i18next';
 
 export const Recruitment = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('hr');
   const [viewMode, setViewMode] = useState<'cards' | 'table'>('cards');
 
   const stats = useMemo(() => ({
@@ -30,13 +30,13 @@ export const Recruitment = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title={t('hr.recruitment', 'Recruitment')}
-        subtitle="Manage job postings and candidates"
+        title={t('recruitment.title')}
+        subtitle={t('recruitment.subtitle')}
         icon={UserSearch}
         actions={
           <button className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#547792] to-[#94B4C1] hover:opacity-90 text-white font-medium rounded-lg transition-opacity cursor-pointer">
             <Plus className="w-4 h-4" />
-            Post New Job
+            {t('recruitment.postNewJob')}
           </button>
         }
       />
@@ -44,7 +44,7 @@ export const Recruitment = () => {
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Active Postings"
+          title={t('recruitment.activePostings')}
           value={stats.activePostings}
           icon={Briefcase}
           iconColor="#547792"
@@ -52,7 +52,7 @@ export const Recruitment = () => {
           delay={0.1}
         />
         <StatsCard
-          title="Total Applicants"
+          title={t('recruitment.totalApplicants')}
           value={stats.totalApplicants}
           icon={Users}
           iconColor="#10b981"
@@ -60,7 +60,7 @@ export const Recruitment = () => {
           delay={0.15}
         />
         <StatsCard
-          title="Interviews Scheduled"
+          title={t('recruitment.interviewsScheduled')}
           value={stats.interviewsScheduled}
           icon={Calendar}
           iconColor="#f59e0b"
@@ -68,7 +68,7 @@ export const Recruitment = () => {
           delay={0.2}
         />
         <StatsCard
-          title="Positions Filled"
+          title={t('recruitment.positionsFilled')}
           value={stats.positionsFilled}
           icon={CheckCircle}
           iconColor="#94B4C1"
@@ -79,7 +79,7 @@ export const Recruitment = () => {
 
       {/* View Toggle */}
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-white">Job Postings</h3>
+        <h3 className="text-lg font-semibold text-white">{t('recruitment.jobPostings')}</h3>
         <div className="flex items-center gap-2 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-lg p-1">
           <button
             onClick={() => setViewMode('cards')}
@@ -89,7 +89,7 @@ export const Recruitment = () => {
                 : 'text-white/60 hover:text-white'
             }`}
           >
-            Cards
+            {t('recruitment.cards')}
           </button>
           <button
             onClick={() => setViewMode('table')}
@@ -99,7 +99,7 @@ export const Recruitment = () => {
                 : 'text-white/60 hover:text-white'
             }`}
           >
-            Table
+            {t('recruitment.table')}
           </button>
         </div>
       </div>
@@ -136,7 +136,7 @@ export const Recruitment = () => {
                 </div>
                 <div className="flex items-center gap-2 text-sm">
                   <Users className="w-4 h-4 text-white/40" />
-                  <span className="text-white/60">{job.applicants} applicants</span>
+                  <span className="text-white/60">{t('recruitment.applicants', { count: job.applicants })}</span>
                 </div>
               </div>
 
@@ -144,7 +144,7 @@ export const Recruitment = () => {
               <div className="flex items-center justify-between pt-4 border-t border-white/[0.08]">
                 <span className="text-sm text-emerald-400">{job.salaryRange}</span>
                 <span className="text-xs text-white/40">
-                  Posted {new Date(job.postedDate).toLocaleDateString()}
+                  {t('recruitment.posted', { date: new Date(job.postedDate).toLocaleDateString() })}
                 </span>
               </div>
 
@@ -152,7 +152,7 @@ export const Recruitment = () => {
               <div className="flex items-center gap-2 mt-4">
                 <button className="flex-1 flex items-center justify-center gap-2 py-2 rounded-lg bg-[#547792]/10 text-[#547792] text-sm font-medium hover:bg-[#547792]/20 transition-colors cursor-pointer">
                   <Eye className="w-4 h-4" />
-                  View Applicants
+                  {t('recruitment.viewApplicants')}
                 </button>
                 <button className="p-2 rounded-lg text-white/40 hover:text-white hover:bg-white/5 transition-colors cursor-pointer">
                   <Pencil className="w-4 h-4" />
@@ -174,28 +174,28 @@ export const Recruitment = () => {
             <thead>
               <tr className="bg-[#1a1a24]">
                 <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">
-                  Position
+                  {t('recruitment.position')}
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">
-                  Department
+                  {t('recruitment.department')}
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">
-                  Location
+                  {t('recruitment.location')}
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">
-                  Type
+                  {t('recruitment.type')}
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">
-                  Applicants
+                  {t('recruitment.totalApplicants')}
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">
-                  Status
+                  {t('recruitment.status')}
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">
-                  Posted
+                  {t('recruitment.posted', { date: '' }).trim()}
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">
-                  Actions
+                  {t('employees.actions')}
                 </th>
               </tr>
             </thead>
