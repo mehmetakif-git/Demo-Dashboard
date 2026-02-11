@@ -26,7 +26,8 @@ import { getProfileImage, getCompanyLogo } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const GroupChats = () => {
-  const { t: _t } = useTranslation('common');
+  const { t, i18n } = useTranslation('communication');
+  const locale = i18n.language === 'tr' ? 'tr-TR' : 'en-US';
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedGroup, setSelectedGroup] = useState<GroupChat | null>(groupChats[0]);
   const [messageInput, setMessageInput] = useState('');
@@ -57,7 +58,7 @@ export const GroupChats = () => {
 
   const formatTime = (dateStr: string) => {
     const date = new Date(dateStr);
-    return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+    return date.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' });
   };
 
   const formatDate = (dateStr: string) => {
@@ -66,9 +67,9 @@ export const GroupChats = () => {
     const yesterday = new Date(today);
     yesterday.setDate(yesterday.getDate() - 1);
 
-    if (date.toDateString() === today.toDateString()) return 'Today';
-    if (date.toDateString() === yesterday.toDateString()) return 'Yesterday';
-    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    if (date.toDateString() === today.toDateString()) return t('groupChats.today');
+    if (date.toDateString() === yesterday.toDateString()) return t('groupChats.yesterday');
+    return date.toLocaleDateString(locale, { month: 'short', day: 'numeric' });
   };
 
   const getInitials = (name: string) => {
@@ -112,7 +113,7 @@ export const GroupChats = () => {
     return selectedGroup.members
       .map(id => {
         if (id === 'current-user') {
-          return { id: 'current-user', name: 'You', status: 'online' as const, isAdmin: false };
+          return { id: 'current-user', name: t('groupChats.you'), status: 'online' as const, isAdmin: false };
         }
         const user = getUserById(id);
         return user ? { ...user, isAdmin: id === selectedGroup.members[0] } : null;
@@ -126,9 +127,9 @@ export const GroupChats = () => {
       <div className="w-80 bg-white/[0.03] backdrop-blur-xl border-r border-white/[0.08] flex flex-col shrink-0">
         {/* Header */}
         <div className="p-4 border-b border-white/[0.08]">
-          <h2 className="text-lg font-semibold text-text-primary mb-3">Group Chats</h2>
+          <h2 className="text-lg font-semibold text-text-primary mb-3">{t('groupChats.title')}</h2>
           <Input
-            placeholder="Search groups..."
+            placeholder={t('groupChats.searchGroups')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             leftIcon={<Search size={16} />}
@@ -188,7 +189,7 @@ export const GroupChats = () => {
                   </p>
                   <div className="flex items-center gap-2 mt-1">
                     <Users size={12} className="text-text-muted" />
-                    <span className="text-xs text-text-muted">{group.memberCount} members</span>
+                    <span className="text-xs text-text-muted">{t('groupChats.membersCount', { count: group.memberCount })}</span>
                   </div>
                 </div>
 
@@ -206,7 +207,7 @@ export const GroupChats = () => {
         {/* Create Group Button */}
         <div className="p-4 border-t border-white/[0.08]">
           <Button className="w-full" leftIcon={<Plus size={16} />}>
-            Create Group
+            {t('groupChats.createGroup')}
           </Button>
         </div>
       </div>
@@ -242,7 +243,7 @@ export const GroupChats = () => {
                 })()}
                 <div>
                   <h3 className="font-semibold text-text-primary">{selectedGroup.name}</h3>
-                  <span className="text-xs text-text-secondary">{selectedGroup.memberCount} members</span>
+                  <span className="text-xs text-text-secondary">{t('groupChats.membersCount', { count: selectedGroup.memberCount })}</span>
                 </div>
               </div>
               <div className="flex items-center gap-2">
@@ -346,11 +347,11 @@ export const GroupChats = () => {
                     value={messageInput}
                     onChange={(e) => setMessageInput(e.target.value)}
                     onKeyDown={handleKeyPress}
-                    placeholder="Type a message..."
+                    placeholder={t('groupChats.typeMessage')}
                     rows={1}
                     className="w-full px-4 py-2.5 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-primary resize-none"
                   />
-                  <p className="text-xs text-text-muted mt-1">Press Enter to send</p>
+                  <p className="text-xs text-text-muted mt-1">{t('groupChats.pressEnter')}</p>
                 </div>
                 <button className="p-2 hover:bg-white/[0.05] rounded-lg transition-colors mb-1">
                   <Smile size={20} className="text-text-secondary" />
@@ -361,7 +362,7 @@ export const GroupChats = () => {
                   className="mb-1"
                   leftIcon={<Send size={16} />}
                 >
-                  Send
+                  {t('groupChats.send')}
                 </Button>
               </div>
             </div>
@@ -370,7 +371,7 @@ export const GroupChats = () => {
           <div className="flex-1 flex items-center justify-center">
             <div className="text-center">
               <Users size={48} className="mx-auto mb-4 text-text-muted" />
-              <p className="text-text-secondary">Select a group to start messaging</p>
+              <p className="text-text-secondary">{t('groupChats.selectGroup')}</p>
             </div>
           </div>
         )}
@@ -387,7 +388,7 @@ export const GroupChats = () => {
           <div className="p-4 h-full flex flex-col">
             {/* Header */}
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold text-text-primary">Group Info</h3>
+              <h3 className="font-semibold text-text-primary">{t('groupChats.groupInfo')}</h3>
               <button
                 onClick={() => setShowGroupInfo(false)}
                 className="p-1 hover:bg-white/[0.05] rounded"
@@ -423,7 +424,7 @@ export const GroupChats = () => {
               <h4 className="font-semibold text-text-primary mt-3">{selectedGroup.name}</h4>
               <p className="text-sm text-text-secondary">{selectedGroup.description}</p>
               <span className="inline-flex items-center gap-1 mt-2 text-xs text-text-muted">
-                Created by {selectedGroup.createdBy}
+                {t('groupChats.createdBy', { name: selectedGroup.createdBy })}
               </span>
             </div>
 
@@ -431,7 +432,7 @@ export const GroupChats = () => {
             <div className="flex-1 overflow-hidden flex flex-col">
               <div className="flex items-center justify-between mb-3">
                 <h5 className="text-sm font-medium text-text-secondary">
-                  Members ({selectedGroup.memberCount})
+                  {t('groupChats.members', { count: selectedGroup.memberCount })}
                 </h5>
                 <button className="p-1 hover:bg-white/[0.05] rounded">
                   <UserPlus size={14} className="text-text-secondary" />
@@ -487,7 +488,7 @@ export const GroupChats = () => {
             {/* Actions */}
             <div className="pt-4 border-t border-white/[0.08] space-y-2">
               <Button variant="secondary" className="w-full justify-start text-red-400 hover:bg-red-500/10" leftIcon={<LogOut size={16} />}>
-                Leave Group
+                {t('groupChats.leaveGroup')}
               </Button>
             </div>
           </div>

@@ -27,7 +27,8 @@ import { getProfileImage } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const Chat = () => {
-  const { t: _t } = useTranslation('common');
+  const { t, i18n } = useTranslation('communication');
+  const locale = i18n.language === 'tr' ? 'tr-TR' : 'en-US';
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedConversation, setSelectedConversation] = useState<DirectMessage | null>(directMessages[0]);
   const [messageInput, setMessageInput] = useState('');
@@ -63,7 +64,7 @@ export const Chat = () => {
 
   const formatTime = (dateStr: string) => {
     const date = new Date(dateStr);
-    return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+    return date.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' });
   };
 
   const formatDate = (dateStr: string) => {
@@ -72,9 +73,9 @@ export const Chat = () => {
     const yesterday = new Date(today);
     yesterday.setDate(yesterday.getDate() - 1);
 
-    if (date.toDateString() === today.toDateString()) return 'Today';
-    if (date.toDateString() === yesterday.toDateString()) return 'Yesterday';
-    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    if (date.toDateString() === today.toDateString()) return t('chat.today');
+    if (date.toDateString() === yesterday.toDateString()) return t('chat.yesterday');
+    return date.toLocaleDateString(locale, { month: 'short', day: 'numeric' });
   };
 
   const getInitials = (name: string) => {
@@ -119,9 +120,9 @@ export const Chat = () => {
       <div className="w-80 bg-white/[0.03] backdrop-blur-xl border-r border-white/[0.08] flex flex-col shrink-0">
         {/* Header */}
         <div className="p-4 border-b border-white/[0.08]">
-          <h2 className="text-lg font-semibold text-text-primary mb-3">Messages</h2>
+          <h2 className="text-lg font-semibold text-text-primary mb-3">{t('chat.messages')}</h2>
           <Input
-            placeholder="Search conversations..."
+            placeholder={t('chat.searchConversations')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             leftIcon={<Search size={16} />}
@@ -197,7 +198,7 @@ export const Chat = () => {
         {/* New Message Button */}
         <div className="p-4 border-t border-white/[0.08]">
           <Button className="w-full" leftIcon={<Plus size={16} />}>
-            New Message
+            {t('chat.newMessage')}
           </Button>
         </div>
       </div>
@@ -314,11 +315,11 @@ export const Chat = () => {
                     value={messageInput}
                     onChange={(e) => setMessageInput(e.target.value)}
                     onKeyDown={handleKeyPress}
-                    placeholder="Type a message..."
+                    placeholder={t('chat.typeMessage')}
                     rows={1}
                     className="w-full px-4 py-2.5 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-primary resize-none"
                   />
-                  <p className="text-xs text-text-muted mt-1">Press Enter to send</p>
+                  <p className="text-xs text-text-muted mt-1">{t('chat.pressEnter')}</p>
                 </div>
                 <button className="p-2 hover:bg-white/[0.05] rounded-lg transition-colors mb-1">
                   <Smile size={20} className="text-text-secondary" />
@@ -329,7 +330,7 @@ export const Chat = () => {
                   className="mb-1"
                   leftIcon={<Send size={16} />}
                 >
-                  Send
+                  {t('chat.send')}
                 </Button>
               </div>
             </div>
@@ -338,7 +339,7 @@ export const Chat = () => {
           <div className="flex-1 flex items-center justify-center">
             <div className="text-center">
               <MessageSquare size={48} className="mx-auto mb-4 text-text-muted" />
-              <p className="text-text-secondary">Select a conversation to start messaging</p>
+              <p className="text-text-secondary">{t('chat.selectConversation')}</p>
             </div>
           </div>
         )}
@@ -355,7 +356,7 @@ export const Chat = () => {
           <div className="p-4">
             {/* Header */}
             <div className="flex items-center justify-between mb-6">
-              <h3 className="font-semibold text-text-primary">Profile</h3>
+              <h3 className="font-semibold text-text-primary">{t('chat.profile')}</h3>
               <button
                 onClick={() => setShowUserInfo(false)}
                 className="p-1 hover:bg-white/[0.05] rounded"
@@ -400,7 +401,7 @@ export const Chat = () => {
 
             {/* Contact Info */}
             <Card className="p-4 mb-4">
-              <h5 className="text-sm font-medium text-text-secondary mb-3">Contact</h5>
+              <h5 className="text-sm font-medium text-text-secondary mb-3">{t('chat.contact')}</h5>
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
                   <Mail size={16} className="text-text-muted" />
@@ -418,13 +419,13 @@ export const Chat = () => {
             {/* Quick Actions */}
             <div className="space-y-2">
               <Button variant="secondary" className="w-full justify-start" leftIcon={<Mail size={16} />}>
-                Send Email
+                {t('chat.sendEmail')}
               </Button>
               <Button variant="secondary" className="w-full justify-start" leftIcon={<Video size={16} />}>
-                Video Call
+                {t('chat.videoCall')}
               </Button>
               <Button variant="secondary" className="w-full justify-start" leftIcon={<Info size={16} />}>
-                View Full Profile
+                {t('chat.viewFullProfile')}
               </Button>
             </div>
           </div>

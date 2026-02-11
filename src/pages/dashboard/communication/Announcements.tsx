@@ -20,7 +20,8 @@ import { getProfileImage } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const Announcements = () => {
-  const { t } = useTranslation('common');
+  const { t, i18n } = useTranslation('communication');
+  const locale = i18n.language === 'tr' ? 'tr-TR' : 'en-US';
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedPriority, setSelectedPriority] = useState<string>('all');
   const [selectedAnnouncement, setSelectedAnnouncement] = useState<Announcement | null>(null);
@@ -51,12 +52,12 @@ export const Announcements = () => {
 
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
-    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    return date.toLocaleDateString(locale, { month: 'short', day: 'numeric', year: 'numeric' });
   };
 
   const formatTime = (dateStr: string) => {
     const date = new Date(dateStr);
-    return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+    return date.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' });
   };
 
   const getInitials = (name: string) => {
@@ -65,9 +66,9 @@ export const Announcements = () => {
 
   const getPriorityBadge = (priority: Announcement['priority']) => {
     const config = {
-      high: { bg: 'bg-red-500/20', text: 'text-red-400', label: 'High Priority' },
-      normal: { bg: 'bg-blue-500/20', text: 'text-blue-400', label: 'Normal' },
-      low: { bg: 'bg-gray-500/20', text: 'text-gray-400', label: 'Low Priority' },
+      high: { bg: 'bg-red-500/20', text: 'text-red-400', label: t('announcements.highPriority') },
+      normal: { bg: 'bg-blue-500/20', text: 'text-blue-400', label: t('announcements.normal') },
+      low: { bg: 'bg-gray-500/20', text: 'text-gray-400', label: t('announcements.lowPriority') },
     };
     const c = config[priority];
     return (
@@ -118,7 +119,7 @@ export const Announcements = () => {
                 )}
                 {isExpiringSoon(announcement.expiresAt) && (
                   <span className="px-2 py-0.5 rounded text-xs font-medium bg-orange-500/20 text-orange-400">
-                    Expires soon
+                    {t('announcements.expiresSoon')}
                   </span>
                 )}
               </div>
@@ -166,12 +167,12 @@ export const Announcements = () => {
               </span>
               <span className="flex items-center gap-1">
                 <Eye size={12} />
-                {announcement.readCount}/{announcement.totalRecipients} read
+                {t('announcements.readCount', { read: announcement.readCount, total: announcement.totalRecipients })}
               </span>
               {announcement.attachments.length > 0 && (
                 <span className="flex items-center gap-1">
                   <Paperclip size={12} />
-                  {announcement.attachments.length} file(s)
+                  {t('announcements.files', { count: announcement.attachments.length })}
                 </span>
               )}
             </div>
@@ -198,11 +199,11 @@ export const Announcements = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('communication.announcements', 'Announcements')}
-        subtitle="Company-wide announcements and updates"
+        title={t('announcements.title')}
+        subtitle={t('announcements.subtitle')}
         actions={
           <Button leftIcon={<Plus size={16} />}>
-            Create Announcement
+            {t('announcements.createAnnouncement')}
           </Button>
         }
       />
@@ -212,7 +213,7 @@ export const Announcements = () => {
         <div className="flex flex-wrap gap-4 items-center">
           <div className="flex-1 min-w-50 max-w-md">
             <Input
-              placeholder="Search announcements..."
+              placeholder={t('announcements.searchAnnouncements')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               leftIcon={<Search size={16} />}
@@ -224,10 +225,10 @@ export const Announcements = () => {
             onChange={(e) => setSelectedPriority(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Priorities</option>
-            <option value="high">High Priority</option>
-            <option value="normal">Normal</option>
-            <option value="low">Low Priority</option>
+            <option value="all">{t('announcements.allPriorities')}</option>
+            <option value="high">{t('announcements.highPriority')}</option>
+            <option value="normal">{t('announcements.normal')}</option>
+            <option value="low">{t('announcements.lowPriority')}</option>
           </select>
         </div>
       </Card>
@@ -237,7 +238,7 @@ export const Announcements = () => {
         <div className="space-y-4">
           <div className="flex items-center gap-2">
             <Pin size={16} className="text-accent-primary" />
-            <h2 className="font-semibold text-text-primary">Pinned Announcements</h2>
+            <h2 className="font-semibold text-text-primary">{t('announcements.pinnedAnnouncements')}</h2>
           </div>
           <div className="grid gap-4">
             {pinnedAnnouncements.map(announcement => (
@@ -249,7 +250,7 @@ export const Announcements = () => {
 
       {/* All Announcements */}
       <div className="space-y-4">
-        <h2 className="font-semibold text-text-primary">Recent Announcements</h2>
+        <h2 className="font-semibold text-text-primary">{t('announcements.recentAnnouncements')}</h2>
         <div className="grid gap-4">
           {filteredAnnouncements.map(announcement => (
             <AnnouncementCard key={announcement.id} announcement={announcement} />
@@ -260,7 +261,7 @@ export const Announcements = () => {
       {filteredAnnouncements.length === 0 && pinnedAnnouncements.length === 0 && (
         <Card className="p-12 text-center">
           <Megaphone size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No announcements found</p>
+          <p className="text-text-secondary">{t('announcements.noAnnouncements')}</p>
         </Card>
       )}
 
@@ -316,7 +317,7 @@ export const Announcements = () => {
                   <p className="text-sm text-text-secondary">{selectedAnnouncement.authorRole}</p>
                 </div>
                 <span className="text-sm text-text-muted ml-auto">
-                  {formatDate(selectedAnnouncement.publishedAt)} at {formatTime(selectedAnnouncement.publishedAt)}
+                  {formatDate(selectedAnnouncement.publishedAt)} {t('announcements.at')} {formatTime(selectedAnnouncement.publishedAt)}
                 </span>
               </div>
             </div>
@@ -328,7 +329,7 @@ export const Announcements = () => {
               {/* Attachments */}
               {selectedAnnouncement.attachments.length > 0 && (
                 <div className="mt-6 pt-6 border-t border-white/[0.08]">
-                  <h4 className="font-medium text-text-primary mb-3">Attachments</h4>
+                  <h4 className="font-medium text-text-primary mb-3">{t('announcements.attachments')}</h4>
                   <div className="space-y-2">
                     {selectedAnnouncement.attachments.map((attachment, index) => (
                       <div
@@ -358,19 +359,19 @@ export const Announcements = () => {
                 <div className="flex items-center gap-4 text-sm text-text-muted">
                   <span className="flex items-center gap-1">
                     <Users size={14} />
-                    {selectedAnnouncement.targetAudience === 'all' ? 'All Employees' : selectedAnnouncement.targetAudience}
+                    {selectedAnnouncement.targetAudience === 'all' ? t('announcements.allEmployees') : selectedAnnouncement.targetAudience}
                   </span>
                   <span className="flex items-center gap-1">
                     <Eye size={14} />
-                    {selectedAnnouncement.readCount}/{selectedAnnouncement.totalRecipients} read
+                    {t('announcements.readCount', { read: selectedAnnouncement.readCount, total: selectedAnnouncement.totalRecipients })}
                   </span>
                   <span className="flex items-center gap-1">
                     <Calendar size={14} />
-                    Expires {formatDate(selectedAnnouncement.expiresAt)}
+                    {t('announcements.expires', { date: formatDate(selectedAnnouncement.expiresAt) })}
                   </span>
                 </div>
                 <Button variant="secondary" onClick={() => setSelectedAnnouncement(null)}>
-                  Close
+                  {t('announcements.close')}
                 </Button>
               </div>
             </div>

@@ -10,6 +10,7 @@ import enDashboard from './locales/en/dashboard.json';
 import enBreadcrumb from './locales/en/breadcrumb.json';
 import enErrors from './locales/en/errors.json';
 import enSectors from './locales/en/sectors.json';
+import enCommunication from './locales/en/communication.json';
 
 // TR translations
 import trCommon from './locales/tr/common.json';
@@ -19,6 +20,7 @@ import trDashboard from './locales/tr/dashboard.json';
 import trBreadcrumb from './locales/tr/breadcrumb.json';
 import trErrors from './locales/tr/errors.json';
 import trSectors from './locales/tr/sectors.json';
+import trCommunication from './locales/tr/communication.json';
 
 i18n
   .use(LanguageDetector)
@@ -33,6 +35,7 @@ i18n
         breadcrumb: enBreadcrumb,
         errors: enErrors,
         sectors: enSectors,
+        communication: enCommunication,
       },
       tr: {
         common: trCommon,
@@ -42,11 +45,12 @@ i18n
         breadcrumb: trBreadcrumb,
         errors: trErrors,
         sectors: trSectors,
+        communication: trCommunication,
       },
     },
     fallbackLng: 'en',
     defaultNS: 'common',
-    ns: ['common', 'auth', 'sidebar', 'dashboard', 'breadcrumb', 'errors', 'sectors'],
+    ns: ['common', 'auth', 'sidebar', 'dashboard', 'breadcrumb', 'errors', 'sectors', 'communication'],
     interpolation: {
       escapeValue: false,
     },

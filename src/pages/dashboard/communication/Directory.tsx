@@ -21,7 +21,7 @@ import { getProfileImage } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const Directory = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('communication');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDepartment, setSelectedDepartment] = useState<string>('all');
   const [selectedLocation, setSelectedLocation] = useState<string>('all');
@@ -225,8 +225,8 @@ export const Directory = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('communication.employeeDirectory', 'Employee Directory')}
-        subtitle="Find and connect with colleagues"
+        title={t('directory.title')}
+        subtitle={t('directory.subtitle')}
       />
 
       {/* Stats Bar */}
@@ -238,7 +238,7 @@ export const Directory = () => {
             </div>
             <div>
               <p className="text-2xl font-bold text-text-primary">{employeeDirectory.length}</p>
-              <p className="text-sm text-text-secondary">Total Employees</p>
+              <p className="text-sm text-text-secondary">{t('directory.totalEmployees')}</p>
             </div>
           </div>
         </Card>
@@ -249,7 +249,7 @@ export const Directory = () => {
             </div>
             <div>
               <p className="text-2xl font-bold text-text-primary">{onlineCount}</p>
-              <p className="text-sm text-text-secondary">Online Now</p>
+              <p className="text-sm text-text-secondary">{t('directory.onlineNow')}</p>
             </div>
           </div>
         </Card>
@@ -260,7 +260,7 @@ export const Directory = () => {
             </div>
             <div>
               <p className="text-2xl font-bold text-text-primary">{departments.length}</p>
-              <p className="text-sm text-text-secondary">Departments</p>
+              <p className="text-sm text-text-secondary">{t('directory.departments')}</p>
             </div>
           </div>
         </Card>
@@ -271,7 +271,7 @@ export const Directory = () => {
             </div>
             <div>
               <p className="text-2xl font-bold text-text-primary">{locations.length}</p>
-              <p className="text-sm text-text-secondary">Locations</p>
+              <p className="text-sm text-text-secondary">{t('directory.locations')}</p>
             </div>
           </div>
         </Card>
@@ -282,7 +282,7 @@ export const Directory = () => {
         <div className="flex flex-wrap gap-4 items-center">
           <div className="flex-1 min-w-64 max-w-md">
             <Input
-              placeholder="Search by name, email, department, position..."
+              placeholder={t('directory.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               leftIcon={<Search size={16} />}
@@ -294,7 +294,7 @@ export const Directory = () => {
             onChange={(e) => setSelectedDepartment(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Departments</option>
+            <option value="all">{t('directory.allDepartments')}</option>
             {departments.map((dept: string) => (
               <option key={dept} value={dept}>{dept}</option>
             ))}
@@ -305,7 +305,7 @@ export const Directory = () => {
             onChange={(e) => setSelectedLocation(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Locations</option>
+            <option value="all">{t('directory.allLocations')}</option>
             {locations.map((loc: string) => (
               <option key={loc} value={loc}>{loc}</option>
             ))}
@@ -316,11 +316,11 @@ export const Directory = () => {
             onChange={(e) => setSelectedStatus(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Status</option>
-            <option value="online">Online</option>
-            <option value="away">Away</option>
-            <option value="busy">Busy</option>
-            <option value="offline">Offline</option>
+            <option value="all">{t('directory.allStatus')}</option>
+            <option value="online">{t('directory.online')}</option>
+            <option value="away">{t('directory.away')}</option>
+            <option value="busy">{t('directory.busy')}</option>
+            <option value="offline">{t('directory.offline')}</option>
           </select>
 
           <div className="flex items-center border border-white/[0.08] rounded-lg overflow-hidden">
@@ -351,7 +351,7 @@ export const Directory = () => {
       {/* Results Count */}
       <div className="flex items-center justify-between">
         <p className="text-sm text-text-muted">
-          Showing {filteredEmployees.length} of {employeeDirectory.length} employees
+          {t('directory.showing', { count: filteredEmployees.length, total: employeeDirectory.length })}
         </p>
       </div>
 
@@ -372,25 +372,25 @@ export const Directory = () => {
               <thead>
                 <tr className="bg-white/[0.05] border-b border-white/[0.08]">
                   <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                    Employee
+                    {t('directory.employee')}
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                    Position
+                    {t('directory.position')}
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                    Department
+                    {t('directory.department')}
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                    Location
+                    {t('directory.location')}
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                    Email
+                    {t('directory.email')}
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                    Phone
+                    {t('directory.phone')}
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                    Actions
+                    {t('directory.actions')}
                   </th>
                 </tr>
               </thead>
@@ -408,7 +408,7 @@ export const Directory = () => {
       {filteredEmployees.length === 0 && (
         <Card className="p-12 text-center">
           <Users size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No employees found matching your criteria</p>
+          <p className="text-text-secondary">{t('directory.noEmployees')}</p>
         </Card>
       )}
 
@@ -472,21 +472,21 @@ export const Directory = () => {
                 <div className="flex items-center gap-3 p-3 bg-white/[0.05] rounded-lg">
                   <Building2 size={18} className="text-text-muted" />
                   <div>
-                    <p className="text-xs text-text-muted">Department</p>
+                    <p className="text-xs text-text-muted">{t('directory.department')}</p>
                     <p className="text-sm font-medium text-text-primary">{selectedEmployee.department}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 p-3 bg-white/[0.05] rounded-lg">
                   <MapPin size={18} className="text-text-muted" />
                   <div>
-                    <p className="text-xs text-text-muted">Location</p>
+                    <p className="text-xs text-text-muted">{t('directory.location')}</p>
                     <p className="text-sm font-medium text-text-primary">{selectedEmployee.location}</p>
                   </div>
                 </div>
               </div>
 
               <Card className="p-4">
-                <h4 className="text-sm font-medium text-text-secondary mb-3">Contact Information</h4>
+                <h4 className="text-sm font-medium text-text-secondary mb-3">{t('directory.contactInfo')}</h4>
                 <div className="space-y-3">
                   <div className="flex items-center gap-3">
                     <Mail size={16} className="text-text-muted" />
@@ -508,13 +508,13 @@ export const Directory = () => {
             <div className="p-6 border-t border-white/[0.08] bg-white/[0.05]">
               <div className="flex items-center gap-3">
                 <Button className="flex-1" leftIcon={<MessageSquare size={16} />}>
-                  Send Message
+                  {t('directory.sendMessage')}
                 </Button>
                 <Button variant="secondary" className="flex-1" leftIcon={<Video size={16} />}>
-                  Video Call
+                  {t('directory.videoCall')}
                 </Button>
                 <Button variant="secondary" leftIcon={<UserCircle size={16} />}>
-                  Full Profile
+                  {t('directory.fullProfile')}
                 </Button>
               </div>
             </div>
