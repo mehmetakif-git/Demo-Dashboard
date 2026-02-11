@@ -12,8 +12,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button } from '@/components/common';
 import { rooms, reservations, HOTEL_COLOR } from '@/data/hotel/hotelData';
+import { useTranslation } from 'react-i18next';
 
 export const FrontDesk = () => {
+  const { t } = useTranslation('hotel');
   const today = '2024-01-17';
 
   const stats = useMemo(() => {
@@ -21,7 +23,7 @@ export const FrontDesk = () => {
     const total = rooms.length;
     const arrivals = reservations.filter(r => r.checkInDate === today && r.status === 'confirmed').length;
     const departures = reservations.filter(r => r.checkOutDate === today && r.status === 'checked-in').length;
-    const walkIns = 2; // Mock
+    const walkIns = 2;
 
     return {
       occupancy: `${occupied}/${total}`,
@@ -29,7 +31,7 @@ export const FrontDesk = () => {
       arrivals,
       departures,
       walkIns,
-      requests: 3, // Mock
+      requests: 3,
     };
   }, []);
 
@@ -46,20 +48,20 @@ export const FrontDesk = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Front Desk"
-        subtitle="Real-time hotel operations dashboard"
+        title={t('frontDesk.title')}
+        subtitle={t('frontDesk.subtitle')}
         icon={ConciergeBell}
       />
 
       {/* Real-time Stats */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
         {[
-          { label: 'Occupancy', value: stats.occupancy, subtext: `${stats.occupancyRate}%`, color: HOTEL_COLOR },
-          { label: 'Arrivals Today', value: stats.arrivals, icon: LogIn, color: '#10b981' },
-          { label: 'Departures Today', value: stats.departures, icon: LogOut, color: '#f59e0b' },
-          { label: 'Walk-ins', value: stats.walkIns, icon: Users, color: '#3b82f6' },
-          { label: 'Pending Requests', value: stats.requests, icon: MessageSquare, color: '#ef4444' },
-          { label: 'Available Rooms', value: rooms.filter(r => r.status === 'available').length, icon: Bed, color: '#10b981' },
+          { label: t('frontDesk.occupancy'), value: stats.occupancy, subtext: `${stats.occupancyRate}%`, color: HOTEL_COLOR },
+          { label: t('frontDesk.arrivalsToday'), value: stats.arrivals, icon: LogIn, color: '#10b981' },
+          { label: t('frontDesk.departuresToday'), value: stats.departures, icon: LogOut, color: '#f59e0b' },
+          { label: t('frontDesk.walkIns'), value: stats.walkIns, icon: Users, color: '#3b82f6' },
+          { label: t('frontDesk.pendingRequests'), value: stats.requests, icon: MessageSquare, color: '#ef4444' },
+          { label: t('frontDesk.availableRooms'), value: rooms.filter(r => r.status === 'available').length, icon: Bed, color: '#10b981' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -93,15 +95,15 @@ export const FrontDesk = () => {
 
       {/* Quick Actions */}
       <Card className="p-4">
-        <h3 className="font-semibold text-text-primary mb-4">Quick Actions</h3>
+        <h3 className="font-semibold text-text-primary mb-4">{t('frontDesk.quickActions')}</h3>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
           {[
-            { label: 'New Reservation', icon: Plus, color: HOTEL_COLOR },
-            { label: 'Quick Check-in', icon: LogIn, color: '#10b981' },
-            { label: 'Quick Check-out', icon: LogOut, color: '#f59e0b' },
-            { label: 'Room Change', icon: Bed, color: '#3b82f6' },
-            { label: 'Guest Request', icon: MessageSquare, color: '#ec4899' },
-            { label: 'Issue Key Card', icon: Key, color: '#6366f1' },
+            { label: t('frontDesk.newReservation'), icon: Plus, color: HOTEL_COLOR },
+            { label: t('frontDesk.quickCheckIn'), icon: LogIn, color: '#10b981' },
+            { label: t('frontDesk.quickCheckOut'), icon: LogOut, color: '#f59e0b' },
+            { label: t('frontDesk.roomChange'), icon: Bed, color: '#3b82f6' },
+            { label: t('frontDesk.guestRequest'), icon: MessageSquare, color: '#ec4899' },
+            { label: t('frontDesk.issueKeyCard'), icon: Key, color: '#6366f1' },
           ].map((action) => {
             const Icon = action.icon;
             return (
@@ -126,7 +128,7 @@ export const FrontDesk = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Room Status Board */}
         <Card className="p-4">
-          <h3 className="font-semibold text-text-primary mb-4">Room Status Board</h3>
+          <h3 className="font-semibold text-text-primary mb-4">{t('frontDesk.roomStatusBoard')}</h3>
           <div className="grid grid-cols-4 gap-2">
             {rooms.map((room) => {
               const color = getStatusColor(room.status);
@@ -139,35 +141,35 @@ export const FrontDesk = () => {
                   <span className="text-lg font-bold" style={{ color }}>
                     {room.roomNo}
                   </span>
-                  <p className="text-xs text-text-muted capitalize">{room.status}</p>
+                  <p className="text-xs text-text-muted">{t(`status.${room.status}`)}</p>
                 </button>
               );
             })}
           </div>
           <div className="flex justify-center gap-4 mt-4 text-xs text-text-muted">
             <span className="flex items-center gap-1">
-              <span className="w-2 h-2 rounded-full bg-success" /> Available
+              <span className="w-2 h-2 rounded-full bg-success" /> {t('frontDesk.available')}
             </span>
             <span className="flex items-center gap-1">
-              <span className="w-2 h-2 rounded-full bg-error" /> Occupied
+              <span className="w-2 h-2 rounded-full bg-error" /> {t('frontDesk.occupied')}
             </span>
             <span className="flex items-center gap-1">
-              <span className="w-2 h-2 rounded-full bg-primary" /> Reserved
+              <span className="w-2 h-2 rounded-full bg-primary" /> {t('frontDesk.reserved')}
             </span>
             <span className="flex items-center gap-1">
-              <span className="w-2 h-2 rounded-full bg-warning" /> Maintenance
+              <span className="w-2 h-2 rounded-full bg-warning" /> {t('frontDesk.maintenance')}
             </span>
           </div>
         </Card>
 
         {/* Guest Requests */}
         <Card className="p-4">
-          <h3 className="font-semibold text-text-primary mb-4">Recent Guest Requests</h3>
+          <h3 className="font-semibold text-text-primary mb-4">{t('frontDesk.recentGuestRequests')}</h3>
           <div className="space-y-3">
             {[
-              { room: '102', guest: 'Ahmet Yilmaz', request: 'Extra towels', time: '10:30', status: 'pending' },
-              { room: '201', guest: 'Fatma Demir', request: 'Wake-up call 7:00 AM', time: '09:45', status: 'completed' },
-              { room: '203', guest: 'Zeynep Kaya', request: 'Iron and ironing board', time: '11:15', status: 'in-progress' },
+              { room: '102', guest: 'Ahmet Yilmaz', request: t('frontDesk.extraTowels'), time: '10:30', status: 'pending' },
+              { room: '201', guest: 'Fatma Demir', request: t('frontDesk.wakeUpCall'), time: '09:45', status: 'completed' },
+              { room: '203', guest: 'Zeynep Kaya', request: t('frontDesk.ironAndBoard'), time: '11:15', status: 'in-progress' },
             ].map((req, i) => (
               <div
                 key={i}
@@ -188,32 +190,31 @@ export const FrontDesk = () => {
                 <div className="text-right">
                   <p className="text-xs text-text-muted">{req.time}</p>
                   <span
-                    className={`text-xs px-2 py-0.5 rounded capitalize ${
+                    className={`text-xs px-2 py-0.5 rounded ${
                       req.status === 'completed' ? 'bg-success/20 text-success' :
                       req.status === 'in-progress' ? 'bg-primary/20 text-primary' :
                       'bg-warning/20 text-warning'
                     }`}
                   >
-                    {req.status.replace('-', ' ')}
+                    {t(`status.${req.status === 'in-progress' ? 'inProgress' : req.status}`)}
                   </span>
                 </div>
               </div>
             ))}
           </div>
           <Button variant="ghost" className="w-full mt-3">
-            View All Requests
+            {t('frontDesk.viewAllRequests')}
           </Button>
         </Card>
       </div>
 
       {/* Today's Activity */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Today's Arrivals */}
         <Card className="p-4">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-semibold text-text-primary">Today's Arrivals</h3>
+            <h3 className="font-semibold text-text-primary">{t('frontDesk.todaysArrivals')}</h3>
             <span className="text-sm font-medium" style={{ color: HOTEL_COLOR }}>
-              {stats.arrivals} guests
+              {t('frontDesk.guests', { count: stats.arrivals })}
             </span>
           </div>
           {reservations
@@ -235,20 +236,19 @@ export const FrontDesk = () => {
                     <p className="text-xs text-text-muted">{res.roomType}</p>
                   </div>
                 </div>
-                <Button size="sm" variant="primary">Check-in</Button>
+                <Button size="sm" variant="primary">{t('frontDesk.checkIn')}</Button>
               </div>
             ))}
           {stats.arrivals === 0 && (
-            <p className="text-sm text-text-muted text-center py-4">No arrivals today</p>
+            <p className="text-sm text-text-muted text-center py-4">{t('frontDesk.noArrivalsToday')}</p>
           )}
         </Card>
 
-        {/* Today's Departures */}
         <Card className="p-4">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-semibold text-text-primary">Today's Departures</h3>
+            <h3 className="font-semibold text-text-primary">{t('frontDesk.todaysDepartures')}</h3>
             <span className="text-sm font-medium text-warning">
-              {stats.departures} guests
+              {t('frontDesk.guests', { count: stats.departures })}
             </span>
           </div>
           {reservations
@@ -267,14 +267,14 @@ export const FrontDesk = () => {
                   </div>
                   <div>
                     <p className="text-sm font-medium text-text-primary">{res.guestName}</p>
-                    <p className="text-xs text-text-muted">Room {res.roomNo}</p>
+                    <p className="text-xs text-text-muted">{t('reservations.room', { roomNo: res.roomNo })}</p>
                   </div>
                 </div>
-                <Button size="sm" variant="secondary">Check-out</Button>
+                <Button size="sm" variant="secondary">{t('frontDesk.checkOut')}</Button>
               </div>
             ))}
           {stats.departures === 0 && (
-            <p className="text-sm text-text-muted text-center py-4">No departures today</p>
+            <p className="text-sm text-text-muted text-center py-4">{t('frontDesk.noDeparturesToday')}</p>
           )}
         </Card>
       </div>

@@ -16,8 +16,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { rooms, HOTEL_COLOR } from '@/data/hotel/hotelData';
+import { useTranslation } from 'react-i18next';
 
 export const Rooms = () => {
+  const { t } = useTranslation('hotel');
   const [searchQuery, setSearchQuery] = useState('');
   const [floorFilter, setFloorFilter] = useState<number | 'all'>('all');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
@@ -81,16 +83,24 @@ export const Rooms = () => {
     return `${amount.toLocaleString()} QAR`;
   };
 
+  const statusMap: Record<string, string> = {
+    'all': t('rooms.all'),
+    'available': t('status.available'),
+    'occupied': t('status.occupied'),
+    'reserved': t('status.reserved'),
+    'maintenance': t('status.maintenance'),
+  };
+
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Room Management"
-        subtitle="Manage hotel rooms and availability"
+        title={t('rooms.title')}
+        subtitle={t('rooms.subtitle')}
         icon={Bed}
         actions={
           <Button>
             <Plus size={18} />
-            Add New Room
+            {t('rooms.addNewRoom')}
           </Button>
         }
       />
@@ -98,12 +108,12 @@ export const Rooms = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
         {[
-          { label: 'Total Rooms', value: stats.total, color: HOTEL_COLOR },
-          { label: 'Occupied', value: stats.occupied, color: '#ef4444' },
-          { label: 'Available', value: stats.available, color: '#10b981' },
-          { label: 'Reserved', value: stats.reserved, color: '#3b82f6' },
-          { label: 'Maintenance', value: stats.maintenance, color: '#f59e0b' },
-          { label: 'Occupancy Rate', value: `${stats.occupancyRate}%`, color: '#6366f1' },
+          { label: t('rooms.totalRooms'), value: stats.total, color: HOTEL_COLOR },
+          { label: t('rooms.occupied'), value: stats.occupied, color: '#ef4444' },
+          { label: t('rooms.available'), value: stats.available, color: '#10b981' },
+          { label: t('rooms.reserved'), value: stats.reserved, color: '#3b82f6' },
+          { label: t('rooms.maintenance'), value: stats.maintenance, color: '#f59e0b' },
+          { label: t('rooms.occupancyRate'), value: `${stats.occupancyRate}%`, color: '#6366f1' },
         ].map((stat, index) => (
           <motion.div
             key={stat.label}
@@ -137,7 +147,7 @@ export const Rooms = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by room number or type..."
+              placeholder={t('rooms.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -149,7 +159,7 @@ export const Rooms = () => {
               size="sm"
               onClick={() => setFloorFilter('all')}
             >
-              All Floors
+              {t('rooms.allFloors')}
             </Button>
             {uniqueFloors.map((floor) => (
               <Button
@@ -158,7 +168,7 @@ export const Rooms = () => {
                 size="sm"
                 onClick={() => setFloorFilter(floor)}
               >
-                Floor {floor}
+                {t('rooms.floor', { floor })}
               </Button>
             ))}
           </div>
@@ -168,7 +178,7 @@ export const Rooms = () => {
               size="sm"
               onClick={() => setCategoryFilter('all')}
             >
-              All Types
+              {t('rooms.allTypes')}
             </Button>
             {uniqueCategories.map((category) => (
               <Button
@@ -194,7 +204,7 @@ export const Rooms = () => {
                 className="w-2 h-2 rounded-full mr-2"
                 style={{ backgroundColor: status === 'all' ? '#64748b' : getStatusColor(status) }}
               />
-              {status.charAt(0).toUpperCase() + status.slice(1)}
+              {statusMap[status]}
             </Button>
           ))}
         </div>
@@ -225,7 +235,7 @@ export const Rooms = () => {
                     </div>
                     <div>
                       <p className="font-semibold text-text-primary">{room.type}</p>
-                      <p className="text-xs text-text-muted">Floor {room.floor} - {room.view}</p>
+                      <p className="text-xs text-text-muted">{t('rooms.floor', { floor: room.floor })} - {room.view}</p>
                     </div>
                   </div>
                   <Dropdown
@@ -235,10 +245,10 @@ export const Rooms = () => {
                       </Button>
                     }
                     items={[
-                      { id: 'view', label: 'View Details', onClick: () => {} },
-                      { id: 'edit', label: 'Edit Room', onClick: () => {} },
-                      { id: 'assign', label: 'Assign Guest', onClick: () => {} },
-                      { id: 'maintenance', label: 'Request Maintenance', onClick: () => {} },
+                      { id: 'view', label: t('rooms.viewDetails'), onClick: () => {} },
+                      { id: 'edit', label: t('rooms.editRoom'), onClick: () => {} },
+                      { id: 'assign', label: t('rooms.assignGuest'), onClick: () => {} },
+                      { id: 'maintenance', label: t('rooms.requestMaintenance'), onClick: () => {} },
                     ]}
                   />
                 </div>
@@ -261,21 +271,21 @@ export const Rooms = () => {
                     <span className="text-lg font-bold" style={{ color: HOTEL_COLOR }}>
                       {formatCurrency(room.currentPrice)}
                     </span>
-                    <span className="text-xs text-text-muted">/night</span>
+                    <span className="text-xs text-text-muted">{t('rooms.perNight')}</span>
                   </div>
                 </div>
 
                 {/* Status Badge */}
                 <div className="mt-3 flex items-center justify-between">
                   <span
-                    className="px-3 py-1 rounded-full text-xs font-medium capitalize"
+                    className="px-3 py-1 rounded-full text-xs font-medium"
                     style={{ backgroundColor: `${statusColor}20`, color: statusColor }}
                   >
-                    {room.status}
+                    {t(`status.${room.status}`)}
                   </span>
                   {room.cleaningStatus === 'dirty' && (
                     <span className="px-2 py-0.5 rounded text-xs bg-warning/20 text-warning">
-                      Needs Cleaning
+                      {t('rooms.needsCleaning')}
                     </span>
                   )}
                 </div>
@@ -292,7 +302,7 @@ export const Rooms = () => {
                       </div>
                       <div>
                         <p className="text-sm font-medium text-text-primary">{room.currentGuest}</p>
-                        <p className="text-xs text-text-muted">Check-out: {room.checkOut}</p>
+                        <p className="text-xs text-text-muted">{t('rooms.checkout', { date: room.checkOut })}</p>
                       </div>
                     </div>
                   </div>
@@ -304,7 +314,7 @@ export const Rooms = () => {
                       <Eye size={14} className="text-text-muted" />
                       <div>
                         <p className="text-sm text-text-primary">{room.reservationGuest}</p>
-                        <p className="text-xs text-text-muted">Arriving: {room.checkIn}</p>
+                        <p className="text-xs text-text-muted">{t('rooms.arriving', { date: room.checkIn })}</p>
                       </div>
                     </div>
                   </div>
@@ -348,7 +358,7 @@ export const Rooms = () => {
       {filteredRooms.length === 0 && (
         <Card className="p-12 text-center">
           <Bed size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No rooms found</p>
+          <p className="text-text-secondary">{t('rooms.noRoomsFound')}</p>
         </Card>
       )}
     </div>

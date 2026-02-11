@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   Wrench,
@@ -14,10 +15,27 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { maintenanceRequests, HOTEL_COLOR } from '@/data/hotel/hotelData';
 
 export const HotelMaintenance = () => {
+  const { t } = useTranslation('hotel');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [priorityFilter, setPriorityFilter] = useState<string>('all');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
+
+  const statusMap: Record<string, string> = {
+    'all': t('maintenance.all'),
+    'pending': t('status.pending'),
+    'in-progress': t('status.inProgress'),
+    'completed': t('status.completed'),
+    'scheduled': t('status.scheduled'),
+  };
+
+  const priorityMap: Record<string, string> = {
+    'all': t('maintenance.allPriority'),
+    'urgent': t('status.urgent'),
+    'high': t('status.high'),
+    'normal': t('status.normal'),
+    'low': t('status.low'),
+  };
 
   const uniqueIssueTypes = useMemo(() => {
     const types = [...new Set(maintenanceRequests.map(r => r.issueType))];
@@ -79,13 +97,13 @@ export const HotelMaintenance = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Maintenance Management"
-        subtitle="Track and manage maintenance requests"
+        title={t('maintenance.title')}
+        subtitle={t('maintenance.subtitle')}
         icon={Wrench}
         actions={
           <Button>
             <Plus size={18} />
-            New Request
+            {t('maintenance.newRequest')}
           </Button>
         }
       />
@@ -93,10 +111,10 @@ export const HotelMaintenance = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Pending Requests', value: stats.pending, icon: AlertTriangle, color: '#ef4444' },
-          { label: 'In Progress', value: stats.inProgress, icon: Clock, color: '#f59e0b' },
-          { label: 'Completed', value: stats.completed, icon: CheckCircle, color: '#10b981' },
-          { label: 'Urgent Issues', value: stats.urgent, icon: AlertTriangle, color: '#ef4444' },
+          { label: t('maintenance.pendingRequests'), value: stats.pending, icon: AlertTriangle, color: '#ef4444' },
+          { label: t('maintenance.inProgress'), value: stats.inProgress, icon: Clock, color: '#f59e0b' },
+          { label: t('maintenance.completed'), value: stats.completed, icon: CheckCircle, color: '#10b981' },
+          { label: t('maintenance.urgentIssues'), value: stats.urgent, icon: AlertTriangle, color: '#ef4444' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -131,7 +149,7 @@ export const HotelMaintenance = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by room, issue, or technician..."
+              placeholder={t('maintenance.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -143,7 +161,7 @@ export const HotelMaintenance = () => {
               size="sm"
               onClick={() => setCategoryFilter('all')}
             >
-              All Categories
+              {t('maintenance.allCategories')}
             </Button>
             {uniqueIssueTypes.map((issueType) => (
               <Button
@@ -166,7 +184,7 @@ export const HotelMaintenance = () => {
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status.charAt(0).toUpperCase() + status.slice(1).replace('-', ' ')}
+                {statusMap[status]}
               </Button>
             ))}
           </div>
@@ -178,7 +196,7 @@ export const HotelMaintenance = () => {
                 size="sm"
                 onClick={() => setPriorityFilter(priority)}
               >
-                {priority === 'all' ? 'All Priority' : priority.charAt(0).toUpperCase() + priority.slice(1)}
+                {priorityMap[priority]}
               </Button>
             ))}
           </div>
@@ -240,7 +258,7 @@ export const HotelMaintenance = () => {
                         <span className="text-sm text-text-primary">{request.assignedTo}</span>
                       </>
                     ) : (
-                      <span className="text-sm text-text-muted">Unassigned</span>
+                      <span className="text-sm text-text-muted">{t('maintenance.unassigned')}</span>
                     )}
                   </div>
 
@@ -252,18 +270,18 @@ export const HotelMaintenance = () => {
 
                   {/* Priority */}
                   <span
-                    className="px-2 py-0.5 rounded text-xs font-medium capitalize"
+                    className="px-2 py-0.5 rounded text-xs font-medium"
                     style={{ backgroundColor: `${priorityColor}20`, color: priorityColor }}
                   >
-                    {request.priority}
+                    {t(`status.${request.priority}`)}
                   </span>
 
                   {/* Status */}
                   <span
-                    className="px-3 py-1 rounded-full text-xs font-medium capitalize"
+                    className="px-3 py-1 rounded-full text-xs font-medium"
                     style={{ backgroundColor: `${statusColor}20`, color: statusColor }}
                   >
-                    {request.status.replace('-', ' ')}
+                    {statusMap[request.status]}
                   </span>
 
                   {/* Actions */}
@@ -274,10 +292,10 @@ export const HotelMaintenance = () => {
                       </Button>
                     }
                     items={[
-                      { id: 'view', label: 'View Details', onClick: () => {} },
-                      { id: 'assign', label: 'Assign Technician', onClick: () => {} },
-                      { id: 'start', label: 'Start Work', onClick: () => {} },
-                      { id: 'complete', label: 'Mark Complete', onClick: () => {} },
+                      { id: 'view', label: t('maintenance.viewDetails'), onClick: () => {} },
+                      { id: 'assign', label: t('maintenance.assignTechnician'), onClick: () => {} },
+                      { id: 'start', label: t('maintenance.startWork'), onClick: () => {} },
+                      { id: 'complete', label: t('maintenance.markComplete'), onClick: () => {} },
                     ]}
                   />
                 </div>
@@ -285,12 +303,12 @@ export const HotelMaintenance = () => {
                 {/* Cost & Completion */}
                 <div className="mt-3 pt-3 border-t border-border-default flex items-center justify-between text-xs text-text-muted">
                   <span>
-                    Cost: {request.cost ? `${request.cost.toLocaleString()} QAR` : 'TBD'}
+                    {request.cost ? t('maintenance.cost', { amount: `${request.cost.toLocaleString()} QAR` }) : t('maintenance.costTbd')}
                   </span>
                   {request.completedAt && (
                     <span className="text-success flex items-center gap-1">
                       <CheckCircle size={12} />
-                      Completed {new Date(request.completedAt).toLocaleDateString()}
+                      {t('maintenance.completedDate', { date: new Date(request.completedAt).toLocaleDateString() })}
                     </span>
                   )}
                 </div>
@@ -303,7 +321,7 @@ export const HotelMaintenance = () => {
       {filteredRequests.length === 0 && (
         <Card className="p-12 text-center">
           <Wrench size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No maintenance requests found</p>
+          <p className="text-text-secondary">{t('maintenance.noRequestsFound')}</p>
         </Card>
       )}
     </div>

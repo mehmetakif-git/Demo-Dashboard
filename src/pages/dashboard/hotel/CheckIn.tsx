@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   LogIn,
@@ -13,6 +14,7 @@ import { PageHeader, Card, Button, Input } from '@/components/common';
 import { reservations, HOTEL_COLOR } from '@/data/hotel/hotelData';
 
 export const CheckIn = () => {
+  const { t } = useTranslation('hotel');
   const [view, setView] = useState<'checkin' | 'checkout'>('checkin');
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -58,18 +60,18 @@ export const CheckIn = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Check-in & Check-out"
-        subtitle="Manage guest arrivals and departures"
+        title={t('checkIn.title')}
+        subtitle={t('checkIn.subtitle')}
         icon={LogIn}
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: "Today's Arrivals", value: stats.arrivals, icon: LogIn, color: '#10b981' },
-          { label: "Today's Departures", value: stats.departures, icon: LogOut, color: '#f59e0b' },
-          { label: 'Pending Check-ins', value: stats.pendingCheckins, icon: Clock, color: '#3b82f6' },
-          { label: 'Pending Checkouts', value: stats.pendingCheckouts, icon: AlertCircle, color: '#ef4444' },
+          { label: t('checkIn.todaysArrivals'), value: stats.arrivals, icon: LogIn, color: '#10b981' },
+          { label: t('checkIn.todaysDepartures'), value: stats.departures, icon: LogOut, color: '#f59e0b' },
+          { label: t('checkIn.pendingCheckins'), value: stats.pendingCheckins, icon: Clock, color: '#3b82f6' },
+          { label: t('checkIn.pendingCheckouts'), value: stats.pendingCheckouts, icon: AlertCircle, color: '#ef4444' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -107,20 +109,20 @@ export const CheckIn = () => {
               onClick={() => setView('checkin')}
             >
               <LogIn size={18} className="mr-2" />
-              Check-in ({stats.arrivals})
+              {t('checkIn.checkInCount', { count: stats.arrivals })}
             </Button>
             <Button
               variant={view === 'checkout' ? 'primary' : 'ghost'}
               onClick={() => setView('checkout')}
             >
               <LogOut size={18} className="mr-2" />
-              Check-out ({stats.departures})
+              {t('checkIn.checkOutCount', { count: stats.departures })}
             </Button>
           </div>
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder={view === 'checkin' ? 'Search by confirmation no or guest name...' : 'Search by room no or guest name...'}
+              placeholder={view === 'checkin' ? t('checkIn.searchCheckin') : t('checkIn.searchCheckout')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -132,7 +134,7 @@ export const CheckIn = () => {
       {/* Check-in View */}
       {view === 'checkin' && (
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-text-primary">Expected Arrivals Today</h3>
+          <h3 className="text-lg font-semibold text-text-primary">{t('checkIn.expectedArrivals')}</h3>
           {filteredArrivals.length > 0 ? (
             filteredArrivals.map((res, index) => (
                 <motion.div
@@ -165,19 +167,19 @@ export const CheckIn = () => {
                             className="inline-block px-2 py-0.5 rounded text-xs font-medium mt-1"
                             style={{ backgroundColor: `${HOTEL_COLOR}20`, color: HOTEL_COLOR }}
                           >
-                            Room {res.roomNo} Assigned
+                            {t('checkIn.roomAssigned', { roomNo: res.roomNo })}
                           </span>
                         ) : (
                           <span className="inline-block px-2 py-0.5 rounded text-xs font-medium mt-1 bg-warning/20 text-warning">
-                            Not Assigned
+                            {t('checkIn.notAssigned')}
                           </span>
                         )}
                       </div>
 
                       {/* Stay Duration */}
                       <div className="text-center">
-                        <p className="text-sm text-text-muted">{res.nights} nights</p>
-                        <p className="text-xs text-text-muted">Until {res.checkOutDate}</p>
+                        <p className="text-sm text-text-muted">{t('checkIn.nights', { count: res.nights })}</p>
+                        <p className="text-xs text-text-muted">{t('checkIn.until', { date: res.checkOutDate })}</p>
                       </div>
 
                       {/* Payment Status */}
@@ -186,20 +188,20 @@ export const CheckIn = () => {
                           {formatCurrency(res.totalAmount)}
                         </p>
                         <span
-                          className={`inline-block px-2 py-0.5 rounded text-xs font-medium capitalize ${
+                          className={`inline-block px-2 py-0.5 rounded text-xs font-medium ${
                             res.paymentStatus === 'paid' ? 'bg-success/20 text-success' :
                             res.paymentStatus === 'partial' ? 'bg-warning/20 text-warning' :
                             'bg-error/20 text-error'
                           }`}
                         >
-                          {res.paymentStatus}
+                          {t(`status.${res.paymentStatus}`)}
                         </span>
                       </div>
 
                       {/* Check-in Button */}
                       <Button variant="primary">
                         <CheckCircle size={18} className="mr-2" />
-                        Check-in
+                        {t('checkIn.checkIn')}
                       </Button>
                     </div>
 
@@ -207,7 +209,7 @@ export const CheckIn = () => {
                     {res.specialRequests && (
                       <div className="mt-3 pt-3 border-t border-border-default">
                         <p className="text-xs text-text-muted">
-                          <span className="font-medium">Special Requests:</span> {res.specialRequests}
+                          <span className="font-medium">{t('checkIn.specialRequests')}</span> {res.specialRequests}
                         </p>
                       </div>
                     )}
@@ -217,7 +219,7 @@ export const CheckIn = () => {
           ) : (
             <Card className="p-12 text-center">
               <LogIn size={48} className="mx-auto text-text-muted mb-4" />
-              <p className="text-text-secondary">No arrivals expected today</p>
+              <p className="text-text-secondary">{t('checkIn.noArrivals')}</p>
             </Card>
           )}
         </div>
@@ -226,7 +228,7 @@ export const CheckIn = () => {
       {/* Check-out View */}
       {view === 'checkout' && (
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-text-primary">Expected Departures Today</h3>
+          <h3 className="text-lg font-semibold text-text-primary">{t('checkIn.expectedDepartures')}</h3>
           {filteredDepartures.length > 0 ? (
             filteredDepartures.map((res, index) => (
               <motion.div
@@ -249,13 +251,13 @@ export const CheckIn = () => {
                       </div>
                       <div>
                         <p className="font-semibold text-text-primary">{res.guestName}</p>
-                        <p className="text-xs text-text-muted">Check-in: {res.checkInDate}</p>
+                        <p className="text-xs text-text-muted">{t('checkIn.checkInDate', { date: res.checkInDate })}</p>
                       </div>
                     </div>
 
                     {/* Stay Duration */}
                     <div className="text-center">
-                      <p className="text-sm font-medium text-text-primary">{res.nights} nights</p>
+                      <p className="text-sm font-medium text-text-primary">{t('checkIn.nights', { count: res.nights })}</p>
                       <p className="text-xs text-text-muted">{res.roomType}</p>
                     </div>
 
@@ -264,18 +266,18 @@ export const CheckIn = () => {
                       <p className="text-lg font-bold" style={{ color: HOTEL_COLOR }}>
                         {formatCurrency(res.totalAmount - res.paidAmount)}
                       </p>
-                      <p className="text-xs text-text-muted">Balance Due</p>
+                      <p className="text-xs text-text-muted">{t('checkIn.balanceDue')}</p>
                     </div>
 
                     {/* Actions */}
                     <div className="flex gap-2">
                       <Button variant="secondary">
                         <CreditCard size={18} className="mr-2" />
-                        View Bill
+                        {t('checkIn.viewBill')}
                       </Button>
                       <Button variant="primary">
                         <LogOut size={18} className="mr-2" />
-                        Check-out
+                        {t('checkIn.checkOut')}
                       </Button>
                     </div>
                   </div>
@@ -285,7 +287,7 @@ export const CheckIn = () => {
           ) : (
             <Card className="p-12 text-center">
               <LogOut size={48} className="mx-auto text-text-muted mb-4" />
-              <p className="text-text-secondary">No departures expected today</p>
+              <p className="text-text-secondary">{t('checkIn.noDepartures')}</p>
             </Card>
           )}
         </div>

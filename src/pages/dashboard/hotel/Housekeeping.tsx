@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   Sparkles,
@@ -13,10 +14,26 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { housekeepingTasks, HOTEL_COLOR } from '@/data/hotel/hotelData';
 
 export const Housekeeping = () => {
+  const { t } = useTranslation('hotel');
   const [searchQuery, setSearchQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [priorityFilter, setPriorityFilter] = useState<string>('all');
+
+  const statusMap: Record<string, string> = {
+    'all': t('housekeeping.all'),
+    'pending': t('status.pending'),
+    'in-progress': t('status.inProgress'),
+    'completed': t('status.completed'),
+    'scheduled': t('status.scheduled'),
+  };
+
+  const priorityMap: Record<string, string> = {
+    'all': t('housekeeping.allPriority'),
+    'high': t('status.high'),
+    'normal': t('status.normal'),
+    'low': t('status.low'),
+  };
 
   const uniqueTypes = useMemo(() => {
     const types = [...new Set(housekeepingTasks.map(t => t.taskType))];
@@ -65,13 +82,13 @@ export const Housekeeping = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Housekeeping Management"
-        subtitle="Manage cleaning tasks and schedules"
+        title={t('housekeeping.title')}
+        subtitle={t('housekeeping.subtitle')}
         icon={Sparkles}
         actions={
           <Button>
             <Plus size={18} />
-            Create Task
+            {t('housekeeping.createTask')}
           </Button>
         }
       />
@@ -79,10 +96,10 @@ export const Housekeeping = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Pending Tasks', value: stats.pending, icon: AlertCircle, color: '#f59e0b' },
-          { label: 'In Progress', value: stats.inProgress, icon: Clock, color: '#3b82f6' },
-          { label: 'Completed Today', value: stats.completed, icon: CheckCircle, color: '#10b981' },
-          { label: 'Scheduled', value: stats.scheduled, icon: Clock, color: '#6366f1' },
+          { label: t('housekeeping.pendingTasks'), value: stats.pending, icon: AlertCircle, color: '#f59e0b' },
+          { label: t('housekeeping.inProgress'), value: stats.inProgress, icon: Clock, color: '#3b82f6' },
+          { label: t('housekeeping.completedToday'), value: stats.completed, icon: CheckCircle, color: '#10b981' },
+          { label: t('housekeeping.scheduled'), value: stats.scheduled, icon: Clock, color: '#6366f1' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -117,7 +134,7 @@ export const Housekeeping = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by room number or staff..."
+              placeholder={t('housekeeping.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -129,7 +146,7 @@ export const Housekeeping = () => {
               size="sm"
               onClick={() => setTypeFilter('all')}
             >
-              All Types
+              {t('housekeeping.allTypes')}
             </Button>
             {uniqueTypes.map((type) => (
               <Button
@@ -152,7 +169,7 @@ export const Housekeeping = () => {
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status.charAt(0).toUpperCase() + status.slice(1).replace('-', ' ')}
+                {statusMap[status]}
               </Button>
             ))}
           </div>
@@ -164,7 +181,7 @@ export const Housekeeping = () => {
                 size="sm"
                 onClick={() => setPriorityFilter(priority)}
               >
-                {priority === 'all' ? 'All Priority' : priority.charAt(0).toUpperCase() + priority.slice(1)}
+                {priorityMap[priority]}
               </Button>
             ))}
           </div>
@@ -199,7 +216,7 @@ export const Housekeeping = () => {
                     <div>
                       <p className="font-semibold text-text-primary">{task.taskType}</p>
                       <p className="text-xs text-text-muted">
-                        Est. {task.estimatedDuration} min
+                        {t('housekeeping.estimatedDuration', { duration: task.estimatedDuration })}
                       </p>
                     </div>
                   </div>
@@ -223,18 +240,18 @@ export const Housekeeping = () => {
 
                   {/* Priority */}
                   <span
-                    className="px-2 py-0.5 rounded text-xs font-medium capitalize"
+                    className="px-2 py-0.5 rounded text-xs font-medium"
                     style={{ backgroundColor: `${priorityColor}20`, color: priorityColor }}
                   >
-                    {task.priority}
+                    {t(`status.${task.priority}`)}
                   </span>
 
                   {/* Status */}
                   <span
-                    className="px-3 py-1 rounded-full text-xs font-medium capitalize"
+                    className="px-3 py-1 rounded-full text-xs font-medium"
                     style={{ backgroundColor: `${statusColor}20`, color: statusColor }}
                   >
-                    {task.status.replace('-', ' ')}
+                    {statusMap[task.status]}
                   </span>
 
                   {/* Actions */}
@@ -245,10 +262,10 @@ export const Housekeeping = () => {
                       </Button>
                     }
                     items={[
-                      { id: 'view', label: 'View Details', onClick: () => {} },
-                      { id: 'assign', label: 'Reassign', onClick: () => {} },
-                      { id: 'start', label: 'Start Task', onClick: () => {} },
-                      { id: 'complete', label: 'Mark Complete', onClick: () => {} },
+                      { id: 'view', label: t('housekeeping.viewDetails'), onClick: () => {} },
+                      { id: 'assign', label: t('housekeeping.reassign'), onClick: () => {} },
+                      { id: 'start', label: t('housekeeping.startTask'), onClick: () => {} },
+                      { id: 'complete', label: t('housekeeping.markComplete'), onClick: () => {} },
                     ]}
                   />
                 </div>
@@ -264,7 +281,7 @@ export const Housekeeping = () => {
                 {task.completedTime && (
                   <div className="mt-2 flex items-center gap-2 text-xs text-success">
                     <CheckCircle size={12} />
-                    <span>Completed at {new Date(task.completedTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                    <span>{t('housekeeping.completedAt', { time: new Date(task.completedTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) })}</span>
                   </div>
                 )}
               </Card>
@@ -276,7 +293,7 @@ export const Housekeeping = () => {
       {filteredTasks.length === 0 && (
         <Card className="p-12 text-center">
           <Sparkles size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No housekeeping tasks found</p>
+          <p className="text-text-secondary">{t('housekeeping.noTasksFound')}</p>
         </Card>
       )}
     </div>

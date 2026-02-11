@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   Gift,
@@ -14,6 +15,7 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { packages, HOTEL_COLOR } from '@/data/hotel/hotelData';
 
 export const Packages = () => {
+  const { t } = useTranslation('hotel');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [typeFilter, setTypeFilter] = useState<string>('all');
@@ -60,16 +62,22 @@ export const Packages = () => {
     return `${amount.toLocaleString()} QAR`;
   };
 
+  const statusFilterLabels: Record<string, string> = {
+    'all': t('packages.all'),
+    'active': t('status.active'),
+    'inactive': t('status.inactive'),
+  };
+
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Packages & Offers"
-        subtitle="Manage hotel packages and special offers"
+        title={t('packages.title')}
+        subtitle={t('packages.subtitle')}
         icon={Gift}
         actions={
           <Button>
             <Plus size={18} />
-            Create Package
+            {t('packages.createPackage')}
           </Button>
         }
       />
@@ -77,10 +85,10 @@ export const Packages = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Active Packages', value: stats.active, icon: CheckCircle, color: '#10b981' },
-          { label: 'Total Packages', value: stats.total, icon: Gift, color: HOTEL_COLOR },
-          { label: 'Scheduled', value: stats.scheduled, icon: Star, color: '#f59e0b' },
-          { label: 'Total Bookings', value: stats.totalBookings, icon: Users, color: '#3b82f6' },
+          { label: t('packages.activePackages'), value: stats.active, icon: CheckCircle, color: '#10b981' },
+          { label: t('packages.totalPackages'), value: stats.total, icon: Gift, color: HOTEL_COLOR },
+          { label: t('packages.scheduled'), value: stats.scheduled, icon: Star, color: '#f59e0b' },
+          { label: t('packages.totalBookings'), value: stats.totalBookings, icon: Users, color: '#3b82f6' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -115,7 +123,7 @@ export const Packages = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search packages..."
+              placeholder={t('packages.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -127,7 +135,7 @@ export const Packages = () => {
               size="sm"
               onClick={() => setTypeFilter('all')}
             >
-              All Types
+              {t('packages.allTypes')}
             </Button>
             {uniqueCategories.map((category) => (
               <Button
@@ -141,14 +149,14 @@ export const Packages = () => {
             ))}
           </div>
           <div className="flex gap-2">
-            {['all', 'active', 'inactive'].map((status) => (
+            {(['all', 'active', 'inactive'] as const).map((status) => (
               <Button
                 key={status}
                 variant={statusFilter === status ? 'secondary' : 'ghost'}
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status.charAt(0).toUpperCase() + status.slice(1)}
+                {statusFilterLabels[status]}
               </Button>
             ))}
           </div>
@@ -177,7 +185,7 @@ export const Packages = () => {
                   {pkg.status === 'scheduled' && (
                     <div className="absolute top-3 left-3 flex items-center gap-1 px-2 py-1 bg-warning rounded text-xs text-white font-medium">
                       <Star size={12} />
-                      Upcoming
+                      {t('packages.upcoming')}
                     </div>
                   )}
                 </div>
@@ -201,10 +209,10 @@ export const Packages = () => {
                         </Button>
                       }
                       items={[
-                        { id: 'view', label: 'View Details', onClick: () => {} },
-                        { id: 'edit', label: 'Edit Package', onClick: () => {} },
-                        { id: 'toggle', label: pkg.status === 'active' ? 'Deactivate' : 'Activate', onClick: () => {} },
-                        { id: 'delete', label: 'Delete', onClick: () => {} },
+                        { id: 'view', label: t('packages.viewDetails'), onClick: () => {} },
+                        { id: 'edit', label: t('packages.editPackage'), onClick: () => {} },
+                        { id: 'toggle', label: pkg.status === 'active' ? t('packages.deactivate') : t('packages.activate'), onClick: () => {} },
+                        { id: 'delete', label: t('packages.delete'), onClick: () => {} },
                       ]}
                     />
                   </div>
@@ -213,7 +221,7 @@ export const Packages = () => {
 
                   {/* Inclusions */}
                   <div className="mb-3">
-                    <p className="text-xs text-text-muted mb-1">Includes:</p>
+                    <p className="text-xs text-text-muted mb-1">{t('packages.includes')}</p>
                     <div className="flex flex-wrap gap-1">
                       {pkg.inclusions.slice(0, 3).map((item, i) => (
                         <span
@@ -225,7 +233,7 @@ export const Packages = () => {
                       ))}
                       {pkg.inclusions.length > 3 && (
                         <span className="px-2 py-0.5 bg-background-secondary rounded text-xs text-text-muted">
-                          +{pkg.inclusions.length - 3} more
+                          {t('packages.more', { count: pkg.inclusions.length - 3 })}
                         </span>
                       )}
                     </div>
@@ -245,11 +253,11 @@ export const Packages = () => {
                       <p className="text-xl font-bold" style={{ color: HOTEL_COLOR }}>
                         {formatCurrency(pkg.price)}
                       </p>
-                      <p className="text-xs text-text-muted">per package</p>
+                      <p className="text-xs text-text-muted">{t('packages.perPackage')}</p>
                     </div>
                     <div className="text-right">
                       <span
-                        className={`px-2 py-0.5 rounded-full text-xs font-medium capitalize ${
+                        className={`px-2 py-0.5 rounded-full text-xs font-medium ${
                           pkg.status === 'active'
                             ? 'bg-success/20 text-success'
                             : pkg.status === 'scheduled'
@@ -257,9 +265,9 @@ export const Packages = () => {
                             : 'bg-background-tertiary text-text-muted'
                         }`}
                       >
-                        {pkg.status}
+                        {t(`status.${pkg.status}`)}
                       </span>
-                      <p className="text-xs text-text-muted mt-1">{pkg.bookings} bookings</p>
+                      <p className="text-xs text-text-muted mt-1">{t('packages.bookings', { count: pkg.bookings })}</p>
                     </div>
                   </div>
                 </div>
@@ -272,7 +280,7 @@ export const Packages = () => {
       {filteredPackages.length === 0 && (
         <Card className="p-12 text-center">
           <Gift size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No packages found</p>
+          <p className="text-text-secondary">{t('packages.noPackagesFound')}</p>
         </Card>
       )}
     </div>

@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   BarChart3,
@@ -14,6 +15,7 @@ import { PageHeader, Card, Button } from '@/components/common';
 import { rooms, reservations, billings, guests, HOTEL_COLOR } from '@/data/hotel/hotelData';
 
 export const HotelReports = () => {
+  const { t } = useTranslation('hotel');
   const [dateRange, setDateRange] = useState<string>('month');
 
   const stats = useMemo(() => {
@@ -85,12 +87,12 @@ export const HotelReports = () => {
     const total = roomCharges + foodBeverage + serviceCharges + otherCharges || 1;
 
     return [
-      { category: 'Room Revenue', amount: roomCharges, percentage: Math.round((roomCharges / total) * 100), color: HOTEL_COLOR },
-      { category: 'Food & Beverage', amount: foodBeverage, percentage: Math.round((foodBeverage / total) * 100), color: '#f59e0b' },
-      { category: 'Service Charges', amount: serviceCharges, percentage: Math.round((serviceCharges / total) * 100), color: '#3b82f6' },
-      { category: 'Other Revenue', amount: otherCharges, percentage: Math.round((otherCharges / total) * 100), color: '#8b5cf6' },
+      { category: t('reports.roomRevenue'), amount: roomCharges, percentage: Math.round((roomCharges / total) * 100), color: HOTEL_COLOR },
+      { category: t('reports.foodAndBeverage'), amount: foodBeverage, percentage: Math.round((foodBeverage / total) * 100), color: '#f59e0b' },
+      { category: t('reports.serviceCharges'), amount: serviceCharges, percentage: Math.round((serviceCharges / total) * 100), color: '#3b82f6' },
+      { category: t('reports.otherRevenue'), amount: otherCharges, percentage: Math.round((otherCharges / total) * 100), color: '#8b5cf6' },
     ];
-  }, []);
+  }, [t]);
 
   const monthlyOccupancy = [
     { month: 'Jan', rate: 65 },
@@ -114,18 +116,18 @@ export const HotelReports = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Reports & Analytics"
-        subtitle="Hotel performance insights and reports"
+        title={t('reports.title')}
+        subtitle={t('reports.subtitle')}
         icon={BarChart3}
         actions={
           <div className="flex gap-2">
             <Button variant="ghost">
               <Filter size={18} />
-              Filter
+              {t('reports.filter')}
             </Button>
             <Button>
               <Download size={18} />
-              Export
+              {t('reports.export')}
             </Button>
           </div>
         }
@@ -135,11 +137,11 @@ export const HotelReports = () => {
       <Card className="p-4">
         <div className="flex gap-2 flex-wrap">
           {[
-            { id: 'today', label: 'Today' },
-            { id: 'week', label: 'This Week' },
-            { id: 'month', label: 'This Month' },
-            { id: 'quarter', label: 'This Quarter' },
-            { id: 'year', label: 'This Year' },
+            { id: 'today', label: t('reports.today') },
+            { id: 'week', label: t('reports.thisWeek') },
+            { id: 'month', label: t('reports.thisMonth') },
+            { id: 'quarter', label: t('reports.thisQuarter') },
+            { id: 'year', label: t('reports.thisYear') },
           ].map((range) => (
             <Button
               key={range.id}
@@ -156,11 +158,11 @@ export const HotelReports = () => {
       {/* KPI Stats */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         {[
-          { label: 'Occupancy Rate', value: `${stats.occupancyRate}%`, icon: Bed, color: HOTEL_COLOR, trend: '+5%' },
-          { label: 'Total Revenue', value: formatCurrency(stats.totalRevenue), icon: DollarSign, color: '#10b981', trend: '+12%' },
-          { label: 'ADR', value: formatCurrency(stats.avgDailyRate), icon: TrendingUp, color: '#f59e0b', trend: '+8%' },
-          { label: 'RevPAR', value: formatCurrency(stats.revPAR), icon: BarChart3, color: '#3b82f6', trend: '+15%' },
-          { label: 'Total Guests', value: stats.totalGuests, icon: Users, color: '#8b5cf6', trend: '+10%' },
+          { label: t('reports.occupancyRate'), value: `${stats.occupancyRate}%`, icon: Bed, color: HOTEL_COLOR, trend: '+5%' },
+          { label: t('reports.totalRevenue'), value: formatCurrency(stats.totalRevenue), icon: DollarSign, color: '#10b981', trend: '+12%' },
+          { label: t('reports.adr'), value: formatCurrency(stats.avgDailyRate), icon: TrendingUp, color: '#f59e0b', trend: '+8%' },
+          { label: t('reports.revpar'), value: formatCurrency(stats.revPAR), icon: BarChart3, color: '#3b82f6', trend: '+15%' },
+          { label: t('reports.totalGuests'), value: stats.totalGuests, icon: Users, color: '#8b5cf6', trend: '+10%' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -193,7 +195,7 @@ export const HotelReports = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Occupancy Trend Chart */}
         <Card className="p-4">
-          <h3 className="font-semibold text-text-primary mb-4">Monthly Occupancy Rate</h3>
+          <h3 className="font-semibold text-text-primary mb-4">{t('reports.monthlyOccupancyRate')}</h3>
           <div className="h-64 flex items-end gap-2">
             {monthlyOccupancy.map((month, index) => (
               <div key={month.month} className="flex-1 flex flex-col items-center gap-2">
@@ -210,14 +212,14 @@ export const HotelReports = () => {
           </div>
           <div className="flex justify-between mt-4 text-xs text-text-muted">
             <span>0%</span>
-            <span>Average: {Math.round(monthlyOccupancy.reduce((a, b) => a + b.rate, 0) / 12)}%</span>
+            <span>{t('reports.average', { value: Math.round(monthlyOccupancy.reduce((a, b) => a + b.rate, 0) / 12) })}</span>
             <span>100%</span>
           </div>
         </Card>
 
         {/* Revenue by Category */}
         <Card className="p-4">
-          <h3 className="font-semibold text-text-primary mb-4">Revenue by Category</h3>
+          <h3 className="font-semibold text-text-primary mb-4">{t('reports.revenueByCategory')}</h3>
           <div className="space-y-4">
             {revenueByCategory.map((category, index) => (
               <motion.div
@@ -246,7 +248,7 @@ export const HotelReports = () => {
           </div>
           <div className="mt-4 pt-4 border-t border-border-default">
             <div className="flex justify-between">
-              <span className="font-medium text-text-primary">Total Revenue</span>
+              <span className="font-medium text-text-primary">{t('reports.totalRevenue')}</span>
               <span className="font-bold" style={{ color: HOTEL_COLOR }}>
                 {formatCurrency(revenueByCategory.reduce((a, b) => a + b.amount, 0))}
               </span>
@@ -257,16 +259,16 @@ export const HotelReports = () => {
 
       {/* Room Type Performance */}
       <Card className="p-4">
-        <h3 className="font-semibold text-text-primary mb-4">Room Type Performance</h3>
+        <h3 className="font-semibold text-text-primary mb-4">{t('reports.roomTypePerformance')}</h3>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className="border-b border-border-default">
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Room Type</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Total Rooms</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Occupied</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Occupancy Rate</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Revenue</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('reports.roomType')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('reports.totalRooms')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('reports.occupied')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('reports.occupancyRate')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('reports.revenue')}</th>
               </tr>
             </thead>
             <tbody>
@@ -310,9 +312,9 @@ export const HotelReports = () => {
       {/* Quick Reports */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {[
-          { title: 'Daily Operations Report', description: 'Arrivals, departures, and room status summary', icon: Calendar },
-          { title: 'Financial Summary', description: 'Revenue, expenses, and profit analysis', icon: DollarSign },
-          { title: 'Guest Analytics', description: 'Guest demographics and booking patterns', icon: Users },
+          { title: t('reports.dailyOperationsReport'), description: t('reports.dailyOperationsDesc'), icon: Calendar },
+          { title: t('reports.financialSummary'), description: t('reports.financialSummaryDesc'), icon: DollarSign },
+          { title: t('reports.guestAnalytics'), description: t('reports.guestAnalyticsDesc'), icon: Users },
         ].map((report, index) => {
           const Icon = report.icon;
           return (

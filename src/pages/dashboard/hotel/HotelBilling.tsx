@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   Receipt,
@@ -14,6 +15,7 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { billings, HOTEL_COLOR } from '@/data/hotel/hotelData';
 
 export const HotelBilling = () => {
+  const { t } = useTranslation('hotel');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
@@ -52,16 +54,23 @@ export const HotelBilling = () => {
     return `${amount.toLocaleString()} QAR`;
   };
 
+  const statusFilters: Record<string, string> = {
+    'all': t('billing.allStatus'),
+    'paid': t('status.paid'),
+    'pending': t('status.pending'),
+    'partial': t('status.partial'),
+  };
+
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Billing & Invoices"
-        subtitle="Manage guest billing and invoices"
+        title={t('billing.title')}
+        subtitle={t('billing.subtitle')}
         icon={Receipt}
         actions={
           <Button>
             <Plus size={18} />
-            Create Invoice
+            {t('billing.createInvoice')}
           </Button>
         }
       />
@@ -69,10 +78,10 @@ export const HotelBilling = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Revenue', value: formatCurrency(stats.totalRevenue), icon: DollarSign, color: HOTEL_COLOR },
-          { label: 'Paid Invoices', value: stats.paid, icon: CheckCircle, color: '#10b981' },
-          { label: 'Pending Payment', value: stats.pending, icon: Clock, color: '#f59e0b' },
-          { label: 'Partial Payments', value: stats.partial, icon: CreditCard, color: '#3b82f6' },
+          { label: t('billing.totalRevenue'), value: formatCurrency(stats.totalRevenue), icon: DollarSign, color: HOTEL_COLOR },
+          { label: t('billing.paidInvoices'), value: stats.paid, icon: CheckCircle, color: '#10b981' },
+          { label: t('billing.pendingPayment'), value: stats.pending, icon: Clock, color: '#f59e0b' },
+          { label: t('billing.partialPayments'), value: stats.partial, icon: CreditCard, color: '#3b82f6' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -107,21 +116,21 @@ export const HotelBilling = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by billing ID, guest name, or room..."
+              placeholder={t('billing.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
             />
           </div>
           <div className="flex gap-2 flex-wrap">
-            {['all', 'paid', 'pending', 'partial'].map((status) => (
+            {(['all', 'paid', 'pending', 'partial'] as const).map((status) => (
               <Button
                 key={status}
                 variant={statusFilter === status ? 'primary' : 'ghost'}
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status === 'all' ? 'All Status' : status.charAt(0).toUpperCase() + status.slice(1)}
+                {statusFilters[status]}
               </Button>
             ))}
           </div>
@@ -155,14 +164,14 @@ export const HotelBilling = () => {
                       <p className="font-semibold text-text-primary">{billing.id}</p>
                       <p className="text-sm text-text-muted">{billing.guestName}</p>
                       <p className="text-xs text-text-muted">
-                        Room {billing.roomNo} • {new Date(billing.checkIn).toLocaleDateString()} - {new Date(billing.checkOut).toLocaleDateString()}
+                        {t('billing.room', { roomNo: billing.roomNo })} • {new Date(billing.checkIn).toLocaleDateString()} - {new Date(billing.checkOut).toLocaleDateString()}
                       </p>
                     </div>
                   </div>
 
                   {/* Charges Breakdown */}
                   <div className="flex-1">
-                    <p className="text-xs text-text-muted mb-2">Charges</p>
+                    <p className="text-xs text-text-muted mb-2">{t('billing.charges')}</p>
                     <div className="space-y-1 text-sm max-h-24 overflow-y-auto">
                       {billing.items.slice(0, 3).map((item, i) => (
                         <div key={i} className="flex justify-between">
@@ -171,7 +180,7 @@ export const HotelBilling = () => {
                         </div>
                       ))}
                       {billing.items.length > 3 && (
-                        <p className="text-xs text-text-muted">+{billing.items.length - 3} more items</p>
+                        <p className="text-xs text-text-muted">{t('billing.moreItems', { count: billing.items.length - 3 })}</p>
                       )}
                     </div>
                   </div>
@@ -180,7 +189,7 @@ export const HotelBilling = () => {
                   <div className="min-w-[160px]">
                     <div className="text-right mb-2">
                       <p className="text-xs text-text-muted">
-                        Tax: {formatCurrency(billing.tax)} | Discount: {formatCurrency(billing.discount)}
+                        {t('billing.taxAndDiscount', { tax: formatCurrency(billing.tax), discount: formatCurrency(billing.discount) })}
                       </p>
                       <p className="text-xl font-bold" style={{ color: HOTEL_COLOR }}>
                         {formatCurrency(billing.total)}
@@ -188,7 +197,7 @@ export const HotelBilling = () => {
                     </div>
                     <div className="space-y-1">
                       <div className="flex justify-between text-xs">
-                        <span className="text-text-muted">Paid</span>
+                        <span className="text-text-muted">{t('status.paid')}</span>
                         <span className="text-text-primary">{formatCurrency(billing.paidAmount)}</span>
                       </div>
                       <div className="h-2 bg-background-tertiary rounded-full overflow-hidden">
@@ -206,10 +215,10 @@ export const HotelBilling = () => {
                   {/* Status */}
                   <div className="flex flex-col gap-2">
                     <span
-                      className="px-3 py-1 rounded-full text-xs font-medium capitalize text-center"
+                      className="px-3 py-1 rounded-full text-xs font-medium text-center"
                       style={{ backgroundColor: `${paymentColor}20`, color: paymentColor }}
                     >
-                      {billing.paymentStatus}
+                      {t(`status.${billing.paymentStatus}`)}
                     </span>
                   </div>
 
@@ -221,11 +230,11 @@ export const HotelBilling = () => {
                       </Button>
                     }
                     items={[
-                      { id: 'view', label: 'View Details', onClick: () => {} },
-                      { id: 'edit', label: 'Edit Invoice', onClick: () => {} },
-                      { id: 'payment', label: 'Record Payment', onClick: () => {} },
-                      { id: 'print', label: 'Print Invoice', onClick: () => {} },
-                      { id: 'email', label: 'Email to Guest', onClick: () => {} },
+                      { id: 'view', label: t('billing.viewDetails'), onClick: () => {} },
+                      { id: 'edit', label: t('billing.editInvoice'), onClick: () => {} },
+                      { id: 'payment', label: t('billing.recordPayment'), onClick: () => {} },
+                      { id: 'print', label: t('billing.printInvoice'), onClick: () => {} },
+                      { id: 'email', label: t('billing.emailToGuest'), onClick: () => {} },
                     ]}
                   />
                 </div>
@@ -234,9 +243,9 @@ export const HotelBilling = () => {
                 <div className="mt-3 pt-3 border-t border-border-default flex items-center justify-between text-xs text-text-muted">
                   <span className="flex items-center gap-2">
                     <CreditCard size={12} />
-                    Payment Method: {billing.paymentMethod || 'Not specified'}
+                    {billing.paymentMethod ? t('billing.paymentMethod', { method: billing.paymentMethod }) : t('billing.paymentMethod', { method: t('billing.notSpecified') })}
                   </span>
-                  <span>Balance: {formatCurrency(billing.balance)}</span>
+                  <span>{t('billing.balance', { amount: formatCurrency(billing.balance) })}</span>
                 </div>
               </Card>
             </motion.div>
@@ -247,7 +256,7 @@ export const HotelBilling = () => {
       {filteredBillings.length === 0 && (
         <Card className="p-12 text-center">
           <Receipt size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No invoices found</p>
+          <p className="text-text-secondary">{t('billing.noInvoicesFound')}</p>
         </Card>
       )}
     </div>

@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   Sparkles,
@@ -16,6 +17,7 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { amenities, HOTEL_COLOR } from '@/data/hotel/hotelData';
 
 export const Amenities = () => {
+  const { t } = useTranslation('hotel');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
@@ -59,16 +61,22 @@ export const Amenities = () => {
     return colors[category] || HOTEL_COLOR;
   };
 
+  const statusFilters: Record<string, string> = {
+    'all': t('amenities.all'),
+    'available': t('status.available'),
+    'unavailable': t('amenities.unavailable'),
+  };
+
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Amenities & Services"
-        subtitle="Manage hotel amenities and guest services"
+        title={t('amenities.title')}
+        subtitle={t('amenities.subtitle')}
         icon={Sparkles}
         actions={
           <Button>
             <Plus size={18} />
-            Add Amenity
+            {t('amenities.addAmenity')}
           </Button>
         }
       />
@@ -76,10 +84,10 @@ export const Amenities = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Amenities', value: stats.total, icon: Sparkles, color: HOTEL_COLOR },
-          { label: 'Available', value: stats.active, icon: CheckCircle, color: '#10b981' },
-          { label: 'Free Amenities', value: stats.free, icon: Star, color: '#f59e0b' },
-          { label: 'Premium Services', value: stats.premium, icon: DollarSign, color: '#3b82f6' },
+          { label: t('amenities.totalAmenities'), value: stats.total, icon: Sparkles, color: HOTEL_COLOR },
+          { label: t('amenities.available'), value: stats.active, icon: CheckCircle, color: '#10b981' },
+          { label: t('amenities.freeAmenities'), value: stats.free, icon: Star, color: '#f59e0b' },
+          { label: t('amenities.premiumServices'), value: stats.premium, icon: DollarSign, color: '#3b82f6' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -114,7 +122,7 @@ export const Amenities = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search amenities..."
+              placeholder={t('amenities.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -126,7 +134,7 @@ export const Amenities = () => {
               size="sm"
               onClick={() => setCategoryFilter('all')}
             >
-              All Categories
+              {t('amenities.allCategories')}
             </Button>
             {uniqueCategories.map((category) => (
               <Button
@@ -140,14 +148,14 @@ export const Amenities = () => {
             ))}
           </div>
           <div className="flex gap-2">
-            {['all', 'available', 'unavailable'].map((status) => (
+            {(['all', 'available', 'unavailable'] as const).map((status) => (
               <Button
                 key={status}
                 variant={statusFilter === status ? 'secondary' : 'ghost'}
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status.charAt(0).toUpperCase() + status.slice(1)}
+                {statusFilters[status]}
               </Button>
             ))}
           </div>
@@ -176,7 +184,7 @@ export const Amenities = () => {
                   {!amenity.priceRange.toLowerCase().includes('free') && (
                     <div className="absolute top-3 right-3 flex items-center gap-1 px-2 py-1 bg-primary rounded text-xs text-white font-medium">
                       <DollarSign size={12} />
-                      Premium
+                      {t('amenities.premium')}
                     </div>
                   )}
                 </div>
@@ -200,10 +208,10 @@ export const Amenities = () => {
                         </Button>
                       }
                       items={[
-                        { id: 'view', label: 'View Details', onClick: () => {} },
-                        { id: 'edit', label: 'Edit Amenity', onClick: () => {} },
-                        { id: 'toggle', label: amenity.status === 'operational' ? 'Mark Unavailable' : 'Mark Available', onClick: () => {} },
-                        { id: 'delete', label: 'Delete', onClick: () => {} },
+                        { id: 'view', label: t('amenities.viewDetails'), onClick: () => {} },
+                        { id: 'edit', label: t('amenities.editAmenity'), onClick: () => {} },
+                        { id: 'toggle', label: amenity.status === 'operational' ? t('amenities.markUnavailable') : t('amenities.markAvailable'), onClick: () => {} },
+                        { id: 'delete', label: t('amenities.delete'), onClick: () => {} },
                       ]}
                     />
                   </div>
@@ -223,7 +231,7 @@ export const Amenities = () => {
                     {amenity.capacity && (
                       <div className="flex items-center gap-2 text-xs text-text-muted">
                         <Users size={12} />
-                        <span>Capacity: {amenity.capacity}</span>
+                        <span>{t('amenities.capacity', { capacity: amenity.capacity })}</span>
                       </div>
                     )}
                   </div>
@@ -232,7 +240,7 @@ export const Amenities = () => {
                   <div className="flex items-end justify-between pt-3 border-t border-border-default">
                     <div>
                       {amenity.priceRange.toLowerCase().includes('free') ? (
-                        <p className="text-lg font-bold text-success">Free</p>
+                        <p className="text-lg font-bold text-success">{t('amenities.free')}</p>
                       ) : (
                         <>
                           <p className="text-sm font-bold" style={{ color: HOTEL_COLOR }}>
@@ -248,7 +256,7 @@ export const Amenities = () => {
                           : 'bg-error/20 text-error'
                       }`}
                     >
-                      {amenity.status === 'operational' ? 'Available' : amenity.status}
+                      {amenity.status === 'operational' ? t('status.available') : amenity.status}
                     </span>
                   </div>
 
@@ -257,7 +265,7 @@ export const Amenities = () => {
                     <div className="mt-3 pt-3 border-t border-border-default">
                       <p className="text-xs text-warning flex items-center gap-1">
                         <Clock size={12} />
-                        Reservation available
+                        {t('amenities.reservationAvailable')}
                       </p>
                     </div>
                   )}
@@ -271,7 +279,7 @@ export const Amenities = () => {
       {filteredAmenities.length === 0 && (
         <Card className="p-12 text-center">
           <Sparkles size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No amenities found</p>
+          <p className="text-text-secondary">{t('amenities.noAmenitiesFound')}</p>
         </Card>
       )}
     </div>

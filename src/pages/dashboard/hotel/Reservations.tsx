@@ -15,8 +15,10 @@ import {
 } from 'lucide-react';
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { reservations, HOTEL_COLOR } from '@/data/hotel/hotelData';
+import { useTranslation } from 'react-i18next';
 
 export const Reservations = () => {
+  const { t } = useTranslation('hotel');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
@@ -65,16 +67,24 @@ export const Reservations = () => {
     return `${amount.toLocaleString()} QAR`;
   };
 
+  const statusMap: Record<string, string> = {
+    'all': t('reservations.all'),
+    'confirmed': t('status.confirmed'),
+    'checked-in': t('status.checkedIn'),
+    'checked-out': t('status.checkedOut'),
+    'cancelled': t('status.cancelled'),
+  };
+
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Reservations"
-        subtitle="Manage hotel reservations and bookings"
+        title={t('reservations.title')}
+        subtitle={t('reservations.subtitle')}
         icon={Calendar}
         actions={
           <Button>
             <Plus size={18} />
-            New Reservation
+            {t('reservations.newReservation')}
           </Button>
         }
       />
@@ -82,10 +92,10 @@ export const Reservations = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: "Today's Arrivals", value: stats.todayArrivals, icon: CheckCircle, color: '#10b981' },
-          { label: "Today's Departures", value: stats.todayDepartures, icon: AlertCircle, color: '#f59e0b' },
-          { label: 'Total Bookings', value: stats.totalBookings, icon: Calendar, color: HOTEL_COLOR },
-          { label: 'Total Revenue', value: formatCurrency(stats.totalRevenue), icon: CreditCard, color: '#6366f1' },
+          { label: t('reservations.todaysArrivals'), value: stats.todayArrivals, icon: CheckCircle, color: '#10b981' },
+          { label: t('reservations.todaysDepartures'), value: stats.todayDepartures, icon: AlertCircle, color: '#f59e0b' },
+          { label: t('reservations.totalBookings'), value: stats.totalBookings, icon: Calendar, color: HOTEL_COLOR },
+          { label: t('reservations.totalRevenue'), value: formatCurrency(stats.totalRevenue), icon: CreditCard, color: '#6366f1' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -120,7 +130,7 @@ export const Reservations = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by confirmation no, guest name, or phone..."
+              placeholder={t('reservations.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -134,7 +144,7 @@ export const Reservations = () => {
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status.charAt(0).toUpperCase() + status.slice(1).replace('-', ' ')}
+                {statusMap[status]}
               </Button>
             ))}
           </div>
@@ -186,16 +196,16 @@ export const Reservations = () => {
                   <div className="text-center">
                     <div className="flex items-center gap-2 text-sm">
                       <div className="text-center">
-                        <p className="text-xs text-text-muted">Check-in</p>
+                        <p className="text-xs text-text-muted">{t('reservations.checkIn')}</p>
                         <p className="font-medium text-text-primary">{res.checkInDate}</p>
                       </div>
                       <span className="text-text-muted">→</span>
                       <div className="text-center">
-                        <p className="text-xs text-text-muted">Check-out</p>
+                        <p className="text-xs text-text-muted">{t('reservations.checkOut')}</p>
                         <p className="font-medium text-text-primary">{res.checkOutDate}</p>
                       </div>
                     </div>
-                    <p className="text-xs text-text-muted mt-1">{res.nights} nights</p>
+                    <p className="text-xs text-text-muted mt-1">{t('reservations.nights', { count: res.nights })}</p>
                   </div>
 
                   {/* Room Info */}
@@ -206,10 +216,10 @@ export const Reservations = () => {
                         className="inline-block px-2 py-0.5 rounded text-xs font-medium mt-1"
                         style={{ backgroundColor: `${HOTEL_COLOR}20`, color: HOTEL_COLOR }}
                       >
-                        Room {res.roomNo}
+                        {t('reservations.room', { roomNo: res.roomNo })}
                       </span>
                     ) : (
-                      <span className="text-xs text-text-muted mt-1">Not assigned</span>
+                      <span className="text-xs text-text-muted mt-1">{t('reservations.notAssigned')}</span>
                     )}
                   </div>
 
@@ -217,8 +227,8 @@ export const Reservations = () => {
                   <div className="flex items-center gap-2">
                     <Users size={16} className="text-text-muted" />
                     <span className="text-sm text-text-primary">
-                      {res.adults} Adult{res.adults > 1 ? 's' : ''}
-                      {res.children > 0 && `, ${res.children} Child${res.children > 1 ? 'ren' : ''}`}
+                      {res.adults > 1 ? t('reservations.adults', { count: res.adults }) : t('reservations.adult', { count: res.adults })}
+                      {res.children > 0 && `, ${res.children > 1 ? t('reservations.children', { count: res.children }) : t('reservations.child', { count: res.children })}`}
                     </span>
                   </div>
 
@@ -229,20 +239,20 @@ export const Reservations = () => {
                     </p>
                     <div className="flex items-center justify-end gap-2 mt-1">
                       <span
-                        className="px-2 py-0.5 rounded text-xs font-medium capitalize"
+                        className="px-2 py-0.5 rounded text-xs font-medium"
                         style={{ backgroundColor: `${paymentColor}20`, color: paymentColor }}
                       >
-                        {res.paymentStatus}
+                        {t(`status.${res.paymentStatus}`)}
                       </span>
                     </div>
                   </div>
 
                   {/* Status */}
                   <span
-                    className="px-3 py-1 rounded-full text-xs font-medium capitalize"
+                    className="px-3 py-1 rounded-full text-xs font-medium"
                     style={{ backgroundColor: `${statusColor}20`, color: statusColor }}
                   >
-                    {res.status.replace('-', ' ')}
+                    {statusMap[res.status] || res.status}
                   </span>
 
                   {/* Actions */}
@@ -253,11 +263,11 @@ export const Reservations = () => {
                       </Button>
                     }
                     items={[
-                      { id: 'view', label: 'View Details', onClick: () => {} },
-                      { id: 'edit', label: 'Edit Reservation', onClick: () => {} },
-                      { id: 'assign', label: 'Assign Room', onClick: () => {} },
-                      { id: 'checkin', label: 'Check-in', onClick: () => {} },
-                      { id: 'cancel', label: 'Cancel', onClick: () => {} },
+                      { id: 'view', label: t('reservations.viewDetails'), onClick: () => {} },
+                      { id: 'edit', label: t('reservations.editReservation'), onClick: () => {} },
+                      { id: 'assign', label: t('reservations.assignRoom'), onClick: () => {} },
+                      { id: 'checkin', label: t('reservations.checkIn'), onClick: () => {} },
+                      { id: 'cancel', label: t('reservations.cancel'), onClick: () => {} },
                     ]}
                   />
                 </div>
@@ -271,7 +281,7 @@ export const Reservations = () => {
                       </span>
                     )}
                     <span className="bg-background-secondary px-2 py-0.5 rounded">
-                      Source: {res.source}
+                      {t('reservations.source', { source: res.source })}
                     </span>
                   </div>
                 )}
@@ -284,7 +294,7 @@ export const Reservations = () => {
       {filteredReservations.length === 0 && (
         <Card className="p-12 text-center">
           <Calendar size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No reservations found</p>
+          <p className="text-text-secondary">{t('reservations.noReservationsFound')}</p>
         </Card>
       )}
     </div>
