@@ -19,7 +19,7 @@ import { useTranslation } from 'react-i18next';
 type ViewMode = 'pipeline' | 'list';
 
 export const Opportunities = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('crm');
   const [viewMode, setViewMode] = useState<ViewMode>('pipeline');
 
   // Group opportunities by stage
@@ -61,7 +61,7 @@ export const Opportunities = () => {
   const columns = [
     {
       key: 'name',
-      header: 'Opportunity',
+      header: t('opportunities.columnOpportunity'),
       sortable: true,
       render: (opp: Opportunity) => (
         <div>
@@ -72,7 +72,7 @@ export const Opportunities = () => {
     },
     {
       key: 'customer',
-      header: 'Customer',
+      header: t('opportunities.columnCustomer'),
       sortable: true,
       render: (opp: Opportunity) => (
         <span className="text-[#94a3b8]">{opp.customer}</span>
@@ -80,7 +80,7 @@ export const Opportunities = () => {
     },
     {
       key: 'value',
-      header: 'Value',
+      header: t('opportunities.columnValue'),
       sortable: true,
       render: (opp: Opportunity) => (
         <span className="font-medium text-white">${opp.value.toLocaleString()}</span>
@@ -88,7 +88,7 @@ export const Opportunities = () => {
     },
     {
       key: 'stage',
-      header: 'Stage',
+      header: t('opportunities.columnStage'),
       sortable: true,
       render: (opp: Opportunity) => {
         const stage = pipelineStages.find(s => s.id === opp.stage);
@@ -104,7 +104,7 @@ export const Opportunities = () => {
     },
     {
       key: 'probability',
-      header: 'Probability',
+      header: t('opportunities.columnProbability'),
       sortable: true,
       render: (opp: Opportunity) => (
         <span className="text-[#94a3b8]">{opp.probability}%</span>
@@ -112,7 +112,7 @@ export const Opportunities = () => {
     },
     {
       key: 'expectedClose',
-      header: 'Expected Close',
+      header: t('opportunities.columnExpectedClose'),
       sortable: true,
       render: (opp: Opportunity) => (
         <span className="text-[#94a3b8]">
@@ -122,7 +122,7 @@ export const Opportunities = () => {
     },
     {
       key: 'owner',
-      header: 'Owner',
+      header: t('opportunities.columnOwner'),
       sortable: true,
       render: (opp: Opportunity) => (
         <span className="text-[#94a3b8]">{opp.owner}</span>
@@ -172,8 +172,8 @@ export const Opportunities = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title={t('crm.salesPipeline', 'Sales Pipeline')}
-        subtitle="Track and manage your sales opportunities"
+        title={t('opportunities.title')}
+        subtitle={t('opportunities.subtitle')}
         actions={
           <div className="flex items-center gap-3">
             {/* View Toggle */}
@@ -201,7 +201,7 @@ export const Opportunities = () => {
             </div>
             <button className="flex items-center gap-2 rounded-lg bg-[#547792] px-4 py-2 text-sm font-medium text-white hover:bg-[#5558e3] transition-colors">
               <Plus className="h-4 w-4" />
-              Add Opportunity
+              {t('opportunities.addOpportunity')}
             </button>
           </div>
         }
@@ -210,25 +210,25 @@ export const Opportunities = () => {
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Pipeline"
+          title={t('opportunities.totalPipeline')}
           value={`$${(stats.totalPipeline / 1000).toFixed(0)}K`}
           icon={DollarSign}
           iconColor="#547792"
         />
         <StatsCard
-          title="Weighted Value"
+          title={t('opportunities.weightedValue')}
           value={`$${(stats.weightedValue / 1000).toFixed(0)}K`}
           icon={TrendingUp}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Deals This Month"
+          title={t('opportunities.dealsThisMonth')}
           value={stats.dealsThisMonth.toString()}
           icon={Target}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Win Rate"
+          title={t('opportunities.winRate')}
           value={`${stats.winRate}%`}
           icon={Percent}
           iconColor="#94B4C1"
@@ -270,7 +270,7 @@ export const Opportunities = () => {
 
                   {/* Stage Total */}
                   <div className="mb-4 p-3 bg-[#0a0a0f]/50 rounded-lg">
-                    <p className="text-xs text-[#64748b]">Total Value</p>
+                    <p className="text-xs text-[#64748b]">{t('opportunities.totalValue')}</p>
                     <p className="text-lg font-bold text-white">
                       ${stageTotal.toLocaleString()}
                     </p>
@@ -283,7 +283,7 @@ export const Opportunities = () => {
                     ))}
                     {stageOpps.length === 0 && (
                       <div className="text-center py-8 text-[#64748b] text-sm">
-                        No opportunities
+                        {t('opportunities.noOpportunities')}
                       </div>
                     )}
                   </div>
@@ -301,7 +301,7 @@ export const Opportunities = () => {
             columns={columns}
             data={opportunities}
             keyExtractor={(o) => o.id}
-            emptyMessage="No opportunities found"
+            emptyMessage={t('opportunities.noOpportunitiesFound')}
           />
         </motion.div>
       )}

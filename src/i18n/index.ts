@@ -18,6 +18,8 @@ import enManufacturing from './locales/en/manufacturing.json';
 import enLaw from './locales/en/law.json';
 import enEducation from './locales/en/education.json';
 import enHr from './locales/en/hr.json';
+import enAccounting from './locales/en/accounting.json';
+import enCrm from './locales/en/crm.json';
 
 // TR translations
 import trCommon from './locales/tr/common.json';
@@ -35,6 +37,8 @@ import trManufacturing from './locales/tr/manufacturing.json';
 import trLaw from './locales/tr/law.json';
 import trEducation from './locales/tr/education.json';
 import trHr from './locales/tr/hr.json';
+import trAccounting from './locales/tr/accounting.json';
+import trCrm from './locales/tr/crm.json';
 
 i18n
   .use(LanguageDetector)
@@ -57,6 +61,8 @@ i18n
         law: enLaw,
         education: enEducation,
         hr: enHr,
+        accounting: enAccounting,
+        crm: enCrm,
       },
       tr: {
         common: trCommon,
@@ -74,11 +80,13 @@ i18n
         law: trLaw,
         education: trEducation,
         hr: trHr,
+        accounting: trAccounting,
+        crm: trCrm,
       },
     },
     fallbackLng: 'en',
     defaultNS: 'common',
-    ns: ['common', 'auth', 'sidebar', 'dashboard', 'breadcrumb', 'errors', 'sectors', 'communication', 'hotel', 'construction', 'logistics', 'manufacturing', 'law', 'education', 'hr'],
+    ns: ['common', 'auth', 'sidebar', 'dashboard', 'breadcrumb', 'errors', 'sectors', 'communication', 'hotel', 'construction', 'logistics', 'manufacturing', 'law', 'education', 'hr', 'accounting', 'crm'],
     interpolation: {
       escapeValue: false,
     },

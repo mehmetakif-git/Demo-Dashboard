@@ -20,7 +20,7 @@ import { useTranslation } from 'react-i18next';
 type ViewMode = 'table' | 'card';
 
 export const CustomerList = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('crm');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [segmentFilter, setSegmentFilter] = useState<string>('all');
@@ -60,7 +60,7 @@ export const CustomerList = () => {
   const columns = [
     {
       key: 'name',
-      header: 'Customer',
+      header: t('customers.columnCustomer'),
       sortable: true,
       render: (customer: Customer) => (
         <div className="flex items-center gap-3">
@@ -76,7 +76,7 @@ export const CustomerList = () => {
     },
     {
       key: 'industry',
-      header: 'Industry',
+      header: t('customers.columnIndustry'),
       sortable: true,
       render: (customer: Customer) => (
         <span className="text-[#94a3b8]">{customer.industry}</span>
@@ -84,7 +84,7 @@ export const CustomerList = () => {
     },
     {
       key: 'segment',
-      header: 'Segment',
+      header: t('customers.columnSegment'),
       sortable: true,
       render: (customer: Customer) => {
         const colors = segmentColors[customer.segment];
@@ -97,7 +97,7 @@ export const CustomerList = () => {
     },
     {
       key: 'accountManager',
-      header: 'Account Manager',
+      header: t('customers.columnAccountManager'),
       sortable: true,
       render: (customer: Customer) => (
         <span className="text-[#94a3b8]">{customer.accountManager}</span>
@@ -105,7 +105,7 @@ export const CustomerList = () => {
     },
     {
       key: 'totalRevenue',
-      header: 'Total Revenue',
+      header: t('customers.columnTotalRevenue'),
       sortable: true,
       render: (customer: Customer) => (
         <span className="font-medium text-white">
@@ -115,7 +115,7 @@ export const CustomerList = () => {
     },
     {
       key: 'lastContact',
-      header: 'Last Contact',
+      header: t('customers.columnLastContact'),
       sortable: true,
       render: (customer: Customer) => (
         <span className="text-[#94a3b8]">
@@ -125,7 +125,7 @@ export const CustomerList = () => {
     },
     {
       key: 'status',
-      header: 'Status',
+      header: t('customers.columnStatus'),
       sortable: true,
       render: (customer: Customer) => (
         <StatusBadge status={customer.status} />
@@ -188,7 +188,7 @@ export const CustomerList = () => {
             <p className="text-lg font-semibold text-white">
               ${customer.totalRevenue.toLocaleString()}
             </p>
-            <p className="text-xs text-[#64748b]">{customer.totalOrders} orders</p>
+            <p className="text-xs text-[#64748b]">{t('customers.orders', { count: customer.totalOrders })}</p>
           </div>
         </div>
       </motion.div>
@@ -198,12 +198,12 @@ export const CustomerList = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title={t('crm.customers', 'Customers')}
-        subtitle="Manage your customer relationships"
+        title={t('customers.title')}
+        subtitle={t('customers.subtitle')}
         actions={
           <button className="flex items-center gap-2 rounded-lg bg-[#547792] px-4 py-2 text-sm font-medium text-white hover:bg-[#5558e3] transition-colors">
             <Plus className="h-4 w-4" />
-            Add Customer
+            {t('customers.addCustomer')}
           </button>
         }
       />
@@ -211,26 +211,26 @@ export const CustomerList = () => {
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Customers"
+          title={t('customers.totalCustomers')}
           value={stats.totalCustomers.toString()}
           icon={Building2}
           iconColor="#547792"
         />
         <StatsCard
-          title="Active Customers"
+          title={t('customers.activeCustomers')}
           value={stats.activeCustomers.toString()}
           icon={Users}
           iconColor="#10b981"
-          subtitle={`${Math.round((stats.activeCustomers / stats.totalCustomers) * 100)}% of total`}
+          subtitle={t('customers.ofTotal', { percent: Math.round((stats.activeCustomers / stats.totalCustomers) * 100) })}
         />
         <StatsCard
-          title="Enterprise Segment"
+          title={t('customers.enterpriseSegment')}
           value={stats.enterpriseCustomers.toString()}
           icon={Building2}
           iconColor="#94B4C1"
         />
         <StatsCard
-          title="Total Revenue"
+          title={t('customers.totalRevenue')}
           value={`$${(stats.totalRevenue / 1000).toFixed(0)}K`}
           icon={DollarSign}
           iconColor="#f59e0b"
@@ -246,7 +246,7 @@ export const CustomerList = () => {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#64748b]" />
               <input
                 type="text"
-                placeholder="Search customers..."
+                placeholder={t('customers.searchPlaceholder')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10 pr-4 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white placeholder-[#64748b] focus:outline-none focus:border-[#547792] w-64"
@@ -259,10 +259,10 @@ export const CustomerList = () => {
               onChange={(e) => setSegmentFilter(e.target.value)}
               className="px-3 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white focus:outline-none focus:border-[#547792]"
             >
-              <option value="all">All Segments</option>
-              <option value="Enterprise">Enterprise</option>
-              <option value="Mid-Market">Mid-Market</option>
-              <option value="SMB">SMB</option>
+              <option value="all">{t('customers.allSegments')}</option>
+              <option value="Enterprise">{t('customers.enterprise')}</option>
+              <option value="Mid-Market">{t('customers.midMarket')}</option>
+              <option value="SMB">{t('customers.smb')}</option>
             </select>
 
             {/* Industry Filter */}
@@ -271,7 +271,7 @@ export const CustomerList = () => {
               onChange={(e) => setIndustryFilter(e.target.value)}
               className="px-3 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white focus:outline-none focus:border-[#547792]"
             >
-              <option value="all">All Industries</option>
+              <option value="all">{t('customers.allIndustries')}</option>
               {industries.map(industry => (
                 <option key={industry} value={industry}>{industry}</option>
               ))}
@@ -283,9 +283,9 @@ export const CustomerList = () => {
               onChange={(e) => setStatusFilter(e.target.value)}
               className="px-3 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white focus:outline-none focus:border-[#547792]"
             >
-              <option value="all">All Status</option>
-              <option value="active">Active</option>
-              <option value="inactive">Inactive</option>
+              <option value="all">{t('customers.allStatus')}</option>
+              <option value="active">{t('customers.active')}</option>
+              <option value="inactive">{t('customers.inactive')}</option>
             </select>
           </div>
 
@@ -326,7 +326,7 @@ export const CustomerList = () => {
             data={filteredCustomers}
             keyExtractor={(c) => c.id}
             onRowClick={(customer) => navigate(`/dashboard/crm/customers/${customer.id}`)}
-            emptyMessage="No customers found"
+            emptyMessage={t('customers.noCustomersFound')}
           />
         </motion.div>
       ) : (
@@ -336,7 +336,7 @@ export const CustomerList = () => {
           ))}
           {filteredCustomers.length === 0 && (
             <div className="col-span-full text-center py-12 text-[#64748b]">
-              No customers found
+              {t('customers.noCustomersFound')}
             </div>
           )}
         </div>

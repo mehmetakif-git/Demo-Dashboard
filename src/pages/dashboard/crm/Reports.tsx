@@ -29,7 +29,7 @@ import { opportunities, pipelineStages, leadSources } from '@/data/crmData';
 import { useTranslation } from 'react-i18next';
 
 export const Reports = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('crm');
   // Pipeline by Stage data
   const pipelineData = useMemo(() => {
     return pipelineStages
@@ -87,43 +87,43 @@ export const Reports = () => {
   const reportCards = [
     {
       id: 'pipeline',
-      title: 'Sales Pipeline Report',
-      description: 'Detailed analysis of your sales pipeline stages and conversion rates',
+      title: t('reports.salesPipelineReport'),
+      description: t('reports.salesPipelineDesc'),
       icon: Activity,
       color: '#547792',
     },
     {
       id: 'lead-conversion',
-      title: 'Lead Conversion Report',
-      description: 'Track lead sources and conversion metrics over time',
+      title: t('reports.leadConversionReport'),
+      description: t('reports.leadConversionDesc'),
       icon: Target,
       color: '#10b981',
     },
     {
       id: 'customer-revenue',
-      title: 'Customer Revenue Report',
-      description: 'Revenue breakdown by customer segment and industry',
+      title: t('reports.customerRevenueReport'),
+      description: t('reports.customerRevenueDesc'),
       icon: Users,
       color: '#94B4C1',
     },
     {
       id: 'activity-summary',
-      title: 'Activity Summary Report',
-      description: 'Overview of sales activities and team performance',
+      title: t('reports.activitySummaryReport'),
+      description: t('reports.activitySummaryDesc'),
       icon: BarChart3,
       color: '#f59e0b',
     },
     {
       id: 'win-loss',
-      title: 'Win/Loss Analysis',
-      description: 'Analyze factors contributing to deal outcomes',
+      title: t('reports.winLossAnalysis'),
+      description: t('reports.winLossDesc'),
       icon: TrendingUp,
       color: '#ef4444',
     },
     {
       id: 'forecast',
-      title: 'Sales Forecast',
-      description: 'Projected revenue based on pipeline probability',
+      title: t('reports.salesForecast'),
+      description: t('reports.salesForecastDesc'),
       icon: PieChart,
       color: '#06b6d4',
     },
@@ -132,8 +132,8 @@ export const Reports = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title={t('crm.crmReports', 'CRM Reports')}
-        subtitle="Analytics and insights for your sales performance"
+        title={t('reports.title')}
+        subtitle={t('reports.subtitle')}
       />
 
       {/* Report Cards */}
@@ -162,7 +162,7 @@ export const Reports = () => {
               </div>
               <button className="mt-4 w-full flex items-center justify-center gap-2 rounded-lg bg-[#1a1a24] px-4 py-2 text-sm font-medium text-[#94a3b8] hover:bg-[#547792] hover:text-white transition-colors group-hover:bg-[#547792]/10 group-hover:text-[#547792]">
                 <Play className="h-4 w-4" />
-                Generate Report
+                {t('reports.generateReport')}
               </button>
             </motion.div>
           );
@@ -176,39 +176,39 @@ export const Reports = () => {
         transition={{ delay: 0.3 }}
         className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
       >
-        <h3 className="text-lg font-semibold text-white mb-4">Quick Insights</h3>
+        <h3 className="text-lg font-semibold text-white mb-4">{t('reports.quickInsights')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="p-4 bg-[#1a1a24] rounded-lg">
             <div className="flex items-center gap-2 text-[#64748b] mb-2">
               <Award className="h-4 w-4" />
-              <span className="text-sm">Top Performer</span>
+              <span className="text-sm">{t('reports.topPerformer')}</span>
             </div>
             <p className="text-xl font-bold text-white">{insights.topPerformer}</p>
-            <p className="text-sm text-[#10b981]">{insights.topPerformerDeals} closed deals</p>
+            <p className="text-sm text-[#10b981]">{t('reports.closedDeals', { count: insights.topPerformerDeals })}</p>
           </div>
           <div className="p-4 bg-[#1a1a24] rounded-lg">
             <div className="flex items-center gap-2 text-[#64748b] mb-2">
               <Target className="h-4 w-4" />
-              <span className="text-sm">Best Lead Source</span>
+              <span className="text-sm">{t('reports.bestLeadSource')}</span>
             </div>
             <p className="text-xl font-bold text-white">{insights.bestSource}</p>
-            <p className="text-sm text-[#547792]">Highest conversion</p>
+            <p className="text-sm text-[#547792]">{t('reports.highestConversion')}</p>
           </div>
           <div className="p-4 bg-[#1a1a24] rounded-lg">
             <div className="flex items-center gap-2 text-[#64748b] mb-2">
               <Clock className="h-4 w-4" />
-              <span className="text-sm">Avg Sales Cycle</span>
+              <span className="text-sm">{t('reports.avgSalesCycle')}</span>
             </div>
-            <p className="text-xl font-bold text-white">{insights.avgSalesCycle} days</p>
-            <p className="text-sm text-[#f59e0b]">From lead to close</p>
+            <p className="text-xl font-bold text-white">{t('reports.days', { count: insights.avgSalesCycle })}</p>
+            <p className="text-sm text-[#f59e0b]">{t('reports.fromLeadToClose')}</p>
           </div>
           <div className="p-4 bg-[#1a1a24] rounded-lg">
             <div className="flex items-center gap-2 text-[#64748b] mb-2">
               <Percent className="h-4 w-4" />
-              <span className="text-sm">Retention Rate</span>
+              <span className="text-sm">{t('reports.retentionRate')}</span>
             </div>
             <p className="text-xl font-bold text-white">{insights.retentionRate}%</p>
-            <p className="text-sm text-[#94B4C1]">Customer loyalty</p>
+            <p className="text-sm text-[#94B4C1]">{t('reports.customerLoyalty')}</p>
           </div>
         </div>
       </motion.div>
@@ -222,7 +222,7 @@ export const Reports = () => {
           transition={{ delay: 0.4 }}
           className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
         >
-          <h3 className="text-lg font-semibold text-white mb-4">Pipeline by Stage</h3>
+          <h3 className="text-lg font-semibold text-white mb-4">{t('reports.pipelineByStage')}</h3>
           <div className="h-[300px]">
             <ResponsiveContainer width="99%" height={300}>
               <BarChart data={pipelineData} layout="vertical">
@@ -247,7 +247,7 @@ export const Reports = () => {
                     borderRadius: '8px',
                     color: '#fff',
                   }}
-                  formatter={(value) => [`$${Number(value).toLocaleString()}`, 'Value']}
+                  formatter={(value) => [`$${Number(value).toLocaleString()}`, t('reports.value')]}
                 />
                 <Bar dataKey="value" radius={[0, 4, 4, 0]}>
                   {pipelineData.map((entry, index) => (
@@ -266,7 +266,7 @@ export const Reports = () => {
           transition={{ delay: 0.5 }}
           className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
         >
-          <h3 className="text-lg font-semibold text-white mb-4">Lead Sources</h3>
+          <h3 className="text-lg font-semibold text-white mb-4">{t('reports.leadSources')}</h3>
           <div className="h-[300px]">
             <ResponsiveContainer width="99%" height={300}>
               <RechartsPieChart>
@@ -316,7 +316,7 @@ export const Reports = () => {
           transition={{ delay: 0.6 }}
           className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6 lg:col-span-2"
         >
-          <h3 className="text-lg font-semibold text-white mb-4">Monthly Closed Deals</h3>
+          <h3 className="text-lg font-semibold text-white mb-4">{t('reports.monthlyClosedDeals')}</h3>
           <div className="h-[300px]">
             <ResponsiveContainer width="99%" height={300}>
               <BarChart data={monthlyDeals}>
@@ -331,19 +331,19 @@ export const Reports = () => {
                     color: '#fff',
                   }}
                 />
-                <Bar dataKey="won" name="Won" fill="#10b981" radius={[4, 4, 0, 0]} />
-                <Bar dataKey="lost" name="Lost" fill="#ef4444" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="won" name={t('reports.won')} fill="#10b981" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="lost" name={t('reports.lost')} fill="#ef4444" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
           <div className="flex justify-center gap-6 mt-4">
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-full bg-[#10b981]" />
-              <span className="text-sm text-[#94a3b8]">Won</span>
+              <span className="text-sm text-[#94a3b8]">{t('reports.won')}</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-full bg-[#ef4444]" />
-              <span className="text-sm text-[#94a3b8]">Lost</span>
+              <span className="text-sm text-[#94a3b8]">{t('reports.lost')}</span>
             </div>
           </div>
         </motion.div>

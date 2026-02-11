@@ -19,7 +19,7 @@ import { contracts, contractStatusColors, type Contract } from '@/data/crmData';
 import { useTranslation } from 'react-i18next';
 
 export const Contracts = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('crm');
   const [activeTab, setActiveTab] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -57,17 +57,17 @@ export const Contracts = () => {
   const expiringCount = contracts.filter(c => c.status === 'expiring').length;
 
   const tabs = [
-    { id: 'all', label: 'All' },
-    { id: 'active', label: 'Active' },
-    { id: 'pending', label: 'Pending' },
-    { id: 'expiring', label: 'Expiring' },
-    { id: 'expired', label: 'Expired' },
+    { id: 'all', label: t('contracts.tabAll') },
+    { id: 'active', label: t('contracts.tabActive') },
+    { id: 'pending', label: t('contracts.tabPending') },
+    { id: 'expiring', label: t('contracts.tabExpiring') },
+    { id: 'expired', label: t('contracts.tabExpired') },
   ];
 
   const columns = [
     {
       key: 'id',
-      header: 'Contract ID',
+      header: t('contracts.columnContractId'),
       sortable: true,
       render: (contract: Contract) => (
         <span className="font-medium text-[#547792]">{contract.id}</span>
@@ -75,7 +75,7 @@ export const Contracts = () => {
     },
     {
       key: 'customer',
-      header: 'Customer',
+      header: t('contracts.columnCustomer'),
       sortable: true,
       render: (contract: Contract) => (
         <span className="text-white">{contract.customer}</span>
@@ -83,7 +83,7 @@ export const Contracts = () => {
     },
     {
       key: 'title',
-      header: 'Title',
+      header: t('contracts.columnTitle'),
       sortable: true,
       render: (contract: Contract) => (
         <div>
@@ -94,7 +94,7 @@ export const Contracts = () => {
     },
     {
       key: 'value',
-      header: 'Value',
+      header: t('contracts.columnValue'),
       sortable: true,
       render: (contract: Contract) => (
         <span className="font-medium text-white">${contract.value.toLocaleString()}</span>
@@ -102,7 +102,7 @@ export const Contracts = () => {
     },
     {
       key: 'startDate',
-      header: 'Start Date',
+      header: t('contracts.columnStartDate'),
       sortable: true,
       render: (contract: Contract) => (
         <span className="text-[#94a3b8]">
@@ -112,7 +112,7 @@ export const Contracts = () => {
     },
     {
       key: 'endDate',
-      header: 'End Date',
+      header: t('contracts.columnEndDate'),
       sortable: true,
       render: (contract: Contract) => (
         <span className={contract.status === 'expiring' ? 'text-[#f59e0b]' : 'text-[#94a3b8]'}>
@@ -122,7 +122,7 @@ export const Contracts = () => {
     },
     {
       key: 'status',
-      header: 'Status',
+      header: t('contracts.columnStatus'),
       sortable: true,
       render: (contract: Contract) => {
         const colors = contractStatusColors[contract.status];
@@ -135,7 +135,7 @@ export const Contracts = () => {
     },
     {
       key: 'autoRenew',
-      header: 'Auto-Renew',
+      header: t('contracts.columnAutoRenew'),
       render: (contract: Contract) => (
         contract.autoRenew ? (
           <Check className="h-4 w-4 text-[#10b981]" />
@@ -152,14 +152,14 @@ export const Contracts = () => {
           <button
             onClick={(e) => e.stopPropagation()}
             className="rounded-lg p-1.5 text-[#64748b] hover:bg-[#1a1a24] hover:text-white transition-colors"
-            title="View"
+            title={t('contracts.view')}
           >
             <Eye className="h-4 w-4" />
           </button>
           <button
             onClick={(e) => e.stopPropagation()}
             className="rounded-lg p-1.5 text-[#64748b] hover:bg-[#1a1a24] hover:text-white transition-colors"
-            title="Edit"
+            title={t('contracts.edit')}
           >
             <Edit className="h-4 w-4" />
           </button>
@@ -167,7 +167,7 @@ export const Contracts = () => {
             <button
               onClick={(e) => e.stopPropagation()}
               className="rounded-lg p-1.5 text-[#64748b] hover:bg-[#1a1a24] hover:text-[#10b981] transition-colors"
-              title="Renew"
+              title={t('contracts.renew')}
             >
               <RefreshCw className="h-4 w-4" />
             </button>
@@ -175,7 +175,7 @@ export const Contracts = () => {
           <button
             onClick={(e) => e.stopPropagation()}
             className="rounded-lg p-1.5 text-[#64748b] hover:bg-[#1a1a24] hover:text-white transition-colors"
-            title="Download"
+            title={t('contracts.download')}
           >
             <Download className="h-4 w-4" />
           </button>
@@ -187,12 +187,12 @@ export const Contracts = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title={t('crm.contracts', 'Contracts')}
-        subtitle="Manage your customer contracts"
+        title={t('contracts.title')}
+        subtitle={t('contracts.subtitle')}
         actions={
           <button className="flex items-center gap-2 rounded-lg bg-[#547792] px-4 py-2 text-sm font-medium text-white hover:bg-[#5558e3] transition-colors">
             <Plus className="h-4 w-4" />
-            Create Contract
+            {t('contracts.createContract')}
           </button>
         }
       />
@@ -206,7 +206,7 @@ export const Contracts = () => {
         >
           <AlertTriangle className="h-5 w-5 text-[#f59e0b]" />
           <p className="text-[#f59e0b]">
-            <span className="font-semibold">{expiringCount} contract{expiringCount > 1 ? 's' : ''}</span> expiring this month. Review and renew to avoid service interruption.
+            <span className="font-semibold">{expiringCount} {expiringCount > 1 ? 'contracts' : 'contract'}</span> expiring this month. Review and renew to avoid service interruption.
           </p>
         </motion.div>
       )}
@@ -214,25 +214,25 @@ export const Contracts = () => {
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Active Contracts"
+          title={t('contracts.activeContracts')}
           value={stats.active.toString()}
           icon={FileSignature}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Total Contract Value"
+          title={t('contracts.totalContractValue')}
           value={`$${(stats.totalValue / 1000).toFixed(0)}K`}
           icon={DollarSign}
           iconColor="#547792"
         />
         <StatsCard
-          title="Expiring Soon"
+          title={t('contracts.expiringSoon')}
           value={stats.expiring.toString()}
           icon={AlertTriangle}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Pending Signature"
+          title={t('contracts.pendingSignature')}
           value={stats.pending.toString()}
           icon={Clock}
           iconColor="#94B4C1"
@@ -248,7 +248,7 @@ export const Contracts = () => {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#64748b]" />
           <input
             type="text"
-            placeholder="Search contracts..."
+            placeholder={t('contracts.searchPlaceholder')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-10 pr-4 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white placeholder-[#64748b] focus:outline-none focus:border-[#547792]"
@@ -265,7 +265,7 @@ export const Contracts = () => {
           columns={columns}
           data={filteredContracts}
           keyExtractor={(c) => c.id}
-          emptyMessage="No contracts found"
+          emptyMessage={t('contracts.noContractsFound')}
         />
       </motion.div>
     </div>

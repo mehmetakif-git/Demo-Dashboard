@@ -18,7 +18,7 @@ import { leads, leadSources, leadStatusColors, type Lead } from '@/data/crmData'
 import { useTranslation } from 'react-i18next';
 
 export const Leads = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('crm');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [sourceFilter, setSourceFilter] = useState<string>('all');
@@ -65,7 +65,7 @@ export const Leads = () => {
   const columns = [
     {
       key: 'name',
-      header: 'Lead',
+      header: t('leads.columnLead'),
       sortable: true,
       render: (lead: Lead) => (
         <div className="flex items-center gap-3">
@@ -83,7 +83,7 @@ export const Leads = () => {
     },
     {
       key: 'email',
-      header: 'Contact',
+      header: t('leads.columnContact'),
       render: (lead: Lead) => (
         <div className="space-y-1">
           <div className="flex items-center gap-2 text-sm text-[#94a3b8]">
@@ -99,7 +99,7 @@ export const Leads = () => {
     },
     {
       key: 'source',
-      header: 'Source',
+      header: t('leads.columnSource'),
       sortable: true,
       render: (lead: Lead) => (
         <span className="text-[#94a3b8]">{lead.source}</span>
@@ -107,7 +107,7 @@ export const Leads = () => {
     },
     {
       key: 'score',
-      header: 'Score',
+      header: t('leads.columnScore'),
       sortable: true,
       render: (lead: Lead) => (
         <div className="flex items-center gap-2">
@@ -128,7 +128,7 @@ export const Leads = () => {
     },
     {
       key: 'value',
-      header: 'Est. Value',
+      header: t('leads.columnEstValue'),
       sortable: true,
       render: (lead: Lead) => (
         <span className="font-medium text-white">${lead.value.toLocaleString()}</span>
@@ -136,7 +136,7 @@ export const Leads = () => {
     },
     {
       key: 'status',
-      header: 'Status',
+      header: t('leads.columnStatus'),
       sortable: true,
       render: (lead: Lead) => {
         const colors = leadStatusColors[lead.status];
@@ -149,7 +149,7 @@ export const Leads = () => {
     },
     {
       key: 'assignedTo',
-      header: 'Assigned To',
+      header: t('leads.columnAssignedTo'),
       sortable: true,
       render: (lead: Lead) => (
         <span className="text-[#94a3b8]">{lead.assignedTo}</span>
@@ -157,7 +157,7 @@ export const Leads = () => {
     },
     {
       key: 'lastActivity',
-      header: 'Last Activity',
+      header: t('leads.columnLastActivity'),
       sortable: true,
       render: (lead: Lead) => (
         <span className="text-[#94a3b8]">
@@ -173,7 +173,7 @@ export const Leads = () => {
           <button
             onClick={(e) => e.stopPropagation()}
             className="rounded-lg p-1.5 text-[#64748b] hover:bg-[#1a1a24] hover:text-[#10b981] transition-colors"
-            title="Convert to Customer"
+            title={t('leads.convertToCustomer')}
           >
             <UserCheck className="h-4 w-4" />
           </button>
@@ -191,12 +191,12 @@ export const Leads = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title={t('crm.leads', 'Leads')}
-        subtitle="Track and manage your sales leads"
+        title={t('leads.title')}
+        subtitle={t('leads.subtitle')}
         actions={
           <button className="flex items-center gap-2 rounded-lg bg-[#547792] px-4 py-2 text-sm font-medium text-white hover:bg-[#5558e3] transition-colors">
             <Plus className="h-4 w-4" />
-            Add Lead
+            {t('leads.addLead')}
           </button>
         }
       />
@@ -204,26 +204,26 @@ export const Leads = () => {
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Leads"
+          title={t('leads.totalLeads')}
           value={stats.totalLeads.toString()}
           icon={Target}
           iconColor="#547792"
         />
         <StatsCard
-          title="New This Week"
+          title={t('leads.newThisWeek')}
           value={stats.newThisWeek.toString()}
           icon={UserPlus}
           iconColor="#10b981"
-          trend={{ value: "+12% from last week", type: "up" }}
+          trend={{ value: t('leads.fromLastWeek'), type: "up" }}
         />
         <StatsCard
-          title="Qualified"
+          title={t('leads.qualified')}
           value={stats.qualified.toString()}
           icon={TrendingUp}
           iconColor="#94B4C1"
         />
         <StatsCard
-          title="Conversion Rate"
+          title={t('leads.conversionRate')}
           value={`${stats.conversionRate}%`}
           icon={Percent}
           iconColor="#f59e0b"
@@ -241,7 +241,7 @@ export const Leads = () => {
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#64748b]" />
                 <input
                   type="text"
-                  placeholder="Search leads..."
+                  placeholder={t('leads.searchPlaceholder')}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full pl-10 pr-4 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white placeholder-[#64748b] focus:outline-none focus:border-[#547792]"
@@ -254,11 +254,11 @@ export const Leads = () => {
                 onChange={(e) => setStatusFilter(e.target.value)}
                 className="px-3 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white focus:outline-none focus:border-[#547792]"
               >
-                <option value="all">All Status</option>
-                <option value="new">New</option>
-                <option value="contacted">Contacted</option>
-                <option value="qualified">Qualified</option>
-                <option value="unqualified">Unqualified</option>
+                <option value="all">{t('leads.allStatus')}</option>
+                <option value="new">{t('leads.new')}</option>
+                <option value="contacted">{t('leads.contacted')}</option>
+                <option value="qualified">{t('leads.statusQualified')}</option>
+                <option value="unqualified">{t('leads.unqualified')}</option>
               </select>
 
               {/* Source Filter */}
@@ -267,7 +267,7 @@ export const Leads = () => {
                 onChange={(e) => setSourceFilter(e.target.value)}
                 className="px-3 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white focus:outline-none focus:border-[#547792]"
               >
-                <option value="all">All Sources</option>
+                <option value="all">{t('leads.allSources')}</option>
                 {sources.map(source => (
                   <option key={source} value={source}>{source}</option>
                 ))}
@@ -279,7 +279,7 @@ export const Leads = () => {
                 onChange={(e) => setAssignedFilter(e.target.value)}
                 className="px-3 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white focus:outline-none focus:border-[#547792]"
               >
-                <option value="all">All Assignees</option>
+                <option value="all">{t('leads.allAssignees')}</option>
                 {assignees.map(assignee => (
                   <option key={assignee} value={assignee}>{assignee}</option>
                 ))}
@@ -296,7 +296,7 @@ export const Leads = () => {
               columns={columns}
               data={filteredLeads}
               keyExtractor={(l) => l.id}
-              emptyMessage="No leads found"
+              emptyMessage={t('leads.noLeadsFound')}
             />
           </motion.div>
         </div>
@@ -308,7 +308,7 @@ export const Leads = () => {
           transition={{ delay: 0.1 }}
           className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
         >
-          <h3 className="text-lg font-semibold text-white mb-4">Lead Sources</h3>
+          <h3 className="text-lg font-semibold text-white mb-4">{t('leads.leadSources')}</h3>
           <div className="h-[250px]">
             <ResponsiveContainer width="99%" height={250}>
               <PieChart>
@@ -333,7 +333,7 @@ export const Leads = () => {
                     borderRadius: '8px',
                     color: '#fff',
                   }}
-                  formatter={(value, name) => [`${value} leads`, name]}
+                  formatter={(value, name) => [`${value} ${t('leads.leads')}`, name]}
                 />
               </PieChart>
             </ResponsiveContainer>

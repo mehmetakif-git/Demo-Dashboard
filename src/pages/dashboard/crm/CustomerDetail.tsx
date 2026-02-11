@@ -30,7 +30,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const CustomerDetail = () => {
-  const { t: _t } = useTranslation('common');
+  const { t } = useTranslation('crm');
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const [activeTab, setActiveTab] = useState('overview');
@@ -44,12 +44,12 @@ export const CustomerDetail = () => {
     return (
       <div className="p-6">
         <div className="text-center py-12">
-          <p className="text-[#64748b]">Customer not found</p>
+          <p className="text-[#64748b]">{t('customerDetail.customerNotFound')}</p>
           <button
             onClick={() => navigate('/dashboard/crm/customers')}
             className="mt-4 text-[#547792] hover:underline"
           >
-            Back to Customers
+            {t('customerDetail.backToCustomers')}
           </button>
         </div>
       </div>
@@ -59,17 +59,17 @@ export const CustomerDetail = () => {
   const colors = segmentColors[customer.segment];
 
   const tabs = [
-    { id: 'overview', label: 'Overview' },
-    { id: 'contacts', label: 'Contacts' },
-    { id: 'opportunities', label: `Opportunities (${opportunities.length})` },
-    { id: 'activities', label: `Activities (${activities.length})` },
-    { id: 'documents', label: 'Documents' },
+    { id: 'overview', label: t('customerDetail.tabOverview') },
+    { id: 'contacts', label: t('customerDetail.tabContacts') },
+    { id: 'opportunities', label: t('customerDetail.tabOpportunities', { count: opportunities.length }) },
+    { id: 'activities', label: t('customerDetail.tabActivities', { count: activities.length }) },
+    { id: 'documents', label: t('customerDetail.tabDocuments') },
   ];
 
   const opportunityColumns = [
     {
       key: 'name',
-      header: 'Opportunity',
+      header: t('customerDetail.columnOpportunity'),
       render: (opp: typeof opportunities[0]) => (
         <div>
           <p className="font-medium text-white">{opp.name}</p>
@@ -79,14 +79,14 @@ export const CustomerDetail = () => {
     },
     {
       key: 'value',
-      header: 'Value',
+      header: t('customerDetail.columnValue'),
       render: (opp: typeof opportunities[0]) => (
         <span className="font-medium text-white">${opp.value.toLocaleString()}</span>
       ),
     },
     {
       key: 'stage',
-      header: 'Stage',
+      header: t('customerDetail.columnStage'),
       render: (opp: typeof opportunities[0]) => {
         const stage = pipelineStages.find(s => s.id === opp.stage);
         return (
@@ -101,14 +101,14 @@ export const CustomerDetail = () => {
     },
     {
       key: 'probability',
-      header: 'Probability',
+      header: t('customerDetail.columnProbability'),
       render: (opp: typeof opportunities[0]) => (
         <span className="text-[#94a3b8]">{opp.probability}%</span>
       ),
     },
     {
       key: 'expectedClose',
-      header: 'Expected Close',
+      header: t('customerDetail.columnExpectedClose'),
       render: (opp: typeof opportunities[0]) => (
         <span className="text-[#94a3b8]">
           {new Date(opp.expectedClose).toLocaleDateString()}
@@ -125,7 +125,7 @@ export const CustomerDetail = () => {
         className="flex items-center gap-2 text-[#64748b] hover:text-white transition-colors"
       >
         <ArrowLeft className="h-4 w-4" />
-        Back to Customers
+        {t('customerDetail.backToCustomers')}
       </button>
 
       {/* Header */}
@@ -153,11 +153,11 @@ export const CustomerDetail = () => {
           <div className="flex items-center gap-3">
             <button className="flex items-center gap-2 rounded-lg border border-[#2e2e3e] px-4 py-2 text-sm font-medium text-white hover:bg-[#1a1a24] transition-colors">
               <Edit className="h-4 w-4" />
-              Edit
+              {t('customerDetail.edit')}
             </button>
             <button className="flex items-center gap-2 rounded-lg bg-[#547792] px-4 py-2 text-sm font-medium text-white hover:bg-[#5558e3] transition-colors">
               <Plus className="h-4 w-4" />
-              Create Opportunity
+              {t('customerDetail.createOpportunity')}
             </button>
           </div>
         </div>
@@ -175,13 +175,13 @@ export const CustomerDetail = () => {
             animate={{ opacity: 1, y: 0 }}
             className="lg:col-span-2 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
           >
-            <h3 className="text-lg font-semibold text-white mb-4">Company Information</h3>
+            <h3 className="text-lg font-semibold text-white mb-4">{t('customerDetail.companyInformation')}</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <Mail className="h-5 w-5 text-[#64748b]" />
                   <div>
-                    <p className="text-xs text-[#64748b]">Email</p>
+                    <p className="text-xs text-[#64748b]">{t('customerDetail.email')}</p>
                     <a href={`mailto:${customer.email}`} className="text-[#547792] hover:underline">
                       {customer.email}
                     </a>
@@ -190,14 +190,14 @@ export const CustomerDetail = () => {
                 <div className="flex items-center gap-3">
                   <Phone className="h-5 w-5 text-[#64748b]" />
                   <div>
-                    <p className="text-xs text-[#64748b]">Phone</p>
+                    <p className="text-xs text-[#64748b]">{t('customerDetail.phone')}</p>
                     <p className="text-white">{customer.phone}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
                   <Globe className="h-5 w-5 text-[#64748b]" />
                   <div>
-                    <p className="text-xs text-[#64748b]">Website</p>
+                    <p className="text-xs text-[#64748b]">{t('customerDetail.website')}</p>
                     <a href={`https://${customer.website}`} target="_blank" rel="noopener noreferrer" className="text-[#547792] hover:underline">
                       {customer.website}
                     </a>
@@ -206,7 +206,7 @@ export const CustomerDetail = () => {
                 <div className="flex items-center gap-3">
                   <MapPin className="h-5 w-5 text-[#64748b]" />
                   <div>
-                    <p className="text-xs text-[#64748b]">Address</p>
+                    <p className="text-xs text-[#64748b]">{t('customerDetail.address')}</p>
                     <p className="text-white">{customer.address}</p>
                   </div>
                 </div>
@@ -215,28 +215,28 @@ export const CustomerDetail = () => {
                 <div className="flex items-center gap-3">
                   <Building2 className="h-5 w-5 text-[#64748b]" />
                   <div>
-                    <p className="text-xs text-[#64748b]">Industry</p>
+                    <p className="text-xs text-[#64748b]">{t('customerDetail.industry')}</p>
                     <p className="text-white">{customer.industry}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
                   <User className="h-5 w-5 text-[#64748b]" />
                   <div>
-                    <p className="text-xs text-[#64748b]">Account Manager</p>
+                    <p className="text-xs text-[#64748b]">{t('customerDetail.accountManager')}</p>
                     <p className="text-white">{customer.accountManager}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
                   <Calendar className="h-5 w-5 text-[#64748b]" />
                   <div>
-                    <p className="text-xs text-[#64748b]">Customer Since</p>
+                    <p className="text-xs text-[#64748b]">{t('customerDetail.customerSince')}</p>
                     <p className="text-white">{new Date(customer.createdAt).toLocaleDateString()}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
                   <Calendar className="h-5 w-5 text-[#64748b]" />
                   <div>
-                    <p className="text-xs text-[#64748b]">Last Contact</p>
+                    <p className="text-xs text-[#64748b]">{t('customerDetail.lastContact')}</p>
                     <p className="text-white">{new Date(customer.lastContact).toLocaleDateString()}</p>
                   </div>
                 </div>
@@ -251,12 +251,12 @@ export const CustomerDetail = () => {
             transition={{ delay: 0.1 }}
             className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
           >
-            <h3 className="text-lg font-semibold text-white mb-4">Financial Summary</h3>
+            <h3 className="text-lg font-semibold text-white mb-4">{t('customerDetail.financialSummary')}</h3>
             <div className="space-y-4">
               <div className="p-4 bg-[#1a1a24] rounded-lg">
                 <div className="flex items-center gap-2 text-[#64748b] mb-1">
                   <DollarSign className="h-4 w-4" />
-                  <span className="text-sm">Total Revenue</span>
+                  <span className="text-sm">{t('customerDetail.totalRevenue')}</span>
                 </div>
                 <p className="text-2xl font-bold text-white">
                   ${customer.totalRevenue.toLocaleString()}
@@ -265,14 +265,14 @@ export const CustomerDetail = () => {
               <div className="p-4 bg-[#1a1a24] rounded-lg">
                 <div className="flex items-center gap-2 text-[#64748b] mb-1">
                   <ShoppingBag className="h-4 w-4" />
-                  <span className="text-sm">Total Orders</span>
+                  <span className="text-sm">{t('customerDetail.totalOrders')}</span>
                 </div>
                 <p className="text-2xl font-bold text-white">{customer.totalOrders}</p>
               </div>
               <div className="p-4 bg-[#1a1a24] rounded-lg">
                 <div className="flex items-center gap-2 text-[#64748b] mb-1">
                   <TrendingUp className="h-4 w-4" />
-                  <span className="text-sm">Avg Order Value</span>
+                  <span className="text-sm">{t('customerDetail.avgOrderValue')}</span>
                 </div>
                 <p className="text-2xl font-bold text-white">
                   ${Math.round(customer.totalRevenue / customer.totalOrders).toLocaleString()}
@@ -288,11 +288,11 @@ export const CustomerDetail = () => {
             transition={{ delay: 0.2 }}
             className="lg:col-span-3 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
           >
-            <h3 className="text-lg font-semibold text-white mb-4">Notes</h3>
+            <h3 className="text-lg font-semibold text-white mb-4">{t('customerDetail.notes')}</h3>
             <textarea
               defaultValue={customer.notes}
               className="w-full h-32 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg p-4 text-white placeholder-[#64748b] focus:outline-none focus:border-[#547792] resize-none"
-              placeholder="Add notes about this customer..."
+              placeholder={t('customerDetail.notesPlaceholder')}
             />
           </motion.div>
         </div>
@@ -305,16 +305,16 @@ export const CustomerDetail = () => {
           className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
         >
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-white">Contacts</h3>
+            <h3 className="text-lg font-semibold text-white">{t('customerDetail.contacts')}</h3>
             <button className="flex items-center gap-2 rounded-lg bg-[#547792] px-3 py-1.5 text-sm font-medium text-white hover:bg-[#5558e3] transition-colors">
               <Plus className="h-4 w-4" />
-              Add Contact
+              {t('customerDetail.addContact')}
             </button>
           </div>
           <div className="text-center py-8 text-[#64748b]">
             <User className="h-12 w-12 mx-auto mb-3 opacity-50" />
-            <p>No contacts added yet</p>
-            <p className="text-sm mt-1">Add contacts to keep track of your relationships</p>
+            <p>{t('customerDetail.noContactsYet')}</p>
+            <p className="text-sm mt-1">{t('customerDetail.addContactsHint')}</p>
           </div>
         </motion.div>
       )}
@@ -328,7 +328,7 @@ export const CustomerDetail = () => {
             columns={opportunityColumns}
             data={opportunities}
             keyExtractor={(o) => o.id}
-            emptyMessage="No opportunities for this customer"
+            emptyMessage={t('customerDetail.noOpportunities')}
           />
         </motion.div>
       )}
@@ -342,7 +342,7 @@ export const CustomerDetail = () => {
           {activities.length === 0 ? (
             <div className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6 text-center text-[#64748b]">
               <Calendar className="h-12 w-12 mx-auto mb-3 opacity-50" />
-              <p>No activities recorded</p>
+              <p>{t('customerDetail.noActivitiesRecorded')}</p>
             </div>
           ) : (
             activities.map((activity) => {
@@ -379,10 +379,10 @@ export const CustomerDetail = () => {
           className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-6"
         >
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-white">Documents</h3>
+            <h3 className="text-lg font-semibold text-white">{t('customerDetail.documents')}</h3>
             <button className="flex items-center gap-2 rounded-lg bg-[#547792] px-3 py-1.5 text-sm font-medium text-white hover:bg-[#5558e3] transition-colors">
               <Plus className="h-4 w-4" />
-              Upload Document
+              {t('customerDetail.uploadDocument')}
             </button>
           </div>
 
@@ -407,7 +407,7 @@ export const CustomerDetail = () => {
           ) : (
             <div className="text-center py-8 text-[#64748b]">
               <FileText className="h-12 w-12 mx-auto mb-3 opacity-50" />
-              <p>No documents uploaded yet</p>
+              <p>{t('customerDetail.noDocumentsYet')}</p>
             </div>
           )}
         </motion.div>

@@ -14,7 +14,7 @@ import { activities, type Activity } from '@/data/crmData';
 import { useTranslation } from 'react-i18next';
 
 export const Activities = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('crm');
   const [searchQuery, setSearchQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [customerFilter, setCustomerFilter] = useState<string>('all');
@@ -49,9 +49,9 @@ export const Activities = () => {
       let groupKey: string;
 
       if (activityDate === today) {
-        groupKey = 'Today';
+        groupKey = t('activities.today');
       } else if (activityDate === yesterday) {
-        groupKey = 'Yesterday';
+        groupKey = t('activities.yesterday');
       } else {
         groupKey = new Date(activity.date).toLocaleDateString('en-US', {
           weekday: 'long',
@@ -67,7 +67,7 @@ export const Activities = () => {
     });
 
     return groups;
-  }, [filteredActivities]);
+  }, [filteredActivities, t]);
 
   // Calculate stats
   const stats = useMemo(() => {
@@ -106,12 +106,12 @@ export const Activities = () => {
   return (
     <div className="p-6 space-y-6">
       <PageHeader
-        title={t('crm.activities', 'Activities')}
-        subtitle="Track customer interactions and tasks"
+        title={t('activities.title')}
+        subtitle={t('activities.subtitle')}
         actions={
           <button className="flex items-center gap-2 rounded-lg bg-[#547792] px-4 py-2 text-sm font-medium text-white hover:bg-[#5558e3] transition-colors">
             <Plus className="h-4 w-4" />
-            Log Activity
+            {t('activities.logActivity')}
           </button>
         }
       />
@@ -119,26 +119,26 @@ export const Activities = () => {
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Activities"
+          title={t('activities.totalActivities')}
           value={stats.total.toString()}
-          subtitle="This week"
+          subtitle={t('activities.thisWeek')}
           icon={Clock}
           iconColor="#547792"
         />
         <StatsCard
-          title="Calls Made"
+          title={t('activities.callsMade')}
           value={stats.calls.toString()}
           icon={Phone}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Emails Sent"
+          title={t('activities.emailsSent')}
           value={stats.emails.toString()}
           icon={Mail}
           iconColor="#94B4C1"
         />
         <StatsCard
-          title="Meetings Held"
+          title={t('activities.meetingsHeld')}
           value={stats.meetings.toString()}
           icon={Calendar}
           iconColor="#f59e0b"
@@ -153,7 +153,7 @@ export const Activities = () => {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#64748b]" />
             <input
               type="text"
-              placeholder="Search activities..."
+              placeholder={t('activities.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-10 pr-4 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white placeholder-[#64748b] focus:outline-none focus:border-[#547792]"
@@ -166,11 +166,11 @@ export const Activities = () => {
             onChange={(e) => setTypeFilter(e.target.value)}
             className="px-3 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white focus:outline-none focus:border-[#547792]"
           >
-            <option value="all">All Types</option>
-            <option value="call">Calls</option>
-            <option value="email">Emails</option>
-            <option value="meeting">Meetings</option>
-            <option value="task">Tasks</option>
+            <option value="all">{t('activities.allTypes')}</option>
+            <option value="call">{t('activities.calls')}</option>
+            <option value="email">{t('activities.emails')}</option>
+            <option value="meeting">{t('activities.meetings')}</option>
+            <option value="task">{t('activities.tasks')}</option>
           </select>
 
           {/* Customer Filter */}
@@ -179,7 +179,7 @@ export const Activities = () => {
             onChange={(e) => setCustomerFilter(e.target.value)}
             className="px-3 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white focus:outline-none focus:border-[#547792]"
           >
-            <option value="all">All Customers</option>
+            <option value="all">{t('activities.allCustomers')}</option>
             {customers.map(customer => (
               <option key={customer} value={customer}>{customer}</option>
             ))}
@@ -191,7 +191,7 @@ export const Activities = () => {
             onChange={(e) => setAssignedFilter(e.target.value)}
             className="px-3 py-2 bg-[#1a1a24] border border-[#2e2e3e] rounded-lg text-sm text-white focus:outline-none focus:border-[#547792]"
           >
-            <option value="all">All Assignees</option>
+            <option value="all">{t('activities.allAssignees')}</option>
             {assignees.map(assignee => (
               <option key={assignee} value={assignee}>{assignee}</option>
             ))}
@@ -235,7 +235,7 @@ export const Activities = () => {
                           </div>
                           <div className="text-right flex-shrink-0">
                             <p className="text-sm text-[#64748b]">
-                              {activity.time || 'All day'}
+                              {activity.time || t('activities.allDay')}
                             </p>
                             {activity.duration && (
                               <p className="text-xs text-[#64748b] mt-1">{activity.duration}</p>
@@ -259,8 +259,8 @@ export const Activities = () => {
         {Object.keys(groupedActivities).length === 0 && (
           <div className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-xl p-12 text-center">
             <Calendar className="h-12 w-12 mx-auto mb-4 text-[#64748b] opacity-50" />
-            <p className="text-[#64748b]">No activities found</p>
-            <p className="text-sm text-[#64748b] mt-1">Try adjusting your filters</p>
+            <p className="text-[#64748b]">{t('activities.noActivitiesFound')}</p>
+            <p className="text-sm text-[#64748b] mt-1">{t('activities.tryAdjustingFilters')}</p>
           </div>
         )}
       </div>
