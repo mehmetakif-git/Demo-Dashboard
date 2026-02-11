@@ -38,12 +38,12 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const MyFiles = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('files');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState<'name' | 'modified' | 'size' | 'type'>('modified');
   const [filterType, setFilterType] = useState<string>('all');
-  const [currentPath, setCurrentPath] = useState<string[]>(['My Files']);
+  const [currentPath, setCurrentPath] = useState<string[]>([t('myFiles.title')]);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [showContextMenu, setShowContextMenu] = useState<{ id: string; x: number; y: number } | null>(null);
 
@@ -185,7 +185,7 @@ export const MyFiles = () => {
         {/* Info */}
         <div className="flex items-center justify-center gap-2 text-xs text-text-muted">
           {item.type === 'folder' ? (
-            <span>{item.itemCount} items</span>
+            <span>{item.itemCount} {t('myFiles.items')}</span>
           ) : (
             <span>{item.size}</span>
           )}
@@ -237,7 +237,7 @@ export const MyFiles = () => {
       </td>
       <td className="px-4 py-3 text-sm text-text-secondary">{formatDate(item.modifiedAt)}</td>
       <td className="px-4 py-3 text-sm text-text-secondary">
-        {item.type === 'folder' ? `${item.itemCount} items` : item.size}
+        {item.type === 'folder' ? `${item.itemCount} ${t('myFiles.items')}` : item.size}
       </td>
       <td className="px-4 py-3 text-sm text-text-secondary">{item.modifiedBy}</td>
       <td className="px-4 py-3">
@@ -262,15 +262,15 @@ export const MyFiles = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('files.myFiles', 'My Files')}
-        subtitle="Manage your personal files and folders"
+        title={t('myFiles.title')}
+        subtitle={t('myFiles.subtitle')}
         actions={
           <div className="flex items-center gap-2">
             <Button variant="secondary" leftIcon={<FolderPlus size={16} />}>
-              New Folder
+              {t('myFiles.newFolder')}
             </Button>
             <Button leftIcon={<Upload size={16} />}>
-              Upload
+              {t('myFiles.upload')}
             </Button>
           </div>
         }
@@ -309,9 +309,9 @@ export const MyFiles = () => {
       <Card className="p-4">
         <div className="flex items-center justify-between mb-2">
           <span className="text-sm font-medium text-text-primary">
-            {storageInfo.used} {storageInfo.unit} of {storageInfo.total} {storageInfo.unit} used
+            {storageInfo.used} {storageInfo.unit} {t('myFiles.of')} {storageInfo.total} {storageInfo.unit} {t('myFiles.used')}
           </span>
-          <button className="text-sm text-accent-primary hover:underline">Manage Storage</button>
+          <button className="text-sm text-accent-primary hover:underline">{t('myFiles.manageStorage')}</button>
         </div>
         <div className="h-2 bg-white/[0.05] rounded-full overflow-hidden">
           <div className="h-full flex">
@@ -342,7 +342,7 @@ export const MyFiles = () => {
         <div className="flex flex-wrap items-center gap-4">
           <div className="flex-1 min-w-64 max-w-md">
             <Input
-              placeholder="Search files..."
+              placeholder={t('myFiles.searchFiles')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               leftIcon={<Search size={16} />}
@@ -354,10 +354,10 @@ export const MyFiles = () => {
             onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="modified">Sort by Modified</option>
-            <option value="name">Sort by Name</option>
-            <option value="size">Sort by Size</option>
-            <option value="type">Sort by Type</option>
+            <option value="modified">{t('myFiles.sortByModified')}</option>
+            <option value="name">{t('myFiles.sortByName')}</option>
+            <option value="size">{t('myFiles.sortBySize')}</option>
+            <option value="type">{t('myFiles.sortByType')}</option>
           </select>
 
           <select
@@ -365,13 +365,13 @@ export const MyFiles = () => {
             onChange={(e) => setFilterType(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Types</option>
-            <option value="folder">Folders</option>
-            <option value="document">Documents</option>
-            <option value="spreadsheet">Spreadsheets</option>
-            <option value="pdf">PDFs</option>
-            <option value="image">Images</option>
-            <option value="video">Videos</option>
+            <option value="all">{t('myFiles.allTypes')}</option>
+            <option value="folder">{t('myFiles.folders')}</option>
+            <option value="document">{t('myFiles.documents')}</option>
+            <option value="spreadsheet">{t('myFiles.spreadsheets')}</option>
+            <option value="pdf">{t('myFiles.pdfs')}</option>
+            <option value="image">{t('myFiles.images')}</option>
+            <option value="video">{t('myFiles.videos')}</option>
           </select>
 
           <div className="flex items-center border border-white/[0.08] rounded-lg overflow-hidden">
@@ -401,19 +401,19 @@ export const MyFiles = () => {
         {/* Selected Items Actions */}
         {selectedItems.length > 0 && (
           <div className="flex items-center gap-2 mt-4 pt-4 border-t border-white/[0.08]">
-            <span className="text-sm text-text-secondary">{selectedItems.length} selected</span>
+            <span className="text-sm text-text-secondary">{t('myFiles.selected', { count: selectedItems.length })}</span>
             <button
               onClick={() => setSelectedItems([])}
               className="text-sm text-accent-primary hover:underline"
             >
-              Clear selection
+              {t('myFiles.clearSelection')}
             </button>
             <div className="flex-1" />
-            <Button variant="secondary" size="sm" leftIcon={<Move size={14} />}>Move</Button>
-            <Button variant="secondary" size="sm" leftIcon={<Copy size={14} />}>Copy</Button>
-            <Button variant="secondary" size="sm" leftIcon={<Share2 size={14} />}>Share</Button>
-            <Button variant="secondary" size="sm" leftIcon={<Download size={14} />}>Download</Button>
-            <Button variant="secondary" size="sm" leftIcon={<Trash2 size={14} />} className="text-red-400 hover:bg-red-500/10">Delete</Button>
+            <Button variant="secondary" size="sm" leftIcon={<Move size={14} />}>{t('myFiles.move')}</Button>
+            <Button variant="secondary" size="sm" leftIcon={<Copy size={14} />}>{t('myFiles.copy')}</Button>
+            <Button variant="secondary" size="sm" leftIcon={<Share2 size={14} />}>{t('myFiles.share')}</Button>
+            <Button variant="secondary" size="sm" leftIcon={<Download size={14} />}>{t('myFiles.download')}</Button>
+            <Button variant="secondary" size="sm" leftIcon={<Trash2 size={14} />} className="text-red-400 hover:bg-red-500/10">{t('myFiles.delete')}</Button>
           </div>
         )}
       </Card>
@@ -433,19 +433,19 @@ export const MyFiles = () => {
                 <tr className="bg-white/[0.05] border-b border-white/[0.08]">
                   <th className="px-4 py-3 w-12" />
                   <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                    Name
+                    {t('myFiles.name')}
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                    Modified
+                    {t('myFiles.modified')}
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                    Size
+                    {t('myFiles.size')}
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                    Owner
+                    {t('myFiles.owner')}
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                    Actions
+                    {t('myFiles.actions')}
                   </th>
                 </tr>
               </thead>
@@ -463,7 +463,7 @@ export const MyFiles = () => {
       {currentFiles.length === 0 && (
         <Card className="p-12 text-center">
           <Folder size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No files found</p>
+          <p className="text-text-secondary">{t('myFiles.noFilesFound')}</p>
         </Card>
       )}
 
@@ -479,30 +479,30 @@ export const MyFiles = () => {
             style={{ top: showContextMenu.y, left: showContextMenu.x }}
           >
             <button className="w-full px-4 py-2 text-left text-sm text-text-primary hover:bg-white/[0.05] flex items-center gap-2">
-              <Eye size={14} /> Preview
+              <Eye size={14} /> {t('myFiles.preview')}
             </button>
             <button className="w-full px-4 py-2 text-left text-sm text-text-primary hover:bg-white/[0.05] flex items-center gap-2">
-              <Share2 size={14} /> Share
+              <Share2 size={14} /> {t('myFiles.share')}
             </button>
             <button className="w-full px-4 py-2 text-left text-sm text-text-primary hover:bg-white/[0.05] flex items-center gap-2">
-              <Download size={14} /> Download
+              <Download size={14} /> {t('myFiles.download')}
             </button>
             <hr className="my-1 border-white/[0.08]" />
             <button className="w-full px-4 py-2 text-left text-sm text-text-primary hover:bg-white/[0.05] flex items-center gap-2">
-              <Move size={14} /> Move to
+              <Move size={14} /> {t('myFiles.moveTo')}
             </button>
             <button className="w-full px-4 py-2 text-left text-sm text-text-primary hover:bg-white/[0.05] flex items-center gap-2">
-              <Copy size={14} /> Copy to
+              <Copy size={14} /> {t('myFiles.copyTo')}
             </button>
             <button className="w-full px-4 py-2 text-left text-sm text-text-primary hover:bg-white/[0.05] flex items-center gap-2">
-              <Edit size={14} /> Rename
+              <Edit size={14} /> {t('myFiles.rename')}
             </button>
             <button className="w-full px-4 py-2 text-left text-sm text-text-primary hover:bg-white/[0.05] flex items-center gap-2">
-              <Star size={14} /> Star
+              <Star size={14} /> {t('myFiles.star')}
             </button>
             <hr className="my-1 border-white/[0.08]" />
             <button className="w-full px-4 py-2 text-left text-sm text-red-400 hover:bg-white/[0.05] flex items-center gap-2">
-              <Trash2 size={14} /> Delete
+              <Trash2 size={14} /> {t('myFiles.delete')}
             </button>
           </div>
         </>

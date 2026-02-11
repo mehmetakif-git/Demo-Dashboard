@@ -19,7 +19,7 @@ import { projectFiles, formatDate, type Project } from '@/data/fileData';
 import { useTranslation } from 'react-i18next';
 
 export const ProjectFiles = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('files');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const getFileIcon = (type: string, size: number = 20) => {
@@ -61,17 +61,17 @@ export const ProjectFiles = () => {
               <div>
                 <h1 className="text-2xl font-bold text-text-primary">{selectedProject.projectName}</h1>
                 <p className="text-text-secondary">
-                  {selectedProject.totalFiles} files - {selectedProject.totalSize}
+                  {selectedProject.totalFiles} {t('projectFiles.files')} - {selectedProject.totalSize}
                 </p>
               </div>
             </div>
           </div>
           <div className="flex items-center gap-2">
             <Button variant="secondary" leftIcon={<FolderPlus size={16} />}>
-              New Folder
+              {t('projectFiles.newFolder')}
             </Button>
             <Button leftIcon={<Upload size={16} />}>
-              Upload
+              {t('projectFiles.upload')}
             </Button>
           </div>
         </div>
@@ -85,7 +85,7 @@ export const ProjectFiles = () => {
               </div>
               <div>
                 <p className="text-2xl font-bold text-text-primary">{selectedProject.totalFiles}</p>
-                <p className="text-sm text-text-secondary">Total Files</p>
+                <p className="text-sm text-text-secondary">{t('projectFiles.totalFiles')}</p>
               </div>
             </div>
           </Card>
@@ -96,7 +96,7 @@ export const ProjectFiles = () => {
               </div>
               <div>
                 <p className="text-2xl font-bold text-text-primary">{selectedProject.totalSize}</p>
-                <p className="text-sm text-text-secondary">Total Size</p>
+                <p className="text-sm text-text-secondary">{t('projectFiles.totalSize')}</p>
               </div>
             </div>
           </Card>
@@ -107,7 +107,7 @@ export const ProjectFiles = () => {
               </div>
               <div>
                 <p className="text-2xl font-bold text-text-primary">{formatDate(selectedProject.lastActivity)}</p>
-                <p className="text-sm text-text-secondary">Last Activity</p>
+                <p className="text-sm text-text-secondary">{t('projectFiles.lastActivity')}</p>
               </div>
             </div>
           </Card>
@@ -120,16 +120,16 @@ export const ProjectFiles = () => {
               <thead>
                 <tr className="bg-white/[0.05] border-b border-white/[0.08]">
                   <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                    Name
+                    {t('projectFiles.name')}
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                    Modified
+                    {t('projectFiles.modified')}
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                    Size
+                    {t('projectFiles.size')}
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                    Modified By
+                    {t('projectFiles.modifiedBy')}
                   </th>
                 </tr>
               </thead>
@@ -149,7 +149,7 @@ export const ProjectFiles = () => {
                     </td>
                     <td className="px-4 py-3 text-sm text-text-secondary">{formatDate(file.modifiedAt)}</td>
                     <td className="px-4 py-3 text-sm text-text-secondary">
-                      {file.type === 'folder' ? `${file.itemCount} items` : file.size}
+                      {file.type === 'folder' ? `${file.itemCount} ${t('projectFiles.items')}` : file.size}
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2">
@@ -175,8 +175,8 @@ export const ProjectFiles = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('files.projectFiles', 'Project Files')}
-        subtitle="Browse files organized by project"
+        title={t('projectFiles.title')}
+        subtitle={t('projectFiles.subtitle')}
       />
 
       {/* Projects Grid */}
@@ -208,7 +208,7 @@ export const ProjectFiles = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold text-text-primary">{project.projectName}</h3>
-                  <p className="text-sm text-text-muted">{project.totalFiles} files</p>
+                  <p className="text-sm text-text-muted">{project.totalFiles} {t('projectFiles.files')}</p>
                 </div>
               </div>
 
@@ -216,11 +216,11 @@ export const ProjectFiles = () => {
               <div className="grid grid-cols-2 gap-4 mb-4">
                 <div className="p-3 bg-white/[0.05] rounded-lg">
                   <p className="text-lg font-bold text-text-primary">{project.totalSize}</p>
-                  <p className="text-xs text-text-muted">Total Size</p>
+                  <p className="text-xs text-text-muted">{t('projectFiles.totalSize')}</p>
                 </div>
                 <div className="p-3 bg-white/[0.05] rounded-lg">
                   <p className="text-lg font-bold text-text-primary">{project.files.length}</p>
-                  <p className="text-xs text-text-muted">Root Items</p>
+                  <p className="text-xs text-text-muted">{t('projectFiles.rootItems')}</p>
                 </div>
               </div>
 
@@ -234,7 +234,7 @@ export const ProjectFiles = () => {
                     {getFileIcon(file.type, 16)}
                     <span className="text-sm text-text-secondary truncate flex-1">{file.name}</span>
                     <span className="text-xs text-text-muted">
-                      {file.type === 'folder' ? `${file.itemCount} items` : file.size}
+                      {file.type === 'folder' ? `${file.itemCount} ${t('projectFiles.items')}` : file.size}
                     </span>
                   </div>
                 ))}
@@ -244,7 +244,7 @@ export const ProjectFiles = () => {
               <div className="flex items-center justify-between pt-4 border-t border-white/[0.08]">
                 <div className="flex items-center gap-1 text-xs text-text-muted">
                   <Clock size={12} />
-                  <span>Last activity {formatDate(project.lastActivity)}</span>
+                  <span>{t('projectFiles.lastActivity')} {formatDate(project.lastActivity)}</span>
                 </div>
                 {/* Team Avatars */}
                 <div className="flex -space-x-2">
@@ -270,8 +270,8 @@ export const ProjectFiles = () => {
       {projectFiles.length === 0 && (
         <Card className="p-12 text-center">
           <Folder size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary mb-4">No project files found</p>
-          <Button variant="secondary">Browse All Projects</Button>
+          <p className="text-text-secondary mb-4">{t('projectFiles.noProjectFiles')}</p>
+          <Button variant="secondary">{t('projectFiles.browseAllProjects')}</Button>
         </Card>
       )}
     </div>

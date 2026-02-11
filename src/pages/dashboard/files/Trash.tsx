@@ -17,7 +17,7 @@ import { trashFiles, formatDate } from '@/data/fileData';
 import { useTranslation } from 'react-i18next';
 
 export const Trash = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('files');
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [showEmptyConfirm, setShowEmptyConfirm] = useState(false);
@@ -57,8 +57,8 @@ export const Trash = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('files.trash', 'Trash')}
-        subtitle="Deleted files and folders"
+        title={t('trash.title')}
+        subtitle={t('trash.subtitle')}
         actions={
           <Button
             variant="secondary"
@@ -67,7 +67,7 @@ export const Trash = () => {
             disabled={trashFiles.length === 0}
             className="text-red-400 hover:bg-red-500/10"
           >
-            Empty Trash
+            {t('trash.emptyTrash')}
           </Button>
         }
       />
@@ -77,7 +77,7 @@ export const Trash = () => {
         <div className="flex items-center gap-3">
           <AlertTriangle size={20} className="text-yellow-500" />
           <p className="text-sm text-text-primary">
-            Items in trash will be permanently deleted after 30 days. You can restore items before they are permanently deleted.
+            {t('trash.trashWarning')}
           </p>
         </div>
       </Card>
@@ -86,16 +86,16 @@ export const Trash = () => {
       {selectedItems.length > 0 && (
         <Card className="p-4">
           <div className="flex items-center gap-4">
-            <span className="text-sm text-text-secondary">{selectedItems.length} selected</span>
+            <span className="text-sm text-text-secondary">{t('trash.selected', { count: selectedItems.length })}</span>
             <button
               onClick={() => setSelectedItems([])}
               className="text-sm text-accent-primary hover:underline"
             >
-              Clear selection
+              {t('trash.clearSelection')}
             </button>
             <div className="flex-1" />
             <Button variant="secondary" size="sm" leftIcon={<RotateCcw size={14} />}>
-              Restore Selected
+              {t('trash.restoreSelected')}
             </Button>
             <Button
               variant="secondary"
@@ -104,7 +104,7 @@ export const Trash = () => {
               onClick={() => setShowDeleteConfirm(true)}
               className="text-red-400 hover:bg-red-500/10"
             >
-              Delete Permanently
+              {t('trash.deletePermanently')}
             </Button>
           </div>
         </Card>
@@ -134,22 +134,22 @@ export const Trash = () => {
                     </div>
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                    Name
+                    {t('trash.name')}
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                    Original Location
+                    {t('trash.originalLocation')}
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                    Deleted
+                    {t('trash.deleted')}
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                    Size
+                    {t('trash.size')}
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                    Days Left
+                    {t('trash.daysLeft')}
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                    Actions
+                    {t('trash.actions')}
                   </th>
                 </tr>
               </thead>
@@ -185,7 +185,7 @@ export const Trash = () => {
                         <div>
                           <span className="font-medium text-text-primary">{file.name}</span>
                           {file.itemCount && (
-                            <span className="text-sm text-text-muted ml-2">({file.itemCount} items)</span>
+                            <span className="text-sm text-text-muted ml-2">({file.itemCount} {t('trash.items')})</span>
                           )}
                         </div>
                       </div>
@@ -205,7 +205,7 @@ export const Trash = () => {
                     <td className="px-4 py-3">
                       <div className={`flex items-center gap-1 text-sm ${getDaysColor(file.daysUntilPermanent)}`}>
                         <Clock size={14} />
-                        {file.daysUntilPermanent} days
+                        {file.daysUntilPermanent} {t('trash.days')}
                       </div>
                     </td>
                     <td className="px-4 py-3">
@@ -227,7 +227,7 @@ export const Trash = () => {
       ) : (
         <Card className="p-12 text-center">
           <Trash2 size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">Trash is empty</p>
+          <p className="text-text-secondary">{t('trash.trashEmpty')}</p>
         </Card>
       )}
 
@@ -244,18 +244,18 @@ export const Trash = () => {
                 <AlertTriangle size={24} className="text-red-500" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-text-primary">Delete Permanently?</h3>
+                <h3 className="text-lg font-semibold text-text-primary">{t('trash.deletePermanentlyTitle')}</h3>
                 <p className="text-sm text-text-secondary">
-                  {selectedItems.length} item(s) will be permanently deleted
+                  {t('trash.deletePermanentlyDescription', { count: selectedItems.length })}
                 </p>
               </div>
             </div>
             <p className="text-text-secondary mb-6">
-              This action cannot be undone. These files will be permanently removed from your account.
+              {t('trash.deletePermanentlyWarning')}
             </p>
             <div className="flex items-center justify-end gap-3">
               <Button variant="secondary" onClick={() => setShowDeleteConfirm(false)}>
-                Cancel
+                {t('trash.cancel')}
               </Button>
               <Button
                 variant="secondary"
@@ -265,7 +265,7 @@ export const Trash = () => {
                 }}
                 className="text-red-400 hover:bg-red-500/10"
               >
-                Delete Permanently
+                {t('trash.deletePermanently')}
               </Button>
             </div>
           </motion.div>
@@ -285,18 +285,18 @@ export const Trash = () => {
                 <Trash2 size={24} className="text-red-500" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-text-primary">Empty Trash?</h3>
+                <h3 className="text-lg font-semibold text-text-primary">{t('trash.emptyTrashTitle')}</h3>
                 <p className="text-sm text-text-secondary">
-                  All {trashFiles.length} items will be permanently deleted
+                  {t('trash.emptyTrashDescription', { count: trashFiles.length })}
                 </p>
               </div>
             </div>
             <p className="text-text-secondary mb-6">
-              This action cannot be undone. All files in trash will be permanently removed from your account.
+              {t('trash.emptyTrashWarning')}
             </p>
             <div className="flex items-center justify-end gap-3">
               <Button variant="secondary" onClick={() => setShowEmptyConfirm(false)}>
-                Cancel
+                {t('trash.cancel')}
               </Button>
               <Button
                 variant="secondary"
@@ -305,7 +305,7 @@ export const Trash = () => {
                 }}
                 className="text-red-400 hover:bg-red-500/10"
               >
-                Empty Trash
+                {t('trash.emptyTrash')}
               </Button>
             </div>
           </motion.div>

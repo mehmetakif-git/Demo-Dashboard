@@ -22,7 +22,7 @@ import { sharedFiles, formatDate, type SharedFile } from '@/data/fileData';
 import { useTranslation } from 'react-i18next';
 
 export const SharedFiles = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('files');
   const [activeTab, setActiveTab] = useState<'with-me' | 'by-me'>('with-me');
   const [searchQuery, setSearchQuery] = useState('');
   const [ownerFilter, setOwnerFilter] = useState<string>('all');
@@ -76,13 +76,13 @@ export const SharedFiles = () => {
     if (permission === 'edit') {
       return (
         <span className="px-2 py-0.5 rounded text-xs font-medium bg-green-500/20 text-green-400">
-          Can Edit
+          {t('sharedFiles.canEdit')}
         </span>
       );
     }
     return (
       <span className="px-2 py-0.5 rounded text-xs font-medium bg-blue-500/20 text-blue-400">
-        View Only
+        {t('sharedFiles.viewOnly')}
       </span>
     );
   };
@@ -90,8 +90,8 @@ export const SharedFiles = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('files.sharedFiles', 'Shared Files')}
-        subtitle="Files shared with you and by you"
+        title={t('sharedFiles.title')}
+        subtitle={t('sharedFiles.subtitle')}
       />
 
       {/* Tabs */}
@@ -104,7 +104,7 @@ export const SharedFiles = () => {
               : 'bg-white/[0.05] text-text-secondary hover:bg-white/[0.03] backdrop-blur-xl'
           }`}
         >
-          Shared with Me
+          {t('sharedFiles.sharedWithMe')}
         </button>
         <button
           onClick={() => setActiveTab('by-me')}
@@ -114,7 +114,7 @@ export const SharedFiles = () => {
               : 'bg-white/[0.05] text-text-secondary hover:bg-white/[0.03] backdrop-blur-xl'
           }`}
         >
-          Shared by Me
+          {t('sharedFiles.sharedByMe')}
         </button>
       </div>
 
@@ -123,7 +123,7 @@ export const SharedFiles = () => {
         <div className="flex flex-wrap items-center gap-4">
           <div className="flex-1 min-w-64 max-w-md">
             <Input
-              placeholder="Search shared files..."
+              placeholder={t('sharedFiles.searchSharedFiles')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               leftIcon={<Search size={16} />}
@@ -135,7 +135,7 @@ export const SharedFiles = () => {
             onChange={(e) => setOwnerFilter(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Owners</option>
+            <option value="all">{t('sharedFiles.allOwners')}</option>
             {owners.map(owner => (
               <option key={owner} value={owner}>{owner}</option>
             ))}
@@ -146,9 +146,9 @@ export const SharedFiles = () => {
             onChange={(e) => setPermissionFilter(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Permissions</option>
-            <option value="edit">Can Edit</option>
-            <option value="view">View Only</option>
+            <option value="all">{t('sharedFiles.allPermissions')}</option>
+            <option value="edit">{t('sharedFiles.canEdit')}</option>
+            <option value="view">{t('sharedFiles.viewOnly')}</option>
           </select>
         </div>
       </Card>
@@ -183,9 +183,9 @@ export const SharedFiles = () => {
                       </div>
                       {file.owner}
                     </span>
-                    <span>Modified {formatDate(file.modifiedAt)}</span>
+                    <span>{formatDate(file.modifiedAt)}</span>
                     {file.type === 'folder' ? (
-                      <span>{file.itemCount} items</span>
+                      <span>{file.itemCount} {t('myFiles.items')}</span>
                     ) : (
                       <span>{file.size}</span>
                     )}
@@ -252,8 +252,8 @@ export const SharedFiles = () => {
           <Share2 size={48} className="mx-auto mb-4 text-text-muted" />
           <p className="text-text-secondary">
             {activeTab === 'with-me'
-              ? 'No files have been shared with you yet'
-              : "You haven't shared any files yet"}
+              ? t('sharedFiles.noSharedWithMe')
+              : t('sharedFiles.noSharedByMe')}
           </p>
         </Card>
       )}
@@ -271,7 +271,7 @@ export const SharedFiles = () => {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   {getFileIcon(selectedFile)}
-                  <h2 className="text-lg font-semibold text-text-primary">Share "{selectedFile.name}"</h2>
+                  <h2 className="text-lg font-semibold text-text-primary">{t('sharedFiles.shareFile', { name: selectedFile.name })}</h2>
                 </div>
                 <button
                   onClick={() => setShowShareModal(false)}
@@ -286,25 +286,25 @@ export const SharedFiles = () => {
             <div className="p-6 space-y-6">
               {/* Add People */}
               <div>
-                <h4 className="text-sm font-medium text-text-primary mb-3">Add People</h4>
+                <h4 className="text-sm font-medium text-text-primary mb-3">{t('sharedFiles.addPeople')}</h4>
                 <div className="flex items-center gap-2">
                   <div className="flex-1">
                     <Input
-                      placeholder="Enter name or email"
+                      placeholder={t('sharedFiles.enterNameOrEmail')}
                       leftIcon={<UserPlus size={16} />}
                     />
                   </div>
                   <select className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary">
-                    <option value="edit">Can Edit</option>
-                    <option value="view">Can View</option>
+                    <option value="edit">{t('sharedFiles.canEdit')}</option>
+                    <option value="view">{t('sharedFiles.viewOnly')}</option>
                   </select>
-                  <Button>Add</Button>
+                  <Button>{t('sharedFiles.add')}</Button>
                 </div>
               </div>
 
               {/* People with Access */}
               <div>
-                <h4 className="text-sm font-medium text-text-primary mb-3">People with Access</h4>
+                <h4 className="text-sm font-medium text-text-primary mb-3">{t('sharedFiles.peopleWithAccess')}</h4>
                 <div className="space-y-2">
                   {selectedFile.sharedWith.map((user, index) => (
                     <div key={index} className="flex items-center justify-between p-3 bg-white/[0.05] rounded-lg">
@@ -318,8 +318,8 @@ export const SharedFiles = () => {
                       </div>
                       <div className="flex items-center gap-2">
                         <select className="px-2 py-1 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded text-xs text-text-primary">
-                          <option value="edit">Can Edit</option>
-                          <option value="view">Can View</option>
+                          <option value="edit">{t('sharedFiles.canEdit')}</option>
+                          <option value="view">{t('sharedFiles.viewOnly')}</option>
                         </select>
                         <button className="p-1 hover:bg-white/[0.03] backdrop-blur-xl rounded text-text-muted hover:text-red-400">
                           <X size={14} />
@@ -332,21 +332,21 @@ export const SharedFiles = () => {
 
               {/* Get Link */}
               <div>
-                <h4 className="text-sm font-medium text-text-primary mb-3">Get Link</h4>
+                <h4 className="text-sm font-medium text-text-primary mb-3">{t('sharedFiles.getLink')}</h4>
                 <div className="flex items-center gap-2 p-3 bg-white/[0.05] rounded-lg">
                   <Link size={16} className="text-text-muted" />
                   <span className="flex-1 text-sm text-text-secondary truncate">
                     https://files.company.com/share/{selectedFile.id}
                   </span>
                   <Button variant="secondary" size="sm" leftIcon={<Copy size={14} />}>
-                    Copy
+                    {t('myFiles.copy')}
                   </Button>
                 </div>
                 <div className="flex items-center gap-2 mt-2">
-                  <span className="text-xs text-text-muted">Access:</span>
+                  <span className="text-xs text-text-muted">{t('sharedFiles.access')}:</span>
                   <select className="px-2 py-1 bg-white/[0.05] border border-white/[0.08] rounded text-xs text-text-primary">
-                    <option value="restricted">Restricted</option>
-                    <option value="anyone">Anyone with link</option>
+                    <option value="restricted">{t('sharedFiles.restricted')}</option>
+                    <option value="anyone">{t('sharedFiles.anyoneWithLink')}</option>
                   </select>
                 </div>
               </div>
@@ -354,7 +354,7 @@ export const SharedFiles = () => {
 
             {/* Footer */}
             <div className="p-6 border-t border-white/[0.08] bg-white/[0.05] flex justify-end">
-              <Button onClick={() => setShowShareModal(false)}>Done</Button>
+              <Button onClick={() => setShowShareModal(false)}>{t('sharedFiles.done')}</Button>
             </div>
           </motion.div>
         </div>

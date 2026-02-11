@@ -21,7 +21,7 @@ import { recentFiles, type RecentFile } from '@/data/fileData';
 import { useTranslation } from 'react-i18next';
 
 export const RecentFiles = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('files');
   const [filterAction, setFilterAction] = useState<string>('all');
 
   const groupedFiles = useMemo(() => {
@@ -39,11 +39,11 @@ export const RecentFiles = () => {
     const thisMonthStart = new Date(now.getFullYear(), now.getMonth(), 1);
 
     const groups: { label: string; files: RecentFile[] }[] = [
-      { label: 'Today', files: [] },
-      { label: 'Yesterday', files: [] },
-      { label: 'This Week', files: [] },
-      { label: 'This Month', files: [] },
-      { label: 'Older', files: [] },
+      { label: t('recentFiles.today'), files: [] },
+      { label: t('recentFiles.yesterday'), files: [] },
+      { label: t('recentFiles.thisWeek'), files: [] },
+      { label: t('recentFiles.thisMonth'), files: [] },
+      { label: t('recentFiles.older'), files: [] },
     ];
 
     files.forEach(file => {
@@ -80,10 +80,10 @@ export const RecentFiles = () => {
 
   const getActionBadge = (action: RecentFile['action']) => {
     const config = {
-      edited: { bg: 'bg-blue-500/20', text: 'text-blue-400', icon: Edit, label: 'Edited' },
-      viewed: { bg: 'bg-gray-500/20', text: 'text-gray-400', icon: Eye, label: 'Viewed' },
-      created: { bg: 'bg-green-500/20', text: 'text-green-400', icon: Plus, label: 'Created' },
-      shared: { bg: 'bg-[#94B4C1]/20', text: 'text-[#94B4C1]', icon: Share2, label: 'Shared' },
+      edited: { bg: 'bg-blue-500/20', text: 'text-blue-400', icon: Edit, label: t('recentFiles.edited') },
+      viewed: { bg: 'bg-gray-500/20', text: 'text-gray-400', icon: Eye, label: t('recentFiles.viewed') },
+      created: { bg: 'bg-green-500/20', text: 'text-green-400', icon: Plus, label: t('recentFiles.created') },
+      shared: { bg: 'bg-[#94B4C1]/20', text: 'text-[#94B4C1]', icon: Share2, label: t('recentFiles.shared') },
     };
     const c = config[action];
     const Icon = c.icon;
@@ -103,11 +103,11 @@ export const RecentFiles = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('files.recentFiles', 'Recent Files')}
-        subtitle="Files you've recently accessed"
+        title={t('recentFiles.title')}
+        subtitle={t('recentFiles.subtitle')}
         actions={
           <Button variant="secondary" leftIcon={<Trash2 size={16} />}>
-            Clear Recent Activity
+            {t('recentFiles.clearRecentActivity')}
           </Button>
         }
       />
@@ -115,8 +115,8 @@ export const RecentFiles = () => {
       {/* Filter Bar */}
       <Card className="p-4">
         <div className="flex items-center gap-2">
-          <span className="text-sm text-text-muted mr-2">Filter by:</span>
-          {['all', 'edited', 'viewed', 'created', 'shared'].map((action) => (
+          <span className="text-sm text-text-muted mr-2">{t('recentFiles.filterBy')}</span>
+          {(['all', 'edited', 'viewed', 'created', 'shared'] as const).map((action) => (
             <button
               key={action}
               onClick={() => setFilterAction(action)}
@@ -126,7 +126,7 @@ export const RecentFiles = () => {
                   : 'bg-white/[0.05] text-text-secondary hover:bg-white/[0.03] backdrop-blur-xl'
               }`}
             >
-              {action === 'all' ? 'All' : action.charAt(0).toUpperCase() + action.slice(1)}
+              {t(`recentFiles.${action}`)}
             </button>
           ))}
         </div>
@@ -195,7 +195,7 @@ export const RecentFiles = () => {
       {groupedFiles.length === 0 && (
         <Card className="p-12 text-center">
           <Clock size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No recent activity found</p>
+          <p className="text-text-secondary">{t('recentFiles.noRecentActivity')}</p>
         </Card>
       )}
     </div>
