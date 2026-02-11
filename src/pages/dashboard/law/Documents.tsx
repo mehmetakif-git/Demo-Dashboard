@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   FileText,
@@ -16,6 +17,15 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { documents, LAW_COLOR } from '@/data/law/lawData';
 
 export const Documents = () => {
+  const { t } = useTranslation('law');
+
+  const statusMap: Record<string, string> = {
+    'all': t('documents.all'),
+    'draft': t('status.draft'),
+    'reviewed': t('status.reviewed'),
+    'filed': t('status.filed'),
+    'sent': t('status.sent'),
+  };
   const [searchQuery, setSearchQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -74,13 +84,13 @@ export const Documents = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Document Management"
-        subtitle="Manage legal documents and files"
+        title={t('documents.title')}
+        subtitle={t('documents.subtitle')}
         icon={FileText}
         actions={
           <Button>
             <Plus size={18} />
-            Upload Document
+            {t('documents.uploadDocument')}
           </Button>
         }
       />
@@ -88,10 +98,10 @@ export const Documents = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Documents', value: stats.totalDocs, icon: FileText, color: LAW_COLOR },
-          { label: 'Filed', value: stats.filedDocs, icon: Folder, color: '#10b981' },
-          { label: 'Reviewed', value: stats.reviewedDocs, icon: Eye, color: '#3b82f6' },
-          { label: 'Recent Uploads', value: stats.recentUploads, icon: Calendar, color: '#f59e0b' },
+          { label: t('documents.totalDocuments'), value: stats.totalDocs, icon: FileText, color: LAW_COLOR },
+          { label: t('documents.filed'), value: stats.filedDocs, icon: Folder, color: '#10b981' },
+          { label: t('documents.reviewed'), value: stats.reviewedDocs, icon: Eye, color: '#3b82f6' },
+          { label: t('documents.recentUploads'), value: stats.recentUploads, icon: Calendar, color: '#f59e0b' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -126,7 +136,7 @@ export const Documents = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search documents..."
+              placeholder={t('documents.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -140,13 +150,13 @@ export const Documents = () => {
                 size="sm"
                 onClick={() => setTypeFilter(type)}
               >
-                {type === 'all' ? 'All Types' : type}
+                {type === 'all' ? t('documents.allTypes') : type}
               </Button>
             ))}
           </div>
         </div>
         <div className="flex gap-2 mt-3 flex-wrap">
-          <span className="text-sm text-text-muted mr-2">Status:</span>
+          <span className="text-sm text-text-muted mr-2">{t('documents.statusLabel')}</span>
           {['all', 'draft', 'reviewed', 'filed', 'sent'].map((status) => (
             <Button
               key={status}
@@ -154,7 +164,7 @@ export const Documents = () => {
               size="sm"
               onClick={() => setStatusFilter(status)}
             >
-              {status === 'all' ? 'All' : status.charAt(0).toUpperCase() + status.slice(1)}
+              {statusMap[status] || status}
             </Button>
           ))}
         </div>
@@ -166,14 +176,14 @@ export const Documents = () => {
           <table className="w-full">
             <thead className="bg-background-tertiary">
               <tr>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Document</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Case No</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Type</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Uploaded By</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Date</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Size</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Status</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Actions</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('documents.document')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('documents.caseNo')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('documents.type')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('documents.uploadedBy')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('documents.date')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('documents.size')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('documents.status')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('documents.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -225,10 +235,10 @@ export const Documents = () => {
                     </td>
                     <td className="py-3 px-4 text-center">
                       <span
-                        className="inline-flex px-2 py-1 rounded-full text-xs font-medium capitalize"
+                        className="inline-flex px-2 py-1 rounded-full text-xs font-medium"
                         style={{ backgroundColor: `${getStatusColor(doc.status)}20`, color: getStatusColor(doc.status) }}
                       >
-                        {doc.status}
+                        {statusMap[doc.status] || doc.status}
                       </span>
                     </td>
                     <td className="py-3 px-4 text-center">
@@ -246,8 +256,8 @@ export const Documents = () => {
                             </Button>
                           }
                           items={[
-                            { id: 'edit', label: 'Edit', onClick: () => {} },
-                            { id: 'delete', label: 'Delete', onClick: () => {} },
+                            { id: 'edit', label: t('documents.edit'), onClick: () => {} },
+                            { id: 'delete', label: t('documents.delete'), onClick: () => {} },
                           ]}
                         />
                       </div>
@@ -264,7 +274,7 @@ export const Documents = () => {
           <div className="mt-4 pt-4 border-t border-border-default">
             <div className="flex items-center gap-2 flex-wrap">
               <Tag size={14} className="text-text-muted" />
-              <span className="text-xs text-text-muted">Popular tags:</span>
+              <span className="text-xs text-text-muted">{t('documents.popularTags')}</span>
               {['Pleading', 'Evidence', 'Financial', 'Contract', 'Judgment'].map((tag) => (
                 <span key={tag} className="text-xs px-2 py-1 bg-background-tertiary rounded text-text-secondary">
                   {tag}
@@ -277,7 +287,7 @@ export const Documents = () => {
         {filteredDocuments.length === 0 && (
           <div className="py-12 text-center text-text-muted">
             <FileText size={48} className="mx-auto mb-4 opacity-50" />
-            <p>No documents found</p>
+            <p>{t('documents.noDocumentsFound')}</p>
           </div>
         )}
       </Card>

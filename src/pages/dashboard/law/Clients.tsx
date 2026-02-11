@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   Users,
@@ -17,6 +18,19 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { clients, LAW_COLOR } from '@/data/law/lawData';
 
 export const Clients = () => {
+  const { t } = useTranslation('law');
+
+  const statusMap: Record<string, string> = {
+    'all': t('clients.allStatus'),
+    'active': t('status.active'),
+    'inactive': t('status.inactive'),
+  };
+
+  const typeMap: Record<string, string> = {
+    'all': t('clients.allTypes'),
+    'Individual': t('types.individual'),
+    'Corporate': t('types.corporate'),
+  };
   const [searchQuery, setSearchQuery] = useState('');
   const [clientTypeFilter, setClientTypeFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -47,13 +61,13 @@ export const Clients = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Client Management"
-        subtitle="Manage clients and their information"
+        title={t('clients.title')}
+        subtitle={t('clients.subtitle')}
         icon={Users}
         actions={
           <Button>
             <Plus size={18} />
-            New Client
+            {t('clients.newClient')}
           </Button>
         }
       />
@@ -61,10 +75,10 @@ export const Clients = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Clients', value: stats.totalClients, icon: Users, color: LAW_COLOR },
-          { label: 'Active Clients', value: stats.activeClients, icon: CheckCircle, color: '#10b981' },
-          { label: 'Corporate', value: stats.corporateClients, icon: Building, color: '#3b82f6' },
-          { label: 'Outstanding', value: `QAR ${stats.outstandingBalance.toLocaleString()}`, icon: DollarSign, color: '#ef4444' },
+          { label: t('clients.totalClients'), value: stats.totalClients, icon: Users, color: LAW_COLOR },
+          { label: t('clients.activeClients'), value: stats.activeClients, icon: CheckCircle, color: '#10b981' },
+          { label: t('clients.corporate'), value: stats.corporateClients, icon: Building, color: '#3b82f6' },
+          { label: t('clients.outstanding'), value: `QAR ${stats.outstandingBalance.toLocaleString()}`, icon: DollarSign, color: '#ef4444' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -99,7 +113,7 @@ export const Clients = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search clients..."
+              placeholder={t('clients.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -113,7 +127,7 @@ export const Clients = () => {
                 size="sm"
                 onClick={() => setClientTypeFilter(type)}
               >
-                {type === 'all' ? 'All Types' : type}
+                {typeMap[type] || type}
               </Button>
             ))}
           </div>
@@ -125,7 +139,7 @@ export const Clients = () => {
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status === 'all' ? 'All Status' : status.charAt(0).toUpperCase() + status.slice(1)}
+                {statusMap[status] || status}
               </Button>
             ))}
           </div>
@@ -138,15 +152,15 @@ export const Clients = () => {
           <table className="w-full">
             <thead className="bg-background-tertiary">
               <tr>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Client</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Contact</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Type</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Active Cases</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Total Billed</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Outstanding</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Retainer</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Status</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Actions</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('clients.client')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('clients.contact')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('cases.type')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('clients.activeCases')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('clients.totalBilled')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('clients.outstanding')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('clients.retainer')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('clients.status')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('clients.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -177,7 +191,7 @@ export const Clients = () => {
                         <div>
                           <p className="font-medium text-text-primary">{displayName}</p>
                           {contactPerson && (
-                            <p className="text-xs text-text-muted">Contact: {contactPerson}</p>
+                            <p className="text-xs text-text-muted">{t('clients.contactLabel')} {contactPerson}</p>
                           )}
                         </div>
                       </div>
@@ -202,7 +216,7 @@ export const Clients = () => {
                           color: client.clientType === 'Corporate' ? '#3b82f6' : '#8b5cf6'
                         }}
                       >
-                        {client.clientType}
+                        {typeMap[client.clientType] || client.clientType}
                       </span>
                     </td>
                     <td className="py-3 px-4 text-center">
@@ -224,19 +238,19 @@ export const Clients = () => {
                     <td className="py-3 px-4 text-center">
                       {client.retainerAgreement ? (
                         <span className="inline-flex px-2 py-1 rounded-full text-xs font-medium bg-success/20 text-success">
-                          Yes
+                          {t('clients.yes')}
                         </span>
                       ) : (
-                        <span className="text-text-muted text-sm">No</span>
+                        <span className="text-text-muted text-sm">{t('clients.no')}</span>
                       )}
                     </td>
                     <td className="py-3 px-4 text-center">
                       <span
-                        className={`inline-flex px-2 py-1 rounded-full text-xs font-medium capitalize ${
+                        className={`inline-flex px-2 py-1 rounded-full text-xs font-medium ${
                           client.status === 'active' ? 'bg-success/20 text-success' : 'bg-text-muted/20 text-text-muted'
                         }`}
                       >
-                        {client.status}
+                        {statusMap[client.status] || client.status}
                       </span>
                     </td>
                     <td className="py-3 px-4 text-center">
@@ -247,10 +261,10 @@ export const Clients = () => {
                           </Button>
                         }
                         items={[
-                          { id: 'view', label: 'View Profile', onClick: () => {} },
-                          { id: 'edit', label: 'Edit', onClick: () => {} },
-                          { id: 'case', label: 'New Case', onClick: () => {} },
-                          { id: 'invoice', label: 'Invoice', onClick: () => {} },
+                          { id: 'view', label: t('clients.viewProfile'), onClick: () => {} },
+                          { id: 'edit', label: t('clients.edit'), onClick: () => {} },
+                          { id: 'case', label: t('clients.newCase'), onClick: () => {} },
+                          { id: 'invoice', label: t('clients.invoice'), onClick: () => {} },
                         ]}
                       />
                     </td>
@@ -264,7 +278,7 @@ export const Clients = () => {
         {filteredClients.length === 0 && (
           <div className="py-12 text-center text-text-muted">
             <Users size={48} className="mx-auto mb-4 opacity-50" />
-            <p>No clients found</p>
+            <p>{t('clients.noClientsFound')}</p>
           </div>
         )}
       </Card>

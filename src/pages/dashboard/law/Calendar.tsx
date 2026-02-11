@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   CalendarDays,
@@ -13,6 +14,7 @@ import { PageHeader, Card, Button } from '@/components/common';
 import { hearings, LAW_COLOR } from '@/data/law/lawData';
 
 export const Calendar = () => {
+  const { t } = useTranslation('law');
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
@@ -73,8 +75,8 @@ export const Calendar = () => {
       .slice(0, 5);
   }, []);
 
-  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const monthNames = [t('calendar.months.january'), t('calendar.months.february'), t('calendar.months.march'), t('calendar.months.april'), t('calendar.months.may'), t('calendar.months.june'), t('calendar.months.july'), t('calendar.months.august'), t('calendar.months.september'), t('calendar.months.october'), t('calendar.months.november'), t('calendar.months.december')];
+  const dayNames = [t('calendar.days.sun'), t('calendar.days.mon'), t('calendar.days.tue'), t('calendar.days.wed'), t('calendar.days.thu'), t('calendar.days.fri'), t('calendar.days.sat')];
 
   const goToPrevMonth = () => {
     setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));
@@ -98,21 +100,21 @@ export const Calendar = () => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     const diff = Math.ceil((date.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
-    if (diff === 0) return 'Today';
-    if (diff === 1) return 'Tomorrow';
-    return `${diff} days`;
+    if (diff === 0) return t('calendar.today');
+    if (diff === 1) return t('calendar.tomorrow');
+    return t('calendar.daysAway', { count: diff });
   };
 
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Calendar & Deadlines"
-        subtitle="Manage hearings and important dates"
+        title={t('calendar.title')}
+        subtitle={t('calendar.subtitle')}
         icon={CalendarDays}
         actions={
           <Button>
             <Plus size={18} />
-            Add Event
+            {t('calendar.addEvent')}
           </Button>
         }
       />
@@ -131,7 +133,7 @@ export const Calendar = () => {
                   <ChevronLeft size={18} />
                 </Button>
                 <Button variant="ghost" size="sm" onClick={() => setCurrentDate(new Date())}>
-                  Today
+                  {t('calendar.today')}
                 </Button>
                 <Button variant="ghost" size="sm" onClick={goToNextMonth}>
                   <ChevronRight size={18} />
@@ -191,7 +193,7 @@ export const Calendar = () => {
                           </div>
                         ))}
                         {events.length > 2 && (
-                          <div className="text-xs text-text-muted">+{events.length - 2} more</div>
+                          <div className="text-xs text-text-muted">{t('calendar.moreEvents', { count: events.length - 2 })}</div>
                         )}
                       </div>
                     )}
@@ -204,7 +206,7 @@ export const Calendar = () => {
           {/* Selected Date Events */}
           {selectedDate && selectedDateEvents.length > 0 && (
             <Card className="p-4 mt-4">
-              <h3 className="font-semibold text-text-primary mb-4">Events on {selectedDate}</h3>
+              <h3 className="font-semibold text-text-primary mb-4">{t('calendar.eventsOn', { date: selectedDate })}</h3>
               <div className="space-y-3">
                 {selectedDateEvents.map((event) => (
                   <div key={event.id} className="p-3 bg-background-tertiary rounded-lg">
@@ -230,7 +232,7 @@ export const Calendar = () => {
           <Card className="p-4">
             <h3 className="font-semibold text-text-primary mb-4 flex items-center gap-2">
               <AlertTriangle size={18} style={{ color: LAW_COLOR }} />
-              Upcoming Deadlines
+              {t('calendar.upcomingDeadlines')}
             </h3>
             <div className="space-y-3">
               {upcomingDeadlines.map((hearing, index) => (
@@ -265,7 +267,7 @@ export const Calendar = () => {
               {upcomingDeadlines.length === 0 && (
                 <div className="text-center py-8 text-text-muted">
                   <CalendarDays size={32} className="mx-auto mb-2 opacity-50" />
-                  <p className="text-sm">No upcoming deadlines</p>
+                  <p className="text-sm">{t('calendar.noUpcomingDeadlines')}</p>
                 </div>
               )}
             </div>
@@ -273,22 +275,22 @@ export const Calendar = () => {
 
           {/* Quick Stats */}
           <Card className="p-4 mt-4">
-            <h3 className="font-semibold text-text-primary mb-4">This Month</h3>
+            <h3 className="font-semibold text-text-primary mb-4">{t('calendar.thisMonth')}</h3>
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-sm text-text-muted">Scheduled Hearings</span>
+                <span className="text-sm text-text-muted">{t('calendar.scheduledHearings')}</span>
                 <span className="font-medium text-text-primary">
                   {hearings.filter(h => h.status === 'scheduled').length}
                 </span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-sm text-text-muted">Completed</span>
+                <span className="text-sm text-text-muted">{t('calendar.completed')}</span>
                 <span className="font-medium text-success">
                   {hearings.filter(h => h.status === 'completed').length}
                 </span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-sm text-text-muted">Active Cases</span>
+                <span className="text-sm text-text-muted">{t('calendar.activeCases')}</span>
                 <span className="font-medium text-text-primary">
                   {new Set(hearings.map(h => h.caseId)).size}
                 </span>

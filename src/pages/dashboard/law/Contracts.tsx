@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   FileSignature,
@@ -16,6 +17,14 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { contracts, LAW_COLOR } from '@/data/law/lawData';
 
 export const Contracts = () => {
+  const { t } = useTranslation('law');
+
+  const statusMap: Record<string, string> = {
+    'all': t('contracts.all'),
+    'active': t('status.active'),
+    'completed': t('status.completed'),
+    'expired': t('status.expired'),
+  };
   const [searchQuery, setSearchQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -61,13 +70,13 @@ export const Contracts = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Contract Management"
-        subtitle="Manage retainers and agreements"
+        title={t('contracts.title')}
+        subtitle={t('contracts.subtitle')}
         icon={FileSignature}
         actions={
           <Button>
             <Plus size={18} />
-            New Contract
+            {t('contracts.newContract')}
           </Button>
         }
       />
@@ -75,10 +84,10 @@ export const Contracts = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Active Contracts', value: stats.activeContracts, icon: CheckCircle, color: '#10b981' },
-          { label: 'Expiring Soon', value: stats.expiringSoon, icon: AlertTriangle, color: '#f59e0b' },
-          { label: 'Total Value', value: `QAR ${stats.totalValue.toLocaleString()}`, icon: DollarSign, color: LAW_COLOR },
-          { label: 'Completed', value: stats.completedContracts, icon: FileSignature, color: '#3b82f6' },
+          { label: t('contracts.activeContracts'), value: stats.activeContracts, icon: CheckCircle, color: '#10b981' },
+          { label: t('contracts.expiringSoon'), value: stats.expiringSoon, icon: AlertTriangle, color: '#f59e0b' },
+          { label: t('contracts.totalValue'), value: `QAR ${stats.totalValue.toLocaleString()}`, icon: DollarSign, color: LAW_COLOR },
+          { label: t('contracts.completed'), value: stats.completedContracts, icon: FileSignature, color: '#3b82f6' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -113,7 +122,7 @@ export const Contracts = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search contracts..."
+              placeholder={t('contracts.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -127,7 +136,7 @@ export const Contracts = () => {
                 size="sm"
                 onClick={() => setTypeFilter(type)}
               >
-                {type === 'all' ? 'All Types' : type}
+                {type === 'all' ? t('contracts.allTypes') : type}
               </Button>
             ))}
           </div>
@@ -139,7 +148,7 @@ export const Contracts = () => {
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status === 'all' ? 'All' : status.charAt(0).toUpperCase() + status.slice(1)}
+                {statusMap[status] || status}
               </Button>
             ))}
           </div>
@@ -170,10 +179,10 @@ export const Contracts = () => {
                   </div>
                 </div>
                 <span
-                  className="px-2 py-1 rounded-full text-xs font-medium capitalize"
+                  className="px-2 py-1 rounded-full text-xs font-medium"
                   style={{ backgroundColor: `${getStatusColor(contract.status)}20`, color: getStatusColor(contract.status) }}
                 >
-                  {contract.status}
+                  {statusMap[contract.status] || contract.status}
                 </span>
               </div>
 
@@ -203,7 +212,7 @@ export const Contracts = () => {
                   {contract.autoRenew && (
                     <span className="flex items-center gap-1 text-xs text-success">
                       <RefreshCw size={12} />
-                      Auto-renew
+                      {t('contracts.autoRenew')}
                     </span>
                   )}
                   <span className="text-xs text-text-muted">
@@ -217,10 +226,10 @@ export const Contracts = () => {
                     </Button>
                   }
                   items={[
-                    { id: 'view', label: 'View Details', onClick: () => {} },
-                    { id: 'edit', label: 'Edit', onClick: () => {} },
-                    { id: 'renew', label: 'Renew', onClick: () => {} },
-                    { id: 'terminate', label: 'Terminate', onClick: () => {} },
+                    { id: 'view', label: t('contracts.viewDetails'), onClick: () => {} },
+                    { id: 'edit', label: t('contracts.edit'), onClick: () => {} },
+                    { id: 'renew', label: t('contracts.renew'), onClick: () => {} },
+                    { id: 'terminate', label: t('contracts.terminate'), onClick: () => {} },
                   ]}
                 />
               </div>
@@ -232,7 +241,7 @@ export const Contracts = () => {
       {filteredContracts.length === 0 && (
         <Card className="p-12 text-center">
           <FileSignature size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No contracts found</p>
+          <p className="text-text-secondary">{t('contracts.noContractsFound')}</p>
         </Card>
       )}
     </div>

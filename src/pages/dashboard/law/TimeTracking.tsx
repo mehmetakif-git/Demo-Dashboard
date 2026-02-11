@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   Clock,
@@ -16,16 +17,29 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { timeEntries, LAW_COLOR } from '@/data/law/lawData';
 
 export const TimeTracking = () => {
+  const { t } = useTranslation('law');
   const [searchQuery, setSearchQuery] = useState('');
   const [billableFilter, setBillableFilter] = useState<string>('all');
   const [billedFilter, setBilledFilter] = useState<string>('all');
 
+  const billableMap: Record<string, string> = {
+    'all': t('timeTracking.all'),
+    'billable': t('timeTracking.billable'),
+    'non-billable': t('timeTracking.nonBillable'),
+  };
+
+  const billedMap: Record<string, string> = {
+    'all': t('timeTracking.all'),
+    'billed': t('timeTracking.billed'),
+    'unbilled': t('timeTracking.unbilled'),
+  };
+
   const stats = useMemo(() => {
-    const totalHours = timeEntries.reduce((acc, t) => acc + t.duration, 0);
-    const billableHours = timeEntries.filter(t => t.billable).reduce((acc, t) => acc + t.billableHours, 0);
-    const billedHours = timeEntries.filter(t => t.billed).reduce((acc, t) => acc + t.billableHours, 0);
+    const totalHours = timeEntries.reduce((acc, te) => acc + te.duration, 0);
+    const billableHours = timeEntries.filter(te => te.billable).reduce((acc, te) => acc + te.billableHours, 0);
+    const billedHours = timeEntries.filter(te => te.billed).reduce((acc, te) => acc + te.billableHours, 0);
     const unbilledHours = billableHours - billedHours;
-    const unbilledAmount = timeEntries.filter(t => t.billable && !t.billed).reduce((acc, t) => acc + t.amount, 0);
+    const unbilledAmount = timeEntries.filter(te => te.billable && !te.billed).reduce((acc, te) => acc + te.amount, 0);
 
     return { totalHours, billableHours, billedHours, unbilledHours, unbilledAmount };
   }, []);
@@ -51,13 +65,13 @@ export const TimeTracking = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Time Tracking"
-        subtitle="Track billable hours and activities"
+        title={t('timeTracking.title')}
+        subtitle={t('timeTracking.subtitle')}
         icon={Clock}
         actions={
           <Button>
             <Plus size={18} />
-            New Time Entry
+            {t('timeTracking.newTimeEntry')}
           </Button>
         }
       />
@@ -65,10 +79,10 @@ export const TimeTracking = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Hours', value: `${stats.totalHours.toFixed(1)}h`, icon: Clock, color: LAW_COLOR },
-          { label: 'Billable Hours', value: `${stats.billableHours.toFixed(1)}h`, icon: DollarSign, color: '#3b82f6' },
-          { label: 'Billed Hours', value: `${stats.billedHours.toFixed(1)}h`, icon: CheckCircle, color: '#10b981' },
-          { label: 'Unbilled Amount', value: `QAR ${stats.unbilledAmount.toLocaleString()}`, icon: FileText, color: '#f59e0b' },
+          { label: t('timeTracking.totalHours'), value: `${stats.totalHours.toFixed(1)}h`, icon: Clock, color: LAW_COLOR },
+          { label: t('timeTracking.billableHours'), value: `${stats.billableHours.toFixed(1)}h`, icon: DollarSign, color: '#3b82f6' },
+          { label: t('timeTracking.billedHours'), value: `${stats.billedHours.toFixed(1)}h`, icon: CheckCircle, color: '#10b981' },
+          { label: t('timeTracking.unbilledAmount'), value: `QAR ${stats.unbilledAmount.toLocaleString()}`, icon: FileText, color: '#f59e0b' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -103,7 +117,7 @@ export const TimeTracking = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search time entries..."
+              placeholder={t('timeTracking.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -117,7 +131,7 @@ export const TimeTracking = () => {
                 size="sm"
                 onClick={() => setBillableFilter(filter)}
               >
-                {filter === 'all' ? 'All' : filter.charAt(0).toUpperCase() + filter.slice(1)}
+                {billableMap[filter] || filter}
               </Button>
             ))}
           </div>
@@ -129,7 +143,7 @@ export const TimeTracking = () => {
                 size="sm"
                 onClick={() => setBilledFilter(filter)}
               >
-                {filter === 'all' ? 'All' : filter.charAt(0).toUpperCase() + filter.slice(1)}
+                {billedMap[filter] || filter}
               </Button>
             ))}
           </div>
@@ -142,17 +156,17 @@ export const TimeTracking = () => {
           <table className="w-full">
             <thead className="bg-background-tertiary">
               <tr>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Date</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Case</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Lawyer</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Time</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Duration</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Activity</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Billable</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Rate</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Amount</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Billed</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Actions</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('timeTracking.dateCol')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('timeTracking.case')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('timeTracking.lawyer')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('timeTracking.time')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('timeTracking.duration')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('timeTracking.activity')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('timeTracking.billableCol')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('timeTracking.rate')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('timeTracking.amount')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('timeTracking.billedCol')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('timeTracking.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -188,7 +202,7 @@ export const TimeTracking = () => {
                     </span>
                   </td>
                   <td className="py-3 px-4 text-center">
-                    <span className="font-medium text-text-primary">{entry.duration}h</span>
+                    <span className="font-medium text-text-primary">{entry.duration}{t('timeTracking.hourUnit')}</span>
                   </td>
                   <td className="py-3 px-4">
                     <span className="text-text-secondary text-sm max-w-[200px] truncate block">
@@ -198,10 +212,10 @@ export const TimeTracking = () => {
                   <td className="py-3 px-4 text-center">
                     {entry.billable ? (
                       <span className="inline-flex px-2 py-1 rounded-full text-xs font-medium bg-success/20 text-success">
-                        Yes
+                        {t('timeTracking.yes')}
                       </span>
                     ) : (
-                      <span className="text-text-muted text-sm">No</span>
+                      <span className="text-text-muted text-sm">{t('timeTracking.no')}</span>
                     )}
                   </td>
                   <td className="py-3 px-4 text-right">
@@ -224,11 +238,11 @@ export const TimeTracking = () => {
                     {entry.billed ? (
                       <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium bg-success/20 text-success">
                         <CheckCircle size={10} />
-                        Billed
+                        {t('timeTracking.billedBadge')}
                       </span>
                     ) : entry.billable ? (
                       <Button variant="ghost" size="sm" className="text-xs">
-                        Bill
+                        {t('timeTracking.billButton')}
                       </Button>
                     ) : (
                       <span className="text-text-muted text-sm">-</span>
@@ -242,9 +256,9 @@ export const TimeTracking = () => {
                         </Button>
                       }
                       items={[
-                        { id: 'view', label: 'View Details', onClick: () => {} },
-                        { id: 'edit', label: 'Edit', onClick: () => {} },
-                        { id: 'delete', label: 'Delete', onClick: () => {} },
+                        { id: 'view', label: t('timeTracking.viewDetails'), onClick: () => {} },
+                        { id: 'edit', label: t('timeTracking.edit'), onClick: () => {} },
+                        { id: 'delete', label: t('timeTracking.delete'), onClick: () => {} },
                       ]}
                     />
                   </td>
@@ -257,7 +271,7 @@ export const TimeTracking = () => {
         {filteredEntries.length === 0 && (
           <div className="py-12 text-center text-text-muted">
             <Clock size={48} className="mx-auto mb-4 opacity-50" />
-            <p>No time entries found</p>
+            <p>{t('timeTracking.noEntriesFound')}</p>
           </div>
         )}
       </Card>

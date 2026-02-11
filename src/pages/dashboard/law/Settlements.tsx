@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   Handshake,
@@ -16,9 +17,17 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { settlements, LAW_COLOR } from '@/data/law/lawData';
 
 export const Settlements = () => {
+  const { t } = useTranslation('law');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [typeFilter, setTypeFilter] = useState<string>('all');
+
+  const statusMap: Record<string, string> = {
+    'all': t('settlements.all'),
+    'pending-approval': t('status.pendingApproval'),
+    'approved': t('status.approved'),
+    'rejected': t('status.rejected'),
+  };
 
   const settlementTypes = useMemo(() => {
     return ['all', ...new Set(settlements.map(s => s.settlementType))];
@@ -65,13 +74,13 @@ export const Settlements = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Settlements & Agreements"
-        subtitle="Manage case settlements and agreements"
+        title={t('settlements.title')}
+        subtitle={t('settlements.subtitle')}
         icon={Handshake}
         actions={
           <Button>
             <Plus size={18} />
-            New Settlement
+            {t('settlements.newSettlement')}
           </Button>
         }
       />
@@ -79,10 +88,10 @@ export const Settlements = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Settlements', value: stats.total, icon: Handshake, color: LAW_COLOR },
-          { label: 'Pending Approval', value: stats.pendingApproval, icon: Clock, color: '#f59e0b' },
-          { label: 'Approved', value: stats.approved, icon: CheckCircle, color: '#10b981' },
-          { label: 'Total Value', value: `QAR ${stats.totalValue.toLocaleString()}`, icon: DollarSign, color: '#3b82f6' },
+          { label: t('settlements.totalSettlements'), value: stats.total, icon: Handshake, color: LAW_COLOR },
+          { label: t('settlements.pendingApproval'), value: stats.pendingApproval, icon: Clock, color: '#f59e0b' },
+          { label: t('settlements.approved'), value: stats.approved, icon: CheckCircle, color: '#10b981' },
+          { label: t('settlements.totalValue'), value: `QAR ${stats.totalValue.toLocaleString()}`, icon: DollarSign, color: '#3b82f6' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -117,7 +126,7 @@ export const Settlements = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search settlements..."
+              placeholder={t('settlements.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -131,7 +140,7 @@ export const Settlements = () => {
                 size="sm"
                 onClick={() => setTypeFilter(type)}
               >
-                {type === 'all' ? 'All Types' : type}
+                {type === 'all' ? t('settlements.allTypes') : type}
               </Button>
             ))}
           </div>
@@ -143,7 +152,7 @@ export const Settlements = () => {
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status === 'all' ? 'All' : status.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ')}
+                {statusMap[status] || status}
               </Button>
             ))}
           </div>
@@ -175,10 +184,10 @@ export const Settlements = () => {
                       <div className="flex items-center gap-2 mb-1">
                         <span className="font-mono text-sm font-medium text-text-primary">{settlement.caseNo}</span>
                         <span
-                          className="px-2 py-0.5 rounded-full text-xs font-medium capitalize"
+                          className="px-2 py-0.5 rounded-full text-xs font-medium"
                           style={{ backgroundColor: `${getStatusColor(settlement.status)}20`, color: getStatusColor(settlement.status) }}
                         >
-                          {settlement.status.replace('-', ' ')}
+                          {statusMap[settlement.status] || settlement.status}
                         </span>
                       </div>
                       <p className="text-text-secondary">{settlement.caseTitle}</p>
@@ -191,9 +200,9 @@ export const Settlements = () => {
                       </Button>
                     }
                     items={[
-                      { id: 'view', label: 'View Details', onClick: () => {} },
-                      { id: 'edit', label: 'Edit', onClick: () => {} },
-                      { id: 'approve', label: 'Approve', onClick: () => {} },
+                      { id: 'view', label: t('settlements.viewDetails'), onClick: () => {} },
+                      { id: 'edit', label: t('settlements.edit'), onClick: () => {} },
+                      { id: 'approve', label: t('settlements.approve'), onClick: () => {} },
                     ]}
                   />
                 </div>
@@ -202,14 +211,14 @@ export const Settlements = () => {
                   <div className="flex items-center gap-2">
                     <Calendar size={14} className="text-text-muted" />
                     <div>
-                      <p className="text-xs text-text-muted">Settlement Date</p>
+                      <p className="text-xs text-text-muted">{t('settlements.settlementDate')}</p>
                       <p className="text-sm text-text-primary">{settlement.settlementDate}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
                     <FileText size={14} className="text-text-muted" />
                     <div>
-                      <p className="text-xs text-text-muted">Type</p>
+                      <p className="text-xs text-text-muted">{t('settlements.type')}</p>
                       <p className="text-sm text-text-primary">{settlement.settlementType}</p>
                     </div>
                   </div>
@@ -217,7 +226,7 @@ export const Settlements = () => {
                     <div className="flex items-center gap-2">
                       <DollarSign size={14} className="text-text-muted" />
                       <div>
-                        <p className="text-xs text-text-muted">Amount</p>
+                        <p className="text-xs text-text-muted">{t('settlements.amount')}</p>
                         <p className="text-sm font-medium text-text-primary">
                           QAR {settlement.amount.toLocaleString()}
                         </p>
@@ -227,7 +236,7 @@ export const Settlements = () => {
                 </div>
 
                 <div className="p-3 bg-background-tertiary rounded-lg mb-4">
-                  <p className="text-xs text-text-muted mb-1">Terms:</p>
+                  <p className="text-xs text-text-muted mb-1">{t('settlements.terms')}</p>
                   <p className="text-sm text-text-secondary">{settlement.terms}</p>
                 </div>
 
@@ -235,7 +244,7 @@ export const Settlements = () => {
                   <div className="flex items-center gap-4 pt-3 border-t border-border-default">
                     <div className="flex items-center gap-2 text-sm">
                       <User size={14} className="text-text-muted" />
-                      <span className="text-text-muted">Approved by:</span>
+                      <span className="text-text-muted">{t('settlements.approvedBy')}</span>
                       <span className="text-text-primary">{settlement.approvedBy}</span>
                     </div>
                     <div className="flex items-center gap-2 text-sm">
@@ -247,7 +256,7 @@ export const Settlements = () => {
 
                 {settlement.notes && (
                   <div className="mt-3 pt-3 border-t border-border-default">
-                    <p className="text-xs text-text-muted mb-1">Notes:</p>
+                    <p className="text-xs text-text-muted mb-1">{t('settlements.notes')}</p>
                     <p className="text-sm text-text-secondary">{settlement.notes}</p>
                   </div>
                 )}
@@ -260,7 +269,7 @@ export const Settlements = () => {
       {filteredSettlements.length === 0 && (
         <Card className="p-12 text-center">
           <Handshake size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No settlements found</p>
+          <p className="text-text-secondary">{t('settlements.noSettlementsFound')}</p>
         </Card>
       )}
     </div>

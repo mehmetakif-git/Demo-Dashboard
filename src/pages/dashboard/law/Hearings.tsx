@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   Calendar,
@@ -16,6 +17,7 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { hearings, LAW_COLOR } from '@/data/law/lawData';
 
 export const Hearings = () => {
+  const { t } = useTranslation('law');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [typeFilter, setTypeFilter] = useState<string>('all');
@@ -74,16 +76,24 @@ export const Hearings = () => {
     }
   };
 
+  const statusMap: Record<string, string> = {
+    'all': t('hearings.allStatus'),
+    'scheduled': t('status.scheduled'),
+    'completed': t('status.completed'),
+    'postponed': t('status.postponed'),
+    'cancelled': t('status.cancelled'),
+  };
+
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Hearings & Court Dates"
-        subtitle="Manage court hearings and appointments"
+        title={t('hearings.title')}
+        subtitle={t('hearings.subtitle')}
         icon={Calendar}
         actions={
           <Button>
             <Plus size={18} />
-            Schedule Hearing
+            {t('hearings.scheduleHearing')}
           </Button>
         }
       />
@@ -91,10 +101,10 @@ export const Hearings = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Upcoming', value: stats.upcoming, icon: Calendar, color: LAW_COLOR },
-          { label: 'This Week', value: stats.thisWeek, icon: Clock, color: '#ef4444' },
-          { label: 'This Month', value: stats.thisMonth, icon: Calendar, color: '#3b82f6' },
-          { label: 'Completed', value: stats.completed, icon: CheckCircle, color: '#10b981' },
+          { label: t('hearings.upcoming'), value: stats.upcoming, icon: Calendar, color: LAW_COLOR },
+          { label: t('hearings.thisWeek'), value: stats.thisWeek, icon: Clock, color: '#ef4444' },
+          { label: t('hearings.thisMonth'), value: stats.thisMonth, icon: Calendar, color: '#3b82f6' },
+          { label: t('hearings.completed'), value: stats.completed, icon: CheckCircle, color: '#10b981' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -129,7 +139,7 @@ export const Hearings = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search hearings..."
+              placeholder={t('hearings.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -143,13 +153,13 @@ export const Hearings = () => {
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status === 'all' ? 'All Status' : status.charAt(0).toUpperCase() + status.slice(1)}
+                {statusMap[status] || status}
               </Button>
             ))}
           </div>
         </div>
         <div className="flex gap-2 mt-3 flex-wrap">
-          <span className="text-sm text-text-muted mr-2">Type:</span>
+          <span className="text-sm text-text-muted mr-2">{t('hearings.typeLabel')}</span>
           {hearingTypes.slice(0, 5).map((type) => (
             <Button
               key={type}
@@ -157,7 +167,7 @@ export const Hearings = () => {
               size="sm"
               onClick={() => setTypeFilter(type)}
             >
-              {type === 'all' ? 'All Types' : type}
+              {type === 'all' ? t('hearings.allTypes') : type}
             </Button>
           ))}
         </div>
@@ -189,10 +199,10 @@ export const Hearings = () => {
                         <div className="flex items-center gap-2">
                           <span className="font-mono text-sm font-medium text-text-primary">{hearing.caseNo}</span>
                           <span
-                            className="px-2 py-0.5 rounded-full text-xs font-medium capitalize"
+                            className="px-2 py-0.5 rounded-full text-xs font-medium"
                             style={{ backgroundColor: `${getStatusColor(hearing.status)}20`, color: getStatusColor(hearing.status) }}
                           >
-                            {hearing.status}
+                            {statusMap[hearing.status] || hearing.status}
                           </span>
                         </div>
                         <p className="text-text-secondary font-medium">{hearing.caseTitle}</p>
@@ -235,14 +245,14 @@ export const Hearings = () => {
 
                     {hearing.preparation && (
                       <div className="mt-3 p-3 bg-background-tertiary rounded-lg">
-                        <p className="text-xs text-text-muted mb-1">Preparation:</p>
+                        <p className="text-xs text-text-muted mb-1">{t('hearings.preparation')}</p>
                         <p className="text-sm text-text-secondary">{hearing.preparation}</p>
                       </div>
                     )}
 
                     {hearing.outcome && (
                       <div className="mt-3 p-3 bg-success/10 rounded-lg border border-success/20">
-                        <p className="text-xs text-success mb-1">Outcome:</p>
+                        <p className="text-xs text-success mb-1">{t('hearings.outcome')}</p>
                         <p className="text-sm text-text-primary">{hearing.outcome}</p>
                       </div>
                     )}
@@ -256,10 +266,10 @@ export const Hearings = () => {
                         </Button>
                       }
                       items={[
-                        { id: 'view', label: 'View Details', onClick: () => {} },
-                        { id: 'edit', label: 'Edit', onClick: () => {} },
-                        { id: 'complete', label: 'Mark Completed', onClick: () => {} },
-                        { id: 'postpone', label: 'Postpone', onClick: () => {} },
+                        { id: 'view', label: t('hearings.viewDetails'), onClick: () => {} },
+                        { id: 'edit', label: t('hearings.edit'), onClick: () => {} },
+                        { id: 'complete', label: t('hearings.markCompleted'), onClick: () => {} },
+                        { id: 'postpone', label: t('hearings.postpone'), onClick: () => {} },
                       ]}
                     />
                   </div>
@@ -273,7 +283,7 @@ export const Hearings = () => {
       {filteredHearings.length === 0 && (
         <Card className="p-12 text-center">
           <Calendar size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No hearings found</p>
+          <p className="text-text-secondary">{t('hearings.noHearingsFound')}</p>
         </Card>
       )}
     </div>

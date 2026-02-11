@@ -15,6 +15,7 @@ import enHotel from './locales/en/hotel.json';
 import enConstruction from './locales/en/construction.json';
 import enLogistics from './locales/en/logistics.json';
 import enManufacturing from './locales/en/manufacturing.json';
+import enLaw from './locales/en/law.json';
 
 // TR translations
 import trCommon from './locales/tr/common.json';
@@ -29,6 +30,7 @@ import trHotel from './locales/tr/hotel.json';
 import trConstruction from './locales/tr/construction.json';
 import trLogistics from './locales/tr/logistics.json';
 import trManufacturing from './locales/tr/manufacturing.json';
+import trLaw from './locales/tr/law.json';
 
 i18n
   .use(LanguageDetector)
@@ -48,6 +50,7 @@ i18n
         construction: enConstruction,
         logistics: enLogistics,
         manufacturing: enManufacturing,
+        law: enLaw,
       },
       tr: {
         common: trCommon,
@@ -62,11 +65,12 @@ i18n
         construction: trConstruction,
         logistics: trLogistics,
         manufacturing: trManufacturing,
+        law: trLaw,
       },
     },
     fallbackLng: 'en',
     defaultNS: 'common',
-    ns: ['common', 'auth', 'sidebar', 'dashboard', 'breadcrumb', 'errors', 'sectors', 'communication', 'hotel', 'construction', 'logistics', 'manufacturing'],
+    ns: ['common', 'auth', 'sidebar', 'dashboard', 'breadcrumb', 'errors', 'sectors', 'communication', 'hotel', 'construction', 'logistics', 'manufacturing', 'law'],
     interpolation: {
       escapeValue: false,
     },

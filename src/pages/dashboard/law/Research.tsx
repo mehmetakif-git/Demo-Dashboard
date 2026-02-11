@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   BookOpen,
@@ -15,6 +16,7 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { legalResearch, LAW_COLOR } from '@/data/law/lawData';
 
 export const Research = () => {
+  const { t } = useTranslation('law');
   const [searchQuery, setSearchQuery] = useState('');
 
   const filteredResearch = useMemo(() => {
@@ -28,13 +30,13 @@ export const Research = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Legal Research"
-        subtitle="Manage legal research and precedents"
+        title={t('research.title')}
+        subtitle={t('research.subtitle')}
         icon={BookOpen}
         actions={
           <Button>
             <Plus size={18} />
-            New Research Entry
+            {t('research.newResearchEntry')}
           </Button>
         }
       />
@@ -42,10 +44,10 @@ export const Research = () => {
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Research', value: legalResearch.length, icon: BookOpen, color: LAW_COLOR },
-          { label: 'Cases Covered', value: new Set(legalResearch.filter(r => r.caseId).map(r => r.caseId)).size, icon: FileText, color: '#3b82f6' },
-          { label: 'Laws Referenced', value: legalResearch.reduce((acc, r) => acc + r.relevantLaws.length, 0), icon: Scale, color: '#10b981' },
-          { label: 'Precedents', value: legalResearch.reduce((acc, r) => acc + r.precedents.length, 0), icon: Link, color: '#8b5cf6' },
+          { label: t('research.totalResearch'), value: legalResearch.length, icon: BookOpen, color: LAW_COLOR },
+          { label: t('research.casesCovered'), value: new Set(legalResearch.filter(r => r.caseId).map(r => r.caseId)).size, icon: FileText, color: '#3b82f6' },
+          { label: t('research.lawsReferenced'), value: legalResearch.reduce((acc, r) => acc + r.relevantLaws.length, 0), icon: Scale, color: '#10b981' },
+          { label: t('research.precedents'), value: legalResearch.reduce((acc, r) => acc + r.precedents.length, 0), icon: Link, color: '#8b5cf6' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -79,7 +81,7 @@ export const Research = () => {
         <div className="relative">
           <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
           <Input
-            placeholder="Search research topics..."
+            placeholder={t('research.searchPlaceholder')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-10"
@@ -108,7 +110,7 @@ export const Research = () => {
                   <div>
                     <h3 className="font-semibold text-text-primary">{research.researchTopic}</h3>
                     {research.caseNo && (
-                      <span className="font-mono text-xs text-text-muted">Case: {research.caseNo}</span>
+                      <span className="font-mono text-xs text-text-muted">{t('research.caseLabel')} {research.caseNo}</span>
                     )}
                   </div>
                 </div>
@@ -119,10 +121,10 @@ export const Research = () => {
                     </Button>
                   }
                   items={[
-                    { id: 'view', label: 'View Details', onClick: () => {} },
-                    { id: 'edit', label: 'Edit', onClick: () => {} },
-                    { id: 'print', label: 'Print Memo', onClick: () => {} },
-                    { id: 'delete', label: 'Delete', onClick: () => {} },
+                    { id: 'view', label: t('research.viewDetails'), onClick: () => {} },
+                    { id: 'edit', label: t('research.edit'), onClick: () => {} },
+                    { id: 'print', label: t('research.printMemo'), onClick: () => {} },
+                    { id: 'delete', label: t('research.delete'), onClick: () => {} },
                   ]}
                 />
               </div>
@@ -136,7 +138,7 @@ export const Research = () => {
                 <div className="p-3 bg-background-tertiary rounded-lg">
                   <h4 className="text-xs font-medium text-text-muted mb-2 flex items-center gap-1">
                     <Scale size={12} />
-                    Relevant Laws ({research.relevantLaws.length})
+                    {t('research.relevantLaws')} ({research.relevantLaws.length})
                   </h4>
                   <div className="space-y-1">
                     {research.relevantLaws.map((law, i) => (
@@ -149,7 +151,7 @@ export const Research = () => {
                 <div className="p-3 bg-background-tertiary rounded-lg">
                   <h4 className="text-xs font-medium text-text-muted mb-2 flex items-center gap-1">
                     <Link size={12} />
-                    Precedents ({research.precedents.length})
+                    {t('research.precedents')} ({research.precedents.length})
                   </h4>
                   <div className="space-y-1">
                     {research.precedents.map((precedent, i) => (
@@ -161,7 +163,7 @@ export const Research = () => {
 
               {research.notes && (
                 <div className="p-3 bg-amber-500/10 rounded-lg border border-amber-500/20 mb-4">
-                  <p className="text-xs text-amber-600 mb-1">Notes:</p>
+                  <p className="text-xs text-amber-600 mb-1">{t('research.notes')}</p>
                   <p className="text-sm text-text-primary">{research.notes}</p>
                 </div>
               )}
@@ -180,7 +182,7 @@ export const Research = () => {
                 {research.documents.length > 0 && (
                   <div className="flex items-center gap-1 text-sm text-text-muted">
                     <FileText size={14} />
-                    <span>{research.documents.length} linked docs</span>
+                    <span>{t('research.linkedDocs', { count: research.documents.length })}</span>
                   </div>
                 )}
               </div>
@@ -192,7 +194,7 @@ export const Research = () => {
       {filteredResearch.length === 0 && (
         <Card className="p-12 text-center">
           <BookOpen size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No research entries found</p>
+          <p className="text-text-secondary">{t('research.noResearchFound')}</p>
         </Card>
       )}
     </div>

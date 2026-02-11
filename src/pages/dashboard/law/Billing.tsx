@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   DollarSign,
@@ -17,8 +18,17 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { invoices, LAW_COLOR } from '@/data/law/lawData';
 
 export const Billing = () => {
+  const { t } = useTranslation('law');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
+
+  const statusMap: Record<string, string> = {
+    'all': t('billing.allStatus'),
+    'paid': t('status.paid'),
+    'partial': t('status.partial'),
+    'pending': t('status.pending'),
+    'overdue': t('status.overdue'),
+  };
 
   const stats = useMemo(() => {
     const totalBilled = invoices.reduce((acc, i) => acc + i.total, 0);
@@ -64,13 +74,13 @@ export const Billing = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Billing & Invoicing"
-        subtitle="Manage invoices and payments"
+        title={t('billing.title')}
+        subtitle={t('billing.subtitle')}
         icon={DollarSign}
         actions={
           <Button>
             <Plus size={18} />
-            Create Invoice
+            {t('billing.createInvoice')}
           </Button>
         }
       />
@@ -78,10 +88,10 @@ export const Billing = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Billed', value: `QAR ${stats.totalBilled.toLocaleString()}`, icon: DollarSign, color: LAW_COLOR },
-          { label: 'Collected', value: `QAR ${stats.collected.toLocaleString()}`, icon: CheckCircle, color: '#10b981' },
-          { label: 'Outstanding', value: `QAR ${stats.outstanding.toLocaleString()}`, icon: Clock, color: '#ef4444' },
-          { label: 'Pending Invoices', value: stats.pendingInvoices, icon: AlertTriangle, color: '#f59e0b' },
+          { label: t('billing.totalBilled'), value: `QAR ${stats.totalBilled.toLocaleString()}`, icon: DollarSign, color: LAW_COLOR },
+          { label: t('billing.collected'), value: `QAR ${stats.collected.toLocaleString()}`, icon: CheckCircle, color: '#10b981' },
+          { label: t('billing.outstanding'), value: `QAR ${stats.outstanding.toLocaleString()}`, icon: Clock, color: '#ef4444' },
+          { label: t('billing.pendingInvoices'), value: stats.pendingInvoices, icon: AlertTriangle, color: '#f59e0b' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -116,7 +126,7 @@ export const Billing = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search invoices..."
+              placeholder={t('billing.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -130,7 +140,7 @@ export const Billing = () => {
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status === 'all' ? 'All Status' : status.charAt(0).toUpperCase() + status.slice(1)}
+                {statusMap[status] || status}
               </Button>
             ))}
           </div>
@@ -143,16 +153,16 @@ export const Billing = () => {
           <table className="w-full">
             <thead className="bg-background-tertiary">
               <tr>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Invoice No</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Client</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Case</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Date</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Due Date</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Total</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Paid</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Balance</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Status</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Actions</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('billing.invoiceNo')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('billing.client')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('billing.case')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('billing.date')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('billing.dueDate')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('billing.total')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('billing.paid')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('billing.balance')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('billing.status')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('billing.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -209,19 +219,19 @@ export const Billing = () => {
                     </td>
                     <td className="py-3 px-4 text-center">
                       <span
-                        className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium capitalize"
+                        className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium"
                         style={{ backgroundColor: `${getStatusColor(invoice.status)}20`, color: getStatusColor(invoice.status) }}
                       >
                         <StatusIcon size={10} />
-                        {invoice.status}
+                        {statusMap[invoice.status] || invoice.status}
                       </span>
                     </td>
                     <td className="py-3 px-4 text-center">
                       <div className="flex items-center justify-center gap-1">
-                        <Button variant="ghost" size="sm" title="Print">
+                        <Button variant="ghost" size="sm" title={t('billing.print')}>
                           <Printer size={16} />
                         </Button>
-                        <Button variant="ghost" size="sm" title="Send">
+                        <Button variant="ghost" size="sm" title={t('billing.send')}>
                           <Send size={16} />
                         </Button>
                         <Dropdown
@@ -231,9 +241,9 @@ export const Billing = () => {
                             </Button>
                           }
                           items={[
-                            { id: 'view', label: 'View Details', onClick: () => {} },
-                            { id: 'edit', label: 'Edit', onClick: () => {} },
-                            { id: 'payment', label: 'Record Payment', onClick: () => {} },
+                            { id: 'view', label: t('billing.viewDetails'), onClick: () => {} },
+                            { id: 'edit', label: t('billing.edit'), onClick: () => {} },
+                            { id: 'payment', label: t('billing.recordPayment'), onClick: () => {} },
                           ]}
                         />
                       </div>
@@ -248,7 +258,7 @@ export const Billing = () => {
         {filteredInvoices.length === 0 && (
           <div className="py-12 text-center text-text-muted">
             <DollarSign size={48} className="mx-auto mb-4 opacity-50" />
-            <p>No invoices found</p>
+            <p>{t('billing.noInvoicesFound')}</p>
           </div>
         )}
       </Card>

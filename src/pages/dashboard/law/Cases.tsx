@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import {
   Briefcase,
@@ -17,6 +18,24 @@ import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { cases, LAW_COLOR } from '@/data/law/lawData';
 
 export const Cases = () => {
+  const { t } = useTranslation('law');
+
+  const statusMap: Record<string, string> = {
+    'all': t('cases.all'),
+    'active': t('status.active'),
+    'won': t('status.won'),
+    'lost': t('status.lost'),
+    'settlement': t('status.settlement'),
+    'closed': t('status.closed'),
+  };
+
+  const priorityMap: Record<string, string> = {
+    'all': t('cases.all'),
+    'urgent': t('status.urgent'),
+    'high': t('status.high'),
+    'normal': t('status.normal'),
+    'low': t('status.low'),
+  };
   const [searchQuery, setSearchQuery] = useState('');
   const [caseTypeFilter, setCaseTypeFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -73,13 +92,13 @@ export const Cases = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Case Management"
-        subtitle="Manage all legal cases and matters"
+        title={t('cases.title')}
+        subtitle={t('cases.subtitle')}
         icon={Briefcase}
         actions={
           <Button>
             <Plus size={18} />
-            New Case
+            {t('cases.newCase')}
           </Button>
         }
       />
@@ -87,10 +106,10 @@ export const Cases = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Cases', value: stats.totalCases, icon: Briefcase, color: LAW_COLOR },
-          { label: 'Active Cases', value: stats.activeCases, icon: Clock, color: '#3b82f6' },
-          { label: 'Won Cases', value: stats.wonCases, icon: CheckCircle, color: '#10b981' },
-          { label: 'Settlement', value: stats.settlementCases, icon: Scale, color: '#f59e0b' },
+          { label: t('cases.totalCases'), value: stats.totalCases, icon: Briefcase, color: LAW_COLOR },
+          { label: t('cases.activeCases'), value: stats.activeCases, icon: Clock, color: '#3b82f6' },
+          { label: t('cases.wonCases'), value: stats.wonCases, icon: CheckCircle, color: '#10b981' },
+          { label: t('cases.settlement'), value: stats.settlementCases, icon: Scale, color: '#f59e0b' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -125,7 +144,7 @@ export const Cases = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search cases..."
+              placeholder={t('cases.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -139,13 +158,13 @@ export const Cases = () => {
                 size="sm"
                 onClick={() => setCaseTypeFilter(type)}
               >
-                {type === 'all' ? 'All Types' : type}
+                {type === 'all' ? t('cases.allTypes') : type}
               </Button>
             ))}
           </div>
         </div>
         <div className="flex gap-2 mt-4 flex-wrap">
-          <span className="text-sm text-text-muted mr-2">Status:</span>
+          <span className="text-sm text-text-muted mr-2">{t('cases.statusLabel')}</span>
           {['all', 'active', 'settlement', 'won', 'lost', 'closed'].map((status) => (
             <Button
               key={status}
@@ -153,12 +172,12 @@ export const Cases = () => {
               size="sm"
               onClick={() => setStatusFilter(status)}
             >
-              {status === 'all' ? 'All' : status.charAt(0).toUpperCase() + status.slice(1)}
+              {statusMap[status] || status}
             </Button>
           ))}
         </div>
         <div className="flex gap-2 mt-3 flex-wrap">
-          <span className="text-sm text-text-muted mr-2">Priority:</span>
+          <span className="text-sm text-text-muted mr-2">{t('cases.priorityLabel')}</span>
           {['all', 'urgent', 'high', 'normal', 'low'].map((priority) => (
             <Button
               key={priority}
@@ -166,7 +185,7 @@ export const Cases = () => {
               size="sm"
               onClick={() => setPriorityFilter(priority)}
             >
-              {priority === 'all' ? 'All' : priority.charAt(0).toUpperCase() + priority.slice(1)}
+              {priorityMap[priority] || priority}
             </Button>
           ))}
         </div>
@@ -178,16 +197,16 @@ export const Cases = () => {
           <table className="w-full">
             <thead className="bg-background-tertiary">
               <tr>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Case No</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Case Title</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Type</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Client</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Status</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Priority</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Next Hearing</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Lawyer</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Value</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Actions</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('cases.caseNo')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('cases.caseTitle')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('cases.type')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('cases.client')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('clients.status')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('cases.priority')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('cases.nextHearing')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">{t('cases.lawyer')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">{t('cases.value')}</th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">{t('cases.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -219,19 +238,19 @@ export const Cases = () => {
                   </td>
                   <td className="py-3 px-4 text-center">
                     <span
-                      className="inline-flex px-2 py-1 rounded-full text-xs font-medium capitalize"
+                      className="inline-flex px-2 py-1 rounded-full text-xs font-medium"
                       style={{ backgroundColor: `${getStatusColor(caseItem.status)}20`, color: getStatusColor(caseItem.status) }}
                     >
-                      {caseItem.status}
+                      {statusMap[caseItem.status] || caseItem.status}
                     </span>
                   </td>
                   <td className="py-3 px-4 text-center">
                     <span
-                      className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium capitalize"
+                      className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium"
                       style={{ backgroundColor: `${getPriorityColor(caseItem.priority)}20`, color: getPriorityColor(caseItem.priority) }}
                     >
                       {caseItem.priority === 'urgent' && <AlertTriangle size={10} />}
-                      {caseItem.priority}
+                      {priorityMap[caseItem.priority] || caseItem.priority}
                     </span>
                   </td>
                   <td className="py-3 px-4">
@@ -267,10 +286,10 @@ export const Cases = () => {
                         </Button>
                       }
                       items={[
-                        { id: 'view', label: 'View Details', onClick: () => {} },
-                        { id: 'edit', label: 'Edit', onClick: () => {} },
-                        { id: 'documents', label: 'Documents', onClick: () => {} },
-                        { id: 'billing', label: 'Billing', onClick: () => {} },
+                        { id: 'view', label: t('cases.viewDetails'), onClick: () => {} },
+                        { id: 'edit', label: t('cases.edit'), onClick: () => {} },
+                        { id: 'documents', label: t('cases.documents'), onClick: () => {} },
+                        { id: 'billing', label: t('cases.billing'), onClick: () => {} },
                       ]}
                     />
                   </td>
@@ -283,7 +302,7 @@ export const Cases = () => {
         {filteredCases.length === 0 && (
           <div className="py-12 text-center text-text-muted">
             <Briefcase size={48} className="mx-auto mb-4 opacity-50" />
-            <p>No cases found</p>
+            <p>{t('cases.noCasesFound')}</p>
           </div>
         )}
       </Card>
