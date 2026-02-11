@@ -27,7 +27,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const Inventory = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('maintenance');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -75,9 +75,9 @@ export const Inventory = () => {
 
   const getStatusBadge = (status: SparePart['status']) => {
     const config = {
-      'in-stock': { bg: 'bg-green-500/20', text: 'text-green-400', label: 'In Stock', icon: CheckCircle },
-      'low-stock': { bg: 'bg-yellow-500/20', text: 'text-yellow-400', label: 'Low Stock', icon: AlertTriangle },
-      'out-of-stock': { bg: 'bg-red-500/20', text: 'text-red-400', label: 'Out of Stock', icon: XCircle },
+      'in-stock': { bg: 'bg-green-500/20', text: 'text-green-400', label: t('inventory.inStock'), icon: CheckCircle },
+      'low-stock': { bg: 'bg-yellow-500/20', text: 'text-yellow-400', label: t('inventory.lowStock'), icon: AlertTriangle },
+      'out-of-stock': { bg: 'bg-red-500/20', text: 'text-red-400', label: t('inventory.outOfStock'), icon: XCircle },
     };
     const c = config[status];
     return (
@@ -98,15 +98,15 @@ export const Inventory = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('maintenance.sparePartsInventory', 'Spare Parts Inventory')}
-        subtitle="Track and manage maintenance spare parts"
+        title={t('inventory.title')}
+        subtitle={t('inventory.subtitle')}
         actions={
           <div className="flex gap-2">
             <Button variant="outline" leftIcon={<ShoppingCart size={16} />}>
-              Create Order
+              {t('inventory.createOrder')}
             </Button>
             <Button leftIcon={<Plus size={16} />}>
-              Add Part
+              {t('inventory.addPart')}
             </Button>
           </div>
         }
@@ -115,31 +115,31 @@ export const Inventory = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
         <StatsCard
-          title="Total Items"
+          title={t('inventory.totalItems')}
           value={stats.totalItems.toString()}
           icon={Package}
           iconColor="#547792"
         />
         <StatsCard
-          title="In Stock"
+          title={t('inventory.inStock')}
           value={stats.inStock.toString()}
           icon={CheckCircle}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Low Stock"
+          title={t('inventory.lowStock')}
           value={stats.lowStock.toString()}
           icon={TrendingDown}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Out of Stock"
+          title={t('inventory.outOfStock')}
           value={stats.outOfStock.toString()}
           icon={XCircle}
           iconColor="#ef4444"
         />
         <StatsCard
-          title="Total Value"
+          title={t('inventory.totalValue')}
           value={formatCurrency(stats.totalValue)}
           icon={DollarSign}
           iconColor="#94B4C1"
@@ -152,7 +152,7 @@ export const Inventory = () => {
           <div className="flex flex-wrap gap-4 items-center flex-1">
             <div className="flex-1 min-w-50 max-w-md">
               <Input
-                placeholder="Search parts..."
+                placeholder={t('inventory.searchPlaceholder')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 leftIcon={<Search size={16} />}
@@ -164,10 +164,10 @@ export const Inventory = () => {
               onChange={(e) => setSelectedStatus(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Status</option>
-              <option value="in-stock">In Stock</option>
-              <option value="low-stock">Low Stock</option>
-              <option value="out-of-stock">Out of Stock</option>
+              <option value="all">{t('inventory.allStatus')}</option>
+              <option value="in-stock">{t('inventory.inStock')}</option>
+              <option value="low-stock">{t('inventory.lowStock')}</option>
+              <option value="out-of-stock">{t('inventory.outOfStock')}</option>
             </select>
 
             <select
@@ -175,7 +175,7 @@ export const Inventory = () => {
               onChange={(e) => setSelectedCategory(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Categories</option>
+              <option value="all">{t('inventory.allCategories')}</option>
               {categories.map(cat => (
                 <option key={cat} value={cat}>{cat}</option>
               ))}
@@ -247,7 +247,7 @@ export const Inventory = () => {
                     {/* Quantity */}
                     <div className="mb-3">
                       <div className="flex justify-between text-sm mb-1">
-                        <span className="text-text-secondary">Quantity</span>
+                        <span className="text-text-secondary">{t('inventory.quantity')}</span>
                         <span className="text-text-primary font-medium">
                           {part.quantity} / {part.minQuantity} min
                         </span>
@@ -267,11 +267,11 @@ export const Inventory = () => {
                         <span>{part.location}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span>Unit Cost</span>
+                        <span>{t('inventory.unitCost')}</span>
                         <span className="text-text-primary">{formatCurrency(part.unitCost)}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span>Total Value</span>
+                        <span>{t('inventory.totalValue')}</span>
                         <span className="text-text-primary">{formatCurrency(part.quantity * part.unitCost)}</span>
                       </div>
                     </div>
@@ -295,16 +295,16 @@ export const Inventory = () => {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-white/[0.08]">
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Part</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">SKU</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Category</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Location</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Quantity</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Min Qty</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Unit Cost</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Total Value</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Status</th>
-                  <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">Actions</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('inventory.part')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('inventory.sku')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('inventory.category')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('inventory.location')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('inventory.quantity')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('inventory.minQty')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('inventory.unitCost')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('inventory.totalValueCol')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('inventory.status')}</th>
+                  <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">{t('inventory.actions')}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border-default">
@@ -370,7 +370,7 @@ export const Inventory = () => {
       {filteredParts.length === 0 && (
         <Card className="p-12 text-center">
           <Package size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No parts found matching your filters</p>
+          <p className="text-text-secondary">{t('inventory.noPartsFound')}</p>
         </Card>
       )}
     </div>

@@ -24,7 +24,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const Preventive = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('maintenance');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFrequency, setSelectedFrequency] = useState<string>('all');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
@@ -84,8 +84,8 @@ export const Preventive = () => {
 
   const getStatusBadge = (status: PreventiveSchedule['status']) => {
     const config = {
-      active: { bg: 'bg-green-500/20', text: 'text-green-400', label: 'Active' },
-      paused: { bg: 'bg-yellow-500/20', text: 'text-yellow-400', label: 'Paused' },
+      active: { bg: 'bg-green-500/20', text: 'text-green-400', label: t('preventive.active') },
+      paused: { bg: 'bg-yellow-500/20', text: 'text-yellow-400', label: t('preventive.paused') },
     };
     const c = config[status];
     return (
@@ -101,26 +101,26 @@ export const Preventive = () => {
     const diffDays = Math.ceil((dueDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
 
     if (diffDays < 0) {
-      return { text: `${Math.abs(diffDays)} days overdue`, color: 'text-red-400', bg: 'bg-red-500/20' };
+      return { text: t('preventive.daysOverdue', { count: Math.abs(diffDays) }), color: 'text-red-400', bg: 'bg-red-500/20' };
     } else if (diffDays === 0) {
-      return { text: 'Due today', color: 'text-yellow-400', bg: 'bg-yellow-500/20' };
+      return { text: t('preventive.dueToday'), color: 'text-yellow-400', bg: 'bg-yellow-500/20' };
     } else if (diffDays <= 7) {
-      return { text: `Due in ${diffDays} days`, color: 'text-yellow-400', bg: 'bg-yellow-500/20' };
+      return { text: t('preventive.dueInDays', { count: diffDays }), color: 'text-yellow-400', bg: 'bg-yellow-500/20' };
     } else if (diffDays <= 30) {
-      return { text: `Due in ${diffDays} days`, color: 'text-blue-400', bg: 'bg-blue-500/20' };
+      return { text: t('preventive.dueInDays', { count: diffDays }), color: 'text-blue-400', bg: 'bg-blue-500/20' };
     } else {
-      return { text: `Due in ${diffDays} days`, color: 'text-green-400', bg: 'bg-green-500/20' };
+      return { text: t('preventive.dueInDays', { count: diffDays }), color: 'text-green-400', bg: 'bg-green-500/20' };
     }
   };
 
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('maintenance.preventiveMaintenance', 'Preventive Maintenance')}
-        subtitle="Schedule and manage preventive maintenance tasks"
+        title={t('preventive.title')}
+        subtitle={t('preventive.subtitle')}
         actions={
           <Button leftIcon={<Plus size={16} />}>
-            Create Schedule
+            {t('preventive.createSchedule')}
           </Button>
         }
       />
@@ -128,25 +128,25 @@ export const Preventive = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Schedules"
+          title={t('preventive.totalSchedules')}
           value={stats.total.toString()}
           icon={CalendarClock}
           iconColor="#547792"
         />
         <StatsCard
-          title="Active Schedules"
+          title={t('preventive.activeSchedules')}
           value={stats.active.toString()}
           icon={CheckCircle}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Due This Week"
+          title={t('preventive.dueThisWeek')}
           value={stats.dueSoon.toString()}
           icon={Clock}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Overdue"
+          title={t('preventive.overdue')}
           value={stats.overdue.toString()}
           icon={AlertCircle}
           iconColor="#ef4444"
@@ -158,7 +158,7 @@ export const Preventive = () => {
         <div className="flex flex-wrap gap-4 items-center">
           <div className="flex-1 min-w-50 max-w-md">
             <Input
-              placeholder="Search schedules..."
+              placeholder={t('preventive.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               leftIcon={<Search size={16} />}
@@ -170,13 +170,13 @@ export const Preventive = () => {
             onChange={(e) => setSelectedFrequency(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Frequencies</option>
-            <option value="daily">Daily</option>
-            <option value="weekly">Weekly</option>
-            <option value="monthly">Monthly</option>
-            <option value="quarterly">Quarterly</option>
-            <option value="semi-annual">Semi-Annual</option>
-            <option value="annual">Annual</option>
+            <option value="all">{t('preventive.allFrequencies')}</option>
+            <option value="daily">{t('preventive.daily')}</option>
+            <option value="weekly">{t('preventive.weekly')}</option>
+            <option value="monthly">{t('preventive.monthly')}</option>
+            <option value="quarterly">{t('preventive.quarterly')}</option>
+            <option value="semi-annual">{t('preventive.semiAnnual')}</option>
+            <option value="annual">{t('preventive.annual')}</option>
           </select>
 
           <select
@@ -184,9 +184,9 @@ export const Preventive = () => {
             onChange={(e) => setSelectedStatus(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Status</option>
-            <option value="active">Active</option>
-            <option value="paused">Paused</option>
+            <option value="all">{t('preventive.allStatus')}</option>
+            <option value="active">{t('preventive.active')}</option>
+            <option value="paused">{t('preventive.paused')}</option>
           </select>
         </div>
       </Card>
@@ -218,7 +218,7 @@ export const Preventive = () => {
                         {getStatusBadge(schedule.status)}
                         {getFrequencyBadge(schedule.frequency)}
                       </div>
-                      <p className="text-sm text-text-secondary">Asset: {schedule.asset}</p>
+                      <p className="text-sm text-text-secondary">{t('preventive.asset', { name: schedule.asset })}</p>
                     </div>
                     <div className="flex items-center gap-2">
                       <button className="p-2 hover:bg-white/[0.05] rounded text-text-secondary hover:text-accent-primary">
@@ -245,19 +245,19 @@ export const Preventive = () => {
                   {/* Info Grid */}
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                     <div>
-                      <p className="text-xs text-text-muted mb-1">Schedule ID</p>
+                      <p className="text-xs text-text-muted mb-1">{t('preventive.scheduleId')}</p>
                       <p className="text-sm font-medium text-text-primary font-mono">{schedule.id}</p>
                     </div>
                     <div>
-                      <p className="text-xs text-text-muted mb-1">Assigned To</p>
+                      <p className="text-xs text-text-muted mb-1">{t('preventive.assignedTo')}</p>
                       <p className="text-sm font-medium text-text-primary">{schedule.assignedTo}</p>
                     </div>
                     <div>
-                      <p className="text-xs text-text-muted mb-1">Estimated Hours</p>
+                      <p className="text-xs text-text-muted mb-1">{t('preventive.estimatedHours')}</p>
                       <p className="text-sm font-medium text-text-primary">{schedule.estimatedHours}h</p>
                     </div>
                     <div>
-                      <p className="text-xs text-text-muted mb-1">Next Due</p>
+                      <p className="text-xs text-text-muted mb-1">{t('preventive.nextDue')}</p>
                       <span className={`px-2 py-0.5 rounded text-xs font-medium ${dueStatus.bg} ${dueStatus.color}`}>
                         {dueStatus.text}
                       </span>
@@ -268,7 +268,7 @@ export const Preventive = () => {
                   <div className="mb-4">
                     <div className="flex items-center gap-2 mb-2">
                       <ListChecks size={14} className="text-text-muted" />
-                      <span className="text-sm text-text-secondary">Checklist ({schedule.checklist.length} items)</span>
+                      <span className="text-sm text-text-secondary">{t('preventive.checklist', { count: schedule.checklist.length })}</span>
                     </div>
                     <div className="flex flex-wrap gap-2">
                       {schedule.checklist.map((item, i) => (
@@ -285,11 +285,11 @@ export const Preventive = () => {
                   {/* Footer */}
                   <div className="flex items-center justify-between pt-3 border-t border-white/[0.08]">
                     <div className="flex items-center gap-4 text-xs text-text-muted">
-                      <span>Last Completed: {formatDate(schedule.lastCompleted)}</span>
-                      <span>Next Due: {formatDate(schedule.nextDue)}</span>
+                      <span>{t('preventive.lastCompleted', { date: formatDate(schedule.lastCompleted) })}</span>
+                      <span>{t('preventive.nextDueDate', { date: formatDate(schedule.nextDue) })}</span>
                     </div>
                     <Button variant="outline" size="sm" leftIcon={<RefreshCw size={14} />}>
-                      Generate Work Order
+                      {t('preventive.generateWorkOrder')}
                     </Button>
                   </div>
                 </div>
@@ -302,7 +302,7 @@ export const Preventive = () => {
       {filteredSchedules.length === 0 && (
         <Card className="p-12 text-center">
           <CalendarClock size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No preventive schedules found matching your filters</p>
+          <p className="text-text-secondary">{t('preventive.noSchedulesFound')}</p>
         </Card>
       )}
     </div>

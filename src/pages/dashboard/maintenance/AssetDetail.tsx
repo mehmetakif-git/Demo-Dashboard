@@ -31,7 +31,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const AssetDetail = () => {
-  const { t: _t } = useTranslation('common');
+  const { t } = useTranslation('maintenance');
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
@@ -45,21 +45,21 @@ export const AssetDetail = () => {
     return (
       <div className="space-y-6">
         <PageHeader
-          title="Asset Not Found"
-          subtitle="The requested asset could not be found"
+          title={t('assetDetail.assetNotFound')}
+          subtitle={t('assetDetail.assetNotFoundSubtitle')}
           actions={
             <Button
               variant="outline"
               leftIcon={<ArrowLeft size={16} />}
               onClick={() => navigate('/dashboard/maintenance/assets')}
             >
-              Back to Assets
+              {t('assetDetail.backToAssets')}
             </Button>
           }
         />
         <Card className="p-12 text-center">
           <Box size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">Asset with ID "{id}" was not found</p>
+          <p className="text-text-secondary">{t('assetDetail.assetNotFoundMessage', { id })}</p>
         </Card>
       </div>
     );
@@ -67,10 +67,10 @@ export const AssetDetail = () => {
 
   const getStatusBadge = (status: Asset['status']) => {
     const config = {
-      operational: { bg: 'bg-green-500/20', text: 'text-green-400', label: 'Operational' },
-      'needs-repair': { bg: 'bg-yellow-500/20', text: 'text-yellow-400', label: 'Needs Repair' },
-      'under-maintenance': { bg: 'bg-[#547792]/20', text: 'text-[#547792]', label: 'Under Maintenance' },
-      'out-of-service': { bg: 'bg-red-500/20', text: 'text-red-400', label: 'Out of Service' },
+      operational: { bg: 'bg-green-500/20', text: 'text-green-400', label: t('assetDetail.operational') },
+      'needs-repair': { bg: 'bg-yellow-500/20', text: 'text-yellow-400', label: t('assetDetail.needsRepair') },
+      'under-maintenance': { bg: 'bg-[#547792]/20', text: 'text-[#547792]', label: t('assetDetail.underMaintenance') },
+      'out-of-service': { bg: 'bg-red-500/20', text: 'text-red-400', label: t('assetDetail.outOfService') },
     };
     const c = config[status];
     return (
@@ -82,11 +82,11 @@ export const AssetDetail = () => {
 
   const getWorkOrderStatusBadge = (status: string) => {
     const config: Record<string, { bg: string; text: string; label: string }> = {
-      scheduled: { bg: 'bg-[#547792]/20', text: 'text-[#547792]', label: 'Scheduled' },
-      'in-progress': { bg: 'bg-yellow-500/20', text: 'text-yellow-400', label: 'In Progress' },
-      'pending-parts': { bg: 'bg-[#94B4C1]/20', text: 'text-[#94B4C1]', label: 'Pending Parts' },
-      completed: { bg: 'bg-green-500/20', text: 'text-green-400', label: 'Completed' },
-      cancelled: { bg: 'bg-slate-500/20', text: 'text-slate-400', label: 'Cancelled' },
+      scheduled: { bg: 'bg-[#547792]/20', text: 'text-[#547792]', label: t('assetDetail.scheduled') },
+      'in-progress': { bg: 'bg-yellow-500/20', text: 'text-yellow-400', label: t('assetDetail.inProgress') },
+      'pending-parts': { bg: 'bg-[#94B4C1]/20', text: 'text-[#94B4C1]', label: t('assetDetail.pendingParts') },
+      completed: { bg: 'bg-green-500/20', text: 'text-green-400', label: t('assetDetail.completed') },
+      cancelled: { bg: 'bg-slate-500/20', text: 'text-slate-400', label: t('assetDetail.cancelled') },
     };
     const c = config[status] || { bg: 'bg-slate-500/20', text: 'text-slate-400', label: status };
     return (
@@ -110,18 +110,18 @@ export const AssetDetail = () => {
               leftIcon={<ArrowLeft size={16} />}
               onClick={() => navigate('/dashboard/maintenance/assets')}
             >
-              Back
+              {t('assetDetail.back')}
             </Button>
             <Button
               variant="outline"
               leftIcon={<Edit size={16} />}
             >
-              Edit Asset
+              {t('assetDetail.editAsset')}
             </Button>
             <Button
               leftIcon={<Plus size={16} />}
             >
-              Create Work Order
+              {t('assetDetail.createWorkOrder')}
             </Button>
           </div>
         }
@@ -176,36 +176,36 @@ export const AssetDetail = () => {
             transition={{ delay: 0.1 }}
           >
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-text-primary mb-4">Asset Details</h3>
+              <h3 className="text-lg font-semibold text-text-primary mb-4">{t('assetDetail.assetDetails')}</h3>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                 <div>
-                  <p className="text-sm text-text-secondary mb-1">Manufacturer</p>
+                  <p className="text-sm text-text-secondary mb-1">{t('assetDetail.manufacturer')}</p>
                   <p className="font-medium text-text-primary">{asset.manufacturer}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-text-secondary mb-1">Model</p>
+                  <p className="text-sm text-text-secondary mb-1">{t('assetDetail.model')}</p>
                   <p className="font-medium text-text-primary">{asset.model}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-text-secondary mb-1">Serial Number</p>
+                  <p className="text-sm text-text-secondary mb-1">{t('assetDetail.serialNumber')}</p>
                   <p className="font-medium text-text-primary font-mono text-sm">{asset.serialNumber}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-text-secondary mb-1">Purchase Date</p>
+                  <p className="text-sm text-text-secondary mb-1">{t('assetDetail.purchaseDate')}</p>
                   <p className="font-medium text-text-primary">{formatDate(asset.purchaseDate)}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-text-secondary mb-1">Purchase Price</p>
+                  <p className="text-sm text-text-secondary mb-1">{t('assetDetail.purchasePrice')}</p>
                   <p className="font-medium text-text-primary">{formatCurrency(asset.purchasePrice)}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-text-secondary mb-1">Warranty Expiry</p>
+                  <p className="text-sm text-text-secondary mb-1">{t('assetDetail.warrantyExpiry')}</p>
                   <p className={`font-medium ${new Date(asset.warrantyExpiry) < new Date() ? 'text-red-400' : 'text-text-primary'}`}>
                     {formatDate(asset.warrantyExpiry)}
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-text-secondary mb-1">Condition</p>
+                  <p className="text-sm text-text-secondary mb-1">{t('assetDetail.condition')}</p>
                   <span
                     className="px-2 py-0.5 rounded text-xs font-medium capitalize"
                     style={{
@@ -217,7 +217,7 @@ export const AssetDetail = () => {
                   </span>
                 </div>
                 <div>
-                  <p className="text-sm text-text-secondary mb-1">Criticality</p>
+                  <p className="text-sm text-text-secondary mb-1">{t('assetDetail.criticality')}</p>
                   <span
                     className="px-2 py-0.5 rounded text-xs font-medium capitalize"
                     style={{
@@ -229,8 +229,8 @@ export const AssetDetail = () => {
                   </span>
                 </div>
                 <div>
-                  <p className="text-sm text-text-secondary mb-1">Maintenance History</p>
-                  <p className="font-medium text-text-primary">{asset.maintenanceHistory} records</p>
+                  <p className="text-sm text-text-secondary mb-1">{t('assetDetail.maintenanceHistory')}</p>
+                  <p className="font-medium text-text-primary">{t('assetDetail.records', { count: asset.maintenanceHistory })}</p>
                 </div>
               </div>
             </Card>
@@ -244,9 +244,9 @@ export const AssetDetail = () => {
           >
             <Card className="p-6">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold text-text-primary">Work Orders</h3>
+                <h3 className="text-lg font-semibold text-text-primary">{t('assetDetail.workOrders')}</h3>
                 <Button variant="outline" size="sm" leftIcon={<Plus size={14} />}>
-                  New Work Order
+                  {t('assetDetail.newWorkOrder')}
                 </Button>
               </div>
 
@@ -286,7 +286,7 @@ export const AssetDetail = () => {
               ) : (
                 <div className="text-center py-8">
                   <Wrench size={32} className="mx-auto mb-2 text-text-muted" />
-                  <p className="text-text-secondary">No work orders for this asset</p>
+                  <p className="text-text-secondary">{t('assetDetail.noWorkOrders')}</p>
                 </div>
               )}
             </Card>
@@ -302,14 +302,14 @@ export const AssetDetail = () => {
             transition={{ delay: 0.15 }}
           >
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-text-primary mb-4">Maintenance Schedule</h3>
+              <h3 className="text-lg font-semibold text-text-primary mb-4">{t('assetDetail.maintenanceSchedule')}</h3>
               <div className="space-y-4">
                 <div className="flex items-center gap-3 p-3 bg-white/[0.03] backdrop-blur-xl rounded-lg">
                   <div className="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center">
                     <CheckCircle size={20} className="text-green-400" />
                   </div>
                   <div>
-                    <p className="text-sm text-text-secondary">Last Maintenance</p>
+                    <p className="text-sm text-text-secondary">{t('assetDetail.lastMaintenance')}</p>
                     <p className="font-medium text-text-primary">{formatDate(asset.lastMaintenance)}</p>
                   </div>
                 </div>
@@ -318,7 +318,7 @@ export const AssetDetail = () => {
                     <Calendar size={20} className="text-blue-400" />
                   </div>
                   <div>
-                    <p className="text-sm text-text-secondary">Next Maintenance</p>
+                    <p className="text-sm text-text-secondary">{t('assetDetail.nextMaintenance')}</p>
                     <p className="font-medium text-text-primary">{formatDate(asset.nextMaintenance)}</p>
                   </div>
                 </div>
@@ -334,9 +334,9 @@ export const AssetDetail = () => {
           >
             <Card className="p-6">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold text-text-primary">Documents</h3>
+                <h3 className="text-lg font-semibold text-text-primary">{t('assetDetail.documents')}</h3>
                 <Button variant="ghost" size="sm" leftIcon={<Plus size={14} />}>
-                  Add
+                  {t('assetDetail.add')}
                 </Button>
               </div>
               <div className="space-y-2">
@@ -360,23 +360,23 @@ export const AssetDetail = () => {
             transition={{ delay: 0.25 }}
           >
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-text-primary mb-4">Quick Actions</h3>
+              <h3 className="text-lg font-semibold text-text-primary mb-4">{t('assetDetail.quickActions')}</h3>
               <div className="space-y-2">
                 <button className="w-full flex items-center gap-3 p-3 text-left hover:bg-white/[0.05] rounded-lg transition-colors">
                   <Wrench size={18} className="text-accent-primary" />
-                  <span className="text-sm text-text-primary">Schedule Maintenance</span>
+                  <span className="text-sm text-text-primary">{t('assetDetail.scheduleMaintenance')}</span>
                 </button>
                 <button className="w-full flex items-center gap-3 p-3 text-left hover:bg-white/[0.05] rounded-lg transition-colors">
                   <AlertTriangle size={18} className="text-yellow-400" />
-                  <span className="text-sm text-text-primary">Report Issue</span>
+                  <span className="text-sm text-text-primary">{t('assetDetail.reportIssue')}</span>
                 </button>
                 <button className="w-full flex items-center gap-3 p-3 text-left hover:bg-white/[0.05] rounded-lg transition-colors">
                   <Clock size={18} className="text-blue-400" />
-                  <span className="text-sm text-text-primary">View History</span>
+                  <span className="text-sm text-text-primary">{t('assetDetail.viewHistory')}</span>
                 </button>
                 <button className="w-full flex items-center gap-3 p-3 text-left hover:bg-red-500/10 rounded-lg transition-colors text-red-400">
                   <Trash2 size={18} />
-                  <span className="text-sm">Delete Asset</span>
+                  <span className="text-sm">{t('assetDetail.deleteAsset')}</span>
                 </button>
               </div>
             </Card>

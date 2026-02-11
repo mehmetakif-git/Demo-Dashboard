@@ -26,7 +26,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const AssetList = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('maintenance');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
@@ -67,10 +67,10 @@ export const AssetList = () => {
 
   const getStatusBadge = (status: Asset['status']) => {
     const config = {
-      operational: { bg: 'bg-green-500/20', text: 'text-green-400', label: 'Operational' },
-      'needs-repair': { bg: 'bg-yellow-500/20', text: 'text-yellow-400', label: 'Needs Repair' },
-      'under-maintenance': { bg: 'bg-[#547792]/20', text: 'text-[#547792]', label: 'Under Maintenance' },
-      'out-of-service': { bg: 'bg-red-500/20', text: 'text-red-400', label: 'Out of Service' },
+      operational: { bg: 'bg-green-500/20', text: 'text-green-400', label: t('assetList.operational') },
+      'needs-repair': { bg: 'bg-yellow-500/20', text: 'text-yellow-400', label: t('assetList.needsRepair') },
+      'under-maintenance': { bg: 'bg-[#547792]/20', text: 'text-[#547792]', label: t('assetList.underMaintenance') },
+      'out-of-service': { bg: 'bg-red-500/20', text: 'text-red-400', label: t('assetList.outOfService') },
     };
     const c = config[status];
     return (
@@ -112,11 +112,11 @@ export const AssetList = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('maintenance.assets', 'Assets')}
-        subtitle="Manage and track all maintenance assets"
+        title={t('assetList.title')}
+        subtitle={t('assetList.subtitle')}
         actions={
           <Button leftIcon={<Plus size={16} />}>
-            Add Asset
+            {t('assetList.addAsset')}
           </Button>
         }
       />
@@ -124,25 +124,25 @@ export const AssetList = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Assets"
+          title={t('assetList.totalAssets')}
           value={stats.total.toString()}
           icon={Box}
           iconColor="#547792"
         />
         <StatsCard
-          title="Operational"
+          title={t('assetList.operational')}
           value={stats.operational.toString()}
           icon={Box}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Needs Repair"
+          title={t('assetList.needsRepair')}
           value={stats.needsRepair.toString()}
           icon={Wrench}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Under Maintenance"
+          title={t('assetList.underMaintenance')}
           value={stats.underMaintenance.toString()}
           icon={AlertTriangle}
           iconColor="#547792"
@@ -155,7 +155,7 @@ export const AssetList = () => {
           <div className="flex flex-wrap gap-4 items-center flex-1">
             <div className="flex-1 min-w-50 max-w-md">
               <Input
-                placeholder="Search assets..."
+                placeholder={t('assetList.searchPlaceholder')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 leftIcon={<Search size={16} />}
@@ -167,11 +167,11 @@ export const AssetList = () => {
               onChange={(e) => setSelectedStatus(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Status</option>
-              <option value="operational">Operational</option>
-              <option value="needs-repair">Needs Repair</option>
-              <option value="under-maintenance">Under Maintenance</option>
-              <option value="out-of-service">Out of Service</option>
+              <option value="all">{t('assetList.allStatus')}</option>
+              <option value="operational">{t('assetList.operational')}</option>
+              <option value="needs-repair">{t('assetList.needsRepair')}</option>
+              <option value="under-maintenance">{t('assetList.underMaintenance')}</option>
+              <option value="out-of-service">{t('assetList.outOfService')}</option>
             </select>
 
             <select
@@ -179,7 +179,7 @@ export const AssetList = () => {
               onChange={(e) => setSelectedCategory(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Categories</option>
+              <option value="all">{t('assetList.allCategories')}</option>
               {assetCategories.map(cat => (
                 <option key={cat.id} value={cat.id}>{cat.name}</option>
               ))}
@@ -285,11 +285,11 @@ export const AssetList = () => {
                   {/* Meta Info */}
                   <div className="pt-3 border-t border-white/[0.08] space-y-2 text-xs text-text-secondary">
                     <div className="flex justify-between">
-                      <span>Last Maintenance</span>
+                      <span>{t('assetList.lastMaintenance')}</span>
                       <span className="text-text-primary">{formatDate(asset.lastMaintenance)}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span>Next Maintenance</span>
+                      <span>{t('assetList.nextMaintenance')}</span>
                       <span className="text-text-primary">{formatDate(asset.nextMaintenance)}</span>
                     </div>
                   </div>
@@ -304,21 +304,21 @@ export const AssetList = () => {
                       }}
                     >
                       <Eye size={14} />
-                      View
+                      {t('assetList.view')}
                     </button>
                     <button
                       className="flex-1 flex items-center justify-center gap-1 py-2 text-sm text-text-secondary hover:text-blue-400 hover:bg-blue-400/10 rounded transition-colors"
                       onClick={(e) => e.stopPropagation()}
                     >
                       <Edit size={14} />
-                      Edit
+                      {t('assetList.edit')}
                     </button>
                     <button
                       className="flex-1 flex items-center justify-center gap-1 py-2 text-sm text-text-secondary hover:text-red-400 hover:bg-red-400/10 rounded transition-colors"
                       onClick={(e) => e.stopPropagation()}
                     >
                       <Trash2 size={14} />
-                      Delete
+                      {t('assetList.delete')}
                     </button>
                   </div>
                 </div>
@@ -333,14 +333,14 @@ export const AssetList = () => {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-white/[0.08]">
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Asset</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Category</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Location</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Status</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Condition</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Criticality</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Next Maintenance</th>
-                  <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">Actions</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('assetList.asset')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('assetList.category')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('assetList.location')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('assetList.status')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('assetList.condition')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('assetList.criticality')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('assetList.nextMaintenance')}</th>
+                  <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">{t('assetList.actions')}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border-default">
@@ -409,7 +409,7 @@ export const AssetList = () => {
       {filteredAssets.length === 0 && (
         <Card className="p-12 text-center">
           <Box size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No assets found matching your filters</p>
+          <p className="text-text-secondary">{t('assetList.noAssetsFound')}</p>
         </Card>
       )}
     </div>

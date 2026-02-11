@@ -25,7 +25,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const WorkOrders = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('maintenance');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
   const [selectedType, setSelectedType] = useState<string>('all');
@@ -69,11 +69,11 @@ export const WorkOrders = () => {
 
   const getStatusBadge = (status: WorkOrder['status']) => {
     const config = {
-      scheduled: { bg: 'bg-[#547792]/20', text: 'text-[#547792]', label: 'Scheduled' },
-      'in-progress': { bg: 'bg-yellow-500/20', text: 'text-yellow-400', label: 'In Progress' },
-      'pending-parts': { bg: 'bg-[#94B4C1]/20', text: 'text-[#94B4C1]', label: 'Pending Parts' },
-      completed: { bg: 'bg-green-500/20', text: 'text-green-400', label: 'Completed' },
-      cancelled: { bg: 'bg-slate-500/20', text: 'text-slate-400', label: 'Cancelled' },
+      scheduled: { bg: 'bg-[#547792]/20', text: 'text-[#547792]', label: t('workOrders.scheduled') },
+      'in-progress': { bg: 'bg-yellow-500/20', text: 'text-yellow-400', label: t('workOrders.inProgress') },
+      'pending-parts': { bg: 'bg-[#94B4C1]/20', text: 'text-[#94B4C1]', label: t('workOrders.pendingParts') },
+      completed: { bg: 'bg-green-500/20', text: 'text-green-400', label: t('workOrders.completed') },
+      cancelled: { bg: 'bg-slate-500/20', text: 'text-slate-400', label: t('workOrders.cancelled') },
     };
     const c = config[status];
     return (
@@ -120,11 +120,11 @@ export const WorkOrders = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('maintenance.workOrders', 'Work Orders')}
-        subtitle="Manage maintenance work orders and tasks"
+        title={t('workOrders.title')}
+        subtitle={t('workOrders.subtitle')}
         actions={
           <Button leftIcon={<Plus size={16} />}>
-            Create Work Order
+            {t('workOrders.createWorkOrder')}
           </Button>
         }
       />
@@ -132,25 +132,25 @@ export const WorkOrders = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Work Orders"
+          title={t('workOrders.totalWorkOrders')}
           value={stats.total.toString()}
           icon={ClipboardList}
           iconColor="#547792"
         />
         <StatsCard
-          title="In Progress"
+          title={t('workOrders.inProgress')}
           value={stats.inProgress.toString()}
           icon={Wrench}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Scheduled"
+          title={t('workOrders.scheduled')}
           value={stats.scheduled.toString()}
           icon={Calendar}
           iconColor="#3b82f6"
         />
         <StatsCard
-          title="Completed"
+          title={t('workOrders.completed')}
           value={stats.completed.toString()}
           icon={CheckCircle}
           iconColor="#10b981"
@@ -162,7 +162,7 @@ export const WorkOrders = () => {
         <div className="flex flex-wrap gap-4 items-center">
           <div className="flex-1 min-w-50 max-w-md">
             <Input
-              placeholder="Search work orders..."
+              placeholder={t('workOrders.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               leftIcon={<Search size={16} />}
@@ -174,7 +174,7 @@ export const WorkOrders = () => {
             onChange={(e) => setSelectedStatus(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Status</option>
+            <option value="all">{t('workOrders.allStatus')}</option>
             {workOrderStatuses.map(status => (
               <option key={status.id} value={status.id}>{status.name}</option>
             ))}
@@ -185,10 +185,10 @@ export const WorkOrders = () => {
             onChange={(e) => setSelectedType(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Types</option>
-            <option value="preventive">Preventive</option>
-            <option value="corrective">Corrective</option>
-            <option value="inspection">Inspection</option>
+            <option value="all">{t('workOrders.allTypes')}</option>
+            <option value="preventive">{t('workOrders.preventive')}</option>
+            <option value="corrective">{t('workOrders.corrective')}</option>
+            <option value="inspection">{t('workOrders.inspection')}</option>
           </select>
 
           <select
@@ -196,11 +196,11 @@ export const WorkOrders = () => {
             onChange={(e) => setSelectedPriority(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Priorities</option>
-            <option value="critical">Critical</option>
-            <option value="high">High</option>
-            <option value="medium">Medium</option>
-            <option value="low">Low</option>
+            <option value="all">{t('workOrders.allPriorities')}</option>
+            <option value="critical">{t('workOrders.critical')}</option>
+            <option value="high">{t('workOrders.high')}</option>
+            <option value="medium">{t('workOrders.medium')}</option>
+            <option value="low">{t('workOrders.low')}</option>
           </select>
         </div>
       </Card>
@@ -249,27 +249,27 @@ export const WorkOrders = () => {
                 {/* Info Grid */}
                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-4">
                   <div>
-                    <p className="text-xs text-text-muted mb-1">Work Order ID</p>
+                    <p className="text-xs text-text-muted mb-1">{t('workOrders.workOrderId')}</p>
                     <p className="text-sm font-medium text-text-primary font-mono">{wo.id}</p>
                   </div>
                   <div>
-                    <p className="text-xs text-text-muted mb-1">Asset</p>
+                    <p className="text-xs text-text-muted mb-1">{t('workOrders.asset')}</p>
                     <p className="text-sm font-medium text-text-primary">{wo.asset}</p>
                   </div>
                   <div>
-                    <p className="text-xs text-text-muted mb-1">Assigned To</p>
+                    <p className="text-xs text-text-muted mb-1">{t('workOrders.assignedTo')}</p>
                     <p className="text-sm font-medium text-text-primary">{wo.assignedTo}</p>
                   </div>
                   <div>
-                    <p className="text-xs text-text-muted mb-1">Due Date</p>
+                    <p className="text-xs text-text-muted mb-1">{t('workOrders.dueDate')}</p>
                     <p className="text-sm font-medium text-text-primary">{formatDate(wo.dueDate)}</p>
                   </div>
                   <div>
-                    <p className="text-xs text-text-muted mb-1">Est. Hours</p>
+                    <p className="text-xs text-text-muted mb-1">{t('workOrders.estHours')}</p>
                     <p className="text-sm font-medium text-text-primary">{wo.estimatedHours}h</p>
                   </div>
                   <div>
-                    <p className="text-xs text-text-muted mb-1">Total Cost</p>
+                    <p className="text-xs text-text-muted mb-1">{t('workOrders.totalCost')}</p>
                     <p className="text-sm font-medium text-text-primary">{formatCurrency(calculateTotalCost(wo))}</p>
                   </div>
                 </div>
@@ -279,7 +279,7 @@ export const WorkOrders = () => {
                   <div className="flex items-center gap-2 mb-3">
                     <Package size={14} className="text-text-muted" />
                     <span className="text-sm text-text-secondary">
-                      Parts: {wo.parts.map(p => `${p.name} (${p.quantity})`).join(', ')}
+                      {t('workOrders.parts')}: {wo.parts.map(p => `${p.name} (${p.quantity})`).join(', ')}
                     </span>
                   </div>
                 )}
@@ -287,12 +287,12 @@ export const WorkOrders = () => {
                 {/* Footer */}
                 <div className="flex items-center justify-between pt-3 border-t border-white/[0.08]">
                   <div className="flex items-center gap-4 text-xs text-text-muted">
-                    <span>Created: {formatDateTime(wo.createdAt)}</span>
-                    {wo.startedAt && <span>Started: {formatDateTime(wo.startedAt)}</span>}
-                    {wo.completedAt && <span>Completed: {formatDateTime(wo.completedAt)}</span>}
+                    <span>{t('workOrders.created')} {formatDateTime(wo.createdAt)}</span>
+                    {wo.startedAt && <span>{t('workOrders.started')} {formatDateTime(wo.startedAt)}</span>}
+                    {wo.completedAt && <span>{t('workOrders.completedAt')} {formatDateTime(wo.completedAt)}</span>}
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-xs text-text-muted">Requested by:</span>
+                    <span className="text-xs text-text-muted">{t('workOrders.requestedBy')}</span>
                     <span className="text-sm text-text-secondary">{wo.requestedBy}</span>
                   </div>
                 </div>
@@ -305,7 +305,7 @@ export const WorkOrders = () => {
       {filteredWorkOrders.length === 0 && (
         <Card className="p-12 text-center">
           <ClipboardList size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No work orders found matching your filters</p>
+          <p className="text-text-secondary">{t('workOrders.noWorkOrdersFound')}</p>
         </Card>
       )}
     </div>

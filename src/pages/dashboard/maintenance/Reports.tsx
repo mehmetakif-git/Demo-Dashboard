@@ -26,7 +26,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const Reports = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('maintenance');
   const [selectedPeriod, setSelectedPeriod] = useState('month');
 
   // Calculate additional stats
@@ -79,8 +79,8 @@ export const Reports = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('maintenance.maintenanceReports', 'Maintenance Reports')}
-        subtitle="Analytics and insights for maintenance operations"
+        title={t('reports.title')}
+        subtitle={t('reports.subtitle')}
         actions={
           <div className="flex gap-2">
             <select
@@ -88,13 +88,13 @@ export const Reports = () => {
               onChange={(e) => setSelectedPeriod(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="week">This Week</option>
-              <option value="month">This Month</option>
-              <option value="quarter">This Quarter</option>
-              <option value="year">This Year</option>
+              <option value="week">{t('reports.thisWeek')}</option>
+              <option value="month">{t('reports.thisMonth')}</option>
+              <option value="quarter">{t('reports.thisQuarter')}</option>
+              <option value="year">{t('reports.thisYear')}</option>
             </select>
             <Button variant="outline" leftIcon={<Download size={16} />}>
-              Export Report
+              {t('reports.exportReport')}
             </Button>
           </div>
         }
@@ -103,30 +103,30 @@ export const Reports = () => {
       {/* Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Assets"
+          title={t('reports.totalAssets')}
           value={maintenanceStats.totalAssets.toString()}
-          subtitle={`${maintenanceStats.operationalAssets} operational`}
+          subtitle={t('reports.operational', { count: maintenanceStats.operationalAssets })}
           icon={Box}
           iconColor="#547792"
         />
         <StatsCard
-          title="Open Work Orders"
+          title={t('reports.openWorkOrders')}
           value={maintenanceStats.openWorkOrders.toString()}
-          subtitle={`${maintenanceStats.completedThisMonth} completed this month`}
+          subtitle={t('reports.completedThisMonth', { count: maintenanceStats.completedThisMonth })}
           icon={Wrench}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Total Maintenance Cost"
+          title={t('reports.totalMaintenanceCost')}
           value={formatCurrency(maintenanceStats.totalMaintenanceCost)}
-          subtitle="Year to date"
+          subtitle={t('reports.yearToDate')}
           icon={DollarSign}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Avg Response Time"
+          title={t('reports.avgResponseTime')}
           value={maintenanceStats.averageResponseTime}
-          subtitle="Work order response"
+          subtitle={t('reports.workOrderResponse')}
           icon={Clock}
           iconColor="#94B4C1"
         />
@@ -142,15 +142,15 @@ export const Reports = () => {
         >
           <Card className="p-6">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-lg font-semibold text-text-primary">Asset Status Distribution</h3>
+              <h3 className="text-lg font-semibold text-text-primary">{t('reports.assetStatusDistribution')}</h3>
               <PieChart size={20} className="text-text-muted" />
             </div>
             <div className="space-y-4">
               {[
-                { label: 'Operational', value: assetStats.byStatus.operational, color: '#10b981', total: assets.length },
-                { label: 'Needs Repair', value: assetStats.byStatus.needsRepair, color: '#f59e0b', total: assets.length },
-                { label: 'Under Maintenance', value: assetStats.byStatus.underMaintenance, color: '#547792', total: assets.length },
-                { label: 'Out of Service', value: assetStats.byStatus.outOfService, color: '#ef4444', total: assets.length },
+                { label: t('reports.operationalLabel'), value: assetStats.byStatus.operational, color: '#10b981', total: assets.length },
+                { label: t('reports.needsRepair'), value: assetStats.byStatus.needsRepair, color: '#f59e0b', total: assets.length },
+                { label: t('reports.underMaintenance'), value: assetStats.byStatus.underMaintenance, color: '#547792', total: assets.length },
+                { label: t('reports.outOfService'), value: assetStats.byStatus.outOfService, color: '#ef4444', total: assets.length },
               ].map((item) => (
                 <div key={item.label}>
                   <div className="flex justify-between text-sm mb-1">
@@ -180,14 +180,14 @@ export const Reports = () => {
         >
           <Card className="p-6">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-lg font-semibold text-text-primary">Work Orders by Type</h3>
+              <h3 className="text-lg font-semibold text-text-primary">{t('reports.workOrdersByType')}</h3>
               <BarChart3 size={20} className="text-text-muted" />
             </div>
             <div className="grid grid-cols-3 gap-4">
               {[
-                { label: 'Preventive', value: workOrderStats.byType.preventive, color: '#3b82f6', icon: Calendar },
-                { label: 'Corrective', value: workOrderStats.byType.corrective, color: '#f59e0b', icon: Wrench },
-                { label: 'Inspection', value: workOrderStats.byType.inspection, color: '#10b981', icon: CheckCircle },
+                { label: t('reports.preventive'), value: workOrderStats.byType.preventive, color: '#3b82f6', icon: Calendar },
+                { label: t('reports.corrective'), value: workOrderStats.byType.corrective, color: '#f59e0b', icon: Wrench },
+                { label: t('reports.inspection'), value: workOrderStats.byType.inspection, color: '#10b981', icon: CheckCircle },
               ].map((item) => (
                 <div
                   key={item.label}
@@ -217,13 +217,13 @@ export const Reports = () => {
           transition={{ delay: 0.2 }}
         >
           <Card className="p-6">
-            <h3 className="text-lg font-semibold text-text-primary mb-4">Work Order Status</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-4">{t('reports.workOrderStatus')}</h3>
             <div className="space-y-3">
               {[
-                { label: 'Scheduled', value: workOrderStats.byStatus.scheduled, color: '#547792' },
-                { label: 'In Progress', value: workOrderStats.byStatus.inProgress, color: '#f59e0b' },
-                { label: 'Pending Parts', value: workOrderStats.byStatus.pendingParts, color: '#94B4C1' },
-                { label: 'Completed', value: workOrderStats.byStatus.completed, color: '#10b981' },
+                { label: t('reports.scheduled'), value: workOrderStats.byStatus.scheduled, color: '#547792' },
+                { label: t('reports.inProgress'), value: workOrderStats.byStatus.inProgress, color: '#f59e0b' },
+                { label: t('reports.pendingParts'), value: workOrderStats.byStatus.pendingParts, color: '#94B4C1' },
+                { label: t('reports.completed'), value: workOrderStats.byStatus.completed, color: '#10b981' },
               ].map((item) => (
                 <div key={item.label} className="flex items-center justify-between p-3 bg-white/[0.03] backdrop-blur-xl rounded-lg">
                   <div className="flex items-center gap-3">
@@ -244,7 +244,7 @@ export const Reports = () => {
           transition={{ delay: 0.25 }}
         >
           <Card className="p-6">
-            <h3 className="text-lg font-semibold text-text-primary mb-4">Assets by Category</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-4">{t('reports.assetsByCategory')}</h3>
             <div className="space-y-3">
               {assetStats.byCategory.filter(c => c.count > 0).map((item) => (
                 <div key={item.name} className="flex items-center justify-between p-3 bg-white/[0.03] backdrop-blur-xl rounded-lg">
@@ -266,11 +266,11 @@ export const Reports = () => {
           transition={{ delay: 0.3 }}
         >
           <Card className="p-6">
-            <h3 className="text-lg font-semibold text-text-primary mb-4">Inventory Status</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-4">{t('reports.inventoryStatus')}</h3>
             <div className="space-y-4">
               <div className="p-4 bg-white/[0.03] backdrop-blur-xl rounded-lg">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm text-text-secondary">Total Inventory Value</span>
+                  <span className="text-sm text-text-secondary">{t('reports.totalInventoryValue')}</span>
                   <DollarSign size={18} className="text-green-400" />
                 </div>
                 <p className="text-2xl font-bold text-text-primary">{formatCurrency(inventoryStats.totalValue)}</p>
@@ -279,12 +279,12 @@ export const Reports = () => {
                 <div className="flex-1 p-3 bg-yellow-500/10 border border-yellow-500/20 rounded-lg text-center">
                   <AlertTriangle size={20} className="mx-auto mb-1 text-yellow-400" />
                   <p className="text-xl font-bold text-yellow-400">{inventoryStats.lowStockItems}</p>
-                  <p className="text-xs text-text-secondary">Low Stock</p>
+                  <p className="text-xs text-text-secondary">{t('reports.lowStock')}</p>
                 </div>
                 <div className="flex-1 p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-center">
                   <AlertTriangle size={20} className="mx-auto mb-1 text-red-400" />
                   <p className="text-xl font-bold text-red-400">{inventoryStats.outOfStockItems}</p>
-                  <p className="text-xs text-text-secondary">Out of Stock</p>
+                  <p className="text-xs text-text-secondary">{t('reports.outOfStock')}</p>
                 </div>
               </div>
             </div>
@@ -300,24 +300,24 @@ export const Reports = () => {
       >
         <Card className="p-6">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-semibold text-text-primary">Cost Summary</h3>
+            <h3 className="text-lg font-semibold text-text-primary">{t('reports.costSummary')}</h3>
             <Activity size={20} className="text-text-muted" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="p-4 bg-white/[0.03] backdrop-blur-xl rounded-lg">
-              <p className="text-sm text-text-secondary mb-1">Total Work Order Cost</p>
+              <p className="text-sm text-text-secondary mb-1">{t('reports.totalWorkOrderCost')}</p>
               <p className="text-xl font-bold text-text-primary">{formatCurrency(workOrderStats.totalCost)}</p>
             </div>
             <div className="p-4 bg-white/[0.03] backdrop-blur-xl rounded-lg">
-              <p className="text-sm text-text-secondary mb-1">Labor Hours</p>
+              <p className="text-sm text-text-secondary mb-1">{t('reports.laborHours')}</p>
               <p className="text-xl font-bold text-text-primary">{workOrderStats.totalHours}h</p>
             </div>
             <div className="p-4 bg-white/[0.03] backdrop-blur-xl rounded-lg">
-              <p className="text-sm text-text-secondary mb-1">Parts Inventory Value</p>
+              <p className="text-sm text-text-secondary mb-1">{t('reports.partsInventoryValue')}</p>
               <p className="text-xl font-bold text-text-primary">{formatCurrency(inventoryStats.totalValue)}</p>
             </div>
             <div className="p-4 bg-white/[0.03] backdrop-blur-xl rounded-lg">
-              <p className="text-sm text-text-secondary mb-1">Total Asset Value</p>
+              <p className="text-sm text-text-secondary mb-1">{t('reports.totalAssetValue')}</p>
               <p className="text-xl font-bold text-text-primary">
                 {formatCurrency(assets.reduce((sum, a) => sum + a.purchasePrice, 0))}
               </p>
@@ -333,13 +333,13 @@ export const Reports = () => {
         transition={{ delay: 0.4 }}
       >
         <Card className="p-6">
-          <h3 className="text-lg font-semibold text-text-primary mb-4">Quick Reports</h3>
+          <h3 className="text-lg font-semibold text-text-primary mb-4">{t('reports.quickReports')}</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              { label: 'Asset Summary Report', icon: Box },
-              { label: 'Work Order Report', icon: Wrench },
-              { label: 'Cost Analysis Report', icon: DollarSign },
-              { label: 'Vendor Performance', icon: TrendingUp },
+              { label: t('reports.assetSummaryReport'), icon: Box },
+              { label: t('reports.workOrderReport'), icon: Wrench },
+              { label: t('reports.costAnalysisReport'), icon: DollarSign },
+              { label: t('reports.vendorPerformance'), icon: TrendingUp },
             ].map((report) => (
               <button
                 key={report.label}

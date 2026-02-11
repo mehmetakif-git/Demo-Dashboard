@@ -28,7 +28,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const Vendors = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('maintenance');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedType, setSelectedType] = useState<string>('all');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
@@ -67,9 +67,9 @@ export const Vendors = () => {
 
   const getStatusBadge = (status: Vendor['status']) => {
     const config = {
-      active: { bg: 'bg-green-500/20', text: 'text-green-400', label: 'Active' },
-      expiring: { bg: 'bg-yellow-500/20', text: 'text-yellow-400', label: 'Expiring Soon' },
-      expired: { bg: 'bg-red-500/20', text: 'text-red-400', label: 'Expired' },
+      active: { bg: 'bg-green-500/20', text: 'text-green-400', label: t('vendors.active') },
+      expiring: { bg: 'bg-yellow-500/20', text: 'text-yellow-400', label: t('vendors.expiring') },
+      expired: { bg: 'bg-red-500/20', text: 'text-red-400', label: t('vendors.expired') },
     };
     const c = config[status];
     return (
@@ -81,13 +81,13 @@ export const Vendors = () => {
 
   const getTypeBadge = (type: Vendor['type']) => {
     const config = {
-      'Service Provider': { bg: 'bg-blue-500/20', text: 'text-blue-400' },
-      'Supplier': { bg: 'bg-[#94B4C1]/20', text: 'text-[#94B4C1]' },
+      'Service Provider': { bg: 'bg-blue-500/20', text: 'text-blue-400', label: t('vendors.serviceProvider') },
+      'Supplier': { bg: 'bg-[#94B4C1]/20', text: 'text-[#94B4C1]', label: t('vendors.supplier') },
     };
     const c = config[type];
     return (
       <span className={`px-2 py-0.5 rounded text-xs font-medium ${c.bg} ${c.text}`}>
-        {type}
+        {c.label}
       </span>
     );
   };
@@ -110,11 +110,11 @@ export const Vendors = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('maintenance.vendorsSuppliers', 'Vendors & Suppliers')}
-        subtitle="Manage maintenance vendors and service providers"
+        title={t('vendors.title')}
+        subtitle={t('vendors.subtitle')}
         actions={
           <Button leftIcon={<Plus size={16} />}>
-            Add Vendor
+            {t('vendors.addVendor')}
           </Button>
         }
       />
@@ -122,25 +122,25 @@ export const Vendors = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Vendors"
+          title={t('vendors.totalVendors')}
           value={stats.total.toString()}
           icon={Truck}
           iconColor="#547792"
         />
         <StatsCard
-          title="Active Contracts"
+          title={t('vendors.activeContracts')}
           value={stats.active.toString()}
           icon={CheckCircle}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Expiring Soon"
+          title={t('vendors.expiringSoon')}
           value={stats.expiring.toString()}
           icon={AlertCircle}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Avg. Rating"
+          title={t('vendors.avgRating')}
           value={stats.avgRating}
           icon={Star}
           iconColor="#f59e0b"
@@ -153,7 +153,7 @@ export const Vendors = () => {
           <div className="flex flex-wrap gap-4 items-center flex-1">
             <div className="flex-1 min-w-50 max-w-md">
               <Input
-                placeholder="Search vendors..."
+                placeholder={t('vendors.searchPlaceholder')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 leftIcon={<Search size={16} />}
@@ -165,9 +165,9 @@ export const Vendors = () => {
               onChange={(e) => setSelectedType(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Types</option>
-              <option value="Service Provider">Service Provider</option>
-              <option value="Supplier">Supplier</option>
+              <option value="all">{t('vendors.allTypes')}</option>
+              <option value="Service Provider">{t('vendors.serviceProvider')}</option>
+              <option value="Supplier">{t('vendors.supplier')}</option>
             </select>
 
             <select
@@ -175,10 +175,10 @@ export const Vendors = () => {
               onChange={(e) => setSelectedStatus(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Status</option>
-              <option value="active">Active</option>
-              <option value="expiring">Expiring Soon</option>
-              <option value="expired">Expired</option>
+              <option value="all">{t('vendors.allStatus')}</option>
+              <option value="active">{t('vendors.active')}</option>
+              <option value="expiring">{t('vendors.expiring')}</option>
+              <option value="expired">{t('vendors.expired')}</option>
             </select>
           </div>
 
@@ -265,7 +265,7 @@ export const Vendors = () => {
                     </div>
                     <div className="flex items-center gap-2 text-text-secondary">
                       <Clock size={14} />
-                      <span>Response: {vendor.responseTime}</span>
+                      <span>{t('vendors.response', { time: vendor.responseTime })}</span>
                     </div>
                   </div>
 
@@ -273,13 +273,13 @@ export const Vendors = () => {
                   {vendor.contractStart && (
                     <div className="pt-3 border-t border-white/[0.08] space-y-2 text-xs text-text-secondary">
                       <div className="flex justify-between">
-                        <span>Contract Value</span>
+                        <span>{t('vendors.contractValue')}</span>
                         <span className="text-text-primary font-medium">
                           {vendor.contractValue ? formatCurrency(vendor.contractValue) : 'N/A'}
                         </span>
                       </div>
                       <div className="flex justify-between">
-                        <span>Expires</span>
+                        <span>{t('vendors.expires')}</span>
                         <span className={vendor.status === 'expiring' ? 'text-yellow-400' : 'text-text-primary'}>
                           {vendor.contractEnd ? formatDate(vendor.contractEnd) : 'N/A'}
                         </span>
@@ -291,15 +291,15 @@ export const Vendors = () => {
                   <div className="flex items-center gap-2 mt-4 pt-3 border-t border-white/[0.08]">
                     <button className="flex-1 flex items-center justify-center gap-1 py-2 text-sm text-text-secondary hover:text-accent-primary hover:bg-accent-primary/10 rounded transition-colors">
                       <Eye size={14} />
-                      View
+                      {t('vendors.view')}
                     </button>
                     <button className="flex-1 flex items-center justify-center gap-1 py-2 text-sm text-text-secondary hover:text-blue-400 hover:bg-blue-400/10 rounded transition-colors">
                       <FileText size={14} />
-                      Contract
+                      {t('vendors.contract')}
                     </button>
                     <button className="flex-1 flex items-center justify-center gap-1 py-2 text-sm text-text-secondary hover:text-green-400 hover:bg-green-400/10 rounded transition-colors">
                       <Phone size={14} />
-                      Contact
+                      {t('vendors.contactAction')}
                     </button>
                   </div>
                 </div>
@@ -314,14 +314,14 @@ export const Vendors = () => {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-white/[0.08]">
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Vendor</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Type</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Contact</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Rating</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Response Time</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Contract Value</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Status</th>
-                  <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">Actions</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('vendors.vendor')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('vendors.type')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('vendors.contact')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('vendors.rating')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('vendors.responseTime')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('vendors.contractValue')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('vendors.status')}</th>
+                  <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">{t('vendors.actions')}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border-default">
@@ -381,7 +381,7 @@ export const Vendors = () => {
       {filteredVendors.length === 0 && (
         <Card className="p-12 text-center">
           <Truck size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No vendors found matching your filters</p>
+          <p className="text-text-secondary">{t('vendors.noVendorsFound')}</p>
         </Card>
       )}
     </div>

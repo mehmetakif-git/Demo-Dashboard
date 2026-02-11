@@ -25,7 +25,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const Requests = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('maintenance');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
   const [selectedPriority, setSelectedPriority] = useState<string>('all');
@@ -74,10 +74,10 @@ export const Requests = () => {
 
   const getStatusBadge = (status: MaintenanceRequest['status']) => {
     const config = {
-      open: { bg: 'bg-yellow-500/20', text: 'text-yellow-400', label: 'Open' },
-      assigned: { bg: 'bg-blue-500/20', text: 'text-blue-400', label: 'Assigned' },
-      converted: { bg: 'bg-green-500/20', text: 'text-green-400', label: 'Converted' },
-      closed: { bg: 'bg-slate-500/20', text: 'text-slate-400', label: 'Closed' },
+      open: { bg: 'bg-yellow-500/20', text: 'text-yellow-400', label: t('requests.open') },
+      assigned: { bg: 'bg-blue-500/20', text: 'text-blue-400', label: t('requests.assigned') },
+      converted: { bg: 'bg-green-500/20', text: 'text-green-400', label: t('requests.converted') },
+      closed: { bg: 'bg-slate-500/20', text: 'text-slate-400', label: t('requests.closed') },
     };
     const c = config[status];
     return (
@@ -105,11 +105,11 @@ export const Requests = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('maintenance.maintenanceRequests', 'Maintenance Requests')}
-        subtitle="View and manage incoming maintenance requests"
+        title={t('requests.title')}
+        subtitle={t('requests.subtitle')}
         actions={
           <Button leftIcon={<Plus size={16} />}>
-            New Request
+            {t('requests.newRequest')}
           </Button>
         }
       />
@@ -117,25 +117,25 @@ export const Requests = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Requests"
+          title={t('requests.totalRequests')}
           value={stats.total.toString()}
           icon={MessageSquareText}
           iconColor="#547792"
         />
         <StatsCard
-          title="Open"
+          title={t('requests.open')}
           value={stats.open.toString()}
           icon={AlertCircle}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Assigned"
+          title={t('requests.assigned')}
           value={stats.assigned.toString()}
           icon={UserCheck}
           iconColor="#3b82f6"
         />
         <StatsCard
-          title="Converted to WO"
+          title={t('requests.convertedToWO')}
           value={stats.converted.toString()}
           icon={CheckCircle}
           iconColor="#10b981"
@@ -147,7 +147,7 @@ export const Requests = () => {
         <div className="flex flex-wrap gap-4 items-center">
           <div className="flex-1 min-w-50 max-w-md">
             <Input
-              placeholder="Search requests..."
+              placeholder={t('requests.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               leftIcon={<Search size={16} />}
@@ -159,11 +159,11 @@ export const Requests = () => {
             onChange={(e) => setSelectedStatus(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Status</option>
-            <option value="open">Open</option>
-            <option value="assigned">Assigned</option>
-            <option value="converted">Converted</option>
-            <option value="closed">Closed</option>
+            <option value="all">{t('requests.allStatus')}</option>
+            <option value="open">{t('requests.open')}</option>
+            <option value="assigned">{t('requests.assigned')}</option>
+            <option value="converted">{t('requests.converted')}</option>
+            <option value="closed">{t('requests.closed')}</option>
           </select>
 
           <select
@@ -171,11 +171,11 @@ export const Requests = () => {
             onChange={(e) => setSelectedPriority(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Priorities</option>
-            <option value="critical">Critical</option>
-            <option value="high">High</option>
-            <option value="medium">Medium</option>
-            <option value="low">Low</option>
+            <option value="all">{t('requests.allPriorities')}</option>
+            <option value="critical">{t('requests.critical')}</option>
+            <option value="high">{t('requests.high')}</option>
+            <option value="medium">{t('requests.medium')}</option>
+            <option value="low">{t('requests.low')}</option>
           </select>
 
           <select
@@ -183,7 +183,7 @@ export const Requests = () => {
             onChange={(e) => setSelectedCategory(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Categories</option>
+            <option value="all">{t('requests.allCategories')}</option>
             {categories.map(cat => (
               <option key={cat} value={cat}>{cat}</option>
             ))}
@@ -237,27 +237,27 @@ export const Requests = () => {
                 {/* Info Grid */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                   <div>
-                    <p className="text-xs text-text-muted mb-1">Request ID</p>
+                    <p className="text-xs text-text-muted mb-1">{t('requests.requestId')}</p>
                     <p className="text-sm font-medium text-text-primary font-mono">{request.id}</p>
                   </div>
                   <div className="flex items-center gap-2">
                     <MapPin size={14} className="text-text-muted" />
                     <div>
-                      <p className="text-xs text-text-muted">Location</p>
+                      <p className="text-xs text-text-muted">{t('requests.location')}</p>
                       <p className="text-sm text-text-primary">{request.location}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
                     <User size={14} className="text-text-muted" />
                     <div>
-                      <p className="text-xs text-text-muted">Requested By</p>
+                      <p className="text-xs text-text-muted">{t('requests.requestedBy')}</p>
                       <p className="text-sm text-text-primary">{request.requestedBy}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
                     <Clock size={14} className="text-text-muted" />
                     <div>
-                      <p className="text-xs text-text-muted">Requested At</p>
+                      <p className="text-xs text-text-muted">{t('requests.requestedAt')}</p>
                       <p className="text-sm text-text-primary">{formatDateTime(request.requestedAt)}</p>
                     </div>
                   </div>
@@ -269,25 +269,25 @@ export const Requests = () => {
                     {request.assignedTo && (
                       <div className="flex items-center gap-2">
                         <UserCheck size={14} className="text-blue-400" />
-                        <span>Assigned to: {request.assignedTo}</span>
+                        <span>{t('requests.assignedTo', { name: request.assignedTo })}</span>
                       </div>
                     )}
                     {request.workOrderId && (
                       <div className="flex items-center gap-2">
                         <ArrowRight size={14} className="text-green-400" />
-                        <span>Work Order: {request.workOrderId}</span>
+                        <span>{t('requests.workOrder', { id: request.workOrderId })}</span>
                       </div>
                     )}
                   </div>
                   <div className="flex items-center gap-2">
                     {request.status === 'open' && (
                       <Button variant="outline" size="sm" leftIcon={<UserCheck size={14} />}>
-                        Assign
+                        {t('requests.assign')}
                       </Button>
                     )}
                     {(request.status === 'open' || request.status === 'assigned') && (
                       <Button variant="primary" size="sm" leftIcon={<ArrowRight size={14} />}>
-                        Convert to WO
+                        {t('requests.convertToWO')}
                       </Button>
                     )}
                   </div>
@@ -301,7 +301,7 @@ export const Requests = () => {
       {filteredRequests.length === 0 && (
         <Card className="p-12 text-center">
           <MessageSquareText size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No maintenance requests found matching your filters</p>
+          <p className="text-text-secondary">{t('requests.noRequestsFound')}</p>
         </Card>
       )}
     </div>

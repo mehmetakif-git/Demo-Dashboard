@@ -22,6 +22,10 @@ import enAccounting from './locales/en/accounting.json';
 import enCrm from './locales/en/crm.json';
 import enTasks from './locales/en/tasks.json';
 import enAccessControl from './locales/en/accessControl.json';
+import enReports from './locales/en/reports.json';
+import enMaintenance from './locales/en/maintenance.json';
+import enSignage from './locales/en/signage.json';
+import enFiles from './locales/en/files.json';
 
 // TR translations
 import trCommon from './locales/tr/common.json';
@@ -43,6 +47,10 @@ import trAccounting from './locales/tr/accounting.json';
 import trCrm from './locales/tr/crm.json';
 import trTasks from './locales/tr/tasks.json';
 import trAccessControl from './locales/tr/accessControl.json';
+import trReports from './locales/tr/reports.json';
+import trMaintenance from './locales/tr/maintenance.json';
+import trSignage from './locales/tr/signage.json';
+import trFiles from './locales/tr/files.json';
 
 i18n
   .use(LanguageDetector)
@@ -69,6 +77,10 @@ i18n
         crm: enCrm,
         tasks: enTasks,
         accessControl: enAccessControl,
+        reports: enReports,
+        maintenance: enMaintenance,
+        signage: enSignage,
+        files: enFiles,
       },
       tr: {
         common: trCommon,
@@ -90,11 +102,15 @@ i18n
         crm: trCrm,
         tasks: trTasks,
         accessControl: trAccessControl,
+        reports: trReports,
+        maintenance: trMaintenance,
+        signage: trSignage,
+        files: trFiles,
       },
     },
     fallbackLng: 'en',
     defaultNS: 'common',
-    ns: ['common', 'auth', 'sidebar', 'dashboard', 'breadcrumb', 'errors', 'sectors', 'communication', 'hotel', 'construction', 'logistics', 'manufacturing', 'law', 'education', 'hr', 'accounting', 'crm', 'tasks', 'accessControl'],
+    ns: ['common', 'auth', 'sidebar', 'dashboard', 'breadcrumb', 'errors', 'sectors', 'communication', 'hotel', 'construction', 'logistics', 'manufacturing', 'law', 'education', 'hr', 'accounting', 'crm', 'tasks', 'accessControl', 'reports', 'maintenance', 'signage', 'files'],
     interpolation: {
       escapeValue: false,
     },
