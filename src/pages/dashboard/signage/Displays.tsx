@@ -48,7 +48,7 @@ const displayImages: Record<string, string> = {
 import { useTranslation } from 'react-i18next';
 
 export const Displays = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('signage');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
   const [selectedGroup, setSelectedGroup] = useState<string>('all');
@@ -95,8 +95,8 @@ export const Displays = () => {
 
   const getStatusBadge = (status: Display['status']) => {
     const config = {
-      online: { bg: 'bg-green-500/20', text: 'text-green-400', label: 'Online', icon: Wifi },
-      offline: { bg: 'bg-red-500/20', text: 'text-red-400', label: 'Offline', icon: WifiOff },
+      online: { bg: 'bg-green-500/20', text: 'text-green-400', label: t('displays.online'), icon: Wifi },
+      offline: { bg: 'bg-red-500/20', text: 'text-red-400', label: t('displays.offline'), icon: WifiOff },
     };
     const c = config[status];
     const Icon = c.icon;
@@ -124,15 +124,15 @@ export const Displays = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('signage.displayManagement', 'Display Management')}
-        subtitle="Monitor and control all digital signage displays"
+        title={t('displays.title')}
+        subtitle={t('displays.subtitle')}
         actions={
           <div className="flex items-center gap-2">
             <Button variant="secondary" leftIcon={<RefreshCw size={16} />}>
-              Refresh All
+              {t('displays.refreshAll')}
             </Button>
             <Button leftIcon={<Plus size={16} />}>
-              Add Display
+              {t('displays.addDisplay')}
             </Button>
           </div>
         }
@@ -141,25 +141,25 @@ export const Displays = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Displays"
+          title={t('displays.totalDisplays')}
           value={stats.total.toString()}
           icon={Monitor}
           iconColor="#547792"
         />
         <StatsCard
-          title="Online"
+          title={t('displays.online')}
           value={stats.online.toString()}
           icon={Wifi}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Offline"
+          title={t('displays.offline')}
           value={stats.offline.toString()}
           icon={WifiOff}
           iconColor="#ef4444"
         />
         <StatsCard
-          title="Groups"
+          title={t('displays.groups')}
           value={stats.groups.toString()}
           icon={LayoutGrid}
           iconColor="#94B4C1"
@@ -172,7 +172,7 @@ export const Displays = () => {
           <div className="flex flex-wrap gap-4 items-center flex-1">
             <div className="flex-1 min-w-50 max-w-md">
               <Input
-                placeholder="Search displays..."
+                placeholder={t('displays.searchDisplays')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 leftIcon={<Search size={16} />}
@@ -184,9 +184,9 @@ export const Displays = () => {
               onChange={(e) => setSelectedStatus(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Status</option>
-              <option value="online">Online</option>
-              <option value="offline">Offline</option>
+              <option value="all">{t('displays.allStatus')}</option>
+              <option value="online">{t('displays.online')}</option>
+              <option value="offline">{t('displays.offline')}</option>
             </select>
 
             <select
@@ -194,7 +194,7 @@ export const Displays = () => {
               onChange={(e) => setSelectedGroup(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Groups</option>
+              <option value="all">{t('displays.allGroups')}</option>
               {uniqueGroups.map(g => (
                 <option key={g} value={g}>{g}</option>
               ))}
@@ -205,9 +205,9 @@ export const Displays = () => {
               onChange={(e) => setSelectedOrientation(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Orientations</option>
-              <option value="landscape">Landscape</option>
-              <option value="portrait">Portrait</option>
+              <option value="all">{t('displays.allOrientations')}</option>
+              <option value="landscape">{t('displays.landscape')}</option>
+              <option value="portrait">{t('displays.portrait')}</option>
             </select>
           </div>
 
@@ -269,7 +269,7 @@ export const Displays = () => {
                   {display.status === 'online' && (
                     <div className="absolute top-3 left-3 flex items-center gap-1 px-2 py-1 bg-black/50 rounded text-xs text-white">
                       <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                      LIVE
+                      {t('displays.live')}
                     </div>
                   )}
                   {/* Hover Actions */}
@@ -314,15 +314,15 @@ export const Displays = () => {
 
                   <div className="space-y-2 text-sm">
                     <div className="flex items-center justify-between">
-                      <span className="text-text-secondary">Current Content</span>
+                      <span className="text-text-secondary">{t('displays.currentContent')}</span>
                       <span className="text-text-primary font-medium">{display.currentContent}</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-text-secondary">Group</span>
+                      <span className="text-text-secondary">{t('displays.group')}</span>
                       <span className="text-text-primary">{display.group}</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-text-secondary">Last Seen</span>
+                      <span className="text-text-secondary">{t('displays.lastSeen')}</span>
                       <span className="text-text-primary">{formatLastSeen(display.lastSeen)}</span>
                     </div>
                   </div>
@@ -331,15 +331,15 @@ export const Displays = () => {
                   <div className="flex items-center gap-2 mt-4 pt-3 border-t border-white/[0.08]">
                     <button className="flex-1 flex items-center justify-center gap-1 py-2 text-sm text-text-secondary hover:text-accent-primary hover:bg-accent-primary/10 rounded transition-colors">
                       <Eye size={14} />
-                      View
+                      {t('displays.view')}
                     </button>
                     <button className="flex-1 flex items-center justify-center gap-1 py-2 text-sm text-text-secondary hover:text-blue-400 hover:bg-blue-400/10 rounded transition-colors">
                       <Settings size={14} />
-                      Settings
+                      {t('displays.settings')}
                     </button>
                     <button className="flex-1 flex items-center justify-center gap-1 py-2 text-sm text-text-secondary hover:text-green-400 hover:bg-green-400/10 rounded transition-colors">
                       <Send size={14} />
-                      Push
+                      {t('displays.push')}
                     </button>
                   </div>
                 </div>
@@ -354,14 +354,14 @@ export const Displays = () => {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-white/[0.08]">
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Status</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Name</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Location</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Group</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Resolution</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Current Content</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Last Seen</th>
-                  <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">Actions</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('displays.status')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('displays.name')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('displays.location')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('displays.group')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('displays.resolution')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('displays.currentContent')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('displays.lastSeen')}</th>
+                  <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">{t('displays.actions')}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border-default">
@@ -416,13 +416,13 @@ export const Displays = () => {
       {filteredDisplays.length === 0 && (
         <Card className="p-12 text-center">
           <Monitor size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No displays found matching your filters</p>
+          <p className="text-text-secondary">{t('displays.noDisplaysFound')}</p>
         </Card>
       )}
 
       {/* Display Groups Overview */}
       <Card className="p-4">
-        <h3 className="font-semibold text-text-primary mb-4">Display Groups</h3>
+        <h3 className="font-semibold text-text-primary mb-4">{t('displays.displayGroups')}</h3>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
           {displayGroups.map(group => (
             <div
@@ -436,7 +436,7 @@ export const Displays = () => {
                 />
                 <span className="text-sm font-medium text-text-primary">{group.name}</span>
               </div>
-              <p className="text-xs text-text-secondary">{group.count} displays</p>
+              <p className="text-xs text-text-secondary">{group.count} {t('displays.displaysCount')}</p>
             </div>
           ))}
         </div>

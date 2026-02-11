@@ -34,7 +34,7 @@ const PLAYLIST_COLORS: Record<string, string> = {
 };
 
 export const Schedule = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('signage');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDisplay, setSelectedDisplay] = useState<string>('all');
   const [selectedPlaylist, setSelectedPlaylist] = useState<string>('all');
@@ -80,8 +80,8 @@ export const Schedule = () => {
 
   const getStatusBadge = (status: ScheduleType['status']) => {
     const config = {
-      active: { bg: 'bg-green-500/20', text: 'text-green-400', label: 'Active', icon: CheckCircle },
-      inactive: { bg: 'bg-gray-500/20', text: 'text-gray-400', label: 'Inactive', icon: XCircle },
+      active: { bg: 'bg-green-500/20', text: 'text-green-400', label: t('schedule.active'), icon: CheckCircle },
+      inactive: { bg: 'bg-gray-500/20', text: 'text-gray-400', label: t('schedule.inactive'), icon: XCircle },
     };
     const c = config[status];
     const Icon = c.icon;
@@ -112,11 +112,11 @@ export const Schedule = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('signage.displaySchedule', 'Display Schedule')}
-        subtitle="Manage content schedules for your displays"
+        title={t('schedule.title')}
+        subtitle={t('schedule.subtitle')}
         actions={
           <Button leftIcon={<Plus size={16} />}>
-            Create Schedule
+            {t('schedule.createSchedule')}
           </Button>
         }
       />
@@ -124,25 +124,25 @@ export const Schedule = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Schedules"
+          title={t('schedule.totalSchedules')}
           value={stats.total.toString()}
           icon={Calendar}
           iconColor="#547792"
         />
         <StatsCard
-          title="Active"
+          title={t('schedule.active')}
           value={stats.active.toString()}
           icon={CheckCircle}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Displays"
+          title={t('schedule.displays')}
           value={stats.displays.toString()}
           icon={Monitor}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Playlists"
+          title={t('schedule.playlists')}
           value={stats.playlists.toString()}
           icon={ListVideo}
           iconColor="#94B4C1"
@@ -155,7 +155,7 @@ export const Schedule = () => {
           <div className="flex flex-wrap gap-4 items-center flex-1">
             <div className="flex-1 min-w-50 max-w-md">
               <Input
-                placeholder="Search schedules..."
+                placeholder={t('schedule.searchSchedules')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 leftIcon={<Search size={16} />}
@@ -167,7 +167,7 @@ export const Schedule = () => {
               onChange={(e) => setSelectedDisplay(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Displays</option>
+              <option value="all">{t('schedule.allDisplays')}</option>
               {uniqueDisplays.map(d => (
                 <option key={d} value={d}>{d}</option>
               ))}
@@ -178,7 +178,7 @@ export const Schedule = () => {
               onChange={(e) => setSelectedPlaylist(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Playlists</option>
+              <option value="all">{t('schedule.allPlaylists')}</option>
               {uniquePlaylists.map(p => (
                 <option key={p} value={p}>{p}</option>
               ))}
@@ -220,12 +220,12 @@ export const Schedule = () => {
               <button className="p-2 hover:bg-white/[0.05] rounded">
                 <ChevronLeft size={16} className="text-text-secondary" />
               </button>
-              <h3 className="font-semibold text-text-primary">This Week</h3>
+              <h3 className="font-semibold text-text-primary">{t('schedule.thisWeek')}</h3>
               <button className="p-2 hover:bg-white/[0.05] rounded">
                 <ChevronRight size={16} className="text-text-secondary" />
               </button>
             </div>
-            <Button variant="secondary" size="sm">Today</Button>
+            <Button variant="secondary" size="sm">{t('schedule.today')}</Button>
           </div>
 
           {/* Calendar Grid */}
@@ -233,7 +233,7 @@ export const Schedule = () => {
             <div className="min-w-[800px]">
               {/* Days Header */}
               <div className="grid grid-cols-8 gap-2 mb-2">
-                <div className="p-2 text-sm font-medium text-text-secondary">Display</div>
+                <div className="p-2 text-sm font-medium text-text-secondary">{t('schedule.display')}</div>
                 {DAYS.map(day => (
                   <div key={day} className="p-2 text-sm font-medium text-text-secondary text-center">
                     {day}
@@ -284,7 +284,7 @@ export const Schedule = () => {
 
           {/* Legend */}
           <div className="mt-4 pt-4 border-t border-white/[0.08]">
-            <h4 className="text-sm font-medium text-text-secondary mb-2">Playlists</h4>
+            <h4 className="text-sm font-medium text-text-secondary mb-2">{t('schedule.playlists')}</h4>
             <div className="flex flex-wrap gap-3">
               {uniquePlaylists.map(playlist => (
                 <div key={playlist} className="flex items-center gap-2">
@@ -305,13 +305,13 @@ export const Schedule = () => {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-white/[0.08]">
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Display</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Playlist</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Start Time</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">End Time</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Days</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Status</th>
-                  <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">Actions</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('schedule.display')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('schedule.playlist')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('schedule.startTime')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('schedule.endTime')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('schedule.days')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('schedule.status')}</th>
+                  <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">{t('schedule.actions')}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border-default">
@@ -384,17 +384,17 @@ export const Schedule = () => {
       {filteredSchedules.length === 0 && (
         <Card className="p-12 text-center">
           <Calendar size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No schedules found matching your filters</p>
+          <p className="text-text-secondary">{t('schedule.noSchedulesFound')}</p>
         </Card>
       )}
 
       {/* Schedule Tips */}
       <Card className="p-4 bg-accent-primary/5 border border-accent-primary/20">
-        <h3 className="font-semibold text-accent-primary mb-2">Schedule Tips</h3>
+        <h3 className="font-semibold text-accent-primary mb-2">{t('schedule.scheduleTips')}</h3>
         <ul className="text-sm text-text-secondary space-y-1">
-          <li>• Schedules define when playlists are displayed on each screen</li>
-          <li>• Overlapping schedules on the same display will show the most recently created one</li>
-          <li>• Set schedules to inactive to temporarily disable them without deleting</li>
+          <li>• {t('schedule.tip1')}</li>
+          <li>• {t('schedule.tip2')}</li>
+          <li>• {t('schedule.tip3')}</li>
         </ul>
       </Card>
     </div>

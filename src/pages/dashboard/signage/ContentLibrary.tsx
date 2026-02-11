@@ -55,7 +55,7 @@ const contentImages: Record<string, string> = {
 import { useTranslation } from 'react-i18next';
 
 export const ContentLibrary = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('signage');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedType, setSelectedType] = useState<string>('all');
   const [selectedFolder, setSelectedFolder] = useState<string>('all');
@@ -154,15 +154,15 @@ export const ContentLibrary = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('signage.contentLibrary', 'Content Library')}
-        subtitle="Manage your digital signage content"
+        title={t('contentLibrary.title')}
+        subtitle={t('contentLibrary.subtitle')}
         actions={
           <div className="flex items-center gap-2">
             <Button variant="secondary" leftIcon={<FolderPlus size={16} />}>
-              New Folder
+              {t('contentLibrary.newFolder')}
             </Button>
             <Button leftIcon={<Upload size={16} />}>
-              Upload Content
+              {t('contentLibrary.uploadContent')}
             </Button>
           </div>
         }
@@ -171,25 +171,25 @@ export const ContentLibrary = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Items"
+          title={t('contentLibrary.totalItems')}
           value={stats.total.toString()}
           icon={FolderOpen}
           iconColor="#547792"
         />
         <StatsCard
-          title="Images"
+          title={t('contentLibrary.images')}
           value={stats.images.toString()}
           icon={Image}
           iconColor="#3b82f6"
         />
         <StatsCard
-          title="Videos"
+          title={t('contentLibrary.videos')}
           value={stats.videos.toString()}
           icon={Video}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Storage Used"
+          title={t('contentLibrary.storageUsed')}
           value={stats.storage}
           icon={HardDrive}
           iconColor="#94B4C1"
@@ -200,7 +200,7 @@ export const ContentLibrary = () => {
         {/* Folder Sidebar */}
         <Card className="w-64 p-4 shrink-0 hidden lg:block">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-semibold text-text-primary">Folders</h3>
+            <h3 className="font-semibold text-text-primary">{t('contentLibrary.folders')}</h3>
             <button className="p-1 hover:bg-white/[0.05] rounded">
               <FolderPlus size={16} className="text-text-secondary" />
             </button>
@@ -215,7 +215,7 @@ export const ContentLibrary = () => {
               }`}
             >
               <FolderOpen size={16} />
-              All Content
+              {t('contentLibrary.allContent')}
               <span className="ml-auto text-xs">{contentLibrary.length}</span>
             </button>
             {contentFolders.map(folder => (
@@ -247,7 +247,7 @@ export const ContentLibrary = () => {
               <div className="flex flex-wrap gap-4 items-center flex-1">
                 <div className="flex-1 min-w-50 max-w-md">
                   <Input
-                    placeholder="Search content..."
+                    placeholder={t('contentLibrary.searchContent')}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     leftIcon={<Search size={16} />}
@@ -259,9 +259,9 @@ export const ContentLibrary = () => {
                   onChange={(e) => setSelectedType(e.target.value)}
                   className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
                 >
-                  <option value="all">All Types</option>
-                  <option value="image">Images</option>
-                  <option value="video">Videos</option>
+                  <option value="all">{t('contentLibrary.allTypes')}</option>
+                  <option value="image">{t('contentLibrary.images')}</option>
+                  <option value="video">{t('contentLibrary.videos')}</option>
                 </select>
 
                 <select
@@ -269,9 +269,9 @@ export const ContentLibrary = () => {
                   onChange={(e) => setSortBy(e.target.value)}
                   className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
                 >
-                  <option value="date">Sort by Date</option>
-                  <option value="name">Sort by Name</option>
-                  <option value="size">Sort by Size</option>
+                  <option value="date">{t('contentLibrary.sortByDate')}</option>
+                  <option value="name">{t('contentLibrary.sortByName')}</option>
+                  <option value="size">{t('contentLibrary.sortBySize')}</option>
                 </select>
 
                 {/* Mobile Folder Select */}
@@ -280,7 +280,7 @@ export const ContentLibrary = () => {
                   onChange={(e) => setSelectedFolder(e.target.value)}
                   className="lg:hidden px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
                 >
-                  <option value="all">All Folders</option>
+                  <option value="all">{t('contentLibrary.allFolders')}</option>
                   {contentFolders.map(f => (
                     <option key={f.id} value={f.name}>{f.name}</option>
                   ))}
@@ -316,19 +316,19 @@ export const ContentLibrary = () => {
             {selectedItems.length > 0 && (
               <div className="flex items-center gap-4 mt-4 pt-4 border-t border-white/[0.08]">
                 <span className="text-sm text-text-secondary">
-                  {selectedItems.length} item(s) selected
+                  {t('contentLibrary.itemsSelected', { count: selectedItems.length })}
                 </span>
                 <Button variant="secondary" size="sm" leftIcon={<Download size={14} />}>
-                  Download
+                  {t('contentLibrary.download')}
                 </Button>
                 <Button variant="secondary" size="sm" leftIcon={<Trash2 size={14} />}>
-                  Delete
+                  {t('contentLibrary.delete')}
                 </Button>
                 <button
                   onClick={() => setSelectedItems([])}
                   className="text-sm text-text-secondary hover:text-text-primary"
                 >
-                  Clear selection
+                  {t('contentLibrary.clearSelection')}
                 </button>
               </div>
             )}
@@ -433,14 +433,14 @@ export const ContentLibrary = () => {
                           )}
                         </button>
                       </th>
-                      <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Name</th>
-                      <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Type</th>
-                      <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Resolution</th>
-                      <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Size</th>
-                      <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Duration</th>
-                      <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Folder</th>
-                      <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Uploaded</th>
-                      <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">Actions</th>
+                      <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('contentLibrary.name')}</th>
+                      <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('contentLibrary.type')}</th>
+                      <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('contentLibrary.resolution')}</th>
+                      <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('contentLibrary.size')}</th>
+                      <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('contentLibrary.duration')}</th>
+                      <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('contentLibrary.folder')}</th>
+                      <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('contentLibrary.uploaded')}</th>
+                      <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">{t('contentLibrary.actions')}</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-border-default">
@@ -524,7 +524,7 @@ export const ContentLibrary = () => {
           {filteredContent.length === 0 && (
             <Card className="p-12 text-center">
               <FolderOpen size={48} className="mx-auto mb-4 text-text-muted" />
-              <p className="text-text-secondary">No content found matching your filters</p>
+              <p className="text-text-secondary">{t('contentLibrary.noContentFound')}</p>
             </Card>
           )}
         </div>

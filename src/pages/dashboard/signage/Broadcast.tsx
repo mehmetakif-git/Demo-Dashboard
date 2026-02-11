@@ -16,22 +16,8 @@ import { PageHeader, Card, Input, Button } from '@/components/common';
 import { broadcastHistory, displays, displayGroups, type BroadcastHistory } from '@/data/signageData';
 import { useTranslation } from 'react-i18next';
 
-const PRIORITY_COLORS = {
-  normal: { bg: 'bg-blue-500', text: 'text-blue-400', label: 'Normal' },
-  high: { bg: 'bg-orange-500', text: 'text-orange-400', label: 'High' },
-  critical: { bg: 'bg-red-500', text: 'text-red-400', label: 'Critical' },
-};
-
-const DURATION_OPTIONS = [
-  { value: '5', label: '5 minutes' },
-  { value: '15', label: '15 minutes' },
-  { value: '30', label: '30 minutes' },
-  { value: '60', label: '1 hour' },
-  { value: 'manual', label: 'Until manually stopped' },
-];
-
 export const Broadcast = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('signage');
   const [title, setTitle] = useState('');
   const [message, setMessage] = useState('');
   const [selectedDisplays, setSelectedDisplays] = useState<string[]>([]);
@@ -43,11 +29,25 @@ export const Broadcast = () => {
   // Simulated active broadcast (null if no active broadcast)
   const [activeBroadcast] = useState<BroadcastHistory | null>(null);
 
+  const PRIORITY_COLORS = {
+    normal: { bg: 'bg-blue-500', text: 'text-blue-400', label: t('broadcast.normal') },
+    high: { bg: 'bg-orange-500', text: 'text-orange-400', label: t('broadcast.high') },
+    critical: { bg: 'bg-red-500', text: 'text-red-400', label: t('broadcast.critical') },
+  };
+
+  const DURATION_OPTIONS = [
+    { value: '5', label: t('broadcast.5minutes') },
+    { value: '15', label: t('broadcast.15minutes') },
+    { value: '30', label: t('broadcast.30minutes') },
+    { value: '60', label: t('broadcast.1hour') },
+    { value: 'manual', label: t('broadcast.untilManuallyStopped') },
+  ];
+
   const getStatusBadge = (status: BroadcastHistory['status']) => {
     const config = {
-      completed: { bg: 'bg-green-500/20', text: 'text-green-400', label: 'Completed', icon: CheckCircle },
-      cancelled: { bg: 'bg-red-500/20', text: 'text-red-400', label: 'Cancelled', icon: XCircle },
-      active: { bg: 'bg-orange-500/20', text: 'text-orange-400', label: 'Active', icon: Radio },
+      completed: { bg: 'bg-green-500/20', text: 'text-green-400', label: t('broadcast.completed'), icon: CheckCircle },
+      cancelled: { bg: 'bg-red-500/20', text: 'text-red-400', label: t('broadcast.cancelled'), icon: XCircle },
+      active: { bg: 'bg-orange-500/20', text: 'text-orange-400', label: t('broadcast.active'), icon: Radio },
     };
     const c = config[status];
     const Icon = c.icon;
@@ -76,8 +76,8 @@ export const Broadcast = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('signage.emergencyBroadcast', 'Emergency Broadcast')}
-        subtitle="Send urgent messages to all or selected displays"
+        title={t('broadcast.title')}
+        subtitle={t('broadcast.subtitle')}
       />
 
       {/* Warning Banner */}
@@ -85,10 +85,9 @@ export const Broadcast = () => {
         <div className="flex items-start gap-3">
           <AlertTriangle size={24} className="text-red-400 shrink-0" />
           <div>
-            <p className="font-semibold text-red-400">Emergency Broadcast System</p>
+            <p className="font-semibold text-red-400">{t('broadcast.emergencyBroadcastSystem')}</p>
             <p className="text-sm text-red-400/80 mt-1">
-              Use this feature to immediately display urgent messages on all or selected displays.
-              This will override any currently playing content.
+              {t('broadcast.emergencyDescription')}
             </p>
           </div>
         </div>
@@ -104,14 +103,14 @@ export const Broadcast = () => {
                 <div>
                   <div className="flex items-center gap-2 mb-2">
                     <Radio size={20} className="text-orange-400 animate-pulse" />
-                    <h3 className="font-semibold text-orange-400">Active Broadcast</h3>
+                    <h3 className="font-semibold text-orange-400">{t('broadcast.activeBroadcast')}</h3>
                   </div>
                   <h4 className="text-lg font-semibold text-text-primary">{activeBroadcast.title}</h4>
                   <p className="text-text-secondary mt-1">{activeBroadcast.message}</p>
                   <div className="flex items-center gap-4 mt-3 text-sm text-text-muted">
                     <span className="flex items-center gap-1">
                       <Clock size={14} />
-                      Started {activeBroadcast.sentAt}
+                      {t('broadcast.started')} {activeBroadcast.sentAt}
                     </span>
                     <span className="flex items-center gap-1">
                       <Monitor size={14} />
@@ -120,7 +119,7 @@ export const Broadcast = () => {
                   </div>
                 </div>
                 <Button variant="secondary" leftIcon={<StopCircle size={16} />} className="text-red-400 hover:bg-red-500/20">
-                  End Broadcast
+                  {t('broadcast.endBroadcast')}
                 </Button>
               </div>
             </Card>
@@ -128,23 +127,23 @@ export const Broadcast = () => {
             <Card className="p-5 border border-green-500/20">
               <div className="flex items-center gap-3">
                 <CheckCircle size={20} className="text-green-400" />
-                <span className="text-text-secondary">No active broadcast. All displays showing scheduled content.</span>
+                <span className="text-text-secondary">{t('broadcast.noActiveBroadcast')}</span>
               </div>
             </Card>
           )}
 
           {/* New Broadcast Form */}
           <Card className="p-5">
-            <h3 className="font-semibold text-text-primary mb-4">New Broadcast</h3>
+            <h3 className="font-semibold text-text-primary mb-4">{t('broadcast.newBroadcast')}</h3>
 
             <div className="space-y-4">
               {/* Title */}
               <div>
                 <label className="block text-sm font-medium text-text-secondary mb-2">
-                  Title
+                  {t('broadcast.titleLabel')}
                 </label>
                 <Input
-                  placeholder="e.g., Fire Drill Announcement"
+                  placeholder={t('broadcast.titlePlaceholder')}
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                 />
@@ -153,10 +152,10 @@ export const Broadcast = () => {
               {/* Message */}
               <div>
                 <label className="block text-sm font-medium text-text-secondary mb-2">
-                  Message
+                  {t('broadcast.messageLabel')}
                 </label>
                 <textarea
-                  placeholder="Enter your emergency message here..."
+                  placeholder={t('broadcast.messagePlaceholder')}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   rows={4}
@@ -167,7 +166,7 @@ export const Broadcast = () => {
               {/* Display Selection */}
               <div>
                 <label className="block text-sm font-medium text-text-secondary mb-2">
-                  Target Displays
+                  {t('broadcast.targetDisplays')}
                 </label>
                 <div className="space-y-3">
                   <label className="flex items-center gap-2 cursor-pointer">
@@ -180,13 +179,13 @@ export const Broadcast = () => {
                       }}
                       className="rounded border-white/[0.08]"
                     />
-                    <span className="text-text-primary font-medium">All Displays</span>
-                    <span className="text-text-muted text-sm">({displays.length} displays)</span>
+                    <span className="text-text-primary font-medium">{t('broadcast.allDisplays')}</span>
+                    <span className="text-text-muted text-sm">({t('broadcast.displaysCount', { count: displays.length })})</span>
                   </label>
 
                   {!allDisplays && (
                     <div className="pl-6 space-y-2">
-                      <p className="text-xs text-text-muted mb-2">Select specific displays or groups:</p>
+                      <p className="text-xs text-text-muted mb-2">{t('broadcast.selectSpecific')}</p>
                       <div className="grid grid-cols-2 gap-2">
                         {displays.filter(d => d.status === 'online').map(display => (
                           <label
@@ -218,7 +217,7 @@ export const Broadcast = () => {
               {/* Priority */}
               <div>
                 <label className="block text-sm font-medium text-text-secondary mb-2">
-                  Priority Level
+                  {t('broadcast.priorityLevel')}
                 </label>
                 <div className="flex gap-2">
                   {(['normal', 'high', 'critical'] as const).map(p => (
@@ -240,7 +239,7 @@ export const Broadcast = () => {
               {/* Duration */}
               <div>
                 <label className="block text-sm font-medium text-text-secondary mb-2">
-                  Duration
+                  {t('broadcast.duration')}
                 </label>
                 <select
                   value={duration}
@@ -256,7 +255,7 @@ export const Broadcast = () => {
               {/* Background Color */}
               <div>
                 <label className="block text-sm font-medium text-text-secondary mb-2">
-                  Background Color
+                  {t('broadcast.backgroundColor')}
                 </label>
                 <div className="flex items-center gap-3">
                   <input
@@ -288,7 +287,7 @@ export const Broadcast = () => {
                   leftIcon={<Eye size={16} />}
                   onClick={() => setShowPreview(true)}
                 >
-                  Preview
+                  {t('broadcast.preview')}
                 </Button>
                 <Button
                   className="flex-1 bg-red-500 hover:bg-red-600"
@@ -296,7 +295,7 @@ export const Broadcast = () => {
                   onClick={handleBroadcast}
                   disabled={!title || !message}
                 >
-                  Broadcast Now
+                  {t('broadcast.broadcastNow')}
                 </Button>
               </div>
             </div>
@@ -313,7 +312,7 @@ export const Broadcast = () => {
             >
               <Card className="p-4">
                 <div className="flex items-center justify-between mb-3">
-                  <h3 className="font-semibold text-text-primary">Preview</h3>
+                  <h3 className="font-semibold text-text-primary">{t('broadcast.preview')}</h3>
                   <button
                     onClick={() => setShowPreview(false)}
                     className="p-1 hover:bg-white/[0.05] rounded"
@@ -326,8 +325,8 @@ export const Broadcast = () => {
                   style={{ backgroundColor }}
                 >
                   <AlertCircle size={48} className="text-white mb-4" />
-                  <h4 className="text-xl font-bold text-white mb-2">{title || 'Emergency Title'}</h4>
-                  <p className="text-white/90">{message || 'Your message will appear here'}</p>
+                  <h4 className="text-xl font-bold text-white mb-2">{title || t('broadcast.emergencyTitle')}</h4>
+                  <p className="text-white/90">{message || t('broadcast.messagePreview')}</p>
                 </div>
               </Card>
             </motion.div>
@@ -335,7 +334,7 @@ export const Broadcast = () => {
 
           {/* Broadcast History */}
           <Card className="p-4">
-            <h3 className="font-semibold text-text-primary mb-4">Broadcast History</h3>
+            <h3 className="font-semibold text-text-primary mb-4">{t('broadcast.broadcastHistory')}</h3>
             <div className="space-y-3">
               {broadcastHistory.map(broadcast => (
                 <div
@@ -361,22 +360,22 @@ export const Broadcast = () => {
 
           {/* Quick Stats */}
           <Card className="p-4">
-            <h3 className="font-semibold text-text-primary mb-4">Display Status</h3>
+            <h3 className="font-semibold text-text-primary mb-4">{t('broadcast.displayStatus')}</h3>
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-text-secondary">Online Displays</span>
+                <span className="text-text-secondary">{t('broadcast.onlineDisplays')}</span>
                 <span className="text-green-400 font-semibold">
                   {displays.filter(d => d.status === 'online').length}
                 </span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-text-secondary">Offline Displays</span>
+                <span className="text-text-secondary">{t('broadcast.offlineDisplays')}</span>
                 <span className="text-red-400 font-semibold">
                   {displays.filter(d => d.status === 'offline').length}
                 </span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-text-secondary">Total Groups</span>
+                <span className="text-text-secondary">{t('broadcast.totalGroups')}</span>
                 <span className="text-text-primary font-semibold">{displayGroups.length}</span>
               </div>
             </div>
