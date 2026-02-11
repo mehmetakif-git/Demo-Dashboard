@@ -177,7 +177,7 @@ export const GroupChats = () => {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between mb-1">
                     <span className="font-medium text-text-primary truncate">
-                      {group.name}
+                      {t(`data.groups.${group.id}.name`, { defaultValue: group.name })}
                     </span>
                     <span className="text-xs text-text-muted shrink-0">
                       {formatTime(group.lastMessageTime)}
@@ -185,7 +185,7 @@ export const GroupChats = () => {
                   </div>
                   <p className="text-sm text-text-secondary truncate">
                     <span className="font-medium">{group.lastMessageSender}: </span>
-                    {group.lastMessage}
+                    {t(`data.groups.${group.id}.lastMessage`, { defaultValue: group.lastMessage })}
                   </p>
                   <div className="flex items-center gap-2 mt-1">
                     <Users size={12} className="text-text-muted" />
@@ -242,7 +242,7 @@ export const GroupChats = () => {
                   );
                 })()}
                 <div>
-                  <h3 className="font-semibold text-text-primary">{selectedGroup.name}</h3>
+                  <h3 className="font-semibold text-text-primary">{t(`data.groups.${selectedGroup.id}.name`, { defaultValue: selectedGroup.name })}</h3>
                   <span className="text-xs text-text-secondary">{t('groupChats.membersCount', { count: selectedGroup.memberCount })}</span>
                 </div>
               </div>
@@ -320,7 +320,7 @@ export const GroupChats = () => {
                                 {message.senderName}
                               </p>
                             )}
-                            <p className="text-sm">{message.content}</p>
+                            <p className="text-sm">{t(`data.groupMessages.${selectedGroup!.id}.${message.id}`, { defaultValue: message.content })}</p>
                             <div className={`flex items-center gap-1 mt-1 ${isSent ? 'justify-end' : 'justify-start'}`}>
                               <span className={`text-xs ${isSent ? 'text-white/70' : 'text-text-muted'}`}>
                                 {formatTime(message.timestamp)}
@@ -421,8 +421,8 @@ export const GroupChats = () => {
                   </div>
                 );
               })()}
-              <h4 className="font-semibold text-text-primary mt-3">{selectedGroup.name}</h4>
-              <p className="text-sm text-text-secondary">{selectedGroup.description}</p>
+              <h4 className="font-semibold text-text-primary mt-3">{t(`data.groups.${selectedGroup.id}.name`, { defaultValue: selectedGroup.name })}</h4>
+              <p className="text-sm text-text-secondary">{t(`data.groups.${selectedGroup.id}.description`, { defaultValue: selectedGroup.description })}</p>
               <span className="inline-flex items-center gap-1 mt-2 text-xs text-text-muted">
                 {t('groupChats.createdBy', { name: selectedGroup.createdBy })}
               </span>
@@ -478,7 +478,7 @@ export const GroupChats = () => {
                           <Crown size={12} className="text-yellow-500 shrink-0" />
                         )}
                       </div>
-                      <span className="text-xs text-text-muted capitalize">{member.status}</span>
+                      <span className="text-xs text-text-muted capitalize">{t(`status.${member.status}`)}</span>
                     </div>
                   </div>
                 ))}

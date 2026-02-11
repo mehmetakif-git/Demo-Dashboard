@@ -114,18 +114,18 @@ export const Directory = () => {
             />
           </div>
           <h3 className="font-semibold text-text-primary mt-3 text-center">{employee.name}</h3>
-          <p className="text-sm text-text-secondary text-center">{employee.position}</p>
+          <p className="text-sm text-text-secondary text-center">{t(`data.positions.${employee.position}`, { defaultValue: employee.position })}</p>
         </div>
 
         {/* Info */}
         <div className="space-y-2 text-sm">
           <div className="flex items-center gap-2 text-text-muted">
             <Building2 size={14} />
-            <span className="truncate">{employee.department}</span>
+            <span className="truncate">{t(`data.departments.${employee.department}`, { defaultValue: employee.department })}</span>
           </div>
           <div className="flex items-center gap-2 text-text-muted">
             <MapPin size={14} />
-            <span className="truncate">{employee.location}</span>
+            <span className="truncate">{t(`data.locations.${employee.location}`, { defaultValue: employee.location })}</span>
           </div>
         </div>
 
@@ -190,13 +190,13 @@ export const Directory = () => {
           </div>
           <div>
             <p className="font-medium text-text-primary">{employee.name}</p>
-            <p className="text-xs text-text-muted capitalize">{employee.status}</p>
+            <p className="text-xs text-text-muted capitalize">{t(`status.${employee.status}`)}</p>
           </div>
         </div>
       </td>
-      <td className="px-4 py-3 text-sm text-text-secondary">{employee.position}</td>
-      <td className="px-4 py-3 text-sm text-text-secondary">{employee.department}</td>
-      <td className="px-4 py-3 text-sm text-text-secondary">{employee.location}</td>
+      <td className="px-4 py-3 text-sm text-text-secondary">{t(`data.positions.${employee.position}`, { defaultValue: employee.position })}</td>
+      <td className="px-4 py-3 text-sm text-text-secondary">{t(`data.departments.${employee.department}`, { defaultValue: employee.department })}</td>
+      <td className="px-4 py-3 text-sm text-text-secondary">{t(`data.locations.${employee.location}`, { defaultValue: employee.location })}</td>
       <td className="px-4 py-3">
         <a href={`mailto:${employee.email}`} className="text-sm text-accent-primary hover:underline">
           {employee.email}
@@ -296,7 +296,7 @@ export const Directory = () => {
           >
             <option value="all">{t('directory.allDepartments')}</option>
             {departments.map((dept: string) => (
-              <option key={dept} value={dept}>{dept}</option>
+              <option key={dept} value={dept}>{t(`data.departments.${dept}`, { defaultValue: dept })}</option>
             ))}
           </select>
 
@@ -307,7 +307,7 @@ export const Directory = () => {
           >
             <option value="all">{t('directory.allLocations')}</option>
             {locations.map((loc: string) => (
-              <option key={loc} value={loc}>{loc}</option>
+              <option key={loc} value={loc}>{t(`data.locations.${loc}`, { defaultValue: loc })}</option>
             ))}
           </select>
 
@@ -451,9 +451,9 @@ export const Directory = () => {
                   </div>
                   <div>
                     <h2 className="text-xl font-bold text-text-primary">{selectedEmployee.name}</h2>
-                    <p className="text-text-secondary">{selectedEmployee.position}</p>
+                    <p className="text-text-secondary">{t(`data.positions.${selectedEmployee.position}`, { defaultValue: selectedEmployee.position })}</p>
                     <span className="inline-flex items-center gap-1 mt-1 px-2 py-0.5 bg-accent-primary/20 text-accent-primary text-xs rounded-full capitalize">
-                      {selectedEmployee.status}
+                      {t(`status.${selectedEmployee.status}`)}
                     </span>
                   </div>
                 </div>
@@ -473,14 +473,14 @@ export const Directory = () => {
                   <Building2 size={18} className="text-text-muted" />
                   <div>
                     <p className="text-xs text-text-muted">{t('directory.department')}</p>
-                    <p className="text-sm font-medium text-text-primary">{selectedEmployee.department}</p>
+                    <p className="text-sm font-medium text-text-primary">{t(`data.departments.${selectedEmployee.department}`, { defaultValue: selectedEmployee.department })}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 p-3 bg-white/[0.05] rounded-lg">
                   <MapPin size={18} className="text-text-muted" />
                   <div>
                     <p className="text-xs text-text-muted">{t('directory.location')}</p>
-                    <p className="text-sm font-medium text-text-primary">{selectedEmployee.location}</p>
+                    <p className="text-sm font-medium text-text-primary">{t(`data.locations.${selectedEmployee.location}`, { defaultValue: selectedEmployee.location })}</p>
                   </div>
                 </div>
               </div>

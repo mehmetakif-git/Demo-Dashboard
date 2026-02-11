@@ -13,7 +13,8 @@
     "viewFullProfile": "View Full Profile",
     "selectConversation": "Select a conversation to start messaging",
     "today": "Today",
-    "yesterday": "Yesterday"
+    "yesterday": "Yesterday",
+    "you": "You"
   },
   "groupChats": {
     "title": "Group Chats",
@@ -87,5 +88,166 @@
     "away": "Away",
     "busy": "Busy",
     "offline": "Offline"
+  },
+  "data": {
+    "departments": {
+      "Engineering": "Engineering",
+      "Marketing": "Marketing",
+      "Sales": "Sales",
+      "Finance": "Finance",
+      "HR": "HR",
+      "Operations": "Operations"
+    },
+    "positions": {
+      "Senior Developer": "Senior Developer",
+      "Marketing Manager": "Marketing Manager",
+      "Sales Representative": "Sales Representative",
+      "Engineering Director": "Engineering Director",
+      "Financial Analyst": "Financial Analyst",
+      "HR Specialist": "HR Specialist",
+      "Junior Developer": "Junior Developer",
+      "HR Director": "HR Director",
+      "Operations Manager": "Operations Manager",
+      "Finance Director": "Finance Director"
+    },
+    "locations": {
+      "New York Office": "New York Office",
+      "Los Angeles Office": "Los Angeles Office",
+      "Chicago Office": "Chicago Office"
+    },
+    "dm": {
+      "DM001": {
+        "lastMessage": "Sure, I'll send over the API documentation shortly.",
+        "1": "Hey, do you have the API documentation for the new payment module?",
+        "2": "Yes, I was just finishing it up. Which endpoints do you need specifically?",
+        "3": "The ones related to subscription billing and refunds.",
+        "4": "Got it. I'll include the webhook events documentation as well since you'll need those for real-time updates.",
+        "5": "That would be great, thanks!",
+        "6": "No problem. Give me about 30 minutes.",
+        "7": "Sure, I'll send over the API documentation shortly."
+      },
+      "DM002": {
+        "lastMessage": "The marketing report is ready for review.",
+        "1": "Hi! I've finished compiling the Q4 marketing metrics.",
+        "2": "Great! How are the numbers looking?",
+        "3": "Really good actually. We exceeded our targets by 15%.",
+        "4": "I've also included the campaign breakdown and ROI analysis.",
+        "5": "The marketing report is ready for review."
+      },
+      "DM003": {
+        "lastMessage": "Let's schedule a meeting for tomorrow.",
+        "1": "Can we discuss the architecture changes for the new module?",
+        "2": "Of course. I had some ideas about the microservices approach.",
+        "3": "Perfect. I think we should also involve the DevOps team.",
+        "4": "Let's schedule a meeting for tomorrow."
+      },
+      "DM004": {
+        "lastMessage": "The new employee onboarding is scheduled for Monday.",
+        "1": "Hi! Quick update on the new hire paperwork.",
+        "2": "Sure, what's the status?",
+        "3": "Everything is ready. Just need the final sign-off.",
+        "4": "The new employee onboarding is scheduled for Monday."
+      },
+      "DM005": {
+        "lastMessage": "Server maintenance completed successfully.",
+        "1": "FYI - Starting server maintenance now.",
+        "2": "Thanks for the heads up. How long will it take?",
+        "3": "Should be about an hour.",
+        "4": "Server maintenance completed successfully."
+      }
+    },
+    "groups": {
+      "GRP001": {
+        "name": "Engineering Team",
+        "description": "Main engineering discussion channel",
+        "lastMessage": "Deployment completed successfully!"
+      },
+      "GRP002": {
+        "name": "Marketing",
+        "description": "Marketing team updates and discussions",
+        "lastMessage": "New campaign assets are ready for review"
+      },
+      "GRP003": {
+        "name": "Project Alpha",
+        "description": "Project Alpha team communication",
+        "lastMessage": "Sprint review meeting at 3 PM today"
+      },
+      "GRP004": {
+        "name": "All Hands",
+        "description": "Company-wide announcements and discussions",
+        "lastMessage": "Holiday schedule has been posted"
+      },
+      "GRP005": {
+        "name": "IT Support",
+        "description": "IT support requests and updates",
+        "lastMessage": "VPN issue has been resolved"
+      },
+      "GRP006": {
+        "name": "HR Updates",
+        "description": "Human resources announcements",
+        "lastMessage": "New benefits package information attached"
+      }
+    },
+    "groupMessages": {
+      "GRP001": {
+        "1": "Good morning team! Quick update on the sprint progress.",
+        "2": "The API integration is about 80% complete.",
+        "3": "I've finished the unit tests for the auth module.",
+        "4": "Great progress everyone! I'll review the PRs this afternoon.",
+        "5": "Perfect. Let's aim to deploy to staging by EOD.",
+        "6": "Deployment completed successfully!"
+      },
+      "GRP002": {
+        "1": "Team, the new campaign is launching next week.",
+        "2": "I've updated the sales deck accordingly.",
+        "3": "New campaign assets are ready for review"
+      },
+      "GRP003": {
+        "1": "Team, we need to finalize the deliverables for Phase 2.",
+        "2": "Marketing materials are ready on my end.",
+        "3": "Backend APIs are deployed and tested.",
+        "4": "Frontend is 90% done, just fixing some UI bugs.",
+        "5": "Sprint review meeting at 3 PM today"
+      },
+      "GRP004": {
+        "1": "Hello everyone! Reminder about the upcoming holiday schedule.",
+        "2": "Holiday schedule has been posted"
+      },
+      "GRP005": {
+        "1": "Investigating VPN connectivity issues.",
+        "2": "I'm experiencing issues too.",
+        "3": "VPN issue has been resolved"
+      },
+      "GRP006": {
+        "1": "Hi team, new benefits information available.",
+        "2": "New benefits package information attached"
+      }
+    },
+    "announcements": {
+      "ANN001": {
+        "title": "Holiday Office Hours",
+        "content": "Please note that the office will be closed from December 24th to January 1st for the holiday season. Emergency contacts will be available. We wish everyone a wonderful holiday!"
+      },
+      "ANN002": {
+        "title": "Q4 All-Hands Meeting",
+        "content": "Join us for our quarterly all-hands meeting on December 22nd at 2:00 PM in the main auditorium. We'll be discussing company performance, upcoming initiatives, and celebrating our achievements. Remote employees can join via the video conference link."
+      },
+      "ANN003": {
+        "title": "New Health Benefits Package",
+        "content": "We're excited to announce improvements to our health benefits package starting January 1st, 2025. The new package includes expanded mental health coverage, increased dental benefits, and a new wellness program. Please review the attached documentation and contact HR with any questions."
+      },
+      "ANN004": {
+        "title": "IT System Maintenance",
+        "content": "Scheduled maintenance will be performed on our internal systems this Saturday, December 21st, from 10:00 PM to 2:00 AM. During this time, email and internal applications may be temporarily unavailable. Please save your work before leaving on Friday."
+      },
+      "ANN005": {
+        "title": "Engineering Team Update",
+        "content": "The engineering team has successfully completed the migration to our new cloud infrastructure. This improvement will result in better performance and reliability. Special thanks to everyone involved in this project!"
+      },
+      "ANN006": {
+        "title": "Parking Lot Resurfacing",
+        "content": "Parking lot Zone B will be closed for resurfacing from December 26th to 28th. Please use Zone A or Zone C during this period. Additional temporary parking will be available at the adjacent lot."
+      }
+    }
   }
 }

@@ -13,7 +13,8 @@
     "viewFullProfile": "Tam Profili Görüntüle",
     "selectConversation": "Mesajlaşmaya başlamak için bir sohbet seçin",
     "today": "Bugün",
-    "yesterday": "Dün"
+    "yesterday": "Dün",
+    "you": "Sen"
   },
   "groupChats": {
     "title": "Grup Sohbetleri",
@@ -87,5 +88,166 @@
     "away": "Uzakta",
     "busy": "Meşgul",
     "offline": "Çevrimdışı"
+  },
+  "data": {
+    "departments": {
+      "Engineering": "Mühendislik",
+      "Marketing": "Pazarlama",
+      "Sales": "Satış",
+      "Finance": "Finans",
+      "HR": "İK",
+      "Operations": "Operasyon"
+    },
+    "positions": {
+      "Senior Developer": "Kıdemli Geliştirici",
+      "Marketing Manager": "Pazarlama Müdürü",
+      "Sales Representative": "Satış Temsilcisi",
+      "Engineering Director": "Mühendislik Direktörü",
+      "Financial Analyst": "Finans Analisti",
+      "HR Specialist": "İK Uzmanı",
+      "Junior Developer": "Junior Geliştirici",
+      "HR Director": "İK Direktörü",
+      "Operations Manager": "Operasyon Müdürü",
+      "Finance Director": "Finans Direktörü"
+    },
+    "locations": {
+      "New York Office": "New York Ofisi",
+      "Los Angeles Office": "Los Angeles Ofisi",
+      "Chicago Office": "Chicago Ofisi"
+    },
+    "dm": {
+      "DM001": {
+        "lastMessage": "Elbette, API belgelerini yakında göndereceğim.",
+        "1": "Selam, yeni ödeme modülü için API belgelerine sahip misin?",
+        "2": "Evet, tam bitiriyordum. Özellikle hangi endpoint'lere ihtiyacın var?",
+        "3": "Abonelik faturalandırma ve iadelerle ilgili olanlar.",
+        "4": "Anladım. Gerçek zamanlı güncellemeler için ihtiyacın olacağından webhook etkinlikleri belgelerini de ekleyeceğim.",
+        "5": "Harika olur, teşekkürler!",
+        "6": "Sorun değil. Yaklaşık 30 dakika ver bana.",
+        "7": "Elbette, API belgelerini yakında göndereceğim."
+      },
+      "DM002": {
+        "lastMessage": "Pazarlama raporu incelemeye hazır.",
+        "1": "Merhaba! Q4 pazarlama metriklerini derlemeyi bitirdim.",
+        "2": "Harika! Rakamlar nasıl görünüyor?",
+        "3": "Aslında çok iyi. Hedeflerimizi %15 aştık.",
+        "4": "Kampanya dağılımını ve yatırım getirisi analizini de ekledim.",
+        "5": "Pazarlama raporu incelemeye hazır."
+      },
+      "DM003": {
+        "lastMessage": "Yarın için bir toplantı ayarlayalım.",
+        "1": "Yeni modül için mimari değişikliklerini tartışabilir miyiz?",
+        "2": "Tabii ki. Mikroservis yaklaşımı hakkında bazı fikirlerim vardı.",
+        "3": "Mükemmel. DevOps ekibini de dahil etmemiz gerektiğini düşünüyorum.",
+        "4": "Yarın için bir toplantı ayarlayalım."
+      },
+      "DM004": {
+        "lastMessage": "Yeni çalışan oryantasyonu Pazartesi için planlandı.",
+        "1": "Merhaba! Yeni işe alım evrakları hakkında hızlı bir güncelleme.",
+        "2": "Tabii, durum nedir?",
+        "3": "Her şey hazır. Sadece son onay gerekiyor.",
+        "4": "Yeni çalışan oryantasyonu Pazartesi için planlandı."
+      },
+      "DM005": {
+        "lastMessage": "Sunucu bakımı başarıyla tamamlandı.",
+        "1": "Bilginize - Sunucu bakımına şimdi başlıyorum.",
+        "2": "Bilgilendirme için teşekkürler. Ne kadar sürecek?",
+        "3": "Yaklaşık bir saat sürmeli.",
+        "4": "Sunucu bakımı başarıyla tamamlandı."
+      }
+    },
+    "groups": {
+      "GRP001": {
+        "name": "Mühendislik Ekibi",
+        "description": "Ana mühendislik tartışma kanalı",
+        "lastMessage": "Dağıtım başarıyla tamamlandı!"
+      },
+      "GRP002": {
+        "name": "Pazarlama",
+        "description": "Pazarlama ekibi güncellemeleri ve tartışmaları",
+        "lastMessage": "Yeni kampanya materyalleri incelemeye hazır"
+      },
+      "GRP003": {
+        "name": "Proje Alpha",
+        "description": "Proje Alpha ekip iletişimi",
+        "lastMessage": "Bugün saat 15:00'te sprint değerlendirme toplantısı"
+      },
+      "GRP004": {
+        "name": "Genel Toplantı",
+        "description": "Şirket geneli duyurular ve tartışmalar",
+        "lastMessage": "Tatil programı yayınlandı"
+      },
+      "GRP005": {
+        "name": "BT Destek",
+        "description": "BT destek talepleri ve güncellemeler",
+        "lastMessage": "VPN sorunu çözüldü"
+      },
+      "GRP006": {
+        "name": "İK Güncellemeleri",
+        "description": "İnsan kaynakları duyuruları",
+        "lastMessage": "Yeni sosyal haklar paketi bilgisi ektedir"
+      }
+    },
+    "groupMessages": {
+      "GRP001": {
+        "1": "Günaydın ekip! Sprint ilerlemesi hakkında hızlı bir güncelleme.",
+        "2": "API entegrasyonu yaklaşık %80 tamamlandı.",
+        "3": "Kimlik doğrulama modülü için birim testlerini tamamladım.",
+        "4": "Harika ilerleme arkadaşlar! PR'ları bu öğleden sonra inceleyeceğim.",
+        "5": "Mükemmel. Gün sonuna kadar staging'e dağıtımı hedefleyelim.",
+        "6": "Dağıtım başarıyla tamamlandı!"
+      },
+      "GRP002": {
+        "1": "Ekip, yeni kampanya gelecek hafta başlıyor.",
+        "2": "Satış sunumunu buna göre güncelledim.",
+        "3": "Yeni kampanya materyalleri incelemeye hazır"
+      },
+      "GRP003": {
+        "1": "Ekip, Faz 2 için teslimatları sonuçlandırmamız gerekiyor.",
+        "2": "Pazarlama materyalleri benim tarafımda hazır.",
+        "3": "Backend API'ler dağıtıldı ve test edildi.",
+        "4": "Frontend %90 tamamlandı, sadece bazı arayüz hataları düzeltiliyor.",
+        "5": "Bugün saat 15:00'te sprint değerlendirme toplantısı"
+      },
+      "GRP004": {
+        "1": "Herkese merhaba! Yaklaşan tatil programı hakkında hatırlatma.",
+        "2": "Tatil programı yayınlandı"
+      },
+      "GRP005": {
+        "1": "VPN bağlantı sorunları araştırılıyor.",
+        "2": "Ben de sorun yaşıyorum.",
+        "3": "VPN sorunu çözüldü"
+      },
+      "GRP006": {
+        "1": "Merhaba ekip, yeni sosyal haklar bilgisi mevcut.",
+        "2": "Yeni sosyal haklar paketi bilgisi ektedir"
+      }
+    },
+    "announcements": {
+      "ANN001": {
+        "title": "Tatil Mesai Saatleri",
+        "content": "Ofisimizin tatil sezonu nedeniyle 24 Aralık - 1 Ocak tarihleri arasında kapalı olacağını lütfen unutmayınız. Acil durum irtibat kişileri mevcut olacaktır. Herkese güzel bir tatil diliyoruz!"
+      },
+      "ANN002": {
+        "title": "Q4 Genel Toplantısı",
+        "content": "22 Aralık saat 14:00'te ana konferans salonunda çeyreklik genel toplantımıza katılın. Şirket performansını, yaklaşan girişimleri tartışacak ve başarılarımızı kutlayacağız. Uzaktan çalışanlar video konferans bağlantısı üzerinden katılabilir."
+      },
+      "ANN003": {
+        "title": "Yeni Sağlık Yardımları Paketi",
+        "content": "1 Ocak 2025'ten itibaren geçerli olacak sağlık yardımları paketimizde iyileştirmeler yapıldığını duyurmaktan mutluluk duyuyoruz. Yeni paket genişletilmiş ruh sağlığı kapsamı, artırılmış diş sağlığı yardımları ve yeni bir sağlıklı yaşam programı içermektedir. Lütfen ekteki belgeleri inceleyiniz ve sorularınız için İK ile iletişime geçiniz."
+      },
+      "ANN004": {
+        "title": "BT Sistem Bakımı",
+        "content": "Bu Cumartesi, 21 Aralık, saat 22:00 ile 02:00 arasında iç sistemlerimizde planlı bakım yapılacaktır. Bu süre zarfında e-posta ve dahili uygulamalar geçici olarak kullanılamayabilir. Lütfen Cuma günü ayrılmadan önce çalışmalarınızı kaydediniz."
+      },
+      "ANN005": {
+        "title": "Mühendislik Ekibi Güncellemesi",
+        "content": "Mühendislik ekibi yeni bulut altyapımıza geçişi başarıyla tamamlamıştır. Bu iyileştirme daha iyi performans ve güvenilirlik sağlayacaktır. Bu projede yer alan herkese özel teşekkürler!"
+      },
+      "ANN006": {
+        "title": "Otopark Yenileme Çalışması",
+        "content": "Otopark B Bölgesi, 26-28 Aralık tarihleri arasında yüzey yenileme çalışması için kapatılacaktır. Bu süre zarfında lütfen A Bölgesi veya C Bölgesini kullanınız. Bitişikteki alanda ek geçici otopark alanı mevcut olacaktır."
+      }
+    }
   }
 }

@@ -108,7 +108,7 @@ export const Announcements = () => {
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-1">
                 {isPinned && <Pin size={14} className="text-accent-primary" />}
-                <h3 className="font-semibold text-text-primary text-lg">{announcement.title}</h3>
+                <h3 className="font-semibold text-text-primary text-lg">{t(`data.announcements.${announcement.id}.title`, { defaultValue: announcement.title })}</h3>
               </div>
               <div className="flex items-center gap-3">
                 {getPriorityBadge(announcement.priority)}
@@ -149,13 +149,13 @@ export const Announcements = () => {
             })()}
             <div>
               <p className="text-sm font-medium text-text-primary">{announcement.author}</p>
-              <p className="text-xs text-text-secondary">{announcement.authorRole}</p>
+              <p className="text-xs text-text-secondary">{t(`data.positions.${announcement.authorRole}`, { defaultValue: announcement.authorRole })}</p>
             </div>
           </div>
 
           {/* Content Preview */}
           <p className="text-sm text-text-secondary line-clamp-2 mb-4">
-            {announcement.content}
+            {t(`data.announcements.${announcement.id}.content`, { defaultValue: announcement.content })}
           </p>
 
           {/* Footer */}
@@ -281,7 +281,7 @@ export const Announcements = () => {
                     {selectedAnnouncement.pinned && <Pin size={16} className="text-accent-primary" />}
                     {getPriorityBadge(selectedAnnouncement.priority)}
                   </div>
-                  <h2 className="text-xl font-bold text-text-primary">{selectedAnnouncement.title}</h2>
+                  <h2 className="text-xl font-bold text-text-primary">{t(`data.announcements.${selectedAnnouncement.id}.title`, { defaultValue: selectedAnnouncement.title })}</h2>
                 </div>
                 <button
                   onClick={() => setSelectedAnnouncement(null)}
@@ -314,7 +314,7 @@ export const Announcements = () => {
                 })()}
                 <div>
                   <p className="font-medium text-text-primary">{selectedAnnouncement.author}</p>
-                  <p className="text-sm text-text-secondary">{selectedAnnouncement.authorRole}</p>
+                  <p className="text-sm text-text-secondary">{t(`data.positions.${selectedAnnouncement.authorRole}`, { defaultValue: selectedAnnouncement.authorRole })}</p>
                 </div>
                 <span className="text-sm text-text-muted ml-auto">
                   {formatDate(selectedAnnouncement.publishedAt)} {t('announcements.at')} {formatTime(selectedAnnouncement.publishedAt)}
@@ -324,7 +324,7 @@ export const Announcements = () => {
 
             {/* Modal Content */}
             <div className="p-6 overflow-y-auto max-h-[50vh]">
-              <p className="text-text-primary whitespace-pre-wrap">{selectedAnnouncement.content}</p>
+              <p className="text-text-primary whitespace-pre-wrap">{t(`data.announcements.${selectedAnnouncement.id}.content`, { defaultValue: selectedAnnouncement.content })}</p>
 
               {/* Attachments */}
               {selectedAnnouncement.attachments.length > 0 && (
@@ -359,7 +359,7 @@ export const Announcements = () => {
                 <div className="flex items-center gap-4 text-sm text-text-muted">
                   <span className="flex items-center gap-1">
                     <Users size={14} />
-                    {selectedAnnouncement.targetAudience === 'all' ? t('announcements.allEmployees') : selectedAnnouncement.targetAudience}
+                    {selectedAnnouncement.targetAudience === 'all' ? t('announcements.allEmployees') : t(`data.departments.${selectedAnnouncement.targetAudience}`, { defaultValue: selectedAnnouncement.targetAudience })}
                   </span>
                   <span className="flex items-center gap-1">
                     <Eye size={14} />

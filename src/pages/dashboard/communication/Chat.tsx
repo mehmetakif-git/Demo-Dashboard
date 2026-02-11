@@ -180,7 +180,7 @@ export const Chat = () => {
                     </span>
                   </div>
                   <p className="text-sm text-text-secondary truncate">
-                    {conversation.lastMessage}
+                    {t(`data.dm.${conversation.odConversationId}.lastMessage`, { defaultValue: conversation.lastMessage })}
                   </p>
                 </div>
 
@@ -237,7 +237,7 @@ export const Chat = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold text-text-primary">{selectedConversation.otherUser.name}</h3>
-                  <span className="text-xs text-text-secondary capitalize">{selectedConversation.otherUser.status}</span>
+                  <span className="text-xs text-text-secondary capitalize">{t(`status.${selectedConversation.otherUser.status}`)}</span>
                 </div>
               </div>
               <div className="flex items-center gap-2">
@@ -288,7 +288,7 @@ export const Chat = () => {
                                 : 'bg-white/[0.08] backdrop-blur-sm text-text-primary rounded-lg rounded-bl-sm border border-white/[0.08]'
                             }`}
                           >
-                            <p className="text-sm">{message.content}</p>
+                            <p className="text-sm">{t(`data.dm.${selectedConversation!.odConversationId}.${message.id}`, { defaultValue: message.content })}</p>
                             <div className={`flex items-center gap-1 mt-1 ${isSent ? 'justify-end' : 'justify-start'}`}>
                               <span className={`text-xs ${isSent ? 'text-white/70' : 'text-text-muted'}`}>
                                 {formatTime(message.timestamp)}
@@ -393,9 +393,9 @@ export const Chat = () => {
                 />
               </div>
               <h4 className="font-semibold text-text-primary mt-3">{selectedUser.name}</h4>
-              <p className="text-sm text-text-secondary">{selectedUser.position}</p>
+              <p className="text-sm text-text-secondary">{t(`data.positions.${selectedUser.position}`, { defaultValue: selectedUser.position })}</p>
               <span className="inline-flex items-center gap-1 mt-2 px-2 py-1 bg-accent-primary/20 text-accent-primary text-xs rounded-full capitalize">
-                {selectedUser.status}
+                {t(`status.${selectedUser.status}`)}
               </span>
             </div>
 
@@ -411,7 +411,7 @@ export const Chat = () => {
                 </div>
                 <div className="flex items-center gap-3">
                   <Building2 size={16} className="text-text-muted" />
-                  <span className="text-sm text-text-primary">{selectedUser.department}</span>
+                  <span className="text-sm text-text-primary">{t(`data.departments.${selectedUser.department}`, { defaultValue: selectedUser.department })}</span>
                 </div>
               </div>
             </Card>
