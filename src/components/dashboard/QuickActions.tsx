@@ -1,16 +1,18 @@
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { UserPlus, FileText, Plus, BarChart3, Send, Calendar } from 'lucide-react';
 
 const actions = [
-  { id: 1, label: 'Add Member', icon: UserPlus, color: '#10b981' },
-  { id: 2, label: 'Create Invoice', icon: FileText, color: '#547792' },
-  { id: 3, label: 'New Task', icon: Plus, color: '#f59e0b' },
-  { id: 4, label: 'Generate Report', icon: BarChart3, color: '#94B4C1' },
-  { id: 5, label: 'Send Message', icon: Send, color: '#06b6d4' },
-  { id: 6, label: 'Schedule Meeting', icon: Calendar, color: '#ec4899' },
+  { id: 1, key: 'addMember', icon: UserPlus, color: '#10b981' },
+  { id: 2, key: 'createInvoice', icon: FileText, color: '#547792' },
+  { id: 3, key: 'newTask', icon: Plus, color: '#f59e0b' },
+  { id: 4, key: 'generateReport', icon: BarChart3, color: '#94B4C1' },
+  { id: 5, key: 'sendMessage', icon: Send, color: '#06b6d4' },
+  { id: 6, key: 'scheduleMeeting', icon: Calendar, color: '#ec4899' },
 ];
 
 export const QuickActions = () => {
+  const { t } = useTranslation('dashboard');
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -23,7 +25,7 @@ export const QuickActions = () => {
 
       {/* Header */}
       <div className="relative z-10 mb-5">
-        <h3 className="text-lg font-semibold text-white">Quick Actions</h3>
+        <h3 className="text-lg font-semibold text-white">{t('quickActions.title')}</h3>
       </div>
 
       {/* Actions Grid */}
@@ -45,7 +47,7 @@ export const QuickActions = () => {
                 <Icon className="w-5 h-5" style={{ color: action.color }} />
               </div>
               <span className="text-white/70 text-xs font-medium group-hover:text-white transition-colors">
-                {action.label}
+                {t(`quickActions.${action.key}`)}
               </span>
             </motion.button>
           );

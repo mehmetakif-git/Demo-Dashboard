@@ -200,6 +200,8 @@ interface PresetConfig {
 
 const ModuleSelection = () => {
   const { t } = useTranslation('auth');
+  const { t: tSector } = useTranslation('sectors');
+  const sectorKey = (id: string) => id.replace(/-([a-z])/g, (_, c: string) => c.toUpperCase());
   const navigate = useNavigate();
   const { selectedSector, selectedAccountType, setSelectedModules } = useAppStore();
 
@@ -482,7 +484,7 @@ const ModuleSelection = () => {
             <div>
               <p className="text-xs text-text-muted">{t('moduleSelection.selectedIndustry')}</p>
               <h2 className="text-sm font-semibold text-white">
-                {sector?.name || t('moduleSelection.unknownSector')}
+                {sector ? tSector(`${sectorKey(sector.id)}.name`, sector.name) : t('moduleSelection.unknownSector')}
               </h2>
             </div>
             <Check size={16} className="text-emerald-400 ml-2" />

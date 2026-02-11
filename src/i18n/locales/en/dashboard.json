@@ -20,10 +20,12 @@
   },
   "quickActions": {
     "title": "Quick Actions",
-    "addEmployee": "Add Employee",
+    "addMember": "Add Member",
     "createInvoice": "Create Invoice",
     "newTask": "New Task",
-    "generateReport": "Generate Report"
+    "generateReport": "Generate Report",
+    "sendMessage": "Send Message",
+    "scheduleMeeting": "Schedule Meeting"
   },
   "charts": {
     "revenue": "Revenue Overview",

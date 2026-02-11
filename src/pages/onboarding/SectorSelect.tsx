@@ -13,6 +13,8 @@ import type { Sector } from '@/types';
 export const SectorSelect = () => {
   const navigate = useNavigate();
   const { t } = useTranslation('auth');
+  const { t: tSector } = useTranslation('sectors');
+  const sectorKey = (id: string) => id.replace(/-([a-z])/g, (_, c: string) => c.toUpperCase());
   const { setSector } = useAppStore();
   const logout = useAuthStore((state) => state.logout);
 
@@ -203,8 +205,8 @@ export const SectorSelect = () => {
                     </div>
 
                     {/* Content */}
-                    <h3 className="relative z-10 text-lg font-semibold text-white mb-1">{sector.name}</h3>
-                    <p className="relative z-10 text-sm text-white/60">{sector.description}</p>
+                    <h3 className="relative z-10 text-lg font-semibold text-white mb-1">{tSector(`${sectorKey(sector.id)}.name`, sector.name)}</h3>
+                    <p className="relative z-10 text-sm text-white/60">{tSector(`${sectorKey(sector.id)}.description`, sector.description)}</p>
 
                     {/* Hover Glow Effect */}
                     {isActive && (

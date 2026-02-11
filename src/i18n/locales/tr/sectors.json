@@ -15,5 +15,8 @@
   "construction": { "name": "İnşaat", "description": "İnşaat proje yönetimi" },
   "logistics": { "name": "Lojistik", "description": "Lojistik ve tedarik zinciri yönetimi" },
   "manufacturing": { "name": "Üretim", "description": "Üretim ve imalat yönetimi" },
-  "law": { "name": "Hukuk Bürosu", "description": "Hukuk bürosu ve dava yönetimi" }
+  "law": { "name": "Hukuk Bürosu", "description": "Hukuk bürosu ve dava yönetimi" },
+  "retail": { "name": "Perakende", "description": "Perakende mağaza operasyonları" },
+  "finance": { "name": "Finans", "description": "Finansal hizmet yönetimi" },
+  "printShop": { "name": "Matbaa", "description": "Baskı üretim yönetimi" }
 }

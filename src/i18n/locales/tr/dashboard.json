@@ -20,10 +20,12 @@
   },
   "quickActions": {
     "title": "Hızlı İşlemler",
-    "addEmployee": "Çalışan Ekle",
+    "addMember": "Üye Ekle",
     "createInvoice": "Fatura Oluştur",
     "newTask": "Yeni Görev",
-    "generateReport": "Rapor Oluştur"
+    "generateReport": "Rapor Oluştur",
+    "sendMessage": "Mesaj Gönder",
+    "scheduleMeeting": "Toplantı Planla"
   },
   "charts": {
     "revenue": "Gelir Özeti",

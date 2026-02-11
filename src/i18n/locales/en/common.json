@@ -39,7 +39,8 @@
     "signOut": "Logout",
     "send": "Send",
     "copy": "Copy",
-    "copied": "Copied"
+    "copied": "Copied",
+    "contactSupport": "Contact Support"
   },
   "status": {
     "active": "Active",
@@ -180,5 +181,17 @@
     "en": "English",
     "tr": "Türkçe",
     "switchLanguage": "Language"
+  },
+  "tour": {
+    "navigationSidebar": "Navigation Sidebar",
+    "navigationSidebarDesc": "Access all your modules, manage your business areas, and navigate through different sections from here.",
+    "topHeader": "Top Header",
+    "topHeaderDesc": "Quick access to search, notifications, messages, and your profile settings.",
+    "mainContentArea": "Main Content Area",
+    "mainContentAreaDesc": "This is where all your dashboard data, charts, and widgets are displayed.",
+    "logoutButton": "Logout Button",
+    "logoutButtonDesc": "Click here when you want to safely log out of your account.",
+    "skipTour": "Skip tour",
+    "clickToContinue": "Click anywhere to continue"
   }
 }

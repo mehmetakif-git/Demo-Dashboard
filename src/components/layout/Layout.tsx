@@ -1,6 +1,7 @@
 import { Suspense, useState, useEffect, useCallback } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { Sidebar } from './Sidebar';
 import { Header } from './Header';
 import { useAppStore } from '@/store/appStore';
@@ -57,26 +58,6 @@ const PageLoader = () => (
   </div>
 );
 
-// Tour step titles and descriptions
-const tourSteps = [
-  {
-    title: 'Navigation Sidebar',
-    description: 'Access all your modules, manage your business areas, and navigate through different sections from here.',
-  },
-  {
-    title: 'Top Header',
-    description: 'Quick access to search, notifications, messages, and your profile settings.',
-  },
-  {
-    title: 'Main Content Area',
-    description: 'This is where all your dashboard data, charts, and widgets are displayed.',
-  },
-  {
-    title: 'Logout Button',
-    description: 'Click here when you want to safely log out of your account.',
-  },
-];
-
 // Element IDs for each tour step
 const tourElementIds = [
   'dashboard-sidebar',
@@ -90,6 +71,15 @@ export const Layout = () => {
   const location = useLocation();
   const zoom = useResponsiveZoom();
   const { shouldOptimize } = usePerformanceMode();
+  const { t } = useTranslation('common');
+
+  // Tour step titles and descriptions (translated)
+  const tourSteps = [
+    { title: t('tour.navigationSidebar'), description: t('tour.navigationSidebarDesc') },
+    { title: t('tour.topHeader'), description: t('tour.topHeaderDesc') },
+    { title: t('tour.mainContentArea'), description: t('tour.mainContentAreaDesc') },
+    { title: t('tour.logoutButton'), description: t('tour.logoutButtonDesc') },
+  ];
 
   // Spotlight tour state
   const [showSpotlight, setShowSpotlight] = useState(false);
@@ -392,10 +382,10 @@ export const Layout = () => {
                     }}
                     className="text-white/40 text-xs hover:text-white/60 transition-colors pointer-events-auto cursor-pointer"
                   >
-                    Skip tour
+                    {t('tour.skipTour')}
                   </button>
                   <span className="text-[#94B4C1] text-xs font-medium">
-                    Click anywhere to continue
+                    {t('tour.clickToContinue')}
                   </span>
                 </div>
               </div>

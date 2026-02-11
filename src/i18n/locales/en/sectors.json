@@ -5,8 +5,8 @@
   "advertisingAgency": { "name": "Advertising Agency", "description": "Creative agency and campaign management" },
   "eventCompany": { "name": "Event Company", "description": "Event planning and management" },
   "beautySalon": { "name": "Beauty Salon", "description": "Beauty and wellness management" },
-  "laundry": { "name": "Laundry", "description": "Laundry and dry cleaning management" },
-  "hardware": { "name": "Hardware Store", "description": "Hardware store and inventory management" },
+  "laundry": { "name": "Laundry & Dry Cleaning", "description": "Laundry and dry cleaning management" },
+  "hardware": { "name": "Hardware & Inventory", "description": "Hardware store and inventory management" },
   "ecommerce": { "name": "E-Commerce", "description": "Online store and order management" },
   "restaurant": { "name": "Restaurant", "description": "Restaurant and food service management" },
   "healthcare": { "name": "Healthcare", "description": "Medical and healthcare management" },
@@ -15,5 +15,8 @@
   "construction": { "name": "Construction", "description": "Construction project management" },
   "logistics": { "name": "Logistics", "description": "Logistics and supply chain management" },
   "manufacturing": { "name": "Manufacturing", "description": "Manufacturing and production management" },
-  "law": { "name": "Law Firm", "description": "Law firm and case management" }
+  "law": { "name": "Law Firm", "description": "Law firm and case management" },
+  "retail": { "name": "Retail", "description": "Retail store operations" },
+  "finance": { "name": "Finance", "description": "Financial services management" },
+  "printShop": { "name": "Print Shop", "description": "Print production management" }
 }

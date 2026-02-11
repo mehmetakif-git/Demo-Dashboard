@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { ChevronRight } from 'lucide-react';
 import { upcomingTasks } from '@/data/dashboardData';
 
@@ -9,6 +10,7 @@ const priorityColors = {
 };
 
 export const UpcomingTasks = () => {
+  const { t } = useTranslation('dashboard');
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -21,7 +23,7 @@ export const UpcomingTasks = () => {
 
       {/* Header */}
       <div className="relative z-10 flex items-center justify-between mb-5">
-        <h3 className="text-lg font-semibold text-white">Upcoming Tasks</h3>
+        <h3 className="text-lg font-semibold text-white">{t('upcomingTasks.title')}</h3>
       </div>
 
       {/* Tasks List */}
@@ -53,7 +55,7 @@ export const UpcomingTasks = () => {
 
       {/* View All */}
       <button className="relative z-10 flex items-center gap-1 text-[#547792] text-sm font-medium mt-5 hover:text-[#94B4C1] transition-colors group">
-        View All
+        {t('upcomingTasks.viewAll')}
         <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
       </button>
     </motion.div>

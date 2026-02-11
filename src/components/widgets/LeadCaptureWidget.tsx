@@ -174,7 +174,7 @@ ${formData.message || 'No message provided'}`;
 // WhatsApp Contact Component
 const WhatsAppContact = () => {
   const { t } = useTranslation('auth');
-  const defaultMessage = 'Hello, I reviewed the demo panel and would like more information.';
+  const defaultMessage = t('widget.demoRequest.whatsappMessage');
 
   const openWhatsApp = () => {
     const url = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(defaultMessage)}`;
@@ -227,14 +227,7 @@ const DemoRequest = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const sectors = [
-    'Gym & Fitness',
-    'Manpower & Staffing',
-    'Real Estate',
-    'Advertising Agency',
-    'Events Management',
-    'Other',
-  ];
+  const sectorKeys = ['gymFitness', 'manpowerStaffing', 'realEstate', 'advertisingAgency', 'eventsManagement', 'other'];
 
   const employeeCounts = ['1-10', '11-50', '51-200', '201-500', '500+'];
 
@@ -341,9 +334,9 @@ Employee Count: ${formData.employeeCount || 'Not specified'}`;
         className={selectClassName}
       >
         <option value="">{t('widget.demoRequest.selectSector')}</option>
-        {sectors.map((sector) => (
-          <option key={sector} value={sector}>
-            {sector}
+        {sectorKeys.map((key) => (
+          <option key={key} value={key}>
+            {t(`widget.demoRequest.sectors.${key}`)}
           </option>
         ))}
       </select>
@@ -487,7 +480,7 @@ const InterestPopup = ({ isOpen, onClose, onOpenWidget }: InterestPopupProps) =>
                 <motion.button
                   onClick={() => {
                     window.open(
-                      `https://wa.me/${PHONE_NUMBER}?text=Hello, I reviewed the demo panel and would like pricing information.`,
+                      `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(t('widget.demoRequest.whatsappPricingMessage'))}`,
                       '_blank'
                     );
                   }}

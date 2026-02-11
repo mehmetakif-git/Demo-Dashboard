@@ -1,4 +1,5 @@
 import React from 'react';
+import i18next from 'i18next';
 import { AlertOctagon, RefreshCw, Home } from 'lucide-react';
 
 interface ErrorBoundaryProps {
@@ -50,11 +51,10 @@ export class ErrorBoundary extends React.Component<
               <AlertOctagon className="h-10 w-10 text-red-400" />
             </div>
             <h2 className="text-2xl font-bold text-white mb-2">
-              Something went wrong
+              {i18next.t('error.general', { ns: 'common' })}
             </h2>
             <p className="text-text-secondary mb-6">
-              We encountered an unexpected error. Please try again or go back to
-              the dashboard.
+              {i18next.t('error.tryAgain', { ns: 'common' })}
             </p>
             {this.state.error && (
               <div className="mb-6 p-4 rounded-lg bg-white/[0.05] border border-white/[0.08] text-left">
@@ -69,14 +69,14 @@ export class ErrorBoundary extends React.Component<
                 className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.05] px-4 py-2.5 text-sm font-medium text-white hover:bg-border-hover transition-colors"
               >
                 <RefreshCw className="h-4 w-4" />
-                Try Again
+                {i18next.t('buttons.retry', { ns: 'common' })}
               </button>
               <button
                 onClick={this.handleGoHome}
                 className="flex items-center gap-2 rounded-lg bg-accent-primary px-4 py-2.5 text-sm font-medium text-background-primary hover:opacity-90 transition-colors"
               >
                 <Home className="h-4 w-4" />
-                Go to Dashboard
+                {i18next.t('buttons.goHome', { ns: 'common' })}
               </button>
             </div>
           </div>

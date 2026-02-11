@@ -39,7 +39,8 @@
     "signOut": "Çıkış Yap",
     "send": "Gönder",
     "copy": "Kopyala",
-    "copied": "Kopyalandı"
+    "copied": "Kopyalandı",
+    "contactSupport": "Destek Ekibi"
   },
   "status": {
     "active": "Aktif",
@@ -180,5 +181,17 @@
     "en": "English",
     "tr": "Türkçe",
     "switchLanguage": "Dil"
+  },
+  "tour": {
+    "navigationSidebar": "Gezinme Menüsü",
+    "navigationSidebarDesc": "Tüm modüllerinize erişin, iş alanlarınızı yönetin ve farklı bölümler arasında gezinin.",
+    "topHeader": "Üst Başlık",
+    "topHeaderDesc": "Arama, bildirimler, mesajlar ve profil ayarlarınıza hızlı erişim.",
+    "mainContentArea": "Ana İçerik Alanı",
+    "mainContentAreaDesc": "Tüm panel verileriniz, grafikleriniz ve widget'larınız burada görüntülenir.",
+    "logoutButton": "Çıkış Butonu",
+    "logoutButtonDesc": "Hesabınızdan güvenli bir şekilde çıkış yapmak istediğinizde buraya tıklayın.",
+    "skipTour": "Turu atla",
+    "clickToContinue": "Devam etmek için herhangi bir yere tıklayın"
   }
 }
