@@ -24,7 +24,7 @@ import { getProfileImage } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const Visitors = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('accessControl');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
   const [selectedDepartment, setSelectedDepartment] = useState<string>('all');
@@ -73,10 +73,10 @@ export const Visitors = () => {
 
   const getStatusBadge = (status: Visitor['status']) => {
     const config = {
-      'checked-in': { bg: 'bg-green-500/20', text: 'text-green-400', label: 'Checked In', icon: LogIn },
-      'checked-out': { bg: 'bg-gray-500/20', text: 'text-gray-400', label: 'Checked Out', icon: LogOut },
-      expected: { bg: 'bg-blue-500/20', text: 'text-blue-400', label: 'Expected', icon: Clock },
-      cancelled: { bg: 'bg-red-500/20', text: 'text-red-400', label: 'Cancelled', icon: UserX },
+      'checked-in': { bg: 'bg-green-500/20', text: 'text-green-400', label: t('visitors.checkedIn'), icon: LogIn },
+      'checked-out': { bg: 'bg-gray-500/20', text: 'text-gray-400', label: t('visitors.checkedOut'), icon: LogOut },
+      expected: { bg: 'bg-blue-500/20', text: 'text-blue-400', label: t('visitors.expected'), icon: Clock },
+      cancelled: { bg: 'bg-red-500/20', text: 'text-red-400', label: t('visitors.cancelled'), icon: UserX },
     };
     const c = config[status];
     const Icon = c.icon;
@@ -112,15 +112,15 @@ export const Visitors = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('access-control.visitorManagement', 'Visitor Management')}
-        subtitle="Track and manage visitor check-ins and check-outs"
+        title={t('visitors.title')}
+        subtitle={t('visitors.subtitle')}
         actions={
           <div className="flex items-center gap-2">
             <Button variant="secondary" leftIcon={<Calendar size={16} />}>
-              Schedule Visit
+              {t('visitors.scheduleVisit')}
             </Button>
             <Button leftIcon={<Plus size={16} />}>
-              Check In Visitor
+              {t('visitors.checkInVisitor')}
             </Button>
           </div>
         }
@@ -129,31 +129,31 @@ export const Visitors = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         <StatsCard
-          title="Total Visitors"
+          title={t('visitors.totalVisitors')}
           value={stats.total.toString()}
           icon={User}
           iconColor="#547792"
         />
         <StatsCard
-          title="Checked In"
+          title={t('visitors.checkedIn')}
           value={stats.checkedIn.toString()}
           icon={LogIn}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Checked Out"
+          title={t('visitors.checkedOut')}
           value={stats.checkedOut.toString()}
           icon={LogOut}
           iconColor="#6b7280"
         />
         <StatsCard
-          title="Expected Today"
+          title={t('visitors.expectedToday')}
           value={stats.expected.toString()}
           icon={Clock}
           iconColor="#3b82f6"
         />
         <StatsCard
-          title="Today's Visits"
+          title={t('visitors.todaysVisits')}
           value={stats.todayTotal.toString()}
           icon={Calendar}
           iconColor="#f59e0b"
@@ -166,9 +166,9 @@ export const Visitors = () => {
           <div className="flex items-center gap-3">
             <UserCheck size={20} className="text-green-400" />
             <div>
-              <p className="font-medium text-green-400">{stats.checkedIn} Visitors Currently On-Site</p>
+              <p className="font-medium text-green-400">{t('visitors.visitorsOnSite', { count: stats.checkedIn })}</p>
               <p className="text-sm text-green-400/80">
-                All visitors must check out before leaving the premises.
+                {t('visitors.checkOutReminder')}
               </p>
             </div>
           </div>
@@ -181,7 +181,7 @@ export const Visitors = () => {
           <div className="flex flex-wrap gap-4 items-center flex-1">
             <div className="flex-1 min-w-50 max-w-md">
               <Input
-                placeholder="Search visitors..."
+                placeholder={t('visitors.searchVisitors')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 leftIcon={<Search size={16} />}
@@ -193,11 +193,11 @@ export const Visitors = () => {
               onChange={(e) => setSelectedStatus(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Status</option>
-              <option value="checked-in">Checked In</option>
-              <option value="checked-out">Checked Out</option>
-              <option value="expected">Expected</option>
-              <option value="cancelled">Cancelled</option>
+              <option value="all">{t('visitors.allStatus')}</option>
+              <option value="checked-in">{t('visitors.checkedIn')}</option>
+              <option value="checked-out">{t('visitors.checkedOut')}</option>
+              <option value="expected">{t('visitors.expected')}</option>
+              <option value="cancelled">{t('visitors.cancelled')}</option>
             </select>
 
             <select
@@ -205,7 +205,7 @@ export const Visitors = () => {
               onChange={(e) => setSelectedDepartment(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Departments</option>
+              <option value="all">{t('visitors.allDepartments')}</option>
               {departments.map(d => (
                 <option key={d} value={d}>{d}</option>
               ))}
@@ -295,7 +295,7 @@ export const Visitors = () => {
 
                   {/* Purpose */}
                   <div className="p-3 bg-white/[0.05] rounded-lg mb-4">
-                    <p className="text-xs text-text-muted mb-1">Purpose of Visit</p>
+                    <p className="text-xs text-text-muted mb-1">{t('visitors.purposeOfVisit')}</p>
                     <p className="text-sm text-text-primary">{visitor.purpose}</p>
                   </div>
 
@@ -303,7 +303,7 @@ export const Visitors = () => {
                   <div className="space-y-2 mb-4">
                     <div className="flex items-center gap-2 text-sm">
                       <User size={14} className="text-text-muted" />
-                      <span className="text-text-secondary">Host:</span>
+                      <span className="text-text-secondary">{t('visitors.host')}:</span>
                       <span className="text-text-primary">{visitor.hostName}</span>
                     </div>
                     <div className="flex items-center gap-2 text-sm">
@@ -317,7 +317,7 @@ export const Visitors = () => {
                     <div className="flex items-center justify-between text-text-secondary">
                       <span className="flex items-center gap-1">
                         <LogIn size={12} />
-                        Check In
+                        {t('visitors.checkIn')}
                       </span>
                       <span className="text-text-primary">
                         {formatTime(visitor.checkInTime)} - {formatDate(visitor.checkInTime)}
@@ -327,7 +327,7 @@ export const Visitors = () => {
                       <div className="flex items-center justify-between text-text-secondary">
                         <span className="flex items-center gap-1">
                           <LogOut size={12} />
-                          Check Out
+                          {t('visitors.checkOut')}
                         </span>
                         <span className="text-text-primary">
                           {formatTime(visitor.checkOutTime)}
@@ -337,7 +337,7 @@ export const Visitors = () => {
                       <div className="flex items-center justify-between text-text-secondary">
                         <span className="flex items-center gap-1">
                           <Clock size={12} />
-                          Duration
+                          {t('visitors.duration')}
                         </span>
                         <span className="text-green-400">
                           {getDuration(visitor.checkInTime)}
@@ -351,17 +351,17 @@ export const Visitors = () => {
                     {visitor.status === 'checked-in' ? (
                       <button className="flex-1 flex items-center justify-center gap-1 py-2 text-sm text-green-400 hover:bg-green-400/10 rounded transition-colors">
                         <LogOut size={14} />
-                        Check Out
+                        {t('visitors.checkOut')}
                       </button>
                     ) : visitor.status === 'expected' ? (
                       <button className="flex-1 flex items-center justify-center gap-1 py-2 text-sm text-blue-400 hover:bg-blue-400/10 rounded transition-colors">
                         <LogIn size={14} />
-                        Check In
+                        {t('visitors.checkIn')}
                       </button>
                     ) : (
                       <button className="flex-1 flex items-center justify-center gap-1 py-2 text-sm text-text-secondary hover:text-accent-primary hover:bg-accent-primary/10 rounded transition-colors">
                         <Edit size={14} />
-                        View Details
+                        {t('visitors.viewDetails')}
                       </button>
                     )}
                     <button className="px-4 py-2 text-sm text-text-secondary hover:text-accent-primary hover:bg-accent-primary/10 rounded transition-colors">
@@ -380,15 +380,15 @@ export const Visitors = () => {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-white/[0.08]">
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Visitor</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Company</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Host</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Purpose</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Status</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Badge</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Check In</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Check Out</th>
-                  <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">Actions</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('visitors.visitor')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('visitors.company')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('visitors.host')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('visitors.purpose')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('visitors.allStatus')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('visitors.badge')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('visitors.checkIn')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('visitors.checkOut')}</th>
+                  <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">{t('visitors.viewDetails')}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border-default">
@@ -469,7 +469,7 @@ export const Visitors = () => {
       {filteredVisitors.length === 0 && (
         <Card className="p-12 text-center">
           <User size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No visitors found matching your filters</p>
+          <p className="text-text-secondary">{t('visitors.noVisitorsFound')}</p>
         </Card>
       )}
     </div>

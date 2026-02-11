@@ -23,7 +23,7 @@ import { getProfileImage } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const AccessCards = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('accessControl');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
   const [selectedDepartment, setSelectedDepartment] = useState<string>('all');
@@ -68,10 +68,10 @@ export const AccessCards = () => {
 
   const getStatusBadge = (status: AccessCard['status']) => {
     const config = {
-      active: { bg: 'bg-green-500/20', text: 'text-green-400', label: 'Active', icon: CheckCircle },
-      inactive: { bg: 'bg-gray-500/20', text: 'text-gray-400', label: 'Inactive', icon: Ban },
-      lost: { bg: 'bg-red-500/20', text: 'text-red-400', label: 'Lost', icon: AlertTriangle },
-      expired: { bg: 'bg-yellow-500/20', text: 'text-yellow-400', label: 'Expired', icon: Clock },
+      active: { bg: 'bg-green-500/20', text: 'text-green-400', label: t('accessCards.active'), icon: CheckCircle },
+      inactive: { bg: 'bg-gray-500/20', text: 'text-gray-400', label: t('accessCards.inactive'), icon: Ban },
+      lost: { bg: 'bg-red-500/20', text: 'text-red-400', label: t('accessCards.lost'), icon: AlertTriangle },
+      expired: { bg: 'bg-yellow-500/20', text: 'text-yellow-400', label: t('accessCards.expired'), icon: Clock },
     };
     const c = config[status];
     const Icon = c.icon;
@@ -93,15 +93,15 @@ export const AccessCards = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('access-control.accessCards', 'Access Cards')}
-        subtitle="Manage employee access cards and permissions"
+        title={t('accessCards.title')}
+        subtitle={t('accessCards.subtitle')}
         actions={
           <div className="flex items-center gap-2">
             <Button variant="secondary" leftIcon={<Ban size={16} />}>
-              Revoke Selected
+              {t('accessCards.revokeSelected')}
             </Button>
             <Button leftIcon={<Plus size={16} />}>
-              Issue Card
+              {t('accessCards.issueCard')}
             </Button>
           </div>
         }
@@ -110,31 +110,31 @@ export const AccessCards = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         <StatsCard
-          title="Total Cards"
+          title={t('accessCards.totalCards')}
           value={stats.total.toString()}
           icon={CreditCard}
           iconColor="#547792"
         />
         <StatsCard
-          title="Active"
+          title={t('accessCards.active')}
           value={stats.active.toString()}
           icon={CheckCircle}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Inactive"
+          title={t('accessCards.inactive')}
           value={stats.inactive.toString()}
           icon={Ban}
           iconColor="#6b7280"
         />
         <StatsCard
-          title="Lost"
+          title={t('accessCards.lost')}
           value={stats.lost.toString()}
           icon={AlertTriangle}
           iconColor="#ef4444"
         />
         <StatsCard
-          title="Expired"
+          title={t('accessCards.expired')}
           value={stats.expired.toString()}
           icon={Clock}
           iconColor="#f59e0b"
@@ -147,7 +147,7 @@ export const AccessCards = () => {
           <div className="flex flex-wrap gap-4 items-center flex-1">
             <div className="flex-1 min-w-50 max-w-md">
               <Input
-                placeholder="Search cards..."
+                placeholder={t('accessCards.searchCards')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 leftIcon={<Search size={16} />}
@@ -159,11 +159,11 @@ export const AccessCards = () => {
               onChange={(e) => setSelectedStatus(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Status</option>
-              <option value="active">Active</option>
-              <option value="inactive">Inactive</option>
-              <option value="lost">Lost</option>
-              <option value="expired">Expired</option>
+              <option value="all">{t('accessCards.allStatus')}</option>
+              <option value="active">{t('accessCards.active')}</option>
+              <option value="inactive">{t('accessCards.inactive')}</option>
+              <option value="lost">{t('accessCards.lost')}</option>
+              <option value="expired">{t('accessCards.expired')}</option>
             </select>
 
             <select
@@ -171,7 +171,7 @@ export const AccessCards = () => {
               onChange={(e) => setSelectedDepartment(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Departments</option>
+              <option value="all">{t('accessCards.allDepartments')}</option>
               {departments.map(d => (
                 <option key={d} value={d}>{d}</option>
               ))}
@@ -253,7 +253,7 @@ export const AccessCards = () => {
                     {getStatusBadge(card.status)}
                     {isExpiringSoon(card.expiryDate) && card.status === 'active' && (
                       <span className="px-2 py-0.5 rounded text-xs font-medium bg-orange-500/20 text-orange-400">
-                        Expiring Soon
+                        {t('accessCards.expiringSoon')}
                       </span>
                     )}
                   </div>
@@ -275,7 +275,7 @@ export const AccessCards = () => {
                     <div className="flex items-center justify-between text-text-secondary">
                       <span className="flex items-center gap-1">
                         <Calendar size={12} />
-                        Issued
+                        {t('accessCards.issued')}
                       </span>
                       <span className="text-text-primary">
                         {new Date(card.issueDate).toLocaleDateString()}
@@ -284,7 +284,7 @@ export const AccessCards = () => {
                     <div className="flex items-center justify-between text-text-secondary">
                       <span className="flex items-center gap-1">
                         <Clock size={12} />
-                        Expires
+                        {t('accessCards.expires')}
                       </span>
                       <span className={isExpiringSoon(card.expiryDate) ? 'text-orange-400' : 'text-text-primary'}>
                         {new Date(card.expiryDate).toLocaleDateString()}
@@ -296,17 +296,17 @@ export const AccessCards = () => {
                   <div className="flex items-center gap-2 mt-4 pt-3 border-t border-white/[0.08]">
                     <button className="flex-1 flex items-center justify-center gap-1 py-2 text-sm text-text-secondary hover:text-accent-primary hover:bg-accent-primary/10 rounded transition-colors">
                       <Edit size={14} />
-                      Edit
+                      {t('accessCards.edit')}
                     </button>
                     {card.status === 'active' ? (
                       <button className="flex-1 flex items-center justify-center gap-1 py-2 text-sm text-text-secondary hover:text-yellow-400 hover:bg-yellow-400/10 rounded transition-colors">
                         <Ban size={14} />
-                        Revoke
+                        {t('accessCards.revoke')}
                       </button>
                     ) : (
                       <button className="flex-1 flex items-center justify-center gap-1 py-2 text-sm text-text-secondary hover:text-green-400 hover:bg-green-400/10 rounded transition-colors">
                         <CheckCircle size={14} />
-                        Activate
+                        {t('accessCards.activate')}
                       </button>
                     )}
                   </div>
@@ -325,13 +325,13 @@ export const AccessCards = () => {
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">
                     <input type="checkbox" className="rounded border-white/[0.08]" />
                   </th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Holder</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Card Number</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Department</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Access Level</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Status</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Expiry Date</th>
-                  <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">Actions</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('accessCards.holder')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('accessCards.cardNumber')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('accessCards.department')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('accessCards.accessLevel')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('accessCards.allStatus')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('accessCards.expiryDate')}</th>
+                  <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">{t('accessCards.edit')}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border-default">
@@ -396,7 +396,7 @@ export const AccessCards = () => {
       {filteredCards.length === 0 && (
         <Card className="p-12 text-center">
           <CreditCard size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No access cards found matching your filters</p>
+          <p className="text-text-secondary">{t('accessCards.noCardsFound')}</p>
         </Card>
       )}
     </div>

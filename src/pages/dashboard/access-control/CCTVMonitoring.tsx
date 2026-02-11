@@ -46,7 +46,7 @@ const cameraImages: Record<string, string> = {
 type GridLayout = '2x2' | '3x3' | '4x4';
 
 export const CCTVMonitoring = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('accessControl');
   const [gridLayout, setGridLayout] = useState<GridLayout>('3x3');
   const [selectedCamera, setSelectedCamera] = useState<string | null>(null);
   const [mutedCameras, setMutedCameras] = useState<Set<string>>(new Set());
@@ -101,8 +101,8 @@ export const CCTVMonitoring = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('access-control.cctvMonitoring', 'CCTV Monitoring')}
-        subtitle="Live camera feeds and surveillance monitoring"
+        title={t('cctvMonitoring.title')}
+        subtitle={t('cctvMonitoring.subtitle')}
         actions={
           <div className="flex items-center gap-2">
             <Button
@@ -110,7 +110,7 @@ export const CCTVMonitoring = () => {
               size="sm"
               leftIcon={<Settings size={16} />}
             >
-              Settings
+              {t('cctvMonitoring.settings')}
             </Button>
           </div>
         }
@@ -125,7 +125,7 @@ export const CCTVMonitoring = () => {
             </div>
             <div>
               <p className="text-2xl font-bold text-text-primary">{stats.online}</p>
-              <p className="text-sm text-text-secondary">Online</p>
+              <p className="text-sm text-text-secondary">{t('cctvMonitoring.online')}</p>
             </div>
           </div>
         </Card>
@@ -136,7 +136,7 @@ export const CCTVMonitoring = () => {
             </div>
             <div>
               <p className="text-2xl font-bold text-text-primary">{stats.offline}</p>
-              <p className="text-sm text-text-secondary">Offline</p>
+              <p className="text-sm text-text-secondary">{t('cctvMonitoring.offline')}</p>
             </div>
           </div>
         </Card>
@@ -147,7 +147,7 @@ export const CCTVMonitoring = () => {
             </div>
             <div>
               <p className="text-2xl font-bold text-text-primary">{stats.maintenance}</p>
-              <p className="text-sm text-text-secondary">Maintenance</p>
+              <p className="text-sm text-text-secondary">{t('cctvMonitoring.maintenance')}</p>
             </div>
           </div>
         </Card>
@@ -158,7 +158,7 @@ export const CCTVMonitoring = () => {
             </div>
             <div>
               <p className="text-2xl font-bold text-text-primary">{stats.recording}</p>
-              <p className="text-sm text-text-secondary">Recording</p>
+              <p className="text-sm text-text-secondary">{t('cctvMonitoring.recording')}</p>
             </div>
           </div>
         </Card>
@@ -168,7 +168,7 @@ export const CCTVMonitoring = () => {
       <Card className="p-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <span className="text-sm text-text-secondary">Grid Layout:</span>
+            <span className="text-sm text-text-secondary">{t('cctvMonitoring.gridLayout')}</span>
             <div className="flex gap-1 p-1 bg-white/[0.03] backdrop-blur-xl rounded-lg">
               <button
                 onClick={() => { setGridLayout('2x2'); setSelectedCamera(null); }}
@@ -212,7 +212,7 @@ export const CCTVMonitoring = () => {
               size="sm"
               onClick={() => setSelectedCamera(null)}
             >
-              Back to Grid
+              {t('cctvMonitoring.backToGrid')}
             </Button>
           )}
         </div>
@@ -343,7 +343,7 @@ export const CCTVMonitoring = () => {
 
       {/* Camera List Sidebar */}
       <Card className="p-4">
-        <h3 className="font-semibold text-text-primary mb-4">All Cameras</h3>
+        <h3 className="font-semibold text-text-primary mb-4">{t('cctvMonitoring.allCameras')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
           {cameras.map(camera => (
             <button

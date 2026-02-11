@@ -19,7 +19,7 @@ import { accessLogs } from '@/data/accessControlData';
 import { useTranslation } from 'react-i18next';
 
 export const AccessLogs = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('accessControl');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedAction, setSelectedAction] = useState<string>('all');
   const [selectedDoor, setSelectedDoor] = useState<string>('all');
@@ -67,18 +67,18 @@ export const AccessLogs = () => {
   }, [searchQuery, selectedAction, selectedDoor, selectedStatus]);
 
   const getActionBadge = (action: string) => {
-    const config: Record<string, { bg: string; text: string; icon: typeof LogIn }> = {
-      entry: { bg: 'bg-green-500/20', text: 'text-green-400', icon: LogIn },
-      exit: { bg: 'bg-blue-500/20', text: 'text-blue-400', icon: LogOut },
-      denied: { bg: 'bg-yellow-500/20', text: 'text-yellow-400', icon: XCircle },
-      alarm: { bg: 'bg-red-500/20', text: 'text-red-400', icon: AlertTriangle },
+    const config: Record<string, { bg: string; text: string; icon: typeof LogIn; label: string }> = {
+      entry: { bg: 'bg-green-500/20', text: 'text-green-400', icon: LogIn, label: t('accessLogs.entry') },
+      exit: { bg: 'bg-blue-500/20', text: 'text-blue-400', icon: LogOut, label: t('accessLogs.exit') },
+      denied: { bg: 'bg-yellow-500/20', text: 'text-yellow-400', icon: XCircle, label: t('accessLogs.denied') },
+      alarm: { bg: 'bg-red-500/20', text: 'text-red-400', icon: AlertTriangle, label: t('accessLogs.alerts') },
     };
     const c = config[action] || config.entry;
     const Icon = c.icon;
     return (
       <span className={`flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium capitalize ${c.bg} ${c.text}`}>
         <Icon size={12} />
-        {action}
+        {c.label}
       </span>
     );
   };
@@ -113,15 +113,15 @@ export const AccessLogs = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('access-control.accessLogs', 'Access Logs')}
-        subtitle="Monitor and audit access events across all entry points"
+        title={t('accessLogs.title')}
+        subtitle={t('accessLogs.subtitle')}
         actions={
           <div className="flex items-center gap-2">
             <Button variant="secondary" leftIcon={<RefreshCw size={16} />}>
-              Refresh
+              {t('accessLogs.refresh')}
             </Button>
             <Button leftIcon={<Download size={16} />}>
-              Export Logs
+              {t('accessLogs.exportLogs')}
             </Button>
           </div>
         }
@@ -130,31 +130,31 @@ export const AccessLogs = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         <StatsCard
-          title="Total Logs"
+          title={t('accessLogs.totalLogs')}
           value={stats.total.toString()}
           icon={Clock}
           iconColor="#547792"
         />
         <StatsCard
-          title="Today's Entries"
+          title={t('accessLogs.todaysEntries')}
           value={stats.todayEntries.toString()}
           icon={LogIn}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Today's Exits"
+          title={t('accessLogs.todaysExits')}
           value={stats.todayExits.toString()}
           icon={LogOut}
           iconColor="#3b82f6"
         />
         <StatsCard
-          title="Denied Attempts"
+          title={t('accessLogs.deniedAttempts')}
           value={stats.deniedAttempts.toString()}
           icon={XCircle}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Alerts"
+          title={t('accessLogs.alerts')}
           value={stats.alerts.toString()}
           icon={AlertTriangle}
           iconColor={stats.alerts > 0 ? '#ef4444' : '#6b7280'}
@@ -167,9 +167,9 @@ export const AccessLogs = () => {
           <div className="flex items-center gap-3">
             <AlertTriangle size={20} className="text-red-400" />
             <div>
-              <p className="font-medium text-red-400">Security Alerts Detected</p>
+              <p className="font-medium text-red-400">{t('accessLogs.securityAlerts')}</p>
               <p className="text-sm text-red-400/80">
-                {stats.alerts} alarm event(s) recorded. Review the logs for more details.
+                {t('accessLogs.alarmEventsMessage', { count: stats.alerts })}
               </p>
             </div>
           </div>
@@ -181,7 +181,7 @@ export const AccessLogs = () => {
         <div className="flex flex-wrap gap-4 items-center">
           <div className="flex-1 min-w-50 max-w-md">
             <Input
-              placeholder="Search by name, card, or door..."
+              placeholder={t('accessLogs.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               leftIcon={<Search size={16} />}
@@ -193,11 +193,11 @@ export const AccessLogs = () => {
             onChange={(e) => setSelectedAction(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Actions</option>
-            <option value="entry">Entry</option>
-            <option value="exit">Exit</option>
-            <option value="denied">Denied</option>
-            <option value="alarm">Alarm</option>
+            <option value="all">{t('accessLogs.allActions')}</option>
+            <option value="entry">{t('accessLogs.entry')}</option>
+            <option value="exit">{t('accessLogs.exit')}</option>
+            <option value="denied">{t('accessLogs.denied')}</option>
+            <option value="alarm">{t('accessLogs.alerts')}</option>
           </select>
 
           <select
@@ -205,7 +205,7 @@ export const AccessLogs = () => {
             onChange={(e) => setSelectedDoor(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Doors</option>
+            <option value="all">{t('accessLogs.allDoors')}</option>
             {uniqueDoors.map(d => (
               <option key={d} value={d}>{d}</option>
             ))}
@@ -216,13 +216,13 @@ export const AccessLogs = () => {
             onChange={(e) => setSelectedStatus(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Status</option>
-            <option value="success">Success</option>
-            <option value="failed">Failed</option>
+            <option value="all">{t('accessLogs.allStatus')}</option>
+            <option value="success">{t('accessLogs.success')}</option>
+            <option value="failed">{t('accessLogs.failed')}</option>
           </select>
 
           <Button variant="secondary" size="sm" leftIcon={<Filter size={14} />}>
-            More Filters
+            {t('accessLogs.moreFilters')}
           </Button>
         </div>
       </Card>
@@ -233,13 +233,13 @@ export const AccessLogs = () => {
           <table className="w-full">
             <thead>
               <tr className="border-b border-white/[0.08]">
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Time</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">User</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Card</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Door</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Action</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Method</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Status</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('accessLogs.time')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('accessLogs.user')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('accessLogs.card')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('accessLogs.door')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('accessLogs.action')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('accessLogs.method')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('accessLogs.allStatus')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border-default">
@@ -306,7 +306,7 @@ export const AccessLogs = () => {
                           ? 'bg-green-500/20 text-green-400'
                           : 'bg-red-500/20 text-red-400'
                       }`}>
-                        {log.status}
+                        {log.status === 'success' ? t('accessLogs.success') : t('accessLogs.failed')}
                       </span>
                     </td>
                   </motion.tr>
@@ -319,14 +319,14 @@ export const AccessLogs = () => {
         {/* Pagination */}
         <div className="flex items-center justify-between p-4 border-t border-white/[0.08]">
           <p className="text-sm text-text-secondary">
-            Showing {filteredLogs.length} of {accessLogs.length} logs
+            {t('accessLogs.showing', { filtered: filteredLogs.length, total: accessLogs.length })}
           </p>
           <div className="flex items-center gap-2">
             <Button variant="secondary" size="sm" disabled>
-              Previous
+              {t('accessLogs.previous')}
             </Button>
             <Button variant="secondary" size="sm">
-              Next
+              {t('accessLogs.next')}
             </Button>
           </div>
         </div>
@@ -335,7 +335,7 @@ export const AccessLogs = () => {
       {filteredLogs.length === 0 && (
         <Card className="p-12 text-center">
           <Clock size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No access logs found matching your filters</p>
+          <p className="text-text-secondary">{t('accessLogs.noLogsFound')}</p>
         </Card>
       )}
 
@@ -344,10 +344,10 @@ export const AccessLogs = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />
-            <span className="text-sm text-text-secondary">Live monitoring active</span>
+            <span className="text-sm text-text-secondary">{t('accessLogs.liveMonitoring')}</span>
           </div>
           <span className="text-xs text-text-muted">
-            Last updated: {new Date().toLocaleTimeString()}
+            {t('accessLogs.lastUpdated', { time: new Date().toLocaleTimeString() })}
           </span>
         </div>
       </Card>

@@ -20,7 +20,7 @@ import { parkingSpots, getParkingStatusColor, type ParkingSpot } from '@/data/ac
 import { useTranslation } from 'react-i18next';
 
 export const Parking = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('accessControl');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedZone, setSelectedZone] = useState<string>('all');
   const [selectedType, setSelectedType] = useState<string>('all');
@@ -71,10 +71,10 @@ export const Parking = () => {
 
   const getStatusBadge = (status: ParkingSpot['status']) => {
     const config = {
-      available: { bg: 'bg-green-500/20', text: 'text-green-400', label: 'Available' },
-      occupied: { bg: 'bg-red-500/20', text: 'text-red-400', label: 'Occupied' },
-      reserved: { bg: 'bg-blue-500/20', text: 'text-blue-400', label: 'Reserved' },
-      maintenance: { bg: 'bg-yellow-500/20', text: 'text-yellow-400', label: 'Maintenance' },
+      available: { bg: 'bg-green-500/20', text: 'text-green-400', label: t('parking.available') },
+      occupied: { bg: 'bg-red-500/20', text: 'text-red-400', label: t('parking.occupied') },
+      reserved: { bg: 'bg-blue-500/20', text: 'text-blue-400', label: t('parking.reserved') },
+      maintenance: { bg: 'bg-yellow-500/20', text: 'text-yellow-400', label: t('parking.maintenance') },
     };
     const c = config[status];
     return (
@@ -103,10 +103,17 @@ export const Parking = () => {
       reserved: { bg: 'bg-[#94B4C1]/20', text: 'text-[#94B4C1]' },
       visitor: { bg: 'bg-orange-500/20', text: 'text-orange-400' },
     };
+    const typeLabels: Record<string, string> = {
+      regular: t('parking.regular'),
+      handicap: t('parking.handicap'),
+      ev: t('parking.evCharging'),
+      reserved: t('parking.reserved'),
+      visitor: t('parking.visitor'),
+    };
     const c = config[type];
     return (
       <span className={`px-2 py-0.5 rounded text-xs font-medium capitalize ${c.bg} ${c.text}`}>
-        {type}
+        {typeLabels[type]}
       </span>
     );
   };
@@ -135,15 +142,15 @@ export const Parking = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('access-control.parkingManagement', 'Parking Management')}
-        subtitle="Monitor and manage parking spaces across all zones"
+        title={t('parking.title')}
+        subtitle={t('parking.subtitle')}
         actions={
           <div className="flex items-center gap-2">
             <Button variant="secondary" leftIcon={<Wrench size={16} />}>
-              Maintenance Mode
+              {t('parking.maintenanceMode')}
             </Button>
             <Button leftIcon={<Plus size={16} />}>
-              Add Spot
+              {t('parking.addSpot')}
             </Button>
           </div>
         }
@@ -152,31 +159,31 @@ export const Parking = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         <StatsCard
-          title="Total Spots"
+          title={t('parking.totalSpots')}
           value={stats.total.toString()}
           icon={ParkingCircle}
           iconColor="#547792"
         />
         <StatsCard
-          title="Available"
+          title={t('parking.available')}
           value={stats.available.toString()}
           icon={Car}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Occupied"
+          title={t('parking.occupied')}
           value={stats.occupied.toString()}
           icon={Car}
           iconColor="#ef4444"
         />
         <StatsCard
-          title="Reserved"
+          title={t('parking.reserved')}
           value={stats.reserved.toString()}
           icon={Star}
           iconColor="#3b82f6"
         />
         <StatsCard
-          title="Maintenance"
+          title={t('parking.maintenance')}
           value={stats.maintenance.toString()}
           icon={Wrench}
           iconColor="#f59e0b"
@@ -186,9 +193,9 @@ export const Parking = () => {
       {/* Occupancy Overview */}
       <Card className="p-4">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="font-semibold text-text-primary">Occupancy Overview</h3>
+          <h3 className="font-semibold text-text-primary">{t('parking.occupancyOverview')}</h3>
           <span className="text-sm text-text-secondary">
-            {Math.round((stats.occupied / stats.total) * 100)}% Full
+            {t('parking.percentFull', { percent: Math.round((stats.occupied / stats.total) * 100) })}
           </span>
         </div>
         <div className="w-full h-4 bg-white/[0.05] rounded-full overflow-hidden flex">
@@ -208,19 +215,19 @@ export const Parking = () => {
         <div className="flex items-center gap-6 mt-3 text-xs text-text-secondary">
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-green-500" />
-            Available ({stats.available})
+            {t('parking.available')} ({stats.available})
           </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-red-500" />
-            Occupied ({stats.occupied})
+            {t('parking.occupied')} ({stats.occupied})
           </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-blue-500" />
-            Reserved ({stats.reserved})
+            {t('parking.reserved')} ({stats.reserved})
           </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-yellow-500" />
-            Maintenance ({stats.maintenance})
+            {t('parking.maintenance')} ({stats.maintenance})
           </div>
         </div>
       </Card>
@@ -231,7 +238,7 @@ export const Parking = () => {
           <div className="flex flex-wrap gap-4 items-center flex-1">
             <div className="flex-1 min-w-50 max-w-md">
               <Input
-                placeholder="Search spots..."
+                placeholder={t('parking.searchSpots')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 leftIcon={<Search size={16} />}
@@ -243,7 +250,7 @@ export const Parking = () => {
               onChange={(e) => setSelectedZone(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Zones</option>
+              <option value="all">{t('parking.allZones')}</option>
               {zones.map(z => (
                 <option key={z} value={z}>{z}</option>
               ))}
@@ -254,12 +261,12 @@ export const Parking = () => {
               onChange={(e) => setSelectedType(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Types</option>
-              <option value="regular">Regular</option>
-              <option value="handicap">Handicap</option>
-              <option value="ev">EV Charging</option>
-              <option value="reserved">Reserved</option>
-              <option value="visitor">Visitor</option>
+              <option value="all">{t('parking.allTypes')}</option>
+              <option value="regular">{t('parking.regular')}</option>
+              <option value="handicap">{t('parking.handicap')}</option>
+              <option value="ev">{t('parking.evCharging')}</option>
+              <option value="reserved">{t('parking.reserved')}</option>
+              <option value="visitor">{t('parking.visitor')}</option>
             </select>
 
             <select
@@ -267,11 +274,11 @@ export const Parking = () => {
               onChange={(e) => setSelectedStatus(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Status</option>
-              <option value="available">Available</option>
-              <option value="occupied">Occupied</option>
-              <option value="reserved">Reserved</option>
-              <option value="maintenance">Maintenance</option>
+              <option value="all">{t('parking.allStatus')}</option>
+              <option value="available">{t('parking.available')}</option>
+              <option value="occupied">{t('parking.occupied')}</option>
+              <option value="reserved">{t('parking.reserved')}</option>
+              <option value="maintenance">{t('parking.maintenance')}</option>
             </select>
           </div>
 
@@ -381,10 +388,10 @@ export const Parking = () => {
                 </div>
                 <div className="flex items-center gap-4 text-sm">
                   <span className="text-green-400">
-                    {spots.filter(s => s.status === 'available').length} available
+                    {t('parking.availableCount', { count: spots.filter(s => s.status === 'available').length })}
                   </span>
                   <span className="text-red-400">
-                    {spots.filter(s => s.status === 'occupied').length} occupied
+                    {t('parking.occupiedCount', { count: spots.filter(s => s.status === 'occupied').length })}
                   </span>
                 </div>
               </div>
@@ -393,12 +400,12 @@ export const Parking = () => {
                 <table className="w-full">
                   <thead>
                     <tr className="border-b border-white/[0.08]">
-                      <th className="text-left py-2 px-3 text-xs font-medium text-text-secondary">Spot</th>
-                      <th className="text-left py-2 px-3 text-xs font-medium text-text-secondary">Type</th>
-                      <th className="text-left py-2 px-3 text-xs font-medium text-text-secondary">Status</th>
-                      <th className="text-left py-2 px-3 text-xs font-medium text-text-secondary">Vehicle</th>
-                      <th className="text-left py-2 px-3 text-xs font-medium text-text-secondary">Assigned To</th>
-                      <th className="text-left py-2 px-3 text-xs font-medium text-text-secondary">Duration</th>
+                      <th className="text-left py-2 px-3 text-xs font-medium text-text-secondary">{t('parking.spot')}</th>
+                      <th className="text-left py-2 px-3 text-xs font-medium text-text-secondary">{t('parking.type')}</th>
+                      <th className="text-left py-2 px-3 text-xs font-medium text-text-secondary">{t('parking.allStatus')}</th>
+                      <th className="text-left py-2 px-3 text-xs font-medium text-text-secondary">{t('parking.vehicle')}</th>
+                      <th className="text-left py-2 px-3 text-xs font-medium text-text-secondary">{t('parking.assignedTo')}</th>
+                      <th className="text-left py-2 px-3 text-xs font-medium text-text-secondary">{t('parking.duration')}</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-border-default">
@@ -429,7 +436,7 @@ export const Parking = () => {
       {filteredSpots.length === 0 && (
         <Card className="p-12 text-center">
           <ParkingCircle size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No parking spots found matching your filters</p>
+          <p className="text-text-secondary">{t('parking.noParkingSpotsFound')}</p>
         </Card>
       )}
     </div>

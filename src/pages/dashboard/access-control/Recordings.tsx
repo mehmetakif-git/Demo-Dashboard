@@ -19,7 +19,7 @@ import { recordings, cameras } from '@/data/accessControlData';
 import { useTranslation } from 'react-i18next';
 
 export const Recordings = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('accessControl');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCamera, setSelectedCamera] = useState<string>('all');
   const [selectedType, setSelectedType] = useState<string>('all');
@@ -74,10 +74,16 @@ export const Recordings = () => {
       scheduled: { bg: 'bg-[#94B4C1]/20', text: 'text-[#94B4C1]' },
       manual: { bg: 'bg-green-500/20', text: 'text-green-400' },
     };
+    const typeLabels: Record<string, string> = {
+      continuous: t('recordings.continuous'),
+      motion: t('recordings.motion'),
+      scheduled: t('recordings.scheduled'),
+      manual: t('recordings.manual'),
+    };
     const c = config[type] || { bg: 'bg-gray-500/20', text: 'text-gray-400' };
     return (
       <span className={`px-2 py-0.5 rounded text-xs font-medium capitalize ${c.bg} ${c.text}`}>
-        {type}
+        {typeLabels[type] || type}
       </span>
     );
   };
@@ -88,10 +94,15 @@ export const Recordings = () => {
       archived: { bg: 'bg-gray-500/20', text: 'text-gray-400' },
       processing: { bg: 'bg-yellow-500/20', text: 'text-yellow-400' },
     };
+    const statusLabels: Record<string, string> = {
+      available: t('recordings.available'),
+      archived: t('recordings.archived'),
+      processing: t('recordings.processing'),
+    };
     const c = config[status] || { bg: 'bg-gray-500/20', text: 'text-gray-400' };
     return (
       <span className={`px-2 py-0.5 rounded text-xs font-medium capitalize ${c.bg} ${c.text}`}>
-        {status}
+        {statusLabels[status] || status}
       </span>
     );
   };
@@ -109,15 +120,15 @@ export const Recordings = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('access-control.recordings', 'Recordings')}
-        subtitle="View and manage camera recordings"
+        title={t('recordings.title')}
+        subtitle={t('recordings.subtitle')}
         actions={
           <div className="flex items-center gap-2">
             <Button variant="secondary" leftIcon={<Archive size={16} />}>
-              Archive Old
+              {t('recordings.archiveOld')}
             </Button>
             <Button leftIcon={<Download size={16} />}>
-              Export Selected
+              {t('recordings.exportSelected')}
             </Button>
           </div>
         }
@@ -126,25 +137,25 @@ export const Recordings = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Recordings"
+          title={t('recordings.totalRecordings')}
           value={stats.total.toString()}
           icon={Film}
           iconColor="#547792"
         />
         <StatsCard
-          title="Available"
+          title={t('recordings.available')}
           value={stats.available.toString()}
           icon={Play}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Archived"
+          title={t('recordings.archived')}
           value={stats.archived.toString()}
           icon={Archive}
           iconColor="#6b7280"
         />
         <StatsCard
-          title="Total Storage"
+          title={t('recordings.totalStorage')}
           value={stats.totalStorage}
           icon={HardDrive}
           iconColor="#f59e0b"
@@ -156,7 +167,7 @@ export const Recordings = () => {
         <div className="flex flex-wrap gap-4 items-center">
           <div className="flex-1 min-w-50 max-w-md">
             <Input
-              placeholder="Search recordings..."
+              placeholder={t('recordings.searchRecordings')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               leftIcon={<Search size={16} />}
@@ -168,7 +179,7 @@ export const Recordings = () => {
             onChange={(e) => setSelectedCamera(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Cameras</option>
+            <option value="all">{t('recordings.allCameras')}</option>
             {cameras.map(c => (
               <option key={c.id} value={c.id}>{c.name}</option>
             ))}
@@ -179,11 +190,11 @@ export const Recordings = () => {
             onChange={(e) => setSelectedType(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Types</option>
-            <option value="continuous">Continuous</option>
-            <option value="motion">Motion</option>
-            <option value="scheduled">Scheduled</option>
-            <option value="manual">Manual</option>
+            <option value="all">{t('recordings.allTypes')}</option>
+            <option value="continuous">{t('recordings.continuous')}</option>
+            <option value="motion">{t('recordings.motion')}</option>
+            <option value="scheduled">{t('recordings.scheduled')}</option>
+            <option value="manual">{t('recordings.manual')}</option>
           </select>
 
           <select
@@ -191,14 +202,14 @@ export const Recordings = () => {
             onChange={(e) => setSelectedStatus(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Status</option>
-            <option value="available">Available</option>
-            <option value="archived">Archived</option>
-            <option value="processing">Processing</option>
+            <option value="all">{t('recordings.allStatus')}</option>
+            <option value="available">{t('recordings.available')}</option>
+            <option value="archived">{t('recordings.archived')}</option>
+            <option value="processing">{t('recordings.processing')}</option>
           </select>
 
           <Button variant="secondary" size="sm" leftIcon={<Filter size={14} />}>
-            More Filters
+            {t('recordings.moreFilters')}
           </Button>
         </div>
       </Card>
@@ -212,13 +223,13 @@ export const Recordings = () => {
                 <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">
                   <input type="checkbox" className="rounded border-white/[0.08]" />
                 </th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Camera</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Time</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Duration</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Type</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Size</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Status</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">Actions</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('recordings.camera')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('recordings.time')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('recordings.duration')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('recordings.type')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('recordings.size')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('recordings.allStatus')}</th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">{t('recordings.camera')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border-default">
@@ -246,7 +257,7 @@ export const Recordings = () => {
                       <Calendar size={14} className="text-text-muted" />
                       <div>
                         <p className="text-text-primary">{formatDateTime(recording.startTime)}</p>
-                        <p className="text-xs text-text-secondary">to {formatDateTime(recording.endTime)}</p>
+                        <p className="text-xs text-text-secondary">{t('recordings.to')} {formatDateTime(recording.endTime)}</p>
                       </div>
                     </div>
                   </td>
@@ -297,14 +308,14 @@ export const Recordings = () => {
         {/* Pagination */}
         <div className="flex items-center justify-between p-4 border-t border-white/[0.08]">
           <p className="text-sm text-text-secondary">
-            Showing {filteredRecordings.length} of {recordings.length} recordings
+            {t('recordings.showing', { filtered: filteredRecordings.length, total: recordings.length })}
           </p>
           <div className="flex items-center gap-2">
             <Button variant="secondary" size="sm" disabled>
-              Previous
+              {t('recordings.previous')}
             </Button>
             <Button variant="secondary" size="sm">
-              Next
+              {t('recordings.next')}
             </Button>
           </div>
         </div>
@@ -313,7 +324,7 @@ export const Recordings = () => {
       {filteredRecordings.length === 0 && (
         <Card className="p-12 text-center">
           <Film size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No recordings found matching your filters</p>
+          <p className="text-text-secondary">{t('recordings.noRecordingsFound')}</p>
         </Card>
       )}
 
@@ -323,8 +334,8 @@ export const Recordings = () => {
           <div className="flex items-center gap-4">
             <HardDrive size={20} className="text-text-muted" />
             <div>
-              <p className="text-sm font-medium text-text-primary">Storage Usage</p>
-              <p className="text-xs text-text-secondary">82.5 GB used of 500 GB</p>
+              <p className="text-sm font-medium text-text-primary">{t('recordings.storageUsage')}</p>
+              <p className="text-xs text-text-secondary">{t('recordings.storageDetail', { used: '82.5 GB', total: '500 GB' })}</p>
             </div>
           </div>
           <div className="flex-1 max-w-md mx-8">
@@ -336,7 +347,7 @@ export const Recordings = () => {
             </div>
           </div>
           <Button variant="secondary" size="sm" leftIcon={<RefreshCw size={14} />}>
-            Clean Up
+            {t('recordings.cleanUp')}
           </Button>
         </div>
       </Card>

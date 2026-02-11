@@ -22,7 +22,7 @@ import { cameras, getCameraStatusColor, type Camera as CameraType } from '@/data
 import { useTranslation } from 'react-i18next';
 
 export const Cameras = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('accessControl');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
   const [selectedType, setSelectedType] = useState<string>('all');
@@ -61,9 +61,9 @@ export const Cameras = () => {
 
   const getStatusBadge = (status: CameraType['status']) => {
     const config = {
-      online: { bg: 'bg-green-500/20', text: 'text-green-400', label: 'Online' },
-      offline: { bg: 'bg-red-500/20', text: 'text-red-400', label: 'Offline' },
-      maintenance: { bg: 'bg-yellow-500/20', text: 'text-yellow-400', label: 'Maintenance' },
+      online: { bg: 'bg-green-500/20', text: 'text-green-400', label: t('cameras.online') },
+      offline: { bg: 'bg-red-500/20', text: 'text-red-400', label: t('cameras.offline') },
+      maintenance: { bg: 'bg-yellow-500/20', text: 'text-yellow-400', label: t('cameras.maintenance') },
     };
     const c = config[status];
     return (
@@ -79,10 +79,15 @@ export const Cameras = () => {
       outdoor: { bg: 'bg-[#94B4C1]/20', text: 'text-[#94B4C1]' },
       ptz: { bg: 'bg-[#547792]/20', text: 'text-[#547792]' },
     };
+    const typeLabels: Record<string, string> = {
+      indoor: t('cameras.indoor'),
+      outdoor: t('cameras.outdoor'),
+      ptz: t('cameras.ptz'),
+    };
     const c = config[type];
     return (
       <span className={`px-2 py-0.5 rounded text-xs font-medium uppercase ${c.bg} ${c.text}`}>
-        {type}
+        {typeLabels[type]}
       </span>
     );
   };
@@ -90,11 +95,11 @@ export const Cameras = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('access-control.cameras', 'Cameras')}
-        subtitle="Manage and configure security cameras"
+        title={t('cameras.title')}
+        subtitle={t('cameras.subtitle')}
         actions={
           <Button leftIcon={<Plus size={16} />}>
-            Add Camera
+            {t('cameras.addCamera')}
           </Button>
         }
       />
@@ -102,25 +107,25 @@ export const Cameras = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Cameras"
+          title={t('cameras.totalCameras')}
           value={stats.total.toString()}
           icon={Camera}
           iconColor="#547792"
         />
         <StatsCard
-          title="Online"
+          title={t('cameras.online')}
           value={stats.online.toString()}
           icon={Wifi}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Offline"
+          title={t('cameras.offline')}
           value={stats.offline.toString()}
           icon={WifiOff}
           iconColor="#ef4444"
         />
         <StatsCard
-          title="Maintenance"
+          title={t('cameras.maintenance')}
           value={stats.maintenance.toString()}
           icon={Settings}
           iconColor="#f59e0b"
@@ -133,7 +138,7 @@ export const Cameras = () => {
           <div className="flex flex-wrap gap-4 items-center flex-1">
             <div className="flex-1 min-w-50 max-w-md">
               <Input
-                placeholder="Search cameras..."
+                placeholder={t('cameras.searchCameras')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 leftIcon={<Search size={16} />}
@@ -145,10 +150,10 @@ export const Cameras = () => {
               onChange={(e) => setSelectedStatus(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Status</option>
-              <option value="online">Online</option>
-              <option value="offline">Offline</option>
-              <option value="maintenance">Maintenance</option>
+              <option value="all">{t('cameras.allStatus')}</option>
+              <option value="online">{t('cameras.online')}</option>
+              <option value="offline">{t('cameras.offline')}</option>
+              <option value="maintenance">{t('cameras.maintenance')}</option>
             </select>
 
             <select
@@ -156,10 +161,10 @@ export const Cameras = () => {
               onChange={(e) => setSelectedType(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Types</option>
-              <option value="indoor">Indoor</option>
-              <option value="outdoor">Outdoor</option>
-              <option value="ptz">PTZ</option>
+              <option value="all">{t('cameras.allTypes')}</option>
+              <option value="indoor">{t('cameras.indoor')}</option>
+              <option value="outdoor">{t('cameras.outdoor')}</option>
+              <option value="ptz">{t('cameras.ptz')}</option>
             </select>
           </div>
 
@@ -242,7 +247,7 @@ export const Cameras = () => {
                   <div className="flex items-center gap-2 mb-4">
                     <Video size={14} className={camera.recording ? 'text-red-400' : 'text-text-muted'} />
                     <span className={`text-sm ${camera.recording ? 'text-red-400' : 'text-text-muted'}`}>
-                      {camera.recording ? 'Recording' : 'Not Recording'}
+                      {camera.recording ? t('cameras.recording') : t('cameras.notRecording')}
                     </span>
                     {camera.recording && (
                       <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
@@ -252,13 +257,13 @@ export const Cameras = () => {
                   {/* Meta Info */}
                   <div className="pt-3 border-t border-white/[0.08] space-y-2 text-xs text-text-secondary">
                     <div className="flex justify-between">
-                      <span>Last Maintenance</span>
+                      <span>{t('cameras.lastMaintenance')}</span>
                       <span className="text-text-primary">
                         {new Date(camera.lastMaintenance).toLocaleDateString()}
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span>Installed</span>
+                      <span>{t('cameras.installed')}</span>
                       <span className="text-text-primary">
                         {new Date(camera.installDate).toLocaleDateString()}
                       </span>
@@ -269,15 +274,15 @@ export const Cameras = () => {
                   <div className="flex items-center gap-2 mt-4 pt-3 border-t border-white/[0.08]">
                     <button className="flex-1 flex items-center justify-center gap-1 py-2 text-sm text-text-secondary hover:text-accent-primary hover:bg-accent-primary/10 rounded transition-colors">
                       <Edit size={14} />
-                      Edit
+                      {t('cameras.edit')}
                     </button>
                     <button className="flex-1 flex items-center justify-center gap-1 py-2 text-sm text-text-secondary hover:text-blue-400 hover:bg-blue-400/10 rounded transition-colors">
                       <RefreshCw size={14} />
-                      Restart
+                      {t('cameras.restart')}
                     </button>
                     <button className="flex-1 flex items-center justify-center gap-1 py-2 text-sm text-text-secondary hover:text-red-400 hover:bg-red-400/10 rounded transition-colors">
                       <Power size={14} />
-                      {camera.status === 'online' ? 'Disable' : 'Enable'}
+                      {camera.status === 'online' ? t('cameras.disable') : t('cameras.enable')}
                     </button>
                   </div>
                 </div>
@@ -292,14 +297,14 @@ export const Cameras = () => {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-white/[0.08]">
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Camera</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Location</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Status</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Type</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Resolution</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Recording</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">IP Address</th>
-                  <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">Actions</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('cameras.camera')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('cameras.location')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('cameras.allStatus')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('cameras.type')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('cameras.resolution')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('cameras.recording')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('cameras.ipAddress')}</th>
+                  <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">{t('cameras.edit')}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border-default">
@@ -327,7 +332,7 @@ export const Cameras = () => {
                       <div className="flex items-center gap-2">
                         <div className={`w-2 h-2 rounded-full ${camera.recording ? 'bg-red-500 animate-pulse' : 'bg-gray-500'}`} />
                         <span className="text-sm text-text-secondary">
-                          {camera.recording ? 'Yes' : 'No'}
+                          {camera.recording ? t('cameras.yes') : t('cameras.no')}
                         </span>
                       </div>
                     </td>
@@ -353,7 +358,7 @@ export const Cameras = () => {
       {filteredCameras.length === 0 && (
         <Card className="p-12 text-center">
           <Camera size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No cameras found matching your filters</p>
+          <p className="text-text-secondary">{t('cameras.noCamerasFound')}</p>
         </Card>
       )}
     </div>

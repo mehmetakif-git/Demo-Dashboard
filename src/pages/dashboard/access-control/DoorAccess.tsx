@@ -21,7 +21,7 @@ import { doors, getDoorStatusColor, type Door } from '@/data/accessControlData';
 import { useTranslation } from 'react-i18next';
 
 export const DoorAccess = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('accessControl');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
   const [selectedType, setSelectedType] = useState<string>('all');
@@ -60,9 +60,9 @@ export const DoorAccess = () => {
 
   const getStatusBadge = (status: Door['status']) => {
     const config = {
-      locked: { bg: 'bg-green-500/20', text: 'text-green-400', label: 'Locked', icon: Lock },
-      unlocked: { bg: 'bg-blue-500/20', text: 'text-blue-400', label: 'Unlocked', icon: Unlock },
-      alarm: { bg: 'bg-red-500/20', text: 'text-red-400', label: 'Alarm', icon: AlertTriangle },
+      locked: { bg: 'bg-green-500/20', text: 'text-green-400', label: t('doorAccess.locked'), icon: Lock },
+      unlocked: { bg: 'bg-blue-500/20', text: 'text-blue-400', label: t('doorAccess.unlocked'), icon: Unlock },
+      alarm: { bg: 'bg-red-500/20', text: 'text-red-400', label: t('doorAccess.alarm'), icon: AlertTriangle },
     };
     const c = config[status];
     const Icon = c.icon;
@@ -81,10 +81,16 @@ export const DoorAccess = () => {
       emergency: { bg: 'bg-orange-500/20', text: 'text-orange-400' },
       restricted: { bg: 'bg-red-500/20', text: 'text-red-400' },
     };
+    const typeLabels: Record<string, string> = {
+      main: t('doorAccess.main'),
+      interior: t('doorAccess.interior'),
+      emergency: t('doorAccess.emergency'),
+      restricted: t('doorAccess.restricted'),
+    };
     const c = config[type];
     return (
       <span className={`px-2 py-0.5 rounded text-xs font-medium capitalize ${c.bg} ${c.text}`}>
-        {type}
+        {typeLabels[type]}
       </span>
     );
   };
@@ -104,15 +110,15 @@ export const DoorAccess = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('access-control.doorAccess', 'Door Access')}
-        subtitle="Manage and monitor door access points"
+        title={t('doorAccess.title')}
+        subtitle={t('doorAccess.subtitle')}
         actions={
           <div className="flex items-center gap-2">
             <Button variant="secondary" leftIcon={<Lock size={16} />}>
-              Lock All
+              {t('doorAccess.lockAll')}
             </Button>
             <Button leftIcon={<Plus size={16} />}>
-              Add Door
+              {t('doorAccess.addDoor')}
             </Button>
           </div>
         }
@@ -121,25 +127,25 @@ export const DoorAccess = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Doors"
+          title={t('doorAccess.totalDoors')}
           value={stats.total.toString()}
           icon={DoorOpen}
           iconColor="#547792"
         />
         <StatsCard
-          title="Locked"
+          title={t('doorAccess.locked')}
           value={stats.locked.toString()}
           icon={Lock}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Unlocked"
+          title={t('doorAccess.unlocked')}
           value={stats.unlocked.toString()}
           icon={Unlock}
           iconColor="#3b82f6"
         />
         <StatsCard
-          title="Alarms"
+          title={t('doorAccess.alarms')}
           value={stats.alarm.toString()}
           icon={AlertTriangle}
           iconColor={stats.alarm > 0 ? '#ef4444' : '#6b7280'}
@@ -152,13 +158,13 @@ export const DoorAccess = () => {
           <div className="flex items-center gap-3">
             <AlertTriangle size={20} className="text-red-400" />
             <div>
-              <p className="font-medium text-red-400">Security Alert</p>
+              <p className="font-medium text-red-400">{t('doorAccess.securityAlert')}</p>
               <p className="text-sm text-red-400/80">
-                {stats.alarm} door(s) triggered alarm. Immediate attention required.
+                {t('doorAccess.doorAlarmMessage', { count: stats.alarm })}
               </p>
             </div>
             <Button variant="secondary" size="sm" className="ml-auto">
-              View Details
+              {t('doorAccess.viewDetails')}
             </Button>
           </div>
         </Card>
@@ -170,7 +176,7 @@ export const DoorAccess = () => {
           <div className="flex flex-wrap gap-4 items-center flex-1">
             <div className="flex-1 min-w-50 max-w-md">
               <Input
-                placeholder="Search doors..."
+                placeholder={t('doorAccess.searchDoors')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 leftIcon={<Search size={16} />}
@@ -182,10 +188,10 @@ export const DoorAccess = () => {
               onChange={(e) => setSelectedStatus(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Status</option>
-              <option value="locked">Locked</option>
-              <option value="unlocked">Unlocked</option>
-              <option value="alarm">Alarm</option>
+              <option value="all">{t('doorAccess.allStatus')}</option>
+              <option value="locked">{t('doorAccess.locked')}</option>
+              <option value="unlocked">{t('doorAccess.unlocked')}</option>
+              <option value="alarm">{t('doorAccess.alarm')}</option>
             </select>
 
             <select
@@ -193,11 +199,11 @@ export const DoorAccess = () => {
               onChange={(e) => setSelectedType(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Types</option>
-              <option value="main">Main</option>
-              <option value="interior">Interior</option>
-              <option value="emergency">Emergency</option>
-              <option value="restricted">Restricted</option>
+              <option value="all">{t('doorAccess.allTypes')}</option>
+              <option value="main">{t('doorAccess.main')}</option>
+              <option value="interior">{t('doorAccess.interior')}</option>
+              <option value="emergency">{t('doorAccess.emergency')}</option>
+              <option value="restricted">{t('doorAccess.restricted')}</option>
             </select>
           </div>
 
@@ -281,7 +287,7 @@ export const DoorAccess = () => {
                   {/* Access Level */}
                   <div className="flex items-center gap-2 mb-3 text-sm">
                     <Shield size={14} className="text-text-muted" />
-                    <span className="text-text-secondary">Access Level:</span>
+                    <span className="text-text-secondary">{t('doorAccess.accessLevel')}:</span>
                     <span className="text-text-primary font-medium">{door.accessLevel}</span>
                   </div>
 
@@ -289,7 +295,7 @@ export const DoorAccess = () => {
                   <div className="p-3 bg-white/[0.05] rounded-lg mb-4">
                     <div className="flex items-center gap-2 text-xs text-text-secondary mb-1">
                       <Clock size={12} />
-                      Last Access
+                      {t('doorAccess.lastAccess')}
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
@@ -312,18 +318,18 @@ export const DoorAccess = () => {
                       {door.status === 'locked' ? (
                         <>
                           <Unlock size={14} />
-                          Unlock
+                          {t('doorAccess.unlock')}
                         </>
                       ) : (
                         <>
                           <Lock size={14} />
-                          Lock
+                          {t('doorAccess.lock')}
                         </>
                       )}
                     </button>
                     <button className="flex-1 flex items-center justify-center gap-1 py-2 text-sm text-text-secondary hover:text-accent-primary hover:bg-accent-primary/10 rounded transition-colors">
                       <Settings size={14} />
-                      Settings
+                      {t('doorAccess.settings')}
                     </button>
                   </div>
                 </div>
@@ -338,13 +344,13 @@ export const DoorAccess = () => {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-white/[0.08]">
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Door</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Location</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Status</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Type</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Access Level</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Last Access</th>
-                  <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">Actions</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('doorAccess.door')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('doorAccess.location')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('doorAccess.allStatus')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('doorAccess.type')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('doorAccess.accessLevel')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('doorAccess.lastAccess')}</th>
+                  <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">{t('doorAccess.settings')}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border-default">
@@ -407,7 +413,7 @@ export const DoorAccess = () => {
       {filteredDoors.length === 0 && (
         <Card className="p-12 text-center">
           <DoorOpen size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No doors found matching your filters</p>
+          <p className="text-text-secondary">{t('doorAccess.noDoorsFound')}</p>
         </Card>
       )}
     </div>
