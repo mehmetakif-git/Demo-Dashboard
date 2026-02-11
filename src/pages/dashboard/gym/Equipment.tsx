@@ -24,7 +24,7 @@ import { useTranslation } from 'react-i18next';
 type StatusFilter = 'all' | 'operational' | 'maintenance' | 'out-of-order';
 
 export const Equipment = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('gym');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<StatusFilter>('all');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
@@ -65,10 +65,10 @@ export const Equipment = () => {
   };
 
   const statCards = [
-    { title: 'Total Equipment', value: stats.total.toString(), icon: Dumbbell, iconColor: '#547792' },
-    { title: 'Operational', value: stats.operational.toString(), icon: CheckCircle, iconColor: '#10b981' },
-    { title: 'Under Maintenance', value: stats.maintenance.toString(), icon: AlertTriangle, iconColor: '#f59e0b' },
-    { title: 'Out of Order', value: stats.outOfOrder.toString(), icon: XCircle, iconColor: '#ef4444' },
+    { title: t('equipment.totalEquipment'), value: stats.total.toString(), icon: Dumbbell, iconColor: '#547792' },
+    { title: t('equipment.operational'), value: stats.operational.toString(), icon: CheckCircle, iconColor: '#10b981' },
+    { title: t('equipment.underMaintenance'), value: stats.maintenance.toString(), icon: AlertTriangle, iconColor: '#f59e0b' },
+    { title: t('equipment.outOfOrder'), value: stats.outOfOrder.toString(), icon: XCircle, iconColor: '#ef4444' },
   ];
 
   return (
@@ -79,12 +79,12 @@ export const Equipment = () => {
       className="space-y-6"
     >
       <PageHeader
-        title={t('gym.equipment', 'Equipment')}
-        subtitle="Manage gym equipment and maintenance"
+        title={t('equipment.title')}
+        subtitle={t('equipment.subtitle')}
         actions={
           <Button onClick={() => console.log('Add equipment')}>
             <Plus className="h-4 w-4 mr-2" />
-            Add Equipment
+            {t('equipment.addEquipment')}
           </Button>
         }
       />
@@ -108,7 +108,7 @@ export const Equipment = () => {
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-secondary" />
             <Input
-              placeholder="Search equipment..."
+              placeholder={t('equipment.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -120,10 +120,10 @@ export const Equipment = () => {
             onChange={(e) => setStatusFilter(e.target.value as StatusFilter)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Status</option>
-            <option value="operational">Operational</option>
-            <option value="maintenance">Under Maintenance</option>
-            <option value="out-of-order">Out of Order</option>
+            <option value="all">{t('equipment.allStatus')}</option>
+            <option value="operational">{t('equipment.operational')}</option>
+            <option value="maintenance">{t('equipment.underMaintenance')}</option>
+            <option value="out-of-order">{t('equipment.outOfOrder')}</option>
           </select>
 
           <select
@@ -131,7 +131,7 @@ export const Equipment = () => {
             onChange={(e) => setCategoryFilter(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Categories</option>
+            <option value="all">{t('equipment.allCategories')}</option>
             {categories.map((cat) => (
               <option key={cat} value={cat}>
                 {cat}
@@ -144,7 +144,7 @@ export const Equipment = () => {
             onChange={(e) => setLocationFilter(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Locations</option>
+            <option value="all">{t('equipment.allLocations')}</option>
             {locations.map((loc) => (
               <option key={loc} value={loc}>
                 {loc}
@@ -288,8 +288,8 @@ export const Equipment = () => {
       {filteredEquipment.length === 0 && (
         <Card className="p-12 text-center">
           <Dumbbell className="h-12 w-12 mx-auto text-text-muted mb-4" />
-          <h3 className="text-lg font-medium text-text-primary mb-2">No equipment found</h3>
-          <p className="text-text-secondary">Try adjusting your search or filter criteria</p>
+          <h3 className="text-lg font-medium text-text-primary mb-2">{t('equipment.noEquipmentFound')}</h3>
+          <p className="text-text-secondary">{t('equipment.adjustFilters')}</p>
         </Card>
       )}
 

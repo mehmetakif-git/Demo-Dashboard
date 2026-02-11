@@ -30,12 +30,12 @@ import { useTranslation } from 'react-i18next';
 const DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 
 export const TrainerDetail = () => {
-  const { t: _t } = useTranslation('common');
+  const { t } = useTranslation('gym');
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const [activeTab, setActiveTab] = useState('schedule');
 
-  const trainer = trainers.find((t) => t.id === id);
+  const trainer = trainers.find((tr) => tr.id === id);
   const trainerClients = gymMembers.filter((m) => m.assignedTrainerId === id);
   const trainerClasses = gymClasses.filter((c) => c.instructorId === id);
   const trainerSessions = ptSessions.filter((s) => s.trainerId === id);
@@ -44,10 +44,10 @@ export const TrainerDetail = () => {
     return (
       <div className="flex items-center justify-center h-96">
         <div className="text-center">
-          <h2 className="text-xl font-semibold text-text-primary mb-2">Trainer not found</h2>
+          <h2 className="text-xl font-semibold text-text-primary mb-2">{t('trainerDetail.trainerNotFound')}</h2>
           <Button onClick={() => navigate(ROUTES.gym.trainers)}>
             <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to Trainers
+            {t('trainerDetail.backToTrainers')}
           </Button>
         </div>
       </div>
@@ -55,10 +55,10 @@ export const TrainerDetail = () => {
   }
 
   const tabs = [
-    { id: 'schedule', label: 'Schedule' },
-    { id: 'clients', label: 'Clients' },
-    { id: 'classes', label: 'Classes' },
-    { id: 'reviews', label: 'Reviews' },
+    { id: 'schedule', label: t('trainerDetail.schedule') },
+    { id: 'clients', label: t('trainerDetail.clients') },
+    { id: 'classes', label: t('trainerDetail.classes') },
+    { id: 'reviews', label: t('trainerDetail.reviews') },
   ];
 
   return (
@@ -74,7 +74,7 @@ export const TrainerDetail = () => {
         className="flex items-center gap-2 text-text-secondary hover:text-text-primary transition-colors"
       >
         <ArrowLeft className="h-4 w-4" />
-        <span>Back to Trainers</span>
+        <span>{t('trainerDetail.backToTrainers')}</span>
       </button>
 
       {/* Header */}
@@ -99,7 +99,7 @@ export const TrainerDetail = () => {
                   <Star className="h-5 w-5 text-yellow-400 fill-yellow-400" />
                   <span className="text-text-primary font-semibold">{trainer.rating}</span>
                 </div>
-                <span className="text-text-secondary">({trainer.reviewCount} reviews)</span>
+                <span className="text-text-secondary">({trainer.reviewCount} {t('trainerDetail.reviews')})</span>
                 <span
                   className={`px-2 py-1 rounded-full text-xs font-medium ${
                     trainer.status === 'active'
@@ -126,15 +126,15 @@ export const TrainerDetail = () => {
           <div className="flex flex-wrap gap-2">
             <Button variant="outline" onClick={() => console.log('Edit trainer')}>
               <Edit className="h-4 w-4 mr-2" />
-              Edit Profile
+              {t('trainerDetail.editProfile')}
             </Button>
             <Button variant="outline" onClick={() => console.log('Message trainer')}>
               <MessageSquare className="h-4 w-4 mr-2" />
-              Message
+              {t('trainerDetail.message')}
             </Button>
             <Button onClick={() => console.log('Schedule with trainer')}>
               <Calendar className="h-4 w-4 mr-2" />
-              Book Session
+              {t('trainerDetail.bookSession')}
             </Button>
           </div>
         </div>
@@ -148,7 +148,7 @@ export const TrainerDetail = () => {
               <DollarSign className="h-5 w-5 text-accent-primary" />
             </div>
             <div>
-              <p className="text-sm text-text-secondary">Hourly Rate</p>
+              <p className="text-sm text-text-secondary">{t('trainerDetail.hourlyRate')}</p>
               <p className="text-text-primary font-semibold">{formatCurrency(trainer.hourlyRate)}</p>
             </div>
           </div>
@@ -159,7 +159,7 @@ export const TrainerDetail = () => {
               <Users className="h-5 w-5 text-green-400" />
             </div>
             <div>
-              <p className="text-sm text-text-secondary">Active Clients</p>
+              <p className="text-sm text-text-secondary">{t('trainerDetail.activeClients')}</p>
               <p className="text-text-primary font-semibold">{trainer.activeClients}</p>
             </div>
           </div>
@@ -170,7 +170,7 @@ export const TrainerDetail = () => {
               <Calendar className="h-5 w-5 text-blue-400" />
             </div>
             <div>
-              <p className="text-sm text-text-secondary">Total Sessions</p>
+              <p className="text-sm text-text-secondary">{t('trainerDetail.totalSessions')}</p>
               <p className="text-text-primary font-semibold">{trainer.totalSessions.toLocaleString()}</p>
             </div>
           </div>
@@ -181,8 +181,8 @@ export const TrainerDetail = () => {
               <Clock className="h-5 w-5 text-[#94B4C1]" />
             </div>
             <div>
-              <p className="text-sm text-text-secondary">Experience</p>
-              <p className="text-text-primary font-semibold">{trainer.experience} years</p>
+              <p className="text-sm text-text-secondary">{t('trainerDetail.experience')}</p>
+              <p className="text-text-primary font-semibold">{trainer.experience} {t('trainerDetail.years')}</p>
             </div>
           </div>
         </Card>
@@ -191,26 +191,26 @@ export const TrainerDetail = () => {
       {/* Contact & Bio */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <Card className="p-6">
-          <h2 className="text-lg font-semibold text-text-primary mb-4">Contact Information</h2>
+          <h2 className="text-lg font-semibold text-text-primary mb-4">{t('trainerDetail.contactInformation')}</h2>
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <Mail className="h-5 w-5 text-text-muted" />
               <div>
-                <p className="text-sm text-text-secondary">Email</p>
+                <p className="text-sm text-text-secondary">{t('trainerDetail.email')}</p>
                 <p className="text-text-primary">{trainer.email}</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
               <Phone className="h-5 w-5 text-text-muted" />
               <div>
-                <p className="text-sm text-text-secondary">Phone</p>
+                <p className="text-sm text-text-secondary">{t('trainerDetail.phone')}</p>
                 <p className="text-text-primary">{trainer.phone}</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
               <Calendar className="h-5 w-5 text-text-muted" />
               <div>
-                <p className="text-sm text-text-secondary">Joined</p>
+                <p className="text-sm text-text-secondary">{t('trainerDetail.joined')}</p>
                 <p className="text-text-primary">{formatDate(trainer.joinDate)}</p>
               </div>
             </div>
@@ -218,11 +218,11 @@ export const TrainerDetail = () => {
         </Card>
 
         <Card className="p-6 lg:col-span-2">
-          <h2 className="text-lg font-semibold text-text-primary mb-4">About</h2>
+          <h2 className="text-lg font-semibold text-text-primary mb-4">{t('trainerDetail.about')}</h2>
           <p className="text-text-secondary mb-4">{trainer.bio}</p>
           <h3 className="text-sm font-semibold text-text-primary mb-2 flex items-center gap-2">
             <Award className="h-4 w-4 text-accent-primary" />
-            Certifications
+            {t('trainerDetail.certifications')}
           </h3>
           <div className="flex flex-wrap gap-2">
             {trainer.certifications.map((cert, index) => (
@@ -243,7 +243,7 @@ export const TrainerDetail = () => {
       {/* Tab Content */}
       {activeTab === 'schedule' && (
         <Card className="p-6">
-          <h2 className="text-lg font-semibold text-text-primary mb-4">Weekly Availability</h2>
+          <h2 className="text-lg font-semibold text-text-primary mb-4">{t('trainerDetail.weeklyAvailability')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-4">
             {DAYS.map((day) => {
               const availability = trainer.availability[day as keyof typeof trainer.availability];
@@ -263,7 +263,7 @@ export const TrainerDetail = () => {
                     </div>
                   ) : (
                     <div className="px-2 py-1 rounded bg-gray-500/10 text-gray-400 text-xs">
-                      Off
+                      {t('trainerDetail.off')}
                     </div>
                   )}
                 </div>
@@ -271,25 +271,25 @@ export const TrainerDetail = () => {
             })}
           </div>
 
-          <h3 className="text-lg font-semibold text-text-primary mt-8 mb-4">Upcoming Sessions</h3>
+          <h3 className="text-lg font-semibold text-text-primary mt-8 mb-4">{t('trainerDetail.upcomingSessions')}</h3>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
                 <tr className="border-b border-white/[0.08]">
                   <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                    Client
+                    {t('trainerDetail.client')}
                   </th>
                   <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                    Date
+                    {t('trainerDetail.date')}
                   </th>
                   <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                    Time
+                    {t('trainerDetail.time')}
                   </th>
                   <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                    Type
+                    {t('trainerDetail.type')}
                   </th>
                   <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                    Status
+                    {t('trainerDetail.status')}
                   </th>
                 </tr>
               </thead>
@@ -315,7 +315,7 @@ export const TrainerDetail = () => {
                 ) : (
                   <tr>
                     <td colSpan={5} className="py-8 text-center text-text-secondary">
-                      No upcoming sessions
+                      {t('trainerDetail.noUpcomingSessions')}
                     </td>
                   </tr>
                 )}
@@ -410,7 +410,7 @@ export const TrainerDetail = () => {
         <Card className="p-6">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h2 className="text-lg font-semibold text-text-primary">Reviews</h2>
+              <h2 className="text-lg font-semibold text-text-primary">{t('trainerDetail.reviewsTitle')}</h2>
               <div className="flex items-center gap-2 mt-1">
                 <div className="flex items-center">
                   {[1, 2, 3, 4, 5].map((star) => (

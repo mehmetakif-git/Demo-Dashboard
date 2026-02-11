@@ -29,7 +29,7 @@ import { getProfileImage } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const Assessments = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('gym');
   const [searchQuery, setSearchQuery] = useState('');
   const [memberFilter, setMemberFilter] = useState('all');
   const [selectedAssessment, setSelectedAssessment] = useState<FitnessAssessment | null>(null);
@@ -130,11 +130,11 @@ export const Assessments = () => {
       className="space-y-6"
     >
       <PageHeader
-        title={t('gym.fitnessAssessments', 'Fitness Assessments')}
-        subtitle="Track member fitness progress and metrics"
+        title={t('assessments.title')}
+        subtitle={t('assessments.subtitle')}
         actions={
           <Button leftIcon={<Plus size={16} />} onClick={() => setIsNewAssessmentOpen(true)}>
-            New Assessment
+            {t('assessments.newAssessment')}
           </Button>
         }
       />
@@ -142,25 +142,25 @@ export const Assessments = () => {
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Assessments"
+          title={t('assessments.totalAssessments')}
           value={stats.total.toString()}
           icon={ClipboardList}
           iconColor="#547792"
         />
         <StatsCard
-          title="This Month"
+          title={t('assessments.thisMonth')}
           value={stats.thisMonth.toString()}
           icon={Calendar}
           iconColor="#94B4C1"
         />
         <StatsCard
-          title="Showing Improvement"
+          title={t('assessments.showingImprovement')}
           value={stats.improved.toString()}
           icon={TrendingUp}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Needs Attention"
+          title={t('assessments.needsAttention')}
           value={stats.needsAttention.toString()}
           icon={TrendingDown}
           iconColor="#f59e0b"
@@ -172,7 +172,7 @@ export const Assessments = () => {
         <div className="flex flex-wrap gap-4 items-center">
           <div className="w-64">
             <Input
-              placeholder="Search member..."
+              placeholder={t('assessments.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               leftIcon={<Search size={16} />}
@@ -183,7 +183,7 @@ export const Assessments = () => {
             onChange={(e) => setMemberFilter(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Members</option>
+            <option value="all">{t('assessments.allMembers')}</option>
             {gymMembers.map(member => (
               <option key={member.id} value={member.id}>
                 {member.firstName} {member.lastName}
@@ -319,7 +319,7 @@ export const Assessments = () => {
         {filteredAssessments.length === 0 && (
           <Card className="p-12 text-center">
             <ClipboardList className="h-12 w-12 mx-auto mb-4 text-text-muted" />
-            <p className="text-text-secondary">No assessments found</p>
+            <p className="text-text-secondary">{t('assessments.noAssessments')}</p>
           </Card>
         )}
       </div>
@@ -369,7 +369,7 @@ export const Assessments = () => {
 
               {/* Body Metrics */}
               <div className="mb-6">
-                <h4 className="text-sm font-semibold text-text-primary mb-3">Body Composition</h4>
+                <h4 className="text-sm font-semibold text-text-primary mb-3">{t('assessments.bodyComposition')}</h4>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div className="p-4 bg-white/[0.05] rounded-lg">
                     <p className="text-xs text-text-muted mb-1">Weight</p>
@@ -410,7 +410,7 @@ export const Assessments = () => {
 
               {/* Cardiovascular */}
               <div className="mb-6">
-                <h4 className="text-sm font-semibold text-text-primary mb-3">Cardiovascular Health</h4>
+                <h4 className="text-sm font-semibold text-text-primary mb-3">{t('assessments.cardiovascularHealth')}</h4>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   <div className="p-4 bg-white/[0.05] rounded-lg">
                     <p className="text-xs text-text-muted mb-1">Resting Heart Rate</p>
@@ -429,7 +429,7 @@ export const Assessments = () => {
 
               {/* Fitness Tests */}
               <div className="mb-6">
-                <h4 className="text-sm font-semibold text-text-primary mb-3">Fitness Performance</h4>
+                <h4 className="text-sm font-semibold text-text-primary mb-3">{t('assessments.fitnessPerformance')}</h4>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div className="p-4 bg-white/[0.05] rounded-lg">
                     <p className="text-xs text-text-muted mb-1">Flexibility</p>
@@ -475,10 +475,10 @@ export const Assessments = () => {
 
               <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-white/[0.08]">
                 <Button variant="outline" onClick={() => setSelectedAssessment(null)}>
-                  Close
+                  {t('assessments.close')}
                 </Button>
                 <Button>
-                  Download PDF
+                  {t('assessments.downloadPdf')}
                 </Button>
               </div>
             </Card>
@@ -502,7 +502,7 @@ export const Assessments = () => {
           >
             <Card className="p-6">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-lg font-semibold text-text-primary">New Fitness Assessment</h3>
+                <h3 className="text-lg font-semibold text-text-primary">{t('assessments.newFitnessAssessment')}</h3>
                 <button
                   onClick={() => setIsNewAssessmentOpen(false)}
                   className="p-2 hover:bg-white/[0.05] rounded transition-colors"
@@ -679,13 +679,13 @@ export const Assessments = () => {
 
               <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-white/[0.08]">
                 <Button variant="outline" onClick={() => setIsNewAssessmentOpen(false)}>
-                  Cancel
+                  {t('assessments.cancel')}
                 </Button>
                 <Button
                   onClick={handleCreateAssessment}
                   disabled={!assessmentForm.memberId || !assessmentForm.trainerId}
                 >
-                  Save Assessment
+                  {t('assessments.saveAssessment')}
                 </Button>
               </div>
             </Card>

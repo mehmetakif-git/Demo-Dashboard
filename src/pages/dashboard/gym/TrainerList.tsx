@@ -21,17 +21,17 @@ import { profileImages } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const TrainerList = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('gym');
   const navigate = useNavigate();
 
   const totalTrainers = trainers.length;
-  const totalClients = trainers.reduce((sum, t) => sum + t.activeClients, 0);
-  const avgRating = (trainers.reduce((sum, t) => sum + t.rating, 0) / trainers.length).toFixed(1);
+  const totalClients = trainers.reduce((sum, tr) => sum + tr.activeClients, 0);
+  const avgRating = (trainers.reduce((sum, tr) => sum + tr.rating, 0) / trainers.length).toFixed(1);
 
   const stats = [
-    { title: 'Total Trainers', value: totalTrainers.toString(), icon: Users, iconColor: '#547792' },
-    { title: 'Active Clients', value: totalClients.toString(), icon: Users, iconColor: '#10b981' },
-    { title: 'Average Rating', value: avgRating, icon: Star, iconColor: '#f59e0b' },
+    { title: t('trainerList.totalTrainers'), value: totalTrainers.toString(), icon: Users, iconColor: '#547792' },
+    { title: t('trainerList.activeClients'), value: totalClients.toString(), icon: Users, iconColor: '#10b981' },
+    { title: t('trainerList.averageRating'), value: avgRating, icon: Star, iconColor: '#f59e0b' },
   ];
 
   const handleViewTrainer = (trainerId: string) => {
@@ -46,12 +46,12 @@ export const TrainerList = () => {
       className="space-y-6"
     >
       <PageHeader
-        title={t('gym.trainers', 'Trainers')}
-        subtitle="Manage personal trainers and staff"
+        title={t('trainerList.title')}
+        subtitle={t('trainerList.subtitle')}
         actions={
           <Button onClick={() => console.log('Add trainer')}>
             <Plus className="h-4 w-4 mr-2" />
-            Add Trainer
+            {t('trainerList.addTrainer')}
           </Button>
         }
       />
@@ -89,6 +89,7 @@ interface TrainerCardProps {
 }
 
 const TrainerCard = ({ trainer, onView }: TrainerCardProps) => {
+  const { t } = useTranslation('gym');
   const isAvailableToday = () => {
     const today = new Date().toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase();
     const availability = trainer.availability[today as keyof typeof trainer.availability];
@@ -115,7 +116,7 @@ const TrainerCard = ({ trainer, onView }: TrainerCardProps) => {
             <div className="flex items-center gap-1 mt-1">
               <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
               <span className="text-text-primary font-medium">{trainer.rating}</span>
-              <span className="text-text-secondary text-sm">({trainer.reviewCount} reviews)</span>
+              <span className="text-text-secondary text-sm">({trainer.reviewCount} {t('trainerList.reviews')})</span>
             </div>
           </div>
         </div>
@@ -126,7 +127,7 @@ const TrainerCard = ({ trainer, onView }: TrainerCardProps) => {
               : 'bg-gray-500/10 text-gray-400'
           }`}
         >
-          {isAvailableToday() ? 'Available' : 'Not Available'}
+          {isAvailableToday() ? t('trainerList.available') : t('trainerList.notAvailable')}
         </div>
       </div>
 
@@ -154,20 +155,20 @@ const TrainerCard = ({ trainer, onView }: TrainerCardProps) => {
           </div>
           <div className="flex items-center gap-1 text-text-secondary">
             <Users className="h-4 w-4" />
-            <span>{trainer.activeClients} clients</span>
+            <span>{trainer.activeClients} {t('trainerList.clients')}</span>
           </div>
         </div>
 
         <div className="flex items-center gap-1 text-sm text-text-secondary">
           <Clock className="h-4 w-4" />
-          <span>{trainer.experience} years experience</span>
+          <span>{t('trainerList.yearsExperience', { count: trainer.experience })}</span>
         </div>
       </div>
 
       <div className="flex items-center gap-2 pt-4 border-t border-white/[0.08]">
         <Button variant="ghost" size="sm" className="flex-1" onClick={onView}>
           <Eye className="h-4 w-4 mr-1" />
-          View
+          {t('trainerList.view')}
         </Button>
         <Button
           variant="ghost"
@@ -176,7 +177,7 @@ const TrainerCard = ({ trainer, onView }: TrainerCardProps) => {
           onClick={() => console.log('Schedule', trainer.id)}
         >
           <Calendar className="h-4 w-4 mr-1" />
-          Schedule
+          {t('trainerList.schedule')}
         </Button>
         <Button
           variant="ghost"

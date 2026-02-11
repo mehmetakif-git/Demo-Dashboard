@@ -28,7 +28,7 @@ import { profileImages } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const PTSessions = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('gym');
   const [searchQuery, setSearchQuery] = useState('');
   const [trainerFilter, setTrainerFilter] = useState('all');
   const [statusFilter, setStatusFilter] = useState('all');
@@ -141,11 +141,11 @@ export const PTSessions = () => {
       className="space-y-6"
     >
       <PageHeader
-        title={t('gym.ptSessions', 'PT Sessions')}
-        subtitle="Manage personal training sessions"
+        title={t('ptSessions.title')}
+        subtitle={t('ptSessions.subtitle')}
         actions={
           <Button leftIcon={<Plus size={16} />} onClick={() => setIsBookModalOpen(true)}>
-            Book Session
+            {t('ptSessions.bookSession')}
           </Button>
         }
       />
@@ -153,25 +153,25 @@ export const PTSessions = () => {
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Sessions"
+          title={t('ptSessions.totalSessions')}
           value={stats.total.toString()}
           icon={Calendar}
           iconColor="#547792"
         />
         <StatsCard
-          title="Scheduled"
+          title={t('ptSessions.scheduled')}
           value={stats.scheduled.toString()}
           icon={Clock}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Completed"
+          title={t('ptSessions.completed')}
           value={stats.completed.toString()}
           icon={CheckCircle}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Cancelled"
+          title={t('ptSessions.cancelled')}
           value={stats.cancelled.toString()}
           icon={XCircle}
           iconColor="#ef4444"
@@ -184,7 +184,7 @@ export const PTSessions = () => {
           <div className="flex flex-wrap gap-4 items-center flex-1">
             <div className="w-64">
               <Input
-                placeholder="Search member or trainer..."
+                placeholder={t('ptSessions.searchPlaceholder')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 leftIcon={<Search size={16} />}
@@ -195,7 +195,7 @@ export const PTSessions = () => {
               onChange={(e) => setTrainerFilter(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Trainers</option>
+              <option value="all">{t('ptSessions.allTrainers')}</option>
               {trainers.map(trainer => (
                 <option key={trainer.id} value={trainer.id}>
                   {trainer.firstName} {trainer.lastName}
@@ -207,11 +207,11 @@ export const PTSessions = () => {
               onChange={(e) => setStatusFilter(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Status</option>
-              <option value="scheduled">Scheduled</option>
-              <option value="completed">Completed</option>
-              <option value="cancelled">Cancelled</option>
-              <option value="no-show">No Show</option>
+              <option value="all">{t('ptSessions.allStatus')}</option>
+              <option value="scheduled">{t('ptSessions.scheduled')}</option>
+              <option value="completed">{t('ptSessions.completed')}</option>
+              <option value="cancelled">{t('ptSessions.cancelled')}</option>
+              <option value="no-show">{t('ptSessions.noShow')}</option>
             </select>
           </div>
 
@@ -221,14 +221,14 @@ export const PTSessions = () => {
               size="sm"
               onClick={() => setViewMode('list')}
             >
-              List
+              {t('ptSessions.list')}
             </Button>
             <Button
               variant={viewMode === 'calendar' ? 'primary' : 'outline'}
               size="sm"
               onClick={() => setViewMode('calendar')}
             >
-              Calendar
+              {t('ptSessions.calendar')}
             </Button>
           </div>
         </div>
@@ -321,13 +321,13 @@ export const PTSessions = () => {
             <table className="w-full">
               <thead className="bg-white/[0.05]">
                 <tr>
-                  <th className="text-left p-4 text-xs font-semibold text-text-secondary uppercase">Date & Time</th>
-                  <th className="text-left p-4 text-xs font-semibold text-text-secondary uppercase">Member</th>
-                  <th className="text-left p-4 text-xs font-semibold text-text-secondary uppercase">Trainer</th>
-                  <th className="text-left p-4 text-xs font-semibold text-text-secondary uppercase">Type</th>
-                  <th className="text-left p-4 text-xs font-semibold text-text-secondary uppercase">Duration</th>
-                  <th className="text-left p-4 text-xs font-semibold text-text-secondary uppercase">Status</th>
-                  <th className="text-right p-4 text-xs font-semibold text-text-secondary uppercase">Actions</th>
+                  <th className="text-left p-4 text-xs font-semibold text-text-secondary uppercase">{t('ptSessions.dateTime')}</th>
+                  <th className="text-left p-4 text-xs font-semibold text-text-secondary uppercase">{t('ptSessions.member')}</th>
+                  <th className="text-left p-4 text-xs font-semibold text-text-secondary uppercase">{t('ptSessions.trainer')}</th>
+                  <th className="text-left p-4 text-xs font-semibold text-text-secondary uppercase">{t('ptSessions.type')}</th>
+                  <th className="text-left p-4 text-xs font-semibold text-text-secondary uppercase">{t('ptSessions.duration')}</th>
+                  <th className="text-left p-4 text-xs font-semibold text-text-secondary uppercase">{t('ptSessions.status')}</th>
+                  <th className="text-right p-4 text-xs font-semibold text-text-secondary uppercase">{t('ptSessions.actions')}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border-default">
@@ -399,7 +399,7 @@ export const PTSessions = () => {
                         size="sm"
                         onClick={() => setSelectedSession(session)}
                       >
-                        View
+                        {t('ptSessions.view')}
                       </Button>
                     </td>
                   </motion.tr>
@@ -411,7 +411,7 @@ export const PTSessions = () => {
           {filteredSessions.length === 0 && (
             <div className="p-12 text-center">
               <Calendar className="h-12 w-12 mx-auto mb-4 text-text-muted" />
-              <p className="text-text-secondary">No sessions found</p>
+              <p className="text-text-secondary">{t('ptSessions.noSessions')}</p>
             </div>
           )}
         </Card>
@@ -433,7 +433,7 @@ export const PTSessions = () => {
           >
             <Card className="p-6">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-lg font-semibold text-text-primary">Session Details</h3>
+                <h3 className="text-lg font-semibold text-text-primary">{t('ptSessions.sessionDetails')}</h3>
                 <button
                   onClick={() => setSelectedSession(null)}
                   className="p-2 hover:bg-white/[0.05] rounded transition-colors"
@@ -471,14 +471,14 @@ export const PTSessions = () => {
                 {/* Member & Trainer */}
                 <div className="grid grid-cols-2 gap-4">
                   <div className="p-3 bg-white/[0.05] rounded-lg">
-                    <p className="text-xs text-text-muted mb-1">Member</p>
+                    <p className="text-xs text-text-muted mb-1">{t('ptSessions.member')}</p>
                     <div className="flex items-center gap-2">
                       <User className="h-4 w-4 text-text-secondary" />
                       <span className="text-text-primary">{selectedSession.memberName}</span>
                     </div>
                   </div>
                   <div className="p-3 bg-white/[0.05] rounded-lg">
-                    <p className="text-xs text-text-muted mb-1">Trainer</p>
+                    <p className="text-xs text-text-muted mb-1">{t('ptSessions.trainer')}</p>
                     <div className="flex items-center gap-2">
                       <Dumbbell className="h-4 w-4 text-accent-primary" />
                       <span className="text-text-primary">{selectedSession.trainerName}</span>
@@ -489,18 +489,18 @@ export const PTSessions = () => {
                 {/* Type & Duration */}
                 <div className="grid grid-cols-2 gap-4">
                   <div className="p-3 bg-white/[0.05] rounded-lg">
-                    <p className="text-xs text-text-muted mb-1">Session Type</p>
+                    <p className="text-xs text-text-muted mb-1">{t('ptSessions.sessionType')}</p>
                     <p className="text-text-primary capitalize">{selectedSession.sessionType}</p>
                   </div>
                   <div className="p-3 bg-white/[0.05] rounded-lg">
-                    <p className="text-xs text-text-muted mb-1">Duration</p>
-                    <p className="text-text-primary">{selectedSession.duration} minutes</p>
+                    <p className="text-xs text-text-muted mb-1">{t('ptSessions.duration')}</p>
+                    <p className="text-text-primary">{selectedSession.duration} {t('ptSessions.minutes')}</p>
                   </div>
                 </div>
 
                 {/* Location */}
                 <div className="p-3 bg-white/[0.05] rounded-lg">
-                  <p className="text-xs text-text-muted mb-1">Location</p>
+                  <p className="text-xs text-text-muted mb-1">{t('ptSessions.location')}</p>
                   <div className="flex items-center gap-2">
                     <MapPin className="h-4 w-4 text-text-secondary" />
                     <span className="text-text-primary">{selectedSession.location}</span>
@@ -510,7 +510,7 @@ export const PTSessions = () => {
                 {/* Notes */}
                 {selectedSession.notes && (
                   <div className="p-3 bg-white/[0.05] rounded-lg">
-                    <p className="text-xs text-text-muted mb-1">Notes</p>
+                    <p className="text-xs text-text-muted mb-1">{t('ptSessions.notes')}</p>
                     <p className="text-text-secondary text-sm">{selectedSession.notes}</p>
                   </div>
                 )}
@@ -520,16 +520,16 @@ export const PTSessions = () => {
                 {selectedSession.status === 'scheduled' && (
                   <>
                     <Button variant="outline" className="text-red-400 border-red-400/50">
-                      Cancel Session
+                      {t('ptSessions.cancelSession')}
                     </Button>
                     <Button>
-                      Mark Complete
+                      {t('ptSessions.markComplete')}
                     </Button>
                   </>
                 )}
                 {selectedSession.status !== 'scheduled' && (
                   <Button variant="outline" onClick={() => setSelectedSession(null)}>
-                    Close
+                    {t('ptSessions.close')}
                   </Button>
                 )}
               </div>
@@ -554,7 +554,7 @@ export const PTSessions = () => {
           >
             <Card className="p-6">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-lg font-semibold text-text-primary">Book PT Session</h3>
+                <h3 className="text-lg font-semibold text-text-primary">{t('ptSessions.bookPtSession')}</h3>
                 <button
                   onClick={() => setIsBookModalOpen(false)}
                   className="p-2 hover:bg-white/[0.05] rounded transition-colors"
@@ -588,7 +588,7 @@ export const PTSessions = () => {
                     className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
                   >
                     <option value="">Select trainer...</option>
-                    {trainers.filter(t => t.status === 'active').map(trainer => (
+                    {trainers.filter(tr => tr.status === 'active').map(trainer => (
                       <option key={trainer.id} value={trainer.id}>
                         {trainer.firstName} {trainer.lastName}
                       </option>
@@ -662,13 +662,13 @@ export const PTSessions = () => {
 
               <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-white/[0.08]">
                 <Button variant="outline" onClick={() => setIsBookModalOpen(false)}>
-                  Cancel
+                  {t('ptSessions.cancel')}
                 </Button>
                 <Button
                   onClick={handleBookSession}
                   disabled={!bookForm.memberId || !bookForm.trainerId || !bookForm.date || !bookForm.time}
                 >
-                  Book Session
+                  {t('ptSessions.bookSession')}
                 </Button>
               </div>
             </Card>

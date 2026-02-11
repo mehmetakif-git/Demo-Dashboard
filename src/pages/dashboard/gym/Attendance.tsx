@@ -24,7 +24,7 @@ import { profileImages } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const Attendance = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('gym');
   const [searchQuery, setSearchQuery] = useState('');
   const [dateFilter, setDateFilter] = useState<string>(new Date().toISOString().split('T')[0]);
 
@@ -62,25 +62,25 @@ export const Attendance = () => {
 
   const stats = [
     {
-      title: 'Today\'s Check-ins',
+      title: t('attendance.todaysCheckins'),
       value: gymStats.todayCheckIns.toString(),
       icon: LogIn,
       iconColor: '#10b981',
     },
     {
-      title: 'Currently In Gym',
+      title: t('attendance.currentlyInGym'),
       value: currentlyInGym.length.toString(),
       icon: Users,
       iconColor: '#547792',
     },
     {
-      title: 'Avg Daily Check-ins',
+      title: t('attendance.avgDailyCheckins'),
       value: gymStats.averageDailyCheckIns.toString(),
       icon: Activity,
       iconColor: '#f59e0b',
     },
     {
-      title: 'Peak Hours',
+      title: t('attendance.peakHours'),
       value: gymStats.peakHours[0],
       icon: Clock,
       iconColor: '#94B4C1',
@@ -94,7 +94,7 @@ export const Attendance = () => {
       transition={{ duration: 0.3 }}
       className="space-y-6"
     >
-      <PageHeader title={t('gym.attendance', 'Attendance')} subtitle="Track member check-ins and check-outs" />
+      <PageHeader title={t('attendance.title')} subtitle={t('attendance.subtitle')} />
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -113,12 +113,12 @@ export const Attendance = () => {
       <Card className="p-6">
         <h2 className="text-lg font-semibold text-text-primary mb-4 flex items-center gap-2">
           <UserCheck className="h-5 w-5 text-accent-primary" />
-          Quick Check-in
+          {t('attendance.quickCheckin')}
         </h2>
         <div className="relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-secondary" />
           <Input
-            placeholder="Search member by name or ID..."
+            placeholder={t('attendance.searchPlaceholder')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-10"
@@ -158,7 +158,7 @@ export const Attendance = () => {
                   onClick={() => handleCheckIn(member)}
                 >
                   <LogIn className="h-4 w-4 mr-1" />
-                  Check In
+                  {t('attendance.checkIn')}
                 </Button>
               </div>
             ))}
@@ -171,7 +171,7 @@ export const Attendance = () => {
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-semibold text-text-primary flex items-center gap-2">
             <Users className="h-5 w-5 text-green-400" />
-            Currently In Gym ({currentlyInGym.length})
+            {t('attendance.currentlyInGymTitle')} ({currentlyInGym.length})
           </h2>
         </div>
 
@@ -227,7 +227,7 @@ export const Attendance = () => {
             })}
           </div>
         ) : (
-          <p className="text-center text-text-secondary py-8">No members currently in gym</p>
+          <p className="text-center text-text-secondary py-8">{t('attendance.noMembersInGym')}</p>
         )}
       </Card>
 
@@ -236,7 +236,7 @@ export const Attendance = () => {
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-semibold text-text-primary flex items-center gap-2">
             <Calendar className="h-5 w-5 text-accent-primary" />
-            Attendance Records
+            {t('attendance.attendanceRecords')}
           </h2>
           <input
             type="date"
@@ -251,19 +251,19 @@ export const Attendance = () => {
             <thead>
               <tr className="border-b border-white/[0.08]">
                 <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                  Member
+                  {t('attendance.member')}
                 </th>
                 <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                  Check In
+                  {t('attendance.checkInCol')}
                 </th>
                 <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                  Check Out
+                  {t('attendance.checkOut')}
                 </th>
                 <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                  Duration
+                  {t('attendance.duration')}
                 </th>
                 <th className="text-right py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                  Actions
+                  {t('attendance.actions')}
                 </th>
               </tr>
             </thead>
@@ -294,7 +294,7 @@ export const Attendance = () => {
                       {record.checkOut ? (
                         formatDateTime(record.checkOut)
                       ) : (
-                        <span className="text-green-400">Currently in gym</span>
+                        <span className="text-green-400">{t('attendance.currentlyInGymStatus')}</span>
                       )}
                     </td>
                     <td className="py-3 px-4 text-text-primary font-medium">
@@ -309,7 +309,7 @@ export const Attendance = () => {
                           onClick={() => handleCheckOut(record)}
                         >
                           <LogOut className="h-4 w-4 mr-1" />
-                          Check Out
+                          {t('attendance.checkOut')}
                         </Button>
                       )}
                     </td>
@@ -318,7 +318,7 @@ export const Attendance = () => {
               ) : (
                 <tr>
                   <td colSpan={5} className="py-8 text-center text-text-secondary">
-                    No attendance records for this date
+                    {t('attendance.noRecords')}
                   </td>
                 </tr>
               )}

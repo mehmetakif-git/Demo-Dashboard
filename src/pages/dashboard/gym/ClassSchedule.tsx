@@ -24,7 +24,7 @@ const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
 const TIME_SLOTS = ['06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'];
 
 export const ClassSchedule = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('gym');
   const [viewMode, setViewMode] = useState<ViewMode>('calendar');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [instructorFilter, setInstructorFilter] = useState<string>('all');
@@ -61,9 +61,9 @@ export const ClassSchedule = () => {
   );
 
   const stats = [
-    { title: 'Total Classes', value: totalClasses.toString(), icon: Calendar, iconColor: '#547792' },
-    { title: 'Total Enrollment', value: totalEnrollment.toString(), icon: Users, iconColor: '#10b981' },
-    { title: 'Avg Capacity', value: `${avgCapacityUsage}%`, icon: Users, iconColor: '#f59e0b' },
+    { title: t('classSchedule.totalClasses'), value: totalClasses.toString(), icon: Calendar, iconColor: '#547792' },
+    { title: t('classSchedule.totalEnrollment'), value: totalEnrollment.toString(), icon: Users, iconColor: '#10b981' },
+    { title: t('classSchedule.avgCapacity'), value: `${avgCapacityUsage}%`, icon: Users, iconColor: '#f59e0b' },
   ];
 
   return (
@@ -74,12 +74,12 @@ export const ClassSchedule = () => {
       className="space-y-6"
     >
       <PageHeader
-        title={t('gym.classSchedule', 'Class Schedule')}
-        subtitle="Manage group fitness classes"
+        title={t('classSchedule.title')}
+        subtitle={t('classSchedule.subtitle')}
         actions={
           <Button onClick={() => console.log('Add class')}>
             <Plus className="h-4 w-4 mr-2" />
-            Add Class
+            {t('classSchedule.addClass')}
           </Button>
         }
       />
@@ -106,7 +106,7 @@ export const ClassSchedule = () => {
               onChange={(e) => setCategoryFilter(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Categories</option>
+              <option value="all">{t('classSchedule.allCategories')}</option>
               {categories.map((cat) => (
                 <option key={cat} value={cat}>
                   {cat}
@@ -119,7 +119,7 @@ export const ClassSchedule = () => {
               onChange={(e) => setInstructorFilter(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Instructors</option>
+              <option value="all">{t('classSchedule.allInstructors')}</option>
               {trainers.map((trainer) => (
                 <option key={trainer.id} value={trainer.id}>
                   {trainer.name}
@@ -132,11 +132,11 @@ export const ClassSchedule = () => {
               onChange={(e) => setDifficultyFilter(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Levels</option>
-              <option value="beginner">Beginner</option>
-              <option value="intermediate">Intermediate</option>
-              <option value="advanced">Advanced</option>
-              <option value="all-levels">All Levels</option>
+              <option value="all">{t('classSchedule.allLevels')}</option>
+              <option value="beginner">{t('classSchedule.beginner')}</option>
+              <option value="intermediate">{t('classSchedule.intermediate')}</option>
+              <option value="advanced">{t('classSchedule.advanced')}</option>
+              <option value="all-levels">{t('classSchedule.allLevelsOption')}</option>
             </select>
           </div>
 
@@ -172,7 +172,7 @@ export const ClassSchedule = () => {
             <div className="min-w-[1000px]">
               {/* Header */}
               <div className="grid grid-cols-8 gap-2 mb-2">
-                <div className="text-xs font-semibold text-text-secondary py-2">Time</div>
+                <div className="text-xs font-semibold text-text-secondary py-2">{t('classSchedule.time')}</div>
                 {DAYS.map((day) => (
                   <div key={day} className="text-xs font-semibold text-text-secondary py-2 text-center">
                     {day}
@@ -225,28 +225,28 @@ export const ClassSchedule = () => {
               <thead>
                 <tr className="border-b border-white/[0.08]">
                   <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                    Class
+                    {t('classSchedule.class')}
                   </th>
                   <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                    Category
+                    {t('classSchedule.category')}
                   </th>
                   <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                    Instructor
+                    {t('classSchedule.instructor')}
                   </th>
                   <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                    Schedule
+                    {t('classSchedule.schedule')}
                   </th>
                   <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                    Duration
+                    {t('classSchedule.duration')}
                   </th>
                   <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                    Capacity
+                    {t('classSchedule.capacity')}
                   </th>
                   <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                    Difficulty
+                    {t('classSchedule.difficulty')}
                   </th>
                   <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                    Room
+                    {t('classSchedule.room')}
                   </th>
                 </tr>
               </thead>
@@ -348,7 +348,7 @@ export const ClassSchedule = () => {
               <div className="flex items-center gap-3">
                 <User className="h-5 w-5 text-text-muted" />
                 <div>
-                  <p className="text-sm text-text-secondary">Instructor</p>
+                  <p className="text-sm text-text-secondary">{t('classSchedule.instructor')}</p>
                   <p className="text-text-primary font-medium">{selectedClass.instructor}</p>
                 </div>
               </div>
@@ -356,15 +356,15 @@ export const ClassSchedule = () => {
               <div className="flex items-center gap-3">
                 <Clock className="h-5 w-5 text-text-muted" />
                 <div>
-                  <p className="text-sm text-text-secondary">Duration</p>
-                  <p className="text-text-primary font-medium">{selectedClass.duration} minutes</p>
+                  <p className="text-sm text-text-secondary">{t('classSchedule.duration')}</p>
+                  <p className="text-text-primary font-medium">{selectedClass.duration} {t('classSchedule.minutes')}</p>
                 </div>
               </div>
 
               <div className="flex items-center gap-3">
                 <MapPin className="h-5 w-5 text-text-muted" />
                 <div>
-                  <p className="text-sm text-text-secondary">Location</p>
+                  <p className="text-sm text-text-secondary">{t('classSchedule.location')}</p>
                   <p className="text-text-primary font-medium">{selectedClass.room}</p>
                 </div>
               </div>
@@ -372,9 +372,9 @@ export const ClassSchedule = () => {
               <div className="flex items-center gap-3">
                 <Users className="h-5 w-5 text-text-muted" />
                 <div>
-                  <p className="text-sm text-text-secondary">Capacity</p>
+                  <p className="text-sm text-text-secondary">{t('classSchedule.capacity')}</p>
                   <p className="text-text-primary font-medium">
-                    {selectedClass.currentEnrollment}/{selectedClass.maxCapacity} enrolled
+                    {selectedClass.currentEnrollment}/{selectedClass.maxCapacity} {t('classSchedule.enrolled')}
                   </p>
                 </div>
               </div>
@@ -409,10 +409,10 @@ export const ClassSchedule = () => {
 
             <div className="p-6 border-t border-white/[0.08] flex gap-2">
               <Button variant="outline" className="flex-1" onClick={() => setSelectedClass(null)}>
-                Close
+                {t('classSchedule.close')}
               </Button>
               <Button className="flex-1" onClick={() => console.log('Edit class', selectedClass.id)}>
-                Edit Class
+                {t('classSchedule.editClass')}
               </Button>
             </div>
           </motion.div>

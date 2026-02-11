@@ -41,7 +41,7 @@ import { profileImages } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const MemberDetail = () => {
-  const { t: _t } = useTranslation('common');
+  const { t } = useTranslation('gym');
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const [activeTab, setActiveTab] = useState('overview');
@@ -49,7 +49,7 @@ export const MemberDetail = () => {
   const member = gymMembers.find((m) => m.id === id);
   const plan = member ? membershipPlans.find((p) => p.id === member.membershipPlanId) : null;
   const trainer = member?.assignedTrainerId
-    ? trainers.find((t) => t.id === member.assignedTrainerId)
+    ? trainers.find((tr) => tr.id === member.assignedTrainerId)
     : null;
 
   const memberAttendance = attendanceRecords.filter((r) => r.memberId === id);
@@ -60,10 +60,10 @@ export const MemberDetail = () => {
     return (
       <div className="flex items-center justify-center h-96">
         <div className="text-center">
-          <h2 className="text-xl font-semibold text-text-primary mb-2">Member not found</h2>
+          <h2 className="text-xl font-semibold text-text-primary mb-2">{t('memberDetail.memberNotFound')}</h2>
           <Button onClick={() => navigate(ROUTES.gym.members)}>
             <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to Members
+            {t('memberDetail.backToMembers')}
           </Button>
         </div>
       </div>
@@ -71,12 +71,12 @@ export const MemberDetail = () => {
   }
 
   const tabs = [
-    { id: 'overview', label: 'Overview' },
-    { id: 'membership', label: 'Membership' },
-    { id: 'attendance', label: 'Attendance' },
-    { id: 'pt-sessions', label: 'PT Sessions' },
-    { id: 'assessments', label: 'Assessments' },
-    { id: 'payments', label: 'Payments' },
+    { id: 'overview', label: t('memberDetail.overview') },
+    { id: 'membership', label: t('memberDetail.membership') },
+    { id: 'attendance', label: t('memberDetail.attendance') },
+    { id: 'pt-sessions', label: t('memberDetail.ptSessions') },
+    { id: 'assessments', label: t('memberDetail.assessments') },
+    { id: 'payments', label: t('memberDetail.payments') },
   ];
 
   // Calculate days remaining
@@ -97,7 +97,7 @@ export const MemberDetail = () => {
         className="flex items-center gap-2 text-text-secondary hover:text-text-primary transition-colors"
       >
         <ArrowLeft className="h-4 w-4" />
-        <span>Back to Members</span>
+        <span>{t('memberDetail.backToMembers')}</span>
       </button>
 
       {/* Header */}
@@ -142,7 +142,7 @@ export const MemberDetail = () => {
                 </span>
                 {trainer && (
                   <span className="px-2 py-1 rounded-full text-xs font-medium bg-accent-primary/10 text-accent-primary">
-                    Trainer: {trainer.name}
+                    {t('memberDetail.trainer')} {trainer.name}
                   </span>
                 )}
               </div>
@@ -152,7 +152,7 @@ export const MemberDetail = () => {
           <div className="flex flex-wrap gap-2">
             <Button variant="outline" onClick={() => console.log('Edit member')}>
               <Edit className="h-4 w-4 mr-2" />
-              Edit
+              {t('memberDetail.edit')}
             </Button>
             <Button
               variant="outline"
@@ -160,7 +160,7 @@ export const MemberDetail = () => {
               onClick={() => console.log('Check in')}
             >
               <LogIn className="h-4 w-4 mr-2" />
-              Check In
+              {t('memberDetail.checkIn')}
             </Button>
             {member.membershipStatus === 'active' && (
               <Button
@@ -169,14 +169,14 @@ export const MemberDetail = () => {
                 onClick={() => console.log('Freeze')}
               >
                 <Pause className="h-4 w-4 mr-2" />
-                Freeze
+                {t('memberDetail.freeze')}
               </Button>
             )}
             {(member.membershipStatus === 'expired' ||
               member.membershipStatus === 'expiring') && (
               <Button onClick={() => console.log('Renew')}>
                 <RefreshCw className="h-4 w-4 mr-2" />
-                Renew
+                {t('memberDetail.renew')}
               </Button>
             )}
           </div>
@@ -191,47 +191,47 @@ export const MemberDetail = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Personal Information */}
           <Card className="p-6 lg:col-span-2">
-            <h2 className="text-lg font-semibold text-text-primary mb-4">Personal Information</h2>
+            <h2 className="text-lg font-semibold text-text-primary mb-4">{t('memberDetail.personalInformation')}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex items-center gap-3">
                 <Mail className="h-5 w-5 text-text-muted" />
                 <div>
-                  <p className="text-sm text-text-secondary">Email</p>
+                  <p className="text-sm text-text-secondary">{t('memberDetail.email')}</p>
                   <p className="text-text-primary">{member.email}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="h-5 w-5 text-text-muted" />
                 <div>
-                  <p className="text-sm text-text-secondary">Phone</p>
+                  <p className="text-sm text-text-secondary">{t('memberDetail.phone')}</p>
                   <p className="text-text-primary">{member.phone}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
                 <Calendar className="h-5 w-5 text-text-muted" />
                 <div>
-                  <p className="text-sm text-text-secondary">Date of Birth</p>
+                  <p className="text-sm text-text-secondary">{t('memberDetail.dateOfBirth')}</p>
                   <p className="text-text-primary">{formatDate(member.dateOfBirth)}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
                 <User className="h-5 w-5 text-text-muted" />
                 <div>
-                  <p className="text-sm text-text-secondary">Gender</p>
+                  <p className="text-sm text-text-secondary">{t('memberDetail.gender')}</p>
                   <p className="text-text-primary capitalize">{member.gender}</p>
                 </div>
               </div>
               <div className="flex items-start gap-3 md:col-span-2">
                 <MapPin className="h-5 w-5 text-text-muted mt-0.5" />
                 <div>
-                  <p className="text-sm text-text-secondary">Address</p>
+                  <p className="text-sm text-text-secondary">{t('memberDetail.address')}</p>
                   <p className="text-text-primary">{member.address}</p>
                 </div>
               </div>
               <div className="flex items-start gap-3 md:col-span-2">
                 <AlertTriangle className="h-5 w-5 text-orange-400 mt-0.5" />
                 <div>
-                  <p className="text-sm text-text-secondary">Emergency Contact</p>
+                  <p className="text-sm text-text-secondary">{t('memberDetail.emergencyContact')}</p>
                   <p className="text-text-primary">
                     {member.emergencyContact.name} ({member.emergencyContact.relationship})
                   </p>
@@ -249,7 +249,7 @@ export const MemberDetail = () => {
                   <Calendar className="h-5 w-5 text-accent-primary" />
                 </div>
                 <div>
-                  <p className="text-sm text-text-secondary">Member Since</p>
+                  <p className="text-sm text-text-secondary">{t('memberDetail.memberSince')}</p>
                   <p className="text-text-primary font-semibold">{formatDate(member.joinDate)}</p>
                 </div>
               </div>
@@ -260,7 +260,7 @@ export const MemberDetail = () => {
                   <Activity className="h-5 w-5 text-green-400" />
                 </div>
                 <div>
-                  <p className="text-sm text-text-secondary">Total Visits</p>
+                  <p className="text-sm text-text-secondary">{t('memberDetail.totalVisits')}</p>
                   <p className="text-text-primary font-semibold">{member.totalVisits}</p>
                 </div>
               </div>
@@ -271,7 +271,7 @@ export const MemberDetail = () => {
                   <Clock className="h-5 w-5 text-blue-400" />
                 </div>
                 <div>
-                  <p className="text-sm text-text-secondary">Last Visit</p>
+                  <p className="text-sm text-text-secondary">{t('memberDetail.lastVisit')}</p>
                   <p className="text-text-primary font-semibold">
                     {formatDate(member.lastVisit.split(' ')[0])}
                   </p>
@@ -285,7 +285,7 @@ export const MemberDetail = () => {
                     <CreditCard className="h-5 w-5 text-[#94B4C1]" />
                   </div>
                   <div>
-                    <p className="text-sm text-text-secondary">Locker Number</p>
+                    <p className="text-sm text-text-secondary">{t('memberDetail.lockerNumber')}</p>
                     <p className="text-text-primary font-semibold">{member.lockerNumber}</p>
                   </div>
                 </div>
@@ -297,7 +297,7 @@ export const MemberDetail = () => {
           <Card className="p-6">
             <h2 className="text-lg font-semibold text-text-primary mb-4 flex items-center gap-2">
               <Target className="h-5 w-5 text-accent-primary" />
-              Fitness Goals
+              {t('memberDetail.fitnessGoals')}
             </h2>
             <div className="flex flex-wrap gap-2">
               {member.goals.map((goal, index) => (
@@ -315,7 +315,7 @@ export const MemberDetail = () => {
           <Card className="p-6">
             <h2 className="text-lg font-semibold text-text-primary mb-4 flex items-center gap-2">
               <Heart className="h-5 w-5 text-red-400" />
-              Health Conditions
+              {t('memberDetail.healthConditions')}
             </h2>
             {member.healthConditions.length > 0 ? (
               <div className="flex flex-wrap gap-2">
@@ -329,7 +329,7 @@ export const MemberDetail = () => {
                 ))}
               </div>
             ) : (
-              <p className="text-text-secondary">No health conditions reported</p>
+              <p className="text-text-secondary">{t('memberDetail.noHealthConditions')}</p>
             )}
           </Card>
 
@@ -338,7 +338,7 @@ export const MemberDetail = () => {
             <Card className="p-6">
               <h2 className="text-lg font-semibold text-text-primary mb-4 flex items-center gap-2">
                 <FileText className="h-5 w-5 text-text-muted" />
-                Notes
+                {t('memberDetail.notes')}
               </h2>
               <p className="text-text-secondary">{member.notes}</p>
             </Card>
@@ -349,10 +349,10 @@ export const MemberDetail = () => {
       {activeTab === 'membership' && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <Card className="p-6">
-            <h2 className="text-lg font-semibold text-text-primary mb-4">Current Membership</h2>
+            <h2 className="text-lg font-semibold text-text-primary mb-4">{t('memberDetail.currentMembership')}</h2>
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-text-secondary">Plan</span>
+                <span className="text-text-secondary">{t('memberDetail.plan')}</span>
                 <span
                   className="px-3 py-1 rounded-full font-medium"
                   style={{
@@ -364,15 +364,15 @@ export const MemberDetail = () => {
                 </span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-text-secondary">Start Date</span>
+                <span className="text-text-secondary">{t('memberDetail.startDate')}</span>
                 <span className="text-text-primary">{formatDate(member.membershipStart)}</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-text-secondary">End Date</span>
+                <span className="text-text-secondary">{t('memberDetail.endDate')}</span>
                 <span className="text-text-primary">{formatDate(member.membershipEnd)}</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-text-secondary">Days Remaining</span>
+                <span className="text-text-secondary">{t('memberDetail.daysRemaining')}</span>
                 <span
                   className={`font-semibold ${
                     daysRemaining > 30
@@ -382,11 +382,11 @@ export const MemberDetail = () => {
                       : 'text-red-400'
                   }`}
                 >
-                  {daysRemaining > 0 ? `${daysRemaining} days` : 'Expired'}
+                  {daysRemaining > 0 ? t('memberDetail.daysCount', { count: daysRemaining }) : t('memberList.expired')}
                 </span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-text-secondary">Status</span>
+                <span className="text-text-secondary">{t('memberDetail.status')}</span>
                 <span
                   className={`px-2 py-1 rounded-full text-xs font-medium border ${getMemberStatusColor(
                     member.membershipStatus
@@ -400,7 +400,7 @@ export const MemberDetail = () => {
           </Card>
 
           <Card className="p-6">
-            <h2 className="text-lg font-semibold text-text-primary mb-4">Plan Features</h2>
+            <h2 className="text-lg font-semibold text-text-primary mb-4">{t('memberDetail.planFeatures')}</h2>
             <ul className="space-y-2">
               {plan?.features.map((feature, index) => (
                 <li key={index} className="flex items-center gap-2 text-text-secondary">
@@ -411,7 +411,7 @@ export const MemberDetail = () => {
             </ul>
             {plan?.restrictions && plan.restrictions.length > 0 && (
               <>
-                <h3 className="text-sm font-medium text-text-primary mt-4 mb-2">Restrictions</h3>
+                <h3 className="text-sm font-medium text-text-primary mt-4 mb-2">{t('memberDetail.restrictions')}</h3>
                 <ul className="space-y-2">
                   {plan.restrictions.map((restriction, index) => (
                     <li key={index} className="flex items-center gap-2 text-text-secondary">
@@ -428,19 +428,19 @@ export const MemberDetail = () => {
 
       {activeTab === 'attendance' && (
         <Card className="p-6">
-          <h2 className="text-lg font-semibold text-text-primary mb-4">Recent Check-ins</h2>
+          <h2 className="text-lg font-semibold text-text-primary mb-4">{t('memberDetail.recentCheckins')}</h2>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
                 <tr className="border-b border-white/[0.08]">
                   <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                    Check In
+                    {t('memberDetail.checkInCol')}
                   </th>
                   <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                    Check Out
+                    {t('memberDetail.checkOut')}
                   </th>
                   <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                    Duration
+                    {t('memberDetail.duration')}
                   </th>
                 </tr>
               </thead>
@@ -452,7 +452,7 @@ export const MemberDetail = () => {
                         {formatDateTime(record.checkIn)}
                       </td>
                       <td className="py-3 px-4 text-text-secondary">
-                        {record.checkOut ? formatDateTime(record.checkOut) : 'Currently in gym'}
+                        {record.checkOut ? formatDateTime(record.checkOut) : t('memberDetail.currentlyInGym')}
                       </td>
                       <td className="py-3 px-4 text-text-primary font-medium">
                         {record.duration || '-'}
@@ -462,7 +462,7 @@ export const MemberDetail = () => {
                 ) : (
                   <tr>
                     <td colSpan={3} className="py-8 text-center text-text-secondary">
-                      No attendance records found
+                      {t('memberDetail.noAttendanceRecords')}
                     </td>
                   </tr>
                 )}
@@ -489,7 +489,7 @@ export const MemberDetail = () => {
                   )}
                 </div>
                 <div>
-                  <p className="text-sm text-text-secondary">Assigned Trainer</p>
+                  <p className="text-sm text-text-secondary">{t('memberDetail.assignedTrainer')}</p>
                   <p className="text-text-primary font-semibold">{trainer.name}</p>
                   <p className="text-sm text-text-secondary">
                     {trainer.specializations.slice(0, 2).join(', ')}
@@ -501,9 +501,9 @@ export const MemberDetail = () => {
 
           <Card className="p-6">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-text-primary">PT Sessions</h2>
+              <h2 className="text-lg font-semibold text-text-primary">{t('memberDetail.ptSessions')}</h2>
               <Button size="sm" onClick={() => console.log('Book session')}>
-                Book Session
+                {t('memberDetail.bookSession')}
               </Button>
             </div>
             <div className="overflow-x-auto">
@@ -511,16 +511,16 @@ export const MemberDetail = () => {
                 <thead>
                   <tr className="border-b border-white/[0.08]">
                     <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                      Date
+                      {t('memberDetail.date')}
                     </th>
                     <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                      Time
+                      {t('memberDetail.time')}
                     </th>
                     <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                      Trainer
+                      {t('memberDetail.trainer').replace(':', '')}
                     </th>
                     <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                      Type
+                      {t('memberDetail.type')}
                     </th>
                     <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
                       Status
@@ -553,7 +553,7 @@ export const MemberDetail = () => {
                   ) : (
                     <tr>
                       <td colSpan={5} className="py-8 text-center text-text-secondary">
-                        No PT sessions found
+                        {t('memberDetail.noPtSessions')}
                       </td>
                     </tr>
                   )}
@@ -567,9 +567,9 @@ export const MemberDetail = () => {
       {activeTab === 'assessments' && (
         <Card className="p-6">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-text-primary">Fitness Assessments</h2>
+            <h2 className="text-lg font-semibold text-text-primary">{t('memberDetail.fitnessAssessments')}</h2>
             <Button size="sm" onClick={() => console.log('Schedule assessment')}>
-              Schedule Assessment
+              {t('memberDetail.scheduleAssessment')}
             </Button>
           </div>
           {memberAssessments.length > 0 ? (
@@ -586,28 +586,28 @@ export const MemberDetail = () => {
                       </p>
                     </div>
                     <Button variant="ghost" size="sm">
-                      View Details
+                      {t('memberDetail.viewDetails')}
                     </Button>
                   </div>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div>
-                      <p className="text-xs text-text-secondary">Weight</p>
+                      <p className="text-xs text-text-secondary">{t('memberDetail.weight')}</p>
                       <p className="text-text-primary font-semibold">
                         {assessment.metrics.weight} lbs
                       </p>
                     </div>
                     <div>
-                      <p className="text-xs text-text-secondary">Body Fat</p>
+                      <p className="text-xs text-text-secondary">{t('memberDetail.bodyFat')}</p>
                       <p className="text-text-primary font-semibold">
                         {assessment.metrics.bodyFat}%
                       </p>
                     </div>
                     <div>
-                      <p className="text-xs text-text-secondary">BMI</p>
+                      <p className="text-xs text-text-secondary">{t('memberDetail.bmi')}</p>
                       <p className="text-text-primary font-semibold">{assessment.metrics.bmi}</p>
                     </div>
                     <div>
-                      <p className="text-xs text-text-secondary">Resting HR</p>
+                      <p className="text-xs text-text-secondary">{t('memberDetail.restingHr')}</p>
                       <p className="text-text-primary font-semibold">
                         {assessment.metrics.restingHeartRate} bpm
                       </p>
@@ -617,7 +617,7 @@ export const MemberDetail = () => {
               ))}
             </div>
           ) : (
-            <p className="text-center text-text-secondary py-8">No assessments found</p>
+            <p className="text-center text-text-secondary py-8">{t('memberDetail.noAssessments')}</p>
           )}
         </Card>
       )}
@@ -630,7 +630,7 @@ export const MemberDetail = () => {
                 <DollarSign className="h-6 w-6 text-red-400" />
               </div>
               <div>
-                <p className="text-sm text-text-secondary">Balance Due</p>
+                <p className="text-sm text-text-secondary">{t('memberDetail.balanceDue')}</p>
                 <p
                   className={`text-2xl font-bold ${
                     member.balance > 0 ? 'text-red-400' : 'text-green-400'
@@ -642,15 +642,15 @@ export const MemberDetail = () => {
             </div>
             {member.balance > 0 && (
               <Button className="w-full" onClick={() => console.log('Add payment')}>
-                Add Payment
+                {t('memberDetail.addPayment')}
               </Button>
             )}
           </Card>
 
           <Card className="p-6 lg:col-span-2">
-            <h2 className="text-lg font-semibold text-text-primary mb-4">Payment History</h2>
+            <h2 className="text-lg font-semibold text-text-primary mb-4">{t('memberDetail.paymentHistory')}</h2>
             <p className="text-center text-text-secondary py-8">
-              Payment history will be displayed here
+              {t('memberDetail.paymentHistoryPlaceholder')}
             </p>
           </Card>
         </div>

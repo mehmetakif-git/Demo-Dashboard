@@ -20,7 +20,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const MembershipPlans = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('gym');
   const [, setSelectedPlan] = useState<MembershipPlan | null>(null);
   const [, setIsModalOpen] = useState(false);
 
@@ -33,19 +33,19 @@ export const MembershipPlans = () => {
 
   const stats = [
     {
-      title: 'Total Plans',
+      title: t('membershipPlans.totalPlans'),
       value: membershipPlans.length.toString(),
       icon: CreditCard,
       iconColor: '#547792',
     },
     {
-      title: 'Active Members',
+      title: t('membershipPlans.activeMembers'),
       value: totalActiveMembers.toString(),
       icon: Users,
       iconColor: '#10b981',
     },
     {
-      title: 'Est. Monthly Revenue',
+      title: t('membershipPlans.estMonthlyRevenue'),
       value: formatCurrency(totalMonthlyRevenue),
       icon: DollarSign,
       iconColor: '#f59e0b',
@@ -60,12 +60,12 @@ export const MembershipPlans = () => {
       className="space-y-6"
     >
       <PageHeader
-        title={t('gym.membershipPlans', 'Membership Plans')}
-        subtitle="Manage membership plans and pricing"
+        title={t('membershipPlans.title')}
+        subtitle={t('membershipPlans.subtitle')}
         actions={
           <Button onClick={() => setIsModalOpen(true)}>
             <Plus className="h-4 w-4 mr-2" />
-            Create Plan
+            {t('membershipPlans.createPlan')}
           </Button>
         }
       />
@@ -99,13 +99,13 @@ export const MembershipPlans = () => {
 
       {/* Plan Comparison Table */}
       <Card className="p-6 overflow-hidden">
-        <h2 className="text-lg font-semibold text-text-primary mb-4">Plan Comparison</h2>
+        <h2 className="text-lg font-semibold text-text-primary mb-4">{t('membershipPlans.planComparison')}</h2>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className="border-b border-white/[0.08]">
                 <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                  Feature
+                  {t('membershipPlans.feature')}
                 </th>
                 {membershipPlans.slice(0, 4).map((plan) => (
                   <th
@@ -120,7 +120,7 @@ export const MembershipPlans = () => {
             </thead>
             <tbody>
               <tr className="border-b border-white/[0.08]">
-                <td className="py-3 px-4 text-text-secondary">Price</td>
+                <td className="py-3 px-4 text-text-secondary">{t('membershipPlans.price')}</td>
                 {membershipPlans.slice(0, 4).map((plan) => (
                   <td key={plan.id} className="py-3 px-4 text-center">
                     <span className="text-text-primary font-semibold">
@@ -133,7 +133,7 @@ export const MembershipPlans = () => {
                 ))}
               </tr>
               <tr className="border-b border-white/[0.08]">
-                <td className="py-3 px-4 text-text-secondary">Gym Access</td>
+                <td className="py-3 px-4 text-text-secondary">{t('membershipPlans.gymAccess')}</td>
                 {membershipPlans.slice(0, 4).map((plan) => (
                   <td key={plan.id} className="py-3 px-4 text-center">
                     <Check className="h-5 w-5 text-green-400 mx-auto" />
@@ -141,7 +141,7 @@ export const MembershipPlans = () => {
                 ))}
               </tr>
               <tr className="border-b border-white/[0.08]">
-                <td className="py-3 px-4 text-text-secondary">Group Classes</td>
+                <td className="py-3 px-4 text-text-secondary">{t('membershipPlans.groupClasses')}</td>
                 {membershipPlans.slice(0, 4).map((plan) => (
                   <td key={plan.id} className="py-3 px-4 text-center">
                     {plan.features.some((f) => f.toLowerCase().includes('class')) ? (
@@ -153,7 +153,7 @@ export const MembershipPlans = () => {
                 ))}
               </tr>
               <tr className="border-b border-white/[0.08]">
-                <td className="py-3 px-4 text-text-secondary">Pool Access</td>
+                <td className="py-3 px-4 text-text-secondary">{t('membershipPlans.poolAccess')}</td>
                 {membershipPlans.slice(0, 4).map((plan) => (
                   <td key={plan.id} className="py-3 px-4 text-center">
                     {plan.features.some((f) => f.toLowerCase().includes('pool')) ? (
@@ -165,7 +165,7 @@ export const MembershipPlans = () => {
                 ))}
               </tr>
               <tr className="border-b border-white/[0.08]">
-                <td className="py-3 px-4 text-text-secondary">PT Sessions</td>
+                <td className="py-3 px-4 text-text-secondary">{t('membershipPlans.ptSessionsFeature')}</td>
                 {membershipPlans.slice(0, 4).map((plan) => (
                   <td key={plan.id} className="py-3 px-4 text-center">
                     {plan.features.some((f) => f.toLowerCase().includes('pt')) ? (
@@ -177,7 +177,7 @@ export const MembershipPlans = () => {
                 ))}
               </tr>
               <tr>
-                <td className="py-3 px-4 text-text-secondary">Active Members</td>
+                <td className="py-3 px-4 text-text-secondary">{t('membershipPlans.activeMembersCol')}</td>
                 {membershipPlans.slice(0, 4).map((plan) => (
                   <td key={plan.id} className="py-3 px-4 text-center text-text-primary font-medium">
                     {plan.activeMembers}

@@ -36,7 +36,7 @@ type ViewMode = 'grid' | 'list';
 type StatusFilter = 'all' | 'active' | 'expiring' | 'expired' | 'frozen';
 
 export const MemberList = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('gym');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [viewMode, setViewMode] = useState<ViewMode>('grid');
@@ -76,25 +76,25 @@ export const MemberList = () => {
 
   const stats = [
     {
-      title: 'Total Members',
+      title: t('memberList.totalMembers'),
       value: gymStats.totalMembers.toString(),
       icon: Users,
       iconColor: '#547792',
     },
     {
-      title: 'Active Members',
+      title: t('memberList.activeMembers'),
       value: gymStats.activeMembers.toString(),
       icon: UserCheck,
       iconColor: '#10b981',
     },
     {
-      title: 'Expiring This Month',
+      title: t('memberList.expiringThisMonth'),
       value: gymStats.expiringMemberships.toString(),
       icon: AlertTriangle,
       iconColor: '#f59e0b',
     },
     {
-      title: 'New This Month',
+      title: t('memberList.newThisMonth'),
       value: gymStats.newMembersThisMonth.toString(),
       icon: TrendingUp,
       iconColor: '#10b981',
@@ -109,12 +109,12 @@ export const MemberList = () => {
       className="space-y-6"
     >
       <PageHeader
-        title={t('gym.members', 'Members')}
-        subtitle="Manage gym members and their memberships"
+        title={t('memberList.title')}
+        subtitle={t('memberList.subtitle')}
         actions={
           <Button onClick={() => console.log('Add member')}>
             <Plus className="h-4 w-4 mr-2" />
-            Add Member
+            {t('memberList.addMember')}
           </Button>
         }
       />
@@ -140,7 +140,7 @@ export const MemberList = () => {
             <div className="relative flex-1 min-w-[200px]">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-secondary" />
               <Input
-                placeholder="Search by name, email, or ID..."
+                placeholder={t('memberList.searchPlaceholder')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10"
@@ -153,11 +153,11 @@ export const MemberList = () => {
               onChange={(e) => setStatusFilter(e.target.value as StatusFilter)}
               className="px-3 py-2 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-lg text-white focus:outline-none focus:border-white/20 hover:bg-white/[0.05] transition-all cursor-pointer"
             >
-              <option value="all">All Status</option>
-              <option value="active">Active</option>
-              <option value="expiring">Expiring</option>
-              <option value="expired">Expired</option>
-              <option value="frozen">Frozen</option>
+              <option value="all">{t('memberList.allStatus')}</option>
+              <option value="active">{t('memberList.active')}</option>
+              <option value="expiring">{t('memberList.expiring')}</option>
+              <option value="expired">{t('memberList.expired')}</option>
+              <option value="frozen">{t('memberList.frozen')}</option>
             </select>
 
             {/* Plan Filter */}
@@ -166,7 +166,7 @@ export const MemberList = () => {
               onChange={(e) => setPlanFilter(e.target.value)}
               className="px-3 py-2 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-lg text-white focus:outline-none focus:border-white/20 hover:bg-white/[0.05] transition-all cursor-pointer"
             >
-              <option value="all">All Plans</option>
+              <option value="all">{t('memberList.allPlans')}</option>
               {membershipPlans.map((plan) => (
                 <option key={plan.id} value={plan.id}>
                   {plan.name}
@@ -180,8 +180,8 @@ export const MemberList = () => {
               onChange={(e) => setTrainerFilter(e.target.value)}
               className="px-3 py-2 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-lg text-white focus:outline-none focus:border-white/20 hover:bg-white/[0.05] transition-all cursor-pointer"
             >
-              <option value="all">All Trainers</option>
-              <option value="unassigned">Unassigned</option>
+              <option value="all">{t('memberList.allTrainers')}</option>
+              <option value="unassigned">{t('memberList.unassigned')}</option>
               {trainers.map((trainer) => (
                 <option key={trainer.id} value={trainer.id}>
                   {trainer.name}
@@ -218,7 +218,7 @@ export const MemberList = () => {
 
       {/* Results Count */}
       <div className="text-sm text-text-secondary">
-        Showing {filteredMembers.length} of {gymMembers.length} members
+        {t('memberList.showing', { count: filteredMembers.length, total: gymMembers.length })}
       </div>
 
       {/* Grid View */}
@@ -242,31 +242,31 @@ export const MemberList = () => {
               <thead>
                 <tr className="border-b border-white/[0.08]">
                   <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                    Member
+                    {t('memberList.member')}
                   </th>
                   <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                    Member ID
+                    {t('memberList.memberId')}
                   </th>
                   <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                    Plan
+                    {t('memberList.plan')}
                   </th>
                   <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                    Status
+                    {t('memberList.status')}
                   </th>
                   <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                    Join Date
+                    {t('memberList.joinDate')}
                   </th>
                   <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                    Last Visit
+                    {t('memberList.lastVisit')}
                   </th>
                   <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                    Visits
+                    {t('memberList.visits')}
                   </th>
                   <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                    Balance
+                    {t('memberList.balance')}
                   </th>
                   <th className="text-right py-3 px-4 text-xs font-semibold text-text-secondary uppercase tracking-wider">
-                    Actions
+                    {t('memberList.actions')}
                   </th>
                 </tr>
               </thead>
@@ -385,9 +385,9 @@ export const MemberList = () => {
       {filteredMembers.length === 0 && (
         <Card className="p-12 text-center">
           <Users className="h-12 w-12 mx-auto text-text-muted mb-4" />
-          <h3 className="text-lg font-medium text-text-primary mb-2">No members found</h3>
+          <h3 className="text-lg font-medium text-text-primary mb-2">{t('memberList.noMembersFound')}</h3>
           <p className="text-text-secondary">
-            Try adjusting your search or filter criteria
+            {t('memberList.adjustFilters')}
           </p>
         </Card>
       )}
@@ -402,6 +402,7 @@ interface MemberCardProps {
 }
 
 const MemberCard = ({ member, onView }: MemberCardProps) => {
+  const { t } = useTranslation('gym');
   const plan = membershipPlans.find((p) => p.id === member.membershipPlanId);
 
   return (
@@ -451,18 +452,18 @@ const MemberCard = ({ member, onView }: MemberCardProps) => {
 
         <div className="flex items-center gap-2 text-sm text-text-secondary">
           <Clock className="h-4 w-4 text-text-muted" />
-          <span>Last visit: {formatDate(member.lastVisit.split(' ')[0])}</span>
+          <span>{t('memberList.lastVisitLabel')} {formatDate(member.lastVisit.split(' ')[0])}</span>
         </div>
 
         <div className="flex items-center gap-2 text-sm text-text-secondary">
           <Calendar className="h-4 w-4 text-text-muted" />
-          <span>{member.totalVisits} visits total</span>
+          <span>{t('memberList.visitsTotal', { count: member.totalVisits })}</span>
         </div>
 
         {member.assignedTrainer && (
           <div className="flex items-center gap-2 text-sm text-text-secondary">
             <UserCheck className="h-4 w-4 text-text-muted" />
-            <span>Trainer: {member.assignedTrainer}</span>
+            <span>{t('memberList.trainer')} {member.assignedTrainer}</span>
           </div>
         )}
       </div>
@@ -470,7 +471,7 @@ const MemberCard = ({ member, onView }: MemberCardProps) => {
       <div className="flex items-center gap-2 mt-4 pt-4 border-t border-white/[0.08]">
         <Button variant="ghost" size="sm" className="flex-1" onClick={(e) => { e.stopPropagation(); onView(); }}>
           <Eye className="h-4 w-4 mr-1" />
-          View
+          {t('memberList.view')}
         </Button>
         <Button
           variant="ghost"
@@ -482,7 +483,7 @@ const MemberCard = ({ member, onView }: MemberCardProps) => {
           }}
         >
           <LogIn className="h-4 w-4 mr-1" />
-          Check In
+          {t('memberList.checkIn')}
         </Button>
         <Button
           variant="ghost"
