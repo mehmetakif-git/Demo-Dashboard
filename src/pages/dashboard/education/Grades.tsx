@@ -10,8 +10,10 @@ import {
 import { PageHeader, Card, Button } from '@/components/common';
 import { grades, students, classes, EDUCATION_COLOR } from '@/data/education/educationData';
 import { getProfileImage } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const Grades = () => {
+  const { t } = useTranslation('education');
   const [selectedClass, setSelectedClass] = useState<string>('CLS001');
   const [selectedTerm, setSelectedTerm] = useState<string>('1st Semester');
   const [viewMode, setViewMode] = useState<'view' | 'edit'>('view');
@@ -68,14 +70,14 @@ export const Grades = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Grade Book"
-        subtitle="Manage student grades and academic performance"
+        title={t('grades.title')}
+        subtitle={t('grades.subtitle')}
         icon={Award}
         actions={
           <div className="flex gap-2">
             <Button variant="secondary">
               <Download size={18} />
-              Export Grades
+              {t('grades.exportGrades')}
             </Button>
           </div>
         }
@@ -84,10 +86,10 @@ export const Grades = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Average Score', value: stats.avgScore, icon: TrendingUp, color: EDUCATION_COLOR },
-          { label: 'A Grades', value: stats.aGrades, icon: Award, color: '#10b981' },
-          { label: 'At Risk', value: stats.failingGrades, icon: Users, color: '#ef4444' },
-          { label: 'Total Entries', value: stats.totalEntries, icon: BookOpen, color: '#6366f1' },
+          { label: t('grades.averageScore'), value: stats.avgScore, icon: TrendingUp, color: EDUCATION_COLOR },
+          { label: t('grades.aGrades'), value: stats.aGrades, icon: Award, color: '#10b981' },
+          { label: t('grades.atRisk'), value: stats.failingGrades, icon: Users, color: '#ef4444' },
+          { label: t('grades.totalEntries'), value: stats.totalEntries, icon: BookOpen, color: '#6366f1' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -132,16 +134,19 @@ export const Grades = () => {
             ))}
           </div>
           <div className="flex gap-2">
-            {['1st Semester', '2nd Semester'].map((term) => (
-              <Button
-                key={term}
-                variant={selectedTerm === term ? 'secondary' : 'ghost'}
-                size="sm"
-                onClick={() => setSelectedTerm(term)}
-              >
-                {term}
-              </Button>
-            ))}
+            {['1st Semester', '2nd Semester'].map((term) => {
+              const termLabelMap: Record<string, string> = { '1st Semester': t('grades.firstSemester'), '2nd Semester': t('grades.secondSemester') };
+              return (
+                <Button
+                  key={term}
+                  variant={selectedTerm === term ? 'secondary' : 'ghost'}
+                  size="sm"
+                  onClick={() => setSelectedTerm(term)}
+                >
+                  {termLabelMap[term]}
+                </Button>
+              );
+            })}
           </div>
           <div className="flex gap-2">
             <Button
@@ -149,14 +154,14 @@ export const Grades = () => {
               size="sm"
               onClick={() => setViewMode('view')}
             >
-              View Mode
+              {t('grades.viewMode')}
             </Button>
             <Button
               variant={viewMode === 'edit' ? 'secondary' : 'ghost'}
               size="sm"
               onClick={() => setViewMode('edit')}
             >
-              Edit Mode
+              {t('grades.editMode')}
             </Button>
           </div>
         </div>
@@ -166,10 +171,10 @@ export const Grades = () => {
       <Card className="p-4 overflow-x-auto">
         <div className="flex items-center justify-between mb-4">
           <h3 className="font-semibold text-text-primary">
-            {selectedClassInfo?.name} - {selectedTerm} Grades
+            {t('grades.classGrades', { className: selectedClassInfo?.name, term: selectedTerm })}
           </h3>
           {viewMode === 'edit' && (
-            <Button size="sm">Save Grades</Button>
+            <Button size="sm">{t('grades.saveGrades')}</Button>
           )}
         </div>
 
@@ -177,15 +182,15 @@ export const Grades = () => {
           <thead>
             <tr className="border-b border-border-default">
               <th className="text-left py-3 px-2 text-sm text-text-muted font-medium sticky left-0 bg-background-primary">
-                Student
+                {t('grades.student')}
               </th>
               {classSubjects.slice(0, 5).map((subject) => (
                 <th key={subject} className="text-center py-3 px-2 text-sm text-text-muted font-medium">
                   {subject}
                 </th>
               ))}
-              <th className="text-center py-3 px-2 text-sm text-text-muted font-medium">Average</th>
-              <th className="text-center py-3 px-2 text-sm text-text-muted font-medium">Grade</th>
+              <th className="text-center py-3 px-2 text-sm text-text-muted font-medium">{t('grades.average')}</th>
+              <th className="text-center py-3 px-2 text-sm text-text-muted font-medium">{t('grades.grade')}</th>
             </tr>
           </thead>
           <tbody>
@@ -281,7 +286,7 @@ export const Grades = () => {
 
       {/* Grade Distribution */}
       <Card className="p-4">
-        <h3 className="font-semibold text-text-primary mb-4">Grade Distribution</h3>
+        <h3 className="font-semibold text-text-primary mb-4">{t('grades.gradeDistribution')}</h3>
         <div className="flex gap-4 flex-wrap">
           {['A', 'B', 'C', 'D', 'F'].map((grade) => {
             const count = classGrades.filter(g => g.grade === grade).length;
@@ -297,7 +302,7 @@ export const Grades = () => {
                 style={{ backgroundColor: `${color}20` }}
               >
                 <p className="text-3xl font-bold" style={{ color }}>{grade}</p>
-                <p className="text-sm text-text-primary font-medium">{count} students</p>
+                <p className="text-sm text-text-primary font-medium">{t('grades.studentsCount', { count })}</p>
                 <p className="text-xs text-text-muted">{percentage}%</p>
               </div>
             );

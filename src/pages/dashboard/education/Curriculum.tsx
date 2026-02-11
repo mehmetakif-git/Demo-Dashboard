@@ -12,8 +12,10 @@ import {
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { subjects, EDUCATION_COLOR } from '@/data/education/educationData';
 import { getProfileImage } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const Curriculum = () => {
+  const { t } = useTranslation('education');
   const [searchQuery, setSearchQuery] = useState('');
   const [gradeFilter, setGradeFilter] = useState<string>('all');
 
@@ -66,13 +68,13 @@ export const Curriculum = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Curriculum & Subjects"
-        subtitle="Manage curriculum and subject assignments"
+        title={t('curriculum.title')}
+        subtitle={t('curriculum.subtitle')}
         icon={BookOpen}
         actions={
           <Button>
             <Plus size={18} />
-            Add Subject
+            {t('curriculum.addSubject')}
           </Button>
         }
       />
@@ -80,10 +82,10 @@ export const Curriculum = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Subjects', value: stats.totalSubjects, icon: BookOpen, color: EDUCATION_COLOR },
-          { label: 'Total Credits', value: stats.totalCredits, icon: Award, color: '#10b981' },
-          { label: 'Avg Credits', value: stats.avgCredits, icon: Hash, color: '#f59e0b' },
-          { label: 'Grade 9 Subjects', value: stats.byGrade[9] || 0, icon: GraduationCap, color: '#6366f1' },
+          { label: t('curriculum.totalSubjects'), value: stats.totalSubjects, icon: BookOpen, color: EDUCATION_COLOR },
+          { label: t('curriculum.totalCredits'), value: stats.totalCredits, icon: Award, color: '#10b981' },
+          { label: t('curriculum.avgCredits'), value: stats.avgCredits, icon: Hash, color: '#f59e0b' },
+          { label: t('curriculum.gradeNSubjects', { n: 9 }), value: stats.byGrade[9] || 0, icon: GraduationCap, color: '#6366f1' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -118,7 +120,7 @@ export const Curriculum = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by subject name, code, or teacher..."
+              placeholder={t('curriculum.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -130,7 +132,7 @@ export const Curriculum = () => {
               size="sm"
               onClick={() => setGradeFilter('all')}
             >
-              All Grades
+              {t('curriculum.allGrades')}
             </Button>
             {uniqueGrades.map((grade) => (
               <Button
@@ -139,7 +141,7 @@ export const Curriculum = () => {
                 size="sm"
                 onClick={() => setGradeFilter(grade.toString())}
               >
-                Grade {grade}
+                {t('curriculum.gradeN', { n: grade })}
               </Button>
             ))}
           </div>
@@ -179,10 +181,10 @@ export const Curriculum = () => {
                       </Button>
                     }
                     items={[
-                      { id: 'view', label: 'View Details', onClick: () => {} },
-                      { id: 'edit', label: 'Edit Subject', onClick: () => {} },
-                      { id: 'syllabus', label: 'View Syllabus', onClick: () => {} },
-                      { id: 'assign', label: 'Assign Teacher', onClick: () => {} },
+                      { id: 'view', label: t('curriculum.viewDetails'), onClick: () => {} },
+                      { id: 'edit', label: t('curriculum.editSubject'), onClick: () => {} },
+                      { id: 'syllabus', label: t('curriculum.viewSyllabus'), onClick: () => {} },
+                      { id: 'assign', label: t('curriculum.assignTeacher'), onClick: () => {} },
                     ]}
                   />
                 </div>
@@ -190,24 +192,24 @@ export const Curriculum = () => {
                 <div className="space-y-3">
                   {/* Grade */}
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-text-muted">Grade</span>
+                    <span className="text-sm text-text-muted">{t('curriculum.grade')}</span>
                     <span
                       className="px-2 py-0.5 rounded text-xs font-medium"
                       style={{ backgroundColor: `${color}20`, color }}
                     >
-                      Grade {subject.grade}
+                      {t('curriculum.gradeN', { n: subject.grade })}
                     </span>
                   </div>
 
                   {/* Credits */}
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-text-muted">Credits</span>
+                    <span className="text-sm text-text-muted">{t('curriculum.credits')}</span>
                     <span className="text-sm font-medium text-text-primary">{subject.credits}</span>
                   </div>
 
                   {/* Teacher */}
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-text-muted">Teacher</span>
+                    <span className="text-sm text-text-muted">{t('curriculum.teacher')}</span>
                     <div className="flex items-center gap-2">
                       {(() => {
                         const teacherImg = getProfileImage(subject.teacher);
@@ -244,7 +246,7 @@ export const Curriculum = () => {
       {filteredSubjects.length === 0 && (
         <Card className="p-12 text-center">
           <BookOpen size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No subjects found</p>
+          <p className="text-text-secondary">{t('curriculum.noSubjectsFound')}</p>
         </Card>
       )}
     </div>

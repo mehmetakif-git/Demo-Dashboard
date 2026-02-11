@@ -17,7 +17,7 @@ import { getProfileImage } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const Fees = () => {
-  const { t: _t } = useTranslation('common');
+  const { t } = useTranslation('education');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [view, setView] = useState<'payments' | 'structure'>('payments');
@@ -76,13 +76,13 @@ export const Fees = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Fee Management"
-        subtitle="Manage student fees and payments"
+        title={t('fees.title')}
+        subtitle={t('fees.subtitle')}
         icon={CreditCard}
         actions={
           <Button variant="secondary">
             <Download size={18} />
-            Export Report
+            {t('fees.exportReport')}
           </Button>
         }
       />
@@ -90,10 +90,10 @@ export const Fees = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Fees', value: formatCurrency(stats.totalFees), icon: DollarSign, color: EDUCATION_COLOR },
-          { label: 'Collected', value: formatCurrency(stats.collected), icon: CheckCircle, color: '#10b981' },
-          { label: 'Pending', value: formatCurrency(stats.pending), icon: AlertTriangle, color: '#ef4444' },
-          { label: 'Collection Rate', value: `${stats.collectionRate}%`, icon: TrendingUp, color: '#6366f1' },
+          { label: t('fees.totalFees'), value: formatCurrency(stats.totalFees), icon: DollarSign, color: EDUCATION_COLOR },
+          { label: t('fees.collected'), value: formatCurrency(stats.collected), icon: CheckCircle, color: '#10b981' },
+          { label: t('fees.pending'), value: formatCurrency(stats.pending), icon: AlertTriangle, color: '#ef4444' },
+          { label: t('fees.collectionRate'), value: `${stats.collectionRate}%`, icon: TrendingUp, color: '#6366f1' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -131,14 +131,14 @@ export const Fees = () => {
               size="sm"
               onClick={() => setView('payments')}
             >
-              Fee Payments
+              {t('fees.feePayments')}
             </Button>
             <Button
               variant={view === 'structure' ? 'primary' : 'ghost'}
               size="sm"
               onClick={() => setView('structure')}
             >
-              Fee Structure
+              {t('fees.feeStructure')}
             </Button>
           </div>
           {view === 'payments' && (
@@ -146,23 +146,31 @@ export const Fees = () => {
               <div className="relative flex-1">
                 <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
                 <Input
-                  placeholder="Search by student name or class..."
+                  placeholder={t('fees.searchPlaceholder')}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="pl-10"
                 />
               </div>
               <div className="flex gap-2">
-                {['all', 'paid', 'partial', 'pending'].map((status) => (
-                  <Button
-                    key={status}
-                    variant={statusFilter === status ? 'secondary' : 'ghost'}
-                    size="sm"
-                    onClick={() => setStatusFilter(status)}
-                  >
-                    {status.charAt(0).toUpperCase() + status.slice(1)}
-                  </Button>
-                ))}
+                {(['all', 'paid', 'partial', 'pending'] as const).map((status) => {
+                  const statusMap: Record<string, string> = {
+                    'all': t('status.all'),
+                    'paid': t('status.paid'),
+                    'partial': t('status.partial'),
+                    'pending': t('status.pending'),
+                  };
+                  return (
+                    <Button
+                      key={status}
+                      variant={statusFilter === status ? 'secondary' : 'ghost'}
+                      size="sm"
+                      onClick={() => setStatusFilter(status)}
+                    >
+                      {statusMap[status]}
+                    </Button>
+                  );
+                })}
               </div>
             </>
           )}
@@ -215,15 +223,15 @@ export const Fees = () => {
                     <div className="grid grid-cols-3 gap-4 min-w-[300px]">
                       <div className="text-center">
                         <p className="text-lg font-bold text-text-primary">{formatCurrency(payment.totalFee)}</p>
-                        <p className="text-xs text-text-muted">Total Fee</p>
+                        <p className="text-xs text-text-muted">{t('fees.totalFee')}</p>
                       </div>
                       <div className="text-center">
                         <p className="text-lg font-bold text-success">{formatCurrency(payment.paidAmount)}</p>
-                        <p className="text-xs text-text-muted">Paid</p>
+                        <p className="text-xs text-text-muted">{t('fees.paid')}</p>
                       </div>
                       <div className="text-center">
                         <p className="text-lg font-bold text-error">{formatCurrency(payment.dueAmount)}</p>
-                        <p className="text-xs text-text-muted">Due</p>
+                        <p className="text-xs text-text-muted">{t('fees.due')}</p>
                       </div>
                     </div>
 
@@ -238,16 +246,16 @@ export const Fees = () => {
                           }}
                         />
                       </div>
-                      <p className="text-xs text-text-muted mt-1 text-center">{paymentProgress}% paid</p>
+                      <p className="text-xs text-text-muted mt-1 text-center">{t('fees.percentPaid', { percent: paymentProgress })}</p>
                     </div>
 
                     {/* Status */}
                     <span
-                      className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium capitalize"
+                      className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium"
                       style={{ backgroundColor: `${statusColor}20`, color: statusColor }}
                     >
                       <StatusIcon size={14} />
-                      {payment.status}
+                      {({ paid: t('status.paid'), partial: t('status.partial'), pending: t('status.pending') } as Record<string, string>)[payment.status] || payment.status}
                     </span>
 
                     {/* Actions */}
@@ -258,10 +266,10 @@ export const Fees = () => {
                         </Button>
                       }
                       items={[
-                        { id: 'view', label: 'View Details', onClick: () => {} },
-                        { id: 'record', label: 'Record Payment', onClick: () => {} },
-                        { id: 'reminder', label: 'Send Reminder', onClick: () => {} },
-                        { id: 'receipt', label: 'Print Receipt', onClick: () => {} },
+                        { id: 'view', label: t('fees.viewDetails'), onClick: () => {} },
+                        { id: 'record', label: t('fees.recordPayment'), onClick: () => {} },
+                        { id: 'reminder', label: t('fees.sendReminder'), onClick: () => {} },
+                        { id: 'receipt', label: t('fees.printReceipt'), onClick: () => {} },
                       ]}
                     />
                   </div>
@@ -269,7 +277,7 @@ export const Fees = () => {
                   {/* Payment History */}
                   {payment.payments.length > 0 && (
                     <div className="mt-4 pt-4 border-t border-border-default">
-                      <p className="text-xs text-text-muted mb-2">Payment History</p>
+                      <p className="text-xs text-text-muted mb-2">{t('fees.paymentHistory')}</p>
                       <div className="flex flex-wrap gap-2">
                         {payment.payments.map((p, i) => (
                           <div
@@ -292,24 +300,24 @@ export const Fees = () => {
           {filteredPayments.length === 0 && (
             <Card className="p-12 text-center">
               <CreditCard size={48} className="mx-auto text-text-muted mb-4" />
-              <p className="text-text-secondary">No payments found</p>
+              <p className="text-text-secondary">{t('fees.noPaymentsFound')}</p>
             </Card>
           )}
         </div>
       ) : (
         <Card className="p-4">
-          <h3 className="font-semibold text-text-primary mb-4">Fee Structure by Grade (2024-2025)</h3>
+          <h3 className="font-semibold text-text-primary mb-4">{t('fees.feeStructureTitle')}</h3>
           <div className="overflow-x-auto">
             <table className="w-full min-w-[700px]">
               <thead>
                 <tr className="border-b border-border-default">
-                  <th className="text-left py-3 px-2 text-sm text-text-muted font-medium">Grade</th>
-                  <th className="text-right py-3 px-2 text-sm text-text-muted font-medium">Tuition</th>
-                  <th className="text-right py-3 px-2 text-sm text-text-muted font-medium">Admission</th>
-                  <th className="text-right py-3 px-2 text-sm text-text-muted font-medium">Exam</th>
-                  <th className="text-right py-3 px-2 text-sm text-text-muted font-medium">Library</th>
-                  <th className="text-right py-3 px-2 text-sm text-text-muted font-medium">Transport</th>
-                  <th className="text-right py-3 px-2 text-sm text-text-muted font-medium">Total</th>
+                  <th className="text-left py-3 px-2 text-sm text-text-muted font-medium">{t('fees.gradeCol')}</th>
+                  <th className="text-right py-3 px-2 text-sm text-text-muted font-medium">{t('fees.tuition')}</th>
+                  <th className="text-right py-3 px-2 text-sm text-text-muted font-medium">{t('fees.admission')}</th>
+                  <th className="text-right py-3 px-2 text-sm text-text-muted font-medium">{t('fees.exam')}</th>
+                  <th className="text-right py-3 px-2 text-sm text-text-muted font-medium">{t('fees.libraryFee')}</th>
+                  <th className="text-right py-3 px-2 text-sm text-text-muted font-medium">{t('fees.transportFee')}</th>
+                  <th className="text-right py-3 px-2 text-sm text-text-muted font-medium">{t('fees.total')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -326,7 +334,7 @@ export const Fees = () => {
                         className="px-3 py-1 rounded-full text-sm font-medium"
                         style={{ backgroundColor: `${EDUCATION_COLOR}20`, color: EDUCATION_COLOR }}
                       >
-                        Grade {fee.grade}
+                        {t('fees.gradeCol')} {fee.grade}
                       </span>
                     </td>
                     <td className="py-3 px-2 text-right text-sm text-text-primary">

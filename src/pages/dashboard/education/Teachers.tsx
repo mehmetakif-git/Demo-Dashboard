@@ -16,22 +16,22 @@ import { getProfileImage } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const Teachers = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('education');
   const [searchQuery, setSearchQuery] = useState('');
   const [subjectFilter, setSubjectFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
   const allSubjects = useMemo(() => {
     const subjects = new Set<string>();
-    teachers.forEach(t => t.subjects.forEach(s => subjects.add(s)));
+    teachers.forEach(tch => tch.subjects.forEach(s => subjects.add(s)));
     return Array.from(subjects);
   }, []);
 
   const stats = useMemo(() => {
-    const active = teachers.filter(t => t.status === 'active').length;
-    const totalExperience = teachers.reduce((acc, t) => acc + t.experience, 0);
+    const active = teachers.filter(tch => tch.status === 'active').length;
+    const totalExperience = teachers.reduce((acc, tch) => acc + tch.experience, 0);
     const avgExperience = Math.round(totalExperience / teachers.length);
-    const classTeachers = teachers.filter(t => t.classTeacherOf).length;
+    const classTeachers = teachers.filter(tch => tch.classTeacherOf).length;
 
     return {
       total: teachers.length,
@@ -71,13 +71,13 @@ export const Teachers = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('education.teacherManagement', 'Teacher Management')}
-        subtitle="Manage teachers and staff assignments"
+        title={t('teachers.title')}
+        subtitle={t('teachers.subtitle')}
         icon={UserCheck}
         actions={
           <Button>
             <Plus size={18} />
-            Add New Teacher
+            {t('teachers.addTeacher')}
           </Button>
         }
       />
@@ -85,10 +85,10 @@ export const Teachers = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Teachers', value: stats.total, icon: UserCheck, color: EDUCATION_COLOR },
-          { label: 'Active Teachers', value: stats.active, icon: UserCheck, color: '#10b981' },
-          { label: 'Avg Experience', value: `${stats.avgExperience} yrs`, icon: Award, color: '#f59e0b' },
-          { label: 'Class Teachers', value: stats.classTeachers, icon: BookOpen, color: '#6366f1' },
+          { label: t('teachers.totalTeachers'), value: stats.total, icon: UserCheck, color: EDUCATION_COLOR },
+          { label: t('teachers.activeTeachers'), value: stats.active, icon: UserCheck, color: '#10b981' },
+          { label: t('teachers.avgExperience'), value: `${stats.avgExperience} ${t('teachers.yrs')}`, icon: Award, color: '#f59e0b' },
+          { label: t('teachers.classTeachers'), value: stats.classTeachers, icon: BookOpen, color: '#6366f1' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -119,10 +119,10 @@ export const Teachers = () => {
 
       {/* Subject Distribution */}
       <Card className="p-4">
-        <h3 className="font-semibold text-text-primary mb-3">Subject Distribution</h3>
+        <h3 className="font-semibold text-text-primary mb-3">{t('teachers.subjectDistribution')}</h3>
         <div className="flex flex-wrap gap-3">
           {allSubjects.map((subject) => {
-            const count = teachers.filter(t => t.subjects.includes(subject)).length;
+            const count = teachers.filter(tch => tch.subjects.includes(subject)).length;
             const color = getSubjectColor(subject);
             const isActive = subjectFilter === subject;
 
@@ -153,23 +153,26 @@ export const Teachers = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by name, employee no, or subject..."
+              placeholder={t('teachers.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
             />
           </div>
           <div className="flex gap-2">
-            {['all', 'active', 'inactive'].map((status) => (
-              <Button
-                key={status}
-                variant={statusFilter === status ? 'secondary' : 'ghost'}
-                size="sm"
-                onClick={() => setStatusFilter(status)}
-              >
-                {status.charAt(0).toUpperCase() + status.slice(1)}
-              </Button>
-            ))}
+            {['all', 'active', 'inactive'].map((status) => {
+              const statusMap: Record<string, string> = { 'all': t('status.all'), 'active': t('status.active'), 'inactive': t('status.inactive') };
+              return (
+                <Button
+                  key={status}
+                  variant={statusFilter === status ? 'secondary' : 'ghost'}
+                  size="sm"
+                  onClick={() => setStatusFilter(status)}
+                >
+                  {statusMap[status]}
+                </Button>
+              );
+            })}
           </div>
         </div>
       </Card>
@@ -238,7 +241,7 @@ export const Teachers = () => {
                         <p className="text-lg font-bold" style={{ color: EDUCATION_COLOR }}>
                           {classInfo.name}
                         </p>
-                        <p className="text-xs text-text-muted">Class Teacher</p>
+                        <p className="text-xs text-text-muted">{t('teachers.classTeacher')}</p>
                       </>
                     ) : (
                       <p className="text-sm text-text-muted">-</p>
@@ -248,7 +251,7 @@ export const Teachers = () => {
                   {/* Experience */}
                   <div className="text-center">
                     <p className="text-lg font-bold text-text-primary">{teacher.experience}</p>
-                    <p className="text-xs text-text-muted">Years Exp.</p>
+                    <p className="text-xs text-text-muted">{t('teachers.yearsExp')}</p>
                   </div>
 
                   {/* Contact */}
@@ -265,13 +268,13 @@ export const Teachers = () => {
 
                   {/* Status */}
                   <span
-                    className="px-3 py-1 rounded-full text-xs font-medium capitalize"
+                    className="px-3 py-1 rounded-full text-xs font-medium"
                     style={{
                       backgroundColor: teacher.status === 'active' ? '#10b98120' : '#64748b20',
                       color: teacher.status === 'active' ? '#10b981' : '#64748b',
                     }}
                   >
-                    {teacher.status}
+                    {({ 'active': t('status.active'), 'inactive': t('status.inactive') } as Record<string, string>)[teacher.status] || teacher.status}
                   </span>
 
                   {/* Actions */}
@@ -282,10 +285,10 @@ export const Teachers = () => {
                       </Button>
                     }
                     items={[
-                      { id: 'view', label: 'View Profile', onClick: () => {} },
-                      { id: 'edit', label: 'Edit Details', onClick: () => {} },
-                      { id: 'classes', label: 'Assign Classes', onClick: () => {} },
-                      { id: 'schedule', label: 'View Schedule', onClick: () => {} },
+                      { id: 'view', label: t('teachers.viewProfile'), onClick: () => {} },
+                      { id: 'edit', label: t('teachers.editDetails'), onClick: () => {} },
+                      { id: 'classes', label: t('teachers.assignClasses'), onClick: () => {} },
+                      { id: 'schedule', label: t('teachers.viewSchedule'), onClick: () => {} },
                     ]}
                   />
                 </div>
@@ -293,7 +296,7 @@ export const Teachers = () => {
                 {/* Qualifications */}
                 <div className="mt-3 pt-3 border-t border-border-default">
                   <p className="text-xs text-text-muted">
-                    <span className="font-medium">Qualifications:</span>{' '}
+                    <span className="font-medium">{t('teachers.qualifications')}</span>{' '}
                     {teacher.qualifications.join(', ')}
                   </p>
                 </div>
@@ -306,7 +309,7 @@ export const Teachers = () => {
       {filteredTeachers.length === 0 && (
         <Card className="p-12 text-center">
           <UserCheck size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No teachers found</p>
+          <p className="text-text-secondary">{t('teachers.noTeachersFound')}</p>
         </Card>
       )}
     </div>

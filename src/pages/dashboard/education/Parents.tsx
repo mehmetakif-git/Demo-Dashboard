@@ -17,7 +17,7 @@ import { getProfileImage } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const Parents = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('education');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
@@ -44,13 +44,13 @@ export const Parents = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('education.parentPortal', 'Parent Portal')}
-        subtitle="Manage parent information and communication"
+        title={t('parents.title')}
+        subtitle={t('parents.subtitle')}
         icon={UserPlus}
         actions={
           <Button>
             <Plus size={18} />
-            Add Parent
+            {t('parents.addParent')}
           </Button>
         }
       />
@@ -58,10 +58,10 @@ export const Parents = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Parents', value: stats.total, icon: UserPlus, color: EDUCATION_COLOR },
-          { label: 'Active Parents', value: stats.active, icon: Users, color: '#10b981' },
-          { label: 'Total Students', value: stats.totalStudents, icon: Users, color: '#f59e0b' },
-          { label: 'Meetings This Month', value: stats.meetingsThisMonth, icon: Calendar, color: '#6366f1' },
+          { label: t('parents.totalParents'), value: stats.total, icon: UserPlus, color: EDUCATION_COLOR },
+          { label: t('parents.activeParents'), value: stats.active, icon: Users, color: '#10b981' },
+          { label: t('parents.totalStudents'), value: stats.totalStudents, icon: Users, color: '#f59e0b' },
+          { label: t('parents.meetingsThisMonth'), value: stats.meetingsThisMonth, icon: Calendar, color: '#6366f1' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -96,23 +96,30 @@ export const Parents = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by name, email, phone, or student name..."
+              placeholder={t('parents.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
             />
           </div>
           <div className="flex gap-2">
-            {['all', 'active', 'inactive'].map((status) => (
-              <Button
-                key={status}
-                variant={statusFilter === status ? 'primary' : 'ghost'}
-                size="sm"
-                onClick={() => setStatusFilter(status)}
-              >
-                {status.charAt(0).toUpperCase() + status.slice(1)}
-              </Button>
-            ))}
+            {(['all', 'active', 'inactive'] as const).map((status) => {
+              const statusMap: Record<string, string> = {
+                'all': t('status.all'),
+                'active': t('status.active'),
+                'inactive': t('status.inactive'),
+              };
+              return (
+                <Button
+                  key={status}
+                  variant={statusFilter === status ? 'primary' : 'ghost'}
+                  size="sm"
+                  onClick={() => setStatusFilter(status)}
+                >
+                  {statusMap[status]}
+                </Button>
+              );
+            })}
           </div>
         </div>
       </Card>
@@ -178,7 +185,7 @@ export const Parents = () => {
 
                   {/* Students */}
                   <div className="min-w-[200px]">
-                    <p className="text-xs text-text-muted mb-2">Students</p>
+                    <p className="text-xs text-text-muted mb-2">{t('parents.studentsLabel')}</p>
                     <div className="flex flex-wrap gap-2">
                       {parentStudents.map((student) => {
                         const studentImg = getProfileImage(student.name);
@@ -213,13 +220,13 @@ export const Parents = () => {
 
                   {/* Status */}
                   <span
-                    className="px-3 py-1 rounded-full text-xs font-medium capitalize"
+                    className="px-3 py-1 rounded-full text-xs font-medium"
                     style={{
                       backgroundColor: parent.status === 'active' ? '#10b98120' : '#64748b20',
                       color: parent.status === 'active' ? '#10b981' : '#64748b',
                     }}
                   >
-                    {parent.status}
+                    {parent.status === 'active' ? t('status.active') : t('status.inactive')}
                   </span>
 
                   {/* Actions */}
@@ -230,10 +237,10 @@ export const Parents = () => {
                       </Button>
                     }
                     items={[
-                      { id: 'view', label: 'View Profile', onClick: () => {} },
-                      { id: 'contact', label: 'Contact', onClick: () => {} },
-                      { id: 'meeting', label: 'Schedule Meeting', onClick: () => {} },
-                      { id: 'edit', label: 'Edit Details', onClick: () => {} },
+                      { id: 'view', label: t('parents.viewProfile'), onClick: () => {} },
+                      { id: 'contact', label: t('parents.contact'), onClick: () => {} },
+                      { id: 'meeting', label: t('parents.scheduleMeeting'), onClick: () => {} },
+                      { id: 'edit', label: t('parents.editDetails'), onClick: () => {} },
                     ]}
                   />
                 </div>
@@ -241,7 +248,7 @@ export const Parents = () => {
                 {/* Address */}
                 <div className="mt-3 pt-3 border-t border-border-default">
                   <p className="text-xs text-text-muted">
-                    <span className="font-medium">Address:</span> {parent.address}
+                    <span className="font-medium">{t('parents.address')}</span> {parent.address}
                   </p>
                 </div>
               </Card>
@@ -253,7 +260,7 @@ export const Parents = () => {
       {filteredParents.length === 0 && (
         <Card className="p-12 text-center">
           <UserPlus size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No parents found</p>
+          <p className="text-text-secondary">{t('parents.noParentsFound')}</p>
         </Card>
       )}
     </div>

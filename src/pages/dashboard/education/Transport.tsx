@@ -15,7 +15,7 @@ import { getProfileImage } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const Transport = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('education');
   const [searchQuery, setSearchQuery] = useState('');
   const [view, setView] = useState<'routes' | 'students'>('routes');
   const [selectedRoute, setSelectedRoute] = useState<string | null>(null);
@@ -61,13 +61,13 @@ export const Transport = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('education.transportManagement', 'Transport Management')}
-        subtitle="Manage school transport routes and students"
+        title={t('transport.title')}
+        subtitle={t('transport.subtitle')}
         icon={Bus}
         actions={
           <Button>
             <Plus size={18} />
-            Add Route
+            {t('transport.addRoute')}
           </Button>
         }
       />
@@ -75,10 +75,10 @@ export const Transport = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Routes', value: stats.totalRoutes, icon: MapPin, color: EDUCATION_COLOR },
-          { label: 'Total Buses', value: stats.totalBuses, icon: Bus, color: '#10b981' },
-          { label: 'Students Using', value: stats.totalStudents, icon: Users, color: '#f59e0b' },
-          { label: 'Utilization', value: `${stats.utilizationRate}%`, icon: Bus, color: '#6366f1' },
+          { label: t('transport.totalRoutes'), value: stats.totalRoutes, icon: MapPin, color: EDUCATION_COLOR },
+          { label: t('transport.totalBuses'), value: stats.totalBuses, icon: Bus, color: '#10b981' },
+          { label: t('transport.studentsUsing'), value: stats.totalStudents, icon: Users, color: '#f59e0b' },
+          { label: t('transport.utilization'), value: `${stats.utilizationRate}%`, icon: Bus, color: '#6366f1' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -116,20 +116,20 @@ export const Transport = () => {
               size="sm"
               onClick={() => setView('routes')}
             >
-              Routes
+              {t('transport.routes')}
             </Button>
             <Button
               variant={view === 'students' ? 'primary' : 'ghost'}
               size="sm"
               onClick={() => setView('students')}
             >
-              Students
+              {t('transport.students')}
             </Button>
           </div>
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder={view === 'routes' ? 'Search routes...' : 'Search students...'}
+              placeholder={view === 'routes' ? t('transport.searchRoutes') : t('transport.searchStudents')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -142,7 +142,7 @@ export const Transport = () => {
                 size="sm"
                 onClick={() => setSelectedRoute(null)}
               >
-                All Routes
+                {t('transport.allRoutes')}
               </Button>
               {busRoutes.map((route) => (
                 <Button
@@ -194,10 +194,10 @@ export const Transport = () => {
                         </Button>
                       }
                       items={[
-                        { id: 'view', label: 'View Details', onClick: () => {} },
-                        { id: 'edit', label: 'Edit Route', onClick: () => {} },
-                        { id: 'assign', label: 'Assign Students', onClick: () => {} },
-                        { id: 'track', label: 'Track Bus', onClick: () => {} },
+                        { id: 'view', label: t('transport.viewDetails'), onClick: () => {} },
+                        { id: 'edit', label: t('transport.editRoute'), onClick: () => {} },
+                        { id: 'assign', label: t('transport.assignStudents'), onClick: () => {} },
+                        { id: 'track', label: t('transport.trackBus'), onClick: () => {} },
                       ]}
                     />
                   </div>
@@ -232,15 +232,15 @@ export const Transport = () => {
 
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-text-muted">Vehicle No</span>
+                      <span className="text-text-muted">{t('transport.vehicleNo')}</span>
                       <span className="text-text-primary font-mono">{route.vehicleNo}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-text-muted">Students</span>
+                      <span className="text-text-muted">{t('transport.studentsLabel')}</span>
                       <span className="text-text-primary">{route.studentCount} / {route.capacity}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-text-muted">Timing</span>
+                      <span className="text-text-muted">{t('transport.timing')}</span>
                       <span className="text-text-primary">{route.startTime} - {route.endTime}</span>
                     </div>
                   </div>
@@ -256,12 +256,12 @@ export const Transport = () => {
                         }}
                       />
                     </div>
-                    <p className="text-xs text-text-muted mt-1">{utilization}% capacity</p>
+                    <p className="text-xs text-text-muted mt-1">{t('transport.capacity', { percent: utilization })}</p>
                   </div>
 
                   {/* Stops */}
                   <div className="mt-3 pt-3 border-t border-border-default">
-                    <p className="text-xs text-text-muted mb-2">Stops</p>
+                    <p className="text-xs text-text-muted mb-2">{t('transport.stops')}</p>
                     <div className="flex flex-wrap gap-1">
                       {route.stops.map((stop, i) => (
                         <span
@@ -343,13 +343,13 @@ export const Transport = () => {
 
                     {/* Status */}
                     <span
-                      className="px-3 py-1 rounded-full text-xs font-medium capitalize"
+                      className="px-3 py-1 rounded-full text-xs font-medium"
                       style={{
                         backgroundColor: ts.status === 'active' ? '#10b98120' : '#64748b20',
                         color: ts.status === 'active' ? '#10b981' : '#64748b',
                       }}
                     >
-                      {ts.status}
+                      {ts.status === 'active' ? t('status.active') : t('status.inactive')}
                     </span>
 
                     {/* Actions */}
@@ -360,8 +360,8 @@ export const Transport = () => {
                         </Button>
                       }
                       items={[
-                        { id: 'change', label: 'Change Route', onClick: () => {} },
-                        { id: 'remove', label: 'Remove from Transport', onClick: () => {} },
+                        { id: 'change', label: t('transport.changeRoute'), onClick: () => {} },
+                        { id: 'remove', label: t('transport.removeFromTransport'), onClick: () => {} },
                       ]}
                     />
                   </div>
@@ -375,7 +375,7 @@ export const Transport = () => {
       {((view === 'routes' && filteredRoutes.length === 0) || (view === 'students' && filteredStudents.length === 0)) && (
         <Card className="p-12 text-center">
           <Bus size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No {view} found</p>
+          <p className="text-text-secondary">{view === 'routes' ? t('transport.noRoutesFound') : t('transport.noStudentsFound')}</p>
         </Card>
       )}
     </div>

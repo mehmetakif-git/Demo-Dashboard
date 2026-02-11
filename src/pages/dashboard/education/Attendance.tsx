@@ -14,8 +14,10 @@ import {
 import { PageHeader, Card, Button, Input } from '@/components/common';
 import { attendance, students, classes, EDUCATION_COLOR } from '@/data/education/educationData';
 import { getProfileImage } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const Attendance = () => {
+  const { t } = useTranslation('education');
   const [selectedDate, setSelectedDate] = useState('2024-01-17');
   const [selectedClass, setSelectedClass] = useState<string>('CLS001');
 
@@ -64,19 +66,19 @@ export const Attendance = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Attendance Tracking"
-        subtitle="Mark and manage student attendance"
+        title={t('attendance.title')}
+        subtitle={t('attendance.subtitle')}
         icon={ClipboardCheck}
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         {[
-          { label: 'Present', value: stats.present, icon: UserCheck, color: '#10b981' },
-          { label: 'Absent', value: stats.absent, icon: UserX, color: '#ef4444' },
-          { label: 'Late', value: stats.late, icon: Clock, color: '#f59e0b' },
-          { label: 'Total Students', value: stats.total, icon: Users, color: EDUCATION_COLOR },
-          { label: 'Attendance Rate', value: `${stats.rate}%`, icon: ClipboardCheck, color: '#6366f1' },
+          { label: t('attendance.present'), value: stats.present, icon: UserCheck, color: '#10b981' },
+          { label: t('attendance.absent'), value: stats.absent, icon: UserX, color: '#ef4444' },
+          { label: t('attendance.late'), value: stats.late, icon: Clock, color: '#f59e0b' },
+          { label: t('attendance.totalStudents'), value: stats.total, icon: Users, color: EDUCATION_COLOR },
+          { label: t('attendance.attendanceRate'), value: `${stats.rate}%`, icon: ClipboardCheck, color: '#6366f1' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -137,7 +139,7 @@ export const Attendance = () => {
         <div className="flex items-center justify-between mb-4">
           <div>
             <h3 className="font-semibold text-text-primary">
-              {selectedClassInfo?.name} - Attendance
+              {t('attendance.classAttendance', { className: selectedClassInfo?.name })}
             </h3>
             <p className="text-sm text-text-muted">
               {new Date(selectedDate).toLocaleDateString('en-US', {
@@ -150,10 +152,10 @@ export const Attendance = () => {
           </div>
           <div className="flex gap-2">
             <Button variant="secondary" size="sm">
-              Mark All Present
+              {t('attendance.markAllPresent')}
             </Button>
             <Button size="sm">
-              Save Attendance
+              {t('attendance.saveAttendance')}
             </Button>
           </div>
         </div>
@@ -201,24 +203,31 @@ export const Attendance = () => {
 
                 {/* Status Buttons */}
                 <div className="flex gap-2">
-                  {['present', 'absent', 'late'].map((s) => {
-                    const isActive = status === s;
-                    const color = getStatusColor(s);
-                    return (
-                      <button
-                        key={s}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-medium capitalize transition-all ${
-                          isActive ? 'ring-2 ring-current' : 'bg-background-tertiary hover:bg-background-secondary'
-                        }`}
-                        style={{
-                          backgroundColor: isActive ? `${color}20` : undefined,
-                          color: isActive ? color : undefined,
-                        }}
-                      >
-                        {s}
-                      </button>
-                    );
-                  })}
+                  {(() => {
+                    const statusMap: Record<string, string> = {
+                      'present': t('attendance.present'),
+                      'absent': t('attendance.absent'),
+                      'late': t('attendance.late'),
+                    };
+                    return ['present', 'absent', 'late'].map((s) => {
+                      const isActive = status === s;
+                      const color = getStatusColor(s);
+                      return (
+                        <button
+                          key={s}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                            isActive ? 'ring-2 ring-current' : 'bg-background-tertiary hover:bg-background-secondary'
+                          }`}
+                          style={{
+                            backgroundColor: isActive ? `${color}20` : undefined,
+                            color: isActive ? color : undefined,
+                          }}
+                        >
+                          {statusMap[s]}
+                        </button>
+                      );
+                    });
+                  })()}
                 </div>
 
                 {/* Time Input (for present/late) */}
@@ -232,7 +241,7 @@ export const Attendance = () => {
 
                 {/* Remarks */}
                 <Input
-                  placeholder="Remarks..."
+                  placeholder={t('attendance.remarks')}
                   defaultValue={studentAttendance?.remarks || ''}
                   className="w-40 text-sm"
                 />
@@ -244,44 +253,51 @@ export const Attendance = () => {
 
       {/* Recent Attendance History */}
       <Card className="p-4">
-        <h3 className="font-semibold text-text-primary mb-4">Recent Attendance Records</h3>
+        <h3 className="font-semibold text-text-primary mb-4">{t('attendance.recentRecords')}</h3>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className="border-b border-border-default">
-                <th className="text-left py-2 text-sm text-text-muted font-medium">Date</th>
-                <th className="text-left py-2 text-sm text-text-muted font-medium">Student</th>
-                <th className="text-left py-2 text-sm text-text-muted font-medium">Class</th>
-                <th className="text-left py-2 text-sm text-text-muted font-medium">Status</th>
-                <th className="text-left py-2 text-sm text-text-muted font-medium">Arrived</th>
-                <th className="text-left py-2 text-sm text-text-muted font-medium">Remarks</th>
+                <th className="text-left py-2 text-sm text-text-muted font-medium">{t('attendance.date')}</th>
+                <th className="text-left py-2 text-sm text-text-muted font-medium">{t('attendance.student')}</th>
+                <th className="text-left py-2 text-sm text-text-muted font-medium">{t('attendance.class')}</th>
+                <th className="text-left py-2 text-sm text-text-muted font-medium">{t('attendance.status')}</th>
+                <th className="text-left py-2 text-sm text-text-muted font-medium">{t('attendance.arrived')}</th>
+                <th className="text-left py-2 text-sm text-text-muted font-medium">{t('attendance.remarksCol')}</th>
               </tr>
             </thead>
             <tbody>
-              {attendance.slice(0, 10).map((record) => {
-                const StatusIcon = getStatusIcon(record.status);
-                const statusColor = getStatusColor(record.status);
-                return (
-                  <tr key={record.id} className="border-b border-border-default">
-                    <td className="py-3 text-sm text-text-primary">
-                      {new Date(record.date).toLocaleDateString()}
-                    </td>
-                    <td className="py-3 text-sm text-text-primary">{record.studentName}</td>
-                    <td className="py-3 text-sm text-text-primary">{record.className}</td>
-                    <td className="py-3">
-                      <span
-                        className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium capitalize"
-                        style={{ backgroundColor: `${statusColor}20`, color: statusColor }}
-                      >
-                        <StatusIcon size={12} />
-                        {record.status}
-                      </span>
-                    </td>
-                    <td className="py-3 text-sm text-text-muted">{record.arrivedAt || '-'}</td>
-                    <td className="py-3 text-sm text-text-muted">{record.remarks || '-'}</td>
-                  </tr>
-                );
-              })}
+              {(() => {
+                const statusMap: Record<string, string> = {
+                  'present': t('attendance.present'),
+                  'absent': t('attendance.absent'),
+                  'late': t('attendance.late'),
+                };
+                return attendance.slice(0, 10).map((record) => {
+                  const StatusIcon = getStatusIcon(record.status);
+                  const statusColor = getStatusColor(record.status);
+                  return (
+                    <tr key={record.id} className="border-b border-border-default">
+                      <td className="py-3 text-sm text-text-primary">
+                        {new Date(record.date).toLocaleDateString()}
+                      </td>
+                      <td className="py-3 text-sm text-text-primary">{record.studentName}</td>
+                      <td className="py-3 text-sm text-text-primary">{record.className}</td>
+                      <td className="py-3">
+                        <span
+                          className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium"
+                          style={{ backgroundColor: `${statusColor}20`, color: statusColor }}
+                        >
+                          <StatusIcon size={12} />
+                          {statusMap[record.status]}
+                        </span>
+                      </td>
+                      <td className="py-3 text-sm text-text-muted">{record.arrivedAt || '-'}</td>
+                      <td className="py-3 text-sm text-text-muted">{record.remarks || '-'}</td>
+                    </tr>
+                  );
+                });
+              })()}
             </tbody>
           </table>
         </div>

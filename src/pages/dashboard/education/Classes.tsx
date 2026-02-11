@@ -13,8 +13,10 @@ import {
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { classes, teachers, EDUCATION_COLOR } from '@/data/education/educationData';
 import { getProfileImage } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const Classes = () => {
+  const { t } = useTranslation('education');
   const [searchQuery, setSearchQuery] = useState('');
   const [gradeFilter, setGradeFilter] = useState<string>('all');
   const [academicYear] = useState('2024-2025');
@@ -27,7 +29,7 @@ export const Classes = () => {
   const stats = useMemo(() => {
     const totalStudents = classes.reduce((acc, c) => acc + c.currentStrength, 0);
     const avgClassSize = Math.round(totalStudents / classes.length);
-    const teacherCount = teachers.filter(t => t.classTeacherOf).length;
+    const teacherCount = teachers.filter(tch => tch.classTeacherOf).length;
 
     return {
       totalClasses: classes.length,
@@ -63,13 +65,13 @@ export const Classes = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Class Management"
-        subtitle="Manage classes and sections"
+        title={t('classes.title')}
+        subtitle={t('classes.subtitle')}
         icon={School}
         actions={
           <Button>
             <Plus size={18} />
-            Create New Class
+            {t('classes.createClass')}
           </Button>
         }
       />
@@ -77,10 +79,10 @@ export const Classes = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Classes', value: stats.totalClasses, icon: School, color: EDUCATION_COLOR },
-          { label: 'Total Students', value: stats.totalStudents, icon: Users, color: '#10b981' },
-          { label: 'Avg Class Size', value: stats.avgClassSize, icon: Users, color: '#f59e0b' },
-          { label: 'Teacher:Student', value: stats.teacherRatio, icon: User, color: '#6366f1' },
+          { label: t('classes.totalClasses'), value: stats.totalClasses, icon: School, color: EDUCATION_COLOR },
+          { label: t('classes.totalStudents'), value: stats.totalStudents, icon: Users, color: '#10b981' },
+          { label: t('classes.avgClassSize'), value: stats.avgClassSize, icon: Users, color: '#f59e0b' },
+          { label: t('classes.teacherStudent'), value: stats.teacherRatio, icon: User, color: '#6366f1' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -115,7 +117,7 @@ export const Classes = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by class name or teacher..."
+              placeholder={t('classes.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -127,7 +129,7 @@ export const Classes = () => {
               size="sm"
               onClick={() => setGradeFilter('all')}
             >
-              All Grades
+              {t('classes.allGrades')}
             </Button>
             {uniqueGrades.map((grade) => (
               <Button
@@ -136,7 +138,7 @@ export const Classes = () => {
                 size="sm"
                 onClick={() => setGradeFilter(grade.toString())}
               >
-                Grade {grade}
+                {t('classes.gradeN', { n: grade })}
               </Button>
             ))}
           </div>
@@ -175,10 +177,10 @@ export const Classes = () => {
                       </Button>
                     }
                     items={[
-                      { id: 'view', label: 'View Details', onClick: () => {} },
-                      { id: 'edit', label: 'Edit Class', onClick: () => {} },
-                      { id: 'timetable', label: 'View Timetable', onClick: () => {} },
-                      { id: 'students', label: 'Students List', onClick: () => {} },
+                      { id: 'view', label: t('classes.viewDetails'), onClick: () => {} },
+                      { id: 'edit', label: t('classes.editClass'), onClick: () => {} },
+                      { id: 'timetable', label: t('classes.viewTimetable'), onClick: () => {} },
+                      { id: 'students', label: t('classes.studentsList'), onClick: () => {} },
                     ]}
                   />
                 </div>
@@ -204,7 +206,7 @@ export const Classes = () => {
                   })()}
                   <div>
                     <p className="text-sm font-medium text-text-primary">{cls.classTeacherName}</p>
-                    <p className="text-xs text-text-muted">Class Teacher</p>
+                    <p className="text-xs text-text-muted">{t('classes.classTeacher')}</p>
                   </div>
                 </div>
 
@@ -213,14 +215,14 @@ export const Classes = () => {
                   <div className="flex items-center justify-between text-sm">
                     <span className="flex items-center gap-1 text-text-muted">
                       <MapPin size={14} />
-                      Room
+                      {t('classes.room')}
                     </span>
                     <span className="text-text-primary font-medium">{cls.roomNo}</span>
                   </div>
                   <div className="flex items-center justify-between text-sm">
                     <span className="flex items-center gap-1 text-text-muted">
                       <Users size={14} />
-                      Students
+                      {t('classes.students')}
                     </span>
                     <span className="text-text-primary font-medium">
                       {cls.currentStrength} / {cls.capacity}
@@ -239,14 +241,14 @@ export const Classes = () => {
                       }}
                     />
                   </div>
-                  <p className="text-xs text-text-muted mt-1">{occupancy}% occupied</p>
+                  <p className="text-xs text-text-muted mt-1">{t('classes.occupied', { percent: occupancy })}</p>
                 </div>
 
                 {/* Subjects */}
                 <div className="pt-3 border-t border-border-default">
                   <p className="text-xs text-text-muted mb-2 flex items-center gap-1">
                     <BookOpen size={12} />
-                    Subjects
+                    {t('classes.subjects')}
                   </p>
                   <div className="flex flex-wrap gap-1">
                     {cls.subjects.slice(0, 4).map((subject) => (
@@ -273,7 +275,7 @@ export const Classes = () => {
       {filteredClasses.length === 0 && (
         <Card className="p-12 text-center">
           <School size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No classes found</p>
+          <p className="text-text-secondary">{t('classes.noClassesFound')}</p>
         </Card>
       )}
     </div>

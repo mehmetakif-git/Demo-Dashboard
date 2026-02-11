@@ -17,7 +17,7 @@ import { exams, examSchedule, EDUCATION_COLOR } from '@/data/education/education
 import { useTranslation } from 'react-i18next';
 
 export const Exams = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('education');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [selectedExam, setSelectedExam] = useState<string | null>('EXM002');
@@ -69,13 +69,13 @@ export const Exams = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('education.examManagement', 'Exam Management')}
-        subtitle="Schedule and manage examinations"
+        title={t('exams.title')}
+        subtitle={t('exams.subtitle')}
         icon={FileText}
         actions={
           <Button>
             <Plus size={18} />
-            Create Exam
+            {t('exams.createExam')}
           </Button>
         }
       />
@@ -83,10 +83,10 @@ export const Exams = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Upcoming', value: stats.upcoming, icon: Calendar, color: '#f59e0b' },
-          { label: 'Ongoing', value: stats.ongoing, icon: Clock, color: '#6366f1' },
-          { label: 'Completed', value: stats.completed, icon: CheckCircle, color: '#10b981' },
-          { label: 'Scheduled', value: stats.scheduled, icon: AlertCircle, color: '#3b82f6' },
+          { label: t('exams.upcoming'), value: stats.upcoming, icon: Calendar, color: '#f59e0b' },
+          { label: t('exams.ongoing'), value: stats.ongoing, icon: Clock, color: '#6366f1' },
+          { label: t('exams.completed'), value: stats.completed, icon: CheckCircle, color: '#10b981' },
+          { label: t('exams.scheduled'), value: stats.scheduled, icon: AlertCircle, color: '#3b82f6' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -121,23 +121,32 @@ export const Exams = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search exams..."
+              placeholder={t('exams.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
             />
           </div>
           <div className="flex gap-2 flex-wrap">
-            {['all', 'upcoming', 'ongoing', 'completed', 'scheduled'].map((status) => (
-              <Button
-                key={status}
-                variant={statusFilter === status ? 'primary' : 'ghost'}
-                size="sm"
-                onClick={() => setStatusFilter(status)}
-              >
-                {status.charAt(0).toUpperCase() + status.slice(1)}
-              </Button>
-            ))}
+            {(() => {
+              const statusMap: Record<string, string> = {
+                'all': t('status.all'),
+                'upcoming': t('status.upcoming'),
+                'ongoing': t('status.ongoing'),
+                'completed': t('status.completed'),
+                'scheduled': t('status.scheduled'),
+              };
+              return ['all', 'upcoming', 'ongoing', 'completed', 'scheduled'].map((status) => (
+                <Button
+                  key={status}
+                  variant={statusFilter === status ? 'primary' : 'ghost'}
+                  size="sm"
+                  onClick={() => setStatusFilter(status)}
+                >
+                  {statusMap[status]}
+                </Button>
+              ));
+            })()}
           </div>
         </div>
       </Card>
@@ -145,7 +154,7 @@ export const Exams = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Exams List */}
         <div className="lg:col-span-1 space-y-4">
-          <h3 className="font-semibold text-text-primary">Exams</h3>
+          <h3 className="font-semibold text-text-primary">{t('exams.exams')}</h3>
           {filteredExams.map((exam, index) => {
             const StatusIcon = getStatusIcon(exam.status);
             const statusColor = getStatusColor(exam.status);
@@ -184,40 +193,50 @@ export const Exams = () => {
                         </Button>
                       }
                       items={[
-                        { id: 'schedule', label: 'View Schedule', onClick: () => {} },
-                        { id: 'edit', label: 'Edit Exam', onClick: () => {} },
-                        { id: 'results', label: 'Enter Results', onClick: () => {} },
-                        { id: 'publish', label: 'Publish Results', onClick: () => {} },
+                        { id: 'schedule', label: t('exams.viewSchedule'), onClick: () => {} },
+                        { id: 'edit', label: t('exams.editExam'), onClick: () => {} },
+                        { id: 'results', label: t('exams.enterResults'), onClick: () => {} },
+                        { id: 'publish', label: t('exams.publishResults'), onClick: () => {} },
                       ]}
                     />
                   </div>
 
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-text-muted">Date Range</span>
+                      <span className="text-text-muted">{t('exams.dateRange')}</span>
                       <span className="text-text-primary">
                         {new Date(exam.startDate).toLocaleDateString()} - {new Date(exam.endDate).toLocaleDateString()}
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-text-muted">Term</span>
+                      <span className="text-text-muted">{t('exams.term')}</span>
                       <span className="text-text-primary">{exam.term}</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-text-muted">Status</span>
-                      <span
-                        className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium capitalize"
-                        style={{ backgroundColor: `${statusColor}20`, color: statusColor }}
-                      >
-                        <StatusIcon size={12} />
-                        {exam.status}
-                      </span>
+                      <span className="text-text-muted">{t('exams.status')}</span>
+                      {(() => {
+                        const statusMap: Record<string, string> = {
+                          'upcoming': t('exams.upcoming'),
+                          'ongoing': t('exams.ongoing'),
+                          'completed': t('exams.completed'),
+                          'scheduled': t('exams.scheduled'),
+                        };
+                        return (
+                          <span
+                            className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium"
+                            style={{ backgroundColor: `${statusColor}20`, color: statusColor }}
+                          >
+                            <StatusIcon size={12} />
+                            {statusMap[exam.status]}
+                          </span>
+                        );
+                      })()}
                     </div>
                   </div>
 
                   <div className="mt-3 pt-3 border-t border-border-default">
                     <p className="text-xs text-text-muted">
-                      Grades: {exam.grades.join(', ')}
+                      {t('exams.gradesLabel')} {exam.grades.join(', ')}
                     </p>
                   </div>
                 </Card>
@@ -230,7 +249,7 @@ export const Exams = () => {
         <div className="lg:col-span-2">
           <Card className="p-4">
             <h3 className="font-semibold text-text-primary mb-4">
-              Exam Schedule {selectedExam && `- ${exams.find(e => e.id === selectedExam)?.name}`}
+              {t('exams.examSchedule')} {selectedExam && `- ${exams.find(e => e.id === selectedExam)?.name}`}
             </h3>
 
             {selectedExamSchedule.length > 0 ? (
@@ -267,13 +286,13 @@ export const Exams = () => {
                       <div className="flex items-center gap-2">
                         <Clock size={16} className="text-text-muted" />
                         <span className="text-sm text-text-primary">{schedule.time}</span>
-                        <span className="text-xs text-text-muted">({schedule.duration} min)</span>
+                        <span className="text-xs text-text-muted">({schedule.duration} {t('exams.minUnit')})</span>
                       </div>
 
                       {/* Room */}
                       <div className="flex items-center gap-2">
                         <MapPin size={16} className="text-text-muted" />
-                        <span className="text-sm text-text-primary">Room {schedule.roomNo}</span>
+                        <span className="text-sm text-text-primary">{t('exams.roomN', { n: schedule.roomNo })}</span>
                       </div>
 
                       {/* Invigilator */}
@@ -289,7 +308,7 @@ export const Exams = () => {
               <div className="text-center py-12">
                 <FileText size={48} className="mx-auto text-text-muted mb-4" />
                 <p className="text-text-secondary">
-                  {selectedExam ? 'No schedule entries for this exam' : 'Select an exam to view schedule'}
+                  {selectedExam ? t('exams.noSchedule') : t('exams.selectExam')}
                 </p>
               </div>
             )}

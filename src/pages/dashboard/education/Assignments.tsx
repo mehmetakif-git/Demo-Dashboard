@@ -14,8 +14,10 @@ import {
 import { PageHeader, Card, Button, Input, Dropdown } from '@/components/common';
 import { assignments, submissions, classes, EDUCATION_COLOR } from '@/data/education/educationData';
 import { getProfileImage } from '@/utils/profileImages';
+import { useTranslation } from 'react-i18next';
 
 export const Assignments = () => {
+  const { t } = useTranslation('education');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [classFilter, setClassFilter] = useState<string>('all');
@@ -67,13 +69,13 @@ export const Assignments = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Assignment Management"
-        subtitle="Create and manage student assignments"
+        title={t('assignments.title')}
+        subtitle={t('assignments.subtitle')}
         icon={CheckSquare}
         actions={
           <Button>
             <Plus size={18} />
-            Create Assignment
+            {t('assignments.createAssignment')}
           </Button>
         }
       />
@@ -81,10 +83,10 @@ export const Assignments = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Active Assignments', value: stats.active, icon: CheckSquare, color: EDUCATION_COLOR },
-          { label: 'Total Submissions', value: stats.totalSubmissions, icon: FileText, color: '#10b981' },
-          { label: 'Graded This Week', value: stats.gradedThisWeek, icon: Users, color: '#f59e0b' },
-          { label: 'Pending Submissions', value: stats.pending, icon: Clock, color: '#ef4444' },
+          { label: t('assignments.activeAssignments'), value: stats.active, icon: CheckSquare, color: EDUCATION_COLOR },
+          { label: t('assignments.totalSubmissions'), value: stats.totalSubmissions, icon: FileText, color: '#10b981' },
+          { label: t('assignments.gradedThisWeek'), value: stats.gradedThisWeek, icon: Users, color: '#f59e0b' },
+          { label: t('assignments.pendingSubmissions'), value: stats.pending, icon: Clock, color: '#ef4444' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -119,7 +121,7 @@ export const Assignments = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by title, subject, or teacher..."
+              placeholder={t('assignments.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -131,7 +133,7 @@ export const Assignments = () => {
               size="sm"
               onClick={() => setClassFilter('all')}
             >
-              All Classes
+              {t('assignments.allClasses')}
             </Button>
             {classes.map((cls) => (
               <Button
@@ -145,16 +147,23 @@ export const Assignments = () => {
             ))}
           </div>
           <div className="flex gap-2">
-            {['all', 'active', 'completed'].map((status) => (
-              <Button
-                key={status}
-                variant={statusFilter === status ? 'secondary' : 'ghost'}
-                size="sm"
-                onClick={() => setStatusFilter(status)}
-              >
-                {status.charAt(0).toUpperCase() + status.slice(1)}
-              </Button>
-            ))}
+            {(() => {
+              const statusMap: Record<string, string> = {
+                'all': t('status.all'),
+                'active': t('status.active'),
+                'completed': t('status.completed'),
+              };
+              return ['all', 'active', 'completed'].map((status) => (
+                <Button
+                  key={status}
+                  variant={statusFilter === status ? 'secondary' : 'ghost'}
+                  size="sm"
+                  onClick={() => setStatusFilter(status)}
+                >
+                  {statusMap[status]}
+                </Button>
+              ));
+            })()}
           </div>
         </div>
       </Card>
@@ -234,17 +243,17 @@ export const Assignments = () => {
                       }`}
                     >
                       {isOverdue
-                        ? `${Math.abs(daysUntilDue)} days overdue`
+                        ? t('assignments.daysOverdue', { count: Math.abs(daysUntilDue) })
                         : daysUntilDue === 0
-                        ? 'Due today'
-                        : `${daysUntilDue} days left`}
+                        ? t('assignments.dueToday')
+                        : t('assignments.daysLeft', { count: daysUntilDue })}
                     </p>
                   </div>
 
                   {/* Submissions */}
                   <div className="min-w-[120px]">
                     <div className="flex justify-between text-sm mb-1">
-                      <span className="text-text-muted">Submissions</span>
+                      <span className="text-text-muted">{t('assignments.submissions')}</span>
                       <span className="text-text-primary font-medium">
                         {assignment.submissionCount}/{assignment.totalStudents}
                       </span>
@@ -262,13 +271,13 @@ export const Assignments = () => {
 
                   {/* Status */}
                   <span
-                    className="px-3 py-1 rounded-full text-xs font-medium capitalize"
+                    className="px-3 py-1 rounded-full text-xs font-medium"
                     style={{
                       backgroundColor: assignment.status === 'active' ? '#10b98120' : '#64748b20',
                       color: assignment.status === 'active' ? '#10b981' : '#64748b',
                     }}
                   >
-                    {assignment.status}
+                    {({ 'active': t('status.active'), 'completed': t('status.completed') } as Record<string, string>)[assignment.status]}
                   </span>
 
                   {/* Actions */}
@@ -279,10 +288,10 @@ export const Assignments = () => {
                       </Button>
                     }
                     items={[
-                      { id: 'view', label: 'View Details', onClick: () => {} },
-                      { id: 'edit', label: 'Edit Assignment', onClick: () => {} },
-                      { id: 'submissions', label: 'View Submissions', onClick: () => {} },
-                      { id: 'delete', label: 'Delete', onClick: () => {} },
+                      { id: 'view', label: t('assignments.viewDetails'), onClick: () => {} },
+                      { id: 'edit', label: t('assignments.editAssignment'), onClick: () => {} },
+                      { id: 'submissions', label: t('assignments.viewSubmissions'), onClick: () => {} },
+                      { id: 'delete', label: t('assignments.delete'), onClick: () => {} },
                     ]}
                   />
                 </div>
@@ -295,7 +304,7 @@ export const Assignments = () => {
       {filteredAssignments.length === 0 && (
         <Card className="p-12 text-center">
           <CheckSquare size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No assignments found</p>
+          <p className="text-text-secondary">{t('assignments.noAssignmentsFound')}</p>
         </Card>
       )}
     </div>

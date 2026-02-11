@@ -15,7 +15,7 @@ import { getProfileImage } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const Students = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('education');
   const [searchQuery, setSearchQuery] = useState('');
   const [gradeFilter, setGradeFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -64,13 +64,13 @@ export const Students = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('education.studentManagement', 'Student Management')}
-        subtitle="Manage student registrations and records"
+        title={t('students.title')}
+        subtitle={t('students.subtitle')}
         icon={Users}
         actions={
           <Button>
             <Plus size={18} />
-            Register New Student
+            {t('students.registerStudent')}
           </Button>
         }
       />
@@ -78,10 +78,10 @@ export const Students = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Students', value: stats.total, icon: Users, color: EDUCATION_COLOR },
-          { label: 'Active Students', value: stats.active, icon: UserCheck, color: '#10b981' },
-          { label: 'New This Month', value: stats.newThisMonth, icon: GraduationCap, color: '#f59e0b' },
-          { label: 'Grade 9', value: stats.byGrade[9] || 0, icon: Users, color: '#6366f1' },
+          { label: t('students.totalStudents'), value: stats.total, icon: Users, color: EDUCATION_COLOR },
+          { label: t('students.activeStudents'), value: stats.active, icon: UserCheck, color: '#10b981' },
+          { label: t('students.newThisMonth'), value: stats.newThisMonth, icon: GraduationCap, color: '#f59e0b' },
+          { label: t('students.gradeN', { n: 9 }), value: stats.byGrade[9] || 0, icon: Users, color: '#6366f1' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -116,7 +116,7 @@ export const Students = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by name, student no, or class..."
+              placeholder={t('students.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -128,7 +128,7 @@ export const Students = () => {
               size="sm"
               onClick={() => setGradeFilter('all')}
             >
-              All Grades
+              {t('students.allGrades')}
             </Button>
             {uniqueGrades.map((grade) => (
               <Button
@@ -137,21 +137,24 @@ export const Students = () => {
                 size="sm"
                 onClick={() => setGradeFilter(grade.toString())}
               >
-                Grade {grade}
+                {t('students.gradeN', { n: grade })}
               </Button>
             ))}
           </div>
           <div className="flex gap-2">
-            {['all', 'active', 'inactive'].map((status) => (
-              <Button
-                key={status}
-                variant={statusFilter === status ? 'secondary' : 'ghost'}
-                size="sm"
-                onClick={() => setStatusFilter(status)}
-              >
-                {status.charAt(0).toUpperCase() + status.slice(1)}
-              </Button>
-            ))}
+            {['all', 'active', 'inactive'].map((status) => {
+              const statusMap: Record<string, string> = { 'all': t('status.all'), 'active': t('status.active'), 'inactive': t('status.inactive') };
+              return (
+                <Button
+                  key={status}
+                  variant={statusFilter === status ? 'secondary' : 'ghost'}
+                  size="sm"
+                  onClick={() => setStatusFilter(status)}
+                >
+                  {statusMap[status]}
+                </Button>
+              );
+            })}
           </div>
         </div>
       </Card>
@@ -212,13 +215,13 @@ export const Students = () => {
                     >
                       {student.className}
                     </p>
-                    <p className="text-xs text-text-muted">Class</p>
+                    <p className="text-xs text-text-muted">{t('students.classLabel')}</p>
                   </div>
 
                   {/* Roll No */}
                   <div className="text-center">
                     <p className="text-lg font-bold text-text-primary">#{student.rollNo}</p>
-                    <p className="text-xs text-text-muted">Roll No</p>
+                    <p className="text-xs text-text-muted">{t('students.rollNo')}</p>
                   </div>
 
                   {/* Parent Info */}
@@ -233,10 +236,10 @@ export const Students = () => {
                   {/* Status */}
                   <div className="flex items-center gap-2">
                     <span
-                      className="px-3 py-1 rounded-full text-xs font-medium capitalize"
+                      className="px-3 py-1 rounded-full text-xs font-medium"
                       style={{ backgroundColor: `${statusColor}20`, color: statusColor }}
                     >
-                      {student.status}
+                      {({ 'active': t('status.active'), 'inactive': t('status.inactive'), 'alumni': t('status.alumni') } as Record<string, string>)[student.status] || student.status}
                     </span>
                   </div>
 
@@ -248,10 +251,10 @@ export const Students = () => {
                       </Button>
                     }
                     items={[
-                      { id: 'view', label: 'View Profile', onClick: () => {} },
-                      { id: 'edit', label: 'Edit Details', onClick: () => {} },
-                      { id: 'attendance', label: 'Attendance', onClick: () => {} },
-                      { id: 'grades', label: 'View Grades', onClick: () => {} },
+                      { id: 'view', label: t('students.viewProfile'), onClick: () => {} },
+                      { id: 'edit', label: t('students.editDetails'), onClick: () => {} },
+                      { id: 'attendance', label: t('students.attendance'), onClick: () => {} },
+                      { id: 'grades', label: t('students.viewGrades'), onClick: () => {} },
                     ]}
                   />
                 </div>
@@ -264,7 +267,7 @@ export const Students = () => {
       {filteredStudents.length === 0 && (
         <Card className="p-12 text-center">
           <Users size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No students found</p>
+          <p className="text-text-secondary">{t('students.noStudentsFound')}</p>
         </Card>
       )}
     </div>

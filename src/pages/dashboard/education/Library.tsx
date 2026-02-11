@@ -15,7 +15,7 @@ import { libraryBooks, borrowings, EDUCATION_COLOR } from '@/data/education/educ
 import { useTranslation } from 'react-i18next';
 
 export const Library = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('education');
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [view, setView] = useState<'books' | 'borrowings'>('books');
@@ -75,13 +75,13 @@ export const Library = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('education.libraryManagement', 'Library Management')}
-        subtitle="Manage books and borrowings"
+        title={t('library.title')}
+        subtitle={t('library.subtitle')}
         icon={LibraryIcon}
         actions={
           <Button>
             <Plus size={18} />
-            Add New Book
+            {t('library.addBook')}
           </Button>
         }
       />
@@ -89,10 +89,10 @@ export const Library = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Books', value: stats.totalBooks, icon: BookOpen, color: EDUCATION_COLOR },
-          { label: 'Available', value: stats.available, icon: CheckCircle, color: '#10b981' },
-          { label: 'Borrowed', value: stats.borrowed, icon: Clock, color: '#f59e0b' },
-          { label: 'Overdue', value: stats.overdue, icon: AlertTriangle, color: '#ef4444' },
+          { label: t('library.totalBooks'), value: stats.totalBooks, icon: BookOpen, color: EDUCATION_COLOR },
+          { label: t('library.available'), value: stats.available, icon: CheckCircle, color: '#10b981' },
+          { label: t('library.borrowed'), value: stats.borrowed, icon: Clock, color: '#f59e0b' },
+          { label: t('library.overdue'), value: stats.overdue, icon: AlertTriangle, color: '#ef4444' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -130,20 +130,20 @@ export const Library = () => {
               size="sm"
               onClick={() => setView('books')}
             >
-              Books
+              {t('library.books')}
             </Button>
             <Button
               variant={view === 'borrowings' ? 'primary' : 'ghost'}
               size="sm"
               onClick={() => setView('borrowings')}
             >
-              Borrowings
+              {t('library.borrowings')}
             </Button>
           </div>
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by title, author, or ISBN..."
+              placeholder={t('library.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -156,7 +156,7 @@ export const Library = () => {
                 size="sm"
                 onClick={() => setCategoryFilter('all')}
               >
-                All
+                {t('library.all')}
               </Button>
               {categories.map((category) => (
                 <Button
@@ -208,21 +208,21 @@ export const Library = () => {
                         </Button>
                       }
                       items={[
-                        { id: 'view', label: 'View Details', onClick: () => {} },
-                        { id: 'edit', label: 'Edit Book', onClick: () => {} },
-                        { id: 'issue', label: 'Issue Book', onClick: () => {} },
-                        { id: 'return', label: 'Return Book', onClick: () => {} },
+                        { id: 'view', label: t('library.viewDetails'), onClick: () => {} },
+                        { id: 'edit', label: t('library.editBook'), onClick: () => {} },
+                        { id: 'issue', label: t('library.issueBook'), onClick: () => {} },
+                        { id: 'return', label: t('library.returnBook'), onClick: () => {} },
                       ]}
                     />
                   </div>
 
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-text-muted">ISBN</span>
+                      <span className="text-text-muted">{t('library.isbn')}</span>
                       <span className="text-text-primary font-mono text-xs">{book.isbn}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-text-muted">Category</span>
+                      <span className="text-text-muted">{t('library.category')}</span>
                       <span
                         className="px-2 py-0.5 rounded text-xs"
                         style={{ backgroundColor: `${categoryColor}20`, color: categoryColor }}
@@ -231,23 +231,23 @@ export const Library = () => {
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-text-muted">Available</span>
+                      <span className="text-text-muted">{t('library.availableLabel')}</span>
                       <span className="text-text-primary">
                         {book.availableCopies} / {book.totalCopies}
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-text-muted">Location</span>
+                      <span className="text-text-muted">{t('library.location')}</span>
                       <span className="text-text-primary">{book.location}</span>
                     </div>
                   </div>
 
                   <div className="mt-3 pt-3 border-t border-border-default flex items-center justify-between">
                     <span
-                      className="px-2 py-0.5 rounded text-xs font-medium capitalize"
+                      className="px-2 py-0.5 rounded text-xs font-medium"
                       style={{ backgroundColor: `${statusColor}20`, color: statusColor }}
                     >
-                      {book.availableCopies > 0 ? 'Available' : 'All Borrowed'}
+                      {book.availableCopies > 0 ? t('library.availableStatus') : t('library.allBorrowed')}
                     </span>
                     <span className="text-xs text-text-muted">{book.language}</span>
                   </div>
@@ -300,14 +300,14 @@ export const Library = () => {
                       <p className="text-sm text-text-primary">
                         {new Date(borrowing.borrowDate).toLocaleDateString()}
                       </p>
-                      <p className="text-xs text-text-muted">Borrow Date</p>
+                      <p className="text-xs text-text-muted">{t('library.borrowDate')}</p>
                     </div>
 
                     <div className="text-center">
                       <p className="text-sm text-text-primary">
                         {new Date(borrowing.dueDate).toLocaleDateString()}
                       </p>
-                      <p className="text-xs text-text-muted">Due Date</p>
+                      <p className="text-xs text-text-muted">{t('library.dueDate')}</p>
                     </div>
 
                     {borrowing.returnDate && (
@@ -315,16 +315,16 @@ export const Library = () => {
                         <p className="text-sm text-text-primary">
                           {new Date(borrowing.returnDate).toLocaleDateString()}
                         </p>
-                        <p className="text-xs text-text-muted">Returned</p>
+                        <p className="text-xs text-text-muted">{t('library.returned')}</p>
                       </div>
                     )}
 
                     {/* Status */}
                     <span
-                      className="px-3 py-1 rounded-full text-xs font-medium capitalize"
+                      className="px-3 py-1 rounded-full text-xs font-medium"
                       style={{ backgroundColor: `${statusColor}20`, color: statusColor }}
                     >
-                      {borrowing.status}
+                      {({ 'active': t('status.active'), 'overdue': t('status.overdue'), 'returned': t('status.returned') } as Record<string, string>)[borrowing.status]}
                     </span>
 
                     {/* Actions */}
@@ -335,9 +335,9 @@ export const Library = () => {
                         </Button>
                       }
                       items={[
-                        { id: 'return', label: 'Mark as Returned', onClick: () => {} },
-                        { id: 'extend', label: 'Extend Due Date', onClick: () => {} },
-                        { id: 'fine', label: 'Calculate Fine', onClick: () => {} },
+                        { id: 'return', label: t('library.markReturned'), onClick: () => {} },
+                        { id: 'extend', label: t('library.extendDueDate'), onClick: () => {} },
+                        { id: 'fine', label: t('library.calculateFine'), onClick: () => {} },
                       ]}
                     />
                   </div>
@@ -351,7 +351,7 @@ export const Library = () => {
       {((view === 'books' && filteredBooks.length === 0) || (view === 'borrowings' && borrowings.length === 0)) && (
         <Card className="p-12 text-center">
           <LibraryIcon size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No {view} found</p>
+          <p className="text-text-secondary">{view === 'books' ? t('library.noBooksFound') : t('library.noBorrowingsFound')}</p>
         </Card>
       )}
     </div>
