@@ -19,7 +19,7 @@ import { getProfileImage } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const Payroll = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('staffing');
   const [searchQuery, setSearchQuery] = useState('');
   const [periodFilter, setPeriodFilter] = useState<string>('current');
 
@@ -71,25 +71,25 @@ export const Payroll = () => {
 
   const stats = [
     {
-      title: 'Total Payroll',
+      title: t('payroll.totalPayroll'),
       value: formatCurrency(totalPayroll),
       icon: DollarSign,
       iconColor: '#ef4444',
     },
     {
-      title: 'Total Billable',
+      title: t('payroll.totalBillable'),
       value: formatCurrency(totalBillable),
       icon: DollarSign,
       iconColor: '#10b981',
     },
     {
-      title: 'Gross Margin',
+      title: t('payroll.grossMargin'),
       value: `${margin.toFixed(1)}%`,
       icon: TrendingUp,
       iconColor: '#547792',
     },
     {
-      title: 'Active Contractors',
+      title: t('payroll.activeContractors'),
       value: activeContractors.toString(),
       icon: FileText,
       iconColor: '#f59e0b',
@@ -104,17 +104,17 @@ export const Payroll = () => {
       className="space-y-6"
     >
       <PageHeader
-        title={t('staffing.payroll', 'Payroll')}
-        subtitle="Manage contractor payroll and billing"
+        title={t('payroll.title')}
+        subtitle={t('payroll.subtitle')}
         actions={
           <div className="flex items-center gap-2">
             <Button variant="outline" onClick={() => console.log('Export payroll')}>
               <Download className="h-4 w-4 mr-2" />
-              Export
+              {t('payroll.export')}
             </Button>
             <Button onClick={() => console.log('Run payroll')}>
               <CheckCircle className="h-4 w-4 mr-2" />
-              Run Payroll
+              {t('payroll.runPayroll')}
             </Button>
           </div>
         }
@@ -140,7 +140,7 @@ export const Payroll = () => {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted" />
             <input
               type="text"
-              placeholder="Search contractors..."
+              placeholder={t('payroll.searchContractors')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-10 pr-4 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-primary"
@@ -152,42 +152,42 @@ export const Payroll = () => {
             onChange={(e) => setPeriodFilter(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="current">Current Period</option>
-            <option value="last">Last Period</option>
-            <option value="all">All Time</option>
+            <option value="current">{t('payroll.currentPeriod')}</option>
+            <option value="last">{t('payroll.lastPeriod')}</option>
+            <option value="all">{t('payroll.allTime')}</option>
           </select>
         </div>
       </Card>
 
       {/* Payroll Summary */}
       <Card className="p-6">
-        <h3 className="text-lg font-semibold text-text-primary mb-4">Period Summary</h3>
+        <h3 className="text-lg font-semibold text-text-primary mb-4">{t('payroll.periodSummary')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-white/[0.05] rounded-lg p-4">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-text-secondary">Total Billable</span>
+              <span className="text-text-secondary">{t('payroll.totalBillable')}</span>
               <DollarSign className="h-5 w-5 text-green-400" />
             </div>
             <p className="text-2xl font-bold text-green-400">{formatCurrency(totalBillable)}</p>
-            <p className="text-sm text-text-muted mt-1">Gross client billing</p>
+            <p className="text-sm text-text-muted mt-1">{t('payroll.grossClientBilling')}</p>
           </div>
           <div className="bg-white/[0.05] rounded-lg p-4">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-text-secondary">Total Payroll</span>
+              <span className="text-text-secondary">{t('payroll.totalPayroll')}</span>
               <DollarSign className="h-5 w-5 text-red-400" />
             </div>
             <p className="text-2xl font-bold text-red-400">{formatCurrency(totalPayroll)}</p>
-            <p className="text-sm text-text-muted mt-1">Contractor payments</p>
+            <p className="text-sm text-text-muted mt-1">{t('payroll.contractorPayments')}</p>
           </div>
           <div className="bg-white/[0.05] rounded-lg p-4">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-text-secondary">Gross Profit</span>
+              <span className="text-text-secondary">{t('payroll.grossProfit')}</span>
               <TrendingUp className="h-5 w-5 text-accent-primary" />
             </div>
             <p className="text-2xl font-bold text-accent-primary">
               {formatCurrency(totalBillable - totalPayroll)}
             </p>
-            <p className="text-sm text-text-muted mt-1">{margin.toFixed(1)}% margin</p>
+            <p className="text-sm text-text-muted mt-1">{t('payroll.margin', { value: margin.toFixed(1) })}</p>
           </div>
         </div>
       </Card>
@@ -199,25 +199,25 @@ export const Payroll = () => {
             <thead>
               <tr className="border-b border-white/[0.08]">
                 <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                  Contractor
+                  {t('payroll.contractor')}
                 </th>
                 <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                  Client
+                  {t('payroll.client')}
                 </th>
                 <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                  Hours
+                  {t('payroll.hours')}
                 </th>
                 <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                  Billable
+                  {t('payroll.billable')}
                 </th>
                 <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                  Payable
+                  {t('payroll.payable')}
                 </th>
                 <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                  Margin
+                  {t('payroll.marginCol')}
                 </th>
                 <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                  Actions
+                  {t('payroll.actions')}
                 </th>
               </tr>
             </thead>
@@ -275,7 +275,7 @@ export const Payroll = () => {
                     </td>
                     <td className="py-3 px-4">
                       <Button variant="ghost" size="sm" onClick={() => console.log('View details', item.candidateId)}>
-                        Details
+                        {t('payroll.details')}
                       </Button>
                     </td>
                   </tr>
@@ -289,8 +289,8 @@ export const Payroll = () => {
       {filteredPayroll.length === 0 && (
         <Card className="p-12 text-center">
           <FileText className="h-12 w-12 text-text-muted mx-auto mb-4" />
-          <h3 className="text-lg font-semibold text-text-primary mb-2">No payroll data</h3>
-          <p className="text-text-secondary">No approved timesheets found for this period</p>
+          <h3 className="text-lg font-semibold text-text-primary mb-2">{t('payroll.noPayrollData')}</h3>
+          <p className="text-text-secondary">{t('payroll.noApprovedTimesheets')}</p>
         </Card>
       )}
     </motion.div>

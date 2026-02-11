@@ -31,7 +31,7 @@ import { useTranslation } from 'react-i18next';
 type TabType = 'overview' | 'jobs' | 'placements' | 'contacts';
 
 export const ClientDetail = () => {
-  const { t: _t } = useTranslation('common');
+  const { t } = useTranslation('staffing');
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<TabType>('overview');
@@ -43,9 +43,9 @@ export const ClientDetail = () => {
       <div className="flex items-center justify-center h-96">
         <Card className="p-8 text-center">
           <AlertCircle className="h-12 w-12 text-text-muted mx-auto mb-4" />
-          <h3 className="text-lg font-semibold text-text-primary mb-2">Client not found</h3>
-          <p className="text-text-secondary mb-4">The client you're looking for doesn't exist.</p>
-          <Button onClick={() => navigate(ROUTES.staffing.clients)}>Back to Clients</Button>
+          <h3 className="text-lg font-semibold text-text-primary mb-2">{t('clientDetail.clientNotFound')}</h3>
+          <p className="text-text-secondary mb-4">{t('clientDetail.clientNotFoundDesc')}</p>
+          <Button onClick={() => navigate(ROUTES.staffing.clients)}>{t('clientDetail.backToClients')}</Button>
         </Card>
       </div>
     );
@@ -56,10 +56,10 @@ export const ClientDetail = () => {
   const clientPlacements = placements.filter((p) => p.clientId === client.id);
 
   const tabs = [
-    { id: 'overview', label: 'Overview' },
-    { id: 'jobs', label: 'Job Orders', count: clientJobs.length },
-    { id: 'placements', label: 'Placements', count: clientPlacements.length },
-    { id: 'contacts', label: 'Contacts' },
+    { id: 'overview', label: t('clientDetail.overview') },
+    { id: 'jobs', label: t('clientDetail.jobOrders'), count: clientJobs.length },
+    { id: 'placements', label: t('clientDetail.placements'), count: clientPlacements.length },
+    { id: 'contacts', label: t('clientDetail.contacts') },
   ];
 
   return (
@@ -76,15 +76,15 @@ export const ClientDetail = () => {
           <div className="flex items-center gap-2">
             <Button variant="outline" onClick={() => navigate(ROUTES.staffing.clients)}>
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Back
+              {t('clientDetail.back')}
             </Button>
             <Button variant="outline" onClick={() => console.log('Add job order')}>
               <Plus className="h-4 w-4 mr-2" />
-              New Job
+              {t('clientDetail.newJob')}
             </Button>
             <Button onClick={() => console.log('Edit client')}>
               <Edit className="h-4 w-4 mr-2" />
-              Edit
+              {t('clientDetail.edit')}
             </Button>
           </div>
         }
@@ -138,19 +138,19 @@ export const ClientDetail = () => {
           <div className="flex-1 grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="bg-white/[0.05] rounded-lg p-4 text-center">
               <p className="text-2xl font-bold text-text-primary">{client.totalPlacements}</p>
-              <p className="text-sm text-text-muted">Total Placements</p>
+              <p className="text-sm text-text-muted">{t('clientDetail.totalPlacements')}</p>
             </div>
             <div className="bg-white/[0.05] rounded-lg p-4 text-center">
               <p className="text-2xl font-bold text-text-primary">{client.activePositions}</p>
-              <p className="text-sm text-text-muted">Open Positions</p>
+              <p className="text-sm text-text-muted">{t('clientDetail.openPositions')}</p>
             </div>
             <div className="bg-white/[0.05] rounded-lg p-4 text-center">
               <p className="text-2xl font-bold text-text-primary">{formatCurrency(client.totalRevenue / 1000)}k</p>
-              <p className="text-sm text-text-muted">Total Revenue</p>
+              <p className="text-sm text-text-muted">{t('clientDetail.totalRevenue')}</p>
             </div>
             <div className="bg-white/[0.05] rounded-lg p-4 text-center">
               <p className="text-2xl font-bold text-text-primary">{client.paymentTerms}</p>
-              <p className="text-sm text-text-muted">Payment Terms (Days)</p>
+              <p className="text-sm text-text-muted">{t('clientDetail.paymentTermsDays')}</p>
             </div>
           </div>
         </div>
@@ -189,12 +189,12 @@ export const ClientDetail = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-6">
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-text-primary mb-4">Notes</h3>
-              <p className="text-text-secondary">{client.notes || 'No notes available.'}</p>
+              <h3 className="text-lg font-semibold text-text-primary mb-4">{t('clientDetail.notes')}</h3>
+              <p className="text-text-secondary">{client.notes || t('clientDetail.noNotesAvailable')}</p>
             </Card>
 
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-text-primary mb-4">Tags</h3>
+              <h3 className="text-lg font-semibold text-text-primary mb-4">{t('clientDetail.tags')}</h3>
               <div className="flex flex-wrap gap-2">
                 {client.tags.map((tag, index) => (
                   <span
@@ -210,12 +210,12 @@ export const ClientDetail = () => {
 
           <div className="space-y-6">
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-text-primary mb-4">Contract Info</h3>
+              <h3 className="text-lg font-semibold text-text-primary mb-4">{t('clientDetail.contractInfo')}</h3>
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <Calendar className="h-5 w-5 text-text-muted" />
                   <div>
-                    <p className="text-sm text-text-secondary">Contract Start</p>
+                    <p className="text-sm text-text-secondary">{t('clientDetail.contractStart')}</p>
                     <p className="text-text-primary">
                       {new Date(client.contractStart).toLocaleDateString()}
                     </p>
@@ -225,7 +225,7 @@ export const ClientDetail = () => {
                   <div className="flex items-center gap-3">
                     <Calendar className="h-5 w-5 text-text-muted" />
                     <div>
-                      <p className="text-sm text-text-secondary">Contract End</p>
+                      <p className="text-sm text-text-secondary">{t('clientDetail.contractEnd')}</p>
                       <p className="text-text-primary">
                         {new Date(client.contractEnd).toLocaleDateString()}
                       </p>
@@ -235,15 +235,15 @@ export const ClientDetail = () => {
                 <div className="flex items-center gap-3">
                   <DollarSign className="h-5 w-5 text-text-muted" />
                   <div>
-                    <p className="text-sm text-text-secondary">Payment Terms</p>
-                    <p className="text-text-primary">Net {client.paymentTerms} days</p>
+                    <p className="text-sm text-text-secondary">{t('clientDetail.paymentTerms')}</p>
+                    <p className="text-text-primary">{t('clientDetail.netDays', { days: client.paymentTerms })}</p>
                   </div>
                 </div>
               </div>
             </Card>
 
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-text-primary mb-4">Primary Contact</h3>
+              <h3 className="text-lg font-semibold text-text-primary mb-4">{t('clientDetail.primaryContact')}</h3>
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
                   <Users className="h-5 w-5 text-text-muted" />
@@ -280,22 +280,22 @@ export const ClientDetail = () => {
                 <thead>
                   <tr className="border-b border-white/[0.08]">
                     <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                      Position
+                      {t('clientDetail.position')}
                     </th>
                     <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                      Status
+                      {t('clientDetail.status')}
                     </th>
                     <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                      Openings
+                      {t('clientDetail.openings')}
                     </th>
                     <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                      Applicants
+                      {t('clientDetail.applicants')}
                     </th>
                     <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                      Created
+                      {t('clientDetail.created')}
                     </th>
                     <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                      Actions
+                      {t('clientDetail.actions')}
                     </th>
                   </tr>
                 </thead>
@@ -328,7 +328,7 @@ export const ClientDetail = () => {
                           size="sm"
                           onClick={() => navigate(ROUTES.staffing.jobDetail.replace(':id', job.id))}
                         >
-                          View
+                          {t('clientDetail.view')}
                         </Button>
                       </td>
                     </tr>
@@ -339,11 +339,11 @@ export const ClientDetail = () => {
           ) : (
             <div className="p-12 text-center">
               <Briefcase className="h-12 w-12 text-text-muted mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-text-primary mb-2">No job orders</h3>
-              <p className="text-text-secondary mb-4">This client doesn't have any job orders yet.</p>
+              <h3 className="text-lg font-semibold text-text-primary mb-2">{t('clientDetail.noJobOrders')}</h3>
+              <p className="text-text-secondary mb-4">{t('clientDetail.noJobOrdersDesc')}</p>
               <Button onClick={() => console.log('Add job order')}>
                 <Plus className="h-4 w-4 mr-2" />
-                Add Job Order
+                {t('clientDetail.addJobOrder')}
               </Button>
             </div>
           )}
@@ -358,19 +358,19 @@ export const ClientDetail = () => {
                 <thead>
                   <tr className="border-b border-white/[0.08]">
                     <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                      Candidate
+                      {t('clientDetail.candidate')}
                     </th>
                     <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                      Position
+                      {t('clientDetail.position')}
                     </th>
                     <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                      Type
+                      {t('clientDetail.type')}
                     </th>
                     <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                      Status
+                      {t('clientDetail.status')}
                     </th>
                     <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                      Start Date
+                      {t('clientDetail.startDate')}
                     </th>
                   </tr>
                 </thead>
@@ -409,8 +409,8 @@ export const ClientDetail = () => {
           ) : (
             <div className="p-12 text-center">
               <Users className="h-12 w-12 text-text-muted mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-text-primary mb-2">No placements</h3>
-              <p className="text-text-secondary">This client doesn't have any placements yet.</p>
+              <h3 className="text-lg font-semibold text-text-primary mb-2">{t('clientDetail.noPlacements')}</h3>
+              <p className="text-text-secondary">{t('clientDetail.noPlacementsDesc')}</p>
             </div>
           )}
         </Card>
@@ -419,7 +419,7 @@ export const ClientDetail = () => {
       {activeTab === 'contacts' && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Card className="p-6">
-            <h3 className="text-lg font-semibold text-text-primary mb-4">Primary Contact</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-4">{t('clientDetail.primaryContact')}</h3>
             <div className="space-y-3">
               <div>
                 <p className="text-text-primary font-medium text-lg">{client.primaryContact.name}</p>
@@ -444,7 +444,7 @@ export const ClientDetail = () => {
 
           {client.billingContact && (
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-text-primary mb-4">Billing Contact</h3>
+              <h3 className="text-lg font-semibold text-text-primary mb-4">{t('clientDetail.billingContact')}</h3>
               <div className="space-y-3">
                 <div>
                   <p className="text-text-primary font-medium text-lg">{client.billingContact.name}</p>

@@ -33,7 +33,7 @@ import { useTranslation } from 'react-i18next';
 type TabType = 'overview' | 'applications' | 'interviews' | 'documents' | 'notes';
 
 export const CandidateDetail = () => {
-  const { t: _t } = useTranslation('common');
+  const { t } = useTranslation('staffing');
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<TabType>('overview');
@@ -45,9 +45,9 @@ export const CandidateDetail = () => {
       <div className="flex items-center justify-center h-96">
         <Card className="p-8 text-center">
           <AlertCircle className="h-12 w-12 text-text-muted mx-auto mb-4" />
-          <h3 className="text-lg font-semibold text-text-primary mb-2">Candidate not found</h3>
-          <p className="text-text-secondary mb-4">The candidate you're looking for doesn't exist.</p>
-          <Button onClick={() => navigate(ROUTES.staffing.candidates)}>Back to Candidates</Button>
+          <h3 className="text-lg font-semibold text-text-primary mb-2">{t('candidateDetail.candidateNotFound')}</h3>
+          <p className="text-text-secondary mb-4">{t('candidateDetail.candidateNotFoundDesc')}</p>
+          <Button onClick={() => navigate(ROUTES.staffing.candidates)}>{t('candidateDetail.backToCandidates')}</Button>
         </Card>
       </div>
     );
@@ -56,11 +56,11 @@ export const CandidateDetail = () => {
   const appliedJobs = jobOrders.filter((job) => candidate.appliedJobs.includes(job.id));
 
   const tabs = [
-    { id: 'overview', label: 'Overview' },
-    { id: 'applications', label: 'Applications', count: candidate.appliedJobs.length },
-    { id: 'interviews', label: 'Interviews', count: candidate.interviewHistory.length },
-    { id: 'documents', label: 'Documents', count: candidate.documents.length },
-    { id: 'notes', label: 'Notes' },
+    { id: 'overview', label: t('candidateDetail.overview') },
+    { id: 'applications', label: t('candidateDetail.applications'), count: candidate.appliedJobs.length },
+    { id: 'interviews', label: t('candidateDetail.interviews'), count: candidate.interviewHistory.length },
+    { id: 'documents', label: t('candidateDetail.documents'), count: candidate.documents.length },
+    { id: 'notes', label: t('candidateDetail.notes') },
   ];
 
   const getOutcomeIcon = (outcome: string) => {
@@ -88,11 +88,11 @@ export const CandidateDetail = () => {
           <div className="flex items-center gap-2">
             <Button variant="outline" onClick={() => navigate(ROUTES.staffing.candidates)}>
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Back
+              {t('candidateDetail.back')}
             </Button>
             <Button onClick={() => console.log('Edit candidate')}>
               <Edit className="h-4 w-4 mr-2" />
-              Edit
+              {t('candidateDetail.edit')}
             </Button>
           </div>
         }
@@ -149,11 +149,11 @@ export const CandidateDetail = () => {
           <div className="flex-1 flex flex-wrap gap-4 md:justify-end">
             <Button variant="outline" size="sm" onClick={() => window.open(`mailto:${candidate.email}`)}>
               <Send className="h-4 w-4 mr-1" />
-              Send Email
+              {t('candidateDetail.sendEmail')}
             </Button>
             <Button variant="outline" size="sm" onClick={() => console.log('Submit to job')}>
               <Briefcase className="h-4 w-4 mr-1" />
-              Submit to Job
+              {t('candidateDetail.submitToJob')}
             </Button>
           </div>
         </div>
@@ -193,7 +193,7 @@ export const CandidateDetail = () => {
           {/* Main Info */}
           <div className="lg:col-span-2 space-y-6">
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-text-primary mb-4">Skills</h3>
+              <h3 className="text-lg font-semibold text-text-primary mb-4">{t('candidateDetail.skills')}</h3>
               <div className="flex flex-wrap gap-2">
                 {candidate.skills.map((skill, index) => (
                   <span
@@ -207,41 +207,41 @@ export const CandidateDetail = () => {
             </Card>
 
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-text-primary mb-4">Notes</h3>
-              <p className="text-text-secondary">{candidate.notes || 'No notes available.'}</p>
+              <h3 className="text-lg font-semibold text-text-primary mb-4">{t('candidateDetail.notes')}</h3>
+              <p className="text-text-secondary">{candidate.notes || t('candidateDetail.noNotesAvailable')}</p>
             </Card>
           </div>
 
           {/* Sidebar */}
           <div className="space-y-6">
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-text-primary mb-4">Details</h3>
+              <h3 className="text-lg font-semibold text-text-primary mb-4">{t('candidateDetail.details')}</h3>
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <MapPin className="h-5 w-5 text-text-muted" />
                   <div>
-                    <p className="text-sm text-text-secondary">Location</p>
+                    <p className="text-sm text-text-secondary">{t('candidateDetail.location')}</p>
                     <p className="text-text-primary">{candidate.location}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
                   <Briefcase className="h-5 w-5 text-text-muted" />
                   <div>
-                    <p className="text-sm text-text-secondary">Experience</p>
-                    <p className="text-text-primary">{candidate.experience} years</p>
+                    <p className="text-sm text-text-secondary">{t('candidateDetail.experience')}</p>
+                    <p className="text-text-primary">{t('candidateDetail.years', { count: candidate.experience })}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
                   <DollarSign className="h-5 w-5 text-text-muted" />
                   <div>
-                    <p className="text-sm text-text-secondary">Desired Salary</p>
+                    <p className="text-sm text-text-secondary">{t('candidateDetail.desiredSalary')}</p>
                     <p className="text-text-primary">{formatSalaryRange(candidate.desiredSalary)}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
                   <Clock className="h-5 w-5 text-text-muted" />
                   <div>
-                    <p className="text-sm text-text-secondary">Availability</p>
+                    <p className="text-sm text-text-secondary">{t('candidateDetail.availability')}</p>
                     <p className="text-text-primary capitalize">
                       {candidate.availability.replace('-', ' ')}
                     </p>
@@ -250,14 +250,14 @@ export const CandidateDetail = () => {
                 <div className="flex items-center gap-3">
                   <MapPin className="h-5 w-5 text-text-muted" />
                   <div>
-                    <p className="text-sm text-text-secondary">Willing to Relocate</p>
-                    <p className="text-text-primary">{candidate.willingToRelocate ? 'Yes' : 'No'}</p>
+                    <p className="text-sm text-text-secondary">{t('candidateDetail.willingToRelocate')}</p>
+                    <p className="text-text-primary">{candidate.willingToRelocate ? t('candidateDetail.yes') : t('candidateDetail.no')}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
                   <FileText className="h-5 w-5 text-text-muted" />
                   <div>
-                    <p className="text-sm text-text-secondary">Source</p>
+                    <p className="text-sm text-text-secondary">{t('candidateDetail.source')}</p>
                     <p className="text-text-primary capitalize">{candidate.source.replace('-', ' ')}</p>
                   </div>
                 </div>
@@ -265,18 +265,18 @@ export const CandidateDetail = () => {
             </Card>
 
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-text-primary mb-4">Timeline</h3>
+              <h3 className="text-lg font-semibold text-text-primary mb-4">{t('candidateDetail.timeline')}</h3>
               <div className="space-y-3">
                 <div className="flex items-center gap-3 text-sm">
                   <Calendar className="h-4 w-4 text-text-muted" />
-                  <span className="text-text-secondary">Added:</span>
+                  <span className="text-text-secondary">{t('candidateDetail.added')}</span>
                   <span className="text-text-primary">
                     {new Date(candidate.createdAt).toLocaleDateString()}
                   </span>
                 </div>
                 <div className="flex items-center gap-3 text-sm">
                   <Calendar className="h-4 w-4 text-text-muted" />
-                  <span className="text-text-secondary">Updated:</span>
+                  <span className="text-text-secondary">{t('candidateDetail.updated')}</span>
                   <span className="text-text-primary">
                     {new Date(candidate.updatedAt).toLocaleDateString()}
                   </span>
@@ -295,19 +295,19 @@ export const CandidateDetail = () => {
                 <thead>
                   <tr className="border-b border-white/[0.08]">
                     <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                      Job Title
+                      {t('candidateDetail.jobTitle')}
                     </th>
                     <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                      Client
+                      {t('candidateDetail.client')}
                     </th>
                     <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                      Status
+                      {t('candidateDetail.status')}
                     </th>
                     <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                      Salary Range
+                      {t('candidateDetail.salaryRange')}
                     </th>
                     <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                      Actions
+                      {t('candidateDetail.actions')}
                     </th>
                   </tr>
                 </thead>
@@ -335,7 +335,7 @@ export const CandidateDetail = () => {
                             navigate(ROUTES.staffing.jobDetail.replace(':id', job.id))
                           }
                         >
-                          View Job
+                          {t('candidateDetail.viewJob')}
                         </Button>
                       </td>
                     </tr>
@@ -346,8 +346,8 @@ export const CandidateDetail = () => {
           ) : (
             <div className="p-12 text-center">
               <Briefcase className="h-12 w-12 text-text-muted mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-text-primary mb-2">No applications</h3>
-              <p className="text-text-secondary">This candidate hasn't been submitted to any jobs yet.</p>
+              <h3 className="text-lg font-semibold text-text-primary mb-2">{t('candidateDetail.noApplications')}</h3>
+              <p className="text-text-secondary">{t('candidateDetail.noApplicationsDesc')}</p>
             </div>
           )}
         </Card>
@@ -373,21 +373,21 @@ export const CandidateDetail = () => {
                     </div>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm mb-3">
                       <div>
-                        <p className="text-text-muted">Date</p>
+                        <p className="text-text-muted">{t('candidateDetail.date')}</p>
                         <p className="text-text-primary">
                           {new Date(interview.date).toLocaleDateString()}
                         </p>
                       </div>
                       <div>
-                        <p className="text-text-muted">Type</p>
+                        <p className="text-text-muted">{t('candidateDetail.type')}</p>
                         <p className="text-text-primary capitalize">{interview.type}</p>
                       </div>
                       <div>
-                        <p className="text-text-muted">Interviewer</p>
+                        <p className="text-text-muted">{t('candidateDetail.interviewer')}</p>
                         <p className="text-text-primary">{interview.interviewer}</p>
                       </div>
                       <div>
-                        <p className="text-text-muted">Rating</p>
+                        <p className="text-text-muted">{t('candidateDetail.rating')}</p>
                         <div className="flex items-center gap-1">
                           {[...Array(5)].map((_, i) => (
                             <Star
@@ -403,7 +403,7 @@ export const CandidateDetail = () => {
                       </div>
                     </div>
                     <div className="bg-white/[0.05] rounded-lg p-3">
-                      <p className="text-sm text-text-muted mb-1">Feedback</p>
+                      <p className="text-sm text-text-muted mb-1">{t('candidateDetail.feedback')}</p>
                       <p className="text-text-secondary">{interview.feedback}</p>
                     </div>
                   </div>
@@ -413,8 +413,8 @@ export const CandidateDetail = () => {
           ) : (
             <div className="p-12 text-center">
               <Calendar className="h-12 w-12 text-text-muted mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-text-primary mb-2">No interviews</h3>
-              <p className="text-text-secondary">This candidate hasn't had any interviews yet.</p>
+              <h3 className="text-lg font-semibold text-text-primary mb-2">{t('candidateDetail.noInterviews')}</h3>
+              <p className="text-text-secondary">{t('candidateDetail.noInterviewsDesc')}</p>
             </div>
           )}
         </Card>
@@ -433,7 +433,7 @@ export const CandidateDetail = () => {
                     <div>
                       <p className="font-medium text-text-primary">{doc.name}</p>
                       <p className="text-sm text-text-secondary capitalize">
-                        {doc.type.replace('-', ' ')} • Uploaded{' '}
+                        {doc.type.replace('-', ' ')} • {t('candidateDetail.uploaded')}{' '}
                         {new Date(doc.uploadedAt).toLocaleDateString()}
                       </p>
                     </div>
@@ -447,8 +447,8 @@ export const CandidateDetail = () => {
           ) : (
             <div className="p-12 text-center">
               <FileText className="h-12 w-12 text-text-muted mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-text-primary mb-2">No documents</h3>
-              <p className="text-text-secondary">No documents have been uploaded for this candidate.</p>
+              <h3 className="text-lg font-semibold text-text-primary mb-2">{t('candidateDetail.noDocuments')}</h3>
+              <p className="text-text-secondary">{t('candidateDetail.noDocumentsDesc')}</p>
             </div>
           )}
         </Card>
@@ -457,13 +457,13 @@ export const CandidateDetail = () => {
       {activeTab === 'notes' && (
         <Card className="p-6">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-text-primary">Notes</h3>
+            <h3 className="text-lg font-semibold text-text-primary">{t('candidateDetail.notes')}</h3>
             <Button variant="outline" size="sm" onClick={() => console.log('Add note')}>
-              Add Note
+              {t('candidateDetail.addNote')}
             </Button>
           </div>
           <div className="bg-white/[0.05] rounded-lg p-4">
-            <p className="text-text-secondary">{candidate.notes || 'No notes available for this candidate.'}</p>
+            <p className="text-text-secondary">{candidate.notes || t('candidateDetail.noNotesForCandidate')}</p>
           </div>
         </Card>
       )}

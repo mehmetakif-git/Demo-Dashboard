@@ -24,7 +24,7 @@ import { getProfileImage } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const Onboarding = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('staffing');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
@@ -65,25 +65,25 @@ export const Onboarding = () => {
 
   const stats = [
     {
-      title: 'Pending',
+      title: t('onboarding.pending'),
       value: pendingTasks.toString(),
       icon: Clock,
       iconColor: '#6b7280',
     },
     {
-      title: 'In Progress',
+      title: t('onboarding.inProgress'),
       value: inProgressTasks.toString(),
       icon: UserPlus,
       iconColor: '#3b82f6',
     },
     {
-      title: 'Completed',
+      title: t('onboarding.completed'),
       value: completedTasks.toString(),
       icon: CheckCircle,
       iconColor: '#10b981',
     },
     {
-      title: 'Blocked',
+      title: t('onboarding.blocked'),
       value: blockedTasks.toString(),
       icon: AlertTriangle,
       iconColor: '#ef4444',
@@ -134,12 +134,12 @@ export const Onboarding = () => {
       className="space-y-6"
     >
       <PageHeader
-        title={t('staffing.onboarding', 'Onboarding')}
-        subtitle="Track new hire onboarding progress"
+        title={t('onboarding.title')}
+        subtitle={t('onboarding.subtitle')}
         actions={
           <Button onClick={() => console.log('Add task')}>
             <UserPlus className="h-4 w-4 mr-2" />
-            Add Task
+            {t('onboarding.addTask')}
           </Button>
         }
       />
@@ -163,9 +163,9 @@ export const Onboarding = () => {
           <div className="flex items-center gap-3">
             <AlertTriangle className="h-5 w-5 text-red-400" />
             <div>
-              <p className="font-medium text-text-primary">Blocked Tasks</p>
+              <p className="font-medium text-text-primary">{t('onboarding.blockedTasks')}</p>
               <p className="text-sm text-text-secondary">
-                {blockedTasks} task(s) are blocked and require attention.
+                {t('onboarding.blockedTasksDesc', { count: blockedTasks })}
               </p>
             </div>
           </div>
@@ -179,7 +179,7 @@ export const Onboarding = () => {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted" />
             <input
               type="text"
-              placeholder="Search tasks..."
+              placeholder={t('onboarding.searchTasks')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-10 pr-4 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-primary"
@@ -191,11 +191,11 @@ export const Onboarding = () => {
             onChange={(e) => setStatusFilter(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Statuses</option>
-            <option value="pending">Pending</option>
-            <option value="in-progress">In Progress</option>
-            <option value="completed">Completed</option>
-            <option value="blocked">Blocked</option>
+            <option value="all">{t('onboarding.allStatuses')}</option>
+            <option value="pending">{t('onboarding.pending')}</option>
+            <option value="in-progress">{t('onboarding.inProgress')}</option>
+            <option value="completed">{t('onboarding.completed')}</option>
+            <option value="blocked">{t('onboarding.blocked')}</option>
           </select>
 
           <select
@@ -203,12 +203,12 @@ export const Onboarding = () => {
             onChange={(e) => setCategoryFilter(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Categories</option>
-            <option value="documentation">Documentation</option>
-            <option value="training">Training</option>
-            <option value="equipment">Equipment</option>
-            <option value="access">Access</option>
-            <option value="orientation">Orientation</option>
+            <option value="all">{t('onboarding.allCategories')}</option>
+            <option value="documentation">{t('onboarding.documentation')}</option>
+            <option value="training">{t('onboarding.training')}</option>
+            <option value="equipment">{t('onboarding.equipment')}</option>
+            <option value="access">{t('onboarding.access')}</option>
+            <option value="orientation">{t('onboarding.orientation')}</option>
           </select>
 
           <select
@@ -216,10 +216,10 @@ export const Onboarding = () => {
             onChange={(e) => setPriorityFilter(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Priorities</option>
-            <option value="high">High</option>
-            <option value="medium">Medium</option>
-            <option value="low">Low</option>
+            <option value="all">{t('onboarding.allPriorities')}</option>
+            <option value="high">{t('onboarding.high')}</option>
+            <option value="medium">{t('onboarding.medium')}</option>
+            <option value="low">{t('onboarding.low')}</option>
           </select>
         </div>
       </Card>
@@ -259,7 +259,7 @@ export const Onboarding = () => {
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="text-sm text-text-secondary mb-1">Progress</p>
+                  <p className="text-sm text-text-secondary mb-1">{t('onboarding.progress')}</p>
                   <div className="flex items-center gap-2">
                     <div className="w-24 h-2 bg-white/[0.05] rounded-full overflow-hidden">
                       <div
@@ -297,9 +297,9 @@ export const Onboarding = () => {
                         <div className="flex items-center gap-2 text-xs text-text-secondary">
                           <span className="capitalize">{task.category}</span>
                           <span>•</span>
-                          <span>Due: {new Date(task.dueDate).toLocaleDateString()}</span>
+                          <span>{t('onboarding.due', { date: new Date(task.dueDate).toLocaleDateString() })}</span>
                           <span>•</span>
-                          <span>Assigned to: {task.assignedTo}</span>
+                          <span>{t('onboarding.assignedTo', { name: task.assignedTo })}</span>
                         </div>
                       </div>
                     </div>
@@ -333,8 +333,8 @@ export const Onboarding = () => {
       {Object.keys(tasksByCandidate).length === 0 && (
         <Card className="p-12 text-center">
           <UserPlus className="h-12 w-12 text-text-muted mx-auto mb-4" />
-          <h3 className="text-lg font-semibold text-text-primary mb-2">No onboarding tasks found</h3>
-          <p className="text-text-secondary">Try adjusting your search or filter criteria</p>
+          <h3 className="text-lg font-semibold text-text-primary mb-2">{t('onboarding.noOnboardingTasks')}</h3>
+          <p className="text-text-secondary">{t('onboarding.tryAdjusting')}</p>
         </Card>
       )}
     </motion.div>

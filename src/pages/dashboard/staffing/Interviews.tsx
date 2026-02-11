@@ -27,7 +27,7 @@ import { getProfileImage } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const Interviews = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('staffing');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -59,25 +59,25 @@ export const Interviews = () => {
 
   const stats = [
     {
-      title: 'Scheduled',
+      title: t('interviews.scheduled'),
       value: scheduledCount.toString(),
       icon: Calendar,
       iconColor: '#3b82f6',
     },
     {
-      title: 'Today',
+      title: t('interviews.today'),
       value: upcomingToday.toString(),
       icon: Clock,
       iconColor: '#f59e0b',
     },
     {
-      title: 'Completed',
+      title: t('interviews.completed'),
       value: completedCount.toString(),
       icon: CheckCircle,
       iconColor: '#10b981',
     },
     {
-      title: 'Total',
+      title: t('interviews.total'),
       value: interviews.length.toString(),
       icon: Users,
       iconColor: '#94B4C1',
@@ -128,12 +128,12 @@ export const Interviews = () => {
       className="space-y-6"
     >
       <PageHeader
-        title={t('staffing.interviews', 'Interviews')}
-        subtitle="Schedule and manage candidate interviews"
+        title={t('interviews.title')}
+        subtitle={t('interviews.subtitle')}
         actions={
           <Button onClick={() => console.log('Schedule interview')}>
             <Plus className="h-4 w-4 mr-2" />
-            Schedule Interview
+            {t('interviews.scheduleInterview')}
           </Button>
         }
       />
@@ -158,7 +158,7 @@ export const Interviews = () => {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted" />
             <input
               type="text"
-              placeholder="Search interviews..."
+              placeholder={t('interviews.searchInterviews')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-10 pr-4 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-primary"
@@ -170,12 +170,12 @@ export const Interviews = () => {
             onChange={(e) => setStatusFilter(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Statuses</option>
-            <option value="scheduled">Scheduled</option>
-            <option value="completed">Completed</option>
-            <option value="cancelled">Cancelled</option>
-            <option value="no-show">No Show</option>
-            <option value="rescheduled">Rescheduled</option>
+            <option value="all">{t('interviews.allStatuses')}</option>
+            <option value="scheduled">{t('interviews.scheduled')}</option>
+            <option value="completed">{t('interviews.completed')}</option>
+            <option value="cancelled">{t('interviews.cancelled')}</option>
+            <option value="no-show">{t('interviews.noShow')}</option>
+            <option value="rescheduled">{t('interviews.rescheduled')}</option>
           </select>
 
           <select
@@ -183,12 +183,12 @@ export const Interviews = () => {
             onChange={(e) => setTypeFilter(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Types</option>
-            <option value="phone">Phone</option>
-            <option value="video">Video</option>
-            <option value="in-person">In-Person</option>
-            <option value="technical">Technical</option>
-            <option value="panel">Panel</option>
+            <option value="all">{t('interviews.allTypes')}</option>
+            <option value="phone">{t('interviews.phone')}</option>
+            <option value="video">{t('interviews.video')}</option>
+            <option value="in-person">{t('interviews.inPerson')}</option>
+            <option value="technical">{t('interviews.technical')}</option>
+            <option value="panel">{t('interviews.panel')}</option>
           </select>
         </div>
       </Card>
@@ -246,8 +246,8 @@ export const Interviews = () => {
                 </div>
                 <div className="flex items-center gap-2 text-sm">
                   {getTypeIcon(interview.type)}
-                  <span className="text-text-secondary capitalize">{interview.type} Interview</span>
-                  <span className="text-text-muted">• {interview.duration} min</span>
+                  <span className="text-text-secondary capitalize">{interview.type} {t('interviews.interview')}</span>
+                  <span className="text-text-muted">• {t('interviews.min', { count: interview.duration })}</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm">
                   <Users className="h-4 w-4 text-text-muted" />
@@ -260,7 +260,7 @@ export const Interviews = () => {
                   {getOutcomeIcon(interview.outcome)}
                   <span className="text-sm text-text-primary capitalize">{interview.outcome}</span>
                   {interview.rating && (
-                    <span className="text-sm text-text-muted">• Rating: {interview.rating}/5</span>
+                    <span className="text-sm text-text-muted">• {t('interviews.rating', { rating: interview.rating })}</span>
                   )}
                 </div>
               )}
@@ -272,7 +272,7 @@ export const Interviews = () => {
                   className="flex-1"
                   onClick={() => setSelectedInterview(interview)}
                 >
-                  View Details
+                  {t('interviews.viewDetails')}
                 </Button>
                 {interview.meetingLink && interview.status === 'scheduled' && (
                   <Button
@@ -281,7 +281,7 @@ export const Interviews = () => {
                     onClick={() => window.open(interview.meetingLink, '_blank')}
                   >
                     <LinkIcon className="h-4 w-4 mr-1" />
-                    Join
+                    {t('interviews.join')}
                   </Button>
                 )}
                 <Button
@@ -289,7 +289,7 @@ export const Interviews = () => {
                   size="sm"
                   onClick={() => navigate(ROUTES.staffing.candidateDetail.replace(':id', interview.candidateId))}
                 >
-                  View Candidate
+                  {t('interviews.viewCandidate')}
                 </Button>
               </div>
             </Card>
@@ -300,8 +300,8 @@ export const Interviews = () => {
       {filteredInterviews.length === 0 && (
         <Card className="p-12 text-center">
           <Calendar className="h-12 w-12 text-text-muted mx-auto mb-4" />
-          <h3 className="text-lg font-semibold text-text-primary mb-2">No interviews found</h3>
-          <p className="text-text-secondary">Try adjusting your search or filter criteria</p>
+          <h3 className="text-lg font-semibold text-text-primary mb-2">{t('interviews.noInterviewsFound')}</h3>
+          <p className="text-text-secondary">{t('interviews.tryAdjusting')}</p>
         </Card>
       )}
 
@@ -316,7 +316,7 @@ export const Interviews = () => {
             <div className="p-6 border-b border-white/[0.08]">
               <div className="flex items-start justify-between">
                 <div>
-                  <h2 className="text-xl font-bold text-text-primary">Interview Details</h2>
+                  <h2 className="text-xl font-bold text-text-primary">{t('interviews.interviewDetails')}</h2>
                   <p className="text-text-secondary">{selectedInterview.candidateName}</p>
                 </div>
                 <button
@@ -330,26 +330,26 @@ export const Interviews = () => {
 
             <div className="p-6 space-y-4">
               <div>
-                <p className="text-sm text-text-muted">Position</p>
+                <p className="text-sm text-text-muted">{t('interviews.position')}</p>
                 <p className="text-text-primary font-medium">{selectedInterview.jobTitle}</p>
                 <p className="text-sm text-text-secondary">{selectedInterview.clientName}</p>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-sm text-text-muted">Date & Time</p>
+                  <p className="text-sm text-text-muted">{t('interviews.dateTime')}</p>
                   <p className="text-text-primary">
                     {new Date(selectedInterview.scheduledAt).toLocaleString()}
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-text-muted">Duration</p>
-                  <p className="text-text-primary">{selectedInterview.duration} minutes</p>
+                  <p className="text-sm text-text-muted">{t('interviews.duration')}</p>
+                  <p className="text-text-primary">{t('interviews.minutes', { count: selectedInterview.duration })}</p>
                 </div>
               </div>
 
               <div>
-                <p className="text-sm text-text-muted">Type</p>
+                <p className="text-sm text-text-muted">{t('interviews.type')}</p>
                 <div className="flex items-center gap-2 mt-1">
                   {getTypeIcon(selectedInterview.type)}
                   <span className="text-text-primary capitalize">{selectedInterview.type}</span>
@@ -358,14 +358,14 @@ export const Interviews = () => {
 
               {selectedInterview.location && (
                 <div>
-                  <p className="text-sm text-text-muted">Location</p>
+                  <p className="text-sm text-text-muted">{t('interviews.location')}</p>
                   <p className="text-text-primary">{selectedInterview.location}</p>
                 </div>
               )}
 
               {selectedInterview.meetingLink && (
                 <div>
-                  <p className="text-sm text-text-muted">Meeting Link</p>
+                  <p className="text-sm text-text-muted">{t('interviews.meetingLink')}</p>
                   <a
                     href={selectedInterview.meetingLink}
                     target="_blank"
@@ -378,20 +378,20 @@ export const Interviews = () => {
               )}
 
               <div>
-                <p className="text-sm text-text-muted">Interviewers</p>
+                <p className="text-sm text-text-muted">{t('interviews.interviewers')}</p>
                 <p className="text-text-primary">{selectedInterview.interviewers.join(', ')}</p>
               </div>
 
               {selectedInterview.feedback && (
                 <div>
-                  <p className="text-sm text-text-muted">Feedback</p>
+                  <p className="text-sm text-text-muted">{t('interviews.feedback')}</p>
                   <p className="text-text-secondary">{selectedInterview.feedback}</p>
                 </div>
               )}
 
               {selectedInterview.notes && (
                 <div>
-                  <p className="text-sm text-text-muted">Notes</p>
+                  <p className="text-sm text-text-muted">{t('interviews.notes')}</p>
                   <p className="text-text-secondary">{selectedInterview.notes}</p>
                 </div>
               )}
@@ -416,10 +416,10 @@ export const Interviews = () => {
 
             <div className="p-6 border-t border-white/[0.08] flex gap-2">
               <Button variant="outline" className="flex-1" onClick={() => setSelectedInterview(null)}>
-                Close
+                {t('interviews.close')}
               </Button>
               <Button className="flex-1" onClick={() => console.log('Edit interview')}>
-                Edit Interview
+                {t('interviews.editInterview')}
               </Button>
             </div>
           </motion.div>

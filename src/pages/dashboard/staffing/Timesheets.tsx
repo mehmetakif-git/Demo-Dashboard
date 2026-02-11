@@ -20,7 +20,7 @@ import { getProfileImage } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const Timesheets = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('staffing');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [selectedTimesheet, setSelectedTimesheet] = useState<Timesheet | null>(null);
@@ -46,25 +46,25 @@ export const Timesheets = () => {
 
   const stats = [
     {
-      title: 'Pending Approval',
+      title: t('timesheets.pendingApproval'),
       value: pendingApproval.toString(),
       icon: AlertCircle,
       iconColor: '#f59e0b',
     },
     {
-      title: 'Total Hours',
+      title: t('timesheets.totalHours'),
       value: totalHours.toString(),
       icon: Clock,
       iconColor: '#547792',
     },
     {
-      title: 'Total Billable',
+      title: t('timesheets.totalBillable'),
       value: formatCurrency(totalBillable),
       icon: DollarSign,
       iconColor: '#10b981',
     },
     {
-      title: 'Timesheets',
+      title: t('timesheets.timesheets'),
       value: timesheets.length.toString(),
       icon: FileText,
       iconColor: '#94B4C1',
@@ -87,8 +87,8 @@ export const Timesheets = () => {
       className="space-y-6"
     >
       <PageHeader
-        title={t('staffing.timesheets', 'Timesheets')}
-        subtitle="Review and approve contractor timesheets"
+        title={t('timesheets.title')}
+        subtitle={t('timesheets.subtitle')}
       />
 
       {/* Stats */}
@@ -111,7 +111,7 @@ export const Timesheets = () => {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted" />
             <input
               type="text"
-              placeholder="Search timesheets..."
+              placeholder={t('timesheets.searchTimesheets')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-10 pr-4 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-primary"
@@ -123,12 +123,12 @@ export const Timesheets = () => {
             onChange={(e) => setStatusFilter(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Statuses</option>
-            <option value="draft">Draft</option>
-            <option value="submitted">Submitted</option>
-            <option value="approved">Approved</option>
-            <option value="rejected">Rejected</option>
-            <option value="processed">Processed</option>
+            <option value="all">{t('timesheets.allStatuses')}</option>
+            <option value="draft">{t('timesheets.draft')}</option>
+            <option value="submitted">{t('timesheets.submitted')}</option>
+            <option value="approved">{t('timesheets.approved')}</option>
+            <option value="rejected">{t('timesheets.rejected')}</option>
+            <option value="processed">{t('timesheets.processed')}</option>
           </select>
         </div>
       </Card>
@@ -140,25 +140,25 @@ export const Timesheets = () => {
             <thead>
               <tr className="border-b border-white/[0.08]">
                 <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                  Contractor
+                  {t('timesheets.contractor')}
                 </th>
                 <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                  Client
+                  {t('timesheets.client')}
                 </th>
                 <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                  Week Ending
+                  {t('timesheets.weekEnding')}
                 </th>
                 <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                  Hours
+                  {t('timesheets.hours')}
                 </th>
                 <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                  Billable
+                  {t('timesheets.billable')}
                 </th>
                 <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                  Status
+                  {t('timesheets.status')}
                 </th>
                 <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                  Actions
+                  {t('timesheets.actions')}
                 </th>
               </tr>
             </thead>
@@ -226,7 +226,7 @@ export const Timesheets = () => {
                         size="sm"
                         onClick={() => setSelectedTimesheet(ts)}
                       >
-                        View
+                        {t('timesheets.view')}
                       </Button>
                       {ts.status === 'submitted' && (
                         <>
@@ -252,8 +252,8 @@ export const Timesheets = () => {
       {filteredTimesheets.length === 0 && (
         <Card className="p-12 text-center">
           <FileText className="h-12 w-12 text-text-muted mx-auto mb-4" />
-          <h3 className="text-lg font-semibold text-text-primary mb-2">No timesheets found</h3>
-          <p className="text-text-secondary">Try adjusting your search or filter criteria</p>
+          <h3 className="text-lg font-semibold text-text-primary mb-2">{t('timesheets.noTimesheetsFound')}</h3>
+          <p className="text-text-secondary">{t('timesheets.tryAdjusting')}</p>
         </Card>
       )}
 
@@ -268,9 +268,9 @@ export const Timesheets = () => {
             <div className="p-6 border-b border-white/[0.08]">
               <div className="flex items-start justify-between">
                 <div>
-                  <h2 className="text-xl font-bold text-text-primary">Timesheet Details</h2>
+                  <h2 className="text-xl font-bold text-text-primary">{t('timesheets.timesheetDetails')}</h2>
                   <p className="text-text-secondary">
-                    Week ending {new Date(selectedTimesheet.weekEnding).toLocaleDateString()}
+                    {t('timesheets.weekEndingDate', { date: new Date(selectedTimesheet.weekEnding).toLocaleDateString() })}
                   </p>
                 </div>
                 <button
@@ -306,32 +306,32 @@ export const Timesheets = () => {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-white/[0.05] rounded-lg p-4">
-                  <p className="text-sm text-text-muted mb-1">Regular Hours</p>
+                  <p className="text-sm text-text-muted mb-1">{t('timesheets.regularHours')}</p>
                   <p className="text-xl font-bold text-text-primary">{selectedTimesheet.regularHours}h</p>
                 </div>
                 <div className="bg-white/[0.05] rounded-lg p-4">
-                  <p className="text-sm text-text-muted mb-1">Overtime Hours</p>
+                  <p className="text-sm text-text-muted mb-1">{t('timesheets.overtimeHours')}</p>
                   <p className="text-xl font-bold text-text-primary">{selectedTimesheet.overtimeHours}h</p>
                 </div>
                 <div className="bg-white/[0.05] rounded-lg p-4">
-                  <p className="text-sm text-text-muted mb-1">Bill Rate</p>
+                  <p className="text-sm text-text-muted mb-1">{t('timesheets.billRate')}</p>
                   <p className="text-xl font-bold text-text-primary">${selectedTimesheet.billRate}/hr</p>
                 </div>
                 <div className="bg-white/[0.05] rounded-lg p-4">
-                  <p className="text-sm text-text-muted mb-1">Pay Rate</p>
+                  <p className="text-sm text-text-muted mb-1">{t('timesheets.payRate')}</p>
                   <p className="text-xl font-bold text-text-primary">${selectedTimesheet.payRate}/hr</p>
                 </div>
               </div>
 
               <div className="bg-white/[0.05] rounded-lg p-4">
                 <div className="flex justify-between items-center mb-2">
-                  <p className="text-text-secondary">Total Billable</p>
+                  <p className="text-text-secondary">{t('timesheets.totalBillableAmount')}</p>
                   <p className="text-xl font-bold text-green-400">
                     {formatCurrency(selectedTimesheet.totalBillable)}
                   </p>
                 </div>
                 <div className="flex justify-between items-center">
-                  <p className="text-text-secondary">Total Payable</p>
+                  <p className="text-text-secondary">{t('timesheets.totalPayable')}</p>
                   <p className="text-lg font-medium text-text-primary">
                     {formatCurrency(selectedTimesheet.totalPayable)}
                   </p>
@@ -340,7 +340,7 @@ export const Timesheets = () => {
 
               {selectedTimesheet.notes && (
                 <div>
-                  <p className="text-sm text-text-muted mb-1">Notes</p>
+                  <p className="text-sm text-text-muted mb-1">{t('timesheets.notes')}</p>
                   <p className="text-text-secondary">{selectedTimesheet.notes}</p>
                 </div>
               )}
@@ -355,7 +355,7 @@ export const Timesheets = () => {
                 </span>
                 {selectedTimesheet.approvedBy && (
                   <p className="text-sm text-text-secondary">
-                    Approved by {selectedTimesheet.approvedBy}
+                    {t('timesheets.approvedBy', { name: selectedTimesheet.approvedBy })}
                   </p>
                 )}
               </div>
@@ -363,7 +363,7 @@ export const Timesheets = () => {
 
             <div className="p-6 border-t border-white/[0.08] flex gap-2">
               <Button variant="outline" className="flex-1" onClick={() => setSelectedTimesheet(null)}>
-                Close
+                {t('timesheets.close')}
               </Button>
               {selectedTimesheet.status === 'submitted' && (
                 <>
@@ -375,7 +375,7 @@ export const Timesheets = () => {
                       setSelectedTimesheet(null);
                     }}
                   >
-                    Reject
+                    {t('timesheets.reject')}
                   </Button>
                   <Button
                     className="flex-1"
@@ -384,7 +384,7 @@ export const Timesheets = () => {
                       setSelectedTimesheet(null);
                     }}
                   >
-                    Approve
+                    {t('timesheets.approve')}
                   </Button>
                 </>
               )}

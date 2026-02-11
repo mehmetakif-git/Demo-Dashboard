@@ -30,7 +30,7 @@ import { useTranslation } from 'react-i18next';
 type ViewMode = 'grid' | 'table';
 
 export const CandidateList = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('staffing');
   const navigate = useNavigate();
   const [viewMode, setViewMode] = useState<ViewMode>('grid');
   const [searchQuery, setSearchQuery] = useState('');
@@ -60,25 +60,25 @@ export const CandidateList = () => {
 
   const stats = [
     {
-      title: 'Total Candidates',
+      title: t('candidateList.totalCandidates'),
       value: staffingStats.totalCandidates.toString(),
       icon: Briefcase,
       iconColor: '#547792',
     },
     {
-      title: 'Active Candidates',
+      title: t('candidateList.activeCandidates'),
       value: staffingStats.activeCandidates.toString(),
       icon: Briefcase,
       iconColor: '#10b981',
     },
     {
-      title: 'Placed This Month',
+      title: t('candidateList.placedThisMonth'),
       value: staffingStats.monthlyPlacements.toString(),
       icon: Briefcase,
       iconColor: '#94B4C1',
     },
     {
-      title: 'Fill Rate',
+      title: t('candidateList.fillRate'),
       value: `${staffingStats.fillRate}%`,
       icon: Briefcase,
       iconColor: '#f59e0b',
@@ -97,12 +97,12 @@ export const CandidateList = () => {
       className="space-y-6"
     >
       <PageHeader
-        title={t('staffing.candidates', 'Candidates')}
-        subtitle="Manage your talent pool"
+        title={t('candidateList.title')}
+        subtitle={t('candidateList.subtitle')}
         actions={
           <Button onClick={() => console.log('Add candidate')}>
             <Plus className="h-4 w-4 mr-2" />
-            Add Candidate
+            {t('candidateList.addCandidate')}
           </Button>
         }
       />
@@ -128,7 +128,7 @@ export const CandidateList = () => {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted" />
               <input
                 type="text"
-                placeholder="Search candidates..."
+                placeholder={t('candidateList.searchCandidates')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-10 pr-4 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-primary"
@@ -140,12 +140,12 @@ export const CandidateList = () => {
               onChange={(e) => setStatusFilter(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Statuses</option>
-              <option value="available">Available</option>
-              <option value="interviewing">Interviewing</option>
-              <option value="placed">Placed</option>
-              <option value="onboarding">Onboarding</option>
-              <option value="inactive">Inactive</option>
+              <option value="all">{t('candidateList.allStatuses')}</option>
+              <option value="available">{t('candidateList.available')}</option>
+              <option value="interviewing">{t('candidateList.interviewing')}</option>
+              <option value="placed">{t('candidateList.placed')}</option>
+              <option value="onboarding">{t('candidateList.onboarding')}</option>
+              <option value="inactive">{t('candidateList.inactive')}</option>
             </select>
 
             <select
@@ -153,7 +153,7 @@ export const CandidateList = () => {
               onChange={(e) => setSkillFilter(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
             >
-              <option value="all">All Skills</option>
+              <option value="all">{t('candidateList.allSkills')}</option>
               {allSkills.map((skill) => (
                 <option key={skill} value={skill}>
                   {skill}
@@ -189,7 +189,7 @@ export const CandidateList = () => {
 
       {/* Results count */}
       <p className="text-sm text-text-secondary">
-        Showing {filteredCandidates.length} of {candidates.length} candidates
+        {t('candidateList.showingOf', { shown: filteredCandidates.length, total: candidates.length })}
       </p>
 
       {/* Grid View */}
@@ -213,25 +213,25 @@ export const CandidateList = () => {
               <thead>
                 <tr className="border-b border-white/[0.08]">
                   <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                    Candidate
+                    {t('candidateList.candidate')}
                   </th>
                   <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                    Status
+                    {t('candidateList.status')}
                   </th>
                   <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                    Title
+                    {t('candidateList.title')}
                   </th>
                   <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                    Skills
+                    {t('candidateList.skills')}
                   </th>
                   <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                    Experience
+                    {t('candidateList.experience')}
                   </th>
                   <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                    Location
+                    {t('candidateList.location')}
                   </th>
                   <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                    Actions
+                    {t('candidateList.actions')}
                   </th>
                 </tr>
               </thead>
@@ -290,7 +290,7 @@ export const CandidateList = () => {
                         )}
                       </div>
                     </td>
-                    <td className="py-3 px-4 text-text-secondary">{candidate.experience} yrs</td>
+                    <td className="py-3 px-4 text-text-secondary">{t('candidateList.yrs', { years: candidate.experience })}</td>
                     <td className="py-3 px-4 text-text-secondary">{candidate.location}</td>
                     <td className="py-3 px-4">
                       <Button variant="ghost" size="sm" onClick={() => handleViewCandidate(candidate.id)}>
@@ -308,8 +308,8 @@ export const CandidateList = () => {
       {filteredCandidates.length === 0 && (
         <Card className="p-12 text-center">
           <Filter className="h-12 w-12 text-text-muted mx-auto mb-4" />
-          <h3 className="text-lg font-semibold text-text-primary mb-2">No candidates found</h3>
-          <p className="text-text-secondary">Try adjusting your search or filter criteria</p>
+          <h3 className="text-lg font-semibold text-text-primary mb-2">{t('candidateList.noCandidatesFound')}</h3>
+          <p className="text-text-secondary">{t('candidateList.tryAdjusting')}</p>
         </Card>
       )}
     </motion.div>
@@ -322,6 +322,7 @@ interface CandidateCardProps {
 }
 
 const CandidateCard = ({ candidate, onView }: CandidateCardProps) => {
+  const { t } = useTranslation('staffing');
   const profileImage = getProfileImage(`${candidate.firstName} ${candidate.lastName}`);
 
   return (
@@ -376,7 +377,7 @@ const CandidateCard = ({ candidate, onView }: CandidateCardProps) => {
         <div className="grid grid-cols-2 gap-2 text-sm">
           <div className="flex items-center gap-1 text-text-secondary">
             <Briefcase className="h-4 w-4" />
-            <span>{candidate.experience} yrs exp</span>
+            <span>{t('candidateList.yrsExp', { years: candidate.experience })}</span>
           </div>
           <div className="flex items-center gap-1 text-text-secondary">
             <MapPin className="h-4 w-4" />
@@ -396,7 +397,7 @@ const CandidateCard = ({ candidate, onView }: CandidateCardProps) => {
       <div className="flex items-center gap-2 pt-4 border-t border-white/[0.08]">
         <Button variant="ghost" size="sm" className="flex-1" onClick={onView}>
           <Eye className="h-4 w-4 mr-1" />
-          View
+          {t('candidateList.view')}
         </Button>
         <Button
           variant="ghost"

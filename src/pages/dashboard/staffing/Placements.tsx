@@ -23,7 +23,7 @@ import { getProfileImage } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const Placements = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('staffing');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -57,25 +57,25 @@ export const Placements = () => {
 
   const stats = [
     {
-      title: 'Total Placements',
+      title: t('placements.totalPlacements'),
       value: staffingStats.totalPlacements.toString(),
       icon: CheckCircle,
       iconColor: '#547792',
     },
     {
-      title: 'Active Placements',
+      title: t('placements.activePlacements'),
       value: staffingStats.activePlacements.toString(),
       icon: User,
       iconColor: '#10b981',
     },
     {
-      title: 'Monthly Revenue',
+      title: t('placements.monthlyRevenue'),
       value: formatCurrency(staffingStats.monthlyRevenue),
       icon: DollarSign,
       iconColor: '#f59e0b',
     },
     {
-      title: 'Avg Margin',
+      title: t('placements.avgMargin'),
       value: `${avgMargin}%`,
       icon: TrendingUp,
       iconColor: '#94B4C1',
@@ -90,12 +90,12 @@ export const Placements = () => {
       className="space-y-6"
     >
       <PageHeader
-        title={t('staffing.placements', 'Placements')}
-        subtitle="Track active and completed placements"
+        title={t('placements.title')}
+        subtitle={t('placements.subtitle')}
         actions={
           <Button onClick={() => console.log('Add placement')}>
             <Plus className="h-4 w-4 mr-2" />
-            Add Placement
+            {t('placements.addPlacement')}
           </Button>
         }
       />
@@ -120,7 +120,7 @@ export const Placements = () => {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted" />
             <input
               type="text"
-              placeholder="Search placements..."
+              placeholder={t('placements.searchPlacements')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-10 pr-4 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-primary"
@@ -132,11 +132,11 @@ export const Placements = () => {
             onChange={(e) => setStatusFilter(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Statuses</option>
-            <option value="active">Active</option>
-            <option value="completed">Completed</option>
-            <option value="terminated">Terminated</option>
-            <option value="extended">Extended</option>
+            <option value="all">{t('placements.allStatuses')}</option>
+            <option value="active">{t('placements.active')}</option>
+            <option value="completed">{t('placements.completed')}</option>
+            <option value="terminated">{t('placements.terminated')}</option>
+            <option value="extended">{t('placements.extended')}</option>
           </select>
 
           <select
@@ -144,10 +144,10 @@ export const Placements = () => {
             onChange={(e) => setTypeFilter(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Types</option>
-            <option value="permanent">Permanent</option>
-            <option value="contract">Contract</option>
-            <option value="temp-to-hire">Temp-to-Hire</option>
+            <option value="all">{t('placements.allTypes')}</option>
+            <option value="permanent">{t('placements.permanent')}</option>
+            <option value="contract">{t('placements.contract')}</option>
+            <option value="temp-to-hire">{t('placements.tempToHire')}</option>
           </select>
         </div>
       </Card>
@@ -159,28 +159,28 @@ export const Placements = () => {
             <thead>
               <tr className="border-b border-white/[0.08]">
                 <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                  Candidate
+                  {t('placements.candidate')}
                 </th>
                 <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                  Position
+                  {t('placements.position')}
                 </th>
                 <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                  Client
+                  {t('placements.client')}
                 </th>
                 <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                  Type
+                  {t('placements.type')}
                 </th>
                 <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                  Status
+                  {t('placements.status')}
                 </th>
                 <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                  Start Date
+                  {t('placements.startDate')}
                 </th>
                 <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                  Bill/Pay Rate
+                  {t('placements.billPayRate')}
                 </th>
                 <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                  Actions
+                  {t('placements.actions')}
                 </th>
               </tr>
             </thead>
@@ -264,8 +264,8 @@ export const Placements = () => {
       {filteredPlacements.length === 0 && (
         <Card className="p-12 text-center">
           <CheckCircle className="h-12 w-12 text-text-muted mx-auto mb-4" />
-          <h3 className="text-lg font-semibold text-text-primary mb-2">No placements found</h3>
-          <p className="text-text-secondary">Try adjusting your search or filter criteria</p>
+          <h3 className="text-lg font-semibold text-text-primary mb-2">{t('placements.noPlacementsFound')}</h3>
+          <p className="text-text-secondary">{t('placements.tryAdjusting')}</p>
         </Card>
       )}
     </motion.div>

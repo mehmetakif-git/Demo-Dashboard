@@ -26,7 +26,7 @@ import { ROUTES } from '@/utils/constants';
 import { useTranslation } from 'react-i18next';
 
 export const JobOrders = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('staffing');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -54,26 +54,26 @@ export const JobOrders = () => {
 
   const stats = [
     {
-      title: 'Open Positions',
+      title: t('jobOrders.openPositions'),
       value: staffingStats.openJobOrders.toString(),
       icon: Briefcase,
       iconColor: '#547792',
     },
     {
-      title: 'Total Job Orders',
+      title: t('jobOrders.totalJobOrders'),
       value: staffingStats.totalJobOrders.toString(),
       icon: Briefcase,
       iconColor: '#10b981',
     },
     {
-      title: 'Critical/Urgent',
+      title: t('jobOrders.criticalUrgent'),
       value: criticalJobsCount.toString(),
       icon: AlertTriangle,
       iconColor: '#ef4444',
     },
     {
-      title: 'Avg Time to Fill',
-      value: `${staffingStats.avgTimeToFill} days`,
+      title: t('jobOrders.avgTimeToFill'),
+      value: t('jobOrders.days', { count: staffingStats.avgTimeToFill }),
       icon: Clock,
       iconColor: '#f59e0b',
     },
@@ -91,12 +91,12 @@ export const JobOrders = () => {
       className="space-y-6"
     >
       <PageHeader
-        title={t('staffing.jobOrders', 'Job Orders')}
-        subtitle="Manage open positions and requisitions"
+        title={t('jobOrders.title')}
+        subtitle={t('jobOrders.subtitle')}
         actions={
           <Button onClick={() => console.log('Add job order')}>
             <Plus className="h-4 w-4 mr-2" />
-            Add Job Order
+            {t('jobOrders.addJobOrder')}
           </Button>
         }
       />
@@ -121,7 +121,7 @@ export const JobOrders = () => {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted" />
             <input
               type="text"
-              placeholder="Search jobs..."
+              placeholder={t('jobOrders.searchJobs')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-10 pr-4 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-primary"
@@ -133,11 +133,11 @@ export const JobOrders = () => {
             onChange={(e) => setStatusFilter(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Statuses</option>
-            <option value="open">Open</option>
-            <option value="filled">Filled</option>
-            <option value="on-hold">On Hold</option>
-            <option value="cancelled">Cancelled</option>
+            <option value="all">{t('jobOrders.allStatuses')}</option>
+            <option value="open">{t('jobOrders.open')}</option>
+            <option value="filled">{t('jobOrders.filled')}</option>
+            <option value="on-hold">{t('jobOrders.onHold')}</option>
+            <option value="cancelled">{t('jobOrders.cancelled')}</option>
           </select>
 
           <select
@@ -145,11 +145,11 @@ export const JobOrders = () => {
             onChange={(e) => setUrgencyFilter(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Urgencies</option>
-            <option value="critical">Critical</option>
-            <option value="high">High</option>
-            <option value="medium">Medium</option>
-            <option value="low">Low</option>
+            <option value="all">{t('jobOrders.allUrgencies')}</option>
+            <option value="critical">{t('jobOrders.critical')}</option>
+            <option value="high">{t('jobOrders.high')}</option>
+            <option value="medium">{t('jobOrders.medium')}</option>
+            <option value="low">{t('jobOrders.low')}</option>
           </select>
 
           <select
@@ -157,7 +157,7 @@ export const JobOrders = () => {
             onChange={(e) => setClientFilter(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Clients</option>
+            <option value="all">{t('jobOrders.allClients')}</option>
             {clients.map((client) => (
               <option key={client.id} value={client.id}>
                 {client.companyName}
@@ -170,18 +170,18 @@ export const JobOrders = () => {
             onChange={(e) => setTypeFilter(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Types</option>
-            <option value="full-time">Full-Time</option>
-            <option value="part-time">Part-Time</option>
-            <option value="contract">Contract</option>
-            <option value="temp-to-hire">Temp-to-Hire</option>
+            <option value="all">{t('jobOrders.allTypes')}</option>
+            <option value="full-time">{t('jobOrders.fullTime')}</option>
+            <option value="part-time">{t('jobOrders.partTime')}</option>
+            <option value="contract">{t('jobOrders.contract')}</option>
+            <option value="temp-to-hire">{t('jobOrders.tempToHire')}</option>
           </select>
         </div>
       </Card>
 
       {/* Results count */}
       <p className="text-sm text-text-secondary">
-        Showing {filteredJobs.length} of {jobOrders.length} job orders
+        {t('jobOrders.showingOf', { shown: filteredJobs.length, total: jobOrders.length })}
       </p>
 
       {/* Job Cards */}
@@ -194,8 +194,8 @@ export const JobOrders = () => {
       {filteredJobs.length === 0 && (
         <Card className="p-12 text-center">
           <Briefcase className="h-12 w-12 text-text-muted mx-auto mb-4" />
-          <h3 className="text-lg font-semibold text-text-primary mb-2">No job orders found</h3>
-          <p className="text-text-secondary">Try adjusting your search or filter criteria</p>
+          <h3 className="text-lg font-semibold text-text-primary mb-2">{t('jobOrders.noJobOrdersFound')}</h3>
+          <p className="text-text-secondary">{t('jobOrders.tryAdjusting')}</p>
         </Card>
       )}
     </motion.div>
@@ -208,6 +208,7 @@ interface JobOrderCardProps {
 }
 
 const JobOrderCard = ({ job, onView }: JobOrderCardProps) => {
+  const { t } = useTranslation('staffing');
   const fillPercentage = job.openings > 0 ? Math.round((job.filled / job.openings) * 100) : 0;
 
   return (
@@ -272,9 +273,9 @@ const JobOrderCard = ({ job, onView }: JobOrderCardProps) => {
       {/* Pipeline Stats */}
       <div className="bg-white/[0.05] rounded-lg p-3 mb-4">
         <div className="flex items-center justify-between text-sm mb-2">
-          <span className="text-text-secondary">Pipeline</span>
+          <span className="text-text-secondary">{t('jobOrders.pipeline')}</span>
           <span className="text-text-primary font-medium">
-            {job.filled}/{job.openings} filled
+            {t('jobOrders.filledOf', { filled: job.filled, openings: job.openings })}
           </span>
         </div>
         <div className="w-full h-2 bg-white/[0.03] backdrop-blur-xl rounded-full overflow-hidden mb-2">
@@ -286,31 +287,31 @@ const JobOrderCard = ({ job, onView }: JobOrderCardProps) => {
         <div className="grid grid-cols-4 gap-2 text-center text-xs">
           <div>
             <p className="text-text-primary font-medium">{job.applicants}</p>
-            <p className="text-text-muted">Applicants</p>
+            <p className="text-text-muted">{t('jobOrders.applicants')}</p>
           </div>
           <div>
             <p className="text-text-primary font-medium">{job.submissions}</p>
-            <p className="text-text-muted">Submitted</p>
+            <p className="text-text-muted">{t('jobOrders.submitted')}</p>
           </div>
           <div>
             <p className="text-text-primary font-medium">{job.interviews}</p>
-            <p className="text-text-muted">Interviews</p>
+            <p className="text-text-muted">{t('jobOrders.interviews')}</p>
           </div>
           <div>
             <p className="text-text-primary font-medium">{job.filled}</p>
-            <p className="text-text-muted">Filled</p>
+            <p className="text-text-muted">{t('jobOrders.filled')}</p>
           </div>
         </div>
       </div>
 
       <div className="flex items-center justify-between pt-4 border-t border-white/[0.08]">
         <div className="text-sm text-text-secondary">
-          <span>Recruiter: </span>
+          <span>{t('jobOrders.recruiter')}</span>
           <span className="text-text-primary">{job.assignedRecruiter}</span>
         </div>
         <Button variant="ghost" size="sm" onClick={onView}>
           <Eye className="h-4 w-4 mr-1" />
-          View
+          {t('jobOrders.view')}
         </Button>
       </div>
     </Card>

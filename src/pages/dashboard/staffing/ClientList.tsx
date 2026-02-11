@@ -26,7 +26,7 @@ import { getCompanyLogo } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const ClientList = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('staffing');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -60,25 +60,25 @@ export const ClientList = () => {
 
   const stats = [
     {
-      title: 'Total Clients',
+      title: t('clientList.totalClients'),
       value: staffingStats.totalClients.toString(),
       icon: Building2,
       iconColor: '#547792',
     },
     {
-      title: 'Active Clients',
+      title: t('clientList.activeClients'),
       value: staffingStats.activeClients.toString(),
       icon: Building2,
       iconColor: '#10b981',
     },
     {
-      title: 'Total Revenue',
+      title: t('clientList.totalRevenue'),
       value: formatCurrency(totalRevenue),
       icon: DollarSign,
       iconColor: '#f59e0b',
     },
     {
-      title: 'Open Positions',
+      title: t('clientList.openPositions'),
       value: activePositions.toString(),
       icon: Briefcase,
       iconColor: '#94B4C1',
@@ -97,12 +97,12 @@ export const ClientList = () => {
       className="space-y-6"
     >
       <PageHeader
-        title={t('staffing.clients', 'Clients')}
-        subtitle="Manage client accounts and relationships"
+        title={t('clientList.title')}
+        subtitle={t('clientList.subtitle')}
         actions={
           <Button onClick={() => console.log('Add client')}>
             <Plus className="h-4 w-4 mr-2" />
-            Add Client
+            {t('clientList.addClient')}
           </Button>
         }
       />
@@ -127,7 +127,7 @@ export const ClientList = () => {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted" />
             <input
               type="text"
-              placeholder="Search clients..."
+              placeholder={t('clientList.searchClients')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-10 pr-4 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-primary"
@@ -139,10 +139,10 @@ export const ClientList = () => {
             onChange={(e) => setStatusFilter(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Statuses</option>
-            <option value="active">Active</option>
-            <option value="inactive">Inactive</option>
-            <option value="prospect">Prospect</option>
+            <option value="all">{t('clientList.allStatuses')}</option>
+            <option value="active">{t('clientList.active')}</option>
+            <option value="inactive">{t('clientList.inactive')}</option>
+            <option value="prospect">{t('clientList.prospect')}</option>
           </select>
 
           <select
@@ -150,11 +150,11 @@ export const ClientList = () => {
             onChange={(e) => setTierFilter(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Tiers</option>
-            <option value="platinum">Platinum</option>
-            <option value="gold">Gold</option>
-            <option value="silver">Silver</option>
-            <option value="bronze">Bronze</option>
+            <option value="all">{t('clientList.allTiers')}</option>
+            <option value="platinum">{t('clientList.platinum')}</option>
+            <option value="gold">{t('clientList.gold')}</option>
+            <option value="silver">{t('clientList.silver')}</option>
+            <option value="bronze">{t('clientList.bronze')}</option>
           </select>
 
           <select
@@ -162,7 +162,7 @@ export const ClientList = () => {
             onChange={(e) => setIndustryFilter(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Industries</option>
+            <option value="all">{t('clientList.allIndustries')}</option>
             {industries.map((industry) => (
               <option key={industry} value={industry}>
                 {industry}
@@ -174,7 +174,7 @@ export const ClientList = () => {
 
       {/* Results count */}
       <p className="text-sm text-text-secondary">
-        Showing {filteredClients.length} of {clients.length} clients
+        {t('clientList.showingOf', { shown: filteredClients.length, total: clients.length })}
       </p>
 
       {/* Client Cards */}
@@ -187,8 +187,8 @@ export const ClientList = () => {
       {filteredClients.length === 0 && (
         <Card className="p-12 text-center">
           <Building2 className="h-12 w-12 text-text-muted mx-auto mb-4" />
-          <h3 className="text-lg font-semibold text-text-primary mb-2">No clients found</h3>
-          <p className="text-text-secondary">Try adjusting your search or filter criteria</p>
+          <h3 className="text-lg font-semibold text-text-primary mb-2">{t('clientList.noClientsFound')}</h3>
+          <p className="text-text-secondary">{t('clientList.tryAdjusting')}</p>
         </Card>
       )}
     </motion.div>
@@ -201,6 +201,8 @@ interface ClientCardProps {
 }
 
 const ClientCard = ({ client, onView }: ClientCardProps) => {
+  const { t } = useTranslation('staffing');
+
   return (
     <Card className="p-6 hover:border-accent-primary/50 transition-colors">
       <div className="flex items-start justify-between mb-4">
@@ -243,15 +245,15 @@ const ClientCard = ({ client, onView }: ClientCardProps) => {
       <div className="grid grid-cols-3 gap-2 mb-4 text-center">
         <div className="bg-white/[0.05] rounded-lg p-2">
           <p className="text-text-primary font-bold">{client.totalPlacements}</p>
-          <p className="text-xs text-text-muted">Placements</p>
+          <p className="text-xs text-text-muted">{t('clientList.placements')}</p>
         </div>
         <div className="bg-white/[0.05] rounded-lg p-2">
           <p className="text-text-primary font-bold">{client.activePositions}</p>
-          <p className="text-xs text-text-muted">Open</p>
+          <p className="text-xs text-text-muted">{t('clientList.open')}</p>
         </div>
         <div className="bg-white/[0.05] rounded-lg p-2">
           <p className="text-text-primary font-bold text-sm">{formatCurrency(client.totalRevenue / 1000)}k</p>
-          <p className="text-xs text-text-muted">Revenue</p>
+          <p className="text-xs text-text-muted">{t('clientList.revenue')}</p>
         </div>
       </div>
 

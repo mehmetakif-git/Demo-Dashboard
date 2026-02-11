@@ -28,7 +28,7 @@ import { useTranslation } from 'react-i18next';
 type TabType = 'overview' | 'candidates' | 'activity';
 
 export const JobOrderDetail = () => {
-  const { t: _t } = useTranslation('common');
+  const { t } = useTranslation('staffing');
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<TabType>('overview');
@@ -40,9 +40,9 @@ export const JobOrderDetail = () => {
       <div className="flex items-center justify-center h-96">
         <Card className="p-8 text-center">
           <AlertCircle className="h-12 w-12 text-text-muted mx-auto mb-4" />
-          <h3 className="text-lg font-semibold text-text-primary mb-2">Job order not found</h3>
-          <p className="text-text-secondary mb-4">The job order you're looking for doesn't exist.</p>
-          <Button onClick={() => navigate(ROUTES.staffing.jobs)}>Back to Job Orders</Button>
+          <h3 className="text-lg font-semibold text-text-primary mb-2">{t('jobOrderDetail.jobNotFound')}</h3>
+          <p className="text-text-secondary mb-4">{t('jobOrderDetail.jobNotFoundDesc')}</p>
+          <Button onClick={() => navigate(ROUTES.staffing.jobs)}>{t('jobOrderDetail.backToJobOrders')}</Button>
         </Card>
       </div>
     );
@@ -52,9 +52,9 @@ export const JobOrderDetail = () => {
   const appliedCandidates = candidates.filter((c) => c.appliedJobs.includes(job.id));
 
   const tabs = [
-    { id: 'overview', label: 'Overview' },
-    { id: 'candidates', label: 'Candidates', count: appliedCandidates.length },
-    { id: 'activity', label: 'Activity' },
+    { id: 'overview', label: t('jobOrderDetail.overview') },
+    { id: 'candidates', label: t('jobOrderDetail.candidates'), count: appliedCandidates.length },
+    { id: 'activity', label: t('jobOrderDetail.activity') },
   ];
 
   const fillPercentage = job.openings > 0 ? Math.round((job.filled / job.openings) * 100) : 0;
@@ -73,15 +73,15 @@ export const JobOrderDetail = () => {
           <div className="flex items-center gap-2">
             <Button variant="outline" onClick={() => navigate(ROUTES.staffing.jobs)}>
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Back
+              {t('jobOrderDetail.back')}
             </Button>
             <Button variant="outline" onClick={() => console.log('Submit candidate')}>
               <UserPlus className="h-4 w-4 mr-2" />
-              Submit Candidate
+              {t('jobOrderDetail.submitCandidate')}
             </Button>
             <Button onClick={() => console.log('Edit job')}>
               <Edit className="h-4 w-4 mr-2" />
-              Edit
+              {t('jobOrderDetail.edit')}
             </Button>
           </div>
         }
@@ -96,7 +96,7 @@ export const JobOrderDetail = () => {
                 {job.status.charAt(0).toUpperCase() + job.status.slice(1).replace('-', ' ')}
               </span>
               <span className={`px-3 py-1 rounded-full text-sm font-medium border ${getJobUrgencyBgColor(job.urgency)}`}>
-                {job.urgency.charAt(0).toUpperCase() + job.urgency.slice(1)} Priority
+                {job.urgency.charAt(0).toUpperCase() + job.urgency.slice(1)} {t('jobOrderDetail.priority')}
               </span>
               <span className="px-3 py-1 rounded-full text-sm font-medium bg-white/[0.05] text-text-primary capitalize">
                 {job.employmentType.replace('-', ' ')}
@@ -107,28 +107,28 @@ export const JobOrderDetail = () => {
               <div className="flex items-center gap-2">
                 <Building2 className="h-4 w-4 text-text-muted" />
                 <div>
-                  <p className="text-text-muted">Client</p>
+                  <p className="text-text-muted">{t('jobOrderDetail.client')}</p>
                   <p className="text-text-primary font-medium">{job.clientName}</p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
                 <MapPin className="h-4 w-4 text-text-muted" />
                 <div>
-                  <p className="text-text-muted">Location</p>
+                  <p className="text-text-muted">{t('jobOrderDetail.location')}</p>
                   <p className="text-text-primary font-medium">{job.location}</p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
                 <DollarSign className="h-4 w-4 text-text-muted" />
                 <div>
-                  <p className="text-text-muted">Salary Range</p>
+                  <p className="text-text-muted">{t('jobOrderDetail.salaryRange')}</p>
                   <p className="text-text-primary font-medium">{formatSalaryRange(job.salaryRange)}</p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
                 <Briefcase className="h-4 w-4 text-text-muted" />
                 <div>
-                  <p className="text-text-muted">Remote</p>
+                  <p className="text-text-muted">{t('jobOrderDetail.remote')}</p>
                   <p className="text-text-primary font-medium capitalize">{job.remote}</p>
                 </div>
               </div>
@@ -139,7 +139,7 @@ export const JobOrderDetail = () => {
           <div className="md:w-64">
             <div className="bg-white/[0.05] rounded-lg p-4">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-text-secondary text-sm">Pipeline Progress</span>
+                <span className="text-text-secondary text-sm">{t('jobOrderDetail.pipelineProgress')}</span>
                 <span className="text-text-primary font-medium text-sm">
                   {job.filled}/{job.openings}
                 </span>
@@ -153,19 +153,19 @@ export const JobOrderDetail = () => {
               <div className="grid grid-cols-2 gap-3 text-center text-xs">
                 <div className="bg-white/[0.03] backdrop-blur-xl rounded p-2">
                   <p className="text-text-primary font-bold text-lg">{job.applicants}</p>
-                  <p className="text-text-muted">Applicants</p>
+                  <p className="text-text-muted">{t('jobOrderDetail.applicants')}</p>
                 </div>
                 <div className="bg-white/[0.03] backdrop-blur-xl rounded p-2">
                   <p className="text-text-primary font-bold text-lg">{job.submissions}</p>
-                  <p className="text-text-muted">Submissions</p>
+                  <p className="text-text-muted">{t('jobOrderDetail.submissions')}</p>
                 </div>
                 <div className="bg-white/[0.03] backdrop-blur-xl rounded p-2">
                   <p className="text-text-primary font-bold text-lg">{job.interviews}</p>
-                  <p className="text-text-muted">Interviews</p>
+                  <p className="text-text-muted">{t('jobOrderDetail.interviews')}</p>
                 </div>
                 <div className="bg-white/[0.03] backdrop-blur-xl rounded p-2">
                   <p className="text-text-primary font-bold text-lg">{job.filled}</p>
-                  <p className="text-text-muted">Filled</p>
+                  <p className="text-text-muted">{t('jobOrderDetail.filled')}</p>
                 </div>
               </div>
             </div>
@@ -207,12 +207,12 @@ export const JobOrderDetail = () => {
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-text-primary mb-4">Description</h3>
+              <h3 className="text-lg font-semibold text-text-primary mb-4">{t('jobOrderDetail.description')}</h3>
               <p className="text-text-secondary">{job.description}</p>
             </Card>
 
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-text-primary mb-4">Requirements</h3>
+              <h3 className="text-lg font-semibold text-text-primary mb-4">{t('jobOrderDetail.requirements')}</h3>
               <ul className="space-y-2">
                 {job.requirements.map((req, index) => (
                   <li key={index} className="flex items-start gap-2 text-text-secondary">
@@ -224,7 +224,7 @@ export const JobOrderDetail = () => {
             </Card>
 
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-text-primary mb-4">Required Skills</h3>
+              <h3 className="text-lg font-semibold text-text-primary mb-4">{t('jobOrderDetail.requiredSkills')}</h3>
               <div className="flex flex-wrap gap-2">
                 {job.skills.map((skill, index) => (
                   <span
@@ -239,7 +239,7 @@ export const JobOrderDetail = () => {
 
             {job.notes && (
               <Card className="p-6">
-                <h3 className="text-lg font-semibold text-text-primary mb-4">Notes</h3>
+                <h3 className="text-lg font-semibold text-text-primary mb-4">{t('jobOrderDetail.notes')}</h3>
                 <p className="text-text-secondary">{job.notes}</p>
               </Card>
             )}
@@ -248,25 +248,25 @@ export const JobOrderDetail = () => {
           {/* Sidebar */}
           <div className="space-y-6">
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-text-primary mb-4">Details</h3>
+              <h3 className="text-lg font-semibold text-text-primary mb-4">{t('jobOrderDetail.details')}</h3>
               <div className="space-y-4">
                 <div>
-                  <p className="text-sm text-text-muted">Assigned Recruiter</p>
+                  <p className="text-sm text-text-muted">{t('jobOrderDetail.assignedRecruiter')}</p>
                   <p className="text-text-primary font-medium">{job.assignedRecruiter}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-text-muted">Openings</p>
+                  <p className="text-sm text-text-muted">{t('jobOrderDetail.openings')}</p>
                   <p className="text-text-primary font-medium">{job.openings}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-text-muted">Created</p>
+                  <p className="text-sm text-text-muted">{t('jobOrderDetail.created')}</p>
                   <p className="text-text-primary font-medium">
                     {new Date(job.createdAt).toLocaleDateString()}
                   </p>
                 </div>
                 {job.deadline && (
                   <div>
-                    <p className="text-sm text-text-muted">Deadline</p>
+                    <p className="text-sm text-text-muted">{t('jobOrderDetail.deadline')}</p>
                     <p className="text-text-primary font-medium">
                       {new Date(job.deadline).toLocaleDateString()}
                     </p>
@@ -276,7 +276,7 @@ export const JobOrderDetail = () => {
             </Card>
 
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-text-primary mb-4">Client Info</h3>
+              <h3 className="text-lg font-semibold text-text-primary mb-4">{t('jobOrderDetail.clientInfo')}</h3>
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center text-white font-bold">
                   {job.clientName.charAt(0)}
@@ -295,7 +295,7 @@ export const JobOrderDetail = () => {
                   navigate(ROUTES.staffing.clientDetail.replace(':id', client));
                 }}
               >
-                View Client
+                {t('jobOrderDetail.viewClient')}
               </Button>
             </Card>
           </div>
@@ -310,19 +310,19 @@ export const JobOrderDetail = () => {
                 <thead>
                   <tr className="border-b border-white/[0.08]">
                     <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                      Candidate
+                      {t('jobOrderDetail.candidate')}
                     </th>
                     <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                      Status
+                      {t('jobOrderDetail.status')}
                     </th>
                     <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                      Experience
+                      {t('jobOrderDetail.experience')}
                     </th>
                     <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                      Location
+                      {t('jobOrderDetail.location')}
                     </th>
                     <th className="text-left py-3 px-4 text-xs font-semibold text-text-secondary uppercase">
-                      Actions
+                      {t('jobOrderDetail.actions')}
                     </th>
                   </tr>
                 </thead>
@@ -355,7 +355,7 @@ export const JobOrderDetail = () => {
                           {candidate.status.charAt(0).toUpperCase() + candidate.status.slice(1)}
                         </span>
                       </td>
-                      <td className="py-3 px-4 text-text-secondary">{candidate.experience} years</td>
+                      <td className="py-3 px-4 text-text-secondary">{t('jobOrderDetail.years', { count: candidate.experience })}</td>
                       <td className="py-3 px-4 text-text-secondary">{candidate.location}</td>
                       <td className="py-3 px-4">
                         <Button
@@ -365,7 +365,7 @@ export const JobOrderDetail = () => {
                             navigate(ROUTES.staffing.candidateDetail.replace(':id', candidate.id))
                           }
                         >
-                          View
+                          {t('jobOrderDetail.view')}
                         </Button>
                       </td>
                     </tr>
@@ -376,13 +376,13 @@ export const JobOrderDetail = () => {
           ) : (
             <div className="p-12 text-center">
               <Users className="h-12 w-12 text-text-muted mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-text-primary mb-2">No candidates yet</h3>
+              <h3 className="text-lg font-semibold text-text-primary mb-2">{t('jobOrderDetail.noCandidatesYet')}</h3>
               <p className="text-text-secondary mb-4">
-                No candidates have been submitted for this position.
+                {t('jobOrderDetail.noCandidatesDesc')}
               </p>
               <Button onClick={() => console.log('Submit candidate')}>
                 <UserPlus className="h-4 w-4 mr-2" />
-                Submit Candidate
+                {t('jobOrderDetail.submitCandidate')}
               </Button>
             </div>
           )}
@@ -397,7 +397,7 @@ export const JobOrderDetail = () => {
                 <CheckCircle className="h-4 w-4 text-green-400" />
               </div>
               <div>
-                <p className="text-text-primary">Job order created</p>
+                <p className="text-text-primary">{t('jobOrderDetail.jobOrderCreated')}</p>
                 <p className="text-sm text-text-secondary">
                   {new Date(job.createdAt).toLocaleDateString()} by {job.assignedRecruiter}
                 </p>
@@ -409,9 +409,9 @@ export const JobOrderDetail = () => {
                   <CheckCircle className="h-4 w-4 text-[#94B4C1]" />
                 </div>
                 <div>
-                  <p className="text-text-primary">Position filled</p>
+                  <p className="text-text-primary">{t('jobOrderDetail.positionFilled')}</p>
                   <p className="text-sm text-text-secondary">
-                    All openings have been filled
+                    {t('jobOrderDetail.allOpeningsFilled')}
                   </p>
                 </div>
               </div>
