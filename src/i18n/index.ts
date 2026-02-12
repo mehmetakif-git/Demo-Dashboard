@@ -30,6 +30,14 @@ import enQrCodes from './locales/en/qrCodes.json';
 import enGym from './locales/en/gym.json';
 import enStaffing from './locales/en/staffing.json';
 import enRealestate from './locales/en/realestate.json';
+import enAgency from './locales/en/agency.json';
+import enBeauty from './locales/en/beauty.json';
+import enLaundry from './locales/en/laundry.json';
+import enEcommerce from './locales/en/ecommerce.json';
+import enHealthcare from './locales/en/healthcare.json';
+import enHardware from './locales/en/hardware.json';
+import enRestaurant from './locales/en/restaurant.json';
+import enEvents from './locales/en/events.json';
 
 // TR translations
 import trCommon from './locales/tr/common.json';
@@ -59,6 +67,14 @@ import trQrCodes from './locales/tr/qrCodes.json';
 import trGym from './locales/tr/gym.json';
 import trStaffing from './locales/tr/staffing.json';
 import trRealestate from './locales/tr/realestate.json';
+import trAgency from './locales/tr/agency.json';
+import trBeauty from './locales/tr/beauty.json';
+import trLaundry from './locales/tr/laundry.json';
+import trEcommerce from './locales/tr/ecommerce.json';
+import trHealthcare from './locales/tr/healthcare.json';
+import trHardware from './locales/tr/hardware.json';
+import trRestaurant from './locales/tr/restaurant.json';
+import trEvents from './locales/tr/events.json';
 
 i18n
   .use(LanguageDetector)
@@ -93,6 +109,14 @@ i18n
         gym: enGym,
         staffing: enStaffing,
         realestate: enRealestate,
+        agency: enAgency,
+        beauty: enBeauty,
+        laundry: enLaundry,
+        ecommerce: enEcommerce,
+        healthcare: enHealthcare,
+        hardware: enHardware,
+        restaurant: enRestaurant,
+        events: enEvents,
       },
       tr: {
         common: trCommon,
@@ -122,11 +146,19 @@ i18n
         gym: trGym,
         staffing: trStaffing,
         realestate: trRealestate,
+        agency: trAgency,
+        beauty: trBeauty,
+        laundry: trLaundry,
+        ecommerce: trEcommerce,
+        healthcare: trHealthcare,
+        hardware: trHardware,
+        restaurant: trRestaurant,
+        events: trEvents,
       },
     },
     fallbackLng: 'en',
     defaultNS: 'common',
-    ns: ['common', 'auth', 'sidebar', 'dashboard', 'breadcrumb', 'errors', 'sectors', 'communication', 'hotel', 'construction', 'logistics', 'manufacturing', 'law', 'education', 'hr', 'accounting', 'crm', 'tasks', 'accessControl', 'reports', 'maintenance', 'signage', 'files', 'qrCodes', 'gym', 'staffing', 'realestate'],
+    ns: ['common', 'auth', 'sidebar', 'dashboard', 'breadcrumb', 'errors', 'sectors', 'communication', 'hotel', 'construction', 'logistics', 'manufacturing', 'law', 'education', 'hr', 'accounting', 'crm', 'tasks', 'accessControl', 'reports', 'maintenance', 'signage', 'files', 'qrCodes', 'gym', 'staffing', 'realestate', 'agency', 'beauty', 'laundry', 'ecommerce', 'healthcare', 'hardware', 'restaurant', 'events'],
     interpolation: {
       escapeValue: false,
     },

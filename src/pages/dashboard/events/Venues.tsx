@@ -24,7 +24,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const Venues = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('events');
   const [searchTerm, setSearchTerm] = useState('');
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [cityFilter, setCityFilter] = useState<string>('all');
@@ -68,12 +68,12 @@ export const Venues = () => {
       className="space-y-6"
     >
       <PageHeader
-        title={t('events.venues', 'Venues')}
-        subtitle="Browse and manage event venues"
+        title={t('venues.title')}
+        subtitle={t('venues.subtitle')}
         actions={
           <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
             <Plus className="h-4 w-4" />
-            Add Venue
+            {t('venues.addVenue')}
           </button>
         }
       />
@@ -81,28 +81,28 @@ export const Venues = () => {
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Venues"
+          title={t('venues.totalVenues')}
           value={venues.length.toString()}
           icon={Building}
-          trend={{ value: `${activeVenues} active`, type: 'up' }}
+          trend={{ value: t('venues.active', { count: activeVenues }), type: 'up' }}
         />
         <StatsCard
-          title="Total Capacity"
+          title={t('venues.totalCapacity')}
           value={totalCapacity.toLocaleString()}
           icon={Users}
-          trend={{ value: 'Combined capacity', type: 'neutral' }}
+          trend={{ value: t('venues.combinedCapacity'), type: 'neutral' }}
         />
         <StatsCard
-          title="Average Rating"
+          title={t('venues.averageRating')}
           value={avgRating.toFixed(1)}
           icon={Star}
-          trend={{ value: 'Out of 5 stars', type: 'up' }}
+          trend={{ value: t('venues.outOf5Stars'), type: 'up' }}
         />
         <StatsCard
-          title="Cities"
+          title={t('venues.cities')}
           value={cities.length.toString()}
           icon={MapPin}
-          trend={{ value: 'Locations covered', type: 'neutral' }}
+          trend={{ value: t('venues.locationsCovered'), type: 'neutral' }}
         />
       </div>
 
@@ -112,7 +112,7 @@ export const Venues = () => {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#64748b]" />
           <input
             type="text"
-            placeholder="Search venues..."
+            placeholder={t('venues.searchPlaceholder')}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#547792] focus:outline-none"
@@ -124,7 +124,7 @@ export const Venues = () => {
             onChange={(e) => setTypeFilter(e.target.value)}
             className="rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
-            <option value="all">All Types</option>
+            <option value="all">{t('venues.allTypes')}</option>
             {venueTypes.map((type) => (
               <option key={type} value={type}>
                 {type.charAt(0).toUpperCase() + type.slice(1).replace('-', ' ')}
@@ -136,7 +136,7 @@ export const Venues = () => {
             onChange={(e) => setCityFilter(e.target.value)}
             className="rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
-            <option value="all">All Cities</option>
+            <option value="all">{t('venues.allCities')}</option>
             {cities.map((city) => (
               <option key={city} value={city}>
                 {city}
@@ -145,7 +145,7 @@ export const Venues = () => {
           </select>
           <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
             <Filter className="h-4 w-4" />
-            More Filters
+            {t('venues.moreFilters')}
           </button>
         </div>
       </div>
@@ -182,11 +182,11 @@ export const Venues = () => {
 
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <p className="text-xs text-[#64748b]">Max Capacity</p>
+                  <p className="text-xs text-[#64748b]">{t('venues.maxCapacity')}</p>
                   <p className="text-white font-semibold">{venue.capacity.max.toLocaleString()}</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-xs text-[#64748b]">Starting at</p>
+                  <p className="text-xs text-[#64748b]">{t('venues.startingAt')}</p>
                   <p className="text-[#547792] font-semibold">
                     {formatCurrency(Object.values(venue.pricing)[0] as number || 0)}
                   </p>
@@ -220,7 +220,7 @@ export const Venues = () => {
                 }`}>
                   {venue.status.charAt(0).toUpperCase() + venue.status.slice(1)}
                 </span>
-                <span className="text-xs text-[#64748b]">{venue.spaces.length} spaces</span>
+                <span className="text-xs text-[#64748b]">{t('venues.spaces', { count: venue.spaces.length })}</span>
               </div>
             </div>
           </motion.div>
@@ -256,17 +256,17 @@ export const Venues = () => {
                 <div className="rounded-lg bg-[#1a1a24] p-4 text-center">
                   <Users className="h-6 w-6 text-[#547792] mx-auto mb-2" />
                   <p className="text-2xl font-bold text-white">{selectedVenueData.capacity.max.toLocaleString()}</p>
-                  <p className="text-xs text-[#64748b]">Max Capacity</p>
+                  <p className="text-xs text-[#64748b]">{t('venues.maxCapacity')}</p>
                 </div>
                 <div className="rounded-lg bg-[#1a1a24] p-4 text-center">
                   <Star className="h-6 w-6 text-amber-400 mx-auto mb-2" />
                   <p className="text-2xl font-bold text-white">{selectedVenueData.rating}</p>
-                  <p className="text-xs text-[#64748b]">Rating</p>
+                  <p className="text-xs text-[#64748b]">{t('venues.rating')}</p>
                 </div>
                 <div className="rounded-lg bg-[#1a1a24] p-4 text-center">
                   <Building className="h-6 w-6 text-emerald-400 mx-auto mb-2" />
                   <p className="text-2xl font-bold text-white">{selectedVenueData.spaces.length}</p>
-                  <p className="text-xs text-[#64748b]">Spaces</p>
+                  <p className="text-xs text-[#64748b]">{t('venues.availableSpaces')}</p>
                 </div>
               </div>
 
@@ -274,21 +274,21 @@ export const Venues = () => {
               <div className="rounded-lg bg-[#1a1a24] p-4">
                 <h4 className="text-white font-semibold mb-2 flex items-center gap-2">
                   <MapPin className="h-4 w-4 text-[#547792]" />
-                  Address
+                  {t('venues.address')}
                 </h4>
                 <p className="text-[#94a3b8]">{selectedVenueData.address}</p>
               </div>
 
               {/* Spaces */}
               <div>
-                <h4 className="text-white font-semibold mb-3">Available Spaces</h4>
+                <h4 className="text-white font-semibold mb-3">{t('venues.availableSpaces')}</h4>
                 <div className="space-y-2">
                   {selectedVenueData.spaces.map((space, index) => (
                     <div key={index} className="flex items-center justify-between p-3 rounded-lg bg-[#1a1a24]">
                       <span className="text-white">{space.name}</span>
                       <div className="flex items-center gap-4 text-sm">
-                        <span className="text-[#64748b]">{space.capacity} guests</span>
-                        <span className="text-[#64748b]">{space.sqft.toLocaleString()} sq ft</span>
+                        <span className="text-[#64748b]">{t('venues.guests', { count: space.capacity })}</span>
+                        <span className="text-[#64748b]">{t('venues.sqft', { count: space.sqft })}</span>
                       </div>
                     </div>
                   ))}
@@ -297,29 +297,29 @@ export const Venues = () => {
 
               {/* Capacity Options */}
               <div>
-                <h4 className="text-white font-semibold mb-3">Capacity by Setup</h4>
+                <h4 className="text-white font-semibold mb-3">{t('venues.capacityBySetup')}</h4>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                   {selectedVenueData.capacity.theater && (
                     <div className="p-3 rounded-lg bg-[#1a1a24]">
-                      <p className="text-[#64748b] text-xs">Theater</p>
+                      <p className="text-[#64748b] text-xs">{t('venues.theater')}</p>
                       <p className="text-white font-semibold">{selectedVenueData.capacity.theater.toLocaleString()}</p>
                     </div>
                   )}
                   {selectedVenueData.capacity.banquet && (
                     <div className="p-3 rounded-lg bg-[#1a1a24]">
-                      <p className="text-[#64748b] text-xs">Banquet</p>
+                      <p className="text-[#64748b] text-xs">{t('venues.banquet')}</p>
                       <p className="text-white font-semibold">{selectedVenueData.capacity.banquet.toLocaleString()}</p>
                     </div>
                   )}
                   {selectedVenueData.capacity.cocktail && (
                     <div className="p-3 rounded-lg bg-[#1a1a24]">
-                      <p className="text-[#64748b] text-xs">Cocktail</p>
+                      <p className="text-[#64748b] text-xs">{t('venues.cocktail')}</p>
                       <p className="text-white font-semibold">{selectedVenueData.capacity.cocktail.toLocaleString()}</p>
                     </div>
                   )}
                   {selectedVenueData.capacity.classroom && (
                     <div className="p-3 rounded-lg bg-[#1a1a24]">
-                      <p className="text-[#64748b] text-xs">Classroom</p>
+                      <p className="text-[#64748b] text-xs">{t('venues.classroom')}</p>
                       <p className="text-white font-semibold">{selectedVenueData.capacity.classroom.toLocaleString()}</p>
                     </div>
                   )}
@@ -328,7 +328,7 @@ export const Venues = () => {
 
               {/* Amenities */}
               <div>
-                <h4 className="text-white font-semibold mb-3">Amenities</h4>
+                <h4 className="text-white font-semibold mb-3">{t('venues.amenities')}</h4>
                 <div className="flex flex-wrap gap-2">
                   {selectedVenueData.amenities.map((amenity, index) => (
                     <span
@@ -344,7 +344,7 @@ export const Venues = () => {
 
               {/* Pricing */}
               <div>
-                <h4 className="text-white font-semibold mb-3">Pricing</h4>
+                <h4 className="text-white font-semibold mb-3">{t('venues.pricing')}</h4>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                   {Object.entries(selectedVenueData.pricing).map(([key, value]) => (
                     <div key={key} className="p-3 rounded-lg bg-[#1a1a24]">
@@ -357,7 +357,7 @@ export const Venues = () => {
 
               {/* Contact */}
               <div>
-                <h4 className="text-white font-semibold mb-3">Contact Information</h4>
+                <h4 className="text-white font-semibold mb-3">{t('venues.contactInformation')}</h4>
                 <div className="space-y-2">
                   <div className="flex items-center gap-3 p-3 rounded-lg bg-[#1a1a24]">
                     <Phone className="h-4 w-4 text-[#547792]" />
@@ -373,7 +373,7 @@ export const Venues = () => {
               {/* Notes */}
               {selectedVenueData.notes && (
                 <div className="rounded-lg bg-[#1a1a24] p-4">
-                  <h4 className="text-white font-semibold mb-2">Notes</h4>
+                  <h4 className="text-white font-semibold mb-2">{t('venues.notes')}</h4>
                   <p className="text-[#94a3b8]">{selectedVenueData.notes}</p>
                 </div>
               )}
@@ -385,14 +385,14 @@ export const Venues = () => {
       {/* Pagination */}
       <div className="flex items-center justify-between">
         <p className="text-sm text-[#64748b]">
-          Showing {filteredVenues.length} of {venues.length} venues
+          {t('venues.showing', { filtered: filteredVenues.length, total: venues.length })}
         </p>
         <div className="flex gap-2">
           <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
-            Previous
+            {t('venues.previous')}
           </button>
           <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
-            Next
+            {t('venues.next')}
           </button>
         </div>
       </div>

@@ -22,7 +22,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const Guests = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('events');
   const [selectedEvent, setSelectedEvent] = useState<string>(events[0]?.id || '');
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -64,8 +64,8 @@ export const Guests = () => {
       className="space-y-6"
     >
       <PageHeader
-        title={t('events.guests', 'Guests')}
-        subtitle="Manage event guests and check-ins"
+        title={t('guests.title')}
+        subtitle={t('guests.subtitle')}
         actions={
           <div className="flex gap-2">
             <button
@@ -77,11 +77,11 @@ export const Guests = () => {
               }`}
             >
               <QrCode className="h-4 w-4" />
-              Check-In Mode
+              {t('guests.checkInMode')}
             </button>
             <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
               <Plus className="h-4 w-4" />
-              Add Guest
+              {t('guests.addGuest')}
             </button>
           </div>
         }
@@ -89,7 +89,7 @@ export const Guests = () => {
 
       {/* Event Selector */}
       <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-4">
-        <label className="block text-sm text-[#64748b] mb-2">Select Event</label>
+        <label className="block text-sm text-[#64748b] mb-2">{t('guests.selectEvent')}</label>
         <select
           value={selectedEvent}
           onChange={(e) => setSelectedEvent(e.target.value)}
@@ -106,28 +106,28 @@ export const Guests = () => {
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Guests"
+          title={t('guests.totalGuests')}
           value={guestStats.total.toString()}
           icon={Users}
-          trend={{ value: 'Registered', type: 'neutral' }}
+          trend={{ value: t('guests.registeredLabel'), type: 'neutral' }}
         />
         <StatsCard
-          title="Checked In"
+          title={t('guests.checkedIn')}
           value={guestStats.checkedIn.toString()}
           icon={UserCheck}
-          trend={{ value: `${guestStats.total > 0 ? ((guestStats.checkedIn / guestStats.total) * 100).toFixed(0) : 0}% attendance`, type: 'up' }}
+          trend={{ value: t('guests.attendance', { percent: guestStats.total > 0 ? ((guestStats.checkedIn / guestStats.total) * 100).toFixed(0) : 0 }), type: 'up' }}
         />
         <StatsCard
-          title="VIP Guests"
+          title={t('guests.vipGuests')}
           value={guestStats.vip.toString()}
           icon={CheckCircle}
-          trend={{ value: 'Special guests', type: 'neutral' }}
+          trend={{ value: t('guests.specialGuests'), type: 'neutral' }}
         />
         <StatsCard
-          title="Dietary Requests"
+          title={t('guests.dietaryRequests')}
           value={guestStats.withDietary.toString()}
           icon={AlertCircle}
-          trend={{ value: 'Special requirements', type: 'neutral' }}
+          trend={{ value: t('guests.specialRequirements'), type: 'neutral' }}
         />
       </div>
 
@@ -139,15 +139,15 @@ export const Guests = () => {
               <QrCode className="h-6 w-6 text-white" />
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-white">Check-In Mode Active</h3>
-              <p className="text-sm text-[#94a3b8]">Search for a guest to check them in</p>
+              <h3 className="text-lg font-semibold text-white">{t('guests.checkInModeActive')}</h3>
+              <p className="text-sm text-[#94a3b8]">{t('guests.checkInModeDesc')}</p>
             </div>
           </div>
           <div className="relative">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-[#64748b]" />
             <input
               type="text"
-              placeholder="Search by name or email..."
+              placeholder={t('guests.searchByNameOrEmail')}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full rounded-lg border border-emerald-500/50 bg-white/[0.03] backdrop-blur-xl py-3 pl-12 pr-4 text-lg text-white placeholder-[#64748b] focus:border-emerald-500 focus:outline-none"
@@ -164,7 +164,7 @@ export const Guests = () => {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#64748b]" />
             <input
               type="text"
-              placeholder="Search guests..."
+              placeholder={t('guests.searchGuests')}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#547792] focus:outline-none"
@@ -176,7 +176,7 @@ export const Guests = () => {
               onChange={(e) => setStatusFilter(e.target.value)}
               className="rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
             >
-              <option value="all">All Status</option>
+              <option value="all">{t('guests.allStatus')}</option>
               {guestStatuses.map((status) => (
                 <option key={status.id} value={status.id}>
                   {status.name}
@@ -185,15 +185,15 @@ export const Guests = () => {
             </select>
             <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
               <Filter className="h-4 w-4" />
-              More Filters
+              {t('guests.moreFilters')}
             </button>
             <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
               <Upload className="h-4 w-4" />
-              Import
+              {t('guests.import')}
             </button>
             <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
               <Download className="h-4 w-4" />
-              Export
+              {t('guests.export')}
             </button>
           </div>
         </div>
@@ -205,14 +205,14 @@ export const Guests = () => {
           <table className="w-full">
             <thead>
               <tr className="border-b border-white/[0.08]">
-                <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-[#64748b]">Guest</th>
-                <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-[#64748b]">Company/Title</th>
-                <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-[#64748b]">Ticket</th>
-                <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-[#64748b]">Table</th>
-                <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-[#64748b]">Dietary</th>
-                <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-[#64748b]">Tags</th>
-                <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-[#64748b]">Status</th>
-                <th className="px-6 py-4 text-right text-xs font-semibold uppercase text-[#64748b]">Actions</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-[#64748b]">{t('guests.guest')}</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-[#64748b]">{t('guests.companyTitle')}</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-[#64748b]">{t('guests.ticket')}</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-[#64748b]">{t('guests.table')}</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-[#64748b]">{t('guests.dietary')}</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-[#64748b]">{t('guests.tags')}</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-[#64748b]">{t('guests.status')}</th>
+                <th className="px-6 py-4 text-right text-xs font-semibold uppercase text-[#64748b]">{t('guests.actions')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#1e1e2e]">
@@ -282,12 +282,12 @@ export const Guests = () => {
                               onClick={() => handleCheckIn(guest.id)}
                               className="rounded-lg bg-emerald-500 px-3 py-1.5 text-xs font-medium text-white hover:bg-emerald-600 transition-colors"
                             >
-                              Check In
+                              {t('guests.checkIn')}
                             </button>
                           )}
                           {guest.checkedIn && (
                             <span className="text-xs text-emerald-400">
-                              {guest.checkedInAt ? new Date(guest.checkedInAt).toLocaleTimeString() : 'Checked In'}
+                              {guest.checkedInAt ? new Date(guest.checkedInAt).toLocaleTimeString() : t('guests.checkedInLabel')}
                             </span>
                           )}
                         </div>
@@ -298,7 +298,7 @@ export const Guests = () => {
               ) : (
                 <tr>
                   <td colSpan={8} className="px-6 py-8 text-center text-[#64748b]">
-                    No guests found for this event.
+                    {t('guests.noGuestsFound')}
                   </td>
                 </tr>
               )}
@@ -310,14 +310,14 @@ export const Guests = () => {
       {/* Pagination */}
       <div className="flex items-center justify-between">
         <p className="text-sm text-[#64748b]">
-          Showing {filteredGuests.length} of {eventGuests.length} guests
+          {t('guests.showing', { filtered: filteredGuests.length, total: eventGuests.length })}
         </p>
         <div className="flex gap-2">
           <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
-            Previous
+            {t('guests.previous')}
           </button>
           <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
-            Next
+            {t('guests.next')}
           </button>
         </div>
       </div>

@@ -21,7 +21,7 @@ import { useTranslation } from 'react-i18next';
 type ViewMode = 'month' | 'week' | 'day';
 
 export const EventsCalendar = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('events');
   const navigate = useNavigate();
   const [currentDate, setCurrentDate] = useState(new Date());
   const [viewMode, setViewMode] = useState<ViewMode>('month');
@@ -98,12 +98,12 @@ export const EventsCalendar = () => {
       className="space-y-6"
     >
       <PageHeader
-        title={t('events.eventsCalendar', 'Events Calendar')}
-        subtitle="View and manage your event schedule"
+        title={t('calendar.title')}
+        subtitle={t('calendar.subtitle')}
         actions={
           <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
             <Plus className="h-4 w-4" />
-            Create Event
+            {t('calendar.createEvent')}
           </button>
         }
       />
@@ -138,7 +138,7 @@ export const EventsCalendar = () => {
                   onClick={goToToday}
                   className="px-3 py-1.5 rounded-lg border border-white/[0.08] text-sm text-[#94a3b8] hover:bg-[#1a1a24]"
                 >
-                  Today
+                  {t('calendar.today')}
                 </button>
                 <div className="flex rounded-lg border border-white/[0.08] bg-[#1a1a24] p-1">
                   {(['month', 'week', 'day'] as ViewMode[]).map((mode) => (
@@ -151,7 +151,7 @@ export const EventsCalendar = () => {
                           : 'text-[#64748b] hover:text-white'
                       }`}
                     >
-                      {mode.charAt(0).toUpperCase() + mode.slice(1)}
+                      {mode === 'month' ? t('calendar.month') : mode === 'week' ? t('calendar.week') : t('calendar.day')}
                     </button>
                   ))}
                 </div>
@@ -207,7 +207,7 @@ export const EventsCalendar = () => {
                             })}
                             {dayEvents.length > 2 && (
                               <div className="text-xs text-[#64748b] pl-1">
-                                +{dayEvents.length - 2} more
+                                {t('calendar.more', { count: dayEvents.length - 2 })}
                               </div>
                             )}
                           </div>
@@ -226,7 +226,7 @@ export const EventsCalendar = () => {
           <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
               <CalendarDays className="h-5 w-5 text-[#547792]" />
-              Upcoming Events
+              {t('calendar.upcomingEvents')}
             </h3>
             <div className="space-y-3">
               {upcomingEvents.map((event) => {
@@ -260,7 +260,7 @@ export const EventsCalendar = () => {
                       </div>
                       <div className="flex items-center gap-2 text-xs text-[#64748b]">
                         <Users className="h-3 w-3" />
-                        {event.registeredAttendees} registered
+                        {event.registeredAttendees} {t('calendar.registered')}
                       </div>
                     </div>
                   </div>
@@ -271,7 +271,7 @@ export const EventsCalendar = () => {
 
           {/* Color Legend */}
           <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
-            <h3 className="text-lg font-semibold text-white mb-4">Event Types</h3>
+            <h3 className="text-lg font-semibold text-white mb-4">{t('calendar.eventTypes')}</h3>
             <div className="space-y-2">
               {eventTypes.slice(0, 6).map((type) => (
                 <div key={type.id} className="flex items-center gap-2">

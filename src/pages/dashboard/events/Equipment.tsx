@@ -24,7 +24,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const Equipment = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('events');
   const [selectedEvent, setSelectedEvent] = useState<string>(events[0]?.id || '');
   const [searchTerm, setSearchTerm] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
@@ -74,19 +74,19 @@ export const Equipment = () => {
       className="space-y-6"
     >
       <PageHeader
-        title={t('events.equipmentRental', 'Equipment Rental')}
-        subtitle="Manage event equipment and rentals"
+        title={t('equipment.title')}
+        subtitle={t('equipment.subtitle')}
         actions={
           <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
             <Plus className="h-4 w-4" />
-            Add Equipment
+            {t('equipment.addEquipment')}
           </button>
         }
       />
 
       {/* Event Selector */}
       <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-4">
-        <label className="block text-sm text-[#64748b] mb-2">Select Event</label>
+        <label className="block text-sm text-[#64748b] mb-2">{t('equipment.selectEvent')}</label>
         <select
           value={selectedEvent}
           onChange={(e) => setSelectedEvent(e.target.value)}
@@ -103,28 +103,28 @@ export const Equipment = () => {
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Items"
+          title={t('equipment.totalItems')}
           value={equipmentStats.totalItems.toString()}
           icon={Package}
-          trend={{ value: 'Equipment items', type: 'neutral' }}
+          trend={{ value: t('equipment.equipmentItems'), type: 'neutral' }}
         />
         <StatsCard
-          title="Total Cost"
+          title={t('equipment.totalCost')}
           value={formatCurrency(equipmentStats.totalCost)}
           icon={DollarSign}
-          trend={{ value: 'Rental costs', type: 'neutral' }}
+          trend={{ value: t('equipment.rentalCosts'), type: 'neutral' }}
         />
         <StatsCard
-          title="Reserved"
+          title={t('equipment.reserved')}
           value={equipmentStats.reserved.toString()}
           icon={Clock}
-          trend={{ value: 'Awaiting delivery', type: 'neutral' }}
+          trend={{ value: t('equipment.awaitingDelivery'), type: 'neutral' }}
         />
         <StatsCard
-          title="Delivered"
+          title={t('equipment.delivered')}
           value={equipmentStats.delivered.toString()}
           icon={CheckCircle}
-          trend={{ value: 'On site', type: 'up' }}
+          trend={{ value: t('equipment.onSite'), type: 'up' }}
         />
       </div>
 
@@ -134,7 +134,7 @@ export const Equipment = () => {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#64748b]" />
           <input
             type="text"
-            placeholder="Search equipment..."
+            placeholder={t('equipment.searchPlaceholder')}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#547792] focus:outline-none"
@@ -146,7 +146,7 @@ export const Equipment = () => {
             onChange={(e) => setCategoryFilter(e.target.value)}
             className="rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
-            <option value="all">All Categories</option>
+            <option value="all">{t('equipment.allCategories')}</option>
             {categories.map((category) => (
               <option key={category} value={category}>
                 {category.charAt(0).toUpperCase() + category.slice(1)}
@@ -162,14 +162,14 @@ export const Equipment = () => {
           <table className="w-full">
             <thead>
               <tr className="border-b border-white/[0.08]">
-                <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-[#64748b]">Item</th>
-                <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-[#64748b]">Category</th>
-                <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-[#64748b]">Vendor</th>
-                <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-[#64748b]">Qty</th>
-                <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-[#64748b]">Unit Cost</th>
-                <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-[#64748b]">Total</th>
-                <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-[#64748b]">Delivery</th>
-                <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-[#64748b]">Status</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-[#64748b]">{t('equipment.item')}</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-[#64748b]">{t('equipment.category')}</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-[#64748b]">{t('equipment.vendor')}</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-[#64748b]">{t('equipment.qty')}</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-[#64748b]">{t('equipment.unitCost')}</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-[#64748b]">{t('equipment.total')}</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-[#64748b]">{t('equipment.delivery')}</th>
+                <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-[#64748b]">{t('equipment.status')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#1e1e2e]">
@@ -211,7 +211,7 @@ export const Equipment = () => {
                       <td className="px-6 py-4">
                         <div className="text-sm">
                           <p className="text-[#94a3b8]">{item.deliveryDate}</p>
-                          <p className="text-xs text-[#64748b]">Return: {item.returnDate}</p>
+                          <p className="text-xs text-[#64748b]">{t('equipment.returnLabel', { date: item.returnDate })}</p>
                         </div>
                       </td>
                       <td className="px-6 py-4">
@@ -227,7 +227,7 @@ export const Equipment = () => {
               ) : (
                 <tr>
                   <td colSpan={8} className="px-6 py-8 text-center text-[#64748b]">
-                    No equipment found for this event.
+                    {t('equipment.noEquipmentFound')}
                   </td>
                 </tr>
               )}
@@ -239,7 +239,7 @@ export const Equipment = () => {
         {filteredEquipment.length > 0 && (
           <div className="border-t border-white/[0.08] px-6 py-4 flex justify-end">
             <div className="text-right">
-              <p className="text-sm text-[#64748b]">Total Equipment Cost</p>
+              <p className="text-sm text-[#64748b]">{t('equipment.totalEquipmentCost')}</p>
               <p className="text-2xl font-bold text-white">{formatCurrency(equipmentStats.totalCost)}</p>
             </div>
           </div>
@@ -250,7 +250,7 @@ export const Equipment = () => {
       <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
         <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
           <Truck className="h-5 w-5 text-[#547792]" />
-          Delivery Schedule
+          {t('equipment.deliverySchedule')}
         </h3>
         {filteredEquipment.length > 0 ? (
           <div className="space-y-3">
@@ -260,7 +260,7 @@ export const Equipment = () => {
                 <div key={date} className="p-4 rounded-lg bg-[#1a1a24]">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-white font-medium">{date}</span>
-                    <span className="text-[#64748b] text-sm">{itemsForDate.length} items</span>
+                    <span className="text-[#64748b] text-sm">{t('equipment.items', { count: itemsForDate.length })}</span>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {itemsForDate.map((item) => (
@@ -274,7 +274,7 @@ export const Equipment = () => {
             })}
           </div>
         ) : (
-          <p className="text-[#64748b]">No deliveries scheduled.</p>
+          <p className="text-[#64748b]">{t('equipment.noDeliveries')}</p>
         )}
       </div>
     </motion.div>

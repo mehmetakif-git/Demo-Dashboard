@@ -29,7 +29,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const Vendors = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('events');
   const [searchTerm, setSearchTerm] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -90,12 +90,12 @@ export const Vendors = () => {
       className="space-y-6"
     >
       <PageHeader
-        title={t('events.vendors', 'Vendors')}
-        subtitle="Manage event vendors and suppliers"
+        title={t('vendors.title')}
+        subtitle={t('vendors.subtitle')}
         actions={
           <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
             <Plus className="h-4 w-4" />
-            Add Vendor
+            {t('vendors.addVendor')}
           </button>
         }
       />
@@ -103,28 +103,28 @@ export const Vendors = () => {
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Vendors"
+          title={t('vendors.totalVendors')}
           value={eventVendors.length.toString()}
           icon={Users}
-          trend={{ value: 'In database', type: 'neutral' }}
+          trend={{ value: t('vendors.inDatabase'), type: 'neutral' }}
         />
         <StatsCard
-          title="Preferred Vendors"
+          title={t('vendors.preferredVendors')}
           value={preferredVendors.toString()}
           icon={Star}
-          trend={{ value: 'Top rated partners', type: 'up' }}
+          trend={{ value: t('vendors.topRatedPartners'), type: 'up' }}
         />
         <StatsCard
-          title="Average Rating"
+          title={t('vendors.averageRating')}
           value={avgRating.toFixed(1)}
           icon={Star}
-          trend={{ value: 'Out of 5 stars', type: 'up' }}
+          trend={{ value: t('vendors.outOf5Stars'), type: 'up' }}
         />
         <StatsCard
-          title="Categories"
+          title={t('vendors.categories')}
           value={vendorCategories.length.toString()}
           icon={Package}
-          trend={{ value: 'Service types', type: 'neutral' }}
+          trend={{ value: t('vendors.serviceTypes'), type: 'neutral' }}
         />
       </div>
 
@@ -134,7 +134,7 @@ export const Vendors = () => {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#64748b]" />
           <input
             type="text"
-            placeholder="Search vendors..."
+            placeholder={t('vendors.searchPlaceholder')}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#547792] focus:outline-none"
@@ -146,7 +146,7 @@ export const Vendors = () => {
             onChange={(e) => setCategoryFilter(e.target.value)}
             className="rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
-            <option value="all">All Categories</option>
+            <option value="all">{t('vendors.allCategories')}</option>
             {vendorCategories.map((category) => (
               <option key={category.id} value={category.id}>
                 {category.name}
@@ -158,7 +158,7 @@ export const Vendors = () => {
             onChange={(e) => setStatusFilter(e.target.value)}
             className="rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
-            <option value="all">All Status</option>
+            <option value="all">{t('vendors.allStatus')}</option>
             {statuses.map((status) => (
               <option key={status} value={status}>
                 {status.charAt(0).toUpperCase() + status.slice(1)}
@@ -167,7 +167,7 @@ export const Vendors = () => {
           </select>
           <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
             <Filter className="h-4 w-4" />
-            More Filters
+            {t('vendors.moreFilters')}
           </button>
         </div>
       </div>
@@ -210,7 +210,7 @@ export const Vendors = () => {
               </div>
 
               <div className="mb-4">
-                <p className="text-xs text-[#64748b] mb-2">Services</p>
+                <p className="text-xs text-[#64748b] mb-2">{t('vendors.services')}</p>
                 <div className="flex flex-wrap gap-1">
                   {vendor.services.slice(0, 3).map((service, index) => (
                     <span
@@ -289,7 +289,7 @@ export const Vendors = () => {
 
               {/* Services */}
               <div>
-                <h4 className="text-white font-semibold mb-3">Services Offered</h4>
+                <h4 className="text-white font-semibold mb-3">{t('vendors.servicesOffered')}</h4>
                 <div className="flex flex-wrap gap-2">
                   {selectedVendorData.services.map((service, index) => (
                     <span
@@ -304,33 +304,33 @@ export const Vendors = () => {
 
               {/* Contact Information */}
               <div>
-                <h4 className="text-white font-semibold mb-3">Contact Information</h4>
+                <h4 className="text-white font-semibold mb-3">{t('vendors.contactInformation')}</h4>
                 <div className="space-y-3">
                   <div className="flex items-center gap-3 p-3 rounded-lg bg-[#1a1a24]">
                     <Users className="h-5 w-5 text-[#547792]" />
                     <div>
-                      <p className="text-xs text-[#64748b]">Contact Name</p>
+                      <p className="text-xs text-[#64748b]">{t('vendors.contactName')}</p>
                       <p className="text-white">{selectedVendorData.contact.name}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3 p-3 rounded-lg bg-[#1a1a24]">
                     <Phone className="h-5 w-5 text-[#547792]" />
                     <div>
-                      <p className="text-xs text-[#64748b]">Phone</p>
+                      <p className="text-xs text-[#64748b]">{t('vendors.phone')}</p>
                       <p className="text-white">{selectedVendorData.contact.phone}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3 p-3 rounded-lg bg-[#1a1a24]">
                     <Mail className="h-5 w-5 text-[#547792]" />
                     <div>
-                      <p className="text-xs text-[#64748b]">Email</p>
+                      <p className="text-xs text-[#64748b]">{t('vendors.email')}</p>
                       <p className="text-white">{selectedVendorData.contact.email}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3 p-3 rounded-lg bg-[#1a1a24]">
                     <MapPin className="h-5 w-5 text-[#547792]" />
                     <div>
-                      <p className="text-xs text-[#64748b]">Address</p>
+                      <p className="text-xs text-[#64748b]">{t('vendors.address')}</p>
                       <p className="text-white">{selectedVendorData.address}</p>
                     </div>
                   </div>
@@ -340,7 +340,7 @@ export const Vendors = () => {
               {/* Notes */}
               {selectedVendorData.notes && (
                 <div className="rounded-lg bg-[#1a1a24] p-4">
-                  <h4 className="text-white font-semibold mb-2">Notes</h4>
+                  <h4 className="text-white font-semibold mb-2">{t('vendors.notes')}</h4>
                   <p className="text-[#94a3b8]">{selectedVendorData.notes}</p>
                 </div>
               )}
@@ -348,10 +348,10 @@ export const Vendors = () => {
               {/* Actions */}
               <div className="flex gap-3">
                 <button className="flex-1 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90">
-                  Contact Vendor
+                  {t('vendors.contactVendor')}
                 </button>
                 <button className="flex-1 rounded-lg border border-white/[0.08] px-4 py-2 text-sm font-medium text-[#94a3b8] hover:bg-[#1a1a24]">
-                  View Past Events
+                  {t('vendors.viewPastEvents')}
                 </button>
               </div>
             </div>
@@ -362,14 +362,14 @@ export const Vendors = () => {
       {/* Pagination */}
       <div className="flex items-center justify-between">
         <p className="text-sm text-[#64748b]">
-          Showing {filteredVendors.length} of {eventVendors.length} vendors
+          {t('vendors.showing', { filtered: filteredVendors.length, total: eventVendors.length })}
         </p>
         <div className="flex gap-2">
           <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
-            Previous
+            {t('vendors.previous')}
           </button>
           <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
-            Next
+            {t('vendors.next')}
           </button>
         </div>
       </div>

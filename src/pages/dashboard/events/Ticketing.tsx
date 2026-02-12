@@ -16,7 +16,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const Ticketing = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('events');
   const [selectedEvent, setSelectedEvent] = useState<string>(events[0]?.id || '');
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -58,19 +58,19 @@ export const Ticketing = () => {
       className="space-y-6"
     >
       <PageHeader
-        title={t('events.ticketing', 'Ticketing')}
-        subtitle="Manage ticket sales and pricing"
+        title={t('ticketing.title')}
+        subtitle={t('ticketing.subtitle')}
         actions={
           <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
             <Plus className="h-4 w-4" />
-            Create Ticket Type
+            {t('ticketing.createTicketType')}
           </button>
         }
       />
 
       {/* Event Selector */}
       <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-4">
-        <label className="block text-sm text-[#64748b] mb-2">Select Event</label>
+        <label className="block text-sm text-[#64748b] mb-2">{t('ticketing.selectEvent')}</label>
         <select
           value={selectedEvent}
           onChange={(e) => setSelectedEvent(e.target.value)}
@@ -87,35 +87,35 @@ export const Ticketing = () => {
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Tickets Sold"
+          title={t('ticketing.ticketsSold')}
           value={ticketStats.totalSold.toLocaleString()}
           icon={Ticket}
-          trend={{ value: `of ${ticketStats.totalAvailable.toLocaleString()} available`, type: 'up' }}
+          trend={{ value: t('ticketing.ofAvailable', { count: ticketStats.totalAvailable }), type: 'up' }}
         />
         <StatsCard
-          title="Revenue"
+          title={t('ticketing.revenue')}
           value={formatCurrency(ticketStats.totalRevenue)}
           icon={DollarSign}
-          trend={{ value: '+12% vs last event', type: 'up' }}
+          trend={{ value: t('ticketing.vsLastEvent'), type: 'up' }}
         />
         <StatsCard
-          title="Sell Rate"
+          title={t('ticketing.sellRate')}
           value={`${ticketStats.totalAvailable > 0 ? ((ticketStats.totalSold / ticketStats.totalAvailable) * 100).toFixed(0) : 0}%`}
           icon={TrendingUp}
-          trend={{ value: 'Tickets sold', type: 'up' }}
+          trend={{ value: t('ticketing.ticketsSoldLabel'), type: 'up' }}
         />
         <StatsCard
-          title="Avg. Price"
+          title={t('ticketing.avgPrice')}
           value={formatCurrency(ticketStats.totalSold > 0 ? ticketStats.totalRevenue / ticketStats.totalSold : 0)}
           icon={BarChart3}
-          trend={{ value: 'Per ticket', type: 'neutral' }}
+          trend={{ value: t('ticketing.perTicket'), type: 'neutral' }}
         />
       </div>
 
       {/* Ticket Types */}
       {selectedEventData && selectedEventData.ticketTypes.length > 0 && (
         <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
-          <h3 className="text-lg font-semibold text-white mb-4">Ticket Types</h3>
+          <h3 className="text-lg font-semibold text-white mb-4">{t('ticketing.ticketTypes')}</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {selectedEventData.ticketTypes.map((ticket, index) => {
               const progress = ticket.quantity > 0 ? (ticket.sold / ticket.quantity) * 100 : 0;
@@ -129,7 +129,7 @@ export const Ticketing = () => {
                   </div>
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
-                      <span className="text-[#64748b]">Sold</span>
+                      <span className="text-[#64748b]">{t('ticketing.sold')}</span>
                       <span className="text-white">{ticket.sold} / {ticket.quantity}</span>
                     </div>
                     <div className="h-2 rounded-full bg-[#1e1e2e]">
@@ -141,11 +141,11 @@ export const Ticketing = () => {
                       />
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-[#64748b]">Remaining</span>
+                      <span className="text-[#64748b]">{t('ticketing.remaining')}</span>
                       <span className={remaining <= 50 ? 'text-amber-400' : 'text-emerald-400'}>{remaining}</span>
                     </div>
                     <div className="flex justify-between text-sm pt-2 border-t border-white/[0.08]">
-                      <span className="text-[#64748b]">Revenue</span>
+                      <span className="text-[#64748b]">{t('ticketing.revenue')}</span>
                       <span className="text-white font-semibold">{formatCurrency(ticket.price * ticket.sold)}</span>
                     </div>
                   </div>
@@ -160,12 +160,12 @@ export const Ticketing = () => {
       <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl overflow-hidden">
         <div className="p-6 border-b border-white/[0.08]">
           <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold text-white">Recent Sales</h3>
+            <h3 className="text-lg font-semibold text-white">{t('ticketing.recentSales')}</h3>
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#64748b]" />
               <input
                 type="text"
-                placeholder="Search orders..."
+                placeholder={t('ticketing.searchOrders')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="rounded-lg border border-white/[0.08] bg-[#1a1a24] py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#547792] focus:outline-none"
@@ -177,13 +177,13 @@ export const Ticketing = () => {
           <table className="w-full">
             <thead>
               <tr className="border-b border-white/[0.08]">
-                <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">Order ID</th>
-                <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">Buyer</th>
-                <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">Ticket Type</th>
-                <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">Qty</th>
-                <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">Amount</th>
-                <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">Date</th>
-                <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">Status</th>
+                <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">{t('ticketing.orderId')}</th>
+                <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">{t('ticketing.buyer')}</th>
+                <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">{t('ticketing.ticketType')}</th>
+                <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">{t('ticketing.qty')}</th>
+                <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">{t('ticketing.amount')}</th>
+                <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">{t('ticketing.date')}</th>
+                <th className="px-6 py-3 text-left text-xs font-semibold uppercase text-[#64748b]">{t('ticketing.status')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#1e1e2e]">

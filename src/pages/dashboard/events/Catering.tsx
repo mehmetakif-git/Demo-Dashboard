@@ -19,7 +19,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const Catering = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('events');
   const [selectedEvent, setSelectedEvent] = useState<string>(events[0]?.id || '');
 
   const selectedEventData = useMemo(() => {
@@ -72,19 +72,19 @@ export const Catering = () => {
       className="space-y-6"
     >
       <PageHeader
-        title={t('events.catering', 'Catering')}
-        subtitle="Manage event catering and dietary requirements"
+        title={t('catering.title')}
+        subtitle={t('catering.subtitle')}
         actions={
           <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
             <FileText className="h-4 w-4" />
-            Generate BEO
+            {t('catering.generateBEO')}
           </button>
         }
       />
 
       {/* Event Selector */}
       <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-4">
-        <label className="block text-sm text-[#64748b] mb-2">Select Event</label>
+        <label className="block text-sm text-[#64748b] mb-2">{t('catering.selectEvent')}</label>
         <select
           value={selectedEvent}
           onChange={(e) => setSelectedEvent(e.target.value)}
@@ -101,28 +101,28 @@ export const Catering = () => {
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Expected Guests"
+          title={t('catering.expectedGuests')}
           value={selectedEventData?.expectedAttendees.toString() || '0'}
           icon={Users}
-          trend={{ value: `${eventGuests.length} registered`, type: 'neutral' }}
+          trend={{ value: t('catering.registeredCount', { count: eventGuests.length }), type: 'neutral' }}
         />
         <StatsCard
-          title="Meals Included"
+          title={t('catering.mealsIncluded')}
           value={mealSchedule.length.toString()}
           icon={UtensilsCrossed}
-          trend={{ value: mealSchedule.join(', ') || 'None', type: 'neutral' }}
+          trend={{ value: mealSchedule.join(', ') || t('catering.none'), type: 'neutral' }}
         />
         <StatsCard
-          title="Dietary Options"
+          title={t('catering.dietaryOptions')}
           value={selectedEventData?.catering?.dietaryOptions?.length.toString() || '0'}
           icon={Salad}
-          trend={{ value: 'Available options', type: 'neutral' }}
+          trend={{ value: t('catering.availableOptions'), type: 'neutral' }}
         />
         <StatsCard
-          title="Special Requests"
+          title={t('catering.specialRequests')}
           value={Object.keys(dietaryBreakdown).filter(k => k !== 'None').length.toString()}
           icon={AlertCircle}
-          trend={{ value: 'Dietary restrictions', type: 'neutral' }}
+          trend={{ value: t('catering.dietaryRestrictions'), type: 'neutral' }}
         />
       </div>
 
@@ -133,7 +133,7 @@ export const Catering = () => {
           <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
               <UtensilsCrossed className="h-5 w-5 text-[#547792]" />
-              Catering Provider
+              {t('catering.cateringProvider')}
             </h3>
             {cateringProvider ? (
               <div className="space-y-4">
@@ -148,7 +148,7 @@ export const Catering = () => {
                   </div>
                 </div>
                 <div className="pt-4 border-t border-white/[0.08]">
-                  <p className="text-sm text-[#64748b] mb-2">Services</p>
+                  <p className="text-sm text-[#64748b] mb-2">{t('catering.services')}</p>
                   <div className="flex flex-wrap gap-2">
                     {cateringProvider.services.map((service, index) => (
                       <span key={index} className="rounded-full bg-[#1a1a24] px-3 py-1 text-xs text-[#94a3b8]">
@@ -161,10 +161,10 @@ export const Catering = () => {
             ) : selectedEventData?.catering?.provider ? (
               <div className="p-4 rounded-lg bg-[#1a1a24]">
                 <p className="text-white font-medium">{selectedEventData.catering.provider}</p>
-                <p className="text-sm text-[#64748b]">Provider details not in database</p>
+                <p className="text-sm text-[#64748b]">{t('catering.providerNotInDb')}</p>
               </div>
             ) : (
-              <p className="text-[#64748b]">No catering provider assigned.</p>
+              <p className="text-[#64748b]">{t('catering.noProviderAssigned')}</p>
             )}
           </div>
 
@@ -172,7 +172,7 @@ export const Catering = () => {
           <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
               <Clock className="h-5 w-5 text-[#547792]" />
-              Meal Schedule
+              {t('catering.mealSchedule')}
             </h3>
             {mealSchedule.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -182,12 +182,12 @@ export const Catering = () => {
                       {getMealIcon(meal)}
                     </div>
                     <h4 className="text-white font-semibold capitalize">{meal}</h4>
-                    <p className="text-sm text-[#64748b]">{selectedEventData?.expectedAttendees} servings</p>
+                    <p className="text-sm text-[#64748b]">{t('catering.servings', { count: selectedEventData?.expectedAttendees })}</p>
                   </div>
                 ))}
               </div>
             ) : (
-              <p className="text-[#64748b]">No meals scheduled.</p>
+              <p className="text-[#64748b]">{t('catering.noMeals')}</p>
             )}
           </div>
 
@@ -195,7 +195,7 @@ export const Catering = () => {
           <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
               <Salad className="h-5 w-5 text-[#547792]" />
-              Available Dietary Options
+              {t('catering.availableDietaryOptions')}
             </h3>
             {selectedEventData?.catering?.dietaryOptions && selectedEventData.catering.dietaryOptions.length > 0 ? (
               <div className="flex flex-wrap gap-2">
@@ -209,7 +209,7 @@ export const Catering = () => {
                 ))}
               </div>
             ) : (
-              <p className="text-[#64748b]">No dietary options specified.</p>
+              <p className="text-[#64748b]">{t('catering.noDietaryOptions')}</p>
             )}
           </div>
         </div>
@@ -219,7 +219,7 @@ export const Catering = () => {
           <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
               <AlertCircle className="h-5 w-5 text-[#547792]" />
-              Dietary Breakdown
+              {t('catering.dietaryBreakdown')}
             </h3>
             <div className="space-y-3">
               {Object.entries(dietaryBreakdown).map(([restriction, count]) => (
@@ -231,12 +231,12 @@ export const Catering = () => {
                 </div>
               ))}
               {Object.keys(dietaryBreakdown).length === 0 && (
-                <p className="text-[#64748b] text-center py-4">No dietary data available.</p>
+                <p className="text-[#64748b] text-center py-4">{t('catering.noDietaryData')}</p>
               )}
             </div>
             <div className="pt-4 mt-4 border-t border-white/[0.08]">
               <div className="flex justify-between">
-                <span className="text-[#64748b]">Total Guests</span>
+                <span className="text-[#64748b]">{t('catering.totalGuests')}</span>
                 <span className="text-white font-semibold">{eventGuests.length}</span>
               </div>
             </div>
@@ -246,28 +246,28 @@ export const Catering = () => {
           <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
               <FileText className="h-5 w-5 text-[#547792]" />
-              BEO Summary
+              {t('catering.beoSummary')}
             </h3>
             <div className="space-y-3">
               <div className="flex justify-between">
-                <span className="text-[#64748b]">Event</span>
+                <span className="text-[#64748b]">{t('catering.event')}</span>
                 <span className="text-white">{selectedEventData?.name}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#64748b]">Date</span>
+                <span className="text-[#64748b]">{t('catering.date')}</span>
                 <span className="text-white">{selectedEventData?.dates.start}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#64748b]">Headcount</span>
+                <span className="text-[#64748b]">{t('catering.headcount')}</span>
                 <span className="text-white">{selectedEventData?.expectedAttendees}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#64748b]">Venue</span>
+                <span className="text-[#64748b]">{t('catering.venue')}</span>
                 <span className="text-white">{selectedEventData?.venue.name}</span>
               </div>
             </div>
             <button className="w-full mt-4 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
-              Generate Full BEO
+              {t('catering.generateFullBEO')}
             </button>
           </div>
         </div>
