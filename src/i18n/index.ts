@@ -38,6 +38,7 @@ import enHealthcare from './locales/en/healthcare.json';
 import enHardware from './locales/en/hardware.json';
 import enRestaurant from './locales/en/restaurant.json';
 import enEvents from './locales/en/events.json';
+import enSettings from './locales/en/settings.json';
 
 // TR translations
 import trCommon from './locales/tr/common.json';
@@ -75,6 +76,7 @@ import trHealthcare from './locales/tr/healthcare.json';
 import trHardware from './locales/tr/hardware.json';
 import trRestaurant from './locales/tr/restaurant.json';
 import trEvents from './locales/tr/events.json';
+import trSettings from './locales/tr/settings.json';
 
 i18n
   .use(LanguageDetector)
@@ -117,6 +119,7 @@ i18n
         hardware: enHardware,
         restaurant: enRestaurant,
         events: enEvents,
+        settings: enSettings,
       },
       tr: {
         common: trCommon,
@@ -154,11 +157,12 @@ i18n
         hardware: trHardware,
         restaurant: trRestaurant,
         events: trEvents,
+        settings: trSettings,
       },
     },
     fallbackLng: 'en',
     defaultNS: 'common',
-    ns: ['common', 'auth', 'sidebar', 'dashboard', 'breadcrumb', 'errors', 'sectors', 'communication', 'hotel', 'construction', 'logistics', 'manufacturing', 'law', 'education', 'hr', 'accounting', 'crm', 'tasks', 'accessControl', 'reports', 'maintenance', 'signage', 'files', 'qrCodes', 'gym', 'staffing', 'realestate', 'agency', 'beauty', 'laundry', 'ecommerce', 'healthcare', 'hardware', 'restaurant', 'events'],
+    ns: ['common', 'auth', 'sidebar', 'dashboard', 'breadcrumb', 'errors', 'sectors', 'communication', 'hotel', 'construction', 'logistics', 'manufacturing', 'law', 'education', 'hr', 'accounting', 'crm', 'tasks', 'accessControl', 'reports', 'maintenance', 'signage', 'files', 'qrCodes', 'gym', 'staffing', 'realestate', 'agency', 'beauty', 'laundry', 'ecommerce', 'healthcare', 'hardware', 'restaurant', 'events', 'settings'],
     interpolation: {
       escapeValue: false,
     },

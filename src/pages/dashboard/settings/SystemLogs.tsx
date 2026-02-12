@@ -44,7 +44,7 @@ const actionIcons: Record<string, React.ElementType> = {
 };
 
 export const SystemLogs = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('settings');
   const [searchQuery, setSearchQuery] = useState('');
   const [userFilter, setUserFilter] = useState('all');
   const [actionFilter, setActionFilter] = useState('all');
@@ -121,8 +121,8 @@ export const SystemLogs = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('settings.systemLogs', 'System Logs')}
-        subtitle="View and export system activity logs"
+        title={t('systemLogs.title')}
+        subtitle={t('systemLogs.subtitle')}
         actions={
           <div className="flex gap-2">
             <Button
@@ -131,10 +131,10 @@ export const SystemLogs = () => {
               leftIcon={<RefreshCw size={14} className={autoRefresh ? 'animate-spin' : ''} />}
               onClick={() => setAutoRefresh(!autoRefresh)}
             >
-              {autoRefresh ? 'Stop' : 'Auto Refresh'}
+              {autoRefresh ? t('systemLogs.stop') : t('systemLogs.autoRefresh')}
             </Button>
             <Button variant="outline" leftIcon={<Download size={16} />}>
-              Export
+              {t('systemLogs.export')}
             </Button>
           </div>
         }
@@ -143,25 +143,25 @@ export const SystemLogs = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Logs"
+          title={t('systemLogs.stats.totalLogs')}
           value={stats.total.toString()}
           icon={Activity}
           iconColor="#547792"
         />
         <StatsCard
-          title="Successful"
+          title={t('systemLogs.stats.successful')}
           value={stats.success.toString()}
           icon={CheckCircle}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Failed"
+          title={t('systemLogs.stats.failed')}
           value={stats.failed.toString()}
           icon={XCircle}
           iconColor="#ef4444"
         />
         <StatsCard
-          title="Warnings"
+          title={t('systemLogs.stats.warnings')}
           value={stats.warning.toString()}
           icon={AlertTriangle}
           iconColor="#f59e0b"
@@ -173,7 +173,7 @@ export const SystemLogs = () => {
         <div className="flex flex-wrap gap-4 items-center">
           <div className="flex-1 min-w-48 max-w-md">
             <Input
-              placeholder="Search logs..."
+              placeholder={t('systemLogs.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               leftIcon={<Search size={16} />}
@@ -184,7 +184,7 @@ export const SystemLogs = () => {
             onChange={(e) => setUserFilter(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Users</option>
+            <option value="all">{t('systemLogs.allUsers')}</option>
             {uniqueUsers.map(user => (
               <option key={user} value={user}>{user}</option>
             ))}
@@ -194,7 +194,7 @@ export const SystemLogs = () => {
             onChange={(e) => setActionFilter(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Actions</option>
+            <option value="all">{t('systemLogs.allActions')}</option>
             {uniqueActions.map(action => (
               <option key={action} value={action}>{action}</option>
             ))}
@@ -204,7 +204,7 @@ export const SystemLogs = () => {
             onChange={(e) => setModuleFilter(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Modules</option>
+            <option value="all">{t('systemLogs.allModules')}</option>
             {uniqueModules.map(mod => (
               <option key={mod} value={mod}>{mod}</option>
             ))}
@@ -214,10 +214,10 @@ export const SystemLogs = () => {
             onChange={(e) => setStatusFilter(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Status</option>
-            <option value="success">Success</option>
-            <option value="failed">Failed</option>
-            <option value="warning">Warning</option>
+            <option value="all">{t('systemLogs.allStatus')}</option>
+            <option value="success">{t('systemLogs.statusSuccess')}</option>
+            <option value="failed">{t('systemLogs.statusFailed')}</option>
+            <option value="warning">{t('systemLogs.statusWarning')}</option>
           </select>
         </div>
       </Card>
@@ -228,13 +228,13 @@ export const SystemLogs = () => {
           <table className="w-full">
             <thead className="bg-white/[0.05]">
               <tr>
-                <th className="text-left p-4 text-sm font-medium text-text-secondary">Timestamp</th>
-                <th className="text-left p-4 text-sm font-medium text-text-secondary">User</th>
-                <th className="text-left p-4 text-sm font-medium text-text-secondary">Action</th>
-                <th className="text-left p-4 text-sm font-medium text-text-secondary">Module</th>
-                <th className="text-left p-4 text-sm font-medium text-text-secondary">Details</th>
-                <th className="text-left p-4 text-sm font-medium text-text-secondary">Status</th>
-                <th className="text-left p-4 text-sm font-medium text-text-secondary">IP</th>
+                <th className="text-left p-4 text-sm font-medium text-text-secondary">{t('systemLogs.table.timestamp')}</th>
+                <th className="text-left p-4 text-sm font-medium text-text-secondary">{t('systemLogs.table.user')}</th>
+                <th className="text-left p-4 text-sm font-medium text-text-secondary">{t('systemLogs.table.action')}</th>
+                <th className="text-left p-4 text-sm font-medium text-text-secondary">{t('systemLogs.table.module')}</th>
+                <th className="text-left p-4 text-sm font-medium text-text-secondary">{t('systemLogs.table.details')}</th>
+                <th className="text-left p-4 text-sm font-medium text-text-secondary">{t('systemLogs.table.status')}</th>
+                <th className="text-left p-4 text-sm font-medium text-text-secondary">{t('systemLogs.table.ip')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border-default">
@@ -306,7 +306,7 @@ export const SystemLogs = () => {
         {filteredLogs.length === 0 && (
           <div className="p-12 text-center">
             <Activity size={48} className="mx-auto mb-4 text-text-muted" />
-            <p className="text-text-secondary">No logs found matching your filters</p>
+            <p className="text-text-secondary">{t('systemLogs.noLogsFound')}</p>
           </div>
         )}
       </Card>
@@ -325,7 +325,7 @@ export const SystemLogs = () => {
               return (
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <h3 className="font-semibold text-text-primary">Log Details</h3>
+                    <h3 className="font-semibold text-text-primary">{t('systemLogs.logDetails.title')}</h3>
                     <button
                       onClick={() => setExpandedLog(null)}
                       className="p-2 hover:bg-white/[0.05] rounded transition-colors"
@@ -336,31 +336,31 @@ export const SystemLogs = () => {
 
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div className="p-3 bg-white/[0.03] backdrop-blur-xl rounded-lg">
-                      <p className="text-xs text-text-muted mb-1">Timestamp</p>
+                      <p className="text-xs text-text-muted mb-1">{t('systemLogs.logDetails.timestamp')}</p>
                       <p className="text-sm text-text-primary">{formatDateTime(log.timestamp)}</p>
                     </div>
                     <div className="p-3 bg-white/[0.03] backdrop-blur-xl rounded-lg">
-                      <p className="text-xs text-text-muted mb-1">User</p>
+                      <p className="text-xs text-text-muted mb-1">{t('systemLogs.logDetails.user')}</p>
                       <p className="text-sm text-text-primary">{log.user}</p>
                     </div>
                     <div className="p-3 bg-white/[0.03] backdrop-blur-xl rounded-lg">
-                      <p className="text-xs text-text-muted mb-1">Action</p>
+                      <p className="text-xs text-text-muted mb-1">{t('systemLogs.logDetails.action')}</p>
                       <p className="text-sm text-text-primary capitalize">{log.action.replace('_', ' ')}</p>
                     </div>
                     <div className="p-3 bg-white/[0.03] backdrop-blur-xl rounded-lg">
-                      <p className="text-xs text-text-muted mb-1">Module</p>
+                      <p className="text-xs text-text-muted mb-1">{t('systemLogs.logDetails.module')}</p>
                       <p className="text-sm text-text-primary">{log.module}</p>
                     </div>
                   </div>
 
                   <div className="p-4 bg-white/[0.03] backdrop-blur-xl rounded-lg">
-                    <p className="text-xs text-text-muted mb-2">Details</p>
+                    <p className="text-xs text-text-muted mb-2">{t('systemLogs.logDetails.details')}</p>
                     <p className="text-text-primary">{log.details}</p>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div className="p-3 bg-white/[0.03] backdrop-blur-xl rounded-lg">
-                      <p className="text-xs text-text-muted mb-1">Status</p>
+                      <p className="text-xs text-text-muted mb-1">{t('systemLogs.logDetails.status')}</p>
                       <div className="flex items-center gap-2">
                         {getStatusIcon(log.status)}
                         <span className="text-sm capitalize" style={{ color: getStatusColor(log.status) }}>
@@ -369,7 +369,7 @@ export const SystemLogs = () => {
                       </div>
                     </div>
                     <div className="p-3 bg-white/[0.03] backdrop-blur-xl rounded-lg">
-                      <p className="text-xs text-text-muted mb-1">IP Address</p>
+                      <p className="text-xs text-text-muted mb-1">{t('systemLogs.logDetails.ipAddress')}</p>
                       <code className="text-sm text-text-primary">{log.ip}</code>
                     </div>
                   </div>

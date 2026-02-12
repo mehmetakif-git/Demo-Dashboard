@@ -27,7 +27,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const CompanyProfile = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('settings');
   const [formData, setFormData] = useState<CompanyProfileType>(companyProfile);
   const [hasChanges, setHasChanges] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -57,8 +57,8 @@ export const CompanyProfile = () => {
   return (
     <div className="space-y-6 pb-20">
       <PageHeader
-        title={t('settings.companyProfile', 'Company Profile')}
-        subtitle="Manage your company information and branding"
+        title={t('companyProfile.title')}
+        subtitle={t('companyProfile.subtitle')}
       />
 
       {/* Unsaved Changes Banner */}
@@ -70,7 +70,7 @@ export const CompanyProfile = () => {
           <Card className="p-4 bg-amber-500/10 border-amber-500/30">
             <div className="flex items-center gap-3">
               <AlertCircle size={20} className="text-amber-400" />
-              <span className="text-amber-400 text-sm">You have unsaved changes</span>
+              <span className="text-amber-400 text-sm">{t('companyProfile.unsavedChanges')}</span>
             </div>
           </Card>
         </motion.div>
@@ -87,15 +87,15 @@ export const CompanyProfile = () => {
               <Building2 size={20} className="text-accent-primary" />
             </div>
             <div>
-              <h3 className="font-semibold text-text-primary">Basic Information</h3>
-              <p className="text-sm text-text-secondary">Company identity and details</p>
+              <h3 className="font-semibold text-text-primary">{t('companyProfile.basicInfo.title')}</h3>
+              <p className="text-sm text-text-secondary">{t('companyProfile.basicInfo.subtitle')}</p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Logo Upload */}
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-text-secondary mb-2">Company Logo</label>
+              <label className="block text-sm font-medium text-text-secondary mb-2">{t('companyProfile.basicInfo.companyLogo')}</label>
               <div className="flex items-center gap-4">
                 <div className="w-24 h-24 rounded-lg bg-white/[0.05] border-2 border-dashed border-white/[0.08] flex items-center justify-center">
                   {formData.logo ? (
@@ -106,29 +106,29 @@ export const CompanyProfile = () => {
                 </div>
                 <div>
                   <Button variant="outline" size="sm" leftIcon={<Upload size={14} />}>
-                    Upload Logo
+                    {t('companyProfile.basicInfo.uploadLogo')}
                   </Button>
-                  <p className="text-xs text-text-muted mt-2">PNG, JPG up to 2MB. Recommended: 200x200px</p>
+                  <p className="text-xs text-text-muted mt-2">{t('companyProfile.basicInfo.logoHint')}</p>
                 </div>
               </div>
             </div>
 
             <Input
-              label="Company Name"
+              label={t('companyProfile.basicInfo.companyName')}
               value={formData.name}
               onChange={(e) => handleChange('name', e.target.value)}
-              placeholder="Enter company name"
+              placeholder={t('companyProfile.basicInfo.companyNamePlaceholder')}
             />
 
             <Input
-              label="Legal Name"
+              label={t('companyProfile.basicInfo.legalName')}
               value={formData.legalName}
               onChange={(e) => handleChange('legalName', e.target.value)}
-              placeholder="Enter legal name"
+              placeholder={t('companyProfile.basicInfo.legalNamePlaceholder')}
             />
 
             <div>
-              <label className="block text-sm font-medium text-text-secondary mb-2">Industry</label>
+              <label className="block text-sm font-medium text-text-secondary mb-2">{t('companyProfile.basicInfo.industry')}</label>
               <select
                 value={formData.industry}
                 onChange={(e) => handleChange('industry', e.target.value)}
@@ -141,14 +141,14 @@ export const CompanyProfile = () => {
             </div>
 
             <Input
-              label="Founded Year"
+              label={t('companyProfile.basicInfo.foundedYear')}
               value={formData.founded}
               onChange={(e) => handleChange('founded', e.target.value)}
-              placeholder="e.g., 2015"
+              placeholder={t('companyProfile.basicInfo.foundedYearPlaceholder')}
             />
 
             <div>
-              <label className="block text-sm font-medium text-text-secondary mb-2">Employee Count</label>
+              <label className="block text-sm font-medium text-text-secondary mb-2">{t('companyProfile.basicInfo.employeeCount')}</label>
               <select
                 value={formData.employeeCount}
                 onChange={(e) => handleChange('employeeCount', e.target.value)}
@@ -175,42 +175,42 @@ export const CompanyProfile = () => {
               <Phone size={20} className="text-green-400" />
             </div>
             <div>
-              <h3 className="font-semibold text-text-primary">Contact Information</h3>
-              <p className="text-sm text-text-secondary">How people can reach your company</p>
+              <h3 className="font-semibold text-text-primary">{t('companyProfile.contact.title')}</h3>
+              <p className="text-sm text-text-secondary">{t('companyProfile.contact.subtitle')}</p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Input
-              label="Website"
+              label={t('companyProfile.contact.website')}
               value={formData.website}
               onChange={(e) => handleChange('website', e.target.value)}
-              placeholder="https://www.example.com"
+              placeholder={t('companyProfile.contact.websitePlaceholder')}
               leftIcon={<Globe size={16} />}
             />
 
             <Input
-              label="Email"
+              label={t('companyProfile.contact.email')}
               type="email"
               value={formData.email}
               onChange={(e) => handleChange('email', e.target.value)}
-              placeholder="contact@example.com"
+              placeholder={t('companyProfile.contact.emailPlaceholder')}
               leftIcon={<Mail size={16} />}
             />
 
             <Input
-              label="Phone"
+              label={t('companyProfile.contact.phone')}
               value={formData.phone}
               onChange={(e) => handleChange('phone', e.target.value)}
-              placeholder="+1 (555) 123-4567"
+              placeholder={t('companyProfile.contact.phonePlaceholder')}
               leftIcon={<Phone size={16} />}
             />
 
             <Input
-              label="Fax (Optional)"
+              label={t('companyProfile.contact.fax')}
               value={formData.fax}
               onChange={(e) => handleChange('fax', e.target.value)}
-              placeholder="+1 (555) 123-4568"
+              placeholder={t('companyProfile.contact.faxPlaceholder')}
             />
           </div>
         </Card>
@@ -228,49 +228,49 @@ export const CompanyProfile = () => {
               <MapPin size={20} className="text-blue-400" />
             </div>
             <div>
-              <h3 className="font-semibold text-text-primary">Address</h3>
-              <p className="text-sm text-text-secondary">Company physical location</p>
+              <h3 className="font-semibold text-text-primary">{t('companyProfile.address.title')}</h3>
+              <p className="text-sm text-text-secondary">{t('companyProfile.address.subtitle')}</p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Input
-              label="Street Address"
+              label={t('companyProfile.address.street')}
               value={formData.address.street}
               onChange={(e) => handleAddressChange('street', e.target.value)}
-              placeholder="123 Main Street"
+              placeholder={t('companyProfile.address.streetPlaceholder')}
             />
 
             <Input
-              label="Suite / Unit"
+              label={t('companyProfile.address.suite')}
               value={formData.address.suite}
               onChange={(e) => handleAddressChange('suite', e.target.value)}
-              placeholder="Suite 100"
+              placeholder={t('companyProfile.address.suitePlaceholder')}
             />
 
             <Input
-              label="City"
+              label={t('companyProfile.address.city')}
               value={formData.address.city}
               onChange={(e) => handleAddressChange('city', e.target.value)}
-              placeholder="New York"
+              placeholder={t('companyProfile.address.cityPlaceholder')}
             />
 
             <Input
-              label="State / Province"
+              label={t('companyProfile.address.state')}
               value={formData.address.state}
               onChange={(e) => handleAddressChange('state', e.target.value)}
-              placeholder="NY"
+              placeholder={t('companyProfile.address.statePlaceholder')}
             />
 
             <Input
-              label="ZIP / Postal Code"
+              label={t('companyProfile.address.zip')}
               value={formData.address.zipCode}
               onChange={(e) => handleAddressChange('zipCode', e.target.value)}
-              placeholder="10001"
+              placeholder={t('companyProfile.address.zipPlaceholder')}
             />
 
             <div>
-              <label className="block text-sm font-medium text-text-secondary mb-2">Country</label>
+              <label className="block text-sm font-medium text-text-secondary mb-2">{t('companyProfile.address.country')}</label>
               <select
                 value={formData.address.country}
                 onChange={(e) => handleAddressChange('country', e.target.value)}
@@ -297,24 +297,24 @@ export const CompanyProfile = () => {
               <FileText size={20} className="text-[#94B4C1]" />
             </div>
             <div>
-              <h3 className="font-semibold text-text-primary">Legal & Tax</h3>
-              <p className="text-sm text-text-secondary">Legal identifiers and tax information</p>
+              <h3 className="font-semibold text-text-primary">{t('companyProfile.legal.title')}</h3>
+              <p className="text-sm text-text-secondary">{t('companyProfile.legal.subtitle')}</p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Input
-              label="Tax ID / EIN"
+              label={t('companyProfile.legal.taxId')}
               value={formData.taxId}
               onChange={(e) => handleChange('taxId', e.target.value)}
-              placeholder="12-3456789"
+              placeholder={t('companyProfile.legal.taxIdPlaceholder')}
             />
 
             <Input
-              label="Registration Number"
+              label={t('companyProfile.legal.registrationNumber')}
               value={formData.registrationNumber}
               onChange={(e) => handleChange('registrationNumber', e.target.value)}
-              placeholder="NYC-2020-12345"
+              placeholder={t('companyProfile.legal.registrationNumberPlaceholder')}
             />
           </div>
         </Card>
@@ -332,14 +332,14 @@ export const CompanyProfile = () => {
               <Settings size={20} className="text-orange-400" />
             </div>
             <div>
-              <h3 className="font-semibold text-text-primary">Regional Settings</h3>
-              <p className="text-sm text-text-secondary">Localization and formatting preferences</p>
+              <h3 className="font-semibold text-text-primary">{t('companyProfile.regional.title')}</h3>
+              <p className="text-sm text-text-secondary">{t('companyProfile.regional.subtitle')}</p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-text-secondary mb-2">Timezone</label>
+              <label className="block text-sm font-medium text-text-secondary mb-2">{t('companyProfile.regional.timezone')}</label>
               <select
                 value={formData.timezone}
                 onChange={(e) => handleChange('timezone', e.target.value)}
@@ -352,7 +352,7 @@ export const CompanyProfile = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-text-secondary mb-2">Date Format</label>
+              <label className="block text-sm font-medium text-text-secondary mb-2">{t('companyProfile.regional.dateFormat')}</label>
               <select
                 value={formData.dateFormat}
                 onChange={(e) => handleChange('dateFormat', e.target.value)}
@@ -365,7 +365,7 @@ export const CompanyProfile = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-text-secondary mb-2">Currency</label>
+              <label className="block text-sm font-medium text-text-secondary mb-2">{t('companyProfile.regional.currency')}</label>
               <select
                 value={formData.currency}
                 onChange={(e) => handleChange('currency', e.target.value)}
@@ -378,7 +378,7 @@ export const CompanyProfile = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-text-secondary mb-2">Language</label>
+              <label className="block text-sm font-medium text-text-secondary mb-2">{t('companyProfile.regional.language')}</label>
               <select
                 value={formData.language}
                 onChange={(e) => handleChange('language', e.target.value)}
@@ -405,14 +405,14 @@ export const CompanyProfile = () => {
               <div className="w-5 h-5 rounded" style={{ backgroundColor: formData.primaryColor }} />
             </div>
             <div>
-              <h3 className="font-semibold text-text-primary">Branding</h3>
-              <p className="text-sm text-text-secondary">Company colors and visual identity</p>
+              <h3 className="font-semibold text-text-primary">{t('companyProfile.branding.title')}</h3>
+              <p className="text-sm text-text-secondary">{t('companyProfile.branding.subtitle')}</p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div>
-              <label className="block text-sm font-medium text-text-secondary mb-2">Primary Color</label>
+              <label className="block text-sm font-medium text-text-secondary mb-2">{t('companyProfile.branding.primaryColor')}</label>
               <div className="flex items-center gap-3">
                 <input
                   type="color"
@@ -430,7 +430,7 @@ export const CompanyProfile = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-text-secondary mb-2">Secondary Color</label>
+              <label className="block text-sm font-medium text-text-secondary mb-2">{t('companyProfile.branding.secondaryColor')}</label>
               <div className="flex items-center gap-3">
                 <input
                   type="color"
@@ -448,7 +448,7 @@ export const CompanyProfile = () => {
             </div>
 
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-text-secondary mb-2">Favicon</label>
+              <label className="block text-sm font-medium text-text-secondary mb-2">{t('companyProfile.branding.favicon')}</label>
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-lg bg-white/[0.05] border border-white/[0.08] flex items-center justify-center">
                   {formData.favicon ? (
@@ -458,7 +458,7 @@ export const CompanyProfile = () => {
                   )}
                 </div>
                 <Button variant="outline" size="sm" leftIcon={<Upload size={14} />}>
-                  Upload Favicon
+                  {t('companyProfile.branding.uploadFavicon')}
                 </Button>
               </div>
             </div>
@@ -477,14 +477,14 @@ export const CompanyProfile = () => {
             }}
             disabled={!hasChanges}
           >
-            Discard Changes
+            {t('companyProfile.discardChanges')}
           </Button>
           <Button
             leftIcon={<Save size={16} />}
             onClick={handleSave}
             disabled={!hasChanges || isSaving}
           >
-            {isSaving ? 'Saving...' : 'Save Changes'}
+            {isSaving ? t('companyProfile.saving') : t('companyProfile.saveChanges')}
           </Button>
         </div>
       </div>

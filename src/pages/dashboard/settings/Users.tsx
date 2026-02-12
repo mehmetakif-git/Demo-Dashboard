@@ -29,7 +29,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const Users = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('settings');
   const [searchQuery, setSearchQuery] = useState('');
   const [roleFilter, setRoleFilter] = useState('all');
   const [departmentFilter, setDepartmentFilter] = useState('all');
@@ -82,11 +82,11 @@ export const Users = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('settings.userManagement', 'User Management')}
-        subtitle="Manage user accounts and permissions"
+        title={t('users.title')}
+        subtitle={t('users.subtitle')}
         actions={
           <Button leftIcon={<Plus size={16} />} onClick={() => setIsInviteModalOpen(true)}>
-            Invite User
+            {t('users.inviteUser')}
           </Button>
         }
       />
@@ -94,25 +94,25 @@ export const Users = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Users"
+          title={t('users.stats.totalUsers')}
           value={stats.total.toString()}
           icon={UsersIcon}
           iconColor="#547792"
         />
         <StatsCard
-          title="Active Users"
+          title={t('users.stats.activeUsers')}
           value={stats.active.toString()}
           icon={UserCheck}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Admins"
+          title={t('users.stats.admins')}
           value={stats.admins.toString()}
           icon={Shield}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Pending Invites"
+          title={t('users.stats.pendingInvites')}
           value={stats.pending.toString()}
           icon={Clock}
           iconColor="#64748b"
@@ -124,7 +124,7 @@ export const Users = () => {
         <div className="flex flex-wrap gap-4 items-center">
           <div className="flex-1 min-w-48 max-w-md">
             <Input
-              placeholder="Search by name or email..."
+              placeholder={t('users.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               leftIcon={<Search size={16} />}
@@ -135,7 +135,7 @@ export const Users = () => {
             onChange={(e) => setRoleFilter(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Roles</option>
+            <option value="all">{t('users.allRoles')}</option>
             {roles.map(role => (
               <option key={role.id} value={role.name}>{role.name}</option>
             ))}
@@ -145,7 +145,7 @@ export const Users = () => {
             onChange={(e) => setDepartmentFilter(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Departments</option>
+            <option value="all">{t('users.allDepartments')}</option>
             {departments.map(dept => (
               <option key={dept} value={dept}>{dept}</option>
             ))}
@@ -155,10 +155,10 @@ export const Users = () => {
             onChange={(e) => setStatusFilter(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary"
           >
-            <option value="all">All Status</option>
-            <option value="active">Active</option>
-            <option value="inactive">Inactive</option>
-            <option value="pending">Pending</option>
+            <option value="all">{t('users.allStatus')}</option>
+            <option value="active">{t('users.statusActive')}</option>
+            <option value="inactive">{t('users.statusInactive')}</option>
+            <option value="pending">{t('users.statusPending')}</option>
           </select>
         </div>
       </Card>
@@ -169,13 +169,13 @@ export const Users = () => {
           <table className="w-full">
             <thead className="bg-white/[0.05]">
               <tr>
-                <th className="text-left p-4 text-sm font-medium text-text-secondary">User</th>
-                <th className="text-left p-4 text-sm font-medium text-text-secondary">Role</th>
-                <th className="text-left p-4 text-sm font-medium text-text-secondary">Department</th>
-                <th className="text-left p-4 text-sm font-medium text-text-secondary">Status</th>
-                <th className="text-left p-4 text-sm font-medium text-text-secondary">Last Login</th>
-                <th className="text-left p-4 text-sm font-medium text-text-secondary">2FA</th>
-                <th className="text-right p-4 text-sm font-medium text-text-secondary">Actions</th>
+                <th className="text-left p-4 text-sm font-medium text-text-secondary">{t('users.table.user')}</th>
+                <th className="text-left p-4 text-sm font-medium text-text-secondary">{t('users.table.role')}</th>
+                <th className="text-left p-4 text-sm font-medium text-text-secondary">{t('users.table.department')}</th>
+                <th className="text-left p-4 text-sm font-medium text-text-secondary">{t('users.table.status')}</th>
+                <th className="text-left p-4 text-sm font-medium text-text-secondary">{t('users.table.lastLogin')}</th>
+                <th className="text-left p-4 text-sm font-medium text-text-secondary">{t('users.table.twoFA')}</th>
+                <th className="text-right p-4 text-sm font-medium text-text-secondary">{t('users.table.actions')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border-default">
@@ -256,7 +256,7 @@ export const Users = () => {
         {filteredUsers.length === 0 && (
           <div className="p-12 text-center">
             <UsersIcon size={48} className="mx-auto mb-4 text-text-muted" />
-            <p className="text-text-secondary">No users found</p>
+            <p className="text-text-secondary">{t('users.noUsersFound')}</p>
           </div>
         )}
       </Card>
@@ -277,7 +277,7 @@ export const Users = () => {
           >
             <Card className="p-6">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-lg font-semibold text-text-primary">Edit User</h3>
+                <h3 className="text-lg font-semibold text-text-primary">{t('users.editUser.title')}</h3>
                 <button
                   onClick={() => setSelectedUser(null)}
                   className="p-2 hover:bg-white/[0.05] rounded transition-colors"
@@ -298,18 +298,18 @@ export const Users = () => {
 
               <div className="space-y-4">
                 <Input
-                  label="Name"
+                  label={t('users.editUser.name')}
                   value={selectedUser.name}
                   onChange={() => {}}
                 />
                 <Input
-                  label="Email"
+                  label={t('users.editUser.email')}
                   type="email"
                   value={selectedUser.email}
                   onChange={() => {}}
                 />
                 <div>
-                  <label className="block text-sm font-medium text-text-secondary mb-2">Role</label>
+                  <label className="block text-sm font-medium text-text-secondary mb-2">{t('users.editUser.role')}</label>
                   <select
                     value={selectedUser.roleId}
                     onChange={() => {}}
@@ -321,7 +321,7 @@ export const Users = () => {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-text-secondary mb-2">Department</label>
+                  <label className="block text-sm font-medium text-text-secondary mb-2">{t('users.editUser.department')}</label>
                   <select
                     value={selectedUser.department}
                     onChange={() => {}}
@@ -334,9 +334,9 @@ export const Users = () => {
                 </div>
                 <div className="flex items-center justify-between py-3 border-t border-white/[0.08]">
                   <div>
-                    <p className="font-medium text-text-primary">Two-Factor Authentication</p>
+                    <p className="font-medium text-text-primary">{t('users.editUser.twoFactorAuth')}</p>
                     <p className="text-sm text-text-secondary">
-                      {selectedUser.twoFactorEnabled ? 'Enabled' : 'Disabled'}
+                      {selectedUser.twoFactorEnabled ? t('users.editUser.enabled') : t('users.editUser.disabled')}
                     </p>
                   </div>
                   <button
@@ -346,17 +346,17 @@ export const Users = () => {
                         : 'bg-red-500/20 text-red-400'
                     }`}
                   >
-                    {selectedUser.twoFactorEnabled ? 'Disable' : 'Enable'}
+                    {selectedUser.twoFactorEnabled ? t('users.editUser.disable') : t('users.editUser.enable')}
                   </button>
                 </div>
               </div>
 
               <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-white/[0.08]">
                 <Button variant="outline" onClick={() => setSelectedUser(null)}>
-                  Cancel
+                  {t('users.editUser.cancel')}
                 </Button>
                 <Button onClick={() => setSelectedUser(null)}>
-                  Save Changes
+                  {t('users.editUser.saveChanges')}
                 </Button>
               </div>
             </Card>
@@ -380,7 +380,7 @@ export const Users = () => {
           >
             <Card className="p-6">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-lg font-semibold text-text-primary">Invite User</h3>
+                <h3 className="text-lg font-semibold text-text-primary">{t('users.inviteModal.title')}</h3>
                 <button
                   onClick={() => setIsInviteModalOpen(false)}
                   className="p-2 hover:bg-white/[0.05] rounded transition-colors"
@@ -391,15 +391,15 @@ export const Users = () => {
 
               <div className="space-y-4">
                 <Input
-                  label="Email Address"
+                  label={t('users.inviteModal.emailAddress')}
                   type="email"
                   value={inviteEmail}
                   onChange={(e) => setInviteEmail(e.target.value)}
-                  placeholder="user@example.com"
+                  placeholder={t('users.inviteModal.emailPlaceholder')}
                   leftIcon={<Mail size={16} />}
                 />
                 <div>
-                  <label className="block text-sm font-medium text-text-secondary mb-2">Role</label>
+                  <label className="block text-sm font-medium text-text-secondary mb-2">{t('users.inviteModal.role')}</label>
                   <select
                     value={inviteRole}
                     onChange={(e) => setInviteRole(e.target.value)}
@@ -411,7 +411,7 @@ export const Users = () => {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-text-secondary mb-2">Department</label>
+                  <label className="block text-sm font-medium text-text-secondary mb-2">{t('users.inviteModal.department')}</label>
                   <select
                     value={inviteDepartment}
                     onChange={(e) => setInviteDepartment(e.target.value)}
@@ -426,14 +426,14 @@ export const Users = () => {
 
               <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-white/[0.08]">
                 <Button variant="outline" onClick={() => setIsInviteModalOpen(false)}>
-                  Cancel
+                  {t('users.inviteModal.cancel')}
                 </Button>
                 <Button
                   leftIcon={<Send size={16} />}
                   onClick={handleInviteUser}
                   disabled={!inviteEmail}
                 >
-                  Send Invite
+                  {t('users.inviteModal.sendInvite')}
                 </Button>
               </div>
             </Card>

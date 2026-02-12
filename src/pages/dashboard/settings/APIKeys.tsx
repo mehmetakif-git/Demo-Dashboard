@@ -23,7 +23,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const APIKeys = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('settings');
   const [selectedKey, setSelectedKey] = useState<APIKey | null>(null);
   const [showFullKey, setShowFullKey] = useState(false);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -63,11 +63,11 @@ export const APIKeys = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('settings.apiKeys', 'API Keys')}
-        subtitle="Manage API keys for integrations and external access"
+        title={t('apiKeys.title')}
+        subtitle={t('apiKeys.subtitle')}
         actions={
           <Button leftIcon={<Plus size={16} />} onClick={() => setIsCreateModalOpen(true)}>
-            Generate New Key
+            {t('apiKeys.generateNewKey')}
           </Button>
         }
       />
@@ -77,9 +77,9 @@ export const APIKeys = () => {
         <div className="flex items-start gap-3">
           <AlertTriangle size={20} className="text-amber-400 flex-shrink-0 mt-0.5" />
           <div>
-            <p className="font-medium text-amber-400">Keep your API keys secure</p>
+            <p className="font-medium text-amber-400">{t('apiKeys.securityWarning.title')}</p>
             <p className="text-sm text-text-secondary">
-              Do not share your API keys publicly or commit them to version control. Use environment variables instead.
+              {t('apiKeys.securityWarning.description')}
             </p>
           </div>
         </div>
@@ -88,25 +88,25 @@ export const APIKeys = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Keys"
+          title={t('apiKeys.stats.totalKeys')}
           value={stats.total.toString()}
           icon={Key}
           iconColor="#547792"
         />
         <StatsCard
-          title="Active Keys"
+          title={t('apiKeys.stats.activeKeys')}
           value={stats.active.toString()}
           icon={Shield}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Production Keys"
+          title={t('apiKeys.stats.productionKeys')}
           value={stats.production.toString()}
           icon={AlertTriangle}
           iconColor="#ef4444"
         />
         <StatsCard
-          title="Total Requests"
+          title={t('apiKeys.stats.totalRequests')}
           value={stats.totalUsage.toLocaleString()}
           icon={Activity}
           iconColor="#94B4C1"
@@ -119,13 +119,13 @@ export const APIKeys = () => {
           <table className="w-full">
             <thead className="bg-white/[0.05]">
               <tr>
-                <th className="text-left p-4 text-sm font-medium text-text-secondary">Name</th>
-                <th className="text-left p-4 text-sm font-medium text-text-secondary">Key</th>
-                <th className="text-left p-4 text-sm font-medium text-text-secondary">Type</th>
-                <th className="text-left p-4 text-sm font-medium text-text-secondary">Permissions</th>
-                <th className="text-left p-4 text-sm font-medium text-text-secondary">Last Used</th>
-                <th className="text-left p-4 text-sm font-medium text-text-secondary">Status</th>
-                <th className="text-right p-4 text-sm font-medium text-text-secondary">Actions</th>
+                <th className="text-left p-4 text-sm font-medium text-text-secondary">{t('apiKeys.table.name')}</th>
+                <th className="text-left p-4 text-sm font-medium text-text-secondary">{t('apiKeys.table.key')}</th>
+                <th className="text-left p-4 text-sm font-medium text-text-secondary">{t('apiKeys.table.type')}</th>
+                <th className="text-left p-4 text-sm font-medium text-text-secondary">{t('apiKeys.table.permissions')}</th>
+                <th className="text-left p-4 text-sm font-medium text-text-secondary">{t('apiKeys.table.lastUsed')}</th>
+                <th className="text-left p-4 text-sm font-medium text-text-secondary">{t('apiKeys.table.status')}</th>
+                <th className="text-right p-4 text-sm font-medium text-text-secondary">{t('apiKeys.table.actions')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border-default">
@@ -140,7 +140,7 @@ export const APIKeys = () => {
                   <td className="p-4">
                     <div>
                       <p className="font-medium text-text-primary">{apiKey.name}</p>
-                      <p className="text-xs text-text-muted">Created by {apiKey.createdBy}</p>
+                      <p className="text-xs text-text-muted">{t('apiKeys.createdBy', { name: apiKey.createdBy })}</p>
                     </div>
                   </td>
                   <td className="p-4">
@@ -230,7 +230,7 @@ export const APIKeys = () => {
           >
             <Card className="p-6">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-lg font-semibold text-text-primary">API Key Details</h3>
+                <h3 className="text-lg font-semibold text-text-primary">{t('apiKeys.viewModal.title')}</h3>
                 <button
                   onClick={() => { setSelectedKey(null); setShowFullKey(false); }}
                   className="p-2 hover:bg-white/[0.05] rounded transition-colors"
@@ -241,12 +241,12 @@ export const APIKeys = () => {
 
               <div className="space-y-4">
                 <div>
-                  <p className="text-sm text-text-muted mb-1">Name</p>
+                  <p className="text-sm text-text-muted mb-1">{t('apiKeys.viewModal.name')}</p>
                   <p className="font-medium text-text-primary">{selectedKey.name}</p>
                 </div>
 
                 <div>
-                  <p className="text-sm text-text-muted mb-1">API Key</p>
+                  <p className="text-sm text-text-muted mb-1">{t('apiKeys.viewModal.apiKey')}</p>
                   <div className="flex items-center gap-2">
                     <code className="flex-1 text-sm bg-white/[0.05] p-3 rounded-lg font-mono text-text-primary break-all">
                       {showFullKey ? selectedKey.keyFull : selectedKey.key}
@@ -268,7 +268,7 @@ export const APIKeys = () => {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <p className="text-sm text-text-muted mb-1">Type</p>
+                    <p className="text-sm text-text-muted mb-1">{t('apiKeys.viewModal.type')}</p>
                     <span className={`inline-block px-2 py-1 rounded text-xs font-medium ${
                       selectedKey.type === 'production'
                         ? 'bg-red-500/20 text-red-400'
@@ -278,7 +278,7 @@ export const APIKeys = () => {
                     </span>
                   </div>
                   <div>
-                    <p className="text-sm text-text-muted mb-1">Status</p>
+                    <p className="text-sm text-text-muted mb-1">{t('apiKeys.viewModal.status')}</p>
                     <span
                       className="inline-block px-2 py-1 rounded text-xs font-medium"
                       style={{
@@ -293,25 +293,25 @@ export const APIKeys = () => {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <p className="text-sm text-text-muted mb-1">Created</p>
+                    <p className="text-sm text-text-muted mb-1">{t('apiKeys.viewModal.created')}</p>
                     <p className="text-sm text-text-primary">{formatDateTime(selectedKey.createdAt)}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-text-muted mb-1">Expires</p>
+                    <p className="text-sm text-text-muted mb-1">{t('apiKeys.viewModal.expires')}</p>
                     <p className="text-sm text-text-primary">{selectedKey.expiresAt}</p>
                   </div>
                 </div>
 
                 <div>
-                  <p className="text-sm text-text-muted mb-1">Usage</p>
-                  <p className="text-sm text-text-primary">{selectedKey.usageCount.toLocaleString()} requests</p>
+                  <p className="text-sm text-text-muted mb-1">{t('apiKeys.viewModal.usage')}</p>
+                  <p className="text-sm text-text-primary">{t('apiKeys.viewModal.usageCount', { count: selectedKey.usageCount })}</p>
                 </div>
 
                 <div className="p-4 bg-amber-500/10 rounded-lg border border-amber-500/30">
                   <div className="flex items-start gap-2">
                     <AlertTriangle size={16} className="text-amber-400 flex-shrink-0 mt-0.5" />
                     <p className="text-sm text-amber-400">
-                      Keep this key secure. Anyone with access to this key can make API requests on your behalf.
+                      {t('apiKeys.viewModal.securityWarning')}
                     </p>
                   </div>
                 </div>
@@ -322,10 +322,10 @@ export const APIKeys = () => {
                   variant="secondary"
                   className="text-red-400 hover:bg-red-500/10"
                 >
-                  Revoke Key
+                  {t('apiKeys.viewModal.revokeKey')}
                 </Button>
                 <Button onClick={() => { setSelectedKey(null); setShowFullKey(false); }}>
-                  Close
+                  {t('apiKeys.viewModal.close')}
                 </Button>
               </div>
             </Card>
@@ -350,7 +350,7 @@ export const APIKeys = () => {
             <Card className="p-6">
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-semibold text-text-primary">
-                  {generatedKey ? 'Your New API Key' : 'Generate API Key'}
+                  {generatedKey ? t('apiKeys.createModal.titleNew') : t('apiKeys.createModal.titleGenerate')}
                 </h3>
                 <button
                   onClick={handleCloseCreate}
@@ -363,14 +363,14 @@ export const APIKeys = () => {
               {!generatedKey ? (
                 <div className="space-y-4">
                   <Input
-                    label="Key Name"
+                    label={t('apiKeys.createModal.keyName')}
                     value={newKeyName}
                     onChange={(e) => setNewKeyName(e.target.value)}
-                    placeholder="e.g., Production API Key"
+                    placeholder={t('apiKeys.createModal.keyNamePlaceholder')}
                   />
 
                   <div>
-                    <label className="block text-sm font-medium text-text-secondary mb-2">Type</label>
+                    <label className="block text-sm font-medium text-text-secondary mb-2">{t('apiKeys.createModal.type')}</label>
                     <div className="flex gap-3">
                       <button
                         onClick={() => setNewKeyType('development')}
@@ -380,8 +380,8 @@ export const APIKeys = () => {
                             : 'border-white/[0.08] hover:border-white/[0.12]'
                         }`}
                       >
-                        <p className="font-medium text-text-primary">Development</p>
-                        <p className="text-xs text-text-muted">For testing</p>
+                        <p className="font-medium text-text-primary">{t('apiKeys.createModal.development')}</p>
+                        <p className="text-xs text-text-muted">{t('apiKeys.createModal.developmentDesc')}</p>
                       </button>
                       <button
                         onClick={() => setNewKeyType('production')}
@@ -391,14 +391,14 @@ export const APIKeys = () => {
                             : 'border-white/[0.08] hover:border-white/[0.12]'
                         }`}
                       >
-                        <p className="font-medium text-text-primary">Production</p>
-                        <p className="text-xs text-text-muted">For live apps</p>
+                        <p className="font-medium text-text-primary">{t('apiKeys.createModal.production')}</p>
+                        <p className="text-xs text-text-muted">{t('apiKeys.createModal.productionDesc')}</p>
                       </button>
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-text-secondary mb-2">Permissions</label>
+                    <label className="block text-sm font-medium text-text-secondary mb-2">{t('apiKeys.createModal.permissions')}</label>
                     <div className="flex gap-3">
                       {['read', 'write'].map(perm => (
                         <button
@@ -431,14 +431,14 @@ export const APIKeys = () => {
 
                   <div className="flex justify-end gap-3 mt-6 pt-4 border-t border-white/[0.08]">
                     <Button variant="outline" onClick={handleCloseCreate}>
-                      Cancel
+                      {t('apiKeys.createModal.cancel')}
                     </Button>
                     <Button
                       leftIcon={<Key size={16} />}
                       onClick={handleGenerateKey}
                       disabled={!newKeyName}
                     >
-                      Generate Key
+                      {t('apiKeys.createModal.generateKey')}
                     </Button>
                   </div>
                 </div>
@@ -447,15 +447,15 @@ export const APIKeys = () => {
                   <div className="p-4 bg-green-500/10 rounded-lg border border-green-500/30">
                     <div className="flex items-start gap-2 mb-3">
                       <Check size={20} className="text-green-400 flex-shrink-0" />
-                      <p className="text-green-400 font-medium">API Key Generated Successfully</p>
+                      <p className="text-green-400 font-medium">{t('apiKeys.createModal.successTitle')}</p>
                     </div>
                     <p className="text-sm text-text-secondary">
-                      Make sure to copy your API key now. You won't be able to see it again!
+                      {t('apiKeys.createModal.successDescription')}
                     </p>
                   </div>
 
                   <div>
-                    <p className="text-sm text-text-muted mb-2">Your API Key</p>
+                    <p className="text-sm text-text-muted mb-2">{t('apiKeys.createModal.yourApiKey')}</p>
                     <div className="flex items-center gap-2">
                       <code className="flex-1 text-sm bg-white/[0.05] p-3 rounded-lg font-mono text-text-primary break-all">
                         {generatedKey}
@@ -471,7 +471,7 @@ export const APIKeys = () => {
 
                   <div className="flex justify-end mt-6 pt-4 border-t border-white/[0.08]">
                     <Button onClick={handleCloseCreate}>
-                      Done
+                      {t('apiKeys.createModal.done')}
                     </Button>
                   </div>
                 </div>

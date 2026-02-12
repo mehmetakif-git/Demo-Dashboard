@@ -24,7 +24,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const Roles = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('settings');
   const [selectedRole, setSelectedRole] = useState<Role | null>(null);
   const [isCreating, setIsCreating] = useState(false);
   const [expandedModule, setExpandedModule] = useState<string | null>(null);
@@ -94,11 +94,11 @@ export const Roles = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('settings.rolesPermissions', 'Roles & Permissions')}
-        subtitle="Manage user roles and access permissions"
+        title={t('roles.title')}
+        subtitle={t('roles.subtitle')}
         actions={
           <Button leftIcon={<Plus size={16} />} onClick={handleCreateRole}>
-            Create Role
+            {t('roles.createRole')}
           </Button>
         }
       />
@@ -106,25 +106,25 @@ export const Roles = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Roles"
+          title={t('roles.stats.totalRoles')}
           value={stats.totalRoles.toString()}
           icon={Shield}
           iconColor="#547792"
         />
         <StatsCard
-          title="System Roles"
+          title={t('roles.stats.systemRoles')}
           value={stats.systemRoles.toString()}
           icon={Lock}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Custom Roles"
+          title={t('roles.stats.customRoles')}
           value={stats.customRoles.toString()}
           icon={Shield}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Total Users"
+          title={t('roles.stats.totalUsers')}
           value={stats.totalUsers.toString()}
           icon={Users}
           iconColor="#94B4C1"
@@ -135,7 +135,7 @@ export const Roles = () => {
         {/* Roles List */}
         <div className="lg:col-span-1">
           <Card className="p-4">
-            <h3 className="font-semibold text-text-primary mb-4">All Roles</h3>
+            <h3 className="font-semibold text-text-primary mb-4">{t('roles.allRoles')}</h3>
             <div className="space-y-2">
               {roles.map((role, index) => (
                 <motion.button
@@ -162,11 +162,11 @@ export const Roles = () => {
                           <p className="font-medium text-text-primary">{role.name}</p>
                           {role.isSystem && (
                             <span className="px-1.5 py-0.5 bg-amber-500/20 text-amber-400 text-[10px] font-medium rounded">
-                              SYSTEM
+                              {t('roles.system')}
                             </span>
                           )}
                         </div>
-                        <p className="text-xs text-text-muted">{role.userCount} users</p>
+                        <p className="text-xs text-text-muted">{t('roles.usersCount', { count: role.userCount })}</p>
                       </div>
                     </div>
                   </div>
@@ -195,14 +195,14 @@ export const Roles = () => {
                           type="text"
                           value={newRoleName}
                           onChange={(e) => setNewRoleName(e.target.value)}
-                          placeholder="Role Name"
+                          placeholder={t('roles.roleNamePlaceholder')}
                           className="text-lg font-semibold text-text-primary bg-transparent border-b border-white/[0.08] focus:outline-none focus:border-accent-primary w-full pb-1"
                         />
                         <input
                           type="text"
                           value={newRoleDescription}
                           onChange={(e) => setNewRoleDescription(e.target.value)}
-                          placeholder="Role Description"
+                          placeholder={t('roles.roleDescriptionPlaceholder')}
                           className="text-sm text-text-secondary bg-transparent border-b border-white/[0.08] focus:outline-none focus:border-accent-primary w-full pb-1"
                         />
                       </div>
@@ -237,15 +237,15 @@ export const Roles = () => {
                 {selectedRole && !isCreating && (
                   <div className="grid grid-cols-3 gap-4 mb-6 p-4 bg-white/[0.03] backdrop-blur-xl rounded-lg">
                     <div>
-                      <p className="text-xs text-text-muted">Users</p>
+                      <p className="text-xs text-text-muted">{t('roles.info.users')}</p>
                       <p className="text-lg font-semibold text-text-primary">{selectedRole.userCount}</p>
                     </div>
                     <div>
-                      <p className="text-xs text-text-muted">Created</p>
+                      <p className="text-xs text-text-muted">{t('roles.info.created')}</p>
                       <p className="text-sm text-text-primary">{formatDate(selectedRole.createdAt)}</p>
                     </div>
                     <div>
-                      <p className="text-xs text-text-muted">Updated</p>
+                      <p className="text-xs text-text-muted">{t('roles.info.updated')}</p>
                       <p className="text-sm text-text-primary">{formatDate(selectedRole.updatedAt)}</p>
                     </div>
                   </div>
@@ -253,7 +253,7 @@ export const Roles = () => {
 
                 {/* Permissions Matrix */}
                 <div className="mb-6">
-                  <h4 className="font-medium text-text-primary mb-4">Permissions</h4>
+                  <h4 className="font-medium text-text-primary mb-4">{t('roles.permissions')}</h4>
                   <div className="space-y-2">
                     {permissionModules.map((module) => {
                       const modulePerms = editedPermissions[module.id] || [];
@@ -343,7 +343,7 @@ export const Roles = () => {
                 {/* Users with this role */}
                 {selectedRole && !isCreating && selectedRole.userCount > 0 && (
                   <div className="mb-6">
-                    <h4 className="font-medium text-text-primary mb-3">Users with this role</h4>
+                    <h4 className="font-medium text-text-primary mb-3">{t('roles.usersWithRole')}</h4>
                     <div className="flex flex-wrap gap-2">
                       {getRoleUsers(selectedRole.id).map((user) => (
                         <div
@@ -366,10 +366,10 @@ export const Roles = () => {
                     variant="outline"
                     onClick={() => { setSelectedRole(null); setIsCreating(false); }}
                   >
-                    Cancel
+                    {t('roles.cancel')}
                   </Button>
                   <Button onClick={handleSaveRole}>
-                    {isCreating ? 'Create Role' : 'Save Changes'}
+                    {isCreating ? t('roles.createRoleButton') : t('roles.saveChanges')}
                   </Button>
                 </div>
               </Card>
@@ -377,7 +377,7 @@ export const Roles = () => {
           ) : (
             <Card className="p-12 text-center">
               <Shield size={48} className="mx-auto mb-4 text-text-muted" />
-              <p className="text-text-secondary">Select a role to view and edit permissions</p>
+              <p className="text-text-secondary">{t('roles.selectRolePrompt')}</p>
             </Card>
           )}
         </div>

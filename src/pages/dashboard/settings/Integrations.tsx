@@ -37,7 +37,7 @@ const iconMap: Record<string, React.ElementType> = {
 };
 
 export const Integrations = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('settings');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedIntegration, setSelectedIntegration] = useState<Integration | null>(null);
 
@@ -45,14 +45,14 @@ export const Integrations = () => {
 
   const stats = useMemo(() => ({
     total: integrations.length,
-    connected: integrations.filter(i => i.status === 'connected').length,
-    disconnected: integrations.filter(i => i.status === 'disconnected').length,
-    categories: new Set(integrations.map(i => i.category)).size,
+    connected: integrations.filter(item => item.status === 'connected').length,
+    disconnected: integrations.filter(item => item.status === 'disconnected').length,
+    categories: new Set(integrations.map(item => item.category)).size,
   }), []);
 
   const filteredIntegrations = useMemo(() => {
     if (selectedCategory === 'all') return integrations;
-    return integrations.filter(i => i.category === selectedCategory);
+    return integrations.filter(item => item.category === selectedCategory);
   }, [selectedCategory]);
 
   const getIcon = (iconName: string) => {
@@ -74,32 +74,32 @@ export const Integrations = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('settings.integrations', 'Integrations')}
-        subtitle="Connect third-party services and apps"
+        title={t('integrations.title')}
+        subtitle={t('integrations.subtitle')}
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Integrations"
+          title={t('integrations.stats.totalIntegrations')}
           value={stats.total.toString()}
           icon={Link2}
           iconColor="#547792"
         />
         <StatsCard
-          title="Connected"
+          title={t('integrations.stats.connected')}
           value={stats.connected.toString()}
           icon={Check}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Disconnected"
+          title={t('integrations.stats.disconnected')}
           value={stats.disconnected.toString()}
           icon={Unplug}
           iconColor="#64748b"
         />
         <StatsCard
-          title="Categories"
+          title={t('integrations.stats.categories')}
           value={stats.categories.toString()}
           icon={Settings}
           iconColor="#94B4C1"
@@ -119,7 +119,7 @@ export const Integrations = () => {
                   : 'bg-white/[0.05] text-text-secondary hover:bg-background-primary hover:text-text-primary'
               }`}
             >
-              {category === 'all' ? 'All' : category}
+              {category === 'all' ? t('integrations.all') : category}
             </button>
           ))}
         </div>
@@ -175,7 +175,7 @@ export const Integrations = () => {
                       leftIcon={<Settings size={14} />}
                       onClick={() => setSelectedIntegration(integration)}
                     >
-                      Configure
+                      {t('integrations.configure')}
                     </Button>
                   ) : (
                     <Button
@@ -183,14 +183,14 @@ export const Integrations = () => {
                       leftIcon={<Link2 size={14} />}
                       onClick={() => setSelectedIntegration(integration)}
                     >
-                      Connect
+                      {t('integrations.connect')}
                     </Button>
                   )}
                 </div>
 
                 {integration.connectedAt && (
                   <p className="text-xs text-text-muted mt-4 pt-4 border-t border-white/[0.08]">
-                    Connected {formatDateTime(integration.connectedAt)} by {integration.connectedBy}
+                    {t('integrations.connectedAt', { date: formatDateTime(integration.connectedAt), user: integration.connectedBy })}
                   </p>
                 )}
               </Card>
@@ -245,18 +245,18 @@ export const Integrations = () => {
                     <div className="p-4 bg-green-500/10 rounded-lg border border-green-500/30">
                       <div className="flex items-center gap-2">
                         <Check size={18} className="text-green-400" />
-                        <span className="text-green-400 font-medium">Connected</span>
+                        <span className="text-green-400 font-medium">{t('integrations.modal.connectedStatus')}</span>
                       </div>
                       {selectedIntegration.connectedAt && (
                         <p className="text-sm text-text-secondary mt-1">
-                          Since {formatDateTime(selectedIntegration.connectedAt)} by {selectedIntegration.connectedBy}
+                          {t('integrations.modal.since', { date: formatDateTime(selectedIntegration.connectedAt), user: selectedIntegration.connectedBy })}
                         </p>
                       )}
                     </div>
 
                     {selectedIntegration.settings && (
                       <div>
-                        <h4 className="font-medium text-text-primary mb-3">Settings</h4>
+                        <h4 className="font-medium text-text-primary mb-3">{t('integrations.modal.settings')}</h4>
                         <div className="space-y-3">
                           {Object.entries(selectedIntegration.settings).map(([key, value]) => (
                             <div key={key} className="flex items-center justify-between py-2 border-b border-white/[0.08]">
@@ -289,14 +289,14 @@ export const Integrations = () => {
                       className="text-red-400 hover:bg-red-500/10"
                       leftIcon={<Unplug size={16} />}
                     >
-                      Disconnect
+                      {t('integrations.modal.disconnect')}
                     </Button>
                     <div className="flex gap-2">
                       <Button variant="outline" leftIcon={<ExternalLink size={16} />}>
-                        View Docs
+                        {t('integrations.modal.viewDocs')}
                       </Button>
                       <Button onClick={() => setSelectedIntegration(null)}>
-                        Save Settings
+                        {t('integrations.modal.saveSettings')}
                       </Button>
                     </div>
                   </div>
@@ -306,26 +306,26 @@ export const Integrations = () => {
                   {/* Disconnected State - Connect Flow */}
                   <div className="space-y-4 mb-6">
                     <div className="p-4 bg-white/[0.03] backdrop-blur-xl rounded-lg">
-                      <h4 className="font-medium text-text-primary mb-2">Connect {selectedIntegration.name}</h4>
+                      <h4 className="font-medium text-text-primary mb-2">{t('integrations.modal.connectTitle', { name: selectedIntegration.name })}</h4>
                       <p className="text-sm text-text-secondary">
-                        Click the button below to authorize and connect {selectedIntegration.name} to your account.
+                        {t('integrations.modal.connectDescription', { name: selectedIntegration.name })}
                       </p>
                     </div>
 
                     <div className="p-4 bg-white/[0.03] backdrop-blur-xl rounded-lg">
-                      <h4 className="font-medium text-text-primary mb-2">Permissions Required</h4>
+                      <h4 className="font-medium text-text-primary mb-2">{t('integrations.modal.permissionsRequired')}</h4>
                       <ul className="space-y-2">
                         <li className="flex items-center gap-2 text-sm text-text-secondary">
                           <Check size={14} className="text-green-400" />
-                          Read your profile information
+                          {t('integrations.modal.permReadProfile')}
                         </li>
                         <li className="flex items-center gap-2 text-sm text-text-secondary">
                           <Check size={14} className="text-green-400" />
-                          Send notifications on your behalf
+                          {t('integrations.modal.permSendNotifications')}
                         </li>
                         <li className="flex items-center gap-2 text-sm text-text-secondary">
                           <Check size={14} className="text-green-400" />
-                          Access data related to integration
+                          {t('integrations.modal.permAccessData')}
                         </li>
                       </ul>
                     </div>
@@ -333,10 +333,10 @@ export const Integrations = () => {
 
                   <div className="flex justify-end gap-3 pt-4 border-t border-white/[0.08]">
                     <Button variant="outline" onClick={() => setSelectedIntegration(null)}>
-                      Cancel
+                      {t('integrations.modal.cancel')}
                     </Button>
                     <Button leftIcon={<Link2 size={16} />}>
-                      Connect {selectedIntegration.name}
+                      {t('integrations.modal.connectButton', { name: selectedIntegration.name })}
                     </Button>
                   </div>
                 </>

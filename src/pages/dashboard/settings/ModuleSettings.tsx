@@ -49,9 +49,11 @@ interface TagInputProps {
   label: string;
   tags: string[];
   onChange: (tags: string[]) => void;
+  addPlaceholder?: string;
+  addLabel?: string;
 }
 
-const TagInput = ({ label, tags, onChange }: TagInputProps) => {
+const TagInput = ({ label, tags, onChange, addPlaceholder, addLabel }: TagInputProps) => {
   const [inputValue, setInputValue] = useState('');
 
   const handleAdd = () => {
@@ -62,7 +64,7 @@ const TagInput = ({ label, tags, onChange }: TagInputProps) => {
   };
 
   const handleRemove = (tag: string) => {
-    onChange(tags.filter(t => t !== tag));
+    onChange(tags.filter(item => item !== tag));
   };
 
   return (
@@ -90,11 +92,11 @@ const TagInput = ({ label, tags, onChange }: TagInputProps) => {
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           onKeyPress={(e) => e.key === 'Enter' && handleAdd()}
-          placeholder="Add new..."
+          placeholder={addPlaceholder}
           className="flex-1 px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary text-sm focus:outline-none focus:border-accent-primary"
         />
         <Button size="sm" onClick={handleAdd} leftIcon={<Plus size={14} />}>
-          Add
+          {addLabel}
         </Button>
       </div>
     </div>
@@ -102,7 +104,7 @@ const TagInput = ({ label, tags, onChange }: TagInputProps) => {
 };
 
 export const ModuleSettings = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('settings');
   const [settings, setSettings] = useState<ModuleSettingsType>(moduleSettings);
   const [expandedModule, setExpandedModule] = useState<string | null>('hr');
   const [hasChanges, setHasChanges] = useState(false);
@@ -130,42 +132,42 @@ export const ModuleSettings = () => {
   const modules = [
     {
       id: 'hr',
-      name: 'HR Module',
+      name: t('moduleSettings.modules.hr'),
       icon: Users,
       color: '#547792',
       enabled: settings.hr.enabled,
     },
     {
       id: 'accounting',
-      name: 'Accounting Module',
+      name: t('moduleSettings.modules.accounting'),
       icon: Calculator,
       color: '#10b981',
       enabled: settings.accounting.enabled,
     },
     {
       id: 'crm',
-      name: 'CRM Module',
+      name: t('moduleSettings.modules.crm'),
       icon: UserCircle,
       color: '#f59e0b',
       enabled: settings.crm.enabled,
     },
     {
       id: 'tasks',
-      name: 'Task Management',
+      name: t('moduleSettings.modules.tasks'),
       icon: CheckSquare,
       color: '#94B4C1',
       enabled: settings.tasks.enabled,
     },
     {
       id: 'accessControl',
-      name: 'Access Control',
+      name: t('moduleSettings.modules.accessControl'),
       icon: Shield,
       color: '#ef4444',
       enabled: settings.accessControl.enabled,
     },
     {
       id: 'notifications',
-      name: 'Notifications',
+      name: t('moduleSettings.modules.notifications'),
       icon: Bell,
       color: '#3b82f6',
       enabled: true,
@@ -175,8 +177,8 @@ export const ModuleSettings = () => {
   return (
     <div className="space-y-6 pb-20">
       <PageHeader
-        title={t('settings.moduleSettings', 'Module Settings')}
-        subtitle="Configure individual module settings and options"
+        title={t('moduleSettings.title')}
+        subtitle={t('moduleSettings.subtitle')}
       />
 
       <div className="space-y-4">
@@ -207,7 +209,7 @@ export const ModuleSettings = () => {
                     <div className="text-left">
                       <h3 className="font-semibold text-text-primary">{module.name}</h3>
                       <p className="text-sm text-text-secondary">
-                        {module.enabled ? 'Enabled' : 'Disabled'}
+                        {module.enabled ? t('moduleSettings.enabled') : t('moduleSettings.disabled')}
                       </p>
                     </div>
                   </div>
@@ -248,12 +250,14 @@ export const ModuleSettings = () => {
                     {module.id === 'hr' && (
                       <div className="space-y-6">
                         <TagInput
-                          label="Leave Types"
+                          label={t('moduleSettings.hr.leaveTypes')}
                           tags={settings.hr.leaveTypes}
                           onChange={(tags) => updateSettings('hr', 'leaveTypes', tags)}
+                          addPlaceholder={t('moduleSettings.addNew')}
+                          addLabel={t('moduleSettings.add')}
                         />
                         <div>
-                          <label className="block text-sm font-medium text-text-secondary mb-3">Working Days</label>
+                          <label className="block text-sm font-medium text-text-secondary mb-3">{t('moduleSettings.hr.workingDays')}</label>
                           <div className="flex flex-wrap gap-2">
                             {weekDays.map(day => (
                               <button
@@ -277,7 +281,7 @@ export const ModuleSettings = () => {
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                           <div>
-                            <label className="block text-sm font-medium text-text-secondary mb-2">Work Start Time</label>
+                            <label className="block text-sm font-medium text-text-secondary mb-2">{t('moduleSettings.hr.workStartTime')}</label>
                             <input
                               type="time"
                               value={settings.hr.workingHours.start}
@@ -286,7 +290,7 @@ export const ModuleSettings = () => {
                             />
                           </div>
                           <div>
-                            <label className="block text-sm font-medium text-text-secondary mb-2">Work End Time</label>
+                            <label className="block text-sm font-medium text-text-secondary mb-2">{t('moduleSettings.hr.workEndTime')}</label>
                             <input
                               type="time"
                               value={settings.hr.workingHours.end}
@@ -296,13 +300,13 @@ export const ModuleSettings = () => {
                           </div>
                         </div>
                         <Toggle
-                          label="Overtime Enabled"
-                          description="Allow employees to log overtime hours"
+                          label={t('moduleSettings.hr.overtimeEnabled')}
+                          description={t('moduleSettings.hr.overtimeEnabledDesc')}
                           enabled={settings.hr.overtimeEnabled}
                           onChange={(v) => updateSettings('hr', 'overtimeEnabled', v)}
                         />
                         <Input
-                          label="Probation Period (days)"
+                          label={t('moduleSettings.hr.probationPeriod')}
                           type="number"
                           value={settings.hr.probationPeriod.toString()}
                           onChange={(e) => updateSettings('hr', 'probationPeriod', parseInt(e.target.value) || 0)}
@@ -315,7 +319,7 @@ export const ModuleSettings = () => {
                       <div className="space-y-6">
                         <div className="grid grid-cols-2 gap-4">
                           <div>
-                            <label className="block text-sm font-medium text-text-secondary mb-2">Fiscal Year Start</label>
+                            <label className="block text-sm font-medium text-text-secondary mb-2">{t('moduleSettings.accounting.fiscalYearStart')}</label>
                             <select
                               value={settings.accounting.fiscalYearStart}
                               onChange={(e) => updateSettings('accounting', 'fiscalYearStart', e.target.value)}
@@ -327,7 +331,7 @@ export const ModuleSettings = () => {
                             </select>
                           </div>
                           <Input
-                            label="Tax Rate (%)"
+                            label={t('moduleSettings.accounting.taxRate')}
                             type="number"
                             value={settings.accounting.taxRate.toString()}
                             onChange={(e) => updateSettings('accounting', 'taxRate', parseFloat(e.target.value) || 0)}
@@ -335,26 +339,26 @@ export const ModuleSettings = () => {
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                           <Input
-                            label="Invoice Prefix"
+                            label={t('moduleSettings.accounting.invoicePrefix')}
                             value={settings.accounting.invoicePrefix}
                             onChange={(e) => updateSettings('accounting', 'invoicePrefix', e.target.value)}
                           />
                           <Input
-                            label="Invoice Start Number"
+                            label={t('moduleSettings.accounting.invoiceStartNumber')}
                             type="number"
                             value={settings.accounting.invoiceStartNumber.toString()}
                             onChange={(e) => updateSettings('accounting', 'invoiceStartNumber', parseInt(e.target.value) || 1)}
                           />
                         </div>
                         <Input
-                          label="Payment Terms (days)"
+                          label={t('moduleSettings.accounting.paymentTerms')}
                           type="number"
                           value={settings.accounting.paymentTerms.toString()}
                           onChange={(e) => updateSettings('accounting', 'paymentTerms', parseInt(e.target.value) || 0)}
                         />
                         <Toggle
-                          label="Auto Reminders"
-                          description="Send automatic payment reminders"
+                          label={t('moduleSettings.accounting.autoReminders')}
+                          description={t('moduleSettings.accounting.autoRemindersDesc')}
                           enabled={settings.accounting.autoReminders}
                           onChange={(v) => updateSettings('accounting', 'autoReminders', v)}
                         />
@@ -365,24 +369,28 @@ export const ModuleSettings = () => {
                     {module.id === 'crm' && (
                       <div className="space-y-6">
                         <TagInput
-                          label="Lead Sources"
+                          label={t('moduleSettings.crm.leadSources')}
                           tags={settings.crm.leadSources}
                           onChange={(tags) => updateSettings('crm', 'leadSources', tags)}
+                          addPlaceholder={t('moduleSettings.addNew')}
+                          addLabel={t('moduleSettings.add')}
                         />
                         <TagInput
-                          label="Deal Stages"
+                          label={t('moduleSettings.crm.dealStages')}
                           tags={settings.crm.dealStages}
                           onChange={(tags) => updateSettings('crm', 'dealStages', tags)}
+                          addPlaceholder={t('moduleSettings.addNew')}
+                          addLabel={t('moduleSettings.add')}
                         />
                         <Toggle
-                          label="Auto Assignment"
-                          description="Automatically assign leads to sales reps"
+                          label={t('moduleSettings.crm.autoAssignment')}
+                          description={t('moduleSettings.crm.autoAssignmentDesc')}
                           enabled={settings.crm.autoAssignment}
                           onChange={(v) => updateSettings('crm', 'autoAssignment', v)}
                         />
                         <Toggle
-                          label="Lead Scoring"
-                          description="Enable lead scoring based on engagement"
+                          label={t('moduleSettings.crm.leadScoring')}
+                          description={t('moduleSettings.crm.leadScoringDesc')}
                           enabled={settings.crm.leadScoring}
                           onChange={(v) => updateSettings('crm', 'leadScoring', v)}
                         />
@@ -393,31 +401,33 @@ export const ModuleSettings = () => {
                     {module.id === 'tasks' && (
                       <div className="space-y-6">
                         <TagInput
-                          label="Priority Levels"
+                          label={t('moduleSettings.tasks.priorityLevels')}
                           tags={settings.tasks.priorities}
                           onChange={(tags) => updateSettings('tasks', 'priorities', tags)}
+                          addPlaceholder={t('moduleSettings.addNew')}
+                          addLabel={t('moduleSettings.add')}
                         />
                         <div>
-                          <label className="block text-sm font-medium text-text-secondary mb-2">Default View</label>
+                          <label className="block text-sm font-medium text-text-secondary mb-2">{t('moduleSettings.tasks.defaultView')}</label>
                           <select
                             value={settings.tasks.defaultView}
                             onChange={(e) => updateSettings('tasks', 'defaultView', e.target.value)}
                             className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
                           >
-                            <option value="list">List View</option>
-                            <option value="kanban">Kanban Board</option>
-                            <option value="calendar">Calendar View</option>
+                            <option value="list">{t('moduleSettings.tasks.listView')}</option>
+                            <option value="kanban">{t('moduleSettings.tasks.kanbanBoard')}</option>
+                            <option value="calendar">{t('moduleSettings.tasks.calendarView')}</option>
                           </select>
                         </div>
                         <Toggle
-                          label="Allow Subtasks"
-                          description="Enable subtask creation for tasks"
+                          label={t('moduleSettings.tasks.allowSubtasks')}
+                          description={t('moduleSettings.tasks.allowSubtasksDesc')}
                           enabled={settings.tasks.allowSubtasks}
                           onChange={(v) => updateSettings('tasks', 'allowSubtasks', v)}
                         />
                         <Toggle
-                          label="Time Tracking"
-                          description="Enable time tracking for tasks"
+                          label={t('moduleSettings.tasks.timeTracking')}
+                          description={t('moduleSettings.tasks.timeTrackingDesc')}
                           enabled={settings.tasks.timeTracking}
                           onChange={(v) => updateSettings('tasks', 'timeTracking', v)}
                         />
@@ -428,19 +438,19 @@ export const ModuleSettings = () => {
                     {module.id === 'accessControl' && (
                       <div className="space-y-6">
                         <Input
-                          label="Default Access Level"
+                          label={t('moduleSettings.accessControl.defaultAccessLevel')}
                           value={settings.accessControl.defaultAccessLevel}
                           onChange={(e) => updateSettings('accessControl', 'defaultAccessLevel', e.target.value)}
                         />
                         <Input
-                          label="Visitor Badge Expiry (hours)"
+                          label={t('moduleSettings.accessControl.visitorBadgeExpiry')}
                           type="number"
                           value={settings.accessControl.visitorBadgeExpiry.toString()}
                           onChange={(e) => updateSettings('accessControl', 'visitorBadgeExpiry', parseInt(e.target.value) || 24)}
                         />
                         <div className="grid grid-cols-2 gap-4">
                           <div>
-                            <label className="block text-sm font-medium text-text-secondary mb-2">Auto Lock Time</label>
+                            <label className="block text-sm font-medium text-text-secondary mb-2">{t('moduleSettings.accessControl.autoLockTime')}</label>
                             <input
                               type="time"
                               value={settings.accessControl.autoLockTime}
@@ -449,7 +459,7 @@ export const ModuleSettings = () => {
                             />
                           </div>
                           <div>
-                            <label className="block text-sm font-medium text-text-secondary mb-2">Auto Unlock Time</label>
+                            <label className="block text-sm font-medium text-text-secondary mb-2">{t('moduleSettings.accessControl.autoUnlockTime')}</label>
                             <input
                               type="time"
                               value={settings.accessControl.autoUnlockTime}
@@ -465,34 +475,34 @@ export const ModuleSettings = () => {
                     {module.id === 'notifications' && (
                       <div className="space-y-6">
                         <Toggle
-                          label="Email Notifications"
-                          description="Receive notifications via email"
+                          label={t('moduleSettings.notificationsModule.emailNotifications')}
+                          description={t('moduleSettings.notificationsModule.emailNotificationsDesc')}
                           enabled={settings.notifications.emailNotifications}
                           onChange={(v) => updateSettings('notifications', 'emailNotifications', v)}
                         />
                         <Toggle
-                          label="Push Notifications"
-                          description="Receive browser push notifications"
+                          label={t('moduleSettings.notificationsModule.pushNotifications')}
+                          description={t('moduleSettings.notificationsModule.pushNotificationsDesc')}
                           enabled={settings.notifications.pushNotifications}
                           onChange={(v) => updateSettings('notifications', 'pushNotifications', v)}
                         />
                         <Toggle
-                          label="SMS Notifications"
-                          description="Receive notifications via SMS"
+                          label={t('moduleSettings.notificationsModule.smsNotifications')}
+                          description={t('moduleSettings.notificationsModule.smsNotificationsDesc')}
                           enabled={settings.notifications.smsNotifications}
                           onChange={(v) => updateSettings('notifications', 'smsNotifications', v)}
                         />
                         <div>
-                          <label className="block text-sm font-medium text-text-secondary mb-2">Digest Frequency</label>
+                          <label className="block text-sm font-medium text-text-secondary mb-2">{t('moduleSettings.notificationsModule.digestFrequency')}</label>
                           <select
                             value={settings.notifications.digestFrequency}
                             onChange={(e) => updateSettings('notifications', 'digestFrequency', e.target.value)}
                             className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-accent-primary"
                           >
-                            <option value="realtime">Real-time</option>
-                            <option value="hourly">Hourly</option>
-                            <option value="daily">Daily</option>
-                            <option value="weekly">Weekly</option>
+                            <option value="realtime">{t('moduleSettings.notificationsModule.realtime')}</option>
+                            <option value="hourly">{t('moduleSettings.notificationsModule.hourly')}</option>
+                            <option value="daily">{t('moduleSettings.notificationsModule.daily')}</option>
+                            <option value="weekly">{t('moduleSettings.notificationsModule.weekly')}</option>
                           </select>
                         </div>
                       </div>
@@ -516,14 +526,14 @@ export const ModuleSettings = () => {
             }}
             disabled={!hasChanges}
           >
-            Discard Changes
+            {t('moduleSettings.discardChanges')}
           </Button>
           <Button
             leftIcon={<Save size={16} />}
             onClick={handleSave}
             disabled={!hasChanges}
           >
-            Save All Settings
+            {t('moduleSettings.saveAllSettings')}
           </Button>
         </div>
       </div>

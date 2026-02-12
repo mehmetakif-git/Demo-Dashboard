@@ -27,12 +27,18 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const Backup = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('settings');
   const [settings, setSettings] = useState<BackupSettings>(initialBackupSettings);
   const [hasChanges, setHasChanges] = useState(false);
   const [isCreatingBackup, setIsCreatingBackup] = useState(false);
   const [restoreBackup, setRestoreBackup] = useState<BackupType | null>(null);
   const [confirmText, setConfirmText] = useState('');
+
+  const backupOptions = [
+    { key: 'includeFiles', label: t('backup.settings.includeFiles') },
+    { key: 'includeDatabase', label: t('backup.settings.includeDatabase') },
+    { key: 'encryptionEnabled', label: t('backup.settings.enableEncryption') },
+  ];
 
   const handleSettingChange = <K extends keyof BackupSettings>(
     key: K,
@@ -65,33 +71,33 @@ export const Backup = () => {
   return (
     <div className="space-y-6 pb-20">
       <PageHeader
-        title={t('settings.backupRestore', 'Backup & Restore')}
-        subtitle="Manage system backups and restore points"
+        title={t('backup.title')}
+        subtitle={t('backup.subtitle')}
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Backups"
+          title={t('backup.stats.totalBackups')}
           value={backups.length.toString()}
           icon={Database}
           iconColor="#547792"
         />
         <StatsCard
-          title="Latest Backup"
-          value="Today"
+          title={t('backup.stats.latestBackup')}
+          value={t('backup.stats.today')}
           icon={Clock}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Total Size"
+          title={t('backup.stats.totalSize')}
           value="14.7 GB"
           icon={HardDrive}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Encryption"
-          value={settings.encryptionEnabled ? 'Enabled' : 'Disabled'}
+          title={t('backup.stats.encryption')}
+          value={settings.encryptionEnabled ? t('backup.stats.enabled') : t('backup.stats.disabled')}
           icon={Shield}
           iconColor="#94B4C1"
         />
@@ -109,8 +115,8 @@ export const Backup = () => {
                 <Database size={20} className="text-accent-primary" />
               </div>
               <div>
-                <h3 className="font-semibold text-text-primary">Backup Settings</h3>
-                <p className="text-sm text-text-secondary">Configure automatic backups</p>
+                <h3 className="font-semibold text-text-primary">{t('backup.settings.title')}</h3>
+                <p className="text-sm text-text-secondary">{t('backup.settings.subtitle')}</p>
               </div>
             </div>
 
@@ -118,8 +124,8 @@ export const Backup = () => {
               {/* Auto Backup Toggle */}
               <div className="flex items-center justify-between py-3 border-b border-white/[0.08]">
                 <div>
-                  <p className="text-text-primary font-medium">Auto Backup</p>
-                  <p className="text-sm text-text-muted">Enable automatic backups</p>
+                  <p className="text-text-primary font-medium">{t('backup.settings.autoBackup')}</p>
+                  <p className="text-sm text-text-muted">{t('backup.settings.autoBackupDesc')}</p>
                 </div>
                 <button
                   onClick={() => handleSettingChange('autoBackupEnabled', !settings.autoBackupEnabled)}
@@ -137,10 +143,10 @@ export const Backup = () => {
 
               {/* Schedule */}
               <div>
-                <p className="text-sm font-medium text-text-secondary mb-3">Backup Schedule</p>
+                <p className="text-sm font-medium text-text-secondary mb-3">{t('backup.settings.schedule')}</p>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs text-text-muted mb-1">Daily at</label>
+                    <label className="block text-xs text-text-muted mb-1">{t('backup.settings.dailyAt')}</label>
                     <input
                       type="time"
                       value={settings.dailyBackupTime}
@@ -149,7 +155,7 @@ export const Backup = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs text-text-muted mb-1">Weekly on</label>
+                    <label className="block text-xs text-text-muted mb-1">{t('backup.settings.weeklyOn')}</label>
                     <select
                       value={settings.weeklyBackupDay}
                       onChange={(e) => handleSettingChange('weeklyBackupDay', e.target.value)}
@@ -165,22 +171,22 @@ export const Backup = () => {
 
               {/* Retention */}
               <div>
-                <p className="text-sm font-medium text-text-secondary mb-3">Retention Period (days)</p>
+                <p className="text-sm font-medium text-text-secondary mb-3">{t('backup.settings.retentionPeriod')}</p>
                 <div className="grid grid-cols-3 gap-4">
                   <Input
-                    label="Daily"
+                    label={t('backup.settings.daily')}
                     type="number"
                     value={settings.dailyRetention.toString()}
                     onChange={(e) => handleSettingChange('dailyRetention', parseInt(e.target.value) || 30)}
                   />
                   <Input
-                    label="Weekly"
+                    label={t('backup.settings.weekly')}
                     type="number"
                     value={settings.weeklyRetention.toString()}
                     onChange={(e) => handleSettingChange('weeklyRetention', parseInt(e.target.value) || 90)}
                   />
                   <Input
-                    label="Monthly"
+                    label={t('backup.settings.monthly')}
                     type="number"
                     value={settings.monthlyRetention.toString()}
                     onChange={(e) => handleSettingChange('monthlyRetention', parseInt(e.target.value) || 365)}
@@ -190,13 +196,9 @@ export const Backup = () => {
 
               {/* Backup Options */}
               <div>
-                <p className="text-sm font-medium text-text-secondary mb-3">Backup Options</p>
+                <p className="text-sm font-medium text-text-secondary mb-3">{t('backup.settings.backupOptions')}</p>
                 <div className="space-y-3">
-                  {[
-                    { key: 'includeFiles', label: 'Include Files' },
-                    { key: 'includeDatabase', label: 'Include Database' },
-                    { key: 'encryptionEnabled', label: 'Enable Encryption' },
-                  ].map(option => (
+                  {backupOptions.map(option => (
                     <div key={option.key} className="flex items-center justify-between">
                       <span className="text-text-primary">{option.label}</span>
                       <button
@@ -218,10 +220,10 @@ export const Backup = () => {
 
               {/* Notification Options */}
               <div>
-                <p className="text-sm font-medium text-text-secondary mb-3">Notifications</p>
+                <p className="text-sm font-medium text-text-secondary mb-3">{t('backup.settings.notifications')}</p>
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-text-primary">Notify on Complete</span>
+                    <span className="text-text-primary">{t('backup.settings.notifyOnComplete')}</span>
                     <button
                       onClick={() => handleSettingChange('notifyOnComplete', !settings.notifyOnComplete)}
                       className={`w-10 h-5 rounded-full transition-colors relative ${
@@ -236,7 +238,7 @@ export const Backup = () => {
                     </button>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-text-primary">Notify on Failure</span>
+                    <span className="text-text-primary">{t('backup.settings.notifyOnFailure')}</span>
                     <button
                       onClick={() => handleSettingChange('notifyOnFailure', !settings.notifyOnFailure)}
                       className={`w-10 h-5 rounded-full transition-colors relative ${
@@ -261,7 +263,7 @@ export const Backup = () => {
                   onClick={handleCreateBackup}
                   disabled={isCreatingBackup}
                 >
-                  {isCreatingBackup ? 'Creating...' : 'Create Backup Now'}
+                  {isCreatingBackup ? t('backup.settings.creating') : t('backup.settings.createBackupNow')}
                 </Button>
               </div>
             </div>
@@ -280,8 +282,8 @@ export const Backup = () => {
                 <HardDrive size={20} className="text-green-400" />
               </div>
               <div>
-                <h3 className="font-semibold text-text-primary">Backup History</h3>
-                <p className="text-sm text-text-secondary">Previous backup restore points</p>
+                <h3 className="font-semibold text-text-primary">{t('backup.history.title')}</h3>
+                <p className="text-sm text-text-secondary">{t('backup.history.subtitle')}</p>
               </div>
             </div>
 
@@ -375,20 +377,19 @@ export const Backup = () => {
                   <AlertTriangle size={24} className="text-red-400" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-text-primary">Confirm Restore</h3>
-                  <p className="text-sm text-text-secondary">This action cannot be undone</p>
+                  <h3 className="text-lg font-semibold text-text-primary">{t('backup.restoreModal.title')}</h3>
+                  <p className="text-sm text-text-secondary">{t('backup.restoreModal.subtitle')}</p>
                 </div>
               </div>
 
               <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-lg mb-4">
                 <p className="text-sm text-red-400">
-                  Warning: Restoring this backup will replace all current data with the backup data.
-                  All changes made after {formatDateTime(restoreBackup.createdAt)} will be lost.
+                  {t('backup.restoreModal.warning', { date: formatDateTime(restoreBackup.createdAt) })}
                 </p>
               </div>
 
               <div className="mb-4">
-                <p className="text-sm text-text-muted mb-2">Backup Details:</p>
+                <p className="text-sm text-text-muted mb-2">{t('backup.restoreModal.backupDetails')}</p>
                 <div className="p-3 bg-white/[0.03] backdrop-blur-xl rounded-lg">
                   <p className="font-medium text-text-primary">{restoreBackup.name}</p>
                   <p className="text-sm text-text-secondary">{restoreBackup.size} • {formatDateTime(restoreBackup.createdAt)}</p>
@@ -396,19 +397,19 @@ export const Backup = () => {
               </div>
 
               <div className="mb-4">
-                <p className="text-sm text-text-muted mb-2">Type RESTORE to confirm:</p>
+                <p className="text-sm text-text-muted mb-2">{t('backup.restoreModal.confirmPrompt')}</p>
                 <input
                   type="text"
                   value={confirmText}
                   onChange={(e) => setConfirmText(e.target.value)}
-                  placeholder="RESTORE"
+                  placeholder={t('backup.restoreModal.confirmPlaceholder')}
                   className="w-full px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-text-primary focus:outline-none focus:border-red-500"
                 />
               </div>
 
               <div className="flex justify-end gap-3">
                 <Button variant="outline" onClick={() => { setRestoreBackup(null); setConfirmText(''); }}>
-                  Cancel
+                  {t('backup.restoreModal.cancel')}
                 </Button>
                 <Button
                   variant="secondary"
@@ -416,7 +417,7 @@ export const Backup = () => {
                   disabled={confirmText !== 'RESTORE'}
                   onClick={handleRestore}
                 >
-                  Restore Backup
+                  {t('backup.restoreModal.restoreBackup')}
                 </Button>
               </div>
             </Card>
@@ -435,14 +436,14 @@ export const Backup = () => {
             }}
             disabled={!hasChanges}
           >
-            Discard Changes
+            {t('backup.discardChanges')}
           </Button>
           <Button
             leftIcon={<Save size={16} />}
             onClick={handleSaveSettings}
             disabled={!hasChanges}
           >
-            Save Settings
+            {t('backup.saveSettings')}
           </Button>
         </div>
       </div>

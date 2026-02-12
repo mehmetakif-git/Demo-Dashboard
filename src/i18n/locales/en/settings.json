@@ -1,0 +1,469 @@
+{
+  "companyProfile": {
+    "title": "Company Profile",
+    "subtitle": "Manage your company information and branding",
+    "unsavedChanges": "You have unsaved changes",
+    "basicInfo": {
+      "title": "Basic Information",
+      "subtitle": "Company identity and details",
+      "companyLogo": "Company Logo",
+      "uploadLogo": "Upload Logo",
+      "logoHint": "PNG, JPG up to 2MB. Recommended: 200x200px",
+      "companyName": "Company Name",
+      "companyNamePlaceholder": "Enter company name",
+      "legalName": "Legal Name",
+      "legalNamePlaceholder": "Enter legal name",
+      "industry": "Industry",
+      "foundedYear": "Founded Year",
+      "foundedYearPlaceholder": "e.g., 2015",
+      "employeeCount": "Employee Count"
+    },
+    "contact": {
+      "title": "Contact Information",
+      "subtitle": "How people can reach your company",
+      "website": "Website",
+      "websitePlaceholder": "https://www.example.com",
+      "email": "Email",
+      "emailPlaceholder": "contact@example.com",
+      "phone": "Phone",
+      "phonePlaceholder": "+1 (555) 123-4567",
+      "fax": "Fax (Optional)",
+      "faxPlaceholder": "+1 (555) 123-4568"
+    },
+    "address": {
+      "title": "Address",
+      "subtitle": "Company physical location",
+      "street": "Street Address",
+      "streetPlaceholder": "123 Main Street",
+      "suite": "Suite / Unit",
+      "suitePlaceholder": "Suite 100",
+      "city": "City",
+      "cityPlaceholder": "New York",
+      "state": "State / Province",
+      "statePlaceholder": "NY",
+      "zip": "ZIP / Postal Code",
+      "zipPlaceholder": "10001",
+      "country": "Country"
+    },
+    "legal": {
+      "title": "Legal & Tax",
+      "subtitle": "Legal identifiers and tax information",
+      "taxId": "Tax ID / EIN",
+      "taxIdPlaceholder": "12-3456789",
+      "registrationNumber": "Registration Number",
+      "registrationNumberPlaceholder": "NYC-2020-12345"
+    },
+    "regional": {
+      "title": "Regional Settings",
+      "subtitle": "Localization and formatting preferences",
+      "timezone": "Timezone",
+      "dateFormat": "Date Format",
+      "currency": "Currency",
+      "language": "Language"
+    },
+    "branding": {
+      "title": "Branding",
+      "subtitle": "Company colors and visual identity",
+      "primaryColor": "Primary Color",
+      "secondaryColor": "Secondary Color",
+      "favicon": "Favicon",
+      "uploadFavicon": "Upload Favicon"
+    },
+    "discardChanges": "Discard Changes",
+    "saving": "Saving...",
+    "saveChanges": "Save Changes"
+  },
+  "users": {
+    "title": "User Management",
+    "subtitle": "Manage user accounts and permissions",
+    "inviteUser": "Invite User",
+    "stats": {
+      "totalUsers": "Total Users",
+      "activeUsers": "Active Users",
+      "admins": "Admins",
+      "pendingInvites": "Pending Invites"
+    },
+    "searchPlaceholder": "Search by name or email...",
+    "allRoles": "All Roles",
+    "allDepartments": "All Departments",
+    "allStatus": "All Status",
+    "statusActive": "Active",
+    "statusInactive": "Inactive",
+    "statusPending": "Pending",
+    "table": {
+      "user": "User",
+      "role": "Role",
+      "department": "Department",
+      "status": "Status",
+      "lastLogin": "Last Login",
+      "twoFA": "2FA",
+      "actions": "Actions"
+    },
+    "noUsersFound": "No users found",
+    "editUser": {
+      "title": "Edit User",
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "department": "Department",
+      "twoFactorAuth": "Two-Factor Authentication",
+      "enabled": "Enabled",
+      "disabled": "Disabled",
+      "enable": "Enable",
+      "disable": "Disable",
+      "cancel": "Cancel",
+      "saveChanges": "Save Changes"
+    },
+    "inviteModal": {
+      "title": "Invite User",
+      "emailAddress": "Email Address",
+      "emailPlaceholder": "user@example.com",
+      "role": "Role",
+      "department": "Department",
+      "cancel": "Cancel",
+      "sendInvite": "Send Invite"
+    }
+  },
+  "roles": {
+    "title": "Roles & Permissions",
+    "subtitle": "Manage user roles and access permissions",
+    "createRole": "Create Role",
+    "stats": {
+      "totalRoles": "Total Roles",
+      "systemRoles": "System Roles",
+      "customRoles": "Custom Roles",
+      "totalUsers": "Total Users"
+    },
+    "allRoles": "All Roles",
+    "system": "SYSTEM",
+    "usersCount": "{{count}} users",
+    "roleNamePlaceholder": "Role Name",
+    "roleDescriptionPlaceholder": "Role Description",
+    "info": {
+      "users": "Users",
+      "created": "Created",
+      "updated": "Updated"
+    },
+    "permissions": "Permissions",
+    "usersWithRole": "Users with this role",
+    "cancel": "Cancel",
+    "createRoleButton": "Create Role",
+    "saveChanges": "Save Changes",
+    "selectRolePrompt": "Select a role to view and edit permissions"
+  },
+  "notifications": {
+    "title": "Notification Settings",
+    "subtitle": "Manage how and when you receive notifications",
+    "testSent": "Test Sent!",
+    "testNotification": "Test Notification",
+    "channels": {
+      "title": "Notification Channels",
+      "subtitle": "Configure where you receive notifications",
+      "email": "Email",
+      "emailPlaceholder": "email@example.com",
+      "pushNotifications": "Push Notifications",
+      "browser": "Browser",
+      "mobile": "Mobile",
+      "sms": "SMS",
+      "smsPlaceholder": "+1 (555) 123-4567",
+      "slack": "Slack",
+      "slackPlaceholder": "#channel-name"
+    },
+    "preferences": {
+      "title": "Notification Preferences",
+      "subtitle": "Choose which notifications you receive",
+      "notificationType": "Notification Type",
+      "taskAssigned": "Task Assigned",
+      "taskAssignedDesc": "When a task is assigned to you",
+      "taskCompleted": "Task Completed",
+      "taskCompletedDesc": "When a task you created is completed",
+      "taskOverdue": "Task Overdue",
+      "taskOverdueDesc": "When a task becomes overdue",
+      "newMessage": "New Message",
+      "newMessageDesc": "When you receive a new message",
+      "newAnnouncement": "New Announcement",
+      "newAnnouncementDesc": "When there's a company announcement",
+      "systemAlert": "System Alert",
+      "systemAlertDesc": "Important system notifications",
+      "loginAlert": "Login Alert",
+      "loginAlertDesc": "When someone logs into your account",
+      "reportReady": "Report Ready",
+      "reportReadyDesc": "When a requested report is ready",
+      "backupComplete": "Backup Complete",
+      "backupCompleteDesc": "When a system backup completes",
+      "integrationError": "Integration Error",
+      "integrationErrorDesc": "When an integration fails"
+    },
+    "quietHours": {
+      "title": "Quiet Hours",
+      "subtitle": "Pause notifications during certain hours",
+      "enable": "Enable Quiet Hours",
+      "startTime": "Start Time",
+      "endTime": "End Time"
+    },
+    "digest": {
+      "title": "Email Digest",
+      "subtitle": "Receive a summary of notifications",
+      "enable": "Enable Digest",
+      "frequency": "Frequency",
+      "daily": "Daily",
+      "weekly": "Weekly",
+      "deliveryTime": "Delivery Time"
+    },
+    "discardChanges": "Discard Changes",
+    "saveAllSettings": "Save All Settings"
+  },
+  "integrations": {
+    "title": "Integrations",
+    "subtitle": "Connect third-party services and apps",
+    "stats": {
+      "totalIntegrations": "Total Integrations",
+      "connected": "Connected",
+      "disconnected": "Disconnected",
+      "categories": "Categories"
+    },
+    "all": "All",
+    "configure": "Configure",
+    "connect": "Connect",
+    "connectedAt": "Connected {{date}} by {{user}}",
+    "modal": {
+      "connectedStatus": "Connected",
+      "since": "Since {{date}} by {{user}}",
+      "settings": "Settings",
+      "disconnect": "Disconnect",
+      "viewDocs": "View Docs",
+      "saveSettings": "Save Settings",
+      "connectTitle": "Connect {{name}}",
+      "connectDescription": "Click the button below to authorize and connect {{name}} to your account.",
+      "permissionsRequired": "Permissions Required",
+      "permReadProfile": "Read your profile information",
+      "permSendNotifications": "Send notifications on your behalf",
+      "permAccessData": "Access data related to integration",
+      "cancel": "Cancel",
+      "connectButton": "Connect {{name}}"
+    }
+  },
+  "apiKeys": {
+    "title": "API Keys",
+    "subtitle": "Manage API keys for integrations and external access",
+    "generateNewKey": "Generate New Key",
+    "securityWarning": {
+      "title": "Keep your API keys secure",
+      "description": "Do not share your API keys publicly or commit them to version control. Use environment variables instead."
+    },
+    "stats": {
+      "totalKeys": "Total Keys",
+      "activeKeys": "Active Keys",
+      "productionKeys": "Production Keys",
+      "totalRequests": "Total Requests"
+    },
+    "table": {
+      "name": "Name",
+      "key": "Key",
+      "type": "Type",
+      "permissions": "Permissions",
+      "lastUsed": "Last Used",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "createdBy": "Created by {{name}}",
+    "viewModal": {
+      "title": "API Key Details",
+      "name": "Name",
+      "apiKey": "API Key",
+      "type": "Type",
+      "status": "Status",
+      "created": "Created",
+      "expires": "Expires",
+      "usage": "Usage",
+      "usageCount": "{{count}} requests",
+      "securityWarning": "Keep this key secure. Anyone with access to this key can make API requests on your behalf.",
+      "revokeKey": "Revoke Key",
+      "close": "Close"
+    },
+    "createModal": {
+      "titleNew": "Your New API Key",
+      "titleGenerate": "Generate API Key",
+      "keyName": "Key Name",
+      "keyNamePlaceholder": "e.g., Production API Key",
+      "type": "Type",
+      "development": "Development",
+      "developmentDesc": "For testing",
+      "production": "Production",
+      "productionDesc": "For live apps",
+      "permissions": "Permissions",
+      "cancel": "Cancel",
+      "generateKey": "Generate Key",
+      "successTitle": "API Key Generated Successfully",
+      "successDescription": "Make sure to copy your API key now. You won't be able to see it again!",
+      "yourApiKey": "Your API Key",
+      "done": "Done"
+    }
+  },
+  "backup": {
+    "title": "Backup & Restore",
+    "subtitle": "Manage system backups and restore points",
+    "stats": {
+      "totalBackups": "Total Backups",
+      "latestBackup": "Latest Backup",
+      "today": "Today",
+      "totalSize": "Total Size",
+      "encryption": "Encryption",
+      "enabled": "Enabled",
+      "disabled": "Disabled"
+    },
+    "settings": {
+      "title": "Backup Settings",
+      "subtitle": "Configure automatic backups",
+      "autoBackup": "Auto Backup",
+      "autoBackupDesc": "Enable automatic backups",
+      "schedule": "Backup Schedule",
+      "dailyAt": "Daily at",
+      "weeklyOn": "Weekly on",
+      "retentionPeriod": "Retention Period (days)",
+      "daily": "Daily",
+      "weekly": "Weekly",
+      "monthly": "Monthly",
+      "backupOptions": "Backup Options",
+      "includeFiles": "Include Files",
+      "includeDatabase": "Include Database",
+      "enableEncryption": "Enable Encryption",
+      "notifications": "Notifications",
+      "notifyOnComplete": "Notify on Complete",
+      "notifyOnFailure": "Notify on Failure",
+      "creating": "Creating...",
+      "createBackupNow": "Create Backup Now"
+    },
+    "history": {
+      "title": "Backup History",
+      "subtitle": "Previous backup restore points"
+    },
+    "restoreModal": {
+      "title": "Confirm Restore",
+      "subtitle": "This action cannot be undone",
+      "warning": "Warning: Restoring this backup will replace all current data with the backup data. All changes made after {{date}} will be lost.",
+      "backupDetails": "Backup Details:",
+      "confirmPrompt": "Type RESTORE to confirm:",
+      "confirmPlaceholder": "RESTORE",
+      "cancel": "Cancel",
+      "restoreBackup": "Restore Backup"
+    },
+    "discardChanges": "Discard Changes",
+    "saveSettings": "Save Settings"
+  },
+  "moduleSettings": {
+    "title": "Module Settings",
+    "subtitle": "Configure individual module settings and options",
+    "enabled": "Enabled",
+    "disabled": "Disabled",
+    "modules": {
+      "hr": "HR Module",
+      "accounting": "Accounting Module",
+      "crm": "CRM Module",
+      "tasks": "Task Management",
+      "accessControl": "Access Control",
+      "notifications": "Notifications"
+    },
+    "hr": {
+      "leaveTypes": "Leave Types",
+      "workingDays": "Working Days",
+      "workStartTime": "Work Start Time",
+      "workEndTime": "Work End Time",
+      "overtimeEnabled": "Overtime Enabled",
+      "overtimeEnabledDesc": "Allow employees to log overtime hours",
+      "probationPeriod": "Probation Period (days)"
+    },
+    "accounting": {
+      "fiscalYearStart": "Fiscal Year Start",
+      "taxRate": "Tax Rate (%)",
+      "invoicePrefix": "Invoice Prefix",
+      "invoiceStartNumber": "Invoice Start Number",
+      "paymentTerms": "Payment Terms (days)",
+      "autoReminders": "Auto Reminders",
+      "autoRemindersDesc": "Send automatic payment reminders"
+    },
+    "crm": {
+      "leadSources": "Lead Sources",
+      "dealStages": "Deal Stages",
+      "autoAssignment": "Auto Assignment",
+      "autoAssignmentDesc": "Automatically assign leads to sales reps",
+      "leadScoring": "Lead Scoring",
+      "leadScoringDesc": "Enable lead scoring based on engagement"
+    },
+    "tasks": {
+      "priorityLevels": "Priority Levels",
+      "defaultView": "Default View",
+      "listView": "List View",
+      "kanbanBoard": "Kanban Board",
+      "calendarView": "Calendar View",
+      "allowSubtasks": "Allow Subtasks",
+      "allowSubtasksDesc": "Enable subtask creation for tasks",
+      "timeTracking": "Time Tracking",
+      "timeTrackingDesc": "Enable time tracking for tasks"
+    },
+    "accessControl": {
+      "defaultAccessLevel": "Default Access Level",
+      "visitorBadgeExpiry": "Visitor Badge Expiry (hours)",
+      "autoLockTime": "Auto Lock Time",
+      "autoUnlockTime": "Auto Unlock Time"
+    },
+    "notificationsModule": {
+      "emailNotifications": "Email Notifications",
+      "emailNotificationsDesc": "Receive notifications via email",
+      "pushNotifications": "Push Notifications",
+      "pushNotificationsDesc": "Receive browser push notifications",
+      "smsNotifications": "SMS Notifications",
+      "smsNotificationsDesc": "Receive notifications via SMS",
+      "digestFrequency": "Digest Frequency",
+      "realtime": "Real-time",
+      "hourly": "Hourly",
+      "daily": "Daily",
+      "weekly": "Weekly"
+    },
+    "addNew": "Add new...",
+    "add": "Add",
+    "discardChanges": "Discard Changes",
+    "saveAllSettings": "Save All Settings"
+  },
+  "systemLogs": {
+    "title": "System Logs",
+    "subtitle": "View and export system activity logs",
+    "stop": "Stop",
+    "autoRefresh": "Auto Refresh",
+    "export": "Export",
+    "stats": {
+      "totalLogs": "Total Logs",
+      "successful": "Successful",
+      "failed": "Failed",
+      "warnings": "Warnings"
+    },
+    "searchPlaceholder": "Search logs...",
+    "allUsers": "All Users",
+    "allActions": "All Actions",
+    "allModules": "All Modules",
+    "allStatus": "All Status",
+    "statusSuccess": "Success",
+    "statusFailed": "Failed",
+    "statusWarning": "Warning",
+    "table": {
+      "timestamp": "Timestamp",
+      "user": "User",
+      "action": "Action",
+      "module": "Module",
+      "details": "Details",
+      "status": "Status",
+      "ip": "IP"
+    },
+    "noLogsFound": "No logs found matching your filters",
+    "logDetails": {
+      "title": "Log Details",
+      "timestamp": "Timestamp",
+      "user": "User",
+      "action": "Action",
+      "module": "Module",
+      "details": "Details",
+      "status": "Status",
+      "ipAddress": "IP Address"
+    }
+  }
+}

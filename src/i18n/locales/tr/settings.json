@@ -1,0 +1,469 @@
+{
+  "companyProfile": {
+    "title": "Sirket Profili",
+    "subtitle": "Sirket bilgilerinizi ve markanizi yonetin",
+    "unsavedChanges": "Kaydedilmemis degisiklikleriniz var",
+    "basicInfo": {
+      "title": "Temel Bilgiler",
+      "subtitle": "Sirket kimligi ve detaylari",
+      "companyLogo": "Sirket Logosu",
+      "uploadLogo": "Logo Yukle",
+      "logoHint": "PNG, JPG 2MB'a kadar. Onerilen: 200x200px",
+      "companyName": "Sirket Adi",
+      "companyNamePlaceholder": "Sirket adini girin",
+      "legalName": "Yasal Unvan",
+      "legalNamePlaceholder": "Yasal unvani girin",
+      "industry": "Sektor",
+      "foundedYear": "Kurulus Yili",
+      "foundedYearPlaceholder": "orn., 2015",
+      "employeeCount": "Calisan Sayisi"
+    },
+    "contact": {
+      "title": "Iletisim Bilgileri",
+      "subtitle": "Sirketinize nasil ulasilabilecegi",
+      "website": "Web Sitesi",
+      "websitePlaceholder": "https://www.ornek.com",
+      "email": "E-posta",
+      "emailPlaceholder": "iletisim@ornek.com",
+      "phone": "Telefon",
+      "phonePlaceholder": "+90 (555) 123-4567",
+      "fax": "Faks (Istege Bagli)",
+      "faxPlaceholder": "+90 (555) 123-4568"
+    },
+    "address": {
+      "title": "Adres",
+      "subtitle": "Sirketin fiziksel konumu",
+      "street": "Sokak Adresi",
+      "streetPlaceholder": "Ornek Sokak No: 123",
+      "suite": "Kat / Daire",
+      "suitePlaceholder": "Kat 1",
+      "city": "Sehir",
+      "cityPlaceholder": "Istanbul",
+      "state": "Il / Bolge",
+      "statePlaceholder": "Istanbul",
+      "zip": "Posta Kodu",
+      "zipPlaceholder": "34000",
+      "country": "Ulke"
+    },
+    "legal": {
+      "title": "Hukuki ve Vergi",
+      "subtitle": "Yasal kimlik ve vergi bilgileri",
+      "taxId": "Vergi Kimlik No",
+      "taxIdPlaceholder": "1234567890",
+      "registrationNumber": "Sicil Numarasi",
+      "registrationNumberPlaceholder": "IST-2020-12345"
+    },
+    "regional": {
+      "title": "Bolgesel Ayarlar",
+      "subtitle": "Yerellestime ve bicimlendirme tercihleri",
+      "timezone": "Saat Dilimi",
+      "dateFormat": "Tarih Formati",
+      "currency": "Para Birimi",
+      "language": "Dil"
+    },
+    "branding": {
+      "title": "Marka",
+      "subtitle": "Sirket renkleri ve gorsel kimlik",
+      "primaryColor": "Ana Renk",
+      "secondaryColor": "Ikincil Renk",
+      "favicon": "Favicon",
+      "uploadFavicon": "Favicon Yukle"
+    },
+    "discardChanges": "Degisiklikleri Iptal Et",
+    "saving": "Kaydediliyor...",
+    "saveChanges": "Degisiklikleri Kaydet"
+  },
+  "users": {
+    "title": "Kullanici Yonetimi",
+    "subtitle": "Kullanici hesaplarini ve izinleri yonetin",
+    "inviteUser": "Kullanici Davet Et",
+    "stats": {
+      "totalUsers": "Toplam Kullanici",
+      "activeUsers": "Aktif Kullanicilar",
+      "admins": "Yoneticiler",
+      "pendingInvites": "Bekleyen Davetler"
+    },
+    "searchPlaceholder": "Ad veya e-posta ile ara...",
+    "allRoles": "Tum Roller",
+    "allDepartments": "Tum Departmanlar",
+    "allStatus": "Tum Durumlar",
+    "statusActive": "Aktif",
+    "statusInactive": "Pasif",
+    "statusPending": "Beklemede",
+    "table": {
+      "user": "Kullanici",
+      "role": "Rol",
+      "department": "Departman",
+      "status": "Durum",
+      "lastLogin": "Son Giris",
+      "twoFA": "2FA",
+      "actions": "Islemler"
+    },
+    "noUsersFound": "Kullanici bulunamadi",
+    "editUser": {
+      "title": "Kullaniciyi Duzenle",
+      "name": "Ad",
+      "email": "E-posta",
+      "role": "Rol",
+      "department": "Departman",
+      "twoFactorAuth": "Iki Faktorlu Kimlik Dogrulama",
+      "enabled": "Etkin",
+      "disabled": "Devre Disi",
+      "enable": "Etkinlestir",
+      "disable": "Devre Disi Birak",
+      "cancel": "Iptal",
+      "saveChanges": "Degisiklikleri Kaydet"
+    },
+    "inviteModal": {
+      "title": "Kullanici Davet Et",
+      "emailAddress": "E-posta Adresi",
+      "emailPlaceholder": "kullanici@ornek.com",
+      "role": "Rol",
+      "department": "Departman",
+      "cancel": "Iptal",
+      "sendInvite": "Davet Gonder"
+    }
+  },
+  "roles": {
+    "title": "Roller ve Izinler",
+    "subtitle": "Kullanici rollerini ve erisim izinlerini yonetin",
+    "createRole": "Rol Olustur",
+    "stats": {
+      "totalRoles": "Toplam Roller",
+      "systemRoles": "Sistem Rolleri",
+      "customRoles": "Ozel Roller",
+      "totalUsers": "Toplam Kullanici"
+    },
+    "allRoles": "Tum Roller",
+    "system": "SISTEM",
+    "usersCount": "{{count}} kullanici",
+    "roleNamePlaceholder": "Rol Adi",
+    "roleDescriptionPlaceholder": "Rol Aciklamasi",
+    "info": {
+      "users": "Kullanicilar",
+      "created": "Olusturulma",
+      "updated": "Guncellenme"
+    },
+    "permissions": "Izinler",
+    "usersWithRole": "Bu role sahip kullanicilar",
+    "cancel": "Iptal",
+    "createRoleButton": "Rol Olustur",
+    "saveChanges": "Degisiklikleri Kaydet",
+    "selectRolePrompt": "Izinleri goruntulemek ve duzenlemek icin bir rol secin"
+  },
+  "notifications": {
+    "title": "Bildirim Ayarlari",
+    "subtitle": "Bildirimleri nasil ve ne zaman alacaginizi yonetin",
+    "testSent": "Test Gonderildi!",
+    "testNotification": "Test Bildirimi",
+    "channels": {
+      "title": "Bildirim Kanallari",
+      "subtitle": "Bildirimleri nereden alacaginizi yapilandirin",
+      "email": "E-posta",
+      "emailPlaceholder": "eposta@ornek.com",
+      "pushNotifications": "Anlik Bildirimler",
+      "browser": "Tarayici",
+      "mobile": "Mobil",
+      "sms": "SMS",
+      "smsPlaceholder": "+90 (555) 123-4567",
+      "slack": "Slack",
+      "slackPlaceholder": "#kanal-adi"
+    },
+    "preferences": {
+      "title": "Bildirim Tercihleri",
+      "subtitle": "Hangi bildirimleri alacaginizi secin",
+      "notificationType": "Bildirim Turu",
+      "taskAssigned": "Gorev Atandi",
+      "taskAssignedDesc": "Size bir gorev atandiginda",
+      "taskCompleted": "Gorev Tamamlandi",
+      "taskCompletedDesc": "Olusturdugunuz bir gorev tamamlandiginda",
+      "taskOverdue": "Gorev Gecikti",
+      "taskOverdueDesc": "Bir gorev geciktiginde",
+      "newMessage": "Yeni Mesaj",
+      "newMessageDesc": "Yeni bir mesaj aldiginizda",
+      "newAnnouncement": "Yeni Duyuru",
+      "newAnnouncementDesc": "Sirket duyurusu yapildiginda",
+      "systemAlert": "Sistem Uyarisi",
+      "systemAlertDesc": "Onemli sistem bildirimleri",
+      "loginAlert": "Giris Uyarisi",
+      "loginAlertDesc": "Hesabiniza birisi giris yaptiginda",
+      "reportReady": "Rapor Hazir",
+      "reportReadyDesc": "Istenen rapor hazir oldugunda",
+      "backupComplete": "Yedekleme Tamamlandi",
+      "backupCompleteDesc": "Sistem yedeklemesi tamamlandiginda",
+      "integrationError": "Entegrasyon Hatasi",
+      "integrationErrorDesc": "Bir entegrasyon basarisiz oldugunda"
+    },
+    "quietHours": {
+      "title": "Sessiz Saatler",
+      "subtitle": "Belirli saatlerde bildirimleri duraklatir",
+      "enable": "Sessiz Saatleri Etkinlestir",
+      "startTime": "Baslangic Saati",
+      "endTime": "Bitis Saati"
+    },
+    "digest": {
+      "title": "E-posta Ozeti",
+      "subtitle": "Bildirimlerin bir ozetini alin",
+      "enable": "Ozeti Etkinlestir",
+      "frequency": "Siklik",
+      "daily": "Gunluk",
+      "weekly": "Haftalik",
+      "deliveryTime": "Gonderim Saati"
+    },
+    "discardChanges": "Degisiklikleri Iptal Et",
+    "saveAllSettings": "Tum Ayarlari Kaydet"
+  },
+  "integrations": {
+    "title": "Entegrasyonlar",
+    "subtitle": "Ucuncu parti hizmet ve uygulamalari baglayın",
+    "stats": {
+      "totalIntegrations": "Toplam Entegrasyonlar",
+      "connected": "Bagli",
+      "disconnected": "Bagli Degil",
+      "categories": "Kategoriler"
+    },
+    "all": "Tumu",
+    "configure": "Yapilandir",
+    "connect": "Bagla",
+    "connectedAt": "{{date}} tarihinde {{user}} tarafindan baglandi",
+    "modal": {
+      "connectedStatus": "Bagli",
+      "since": "{{date}} tarihinden beri, {{user}} tarafindan",
+      "settings": "Ayarlar",
+      "disconnect": "Baglantiyi Kes",
+      "viewDocs": "Dokumanlari Gor",
+      "saveSettings": "Ayarlari Kaydet",
+      "connectTitle": "{{name}} Bagla",
+      "connectDescription": "{{name}} uygulamasini hesabiniza yetkilendirmek ve baglamak icin asagidaki dugmeye tiklayin.",
+      "permissionsRequired": "Gerekli Izinler",
+      "permReadProfile": "Profil bilgilerinizi okuma",
+      "permSendNotifications": "Sizin adiniza bildirim gonderme",
+      "permAccessData": "Entegrasyonla ilgili verilere erisim",
+      "cancel": "Iptal",
+      "connectButton": "{{name}} Bagla"
+    }
+  },
+  "apiKeys": {
+    "title": "API Anahtarlari",
+    "subtitle": "Entegrasyonlar ve dis erisim icin API anahtarlarini yonetin",
+    "generateNewKey": "Yeni Anahtar Olustur",
+    "securityWarning": {
+      "title": "API anahtarlarinizi guvenli tutun",
+      "description": "API anahtarlarinizi herkese acik olarak paylasmayın veya surum kontrolune eklemeyin. Bunun yerine ortam degiskenlerini kullanin."
+    },
+    "stats": {
+      "totalKeys": "Toplam Anahtar",
+      "activeKeys": "Aktif Anahtarlar",
+      "productionKeys": "Uretim Anahtarlari",
+      "totalRequests": "Toplam Istek"
+    },
+    "table": {
+      "name": "Ad",
+      "key": "Anahtar",
+      "type": "Tur",
+      "permissions": "Izinler",
+      "lastUsed": "Son Kullanim",
+      "status": "Durum",
+      "actions": "Islemler"
+    },
+    "createdBy": "{{name}} tarafindan olusturuldu",
+    "viewModal": {
+      "title": "API Anahtar Detaylari",
+      "name": "Ad",
+      "apiKey": "API Anahtari",
+      "type": "Tur",
+      "status": "Durum",
+      "created": "Olusturulma",
+      "expires": "Bitis",
+      "usage": "Kullanim",
+      "usageCount": "{{count}} istek",
+      "securityWarning": "Bu anahtari guvenli tutun. Bu anahtara erisimi olan herkes sizin adiniza API istekleri yapabilir.",
+      "revokeKey": "Anahtari Iptal Et",
+      "close": "Kapat"
+    },
+    "createModal": {
+      "titleNew": "Yeni API Anahtariniz",
+      "titleGenerate": "API Anahtari Olustur",
+      "keyName": "Anahtar Adi",
+      "keyNamePlaceholder": "orn., Uretim API Anahtari",
+      "type": "Tur",
+      "development": "Gelistirme",
+      "developmentDesc": "Test icin",
+      "production": "Uretim",
+      "productionDesc": "Canli uygulamalar icin",
+      "permissions": "Izinler",
+      "cancel": "Iptal",
+      "generateKey": "Anahtar Olustur",
+      "successTitle": "API Anahtari Basariyla Olusturuldu",
+      "successDescription": "API anahtarinizi simdi kopyaladiginizdan emin olun. Tekrar goremezsiniz!",
+      "yourApiKey": "API Anahtariniz",
+      "done": "Tamam"
+    }
+  },
+  "backup": {
+    "title": "Yedekleme ve Geri Yukleme",
+    "subtitle": "Sistem yedeklerini ve geri yukleme noktalarini yonetin",
+    "stats": {
+      "totalBackups": "Toplam Yedek",
+      "latestBackup": "Son Yedek",
+      "today": "Bugun",
+      "totalSize": "Toplam Boyut",
+      "encryption": "Sifreleme",
+      "enabled": "Etkin",
+      "disabled": "Devre Disi"
+    },
+    "settings": {
+      "title": "Yedekleme Ayarlari",
+      "subtitle": "Otomatik yedeklemeleri yapilandirin",
+      "autoBackup": "Otomatik Yedekleme",
+      "autoBackupDesc": "Otomatik yedeklemeleri etkinlestir",
+      "schedule": "Yedekleme Zamanlama",
+      "dailyAt": "Her gun saat",
+      "weeklyOn": "Her hafta gun",
+      "retentionPeriod": "Saklama Suresi (gun)",
+      "daily": "Gunluk",
+      "weekly": "Haftalik",
+      "monthly": "Aylik",
+      "backupOptions": "Yedekleme Secenekleri",
+      "includeFiles": "Dosyalari Dahil Et",
+      "includeDatabase": "Veritabanini Dahil Et",
+      "enableEncryption": "Sifrelemeyi Etkinlestir",
+      "notifications": "Bildirimler",
+      "notifyOnComplete": "Tamamlandiginda Bildir",
+      "notifyOnFailure": "Basarisiz Oldugunda Bildir",
+      "creating": "Olusturuluyor...",
+      "createBackupNow": "Simdi Yedek Olustur"
+    },
+    "history": {
+      "title": "Yedekleme Gecmisi",
+      "subtitle": "Onceki yedekleme geri yukleme noktalari"
+    },
+    "restoreModal": {
+      "title": "Geri Yuklemeyi Onayla",
+      "subtitle": "Bu islem geri alinamaz",
+      "warning": "Uyari: Bu yedegi geri yuklemek, mevcut tum verileri yedek verileriyle degistirecektir. {{date}} tarihinden sonra yapilan tum degisiklikler kaybolacaktir.",
+      "backupDetails": "Yedek Detaylari:",
+      "confirmPrompt": "Onaylamak icin RESTORE yazin:",
+      "confirmPlaceholder": "RESTORE",
+      "cancel": "Iptal",
+      "restoreBackup": "Yedegi Geri Yukle"
+    },
+    "discardChanges": "Degisiklikleri Iptal Et",
+    "saveSettings": "Ayarlari Kaydet"
+  },
+  "moduleSettings": {
+    "title": "Modul Ayarlari",
+    "subtitle": "Bireysel modul ayarlarini ve seceneklerini yapilandirin",
+    "enabled": "Etkin",
+    "disabled": "Devre Disi",
+    "modules": {
+      "hr": "IK Modulu",
+      "accounting": "Muhasebe Modulu",
+      "crm": "CRM Modulu",
+      "tasks": "Gorev Yonetimi",
+      "accessControl": "Erisim Kontrolu",
+      "notifications": "Bildirimler"
+    },
+    "hr": {
+      "leaveTypes": "Izin Turleri",
+      "workingDays": "Calisma Gunleri",
+      "workStartTime": "Is Baslangic Saati",
+      "workEndTime": "Is Bitis Saati",
+      "overtimeEnabled": "Fazla Mesai Etkin",
+      "overtimeEnabledDesc": "Calisanlarin fazla mesai kaydetmesine izin ver",
+      "probationPeriod": "Deneme Suresi (gun)"
+    },
+    "accounting": {
+      "fiscalYearStart": "Mali Yil Baslangici",
+      "taxRate": "Vergi Orani (%)",
+      "invoicePrefix": "Fatura On Eki",
+      "invoiceStartNumber": "Fatura Baslangic Numarasi",
+      "paymentTerms": "Odeme Kosullari (gun)",
+      "autoReminders": "Otomatik Hatirlatmalar",
+      "autoRemindersDesc": "Otomatik odeme hatirlatmalari gonder"
+    },
+    "crm": {
+      "leadSources": "Potansiyel Musteri Kaynaklari",
+      "dealStages": "Anlasma Asamalari",
+      "autoAssignment": "Otomatik Atama",
+      "autoAssignmentDesc": "Potansiyel musterileri satis temsilcilerine otomatik ata",
+      "leadScoring": "Potansiyel Musteri Puanlama",
+      "leadScoringDesc": "Etkilesime dayali potansiyel musteri puanlamasini etkinlestir"
+    },
+    "tasks": {
+      "priorityLevels": "Oncelik Seviyeleri",
+      "defaultView": "Varsayilan Gorunum",
+      "listView": "Liste Gorunumu",
+      "kanbanBoard": "Kanban Panosu",
+      "calendarView": "Takvim Gorunumu",
+      "allowSubtasks": "Alt Gorevlere Izin Ver",
+      "allowSubtasksDesc": "Gorevler icin alt gorev olusturmayı etkinlestir",
+      "timeTracking": "Zaman Takibi",
+      "timeTrackingDesc": "Gorevler icin zaman takibini etkinlestir"
+    },
+    "accessControl": {
+      "defaultAccessLevel": "Varsayilan Erisim Seviyesi",
+      "visitorBadgeExpiry": "Ziyaretci Karti Suresi (saat)",
+      "autoLockTime": "Otomatik Kilitleme Saati",
+      "autoUnlockTime": "Otomatik Kilit Acma Saati"
+    },
+    "notificationsModule": {
+      "emailNotifications": "E-posta Bildirimleri",
+      "emailNotificationsDesc": "E-posta ile bildirim al",
+      "pushNotifications": "Anlik Bildirimler",
+      "pushNotificationsDesc": "Tarayici anlik bildirimlerini al",
+      "smsNotifications": "SMS Bildirimleri",
+      "smsNotificationsDesc": "SMS ile bildirim al",
+      "digestFrequency": "Ozet Sikligi",
+      "realtime": "Anlik",
+      "hourly": "Saatlik",
+      "daily": "Gunluk",
+      "weekly": "Haftalik"
+    },
+    "addNew": "Yeni ekle...",
+    "add": "Ekle",
+    "discardChanges": "Degisiklikleri Iptal Et",
+    "saveAllSettings": "Tum Ayarlari Kaydet"
+  },
+  "systemLogs": {
+    "title": "Sistem Gunlukleri",
+    "subtitle": "Sistem etkinlik gunluklerini goruntuleyin ve disa aktarin",
+    "stop": "Durdur",
+    "autoRefresh": "Otomatik Yenile",
+    "export": "Disa Aktar",
+    "stats": {
+      "totalLogs": "Toplam Gunluk",
+      "successful": "Basarili",
+      "failed": "Basarisiz",
+      "warnings": "Uyarilar"
+    },
+    "searchPlaceholder": "Gunluklerde ara...",
+    "allUsers": "Tum Kullanicilar",
+    "allActions": "Tum Islemler",
+    "allModules": "Tum Moduller",
+    "allStatus": "Tum Durumlar",
+    "statusSuccess": "Basarili",
+    "statusFailed": "Basarisiz",
+    "statusWarning": "Uyari",
+    "table": {
+      "timestamp": "Zaman Damgasi",
+      "user": "Kullanici",
+      "action": "Islem",
+      "module": "Modul",
+      "details": "Detaylar",
+      "status": "Durum",
+      "ip": "IP"
+    },
+    "noLogsFound": "Filtrelerinize uyan gunluk bulunamadi",
+    "logDetails": {
+      "title": "Gunluk Detaylari",
+      "timestamp": "Zaman Damgasi",
+      "user": "Kullanici",
+      "action": "Islem",
+      "module": "Modul",
+      "details": "Detaylar",
+      "status": "Durum",
+      "ipAddress": "IP Adresi"
+    }
+  }
+}
