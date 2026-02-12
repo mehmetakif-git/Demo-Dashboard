@@ -16,7 +16,7 @@ import { labTests, HEALTHCARE_COLOR, getPatientProfileImage } from '@/data/healt
 import { useTranslation } from 'react-i18next';
 
 export const Laboratory = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('healthcare');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [priorityFilter, setPriorityFilter] = useState<string>('all');
@@ -76,13 +76,13 @@ export const Laboratory = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('healthcare.laboratory', 'Laboratory')}
-        subtitle="Manage lab orders and test results"
+        title={t('laboratory.title')}
+        subtitle={t('laboratory.subtitle')}
         icon={TestTube}
         actions={
           <Button>
             <Plus size={18} />
-            New Lab Order
+            {t('laboratory.newLabOrder')}
           </Button>
         }
       />
@@ -90,10 +90,10 @@ export const Laboratory = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Tests', value: stats.total, icon: TestTube, color: HEALTHCARE_COLOR },
-          { label: 'Ordered', value: stats.ordered, icon: Clock, color: '#f59e0b' },
-          { label: 'Processing', value: stats.processing, icon: Beaker, color: '#6366f1' },
-          { label: 'Completed', value: stats.completed, icon: CheckCircle, color: '#10b981' },
+          { label: t('laboratory.totalTests'), value: stats.total, icon: TestTube, color: HEALTHCARE_COLOR },
+          { label: t('laboratory.ordered'), value: stats.ordered, icon: Clock, color: '#f59e0b' },
+          { label: t('laboratory.processing'), value: stats.processing, icon: Beaker, color: '#6366f1' },
+          { label: t('laboratory.completed'), value: stats.completed, icon: CheckCircle, color: '#10b981' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -128,7 +128,7 @@ export const Laboratory = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by patient or test type..."
+              placeholder={t('laboratory.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -142,7 +142,7 @@ export const Laboratory = () => {
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status === 'sample-collected' ? 'Collected' : status.charAt(0).toUpperCase() + status.slice(1)}
+                {status === 'sample-collected' ? t('laboratory.collected') : status.charAt(0).toUpperCase() + status.slice(1)}
               </Button>
             ))}
           </div>
@@ -221,7 +221,7 @@ export const Laboratory = () => {
                     <p className="text-sm text-text-primary">
                       {new Date(test.orderDate).toLocaleDateString()}
                     </p>
-                    <p className="text-xs text-text-muted">Order Date</p>
+                    <p className="text-xs text-text-muted">{t('laboratory.orderDate')}</p>
                   </div>
 
                   {/* Priority */}
@@ -247,10 +247,10 @@ export const Laboratory = () => {
                         </Button>
                       }
                       items={[
-                        { id: 'view', label: 'View Details', onClick: () => {} },
-                        { id: 'collect', label: 'Collect Sample', onClick: () => {} },
-                        { id: 'results', label: 'Enter Results', onClick: () => {} },
-                        { id: 'print', label: 'Print Report', onClick: () => {} },
+                        { id: 'view', label: t('laboratory.viewDetails'), onClick: () => {} },
+                        { id: 'collect', label: t('laboratory.collectSample'), onClick: () => {} },
+                        { id: 'results', label: t('laboratory.enterResults'), onClick: () => {} },
+                        { id: 'print', label: t('laboratory.printReport'), onClick: () => {} },
                       ]}
                     />
                   </div>
@@ -261,12 +261,12 @@ export const Laboratory = () => {
                   <div className="mt-4 pt-4 border-t border-border-default">
                     <div className="flex items-start gap-4">
                       <div className="flex-1">
-                        <p className="text-sm font-medium text-text-primary mb-1">Results:</p>
+                        <p className="text-sm font-medium text-text-primary mb-1">{t('laboratory.results')}</p>
                         <p className="text-sm text-text-secondary">{test.results}</p>
                       </div>
                       {test.normalRange && (
                         <div className="text-right">
-                          <p className="text-xs text-text-muted">Normal Range:</p>
+                          <p className="text-xs text-text-muted">{t('laboratory.normalRange')}</p>
                           <p className="text-sm text-text-secondary">{test.normalRange}</p>
                         </div>
                       )}
@@ -282,7 +282,7 @@ export const Laboratory = () => {
       {filteredTests.length === 0 && (
         <Card className="p-12 text-center">
           <TestTube size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No lab tests found</p>
+          <p className="text-text-secondary">{t('laboratory.noLabTests')}</p>
         </Card>
       )}
     </div>

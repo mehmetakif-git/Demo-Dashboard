@@ -17,7 +17,7 @@ import { billings, HEALTHCARE_COLOR, getPatientProfileImage } from '@/data/healt
 import { useTranslation } from 'react-i18next';
 
 export const HealthcareBilling = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('healthcare');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
@@ -57,13 +57,13 @@ export const HealthcareBilling = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('healthcare.billing', 'Billing')}
-        subtitle="Manage patient invoices and payments"
+        title={t('billing.title')}
+        subtitle={t('billing.subtitle')}
         icon={CreditCard}
         actions={
           <Button>
             <Plus size={18} />
-            New Invoice
+            {t('billing.newInvoice')}
           </Button>
         }
       />
@@ -71,10 +71,10 @@ export const HealthcareBilling = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Revenue', value: `${stats.totalRevenue} QAR`, icon: DollarSign, color: HEALTHCARE_COLOR },
-          { label: 'Collected', value: `${stats.totalPaid} QAR`, icon: CheckCircle, color: '#10b981' },
-          { label: 'Pending', value: `${stats.totalPending} QAR`, icon: Clock, color: '#f59e0b' },
-          { label: 'Invoices', value: stats.invoiceCount, icon: CreditCard, color: '#6366f1' },
+          { label: t('billing.totalRevenue'), value: `${stats.totalRevenue} QAR`, icon: DollarSign, color: HEALTHCARE_COLOR },
+          { label: t('billing.collected'), value: `${stats.totalPaid} QAR`, icon: CheckCircle, color: '#10b981' },
+          { label: t('billing.pending'), value: `${stats.totalPending} QAR`, icon: Clock, color: '#f59e0b' },
+          { label: t('billing.invoices'), value: stats.invoiceCount, icon: CreditCard, color: '#6366f1' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -109,7 +109,7 @@ export const HealthcareBilling = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by patient or invoice number..."
+              placeholder={t('billing.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -204,33 +204,33 @@ export const HealthcareBilling = () => {
                   {/* Amounts */}
                   <div className="lg:w-64 space-y-2">
                     <div className="flex justify-between text-sm">
-                      <span className="text-text-muted">Subtotal:</span>
+                      <span className="text-text-muted">{t('billing.subtotal')}</span>
                       <span className="text-text-primary">{billing.subtotal} QAR</span>
                     </div>
                     {billing.discount > 0 && (
                       <div className="flex justify-between text-sm">
-                        <span className="text-text-muted">Discount:</span>
+                        <span className="text-text-muted">{t('billing.discount')}</span>
                         <span className="text-success">-{billing.discount} QAR</span>
                       </div>
                     )}
                     <div className="flex justify-between text-sm font-medium border-t border-border-default pt-2">
-                      <span className="text-text-primary">Total:</span>
+                      <span className="text-text-primary">{t('billing.total')}</span>
                       <span style={{ color: HEALTHCARE_COLOR }}>{billing.total} QAR</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-text-muted">Paid:</span>
+                      <span className="text-text-muted">{t('billing.paidLabel')}</span>
                       <span className="text-success">{billing.paid} QAR</span>
                     </div>
                     {billing.balance > 0 && (
                       <div className="flex justify-between text-sm">
-                        <span className="text-text-muted">Balance:</span>
+                        <span className="text-text-muted">{t('billing.balance')}</span>
                         <span className="text-warning">{billing.balance} QAR</span>
                       </div>
                     )}
 
                     <div className="pt-2">
                       <p className="text-xs text-text-muted">
-                        Due: {new Date(billing.dueDate).toLocaleDateString()}
+                        {t('billing.due')}: {new Date(billing.dueDate).toLocaleDateString()}
                       </p>
                     </div>
                   </div>
@@ -243,10 +243,10 @@ export const HealthcareBilling = () => {
                       </Button>
                     }
                     items={[
-                      { id: 'view', label: 'View Details', onClick: () => {} },
-                      { id: 'payment', label: 'Record Payment', onClick: () => {} },
-                      { id: 'print', label: 'Print Invoice', onClick: () => {} },
-                      { id: 'email', label: 'Email Invoice', onClick: () => {} },
+                      { id: 'view', label: t('billing.viewDetails'), onClick: () => {} },
+                      { id: 'payment', label: t('billing.recordPayment'), onClick: () => {} },
+                      { id: 'print', label: t('billing.printInvoice'), onClick: () => {} },
+                      { id: 'email', label: t('billing.emailInvoice'), onClick: () => {} },
                     ]}
                   />
                 </div>
@@ -258,12 +258,12 @@ export const HealthcareBilling = () => {
                       <div className="flex items-center gap-2">
                         <AlertCircle size={16} className="text-text-muted" />
                         <span className="text-sm text-text-muted">
-                          Insurance Claim: {billing.insuranceClaim.claimNumber}
+                          {t('billing.insuranceClaim')}: {billing.insuranceClaim.claimNumber}
                         </span>
                       </div>
                       <div className="flex items-center gap-4">
                         <span className="text-sm text-text-secondary">
-                          Amount: {billing.insuranceClaim.amount} QAR
+                          {t('billing.amount')}: {billing.insuranceClaim.amount} QAR
                         </span>
                         <StatusBadge status={billing.insuranceClaim.status} />
                       </div>
@@ -279,7 +279,7 @@ export const HealthcareBilling = () => {
       {filteredBillings.length === 0 && (
         <Card className="p-12 text-center">
           <CreditCard size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No billing records found</p>
+          <p className="text-text-secondary">{t('billing.noBillings')}</p>
         </Card>
       )}
     </div>

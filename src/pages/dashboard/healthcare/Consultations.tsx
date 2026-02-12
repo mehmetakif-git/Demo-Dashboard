@@ -16,7 +16,7 @@ import { consultations, HEALTHCARE_COLOR, getPatientProfileImage } from '@/data/
 import { useTranslation } from 'react-i18next';
 
 export const Consultations = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('healthcare');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
@@ -41,13 +41,13 @@ export const Consultations = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('healthcare.consultations', 'Consultations')}
-        subtitle="View and manage medical consultations"
+        title={t('consultations.title')}
+        subtitle={t('consultations.subtitle')}
         icon={Stethoscope}
         actions={
           <Button>
             <Plus size={18} />
-            New Consultation
+            {t('consultations.newConsultation')}
           </Button>
         }
       />
@@ -55,9 +55,9 @@ export const Consultations = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
         {[
-          { label: 'Total Consultations', value: stats.total, icon: Stethoscope, color: HEALTHCARE_COLOR },
-          { label: 'In Progress', value: stats.inProgress, icon: Activity, color: '#f59e0b' },
-          { label: 'Completed', value: stats.completed, icon: FileText, color: '#10b981' },
+          { label: t('consultations.totalConsultations'), value: stats.total, icon: Stethoscope, color: HEALTHCARE_COLOR },
+          { label: t('consultations.inProgress'), value: stats.inProgress, icon: Activity, color: '#f59e0b' },
+          { label: t('consultations.completed'), value: stats.completed, icon: FileText, color: '#10b981' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -92,7 +92,7 @@ export const Consultations = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by patient, doctor, or diagnosis..."
+              placeholder={t('consultations.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -152,13 +152,13 @@ export const Consultations = () => {
 
                   {/* Chief Complaint */}
                   <div className="mb-3">
-                    <p className="text-sm font-medium text-text-primary">Chief Complaint:</p>
+                    <p className="text-sm font-medium text-text-primary">{t('consultations.chiefComplaint')}</p>
                     <p className="text-sm text-text-secondary">{consultation.chiefComplaint}</p>
                   </div>
 
                   {/* Symptoms */}
                   <div className="mb-3">
-                    <p className="text-sm font-medium text-text-primary mb-1">Symptoms:</p>
+                    <p className="text-sm font-medium text-text-primary mb-1">{t('consultations.symptoms')}</p>
                     <div className="flex flex-wrap gap-2">
                       {consultation.symptoms.map((symptom, i) => (
                         <span
@@ -173,37 +173,37 @@ export const Consultations = () => {
 
                   {/* Diagnosis */}
                   <div className="p-3 bg-background-secondary rounded-lg">
-                    <p className="text-sm font-medium text-text-primary">Diagnosis:</p>
+                    <p className="text-sm font-medium text-text-primary">{t('consultations.diagnosis')}</p>
                     <p className="text-sm" style={{ color: HEALTHCARE_COLOR }}>
                       {consultation.diagnosis}
                     </p>
-                    <p className="text-xs text-text-muted">ICD Code: {consultation.diagnosisCode}</p>
+                    <p className="text-xs text-text-muted">{t('consultations.icdCode')}: {consultation.diagnosisCode}</p>
                   </div>
                 </div>
 
                 {/* Vitals */}
                 <div className="lg:w-64">
-                  <p className="text-sm font-medium text-text-primary mb-3">Vitals</p>
+                  <p className="text-sm font-medium text-text-primary mb-3">{t('consultations.vitals')}</p>
                   <div className="grid grid-cols-2 gap-2">
                     <div className="p-2 bg-background-secondary rounded text-center">
                       <Heart size={16} className="mx-auto text-error mb-1" />
                       <p className="text-sm font-bold text-text-primary">{consultation.vitals.bloodPressure}</p>
-                      <p className="text-xs text-text-muted">BP</p>
+                      <p className="text-xs text-text-muted">{t('consultations.bp')}</p>
                     </div>
                     <div className="p-2 bg-background-secondary rounded text-center">
                       <Activity size={16} className="mx-auto text-success mb-1" />
                       <p className="text-sm font-bold text-text-primary">{consultation.vitals.heartRate}</p>
-                      <p className="text-xs text-text-muted">HR (bpm)</p>
+                      <p className="text-xs text-text-muted">{t('consultations.hrBpm')}</p>
                     </div>
                     <div className="p-2 bg-background-secondary rounded text-center">
                       <Thermometer size={16} className="mx-auto text-warning mb-1" />
                       <p className="text-sm font-bold text-text-primary">{consultation.vitals.temperature}°C</p>
-                      <p className="text-xs text-text-muted">Temp</p>
+                      <p className="text-xs text-text-muted">{t('consultations.temp')}</p>
                     </div>
                     <div className="p-2 bg-background-secondary rounded text-center">
                       <Activity size={16} style={{ color: HEALTHCARE_COLOR }} className="mx-auto mb-1" />
                       <p className="text-sm font-bold text-text-primary">{consultation.vitals.oxygenSaturation}%</p>
-                      <p className="text-xs text-text-muted">SpO2</p>
+                      <p className="text-xs text-text-muted">{t('consultations.spO2')}</p>
                     </div>
                   </div>
                 </div>
@@ -216,21 +216,21 @@ export const Consultations = () => {
                     </Button>
                   }
                   items={[
-                    { id: 'view', label: 'View Full Record', onClick: () => {} },
-                    { id: 'prescriptions', label: 'View Prescriptions', onClick: () => {} },
-                    { id: 'labs', label: 'View Lab Orders', onClick: () => {} },
-                    { id: 'print', label: 'Print Summary', onClick: () => {} },
+                    { id: 'view', label: t('consultations.viewFullRecord'), onClick: () => {} },
+                    { id: 'prescriptions', label: t('consultations.viewPrescriptions'), onClick: () => {} },
+                    { id: 'labs', label: t('consultations.viewLabOrders'), onClick: () => {} },
+                    { id: 'print', label: t('consultations.printSummary'), onClick: () => {} },
                   ]}
                 />
               </div>
 
               {/* Treatment */}
               <div className="mt-4 pt-4 border-t border-border-default">
-                <p className="text-sm font-medium text-text-primary">Treatment Plan:</p>
+                <p className="text-sm font-medium text-text-primary">{t('consultations.treatmentPlan')}</p>
                 <p className="text-sm text-text-secondary">{consultation.treatment}</p>
                 {consultation.followUp && (
                   <p className="text-xs text-text-muted mt-2">
-                    Follow-up: {new Date(consultation.followUp).toLocaleDateString()}
+                    {t('consultations.followUp')}: {new Date(consultation.followUp).toLocaleDateString()}
                   </p>
                 )}
               </div>
@@ -242,7 +242,7 @@ export const Consultations = () => {
       {filteredConsultations.length === 0 && (
         <Card className="p-12 text-center">
           <Stethoscope size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No consultations found</p>
+          <p className="text-text-secondary">{t('consultations.noConsultations')}</p>
         </Card>
       )}
     </div>

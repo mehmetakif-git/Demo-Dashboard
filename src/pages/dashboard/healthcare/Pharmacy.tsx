@@ -15,7 +15,7 @@ import { medications, HEALTHCARE_COLOR } from '@/data/healthcare/healthcareData'
 import { useTranslation } from 'react-i18next';
 
 export const Pharmacy = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('healthcare');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
@@ -61,13 +61,13 @@ export const Pharmacy = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('healthcare.pharmacy', 'Pharmacy')}
-        subtitle="Manage medications and inventory"
+        title={t('pharmacy.title')}
+        subtitle={t('pharmacy.subtitle')}
         icon={Building2}
         actions={
           <Button>
             <Plus size={18} />
-            Add Medication
+            {t('pharmacy.addMedication')}
           </Button>
         }
       />
@@ -75,10 +75,10 @@ export const Pharmacy = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Items', value: stats.total, icon: Package, color: HEALTHCARE_COLOR },
-          { label: 'In Stock', value: stats.inStock, icon: CheckCircle, color: '#10b981' },
-          { label: 'Low Stock', value: stats.lowStock, icon: AlertTriangle, color: '#f59e0b' },
-          { label: 'Out of Stock', value: stats.outOfStock, icon: AlertTriangle, color: '#ef4444' },
+          { label: t('pharmacy.totalItems'), value: stats.total, icon: Package, color: HEALTHCARE_COLOR },
+          { label: t('pharmacy.inStock'), value: stats.inStock, icon: CheckCircle, color: '#10b981' },
+          { label: t('pharmacy.lowStock'), value: stats.lowStock, icon: AlertTriangle, color: '#f59e0b' },
+          { label: t('pharmacy.outOfStock'), value: stats.outOfStock, icon: AlertTriangle, color: '#ef4444' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -121,7 +121,7 @@ export const Pharmacy = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search medications..."
+              placeholder={t('pharmacy.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -147,7 +147,7 @@ export const Pharmacy = () => {
                 size="sm"
                 onClick={() => setCategoryFilter(category)}
               >
-                {category === 'all' ? 'All Categories' : category}
+                {category === 'all' ? t('pharmacy.allCategories') : category}
               </Button>
             ))}
           </div>
@@ -188,36 +188,36 @@ export const Pharmacy = () => {
                       </Button>
                     }
                     items={[
-                      { id: 'view', label: 'View Details', onClick: () => {} },
-                      { id: 'edit', label: 'Edit', onClick: () => {} },
-                      { id: 'reorder', label: 'Create Reorder', onClick: () => {} },
-                      { id: 'history', label: 'Stock History', onClick: () => {} },
+                      { id: 'view', label: t('pharmacy.viewDetails'), onClick: () => {} },
+                      { id: 'edit', label: t('pharmacy.edit'), onClick: () => {} },
+                      { id: 'reorder', label: t('pharmacy.createReorder'), onClick: () => {} },
+                      { id: 'history', label: t('pharmacy.stockHistory'), onClick: () => {} },
                     ]}
                   />
                 </div>
 
                 <div className="space-y-2 mb-3">
                   <div className="flex justify-between text-sm">
-                    <span className="text-text-muted">Strength:</span>
+                    <span className="text-text-muted">{t('pharmacy.strength')}</span>
                     <span className="text-text-primary">{medication.strength}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-text-muted">Form:</span>
+                    <span className="text-text-muted">{t('pharmacy.form')}</span>
                     <span className="text-text-primary capitalize">{medication.dosageForm}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-text-muted">Category:</span>
+                    <span className="text-text-muted">{t('pharmacy.category')}</span>
                     <span className="text-text-primary">{medication.category}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-text-muted">Manufacturer:</span>
+                    <span className="text-text-muted">{t('pharmacy.manufacturer')}</span>
                     <span className="text-text-primary">{medication.manufacturer}</span>
                   </div>
                 </div>
 
                 <div className="pt-3 border-t border-border-default">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm text-text-muted">Stock Level</span>
+                    <span className="text-sm text-text-muted">{t('pharmacy.stockLevel')}</span>
                     <span
                       className="px-2 py-0.5 rounded text-xs font-medium capitalize"
                       style={{
@@ -231,26 +231,26 @@ export const Pharmacy = () => {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-lg font-bold text-text-primary">{medication.stock}</p>
-                      <p className="text-xs text-text-muted">Units available</p>
+                      <p className="text-xs text-text-muted">{t('pharmacy.unitsAvailable')}</p>
                     </div>
                     <div className="text-right">
                       <p className="text-sm font-medium" style={{ color: HEALTHCARE_COLOR }}>
                         {medication.unitPrice} QAR
                       </p>
-                      <p className="text-xs text-text-muted">Per unit</p>
+                      <p className="text-xs text-text-muted">{t('pharmacy.perUnit')}</p>
                     </div>
                   </div>
                   {medication.stock <= medication.reorderLevel && (
                     <div className="mt-2 flex items-center gap-1 text-warning text-xs">
                       <AlertTriangle size={14} />
-                      Reorder level: {medication.reorderLevel}
+                      {t('pharmacy.reorderLevel')}: {medication.reorderLevel}
                     </div>
                   )}
                 </div>
 
                 <div className="mt-3 pt-3 border-t border-border-default flex justify-between text-xs text-text-muted">
-                  <span>Batch: {medication.batchNumber}</span>
-                  <span>Exp: {new Date(medication.expiryDate).toLocaleDateString()}</span>
+                  <span>{t('pharmacy.batch')}: {medication.batchNumber}</span>
+                  <span>{t('pharmacy.exp')}: {new Date(medication.expiryDate).toLocaleDateString()}</span>
                 </div>
               </Card>
             </motion.div>
@@ -261,7 +261,7 @@ export const Pharmacy = () => {
       {filteredMedications.length === 0 && (
         <Card className="p-12 text-center">
           <Building2 size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No medications found</p>
+          <p className="text-text-secondary">{t('pharmacy.noMedications')}</p>
         </Card>
       )}
     </div>

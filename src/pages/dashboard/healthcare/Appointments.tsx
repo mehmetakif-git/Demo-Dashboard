@@ -15,7 +15,7 @@ import { appointments, doctors, HEALTHCARE_COLOR, getPatientProfileImage } from 
 import { useTranslation } from 'react-i18next';
 
 export const Appointments = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('healthcare');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [dateFilter, setDateFilter] = useState<string>('today');
@@ -58,13 +58,13 @@ export const Appointments = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('healthcare.appointments', 'Appointments')}
-        subtitle="Manage patient appointments and schedules"
+        title={t('appointments.title')}
+        subtitle={t('appointments.subtitle')}
         icon={Calendar}
         actions={
           <Button>
             <Plus size={18} />
-            New Appointment
+            {t('appointments.newAppointment')}
           </Button>
         }
       />
@@ -72,10 +72,10 @@ export const Appointments = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Appointments', value: stats.total, icon: Calendar, color: HEALTHCARE_COLOR },
-          { label: 'Scheduled', value: stats.scheduled, icon: Clock, color: '#f59e0b' },
-          { label: 'In Progress', value: stats.inProgress, icon: Stethoscope, color: '#6366f1' },
-          { label: 'Completed', value: stats.completed, icon: CheckCircle, color: '#10b981' },
+          { label: t('appointments.totalAppointments'), value: stats.total, icon: Calendar, color: HEALTHCARE_COLOR },
+          { label: t('appointments.scheduled'), value: stats.scheduled, icon: Clock, color: '#f59e0b' },
+          { label: t('appointments.inProgress'), value: stats.inProgress, icon: Stethoscope, color: '#6366f1' },
+          { label: t('appointments.completed'), value: stats.completed, icon: CheckCircle, color: '#10b981' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -106,7 +106,7 @@ export const Appointments = () => {
 
       {/* Doctor Schedule */}
       <Card className="p-4">
-        <h3 className="font-semibold text-text-primary mb-3">Available Doctors</h3>
+        <h3 className="font-semibold text-text-primary mb-3">{t('appointments.availableDoctors')}</h3>
         <div className="flex flex-wrap gap-3">
           {doctors.filter(d => d.isActive).map((doctor) => {
             const doctorAppointments = appointments.filter(
@@ -126,7 +126,7 @@ export const Appointments = () => {
                 <div>
                   <p className="text-sm font-medium text-text-primary">{doctor.name}</p>
                   <p className="text-xs text-text-muted">
-                    {doctorAppointments} appointments today
+                    {doctorAppointments} {t('appointments.appointmentsToday')}
                   </p>
                 </div>
               </div>
@@ -141,7 +141,7 @@ export const Appointments = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by patient or doctor..."
+              placeholder={t('appointments.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -256,7 +256,7 @@ export const Appointments = () => {
                       {new Date(appointment.date).toLocaleDateString()}
                     </span>
                   </div>
-                  <p className="text-xs text-text-muted">Date</p>
+                  <p className="text-xs text-text-muted">{t('appointments.date')}</p>
                 </div>
 
                 {/* Status & Actions */}
@@ -269,10 +269,10 @@ export const Appointments = () => {
                       </Button>
                     }
                     items={[
-                      { id: 'view', label: 'View Details', onClick: () => {} },
-                      { id: 'start', label: 'Start Consultation', onClick: () => {} },
-                      { id: 'reschedule', label: 'Reschedule', onClick: () => {} },
-                      { id: 'cancel', label: 'Cancel', onClick: () => {} },
+                      { id: 'view', label: t('appointments.viewDetails'), onClick: () => {} },
+                      { id: 'start', label: t('appointments.startConsultation'), onClick: () => {} },
+                      { id: 'reschedule', label: t('appointments.reschedule'), onClick: () => {} },
+                      { id: 'cancel', label: t('appointments.cancel'), onClick: () => {} },
                     ]}
                   />
                 </div>
@@ -280,7 +280,7 @@ export const Appointments = () => {
 
               {appointment.notes && (
                 <div className="mt-3 pt-3 border-t border-border-default">
-                  <p className="text-xs text-text-muted">Note: {appointment.notes}</p>
+                  <p className="text-xs text-text-muted">{t('appointments.note')}: {appointment.notes}</p>
                 </div>
               )}
             </Card>
@@ -291,7 +291,7 @@ export const Appointments = () => {
       {filteredAppointments.length === 0 && (
         <Card className="p-12 text-center">
           <Calendar size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No appointments found</p>
+          <p className="text-text-secondary">{t('appointments.noAppointments')}</p>
         </Card>
       )}
     </div>

@@ -30,7 +30,7 @@ import { patients, appointments, consultations, labTests, beds, billings, HEALTH
 import { useTranslation } from 'react-i18next';
 
 export const HealthcareReports = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('healthcare');
   const [period, setPeriod] = useState<'today' | 'week' | 'month'>('week');
 
   const stats = useMemo(() => {
@@ -87,8 +87,8 @@ export const HealthcareReports = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('healthcare.reportsAnalytics', 'Reports & Analytics')}
-        subtitle="Healthcare performance insights"
+        title={t('reports.title')}
+        subtitle={t('reports.subtitle')}
         icon={BarChart3}
         actions={
           <div className="flex gap-2">
@@ -109,10 +109,10 @@ export const HealthcareReports = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Revenue', value: `${stats.totalRevenue} QAR`, icon: DollarSign, color: '#10b981', change: '+12.5%' },
-          { label: 'Active Patients', value: stats.totalPatients, icon: Users, color: HEALTHCARE_COLOR, change: '+8.2%' },
-          { label: 'Appointments', value: stats.totalAppointments, icon: Calendar, color: '#f59e0b', change: '+15.3%' },
-          { label: 'Bed Occupancy', value: `${stats.avgOccupancy}%`, icon: Bed, color: '#6366f1', change: '+5.1%' },
+          { label: t('reports.totalRevenue'), value: `${stats.totalRevenue} QAR`, icon: DollarSign, color: '#10b981', change: '+12.5%' },
+          { label: t('reports.activePatients'), value: stats.totalPatients, icon: Users, color: HEALTHCARE_COLOR, change: '+8.2%' },
+          { label: t('reports.appointments'), value: stats.totalAppointments, icon: Calendar, color: '#f59e0b', change: '+15.3%' },
+          { label: t('reports.bedOccupancy'), value: `${stats.avgOccupancy}%`, icon: Bed, color: '#6366f1', change: '+5.1%' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -148,7 +148,7 @@ export const HealthcareReports = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Appointments Chart */}
         <Card className="p-4 lg:col-span-2">
-          <h3 className="font-semibold text-text-primary mb-4">Weekly Appointments & Consultations</h3>
+          <h3 className="font-semibold text-text-primary mb-4">{t('reports.weeklyAppointmentsConsultations')}</h3>
           <div className="h-80">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={weeklyAppointments}>
@@ -194,7 +194,7 @@ export const HealthcareReports = () => {
 
         {/* Department Distribution */}
         <Card className="p-4">
-          <h3 className="font-semibold text-text-primary mb-4">Department Distribution</h3>
+          <h3 className="font-semibold text-text-primary mb-4">{t('reports.departmentDistribution')}</h3>
           <div className="h-80">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
@@ -228,7 +228,7 @@ export const HealthcareReports = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Appointment Types */}
         <Card className="p-4">
-          <h3 className="font-semibold text-text-primary mb-4">Appointment Types</h3>
+          <h3 className="font-semibold text-text-primary mb-4">{t('reports.appointmentTypes')}</h3>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={appointmentTypes}>
@@ -250,7 +250,7 @@ export const HealthcareReports = () => {
 
         {/* Lab Test Categories */}
         <Card className="p-4">
-          <h3 className="font-semibold text-text-primary mb-4">Lab Test Categories</h3>
+          <h3 className="font-semibold text-text-primary mb-4">{t('reports.labTestCategories')}</h3>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
@@ -282,10 +282,10 @@ export const HealthcareReports = () => {
       {/* Additional Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Consultations', value: consultations.length, icon: Stethoscope, color: HEALTHCARE_COLOR },
-          { label: 'Lab Tests', value: labTests.length, icon: TestTube, color: '#ef4444' },
-          { label: 'Avg Wait Time', value: '15 min', icon: Calendar, color: '#f59e0b' },
-          { label: 'Patient Satisfaction', value: '94%', icon: TrendingUp, color: '#10b981' },
+          { label: t('reports.consultations'), value: consultations.length, icon: Stethoscope, color: HEALTHCARE_COLOR },
+          { label: t('reports.labTests'), value: labTests.length, icon: TestTube, color: '#ef4444' },
+          { label: t('reports.avgWaitTime'), value: '15 min', icon: Calendar, color: '#f59e0b' },
+          { label: t('reports.patientSatisfaction'), value: '94%', icon: TrendingUp, color: '#10b981' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (

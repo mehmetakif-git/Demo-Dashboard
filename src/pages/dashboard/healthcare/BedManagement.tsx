@@ -16,7 +16,7 @@ import { beds, HEALTHCARE_COLOR, getPatientProfileImage } from '@/data/healthcar
 import { useTranslation } from 'react-i18next';
 
 export const BedManagement = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('healthcare');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [wardFilter, setWardFilter] = useState<string>('all');
@@ -95,19 +95,19 @@ export const BedManagement = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('healthcare.bedManagement', 'Bed Management')}
-        subtitle="Monitor and manage hospital beds"
+        title={t('bedManagement.title')}
+        subtitle={t('bedManagement.subtitle')}
         icon={Bed}
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         {[
-          { label: 'Total Beds', value: stats.total, icon: Bed, color: HEALTHCARE_COLOR },
-          { label: 'Available', value: stats.available, icon: CheckCircle, color: '#10b981' },
-          { label: 'Occupied', value: stats.occupied, icon: User, color: '#ef4444' },
-          { label: 'Reserved', value: stats.reserved, icon: Clock, color: '#f59e0b' },
-          { label: 'Occupancy Rate', value: `${stats.occupancyRate}%`, icon: Bed, color: '#6366f1' },
+          { label: t('bedManagement.totalBeds'), value: stats.total, icon: Bed, color: HEALTHCARE_COLOR },
+          { label: t('bedManagement.available'), value: stats.available, icon: CheckCircle, color: '#10b981' },
+          { label: t('bedManagement.occupied'), value: stats.occupied, icon: User, color: '#ef4444' },
+          { label: t('bedManagement.reserved'), value: stats.reserved, icon: Clock, color: '#f59e0b' },
+          { label: t('bedManagement.occupancyRate'), value: `${stats.occupancyRate}%`, icon: Bed, color: '#6366f1' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -138,7 +138,7 @@ export const BedManagement = () => {
 
       {/* Status Overview */}
       <Card className="p-4">
-        <h3 className="font-semibold text-text-primary mb-3">Status Overview</h3>
+        <h3 className="font-semibold text-text-primary mb-3">{t('bedManagement.statusOverview')}</h3>
         <div className="flex flex-wrap gap-4">
           {['available', 'occupied', 'reserved', 'maintenance'].map((status) => {
             const count = beds.filter(b => b.status === status).length;
@@ -175,7 +175,7 @@ export const BedManagement = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by bed, ward, or patient..."
+              placeholder={t('bedManagement.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -189,7 +189,7 @@ export const BedManagement = () => {
                 size="sm"
                 onClick={() => setWardFilter(ward)}
               >
-                {ward === 'all' ? 'All Wards' : ward.replace('Ward', '').replace('Unit', '')}
+                {ward === 'all' ? t('bedManagement.allWards') : ward.replace('Ward', '').replace('Unit', '')}
               </Button>
             ))}
           </div>
@@ -225,7 +225,7 @@ export const BedManagement = () => {
                     </div>
                     <div>
                       <p className="font-bold text-lg text-text-primary">{bed.bedNumber}</p>
-                      <p className="text-xs text-text-muted">Room {bed.roomNumber}</p>
+                      <p className="text-xs text-text-muted">{t('bedManagement.room')} {bed.roomNumber}</p>
                     </div>
                   </div>
                   <Dropdown
@@ -235,21 +235,21 @@ export const BedManagement = () => {
                       </Button>
                     }
                     items={[
-                      { id: 'assign', label: 'Assign Patient', onClick: () => {} },
-                      { id: 'discharge', label: 'Discharge', onClick: () => {} },
-                      { id: 'reserve', label: 'Reserve', onClick: () => {} },
-                      { id: 'maintenance', label: 'Mark Maintenance', onClick: () => {} },
+                      { id: 'assign', label: t('bedManagement.assignPatient'), onClick: () => {} },
+                      { id: 'discharge', label: t('bedManagement.discharge'), onClick: () => {} },
+                      { id: 'reserve', label: t('bedManagement.reserve'), onClick: () => {} },
+                      { id: 'maintenance', label: t('bedManagement.markMaintenance'), onClick: () => {} },
                     ]}
                   />
                 </div>
 
                 <div className="space-y-2 mb-3">
                   <div className="flex justify-between text-sm">
-                    <span className="text-text-muted">Ward:</span>
+                    <span className="text-text-muted">{t('bedManagement.ward')}</span>
                     <span className="text-text-primary">{bed.ward}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-text-muted">Type:</span>
+                    <span className="text-text-muted">{t('bedManagement.type')}</span>
                     <span
                       className="px-2 py-0.5 rounded text-xs capitalize"
                       style={{
@@ -261,7 +261,7 @@ export const BedManagement = () => {
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-text-muted">Daily Rate:</span>
+                    <span className="text-text-muted">{t('bedManagement.dailyRate')}</span>
                     <span className="font-medium" style={{ color: HEALTHCARE_COLOR }}>
                       {bed.dailyRate} QAR
                     </span>
@@ -299,14 +299,14 @@ export const BedManagement = () => {
                     {bed.admissionDate && (
                       <div className="flex items-center gap-2 text-xs text-text-muted">
                         <Calendar size={12} />
-                        <span>Admitted: {new Date(bed.admissionDate).toLocaleDateString()}</span>
+                        <span>{t('bedManagement.admitted')}: {new Date(bed.admissionDate).toLocaleDateString()}</span>
                       </div>
                     )}
                     {bed.expectedDischarge && (
                       <div className="flex items-center gap-2 text-xs text-warning mt-1">
                         <AlertTriangle size={12} />
                         <span>
-                          Expected Discharge: {new Date(bed.expectedDischarge).toLocaleDateString()}
+                          {t('bedManagement.expectedDischarge')}: {new Date(bed.expectedDischarge).toLocaleDateString()}
                         </span>
                       </div>
                     )}
@@ -322,7 +322,7 @@ export const BedManagement = () => {
       {filteredBeds.length === 0 && (
         <Card className="p-12 text-center">
           <Bed size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No beds found</p>
+          <p className="text-text-secondary">{t('bedManagement.noBeds')}</p>
         </Card>
       )}
     </div>

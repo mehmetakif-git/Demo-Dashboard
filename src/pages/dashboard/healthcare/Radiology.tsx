@@ -15,7 +15,7 @@ import { radiologyStudies, HEALTHCARE_COLOR, getPatientProfileImage } from '@/da
 import { useTranslation } from 'react-i18next';
 
 export const Radiology = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('healthcare');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [studyTypeFilter, setStudyTypeFilter] = useState<string>('all');
@@ -75,13 +75,13 @@ export const Radiology = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('healthcare.radiology', 'Radiology')}
-        subtitle="Manage imaging studies and reports"
+        title={t('radiology.title')}
+        subtitle={t('radiology.subtitle')}
         icon={Scan}
         actions={
           <Button>
             <Plus size={18} />
-            New Study Order
+            {t('radiology.newStudyOrder')}
           </Button>
         }
       />
@@ -89,10 +89,10 @@ export const Radiology = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Studies', value: stats.total, icon: Scan, color: HEALTHCARE_COLOR },
-          { label: 'Ordered/Scheduled', value: stats.ordered, icon: Clock, color: '#f59e0b' },
-          { label: 'In Progress', value: stats.inProgress, icon: Image, color: '#6366f1' },
-          { label: 'Completed', value: stats.completed, icon: CheckCircle, color: '#10b981' },
+          { label: t('radiology.totalStudies'), value: stats.total, icon: Scan, color: HEALTHCARE_COLOR },
+          { label: t('radiology.orderedScheduled'), value: stats.ordered, icon: Clock, color: '#f59e0b' },
+          { label: t('radiology.inProgress'), value: stats.inProgress, icon: Image, color: '#6366f1' },
+          { label: t('radiology.completed'), value: stats.completed, icon: CheckCircle, color: '#10b981' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -123,7 +123,7 @@ export const Radiology = () => {
 
       {/* Study Types */}
       <Card className="p-4">
-        <h3 className="font-semibold text-text-primary mb-3">Study Types</h3>
+        <h3 className="font-semibold text-text-primary mb-3">{t('radiology.studyTypes')}</h3>
         <div className="flex flex-wrap gap-3">
           {['x-ray', 'ct-scan', 'mri', 'ultrasound', 'mammography', 'pet-scan'].map((type) => {
             const count = radiologyStudies.filter(s => s.studyType === type).length;
@@ -153,7 +153,7 @@ export const Radiology = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by patient or body part..."
+              placeholder={t('radiology.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -212,7 +212,7 @@ export const Radiology = () => {
                         </span>
                       </div>
                       <p className="text-sm text-text-muted mt-1">
-                        Ordered by: {study.orderedBy}
+                        {t('radiology.orderedBy')}: {study.orderedBy}
                       </p>
                     </div>
                   </div>
@@ -236,7 +236,7 @@ export const Radiology = () => {
                     <p className="text-sm text-text-primary">
                       {new Date(study.orderDate).toLocaleDateString()}
                     </p>
-                    <p className="text-xs text-text-muted">Order Date</p>
+                    <p className="text-xs text-text-muted">{t('radiology.orderDate')}</p>
                   </div>
 
                   {study.studyDate && (
@@ -244,7 +244,7 @@ export const Radiology = () => {
                       <p className="text-sm text-text-primary">
                         {new Date(study.studyDate).toLocaleDateString()}
                       </p>
-                      <p className="text-xs text-text-muted">Study Date</p>
+                      <p className="text-xs text-text-muted">{t('radiology.studyDate')}</p>
                     </div>
                   )}
 
@@ -271,10 +271,10 @@ export const Radiology = () => {
                         </Button>
                       }
                       items={[
-                        { id: 'view', label: 'View Details', onClick: () => {} },
-                        { id: 'images', label: 'View Images', onClick: () => {} },
-                        { id: 'report', label: 'Enter Report', onClick: () => {} },
-                        { id: 'print', label: 'Print Report', onClick: () => {} },
+                        { id: 'view', label: t('radiology.viewDetails'), onClick: () => {} },
+                        { id: 'images', label: t('radiology.viewImages'), onClick: () => {} },
+                        { id: 'report', label: t('radiology.enterReport'), onClick: () => {} },
+                        { id: 'print', label: t('radiology.printReport'), onClick: () => {} },
                       ]}
                     />
                   </div>
@@ -285,12 +285,12 @@ export const Radiology = () => {
                   <div className="mt-4 pt-4 border-t border-border-default">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                       <div>
-                        <p className="text-sm font-medium text-text-primary mb-1">Findings:</p>
+                        <p className="text-sm font-medium text-text-primary mb-1">{t('radiology.findings')}</p>
                         <p className="text-sm text-text-secondary">{study.findings}</p>
                       </div>
                       {study.impression && (
                         <div>
-                          <p className="text-sm font-medium text-text-primary mb-1">Impression:</p>
+                          <p className="text-sm font-medium text-text-primary mb-1">{t('radiology.impression')}</p>
                           <p className="text-sm" style={{ color: HEALTHCARE_COLOR }}>
                             {study.impression}
                           </p>
@@ -299,7 +299,7 @@ export const Radiology = () => {
                     </div>
                     {study.radiologist && (
                       <p className="text-xs text-text-muted mt-2">
-                        Reported by: {study.radiologist}
+                        {t('radiology.reportedBy')}: {study.radiologist}
                       </p>
                     )}
                   </div>
@@ -313,7 +313,7 @@ export const Radiology = () => {
       {filteredStudies.length === 0 && (
         <Card className="p-12 text-center">
           <Scan size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No radiology studies found</p>
+          <p className="text-text-secondary">{t('radiology.noStudies')}</p>
         </Card>
       )}
     </div>

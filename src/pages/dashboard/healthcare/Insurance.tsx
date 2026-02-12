@@ -18,7 +18,7 @@ import { billings, HEALTHCARE_COLOR } from '@/data/healthcare/healthcareData';
 import { useTranslation } from 'react-i18next';
 
 export const Insurance = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('healthcare');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
@@ -85,13 +85,13 @@ export const Insurance = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('healthcare.insuranceClaims', 'Insurance Claims')}
-        subtitle="Manage insurance claims and reimbursements"
+        title={t('insurance.title')}
+        subtitle={t('insurance.subtitle')}
         icon={Shield}
         actions={
           <Button>
             <Plus size={18} />
-            New Claim
+            {t('insurance.newClaim')}
           </Button>
         }
       />
@@ -99,10 +99,10 @@ export const Insurance = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Claims', value: stats.totalClaims, icon: Shield, color: HEALTHCARE_COLOR },
-          { label: 'Total Claimed', value: `${stats.totalClaimed} QAR`, icon: DollarSign, color: '#6366f1' },
-          { label: 'Approved', value: `${stats.approvedAmount} QAR`, icon: CheckCircle, color: '#10b981' },
-          { label: 'Pending', value: stats.pending, icon: Clock, color: '#f59e0b' },
+          { label: t('insurance.totalClaims'), value: stats.totalClaims, icon: Shield, color: HEALTHCARE_COLOR },
+          { label: t('insurance.totalClaimed'), value: `${stats.totalClaimed} QAR`, icon: DollarSign, color: '#6366f1' },
+          { label: t('insurance.approved'), value: `${stats.approvedAmount} QAR`, icon: CheckCircle, color: '#10b981' },
+          { label: t('insurance.pending'), value: stats.pending, icon: Clock, color: '#f59e0b' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -173,7 +173,7 @@ export const Insurance = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by patient, claim, or invoice number..."
+              placeholder={t('insurance.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -254,17 +254,17 @@ export const Insurance = () => {
                         {new Date(claim.invoiceDate).toLocaleDateString()}
                       </span>
                     </div>
-                    <p className="text-xs text-text-muted">Invoice Date</p>
+                    <p className="text-xs text-text-muted">{t('insurance.invoiceDate')}</p>
                   </div>
 
                   {/* Amounts */}
                   <div className="text-center">
-                    <p className="text-sm text-text-muted">Invoice Total</p>
+                    <p className="text-sm text-text-muted">{t('insurance.invoiceTotal')}</p>
                     <p className="text-sm font-medium text-text-primary">{claim.invoiceTotal} QAR</p>
                   </div>
 
                   <div className="text-center">
-                    <p className="text-sm text-text-muted">Claim Amount</p>
+                    <p className="text-sm text-text-muted">{t('insurance.claimAmount')}</p>
                     <p className="text-lg font-bold" style={{ color: HEALTHCARE_COLOR }}>
                       {claim.amount} QAR
                     </p>
@@ -278,10 +278,10 @@ export const Insurance = () => {
                       </Button>
                     }
                     items={[
-                      { id: 'view', label: 'View Details', onClick: () => {} },
-                      { id: 'documents', label: 'View Documents', onClick: () => {} },
-                      { id: 'followup', label: 'Follow Up', onClick: () => {} },
-                      { id: 'appeal', label: 'File Appeal', onClick: () => {} },
+                      { id: 'view', label: t('insurance.viewDetails'), onClick: () => {} },
+                      { id: 'documents', label: t('insurance.viewDocuments'), onClick: () => {} },
+                      { id: 'followup', label: t('insurance.followUp'), onClick: () => {} },
+                      { id: 'appeal', label: t('insurance.fileAppeal'), onClick: () => {} },
                     ]}
                   />
                 </div>
@@ -294,7 +294,7 @@ export const Insurance = () => {
       {filteredClaims.length === 0 && (
         <Card className="p-12 text-center">
           <Shield size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No insurance claims found</p>
+          <p className="text-text-secondary">{t('insurance.noClaims')}</p>
         </Card>
       )}
     </div>

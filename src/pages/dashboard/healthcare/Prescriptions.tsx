@@ -16,7 +16,7 @@ import { prescriptions, HEALTHCARE_COLOR, getPatientProfileImage } from '@/data/
 import { useTranslation } from 'react-i18next';
 
 export const Prescriptions = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('healthcare');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
@@ -42,13 +42,13 @@ export const Prescriptions = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('healthcare.prescriptions', 'Prescriptions')}
-        subtitle="Manage patient prescriptions and medications"
+        title={t('prescriptions.title')}
+        subtitle={t('prescriptions.subtitle')}
         icon={Pill}
         actions={
           <Button>
             <Plus size={18} />
-            New Prescription
+            {t('prescriptions.newPrescription')}
           </Button>
         }
       />
@@ -56,10 +56,10 @@ export const Prescriptions = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Prescriptions', value: stats.total, icon: Pill, color: HEALTHCARE_COLOR },
-          { label: 'Active', value: stats.active, icon: Clock, color: '#f59e0b' },
-          { label: 'Completed', value: stats.completed, icon: CheckCircle, color: '#10b981' },
-          { label: 'Dispensed', value: stats.dispensed, icon: Pill, color: '#6366f1' },
+          { label: t('prescriptions.totalPrescriptions'), value: stats.total, icon: Pill, color: HEALTHCARE_COLOR },
+          { label: t('prescriptions.active'), value: stats.active, icon: Clock, color: '#f59e0b' },
+          { label: t('prescriptions.completed'), value: stats.completed, icon: CheckCircle, color: '#10b981' },
+          { label: t('prescriptions.dispensed'), value: stats.dispensed, icon: Pill, color: '#6366f1' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -94,7 +94,7 @@ export const Prescriptions = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by patient, doctor, or medication..."
+              placeholder={t('prescriptions.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -166,10 +166,10 @@ export const Prescriptions = () => {
                         </Button>
                       }
                       items={[
-                        { id: 'view', label: 'View Details', onClick: () => {} },
-                        { id: 'print', label: 'Print Prescription', onClick: () => {} },
-                        { id: 'refill', label: 'Request Refill', onClick: () => {} },
-                        { id: 'cancel', label: 'Cancel', onClick: () => {} },
+                        { id: 'view', label: t('prescriptions.viewDetails'), onClick: () => {} },
+                        { id: 'print', label: t('prescriptions.printPrescription'), onClick: () => {} },
+                        { id: 'refill', label: t('prescriptions.requestRefill'), onClick: () => {} },
+                        { id: 'cancel', label: t('prescriptions.cancel'), onClick: () => {} },
                       ]}
                     />
                   </div>
@@ -198,11 +198,11 @@ export const Prescriptions = () => {
                         </div>
                         <div className="grid grid-cols-2 gap-2 text-sm">
                           <div>
-                            <span className="text-text-muted">Frequency: </span>
+                            <span className="text-text-muted">{t('prescriptions.frequency')}</span>
                             <span className="text-text-secondary">{med.frequency}</span>
                           </div>
                           <div>
-                            <span className="text-text-muted">Instructions: </span>
+                            <span className="text-text-muted">{t('prescriptions.instructions')}</span>
                             <span className="text-text-secondary">{med.instructions}</span>
                           </div>
                         </div>
@@ -218,8 +218,8 @@ export const Prescriptions = () => {
                   <div className="flex items-center gap-2 text-sm">
                     <CheckCircle size={16} className="text-success" />
                     <span className="text-success">
-                      Dispensed on {new Date(prescription.dispensedDate).toLocaleDateString()}
-                      {prescription.dispensedBy && ` by ${prescription.dispensedBy}`}
+                      {t('prescriptions.dispensedOn')} {new Date(prescription.dispensedDate).toLocaleDateString()}
+                      {prescription.dispensedBy && ` ${t('prescriptions.by')} ${prescription.dispensedBy}`}
                     </span>
                   </div>
                 </div>
@@ -232,7 +232,7 @@ export const Prescriptions = () => {
       {filteredPrescriptions.length === 0 && (
         <Card className="p-12 text-center">
           <Pill size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No prescriptions found</p>
+          <p className="text-text-secondary">{t('prescriptions.noPrescriptions')}</p>
         </Card>
       )}
     </div>

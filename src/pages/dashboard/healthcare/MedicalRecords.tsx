@@ -17,7 +17,7 @@ import { patients, consultations, prescriptions, labTests, radiologyStudies, HEA
 import { useTranslation } from 'react-i18next';
 
 export const MedicalRecords = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('healthcare');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedPatient, setSelectedPatient] = useState<string | null>(null);
 
@@ -57,18 +57,18 @@ export const MedicalRecords = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('healthcare.medicalRecords', 'Medical Records')}
-        subtitle="Access and manage patient medical records"
+        title={t('medicalRecords.title')}
+        subtitle={t('medicalRecords.subtitle')}
         icon={FileText}
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Patients', value: stats.totalPatients, icon: User, color: HEALTHCARE_COLOR },
-          { label: 'Total Records', value: stats.totalRecords, icon: FileText, color: '#6366f1' },
-          { label: 'Consultations', value: stats.consultations, icon: Stethoscope, color: '#10b981' },
-          { label: 'Prescriptions', value: stats.prescriptions, icon: Pill, color: '#f59e0b' },
+          { label: t('medicalRecords.totalPatients'), value: stats.totalPatients, icon: User, color: HEALTHCARE_COLOR },
+          { label: t('medicalRecords.totalRecords'), value: stats.totalRecords, icon: FileText, color: '#6366f1' },
+          { label: t('medicalRecords.consultations'), value: stats.consultations, icon: Stethoscope, color: '#10b981' },
+          { label: t('medicalRecords.prescriptions'), value: stats.prescriptions, icon: Pill, color: '#f59e0b' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -104,7 +104,7 @@ export const MedicalRecords = () => {
             <div className="relative">
               <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
               <Input
-                placeholder="Search patients..."
+                placeholder={t('medicalRecords.searchPlaceholder')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10"
@@ -113,7 +113,7 @@ export const MedicalRecords = () => {
           </Card>
 
           <Card className="p-4 max-h-[600px] overflow-y-auto">
-            <h3 className="font-semibold text-text-primary mb-3">Patients</h3>
+            <h3 className="font-semibold text-text-primary mb-3">{t('medicalRecords.patients')}</h3>
             <div className="space-y-2">
               {filteredPatients.map((patient) => (
                 <div
@@ -166,7 +166,7 @@ export const MedicalRecords = () => {
                       <p className="text-sm text-text-muted">{patientRecords.patient?.patientId}</p>
                       <div className="flex items-center gap-4 mt-2 text-sm text-text-secondary">
                         <span className="capitalize">{patientRecords.patient?.gender}</span>
-                        <span>Blood: {patientRecords.patient?.bloodType}</span>
+                        <span>{t('medicalRecords.bloodLabel')}: {patientRecords.patient?.bloodType}</span>
                         <span>{patientRecords.patient?.phone}</span>
                       </div>
                     </div>
@@ -178,23 +178,23 @@ export const MedicalRecords = () => {
                       </Button>
                     }
                     items={[
-                      { id: 'export', label: 'Export Records', onClick: () => {} },
-                      { id: 'print', label: 'Print Summary', onClick: () => {} },
-                      { id: 'share', label: 'Share Records', onClick: () => {} },
+                      { id: 'export', label: t('medicalRecords.exportRecords'), onClick: () => {} },
+                      { id: 'print', label: t('medicalRecords.printSummary'), onClick: () => {} },
+                      { id: 'share', label: t('medicalRecords.shareRecords'), onClick: () => {} },
                     ]}
                   />
                 </div>
 
                 {(patientRecords.patient?.allergies?.length ?? 0) > 0 && (
                   <div className="mt-4 p-3 bg-error/10 rounded-lg">
-                    <p className="text-sm font-medium text-error">Allergies:</p>
+                    <p className="text-sm font-medium text-error">{t('medicalRecords.allergies')}</p>
                     <p className="text-sm text-error">{patientRecords.patient?.allergies.join(', ')}</p>
                   </div>
                 )}
 
                 {(patientRecords.patient?.chronicConditions?.length ?? 0) > 0 && (
                   <div className="mt-2 p-3 bg-warning/10 rounded-lg">
-                    <p className="text-sm font-medium text-warning">Chronic Conditions:</p>
+                    <p className="text-sm font-medium text-warning">{t('medicalRecords.chronicConditions')}</p>
                     <p className="text-sm text-warning">{patientRecords.patient?.chronicConditions.join(', ')}</p>
                   </div>
                 )}
@@ -203,10 +203,10 @@ export const MedicalRecords = () => {
               {/* Record Sections */}
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { label: 'Consultations', count: patientRecords.consultations.length, icon: Stethoscope, color: '#10b981' },
-                  { label: 'Prescriptions', count: patientRecords.prescriptions.length, icon: Pill, color: '#f59e0b' },
-                  { label: 'Lab Tests', count: patientRecords.labTests.length, icon: TestTube, color: '#6366f1' },
-                  { label: 'Radiology', count: patientRecords.radiology.length, icon: Scan, color: HEALTHCARE_COLOR },
+                  { label: t('medicalRecords.consultations'), count: patientRecords.consultations.length, icon: Stethoscope, color: '#10b981' },
+                  { label: t('medicalRecords.prescriptions'), count: patientRecords.prescriptions.length, icon: Pill, color: '#f59e0b' },
+                  { label: t('medicalRecords.labTests'), count: patientRecords.labTests.length, icon: TestTube, color: '#6366f1' },
+                  { label: t('medicalRecords.radiology'), count: patientRecords.radiology.length, icon: Scan, color: HEALTHCARE_COLOR },
                 ].map((section) => {
                   const Icon = section.icon;
                   return (
@@ -231,7 +231,7 @@ export const MedicalRecords = () => {
               {/* Recent Consultations */}
               {patientRecords.consultations.length > 0 && (
                 <Card className="p-4">
-                  <h3 className="font-semibold text-text-primary mb-3">Recent Consultations</h3>
+                  <h3 className="font-semibold text-text-primary mb-3">{t('medicalRecords.recentConsultations')}</h3>
                   <div className="space-y-3">
                     {patientRecords.consultations.map((consultation) => (
                       <div
@@ -258,7 +258,7 @@ export const MedicalRecords = () => {
               {/* Recent Lab Tests */}
               {patientRecords.labTests.length > 0 && (
                 <Card className="p-4">
-                  <h3 className="font-semibold text-text-primary mb-3">Lab Tests</h3>
+                  <h3 className="font-semibold text-text-primary mb-3">{t('medicalRecords.labTestsSection')}</h3>
                   <div className="space-y-2">
                     {patientRecords.labTests.map((test) => (
                       <div
@@ -286,7 +286,7 @@ export const MedicalRecords = () => {
           ) : (
             <Card className="p-12 text-center">
               <FolderOpen size={48} className="mx-auto text-text-muted mb-4" />
-              <p className="text-text-secondary">Select a patient to view their medical records</p>
+              <p className="text-text-secondary">{t('medicalRecords.selectPatient')}</p>
             </Card>
           )}
         </div>

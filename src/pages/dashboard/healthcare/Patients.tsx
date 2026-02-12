@@ -17,7 +17,7 @@ import { patients, HEALTHCARE_COLOR } from '@/data/healthcare/healthcareData';
 import { useTranslation } from 'react-i18next';
 
 export const Patients = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('healthcare');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [genderFilter, setGenderFilter] = useState<string>('all');
@@ -71,13 +71,13 @@ export const Patients = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('healthcare.patients', 'Patients')}
-        subtitle="Manage patient records and information"
+        title={t('patients.title')}
+        subtitle={t('patients.subtitle')}
         icon={Users}
         actions={
           <Button>
             <Plus size={18} />
-            Add Patient
+            {t('patients.addPatient')}
           </Button>
         }
       />
@@ -85,10 +85,10 @@ export const Patients = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Patients', value: stats.total, icon: Users, color: HEALTHCARE_COLOR },
-          { label: 'Active', value: stats.active, icon: Heart, color: '#10b981' },
-          { label: 'Male', value: stats.male, icon: User, color: '#3b82f6' },
-          { label: 'Female', value: stats.female, icon: User, color: '#ec4899' },
+          { label: t('patients.totalPatients'), value: stats.total, icon: Users, color: HEALTHCARE_COLOR },
+          { label: t('patients.active'), value: stats.active, icon: Heart, color: '#10b981' },
+          { label: t('patients.male'), value: stats.male, icon: User, color: '#3b82f6' },
+          { label: t('patients.female'), value: stats.female, icon: User, color: '#ec4899' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -123,7 +123,7 @@ export const Patients = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by name, ID, or phone..."
+              placeholder={t('patients.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -208,12 +208,12 @@ export const Patients = () => {
                 {/* Details */}
                 <div className="flex flex-wrap items-center gap-4">
                   <div className="text-center">
-                    <p className="text-sm font-medium text-text-primary">{calculateAge(patient.dateOfBirth)} yrs</p>
-                    <p className="text-xs text-text-muted">Age</p>
+                    <p className="text-sm font-medium text-text-primary">{calculateAge(patient.dateOfBirth)} {t('patients.yrs')}</p>
+                    <p className="text-xs text-text-muted">{t('patients.age')}</p>
                   </div>
                   <div className="text-center">
                     <p className="text-sm font-medium capitalize text-text-primary">{patient.gender}</p>
-                    <p className="text-xs text-text-muted">Gender</p>
+                    <p className="text-xs text-text-muted">{t('patients.gender')}</p>
                   </div>
                   <div className="text-center">
                     <span
@@ -225,7 +225,7 @@ export const Patients = () => {
                     >
                       {patient.bloodType}
                     </span>
-                    <p className="text-xs text-text-muted mt-1">Blood</p>
+                    <p className="text-xs text-text-muted mt-1">{t('patients.blood')}</p>
                   </div>
                   {patient.lastVisit && (
                     <div className="text-center">
@@ -235,7 +235,7 @@ export const Patients = () => {
                           {new Date(patient.lastVisit).toLocaleDateString()}
                         </span>
                       </div>
-                      <p className="text-xs text-text-muted">Last Visit</p>
+                      <p className="text-xs text-text-muted">{t('patients.lastVisit')}</p>
                     </div>
                   )}
                 </div>
@@ -250,10 +250,10 @@ export const Patients = () => {
                       </Button>
                     }
                     items={[
-                      { id: 'view', label: 'View Details', onClick: () => {} },
-                      { id: 'edit', label: 'Edit Patient', onClick: () => {} },
-                      { id: 'appointment', label: 'Book Appointment', onClick: () => {} },
-                      { id: 'history', label: 'Medical History', onClick: () => {} },
+                      { id: 'view', label: t('patients.viewDetails'), onClick: () => {} },
+                      { id: 'edit', label: t('patients.editPatient'), onClick: () => {} },
+                      { id: 'appointment', label: t('patients.bookAppointment'), onClick: () => {} },
+                      { id: 'history', label: t('patients.medicalHistory'), onClick: () => {} },
                     ]}
                   />
                 </div>
@@ -266,7 +266,7 @@ export const Patients = () => {
                     <div className="flex items-center gap-2">
                       <AlertCircle size={14} className="text-error" />
                       <span className="text-xs text-error">
-                        Allergies: {patient.allergies.join(', ')}
+                        {t('patients.allergies')}: {patient.allergies.join(', ')}
                       </span>
                     </div>
                   )}
@@ -274,7 +274,7 @@ export const Patients = () => {
                     <div className="flex items-center gap-2">
                       <Heart size={14} className="text-warning" />
                       <span className="text-xs text-warning">
-                        Conditions: {patient.chronicConditions.join(', ')}
+                        {t('patients.conditions')}: {patient.chronicConditions.join(', ')}
                       </span>
                     </div>
                   )}
@@ -288,7 +288,7 @@ export const Patients = () => {
       {filteredPatients.length === 0 && (
         <Card className="p-12 text-center">
           <Users size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No patients found</p>
+          <p className="text-text-secondary">{t('patients.noPatients')}</p>
         </Card>
       )}
     </div>
