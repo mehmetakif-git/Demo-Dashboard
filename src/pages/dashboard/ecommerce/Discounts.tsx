@@ -16,7 +16,7 @@ import { discounts } from '@/data/ecommerce/ecommerceData';
 import { useTranslation } from 'react-i18next';
 
 export const Discounts = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('ecommerce');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<'all' | 'active' | 'expired'>('all');
 
@@ -51,23 +51,32 @@ export const Discounts = () => {
 
   const getDiscountValue = (discount: typeof discounts[0]) => {
     switch (discount.type) {
-      case 'percentage': return `${discount.value}% off`;
-      case 'fixed': return `${discount.value} QAR off`;
-      case 'free_shipping': return 'Free Shipping';
+      case 'percentage': return t('discounts.percentOff', { value: discount.value });
+      case 'fixed': return t('discounts.fixedOff', { value: discount.value });
+      case 'free_shipping': return t('discounts.freeShipping');
       default: return discount.value;
+    }
+  };
+
+  const getStatusFilterLabel = (filter: string) => {
+    switch (filter) {
+      case 'all': return t('discounts.all');
+      case 'active': return t('discounts.active');
+      case 'expired': return t('discounts.expired');
+      default: return filter;
     }
   };
 
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('ecommerce.discountsCoupons', 'Discounts & Coupons')}
-        subtitle="Manage promotional codes and offers"
+        title={t('discounts.title')}
+        subtitle={t('discounts.subtitle')}
         icon={Percent}
         actions={
           <Button>
             <Plus size={18} />
-            Create Coupon
+            {t('discounts.createCoupon')}
           </Button>
         }
       />
@@ -81,7 +90,7 @@ export const Discounts = () => {
                 <Tag size={20} className="text-success" />
               </div>
               <div>
-                <p className="text-sm text-text-secondary">Active Coupons</p>
+                <p className="text-sm text-text-secondary">{t('discounts.activeCoupons')}</p>
                 <p className="text-2xl font-bold text-text-primary">{stats.activeCoupons}</p>
               </div>
             </div>
@@ -94,7 +103,7 @@ export const Discounts = () => {
                 <Percent size={20} className="text-accent-primary" />
               </div>
               <div>
-                <p className="text-sm text-text-secondary">Total Uses</p>
+                <p className="text-sm text-text-secondary">{t('discounts.totalUses')}</p>
                 <p className="text-2xl font-bold text-text-primary">{stats.totalUses}</p>
               </div>
             </div>
@@ -107,7 +116,7 @@ export const Discounts = () => {
                 <DollarSign size={20} className="text-warning" />
               </div>
               <div>
-                <p className="text-sm text-text-secondary">Total Saved</p>
+                <p className="text-sm text-text-secondary">{t('discounts.totalSaved')}</p>
                 <p className="text-2xl font-bold text-text-primary">{stats.totalSaved.toLocaleString()} QAR</p>
               </div>
             </div>
@@ -121,7 +130,7 @@ export const Discounts = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by code or description..."
+              placeholder={t('discounts.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -135,7 +144,7 @@ export const Discounts = () => {
                 size="sm"
                 onClick={() => setStatusFilter(filter)}
               >
-                {filter.charAt(0).toUpperCase() + filter.slice(1)}
+                {getStatusFilterLabel(filter)}
               </Button>
             ))}
           </div>
@@ -180,9 +189,9 @@ export const Discounts = () => {
                       </Button>
                     }
                     items={[
-                      { id: 'edit', label: 'Edit', onClick: () => {} },
-                      { id: 'duplicate', label: 'Duplicate', onClick: () => {} },
-                      { id: 'delete', label: 'Delete', onClick: () => {} },
+                      { id: 'edit', label: t('discounts.editDiscount'), onClick: () => {} },
+                      { id: 'duplicate', label: t('discounts.duplicateDiscount'), onClick: () => {} },
+                      { id: 'delete', label: t('discounts.deleteDiscount'), onClick: () => {} },
                     ]}
                   />
                 </div>
@@ -191,13 +200,13 @@ export const Discounts = () => {
 
                 <div className="space-y-3 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-text-muted">Min. Order</span>
+                    <span className="text-text-muted">{t('discounts.minOrder')}</span>
                     <span className="text-text-primary">{discount.minOrderValue} QAR</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-text-muted">Usage</span>
+                    <span className="text-text-muted">{t('discounts.usage')}</span>
                     <span className="text-text-primary">
-                      {discount.usedCount} {discount.maxUses ? `/ ${discount.maxUses}` : 'uses'}
+                      {discount.usedCount} {discount.maxUses ? `/ ${discount.maxUses}` : t('discounts.uses')}
                     </span>
                   </div>
                   {usagePercent !== null && (
@@ -220,7 +229,7 @@ export const Discounts = () => {
                   <StatusBadge status={discount.status} />
                   <Button variant="ghost" size="sm">
                     <Copy size={14} className="mr-2" />
-                    Copy Code
+                    {t('discounts.copyCode')}
                   </Button>
                 </div>
               </Card>
@@ -232,7 +241,7 @@ export const Discounts = () => {
       {filteredDiscounts.length === 0 && (
         <Card className="p-12 text-center">
           <Percent size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No discounts found</p>
+          <p className="text-text-secondary">{t('discounts.noDiscountsFound')}</p>
         </Card>
       )}
     </div>

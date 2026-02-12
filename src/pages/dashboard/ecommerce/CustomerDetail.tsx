@@ -21,7 +21,7 @@ import { ROUTES } from '@/utils/constants';
 import { useTranslation } from 'react-i18next';
 
 export const CustomerDetail = () => {
-  const { t: _t } = useTranslation('common');
+  const { t } = useTranslation('ecommerce');
   const { id } = useParams();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('orders');
@@ -31,9 +31,9 @@ export const CustomerDetail = () => {
     return (
       <div className="text-center py-12">
         <User size={48} className="mx-auto text-text-muted mb-4" />
-        <p className="text-text-secondary">Customer not found</p>
+        <p className="text-text-secondary">{t('customerDetail.customerNotFound')}</p>
         <Button className="mt-4" onClick={() => navigate(ROUTES.ecommerce.customers)}>
-          Back to Customers
+          {t('customerDetail.backToCustomers')}
         </Button>
       </div>
     );
@@ -44,16 +44,16 @@ export const CustomerDetail = () => {
   const customerOrders = orders.filter(o => o.customerId === customer.id);
 
   const tabs = [
-    { id: 'orders', label: `Orders (${customerOrders.length})` },
-    { id: 'addresses', label: 'Addresses' },
-    { id: 'activity', label: 'Activity' },
+    { id: 'orders', label: t('customerDetail.ordersTab', { count: customerOrders.length }) },
+    { id: 'addresses', label: t('customerDetail.addressesTab') },
+    { id: 'activity', label: t('customerDetail.activityTab') },
   ];
 
   const stats = [
-    { label: 'Total Orders', value: customer.totalOrders, icon: ShoppingBag },
-    { label: 'Total Spent', value: `${customer.totalSpent.toLocaleString()} QAR`, icon: DollarSign },
-    { label: 'Avg Order Value', value: `${customer.averageOrderValue.toLocaleString()} QAR`, icon: DollarSign },
-    { label: 'Member Since', value: new Date(customer.createdAt).toLocaleDateString(), icon: Calendar },
+    { label: t('customerDetail.totalOrders'), value: customer.totalOrders, icon: ShoppingBag },
+    { label: t('customerDetail.totalSpent'), value: `${customer.totalSpent.toLocaleString()} QAR`, icon: DollarSign },
+    { label: t('customerDetail.avgOrderValue'), value: `${customer.averageOrderValue.toLocaleString()} QAR`, icon: DollarSign },
+    { label: t('customerDetail.memberSince'), value: new Date(customer.createdAt).toLocaleDateString(), icon: Calendar },
   ];
 
   return (
@@ -67,21 +67,21 @@ export const CustomerDetail = () => {
             <span>{fullName}</span>
           </div>
         }
-        subtitle={`Customer ID: ${customer.id}`}
+        subtitle={t('customerDetail.customerId', { id: customer.id })}
         icon={User}
         actions={
           <div className="flex gap-3">
             <Button variant="secondary">
               <Mail size={18} />
-              Send Email
+              {t('customerDetail.sendEmail')}
             </Button>
             <Button variant="secondary">
               <Ban size={18} />
-              Block
+              {t('customerDetail.block')}
             </Button>
             <Button>
               <Edit size={18} />
-              Edit
+              {t('customerDetail.edit')}
             </Button>
           </div>
         }
@@ -146,7 +146,7 @@ export const CustomerDetail = () => {
           const Icon = stat.icon;
           return (
             <motion.div
-              key={stat.label}
+              key={index}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}
@@ -189,7 +189,7 @@ export const CustomerDetail = () => {
                         <div>
                           <p className="font-medium text-accent-primary">{order.orderNumber}</p>
                           <p className="text-sm text-text-muted">
-                            {new Date(order.createdAt).toLocaleDateString()} • {order.items.length} items
+                            {new Date(order.createdAt).toLocaleDateString()} • {order.items.length} {t('orders.items')}
                           </p>
                         </div>
                         <div className="text-right">
@@ -201,7 +201,7 @@ export const CustomerDetail = () => {
                   ) : (
                     <div className="text-center py-8 text-text-muted">
                       <ShoppingBag size={32} className="mx-auto mb-2" />
-                      <p>No orders yet</p>
+                      <p>{t('customerDetail.noOrdersYet')}</p>
                     </div>
                   )}
                 </div>
@@ -222,7 +222,7 @@ export const CustomerDetail = () => {
                           <MapPin size={16} className="text-accent-primary" />
                           <span className="font-medium text-text-primary capitalize">{address.type}</span>
                           {address.default && (
-                            <span className="px-2 py-0.5 rounded bg-success/20 text-success text-xs">Default</span>
+                            <span className="px-2 py-0.5 rounded bg-success/20 text-success text-xs">{t('customerDetail.default')}</span>
                           )}
                         </div>
                         <Button variant="ghost" size="sm">
@@ -245,7 +245,7 @@ export const CustomerDetail = () => {
               {activeTab === 'activity' && (
                 <div className="text-center py-8 text-text-muted">
                   <Calendar size={32} className="mx-auto mb-2" />
-                  <p>Activity timeline coming soon</p>
+                  <p>{t('customerDetail.activityComingSoon')}</p>
                 </div>
               )}
             </div>
@@ -256,41 +256,41 @@ export const CustomerDetail = () => {
         <div className="space-y-6">
           {/* Notes */}
           <Card className="p-6">
-            <h3 className="text-lg font-semibold text-text-primary mb-4">Notes</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-4">{t('customerDetail.notes')}</h3>
             {customer.notes ? (
               <p className="text-text-secondary">{customer.notes}</p>
             ) : (
-              <p className="text-text-muted">No notes added</p>
+              <p className="text-text-muted">{t('customerDetail.noNotesAdded')}</p>
             )}
             <Button variant="ghost" size="sm" className="mt-4">
               <Edit size={14} className="mr-2" />
-              Edit Notes
+              {t('customerDetail.editNotes')}
             </Button>
           </Card>
 
           {/* Marketing */}
           <Card className="p-6">
-            <h3 className="text-lg font-semibold text-text-primary mb-4">Marketing</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-4">{t('customerDetail.marketing')}</h3>
             <div className="flex items-center justify-between">
-              <span className="text-text-secondary">Email Marketing</span>
+              <span className="text-text-secondary">{t('customerDetail.emailMarketing')}</span>
               <span className={`px-2 py-1 rounded text-xs font-medium ${
                 customer.marketingConsent ? 'bg-success/20 text-success' : 'bg-error/20 text-error'
               }`}>
-                {customer.marketingConsent ? 'Subscribed' : 'Not Subscribed'}
+                {customer.marketingConsent ? t('customerDetail.subscribed') : t('customerDetail.notSubscribed')}
               </span>
             </div>
           </Card>
 
           {/* Activity Summary */}
           <Card className="p-6">
-            <h3 className="text-lg font-semibold text-text-primary mb-4">Activity</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-4">{t('customerDetail.activityTitle')}</h3>
             <div className="space-y-3 text-sm">
               <div className="flex justify-between">
-                <span className="text-text-secondary">Created</span>
+                <span className="text-text-secondary">{t('customerDetail.created')}</span>
                 <span className="text-text-primary">{new Date(customer.createdAt).toLocaleDateString()}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-text-secondary">Last Order</span>
+                <span className="text-text-secondary">{t('customerDetail.lastOrderDate')}</span>
                 <span className="text-text-primary">{new Date(customer.lastOrderAt).toLocaleDateString()}</span>
               </div>
             </div>

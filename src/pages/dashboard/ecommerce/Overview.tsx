@@ -47,12 +47,12 @@ const revenueData = [
 const CHART_COLORS = ['#f59e0b', '#6366f1', '#0ea5e9', '#8b5cf6', '#10b981', '#ef4444', '#64748b'];
 
 export const Overview = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('ecommerce');
   const navigate = useNavigate();
 
   const stats = [
     {
-      label: "Today's Revenue",
+      label: t('overview.todaysRevenue'),
       value: `${ecommerceStats.todayRevenue.toLocaleString()} QAR`,
       icon: DollarSign,
       change: ((ecommerceStats.todayRevenue - ecommerceStats.yesterdayRevenue) / ecommerceStats.yesterdayRevenue * 100).toFixed(1),
@@ -60,7 +60,7 @@ export const Overview = () => {
       color: '#10b981',
     },
     {
-      label: "Today's Orders",
+      label: t('overview.todaysOrders'),
       value: ecommerceStats.todayOrders.toString(),
       icon: ShoppingCart,
       change: '+12.5',
@@ -68,7 +68,7 @@ export const Overview = () => {
       color: '#6366f1',
     },
     {
-      label: 'Pending Orders',
+      label: t('overview.pendingOrders'),
       value: ecommerceStats.pendingOrders.toString(),
       icon: Clock,
       change: null,
@@ -76,7 +76,7 @@ export const Overview = () => {
       color: '#f59e0b',
     },
     {
-      label: 'Avg Order Value',
+      label: t('overview.avgOrderValue'),
       value: `${ecommerceStats.averageOrderValue.toLocaleString()} QAR`,
       icon: TrendingUp,
       change: '+5.2',
@@ -97,22 +97,22 @@ export const Overview = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('ecommerce.dashboard', 'E-Commerce Dashboard')}
-        subtitle="Overview of your online store performance"
+        title={t('overview.title')}
+        subtitle={t('overview.subtitle')}
         icon={ShoppingCart}
         actions={
           <div className="flex gap-3">
             <Button variant="secondary" onClick={() => navigate(ROUTES.ecommerce.orders)}>
               <Eye size={18} />
-              View Orders
+              {t('overview.viewOrders')}
             </Button>
             <Button variant="secondary" onClick={() => navigate(ROUTES.ecommerce.discounts)}>
               <Percent size={18} />
-              Discounts
+              {t('overview.discounts')}
             </Button>
             <Button onClick={() => navigate(ROUTES.ecommerce.products)}>
               <Plus size={18} />
-              New Product
+              {t('overview.newProduct')}
             </Button>
           </div>
         }
@@ -144,7 +144,7 @@ export const Overview = () => {
                         <span className={`text-sm ${stat.trend === 'up' ? 'text-success' : 'text-error'}`}>
                           {stat.change}%
                         </span>
-                        <span className="text-xs text-text-muted">vs yesterday</span>
+                        <span className="text-xs text-text-muted">{t('overview.vsYesterday')}</span>
                       </div>
                     )}
                   </div>
@@ -166,8 +166,8 @@ export const Overview = () => {
         {/* Revenue Chart */}
         <Card className="lg:col-span-2 p-6">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-semibold text-text-primary">Revenue Overview</h3>
-            <div className="text-sm text-text-secondary">Last 30 days</div>
+            <h3 className="text-lg font-semibold text-text-primary">{t('overview.revenueOverview')}</h3>
+            <div className="text-sm text-text-secondary">{t('overview.last30Days')}</div>
           </div>
           <div className="h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
@@ -187,7 +187,7 @@ export const Overview = () => {
                     border: '1px solid #3d5a6e',
                     borderRadius: '8px',
                   }}
-                  formatter={(value) => [`${(value as number).toLocaleString()} QAR`, 'Revenue']}
+                  formatter={(value) => [`${(value as number).toLocaleString()} QAR`, t('overview.revenue')]}
                 />
                 <Area
                   type="monotone"
@@ -203,7 +203,7 @@ export const Overview = () => {
 
         {/* Orders by Status */}
         <Card className="p-6">
-          <h3 className="text-lg font-semibold text-text-primary mb-6">Orders by Status</h3>
+          <h3 className="text-lg font-semibold text-text-primary mb-6">{t('overview.ordersByStatus')}</h3>
           <div className="h-[200px]">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
@@ -245,7 +245,7 @@ export const Overview = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Top Selling Products */}
         <Card className="p-6">
-          <h3 className="text-lg font-semibold text-text-primary mb-4">Top Selling Products</h3>
+          <h3 className="text-lg font-semibold text-text-primary mb-4">{t('overview.topSellingProducts')}</h3>
           <div className="space-y-4">
             {ecommerceStats.topSellingProducts.map((product, index) => (
               <div key={index} className="flex items-center justify-between">
@@ -255,7 +255,7 @@ export const Overview = () => {
                   </div>
                   <div>
                     <p className="text-sm font-medium text-text-primary truncate max-w-[180px]">{product.name}</p>
-                    <p className="text-xs text-text-muted">{product.sold} sold</p>
+                    <p className="text-xs text-text-muted">{t('overview.sold', { count: product.sold })}</p>
                   </div>
                 </div>
                 <p className="text-sm font-semibold text-success">{(product.revenue / 1000).toFixed(0)}k</p>
@@ -266,7 +266,7 @@ export const Overview = () => {
 
         {/* Revenue by Category */}
         <Card className="p-6">
-          <h3 className="text-lg font-semibold text-text-primary mb-4">Revenue by Category</h3>
+          <h3 className="text-lg font-semibold text-text-primary mb-4">{t('overview.revenueByCategory')}</h3>
           <div className="h-[200px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={ecommerceStats.revenueByCategory} layout="vertical">
@@ -279,7 +279,7 @@ export const Overview = () => {
                     border: '1px solid #3d5a6e',
                     borderRadius: '8px',
                   }}
-                  formatter={(value) => [`${(value as number).toLocaleString()} QAR`, 'Revenue']}
+                  formatter={(value) => [`${(value as number).toLocaleString()} QAR`, t('overview.revenue')]}
                 />
                 <Bar dataKey="revenue" fill="#10b981" radius={[0, 4, 4, 0]} />
               </BarChart>
@@ -290,7 +290,7 @@ export const Overview = () => {
         {/* Low Stock Alerts */}
         <Card className="p-6">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-text-primary">Low Stock Alerts</h3>
+            <h3 className="text-lg font-semibold text-text-primary">{t('overview.lowStockAlerts')}</h3>
             <AlertTriangle size={20} className="text-warning" />
           </div>
           {lowStockProducts.length > 0 ? (
@@ -303,9 +303,9 @@ export const Overview = () => {
                   </div>
                   <div className="text-right">
                     <p className={`text-sm font-semibold ${product.stock === 0 ? 'text-error' : 'text-warning'}`}>
-                      {product.stock} left
+                      {t('overview.left', { count: product.stock })}
                     </p>
-                    <p className="text-xs text-text-muted">Min: {product.lowStockThreshold}</p>
+                    <p className="text-xs text-text-muted">{t('overview.min', { count: product.lowStockThreshold })}</p>
                   </div>
                 </div>
               ))}
@@ -313,7 +313,7 @@ export const Overview = () => {
           ) : (
             <div className="text-center py-8 text-text-muted">
               <Package size={32} className="mx-auto mb-2 opacity-50" />
-              <p>All products well stocked</p>
+              <p>{t('overview.allProductsWellStocked')}</p>
             </div>
           )}
         </Card>
@@ -322,21 +322,21 @@ export const Overview = () => {
       {/* Recent Orders */}
       <Card className="p-6">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-text-primary">Recent Orders</h3>
+          <h3 className="text-lg font-semibold text-text-primary">{t('overview.recentOrders')}</h3>
           <Button variant="ghost" size="sm" onClick={() => navigate(ROUTES.ecommerce.orders)}>
-            View All
+            {t('overview.viewAll')}
           </Button>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className="border-b border-border-default">
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Order #</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Customer</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Items</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Total</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Status</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Date</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('overview.orderNumber')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('overview.customer')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('overview.items')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('overview.total')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('overview.status')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('overview.date')}</th>
               </tr>
             </thead>
             <tbody>
@@ -349,7 +349,7 @@ export const Overview = () => {
                   >
                     <td className="py-3 px-4 text-sm font-medium text-accent-primary">{order.orderNumber}</td>
                     <td className="py-3 px-4 text-sm text-text-primary">{order.customerName}</td>
-                    <td className="py-3 px-4 text-sm text-text-secondary">{order.items.length} items</td>
+                    <td className="py-3 px-4 text-sm text-text-secondary">{t('overview.itemsCount', { count: order.items.length })}</td>
                     <td className="py-3 px-4 text-sm font-medium text-text-primary">{order.total.toLocaleString()} QAR</td>
                     <td className="py-3 px-4">
                       <StatusBadge status={order.status} />

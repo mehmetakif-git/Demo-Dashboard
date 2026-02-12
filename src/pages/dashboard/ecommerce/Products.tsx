@@ -17,7 +17,7 @@ import { products, categories, productStatuses } from '@/data/ecommerce/ecommerc
 import { useTranslation } from 'react-i18next';
 
 export const Products = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('ecommerce');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [viewMode, setViewMode] = useState<'grid' | 'table'>('table');
@@ -25,10 +25,10 @@ export const Products = () => {
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
 
   const stats = [
-    { label: 'Total Products', value: products.length, color: '#6366f1' },
-    { label: 'Active', value: products.filter(p => p.status === 'active').length, color: '#10b981' },
-    { label: 'Out of Stock', value: products.filter(p => p.stock === 0).length, color: '#ef4444' },
-    { label: 'Low Stock', value: products.filter(p => p.stock > 0 && p.stock <= p.lowStockThreshold).length, color: '#f59e0b' },
+    { label: t('products.totalProducts'), value: products.length, color: '#6366f1' },
+    { label: t('products.active'), value: products.filter(p => p.status === 'active').length, color: '#10b981' },
+    { label: t('products.outOfStock'), value: products.filter(p => p.stock === 0).length, color: '#ef4444' },
+    { label: t('products.lowStock'), value: products.filter(p => p.stock > 0 && p.stock <= p.lowStockThreshold).length, color: '#f59e0b' },
   ];
 
   const filteredProducts = useMemo(() => {
@@ -45,21 +45,21 @@ export const Products = () => {
   }, [searchQuery, statusFilter, categoryFilter]);
 
   const getStockStatus = (product: typeof products[0]) => {
-    if (product.stock === 0) return { label: 'Out of Stock', color: '#ef4444' };
-    if (product.stock <= product.lowStockThreshold) return { label: 'Low Stock', color: '#f59e0b' };
-    return { label: 'In Stock', color: '#10b981' };
+    if (product.stock === 0) return { label: t('products.outOfStock'), color: '#ef4444' };
+    if (product.stock <= product.lowStockThreshold) return { label: t('products.lowStock'), color: '#f59e0b' };
+    return { label: t('products.inStock'), color: '#10b981' };
   };
 
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('ecommerce.products', 'Products')}
-        subtitle="Manage your product catalog"
+        title={t('products.title')}
+        subtitle={t('products.subtitle')}
         icon={Package}
         actions={
           <Button>
             <Plus size={18} />
-            Add Product
+            {t('products.addProduct')}
           </Button>
         }
       />
@@ -88,7 +88,7 @@ export const Products = () => {
             <div className="relative flex-1">
               <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
               <Input
-                placeholder="Search by name or SKU..."
+                placeholder={t('products.searchPlaceholder')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10"

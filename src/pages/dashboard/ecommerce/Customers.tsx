@@ -17,16 +17,16 @@ import { getProfileImage } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const Customers = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('ecommerce');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [tagFilter, setTagFilter] = useState<string>('all');
 
   const stats = [
-    { label: 'Total Customers', value: ecommerceStats.totalCustomers, icon: Users, color: '#6366f1' },
-    { label: 'New This Month', value: ecommerceStats.newCustomersThisMonth, icon: UserPlus, color: '#10b981' },
-    { label: 'VIP Customers', value: customers.filter(c => c.tags.includes('vip')).length, icon: Crown, color: '#f59e0b' },
-    { label: 'Avg Lifetime Value', value: `${Math.round(customers.reduce((acc, c) => acc + c.totalSpent, 0) / customers.length).toLocaleString()} QAR`, icon: ShoppingBag, color: '#8b5cf6' },
+    { label: t('customers.totalCustomers'), value: ecommerceStats.totalCustomers, icon: Users, color: '#6366f1' },
+    { label: t('customers.newThisMonth'), value: ecommerceStats.newCustomersThisMonth, icon: UserPlus, color: '#10b981' },
+    { label: t('customers.vipCustomers'), value: customers.filter(c => c.tags.includes('vip')).length, icon: Crown, color: '#f59e0b' },
+    { label: t('customers.avgLifetimeValue'), value: `${Math.round(customers.reduce((acc, c) => acc + c.totalSpent, 0) / customers.length).toLocaleString()} QAR`, icon: ShoppingBag, color: '#8b5cf6' },
   ];
 
   const allTags = [...new Set(customers.flatMap(c => c.tags))];
@@ -48,18 +48,18 @@ export const Customers = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('ecommerce.customers', 'Customers')}
-        subtitle="Manage your customer base"
+        title={t('customers.title')}
+        subtitle={t('customers.subtitle')}
         icon={Users}
         actions={
           <div className="flex gap-3">
             <Button variant="secondary">
               <Download size={18} />
-              Export
+              {t('customers.export')}
             </Button>
             <Button>
               <UserPlus size={18} />
-              Add Customer
+              {t('customers.addCustomer')}
             </Button>
           </div>
         }
@@ -71,7 +71,7 @@ export const Customers = () => {
           const Icon = stat.icon;
           return (
             <motion.div
-              key={stat.label}
+              key={index}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}
@@ -101,7 +101,7 @@ export const Customers = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by name, email, or phone..."
+              placeholder={t('customers.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -112,7 +112,7 @@ export const Customers = () => {
             onChange={(e) => setTagFilter(e.target.value)}
             className="px-4 py-2 bg-background-secondary border border-border-default rounded-lg text-text-primary text-sm focus:outline-none focus:ring-2 focus:ring-accent-primary"
           >
-            <option value="all">All Tags</option>
+            <option value="all">{t('customers.allTags')}</option>
             {allTags.map(tag => (
               <option key={tag} value={tag}>{tag}</option>
             ))}
@@ -126,13 +126,13 @@ export const Customers = () => {
           <table className="w-full">
             <thead className="bg-background-secondary">
               <tr>
-                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">Customer</th>
-                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">Contact</th>
-                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">Orders</th>
-                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">Total Spent</th>
-                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">Last Order</th>
-                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">Tags</th>
-                <th className="text-right py-4 px-6 text-sm font-medium text-text-secondary">Actions</th>
+                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">{t('customers.customer')}</th>
+                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">{t('customers.contact')}</th>
+                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">{t('customers.orders')}</th>
+                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">{t('customers.totalSpent')}</th>
+                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">{t('customers.lastOrder')}</th>
+                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">{t('customers.tags')}</th>
+                <th className="text-right py-4 px-6 text-sm font-medium text-text-secondary">{t('customers.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -165,7 +165,7 @@ export const Customers = () => {
                         )}
                         <div>
                           <p className="font-medium text-text-primary">{fullName}</p>
-                          <p className="text-xs text-text-muted">Since {new Date(customer.createdAt).toLocaleDateString()}</p>
+                          <p className="text-xs text-text-muted">{t('customers.since', { date: new Date(customer.createdAt).toLocaleDateString() })}</p>
                         </div>
                       </div>
                     </td>
@@ -221,9 +221,9 @@ export const Customers = () => {
                             </Button>
                           }
                           items={[
-                            { id: 'view', label: 'View Profile', onClick: () => navigate(`/dashboard/ecommerce/customers/${customer.id}`) },
-                            { id: 'email', label: 'Send Email', onClick: () => {} },
-                            { id: 'orders', label: 'View Orders', onClick: () => {} },
+                            { id: 'view', label: t('customers.viewProfile'), onClick: () => navigate(`/dashboard/ecommerce/customers/${customer.id}`) },
+                            { id: 'email', label: t('customers.sendEmail'), onClick: () => {} },
+                            { id: 'orders', label: t('customers.viewOrders'), onClick: () => {} },
                           ]}
                         />
                       </div>
@@ -238,7 +238,7 @@ export const Customers = () => {
         {filteredCustomers.length === 0 && (
           <div className="text-center py-12">
             <Users size={48} className="mx-auto text-text-muted mb-4" />
-            <p className="text-text-secondary">No customers found</p>
+            <p className="text-text-secondary">{t('customers.noCustomersFound')}</p>
           </div>
         )}
       </Card>

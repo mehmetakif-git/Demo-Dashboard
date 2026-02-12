@@ -18,7 +18,7 @@ import { shippingMethods, shippingZones, orders } from '@/data/ecommerce/ecommer
 import { useTranslation } from 'react-i18next';
 
 export const Shipping = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('ecommerce');
   const [searchQuery, setSearchQuery] = useState('');
   const [activeTab, setActiveTab] = useState<'methods' | 'zones' | 'shipments'>('shipments');
 
@@ -53,13 +53,13 @@ export const Shipping = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('ecommerce.shipping', 'Shipping')}
-        subtitle="Manage shipping methods, zones, and track deliveries"
+        title={t('shipping.title')}
+        subtitle={t('shipping.subtitle')}
         icon={Truck}
         actions={
           <Button>
             <Plus size={18} />
-            Add Method
+            {t('shipping.addMethod')}
           </Button>
         }
       />
@@ -73,7 +73,7 @@ export const Shipping = () => {
                 <Package size={20} className="text-warning" />
               </div>
               <div>
-                <p className="text-sm text-text-secondary">Pending</p>
+                <p className="text-sm text-text-secondary">{t('shipping.pendingLabel')}</p>
                 <p className="text-2xl font-bold text-text-primary">{stats.pendingShipments}</p>
               </div>
             </div>
@@ -86,7 +86,7 @@ export const Shipping = () => {
                 <Truck size={20} className="text-accent-secondary" />
               </div>
               <div>
-                <p className="text-sm text-text-secondary">In Transit</p>
+                <p className="text-sm text-text-secondary">{t('shipping.inTransit')}</p>
                 <p className="text-2xl font-bold text-text-primary">{stats.inTransit}</p>
               </div>
             </div>
@@ -99,7 +99,7 @@ export const Shipping = () => {
                 <CheckCircle size={20} className="text-success" />
               </div>
               <div>
-                <p className="text-sm text-text-secondary">Delivered</p>
+                <p className="text-sm text-text-secondary">{t('shipping.delivered')}</p>
                 <p className="text-2xl font-bold text-text-primary">{stats.delivered}</p>
               </div>
             </div>
@@ -112,7 +112,7 @@ export const Shipping = () => {
                 <Zap size={20} className="text-accent-primary" />
               </div>
               <div>
-                <p className="text-sm text-text-secondary">Active Methods</p>
+                <p className="text-sm text-text-secondary">{t('shipping.activeMethods')}</p>
                 <p className="text-2xl font-bold text-text-primary">{stats.activeMethods}</p>
               </div>
             </div>
@@ -125,9 +125,9 @@ export const Shipping = () => {
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex gap-2">
             {[
-              { key: 'shipments', label: 'Shipments', icon: Package },
-              { key: 'methods', label: 'Methods', icon: Truck },
-              { key: 'zones', label: 'Zones', icon: MapPin },
+              { key: 'shipments', label: t('shipping.shipmentsTab'), icon: Package },
+              { key: 'methods', label: t('shipping.methodsTab'), icon: Truck },
+              { key: 'zones', label: t('shipping.zonesTab'), icon: MapPin },
             ].map((tab) => (
               <Button
                 key={tab.key}
@@ -144,7 +144,7 @@ export const Shipping = () => {
             <div className="relative flex-1">
               <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
               <Input
-                placeholder="Search by order number, customer, or tracking..."
+                placeholder={t('shipping.searchPlaceholder')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10"
@@ -161,13 +161,13 @@ export const Shipping = () => {
             <table className="w-full">
               <thead className="bg-background-secondary border-b border-border-default">
                 <tr>
-                  <th className="text-left p-4 text-sm font-medium text-text-secondary">Order</th>
-                  <th className="text-left p-4 text-sm font-medium text-text-secondary">Customer</th>
-                  <th className="text-left p-4 text-sm font-medium text-text-secondary">Address</th>
-                  <th className="text-left p-4 text-sm font-medium text-text-secondary">Method</th>
-                  <th className="text-left p-4 text-sm font-medium text-text-secondary">Tracking</th>
-                  <th className="text-left p-4 text-sm font-medium text-text-secondary">Status</th>
-                  <th className="text-right p-4 text-sm font-medium text-text-secondary">Actions</th>
+                  <th className="text-left p-4 text-sm font-medium text-text-secondary">{t('shipping.order')}</th>
+                  <th className="text-left p-4 text-sm font-medium text-text-secondary">{t('shipping.customer')}</th>
+                  <th className="text-left p-4 text-sm font-medium text-text-secondary">{t('shipping.address')}</th>
+                  <th className="text-left p-4 text-sm font-medium text-text-secondary">{t('shipping.method')}</th>
+                  <th className="text-left p-4 text-sm font-medium text-text-secondary">{t('shipping.tracking')}</th>
+                  <th className="text-left p-4 text-sm font-medium text-text-secondary">{t('shipping.status')}</th>
+                  <th className="text-right p-4 text-sm font-medium text-text-secondary">{t('shipping.actions')}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border-default">
@@ -209,7 +209,7 @@ export const Shipping = () => {
                       {order.trackingNumber ? (
                         <p className="text-sm font-mono text-text-primary">{order.trackingNumber}</p>
                       ) : (
-                        <span className="text-sm text-text-muted">Not assigned</span>
+                        <span className="text-sm text-text-muted">{t('shipping.notAssigned')}</span>
                       )}
                     </td>
                     <td className="p-4">
@@ -228,7 +228,7 @@ export const Shipping = () => {
           {filteredShipments.length === 0 && (
             <div className="p-12 text-center">
               <Package size={48} className="mx-auto text-text-muted mb-4" />
-              <p className="text-text-secondary">No shipments found</p>
+              <p className="text-text-secondary">{t('shipping.noShipmentsFound')}</p>
             </div>
           )}
         </Card>
@@ -271,21 +271,21 @@ export const Shipping = () => {
 
                 <div className="space-y-3 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-text-muted">Price</span>
+                    <span className="text-text-muted">{t('shipping.price')}</span>
                     <span className="text-text-primary font-medium">{method.price} QAR</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-text-muted">Free Above</span>
+                    <span className="text-text-muted">{t('shipping.freeAbove')}</span>
                     <span className="text-text-primary">
                       {method.freeAbove ? `${method.freeAbove} QAR` : 'N/A'}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-text-muted">Est. Delivery</span>
+                    <span className="text-text-muted">{t('shipping.estDelivery')}</span>
                     <span className="text-text-primary">
-                      {method.estimatedDays === '0' ? 'Same day' :
-                       method.estimatedDays === '1' ? 'Next day' :
-                       `${method.estimatedDays} days`}
+                      {method.estimatedDays === '0' ? t('shipping.sameDay') :
+                       method.estimatedDays === '1' ? t('shipping.nextDay') :
+                       t('shipping.daysCount', { count: Number(method.estimatedDays) })}
                     </span>
                   </div>
                 </div>
@@ -293,7 +293,7 @@ export const Shipping = () => {
                 <div className="mt-4 pt-4 border-t border-border-default">
                   <Button variant="ghost" size="sm" className="w-full">
                     <Edit size={14} className="mr-2" />
-                    Edit Method
+                    {t('shipping.editMethod')}
                   </Button>
                 </div>
               </Card>
@@ -335,15 +335,15 @@ export const Shipping = () => {
 
                   <div className="flex flex-wrap gap-6 text-sm">
                     <div className="text-center">
-                      <p className="text-text-muted mb-1">Standard</p>
+                      <p className="text-text-muted mb-1">{t('shipping.standard')}</p>
                       <p className="font-medium text-text-primary">{zone.standardPrice} QAR</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-text-muted mb-1">Express</p>
+                      <p className="text-text-muted mb-1">{t('shipping.express')}</p>
                       <p className="font-medium text-text-primary">{zone.expressPrice} QAR</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-text-muted mb-1">Same Day</p>
+                      <p className="text-text-muted mb-1">{t('shipping.sameDayLabel')}</p>
                       {zone.sameDayAvailable ? (
                         <CheckCircle size={18} className="mx-auto text-success" />
                       ) : (
@@ -352,7 +352,7 @@ export const Shipping = () => {
                     </div>
                     <Button variant="ghost" size="sm">
                       <Edit size={14} className="mr-2" />
-                      Edit
+                      {t('shipping.editZone')}
                     </Button>
                   </div>
                 </div>
@@ -363,7 +363,7 @@ export const Shipping = () => {
           <Card className="p-6 border-2 border-dashed border-border-default hover:border-accent-primary/50 transition-colors cursor-pointer">
             <div className="flex items-center justify-center gap-3 text-text-muted">
               <Plus size={20} />
-              <span>Add New Zone</span>
+              <span>{t('shipping.addNewZone')}</span>
             </div>
           </Card>
         </div>

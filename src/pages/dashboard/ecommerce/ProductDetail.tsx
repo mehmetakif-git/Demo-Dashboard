@@ -18,7 +18,7 @@ import { ROUTES } from '@/utils/constants';
 import { useTranslation } from 'react-i18next';
 
 export const ProductDetail = () => {
-  const { t: _t } = useTranslation('common');
+  const { t } = useTranslation('ecommerce');
   const { id } = useParams();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('general');
@@ -28,9 +28,9 @@ export const ProductDetail = () => {
     return (
       <div className="text-center py-12">
         <Package size={48} className="mx-auto text-text-muted mb-4" />
-        <p className="text-text-secondary">Product not found</p>
+        <p className="text-text-secondary">{t('productDetail.productNotFound')}</p>
         <Button className="mt-4" onClick={() => navigate(ROUTES.ecommerce.products)}>
-          Back to Products
+          {t('productDetail.backToProducts')}
         </Button>
       </div>
     );
@@ -40,10 +40,10 @@ export const ProductDetail = () => {
   const margin = ((product.price - product.costPrice) / product.price * 100).toFixed(1);
 
   const tabs = [
-    { id: 'general', label: 'General' },
-    { id: 'variants', label: `Variants (${product.variants.length})` },
-    { id: 'inventory', label: 'Inventory' },
-    { id: 'seo', label: 'SEO' },
+    { id: 'general', label: t('productDetail.general') },
+    { id: 'variants', label: t('productDetail.variantsCount', { count: product.variants.length }) },
+    { id: 'inventory', label: t('productDetail.inventory') },
+    { id: 'seo', label: t('productDetail.seo') },
   ];
 
   return (
@@ -63,15 +63,15 @@ export const ProductDetail = () => {
           <div className="flex gap-3">
             <Button variant="secondary">
               <Copy size={18} />
-              Duplicate
+              {t('productDetail.duplicate')}
             </Button>
             <Button variant="secondary">
               <Archive size={18} />
-              Archive
+              {t('productDetail.archive')}
             </Button>
             <Button>
               <Edit size={18} />
-              Edit
+              {t('productDetail.edit')}
             </Button>
           </div>
         }
@@ -82,13 +82,13 @@ export const ProductDetail = () => {
         <StatusBadge status={product.status} />
         {product.featured && (
           <span className="px-3 py-1 rounded-full bg-warning/20 text-warning text-sm font-medium">
-            Featured
+            {t('productDetail.featured')}
           </span>
         )}
         <div className="flex items-center gap-1">
           <Star size={16} className="text-warning fill-warning" />
           <span className="text-text-primary font-medium">{product.rating}</span>
-          <span className="text-text-muted">({product.reviewCount} reviews)</span>
+          <span className="text-text-muted">({product.reviewCount} {t('productDetail.reviews')})</span>
         </div>
       </div>
 
@@ -110,25 +110,25 @@ export const ProductDetail = () => {
               {activeTab === 'general' && (
                 <div className="space-y-6">
                   <div>
-                    <h4 className="text-sm font-medium text-text-secondary mb-2">Description</h4>
+                    <h4 className="text-sm font-medium text-text-secondary mb-2">{t('productDetail.description')}</h4>
                     <p className="text-text-primary">{product.description}</p>
                   </div>
                   <div>
-                    <h4 className="text-sm font-medium text-text-secondary mb-2">Short Description</h4>
+                    <h4 className="text-sm font-medium text-text-secondary mb-2">{t('productDetail.shortDescription')}</h4>
                     <p className="text-text-primary">{product.shortDescription}</p>
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <h4 className="text-sm font-medium text-text-secondary mb-2">Brand</h4>
+                      <h4 className="text-sm font-medium text-text-secondary mb-2">{t('productDetail.brand')}</h4>
                       <p className="text-text-primary">{product.brand}</p>
                     </div>
                     <div>
-                      <h4 className="text-sm font-medium text-text-secondary mb-2">Category</h4>
+                      <h4 className="text-sm font-medium text-text-secondary mb-2">{t('productDetail.category')}</h4>
                       <p className="text-text-primary">{product.categoryName}</p>
                     </div>
                   </div>
                   <div>
-                    <h4 className="text-sm font-medium text-text-secondary mb-2">Tags</h4>
+                    <h4 className="text-sm font-medium text-text-secondary mb-2">{t('productDetail.tags')}</h4>
                     <div className="flex flex-wrap gap-2">
                       {product.tags.map(tag => (
                         <span key={tag} className="px-3 py-1 rounded-full bg-background-secondary text-text-secondary text-sm">
@@ -139,7 +139,7 @@ export const ProductDetail = () => {
                   </div>
                   {product.dimensions && (
                     <div>
-                      <h4 className="text-sm font-medium text-text-secondary mb-2">Dimensions & Weight</h4>
+                      <h4 className="text-sm font-medium text-text-secondary mb-2">{t('productDetail.dimensionsWeight')}</h4>
                       <p className="text-text-primary">
                         {product.dimensions.length} x {product.dimensions.width} x {product.dimensions.height} cm • {product.weight} kg
                       </p>
@@ -166,7 +166,7 @@ export const ProductDetail = () => {
                         <div className="text-right">
                           <p className="font-semibold text-text-primary">{variant.price.toLocaleString()} QAR</p>
                           <p className={`text-sm ${variant.stock <= 5 ? 'text-warning' : 'text-text-secondary'}`}>
-                            {variant.stock} in stock
+                            {variant.stock} {t('productDetail.inStock')}
                           </p>
                         </div>
                       </motion.div>
@@ -174,7 +174,7 @@ export const ProductDetail = () => {
                   ) : (
                     <div className="text-center py-8 text-text-muted">
                       <Box size={32} className="mx-auto mb-2" />
-                      <p>No variants for this product</p>
+                      <p>{t('productDetail.noVariants')}</p>
                     </div>
                   )}
                 </div>
@@ -184,21 +184,21 @@ export const ProductDetail = () => {
                 <div className="space-y-6">
                   <div className="grid grid-cols-3 gap-4">
                     <Card className="p-4 bg-background-secondary">
-                      <p className="text-sm text-text-secondary">Current Stock</p>
+                      <p className="text-sm text-text-secondary">{t('productDetail.currentStock')}</p>
                       <p className="text-2xl font-bold text-text-primary">{product.stock}</p>
                     </Card>
                     <Card className="p-4 bg-background-secondary">
-                      <p className="text-sm text-text-secondary">Low Stock Threshold</p>
+                      <p className="text-sm text-text-secondary">{t('productDetail.lowStockThreshold')}</p>
                       <p className="text-2xl font-bold text-text-primary">{product.lowStockThreshold}</p>
                     </Card>
                     <Card className="p-4 bg-background-secondary">
-                      <p className="text-sm text-text-secondary">Total Sold</p>
+                      <p className="text-sm text-text-secondary">{t('productDetail.totalSold')}</p>
                       <p className="text-2xl font-bold text-text-primary">{product.soldCount}</p>
                     </Card>
                   </div>
 
                   <div>
-                    <h4 className="text-sm font-medium text-text-secondary mb-4">Stock Movements</h4>
+                    <h4 className="text-sm font-medium text-text-secondary mb-4">{t('productDetail.stockMovements')}</h4>
                     {productMovements.length > 0 ? (
                       <div className="space-y-3">
                         {productMovements.map((movement) => (
@@ -214,7 +214,7 @@ export const ProductDetail = () => {
                         ))}
                       </div>
                     ) : (
-                      <p className="text-text-muted text-center py-4">No stock movements recorded</p>
+                      <p className="text-text-muted text-center py-4">{t('productDetail.noStockMovements')}</p>
                     )}
                   </div>
                 </div>
@@ -223,15 +223,15 @@ export const ProductDetail = () => {
               {activeTab === 'seo' && (
                 <div className="space-y-4">
                   <div>
-                    <h4 className="text-sm font-medium text-text-secondary mb-2">URL Slug</h4>
+                    <h4 className="text-sm font-medium text-text-secondary mb-2">{t('productDetail.urlSlug')}</h4>
                     <p className="text-text-primary font-mono text-sm">/products/{product.slug}</p>
                   </div>
                   <div>
-                    <h4 className="text-sm font-medium text-text-secondary mb-2">Meta Title</h4>
+                    <h4 className="text-sm font-medium text-text-secondary mb-2">{t('productDetail.metaTitle')}</h4>
                     <p className="text-text-primary">{product.name}</p>
                   </div>
                   <div>
-                    <h4 className="text-sm font-medium text-text-secondary mb-2">Meta Description</h4>
+                    <h4 className="text-sm font-medium text-text-secondary mb-2">{t('productDetail.metaDescription')}</h4>
                     <p className="text-text-primary">{product.shortDescription}</p>
                   </div>
                 </div>
@@ -246,26 +246,26 @@ export const ProductDetail = () => {
           <Card className="p-6">
             <div className="flex items-center gap-3 mb-4">
               <DollarSign size={20} className="text-text-muted" />
-              <h3 className="text-lg font-semibold text-text-primary">Pricing</h3>
+              <h3 className="text-lg font-semibold text-text-primary">{t('productDetail.pricing')}</h3>
             </div>
             <div className="space-y-4">
               <div className="flex justify-between">
-                <span className="text-text-secondary">Price</span>
+                <span className="text-text-secondary">{t('productDetail.priceLabel')}</span>
                 <span className="font-semibold text-text-primary">{product.price.toLocaleString()} QAR</span>
               </div>
               {product.compareAtPrice && (
                 <div className="flex justify-between">
-                  <span className="text-text-secondary">Compare at Price</span>
+                  <span className="text-text-secondary">{t('productDetail.compareAtPrice')}</span>
                   <span className="text-text-muted line-through">{product.compareAtPrice.toLocaleString()} QAR</span>
                 </div>
               )}
               <div className="flex justify-between">
-                <span className="text-text-secondary">Cost Price</span>
+                <span className="text-text-secondary">{t('productDetail.costPrice')}</span>
                 <span className="text-text-primary">{product.costPrice.toLocaleString()} QAR</span>
               </div>
               <div className="pt-4 border-t border-border-default">
                 <div className="flex justify-between">
-                  <span className="text-text-secondary">Profit Margin</span>
+                  <span className="text-text-secondary">{t('productDetail.profitMargin')}</span>
                   <span className="font-semibold text-success">{margin}%</span>
                 </div>
               </div>
@@ -276,19 +276,19 @@ export const ProductDetail = () => {
           <Card className="p-6">
             <div className="flex items-center gap-3 mb-4">
               <TrendingUp size={20} className="text-text-muted" />
-              <h3 className="text-lg font-semibold text-text-primary">Performance</h3>
+              <h3 className="text-lg font-semibold text-text-primary">{t('productDetail.performance')}</h3>
             </div>
             <div className="space-y-4">
               <div className="flex justify-between">
-                <span className="text-text-secondary">Total Sold</span>
-                <span className="font-semibold text-text-primary">{product.soldCount} units</span>
+                <span className="text-text-secondary">{t('productDetail.totalSold')}</span>
+                <span className="font-semibold text-text-primary">{t('productDetail.totalSoldUnits', { count: product.soldCount })}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-text-secondary">Reviews</span>
+                <span className="text-text-secondary">{t('productDetail.reviewsLabel')}</span>
                 <span className="font-semibold text-text-primary">{product.reviewCount}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-text-secondary">Rating</span>
+                <span className="text-text-secondary">{t('productDetail.rating')}</span>
                 <div className="flex items-center gap-1">
                   <Star size={16} className="text-warning fill-warning" />
                   <span className="font-semibold text-text-primary">{product.rating}</span>
@@ -299,14 +299,14 @@ export const ProductDetail = () => {
 
           {/* Dates */}
           <Card className="p-6">
-            <h3 className="text-lg font-semibold text-text-primary mb-4">Activity</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-4">{t('productDetail.activity')}</h3>
             <div className="space-y-3 text-sm">
               <div className="flex justify-between">
-                <span className="text-text-secondary">Created</span>
+                <span className="text-text-secondary">{t('productDetail.created')}</span>
                 <span className="text-text-primary">{new Date(product.createdAt).toLocaleDateString()}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-text-secondary">Last Updated</span>
+                <span className="text-text-secondary">{t('productDetail.lastUpdated')}</span>
                 <span className="text-text-primary">{new Date(product.updatedAt).toLocaleDateString()}</span>
               </div>
             </div>

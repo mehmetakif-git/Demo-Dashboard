@@ -18,16 +18,8 @@ import { getOrderById, getCustomerById } from '@/data/ecommerce/ecommerceData';
 import { ROUTES } from '@/utils/constants';
 import { useTranslation } from 'react-i18next';
 
-const timelineSteps = [
-  { id: 'pending', label: 'Order Placed', icon: Clock },
-  { id: 'confirmed', label: 'Confirmed', icon: CheckCircle },
-  { id: 'processing', label: 'Processing', icon: Package },
-  { id: 'shipped', label: 'Shipped', icon: Truck },
-  { id: 'delivered', label: 'Delivered', icon: Box },
-];
-
 export const OrderDetail = () => {
-  const { t: _t } = useTranslation('common');
+  const { t } = useTranslation('ecommerce');
   const { id } = useParams();
   const navigate = useNavigate();
   const order = getOrderById(id || '');
@@ -36,15 +28,23 @@ export const OrderDetail = () => {
     return (
       <div className="text-center py-12">
         <Package size={48} className="mx-auto text-text-muted mb-4" />
-        <p className="text-text-secondary">Order not found</p>
+        <p className="text-text-secondary">{t('orderDetail.orderNotFound')}</p>
         <Button className="mt-4" onClick={() => navigate(ROUTES.ecommerce.orders)}>
-          Back to Orders
+          {t('orderDetail.backToOrders')}
         </Button>
       </div>
     );
   }
 
   const customer = getCustomerById(order.customerId);
+
+  const timelineSteps = [
+    { id: 'pending', label: t('orderDetail.orderPlaced'), icon: Clock },
+    { id: 'confirmed', label: t('orderDetail.confirmed'), icon: CheckCircle },
+    { id: 'processing', label: t('orderDetail.processing'), icon: Package },
+    { id: 'shipped', label: t('orderDetail.shipped'), icon: Truck },
+    { id: 'delivered', label: t('orderDetail.delivered'), icon: Box },
+  ];
 
   // Determine current step index
   const statusOrder = ['pending', 'confirmed', 'processing', 'shipped', 'delivered'];
@@ -58,23 +58,23 @@ export const OrderDetail = () => {
             <Button variant="ghost" size="sm" onClick={() => navigate(ROUTES.ecommerce.orders)}>
               <ArrowLeft size={20} />
             </Button>
-            <span>Order {order.orderNumber}</span>
+            <span>{t('orderDetail.orderLabel', { number: order.orderNumber })}</span>
           </div>
         }
-        subtitle={`Placed on ${new Date(order.createdAt).toLocaleDateString()} at ${new Date(order.createdAt).toLocaleTimeString()}`}
+        subtitle={t('orderDetail.placedOn', { date: new Date(order.createdAt).toLocaleDateString(), time: new Date(order.createdAt).toLocaleTimeString() })}
         icon={Package}
         actions={
           <div className="flex gap-3">
             <Button variant="secondary">
               <Mail size={18} />
-              Resend Confirmation
+              {t('orderDetail.resendConfirmation')}
             </Button>
             <Button variant="secondary">
               <Printer size={18} />
-              Print Invoice
+              {t('orderDetail.printInvoice')}
             </Button>
             <Button>
-              Update Status
+              {t('orderDetail.updateStatus')}
             </Button>
           </div>
         }
@@ -88,7 +88,7 @@ export const OrderDetail = () => {
 
       {/* Order Timeline */}
       <Card className="p-6">
-        <h3 className="text-lg font-semibold text-text-primary mb-6">Order Timeline</h3>
+        <h3 className="text-lg font-semibold text-text-primary mb-6">{t('orderDetail.orderTimeline')}</h3>
         <div className="flex items-center justify-between relative">
           {/* Progress Line */}
           <div className="absolute top-5 left-0 right-0 h-1 bg-background-tertiary">
@@ -126,7 +126,7 @@ export const OrderDetail = () => {
         {/* Order Items */}
         <div className="lg:col-span-2 space-y-6">
           <Card className="p-6">
-            <h3 className="text-lg font-semibold text-text-primary mb-4">Order Items</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-4">{t('orderDetail.orderItems')}</h3>
             <div className="space-y-4">
               {order.items.map((item, index) => (
                 <motion.div
@@ -147,7 +147,7 @@ export const OrderDetail = () => {
                     <p className="text-xs text-text-muted">SKU: {item.sku}</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-sm text-text-secondary">Qty: {item.quantity}</p>
+                    <p className="text-sm text-text-secondary">{t('orderDetail.qty', { count: item.quantity })}</p>
                     <p className="font-semibold text-text-primary">{item.total.toLocaleString()} QAR</p>
                   </div>
                 </motion.div>
@@ -157,25 +157,25 @@ export const OrderDetail = () => {
             {/* Order Summary */}
             <div className="mt-6 pt-6 border-t border-border-default space-y-3">
               <div className="flex justify-between text-sm">
-                <span className="text-text-secondary">Subtotal</span>
+                <span className="text-text-secondary">{t('orderDetail.subtotal')}</span>
                 <span className="text-text-primary">{order.subtotal.toLocaleString()} QAR</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-text-secondary">Shipping</span>
+                <span className="text-text-secondary">{t('orderDetail.shipping')}</span>
                 <span className="text-text-primary">
-                  {order.shippingCost === 0 ? 'Free' : `${order.shippingCost.toLocaleString()} QAR`}
+                  {order.shippingCost === 0 ? t('orderDetail.free') : `${order.shippingCost.toLocaleString()} QAR`}
                 </span>
               </div>
               {order.discount > 0 && (
                 <div className="flex justify-between text-sm">
                   <span className="text-text-secondary">
-                    Discount {order.discountCode && `(${order.discountCode})`}
+                    {t('orderDetail.discount')} {order.discountCode && `(${order.discountCode})`}
                   </span>
                   <span className="text-success">-{order.discount.toLocaleString()} QAR</span>
                 </div>
               )}
               <div className="flex justify-between text-lg font-semibold pt-3 border-t border-border-default">
-                <span className="text-text-primary">Total</span>
+                <span className="text-text-primary">{t('orderDetail.total')}</span>
                 <span className="text-accent-primary">{order.total.toLocaleString()} QAR</span>
               </div>
             </div>
@@ -184,7 +184,7 @@ export const OrderDetail = () => {
           {/* Notes */}
           {order.notes && (
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-text-primary mb-3">Order Notes</h3>
+              <h3 className="text-lg font-semibold text-text-primary mb-3">{t('orderDetail.orderNotes')}</h3>
               <p className="text-text-secondary">{order.notes}</p>
             </Card>
           )}
@@ -196,21 +196,21 @@ export const OrderDetail = () => {
           <Card className="p-6">
             <div className="flex items-center gap-3 mb-4">
               <User size={20} className="text-text-muted" />
-              <h3 className="text-lg font-semibold text-text-primary">Customer</h3>
+              <h3 className="text-lg font-semibold text-text-primary">{t('orderDetail.customer')}</h3>
             </div>
             <div className="space-y-2">
               <p className="font-medium text-text-primary">{order.customerName}</p>
               <p className="text-sm text-text-secondary">{order.customerEmail}</p>
               {customer && (
                 <>
-                  <p className="text-sm text-text-muted">{customer.totalOrders} orders</p>
+                  <p className="text-sm text-text-muted">{t('orderDetail.ordersCount', { count: customer.totalOrders })}</p>
                   <Button
                     variant="ghost"
                     size="sm"
                     className="mt-2"
                     onClick={() => navigate(`/dashboard/ecommerce/customers/${customer.id}`)}
                   >
-                    View Customer Profile
+                    {t('orderDetail.viewCustomerProfile')}
                   </Button>
                 </>
               )}
@@ -221,7 +221,7 @@ export const OrderDetail = () => {
           <Card className="p-6">
             <div className="flex items-center gap-3 mb-4">
               <MapPin size={20} className="text-text-muted" />
-              <h3 className="text-lg font-semibold text-text-primary">Shipping Address</h3>
+              <h3 className="text-lg font-semibold text-text-primary">{t('orderDetail.shippingAddress')}</h3>
             </div>
             <div className="space-y-1 text-sm text-text-secondary">
               <p className="font-medium text-text-primary">
@@ -238,17 +238,17 @@ export const OrderDetail = () => {
           <Card className="p-6">
             <div className="flex items-center gap-3 mb-4">
               <CreditCard size={20} className="text-text-muted" />
-              <h3 className="text-lg font-semibold text-text-primary">Payment</h3>
+              <h3 className="text-lg font-semibold text-text-primary">{t('orderDetail.paymentTitle')}</h3>
             </div>
             <div className="space-y-3">
               <div className="flex justify-between">
-                <span className="text-sm text-text-secondary">Method</span>
+                <span className="text-sm text-text-secondary">{t('orderDetail.method')}</span>
                 <span className="text-sm text-text-primary capitalize">
                   {order.paymentMethod.replace('-', ' ')}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-sm text-text-secondary">Status</span>
+                <span className="text-sm text-text-secondary">{t('orderDetail.statusLabel')}</span>
                 <StatusBadge status={order.paymentStatus} />
               </div>
             </div>
@@ -258,22 +258,22 @@ export const OrderDetail = () => {
           <Card className="p-6">
             <div className="flex items-center gap-3 mb-4">
               <Truck size={20} className="text-text-muted" />
-              <h3 className="text-lg font-semibold text-text-primary">Shipping</h3>
+              <h3 className="text-lg font-semibold text-text-primary">{t('orderDetail.shippingTitle')}</h3>
             </div>
             <div className="space-y-3">
               <div className="flex justify-between">
-                <span className="text-sm text-text-secondary">Method</span>
+                <span className="text-sm text-text-secondary">{t('orderDetail.method')}</span>
                 <span className="text-sm text-text-primary capitalize">{order.shippingMethod}</span>
               </div>
               {order.trackingNumber && (
                 <div className="flex justify-between">
-                  <span className="text-sm text-text-secondary">Tracking #</span>
+                  <span className="text-sm text-text-secondary">{t('orderDetail.trackingNumber')}</span>
                   <span className="text-sm text-accent-primary font-medium">{order.trackingNumber}</span>
                 </div>
               )}
               {order.deliveredAt && (
                 <div className="flex justify-between">
-                  <span className="text-sm text-text-secondary">Delivered</span>
+                  <span className="text-sm text-text-secondary">{t('orderDetail.deliveredOn')}</span>
                   <span className="text-sm text-text-primary">
                     {new Date(order.deliveredAt).toLocaleDateString()}
                   </span>

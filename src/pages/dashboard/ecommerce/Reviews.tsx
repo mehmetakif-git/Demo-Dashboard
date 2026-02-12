@@ -16,7 +16,7 @@ import { reviews } from '@/data/ecommerce/ecommerceData';
 import { useTranslation } from 'react-i18next';
 
 export const Reviews = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('ecommerce');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<'all' | 'pending' | 'published' | 'rejected'>('all');
   const [ratingFilter, setRatingFilter] = useState<number | null>(null);
@@ -63,11 +63,21 @@ export const Reviews = () => {
     );
   };
 
+  const getStatusFilterLabel = (filter: string) => {
+    switch (filter) {
+      case 'all': return t('reviews.all');
+      case 'pending': return t('reviews.pending');
+      case 'published': return t('reviews.published');
+      case 'rejected': return t('reviews.rejected');
+      default: return filter;
+    }
+  };
+
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('ecommerce.reviews', 'Reviews')}
-        subtitle="Manage product reviews and customer feedback"
+        title={t('reviews.title')}
+        subtitle={t('reviews.subtitle')}
         icon={Star}
       />
 
@@ -80,7 +90,7 @@ export const Reviews = () => {
                 <MessageSquare size={20} className="text-accent-primary" />
               </div>
               <div>
-                <p className="text-sm text-text-secondary">Total Reviews</p>
+                <p className="text-sm text-text-secondary">{t('reviews.totalReviews')}</p>
                 <p className="text-2xl font-bold text-text-primary">{stats.totalReviews}</p>
               </div>
             </div>
@@ -93,7 +103,7 @@ export const Reviews = () => {
                 <Star size={20} className="text-warning" />
               </div>
               <div>
-                <p className="text-sm text-text-secondary">Avg. Rating</p>
+                <p className="text-sm text-text-secondary">{t('reviews.avgRating')}</p>
                 <div className="flex items-center gap-2">
                   <p className="text-2xl font-bold text-text-primary">{stats.avgRating}</p>
                   <Star size={18} className="text-warning fill-warning" />
@@ -109,7 +119,7 @@ export const Reviews = () => {
                 <Clock size={20} className="text-warning" />
               </div>
               <div>
-                <p className="text-sm text-text-secondary">Pending</p>
+                <p className="text-sm text-text-secondary">{t('reviews.pending')}</p>
                 <p className="text-2xl font-bold text-text-primary">{stats.pendingCount}</p>
               </div>
             </div>
@@ -122,7 +132,7 @@ export const Reviews = () => {
                 <Star size={20} className="text-success" />
               </div>
               <div>
-                <p className="text-sm text-text-secondary">5-Star Reviews</p>
+                <p className="text-sm text-text-secondary">{t('reviews.fiveStarReviews')}</p>
                 <p className="text-2xl font-bold text-text-primary">{stats.fiveStarCount}</p>
               </div>
             </div>
@@ -136,7 +146,7 @@ export const Reviews = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search reviews..."
+              placeholder={t('reviews.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -151,7 +161,7 @@ export const Reviews = () => {
                 size="sm"
                 onClick={() => setStatusFilter(filter)}
               >
-                {filter.charAt(0).toUpperCase() + filter.slice(1)}
+                {getStatusFilterLabel(filter)}
               </Button>
             ))}
           </div>
@@ -159,16 +169,16 @@ export const Reviews = () => {
             trigger={
               <Button variant="secondary" size="sm">
                 <Filter size={16} className="mr-2" />
-                {ratingFilter ? `${ratingFilter} Stars` : 'All Ratings'}
+                {ratingFilter ? t('reviews.starsFilter', { count: ratingFilter }) : t('reviews.allRatings')}
               </Button>
             }
             items={[
-              { id: 'all', label: 'All Ratings', onClick: () => setRatingFilter(null) },
-              { id: '5-stars', label: '5 Stars', onClick: () => setRatingFilter(5) },
-              { id: '4-stars', label: '4 Stars', onClick: () => setRatingFilter(4) },
-              { id: '3-stars', label: '3 Stars', onClick: () => setRatingFilter(3) },
-              { id: '2-stars', label: '2 Stars', onClick: () => setRatingFilter(2) },
-              { id: '1-star', label: '1 Star', onClick: () => setRatingFilter(1) },
+              { id: 'all', label: t('reviews.allRatings'), onClick: () => setRatingFilter(null) },
+              { id: '5-stars', label: t('reviews.starsFilter', { count: 5 }), onClick: () => setRatingFilter(5) },
+              { id: '4-stars', label: t('reviews.starsFilter', { count: 4 }), onClick: () => setRatingFilter(4) },
+              { id: '3-stars', label: t('reviews.starsFilter', { count: 3 }), onClick: () => setRatingFilter(3) },
+              { id: '2-stars', label: t('reviews.starsFilter', { count: 2 }), onClick: () => setRatingFilter(2) },
+              { id: '1-star', label: t('reviews.starFilter'), onClick: () => setRatingFilter(1) },
             ]}
           />
         </div>
@@ -218,7 +228,7 @@ export const Reviews = () => {
                       <div className="bg-background-secondary rounded-lg p-4 mt-4">
                         <div className="flex items-center gap-2 mb-2">
                           <MessageSquare size={14} className="text-accent-primary" />
-                          <span className="text-sm font-medium text-text-primary">Store Reply</span>
+                          <span className="text-sm font-medium text-text-primary">{t('reviews.storeReply')}</span>
                           <span className="text-xs text-text-muted">
                             {review.replyDate && new Date(review.replyDate).toLocaleDateString()}
                           </span>
@@ -231,7 +241,7 @@ export const Reviews = () => {
                     {review.helpful > 0 && (
                       <div className="flex items-center gap-2 mt-3 text-sm text-text-muted">
                         <ThumbsUp size={14} />
-                        <span>{review.helpful} people found this helpful</span>
+                        <span>{t('reviews.helpful', { count: review.helpful })}</span>
                       </div>
                     )}
                   </div>
@@ -242,23 +252,23 @@ export const Reviews = () => {
                       <>
                         <Button variant="primary" size="sm" className="flex-1">
                           <CheckCircle size={14} className="mr-1" />
-                          Approve
+                          {t('reviews.approve')}
                         </Button>
                         <Button variant="ghost" size="sm" className="flex-1">
                           <XCircle size={14} className="mr-1" />
-                          Reject
+                          {t('reviews.reject')}
                         </Button>
                       </>
                     )}
                     {review.status === 'published' && !review.reply && (
                       <Button variant="secondary" size="sm" className="flex-1">
                         <MessageSquare size={14} className="mr-1" />
-                        Reply
+                        {t('reviews.reply')}
                       </Button>
                     )}
                     {review.status === 'published' && review.reply && (
                       <Button variant="ghost" size="sm" className="flex-1">
-                        Edit Reply
+                        {t('reviews.editReply')}
                       </Button>
                     )}
                   </div>
@@ -271,7 +281,7 @@ export const Reviews = () => {
         {filteredReviews.length === 0 && (
           <Card className="p-12 text-center">
             <Star size={48} className="mx-auto text-text-muted mb-4" />
-            <p className="text-text-secondary">No reviews found</p>
+            <p className="text-text-secondary">{t('reviews.noReviewsFound')}</p>
           </Card>
         )}
       </div>

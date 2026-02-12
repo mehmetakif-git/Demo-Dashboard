@@ -17,17 +17,17 @@ import { orders, orderStatuses } from '@/data/ecommerce/ecommerceData';
 import { useTranslation } from 'react-i18next';
 
 export const Orders = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('ecommerce');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
   const stats = [
-    { label: 'All Orders', value: orders.length, icon: ShoppingCart, color: '#6366f1' },
-    { label: 'Pending', value: orders.filter(o => o.status === 'pending').length, icon: Clock, color: '#f59e0b' },
-    { label: 'Processing', value: orders.filter(o => o.status === 'processing').length, icon: Package, color: '#0ea5e9' },
-    { label: 'Shipped', value: orders.filter(o => o.status === 'shipped').length, icon: Truck, color: '#8b5cf6' },
-    { label: 'Delivered', value: orders.filter(o => o.status === 'delivered').length, icon: CheckCircle, color: '#10b981' },
+    { id: 'all', label: t('orders.allOrders'), value: orders.length, icon: ShoppingCart, color: '#6366f1' },
+    { id: 'pending', label: t('orders.pending'), value: orders.filter(o => o.status === 'pending').length, icon: Clock, color: '#f59e0b' },
+    { id: 'processing', label: t('orders.processing'), value: orders.filter(o => o.status === 'processing').length, icon: Package, color: '#0ea5e9' },
+    { id: 'shipped', label: t('orders.shipped'), value: orders.filter(o => o.status === 'shipped').length, icon: Truck, color: '#8b5cf6' },
+    { id: 'delivered', label: t('orders.delivered'), value: orders.filter(o => o.status === 'delivered').length, icon: CheckCircle, color: '#10b981' },
   ];
 
   const filteredOrders = useMemo(() => {
@@ -46,13 +46,13 @@ export const Orders = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('ecommerce.orders', 'Orders')}
-        subtitle="Manage and track customer orders"
+        title={t('orders.title')}
+        subtitle={t('orders.subtitle')}
         icon={ShoppingCart}
         actions={
           <Button variant="secondary">
             <Download size={18} />
-            Export
+            {t('orders.export')}
           </Button>
         }
       />
@@ -61,17 +61,17 @@ export const Orders = () => {
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         {stats.map((stat, index) => {
           const Icon = stat.icon;
-          const isActive = statusFilter === (stat.label === 'All Orders' ? 'all' : stat.label.toLowerCase());
+          const isActive = statusFilter === stat.id;
           return (
             <motion.div
-              key={stat.label}
+              key={stat.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}
             >
               <Card
                 className={`p-4 cursor-pointer transition-all ${isActive ? 'ring-2 ring-accent-primary' : 'hover:bg-background-secondary'}`}
-                onClick={() => setStatusFilter(stat.label === 'All Orders' ? 'all' : stat.label.toLowerCase())}
+                onClick={() => setStatusFilter(stat.id)}
               >
                 <div className="flex items-center gap-3">
                   <div
@@ -97,7 +97,7 @@ export const Orders = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by order #, customer name, or email..."
+              placeholder={t('orders.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -109,7 +109,7 @@ export const Orders = () => {
               onChange={(e) => setStatusFilter(e.target.value)}
               className="px-4 py-2 bg-background-secondary border border-border-default rounded-lg text-text-primary text-sm focus:outline-none focus:ring-2 focus:ring-accent-primary"
             >
-              <option value="all">All Statuses</option>
+              <option value="all">{t('orders.allStatuses')}</option>
               {orderStatuses.map(status => (
                 <option key={status.id} value={status.id}>{status.name}</option>
               ))}
@@ -124,14 +124,14 @@ export const Orders = () => {
           <table className="w-full">
             <thead className="bg-background-secondary">
               <tr>
-                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">Order #</th>
-                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">Date</th>
-                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">Customer</th>
-                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">Items</th>
-                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">Total</th>
-                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">Payment</th>
-                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">Status</th>
-                <th className="text-right py-4 px-6 text-sm font-medium text-text-secondary">Actions</th>
+                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">{t('orders.orderNumber')}</th>
+                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">{t('orders.date')}</th>
+                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">{t('orders.customer')}</th>
+                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">{t('orders.items')}</th>
+                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">{t('orders.total')}</th>
+                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">{t('orders.payment')}</th>
+                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">{t('orders.status')}</th>
+                <th className="text-right py-4 px-6 text-sm font-medium text-text-secondary">{t('orders.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -160,7 +160,7 @@ export const Orders = () => {
                       </div>
                     </td>
                     <td className="py-4 px-6">
-                      <span className="text-sm text-text-secondary">{order.items.length} items</span>
+                      <span className="text-sm text-text-secondary">{t('orders.itemsCount', { count: order.items.length })}</span>
                     </td>
                     <td className="py-4 px-6">
                       <span className="text-sm font-semibold text-text-primary">
@@ -189,9 +189,9 @@ export const Orders = () => {
                             </Button>
                           }
                           items={[
-                            { id: 'view', label: 'View Details', onClick: () => navigate(`/dashboard/ecommerce/orders/${order.id}`) },
-                            { id: 'print', label: 'Print Invoice', onClick: () => {} },
-                            { id: 'update', label: 'Update Status', onClick: () => {} },
+                            { id: 'view', label: t('orders.viewDetails'), onClick: () => navigate(`/dashboard/ecommerce/orders/${order.id}`) },
+                            { id: 'print', label: t('orders.printInvoice'), onClick: () => {} },
+                            { id: 'update', label: t('orders.updateStatus'), onClick: () => {} },
                           ]}
                         />
                       </div>
@@ -206,7 +206,7 @@ export const Orders = () => {
         {filteredOrders.length === 0 && (
           <div className="text-center py-12">
             <ShoppingCart size={48} className="mx-auto text-text-muted mb-4" />
-            <p className="text-text-secondary">No orders found</p>
+            <p className="text-text-secondary">{t('orders.noOrdersFound')}</p>
           </div>
         )}
       </Card>

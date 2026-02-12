@@ -19,6 +19,7 @@ interface CategoryItemProps {
 }
 
 const CategoryItem = ({ category, level = 0 }: CategoryItemProps) => {
+  const { t } = useTranslation('ecommerce');
   const [isExpanded, setIsExpanded] = useState(true);
   const hasChildren = category.children && category.children.length > 0;
 
@@ -51,7 +52,7 @@ const CategoryItem = ({ category, level = 0 }: CategoryItemProps) => {
         <div className="flex items-center gap-6">
           <div className="text-right">
             <p className="text-sm font-medium text-text-primary">{category.productCount}</p>
-            <p className="text-xs text-text-muted">products</p>
+            <p className="text-xs text-text-muted">{t('categories.products')}</p>
           </div>
           <span className={`px-2 py-1 rounded text-xs font-medium ${
             category.status === 'active' ? 'bg-success/20 text-success' : 'bg-error/20 text-error'
@@ -100,7 +101,7 @@ const CategoryItem = ({ category, level = 0 }: CategoryItemProps) => {
                 <div className="flex items-center gap-6">
                   <div className="text-right">
                     <p className="text-sm font-medium text-text-primary">{child.productCount}</p>
-                    <p className="text-xs text-text-muted">products</p>
+                    <p className="text-xs text-text-muted">{t('categories.products')}</p>
                   </div>
                   <div className="flex items-center gap-2">
                     <Button variant="ghost" size="sm">
@@ -121,20 +122,20 @@ const CategoryItem = ({ category, level = 0 }: CategoryItemProps) => {
 };
 
 export const Categories = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('ecommerce');
   const totalCategories = categories.length + categories.reduce((acc, cat) => acc + (cat.children?.length || 0), 0);
   const totalProducts = categories.reduce((acc, cat) => acc + cat.productCount, 0);
 
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('ecommerce.categories', 'Categories')}
-        subtitle="Organize your product catalog"
+        title={t('categories.title')}
+        subtitle={t('categories.subtitle')}
         icon={FolderTree}
         actions={
           <Button>
             <Plus size={18} />
-            Add Category
+            {t('categories.addCategory')}
           </Button>
         }
       />
@@ -142,21 +143,21 @@ export const Categories = () => {
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <Card className="p-4">
-          <p className="text-sm text-text-secondary">Total Categories</p>
+          <p className="text-sm text-text-secondary">{t('categories.totalCategories')}</p>
           <p className="text-2xl font-bold text-text-primary mt-1">{totalCategories}</p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-text-secondary">Parent Categories</p>
+          <p className="text-sm text-text-secondary">{t('categories.parentCategories')}</p>
           <p className="text-2xl font-bold text-text-primary mt-1">{categories.length}</p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-text-secondary">Sub Categories</p>
+          <p className="text-sm text-text-secondary">{t('categories.subCategories')}</p>
           <p className="text-2xl font-bold text-text-primary mt-1">
             {categories.reduce((acc, cat) => acc + (cat.children?.length || 0), 0)}
           </p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-text-secondary">Total Products</p>
+          <p className="text-sm text-text-secondary">{t('categories.totalProducts')}</p>
           <p className="text-2xl font-bold text-text-primary mt-1">{totalProducts}</p>
         </Card>
       </div>

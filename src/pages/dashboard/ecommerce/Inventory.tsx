@@ -17,7 +17,7 @@ import { products, stockMovements } from '@/data/ecommerce/ecommerceData';
 import { useTranslation } from 'react-i18next';
 
 export const Inventory = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('ecommerce');
   const [searchQuery, setSearchQuery] = useState('');
   const [stockFilter, setStockFilter] = useState<'all' | 'low' | 'out'>('all');
 
@@ -92,21 +92,38 @@ export const Inventory = () => {
     });
   }, [inventoryItems, searchQuery, stockFilter]);
 
+  const getStockFilterLabel = (filter: string) => {
+    switch (filter) {
+      case 'all': return t('inventory.filterAll');
+      case 'low': return t('inventory.filterLowStock');
+      case 'out': return t('inventory.filterOutOfStock');
+      default: return filter;
+    }
+  };
+
+  const getStockStatusLabel = (status: string) => {
+    switch (status) {
+      case 'out-of-stock': return t('inventory.statusOutOfStock');
+      case 'low-stock': return t('inventory.statusLowStock');
+      default: return t('inventory.statusInStock');
+    }
+  };
+
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('ecommerce.inventory', 'Inventory')}
-        subtitle="Track and manage stock levels"
+        title={t('inventory.title')}
+        subtitle={t('inventory.subtitle')}
         icon={Warehouse}
         actions={
           <div className="flex gap-3">
             <Button variant="secondary">
               <Upload size={18} />
-              Import CSV
+              {t('inventory.importCsv')}
             </Button>
             <Button variant="secondary">
               <Download size={18} />
-              Export
+              {t('inventory.export')}
             </Button>
           </div>
         }
@@ -116,7 +133,7 @@ export const Inventory = () => {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
           <Card className="p-4">
-            <p className="text-sm text-text-secondary">Total SKUs</p>
+            <p className="text-sm text-text-secondary">{t('inventory.totalSkus')}</p>
             <p className="text-2xl font-bold text-text-primary mt-1">{stats.totalSKUs}</p>
           </Card>
         </motion.div>
@@ -124,7 +141,7 @@ export const Inventory = () => {
           <Card className="p-4 cursor-pointer hover:border-warning/50 transition-colors" onClick={() => setStockFilter('low')}>
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-text-secondary">Low Stock</p>
+                <p className="text-sm text-text-secondary">{t('inventory.lowStock')}</p>
                 <p className="text-2xl font-bold text-warning mt-1">{stats.lowStock}</p>
               </div>
               <AlertTriangle size={24} className="text-warning" />
@@ -135,7 +152,7 @@ export const Inventory = () => {
           <Card className="p-4 cursor-pointer hover:border-error/50 transition-colors" onClick={() => setStockFilter('out')}>
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-text-secondary">Out of Stock</p>
+                <p className="text-sm text-text-secondary">{t('inventory.outOfStock')}</p>
                 <p className="text-2xl font-bold text-error mt-1">{stats.outOfStock}</p>
               </div>
               <Package size={24} className="text-error" />
@@ -144,7 +161,7 @@ export const Inventory = () => {
         </motion.div>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
           <Card className="p-4">
-            <p className="text-sm text-text-secondary">Total Value</p>
+            <p className="text-sm text-text-secondary">{t('inventory.totalValue')}</p>
             <p className="text-2xl font-bold text-text-primary mt-1">{stats.totalValue.toLocaleString()} QAR</p>
           </Card>
         </motion.div>
@@ -156,7 +173,7 @@ export const Inventory = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by product name or SKU..."
+              placeholder={t('inventory.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -170,7 +187,7 @@ export const Inventory = () => {
                 size="sm"
                 onClick={() => setStockFilter(filter)}
               >
-                {filter === 'all' ? 'All' : filter === 'low' ? 'Low Stock' : 'Out of Stock'}
+                {getStockFilterLabel(filter)}
               </Button>
             ))}
           </div>
@@ -183,14 +200,14 @@ export const Inventory = () => {
           <table className="w-full">
             <thead className="bg-background-secondary">
               <tr>
-                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">Product</th>
-                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">SKU</th>
-                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">Variant</th>
-                <th className="text-center py-4 px-6 text-sm font-medium text-text-secondary">Stock</th>
-                <th className="text-center py-4 px-6 text-sm font-medium text-text-secondary">Reserved</th>
-                <th className="text-center py-4 px-6 text-sm font-medium text-text-secondary">Available</th>
-                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">Status</th>
-                <th className="text-right py-4 px-6 text-sm font-medium text-text-secondary">Actions</th>
+                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">{t('inventory.product')}</th>
+                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">{t('inventory.sku')}</th>
+                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">{t('inventory.variant')}</th>
+                <th className="text-center py-4 px-6 text-sm font-medium text-text-secondary">{t('inventory.stock')}</th>
+                <th className="text-center py-4 px-6 text-sm font-medium text-text-secondary">{t('inventory.reserved')}</th>
+                <th className="text-center py-4 px-6 text-sm font-medium text-text-secondary">{t('inventory.available')}</th>
+                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">{t('inventory.status')}</th>
+                <th className="text-right py-4 px-6 text-sm font-medium text-text-secondary">{t('inventory.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -230,16 +247,15 @@ export const Inventory = () => {
                       item.status === 'out-of-stock' ? 'bg-error/20 text-error' :
                       item.status === 'low-stock' ? 'bg-warning/20 text-warning' : 'bg-success/20 text-success'
                     }`}>
-                      {item.status === 'out-of-stock' ? 'Out of Stock' :
-                       item.status === 'low-stock' ? 'Low Stock' : 'In Stock'}
+                      {getStockStatusLabel(item.status)}
                     </span>
                   </td>
                   <td className="py-4 px-6 text-right">
                     <div className="flex items-center justify-end gap-1">
-                      <Button variant="ghost" size="sm" title="Add Stock">
+                      <Button variant="ghost" size="sm" title={t('inventory.addStock')}>
                         <Plus size={16} className="text-success" />
                       </Button>
-                      <Button variant="ghost" size="sm" title="Remove Stock">
+                      <Button variant="ghost" size="sm" title={t('inventory.removeStock')}>
                         <Minus size={16} className="text-error" />
                       </Button>
                     </div>
@@ -253,14 +269,14 @@ export const Inventory = () => {
         {filteredItems.length === 0 && (
           <div className="text-center py-12">
             <Warehouse size={48} className="mx-auto text-text-muted mb-4" />
-            <p className="text-text-secondary">No inventory items found</p>
+            <p className="text-text-secondary">{t('inventory.noItemsFound')}</p>
           </div>
         )}
       </Card>
 
       {/* Recent Stock Movements */}
       <Card className="p-6">
-        <h3 className="text-lg font-semibold text-text-primary mb-4">Recent Stock Movements</h3>
+        <h3 className="text-lg font-semibold text-text-primary mb-4">{t('inventory.recentStockMovements')}</h3>
         <div className="space-y-3">
           {stockMovements.slice(0, 5).map((movement, index) => (
             <motion.div
