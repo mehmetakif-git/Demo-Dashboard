@@ -27,7 +27,7 @@ import { getProfileImage } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const ProjectList = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('agency');
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -68,12 +68,12 @@ export const ProjectList = () => {
       className="space-y-6"
     >
       <PageHeader
-        title={t('agency.projects', 'Projects')}
-        subtitle="Track and manage all agency projects"
+        title={t('projectList.title')}
+        subtitle={t('projectList.subtitle')}
         actions={
           <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
             <Plus className="h-4 w-4" />
-            New Project
+            {t('projectList.newProject')}
           </button>
         }
       />
@@ -81,28 +81,28 @@ export const ProjectList = () => {
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Active Projects"
+          title={t('projectList.activeProjects')}
           value={agencyStats.activeProjects.toString()}
           icon={FolderKanban}
           trend={{ value: '+4 this month', type: 'up' }}
         />
         <StatsCard
-          title="Completed"
+          title={t('projectList.completed')}
           value={completedProjects.toString()}
           icon={CheckCircle}
-          trend={{ value: '85% success rate', type: 'up' }}
+          trend={{ value: t('projectList.successRate'), type: 'up' }}
         />
         <StatsCard
-          title="Total Budget"
+          title={t('projectList.totalBudget')}
           value={formatCurrency(totalBudget)}
           icon={DollarSign}
           trend={{ value: '+22%', type: 'up' }}
         />
         <StatsCard
-          title="On Track"
+          title={t('projectList.onTrack')}
           value={`${agencyStats.projectsOnTrack}%`}
           icon={Users}
-          trend={{ value: 'Projects on schedule', type: 'up' }}
+          trend={{ value: t('projectList.projectsOnSchedule'), type: 'up' }}
         />
       </div>
 
@@ -112,7 +112,7 @@ export const ProjectList = () => {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#64748b]" />
           <input
             type="text"
-            placeholder="Search projects..."
+            placeholder={t('projectList.searchProjects')}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#547792] focus:outline-none"
@@ -124,7 +124,7 @@ export const ProjectList = () => {
             onChange={(e) => setStatusFilter(e.target.value)}
             className="rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
-            <option value="all">All Status</option>
+            <option value="all">{t('projectList.allStatus')}</option>
             {projectStatuses.map((status) => (
               <option key={status.id} value={status.id}>
                 {status.name}
@@ -136,7 +136,7 @@ export const ProjectList = () => {
             onChange={(e) => setTypeFilter(e.target.value)}
             className="rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
-            <option value="all">All Types</option>
+            <option value="all">{t('projectList.allTypes')}</option>
             {projectTypes.map((type) => (
               <option key={type} value={type}>
                 {type}
@@ -145,7 +145,7 @@ export const ProjectList = () => {
           </select>
           <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
             <Filter className="h-4 w-4" />
-            More Filters
+            {t('projectList.moreFilters')}
           </button>
         </div>
       </div>
@@ -157,28 +157,28 @@ export const ProjectList = () => {
             <thead>
               <tr className="border-b border-white/[0.08]">
                 <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-[#64748b]">
-                  Project
+                  {t('projectList.project')}
                 </th>
                 <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-[#64748b]">
-                  Client
+                  {t('projectList.client')}
                 </th>
                 <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-[#64748b]">
-                  Type
+                  {t('projectList.type')}
                 </th>
                 <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-[#64748b]">
-                  Status
+                  {t('projectList.status')}
                 </th>
                 <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-[#64748b]">
-                  Budget
+                  {t('projectList.budget')}
                 </th>
                 <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-[#64748b]">
-                  Progress
+                  {t('projectList.progress')}
                 </th>
                 <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-[#64748b]">
-                  Team
+                  {t('projectList.team')}
                 </th>
                 <th className="px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider text-[#64748b]">
-                  Actions
+                  {t('projectList.actions')}
                 </th>
               </tr>
             </thead>
@@ -312,14 +312,14 @@ export const ProjectList = () => {
         {/* Pagination */}
         <div className="flex items-center justify-between border-t border-white/[0.08] px-6 py-4">
           <p className="text-sm text-[#64748b]">
-            Showing {filteredProjects.length} of {projects.length} projects
+            {t('projectList.showing', { filtered: filteredProjects.length, total: projects.length })}
           </p>
           <div className="flex gap-2">
             <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
-              Previous
+              {t('projectList.previous')}
             </button>
             <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
-              Next
+              {t('projectList.next')}
             </button>
           </div>
         </div>

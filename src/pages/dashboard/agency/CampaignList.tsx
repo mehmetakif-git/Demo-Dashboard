@@ -26,7 +26,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const CampaignList = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('agency');
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -76,12 +76,12 @@ export const CampaignList = () => {
       className="space-y-6"
     >
       <PageHeader
-        title={t('agency.campaigns', 'Campaigns')}
-        subtitle="Manage all marketing and advertising campaigns"
+        title={t('campaignList.title')}
+        subtitle={t('campaignList.subtitle')}
         actions={
           <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
             <Plus className="h-4 w-4" />
-            New Campaign
+            {t('campaignList.newCampaign')}
           </button>
         }
       />
@@ -89,28 +89,28 @@ export const CampaignList = () => {
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Active Campaigns"
+          title={t('campaignList.activeCampaigns')}
           value={agencyStats.activeCampaigns.toString()}
           icon={Target}
           trend={{ value: '+3 this month', type: 'up' }}
         />
         <StatsCard
-          title="Total Budget"
+          title={t('campaignList.totalBudget')}
           value={formatCurrency(totalBudget)}
           icon={DollarSign}
           trend={{ value: '+15%', type: 'up' }}
         />
         <StatsCard
-          title="Performance"
+          title={t('campaignList.performance')}
           value={`${avgROI >= 0 ? '+' : ''}${avgROI.toFixed(0)}%`}
           icon={TrendingUp}
-          trend={{ value: 'vs target', type: avgROI >= 0 ? 'up' : 'down' }}
+          trend={{ value: t('campaignList.vsTarget'), type: avgROI >= 0 ? 'up' : 'down' }}
         />
         <StatsCard
-          title="Planning"
+          title={t('campaignList.planning')}
           value={campaigns.filter((c) => c.status === 'planning').length.toString()}
           icon={Calendar}
-          trend={{ value: 'In pipeline', type: 'neutral' }}
+          trend={{ value: t('campaignList.inPipeline'), type: 'neutral' }}
         />
       </div>
 
@@ -120,7 +120,7 @@ export const CampaignList = () => {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#64748b]" />
           <input
             type="text"
-            placeholder="Search campaigns..."
+            placeholder={t('campaignList.searchCampaigns')}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#547792] focus:outline-none"
@@ -132,7 +132,7 @@ export const CampaignList = () => {
             onChange={(e) => setStatusFilter(e.target.value)}
             className="rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
-            <option value="all">All Status</option>
+            <option value="all">{t('campaignList.allStatus')}</option>
             {campaignStatuses.map((status) => (
               <option key={status} value={status}>
                 {status.charAt(0).toUpperCase() + status.slice(1)}
@@ -144,7 +144,7 @@ export const CampaignList = () => {
             onChange={(e) => setTypeFilter(e.target.value)}
             className="rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
-            <option value="all">All Types</option>
+            <option value="all">{t('campaignList.allTypes')}</option>
             {campaignTypes.map((type) => (
               <option key={type} value={type}>
                 {type.charAt(0).toUpperCase() + type.slice(1)}
@@ -153,7 +153,7 @@ export const CampaignList = () => {
           </select>
           <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
             <Filter className="h-4 w-4" />
-            More Filters
+            {t('campaignList.moreFilters')}
           </button>
         </div>
       </div>
@@ -165,28 +165,28 @@ export const CampaignList = () => {
             <thead>
               <tr className="border-b border-white/[0.08]">
                 <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-[#64748b]">
-                  Campaign
+                  {t('campaignList.campaign')}
                 </th>
                 <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-[#64748b]">
-                  Client
+                  {t('campaignList.client')}
                 </th>
                 <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-[#64748b]">
-                  Type
+                  {t('campaignList.type')}
                 </th>
                 <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-[#64748b]">
-                  Status
+                  {t('campaignList.status')}
                 </th>
                 <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-[#64748b]">
-                  Budget
+                  {t('campaignList.budget')}
                 </th>
                 <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-[#64748b]">
-                  Progress
+                  {t('campaignList.progress')}
                 </th>
                 <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-[#64748b]">
-                  Channels
+                  {t('campaignList.channels')}
                 </th>
                 <th className="px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider text-[#64748b]">
-                  Actions
+                  {t('campaignList.actions')}
                 </th>
               </tr>
             </thead>
@@ -229,7 +229,7 @@ export const CampaignList = () => {
                       <div>
                         <p className="text-white">{formatCurrency(campaign.budget.total)}</p>
                         <p className="text-xs text-[#64748b]">
-                          Spent: {formatCurrency(campaign.budget.spent)}
+                          {t('campaignList.spent', { amount: formatCurrency(campaign.budget.spent) })}
                         </p>
                       </div>
                     </td>
@@ -291,14 +291,14 @@ export const CampaignList = () => {
         {/* Pagination */}
         <div className="flex items-center justify-between border-t border-white/[0.08] px-6 py-4">
           <p className="text-sm text-[#64748b]">
-            Showing {filteredCampaigns.length} of {campaigns.length} campaigns
+            {t('campaignList.showing', { filtered: filteredCampaigns.length, total: campaigns.length })}
           </p>
           <div className="flex gap-2">
             <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
-              Previous
+              {t('campaignList.previous')}
             </button>
             <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
-              Next
+              {t('campaignList.next')}
             </button>
           </div>
         </div>

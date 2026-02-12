@@ -28,28 +28,28 @@ import { getProfileImage } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const Talent = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('agency');
   const [searchTerm, setSearchTerm] = useState('');
   const [tierFilter, setTierFilter] = useState<string>('all');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
 
   const filteredTalent = useMemo(() => {
-    return talent.filter((t) => {
+    return talent.filter((item) => {
       const matchesSearch =
-        t.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        t.category.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesTier = tierFilter === 'all' || t.tier === tierFilter;
-      const matchesCategory = categoryFilter === 'all' || t.category === categoryFilter;
+        item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.category.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesTier = tierFilter === 'all' || item.tier === tierFilter;
+      const matchesCategory = categoryFilter === 'all' || item.category === categoryFilter;
       return matchesSearch && matchesTier && matchesCategory;
     });
   }, [searchTerm, tierFilter, categoryFilter]);
 
-  const categories = [...new Set(talent.map((t) => t.category))];
+  const categories = [...new Set(talent.map((item) => item.category))];
   const tiers = ['mega', 'macro', 'micro', 'nano'];
 
-  const totalFollowers = talent.reduce((sum, t) => sum + t.totalFollowers, 0);
-  const avgEngagement = talent.reduce((sum, t) => sum + t.avgEngagement, 0) / talent.length;
-  const totalContracts = talent.reduce((sum, t) => sum + t.currentContracts.length, 0);
+  const totalFollowers = talent.reduce((sum, item) => sum + item.totalFollowers, 0);
+  const avgEngagement = talent.reduce((sum, item) => sum + item.avgEngagement, 0) / talent.length;
+  const totalContracts = talent.reduce((sum, item) => sum + item.currentContracts.length, 0);
 
   const getTierIcon = (tier: string) => {
     switch (tier) {
@@ -86,12 +86,12 @@ export const Talent = () => {
       className="space-y-6"
     >
       <PageHeader
-        title={t('agency.talentInfluencers', 'Talent & Influencers')}
-        subtitle="Manage talent roster and influencer partnerships"
+        title={t('talent.title')}
+        subtitle={t('talent.subtitle')}
         actions={
           <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
             <Plus className="h-4 w-4" />
-            Add Talent
+            {t('talent.addTalent')}
           </button>
         }
       />
@@ -99,25 +99,25 @@ export const Talent = () => {
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Talent"
+          title={t('talent.totalTalent')}
           value={talent.length.toString()}
           icon={Users}
           trend={{ value: '+5 this month', type: 'up' }}
         />
         <StatsCard
-          title="Total Reach"
+          title={t('talent.totalReach')}
           value={formatNumber(totalFollowers)}
           icon={TrendingUp}
           trend={{ value: '+18% growth', type: 'up' }}
         />
         <StatsCard
-          title="Avg Engagement"
+          title={t('talent.avgEngagement')}
           value={`${avgEngagement.toFixed(1)}%`}
           icon={Sparkles}
-          trend={{ value: 'Above industry avg', type: 'up' }}
+          trend={{ value: t('talent.aboveIndustryAvg'), type: 'up' }}
         />
         <StatsCard
-          title="Active Contracts"
+          title={t('talent.activeContracts')}
           value={totalContracts.toString()}
           icon={DollarSign}
           trend={{ value: `${talent.length} talent`, type: 'neutral' }}
@@ -130,7 +130,7 @@ export const Talent = () => {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#64748b]" />
           <input
             type="text"
-            placeholder="Search talent..."
+            placeholder={t('talent.searchTalent')}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#547792] focus:outline-none"
@@ -142,7 +142,7 @@ export const Talent = () => {
             onChange={(e) => setTierFilter(e.target.value)}
             className="rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
-            <option value="all">All Tiers</option>
+            <option value="all">{t('talent.allTiers')}</option>
             {tiers.map((tier) => (
               <option key={tier} value={tier}>
                 {tier.charAt(0).toUpperCase() + tier.slice(1)}
@@ -154,7 +154,7 @@ export const Talent = () => {
             onChange={(e) => setCategoryFilter(e.target.value)}
             className="rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
-            <option value="all">All Categories</option>
+            <option value="all">{t('talent.allCategories')}</option>
             {categories.map((category) => (
               <option key={category} value={category}>
                 {category}
@@ -163,19 +163,19 @@ export const Talent = () => {
           </select>
           <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
             <Filter className="h-4 w-4" />
-            More Filters
+            {t('talent.moreFilters')}
           </button>
         </div>
       </div>
 
       {/* Talent Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filteredTalent.map((t) => {
-          const tierColor = getTalentTierColor(t.tier);
+        {filteredTalent.map((item) => {
+          const tierColor = getTalentTierColor(item.tier);
 
           return (
             <motion.div
-              key={t.id}
+              key={item.id}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6 hover:border-[#547792]/50 transition-colors"
@@ -183,36 +183,36 @@ export const Talent = () => {
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
                   {(() => {
-                    const profileImg = getProfileImage(t.name);
+                    const profileImg = getProfileImage(item.name);
                     if (profileImg) {
                       return (
                         <img
                           src={profileImg}
-                          alt={t.name}
+                          alt={item.name}
                           className="h-14 w-14 rounded-full object-cover"
                         />
                       );
                     }
                     return (
                       <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-[#547792] to-[#94B4C1] text-lg font-semibold text-white">
-                        {t.name.split(' ').map((n) => n[0]).join('')}
+                        {item.name.split(' ').map((n) => n[0]).join('')}
                       </div>
                     );
                   })()}
                   <div>
-                    <h3 className="font-semibold text-white">{t.name}</h3>
-                    <p className="text-xs text-[#64748b]">{t.category}</p>
+                    <h3 className="font-semibold text-white">{item.name}</h3>
+                    <p className="text-xs text-[#64748b]">{item.category}</p>
                   </div>
                 </div>
                 <span className={`inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium ${tierColor}`}>
-                  {getTierIcon(t.tier)}
-                  {t.tier.charAt(0).toUpperCase() + t.tier.slice(1)}
+                  {getTierIcon(item.tier)}
+                  {item.tier.charAt(0).toUpperCase() + item.tier.slice(1)}
                 </span>
               </div>
 
               {/* Platforms */}
               <div className="flex flex-wrap gap-2 mb-4">
-                {t.platforms.map((platform) => (
+                {item.platforms.map((platform) => (
                   <span
                     key={platform.platform}
                     className="inline-flex items-center gap-1.5 rounded-full bg-[#1a1a24] px-2.5 py-1 text-xs text-[#94a3b8]"
@@ -226,40 +226,40 @@ export const Talent = () => {
               {/* Stats */}
               <div className="grid grid-cols-3 gap-4 mb-4 py-4 border-y border-white/[0.08]">
                 <div className="text-center">
-                  <p className="text-lg font-semibold text-white">{formatNumber(t.totalFollowers)}</p>
-                  <p className="text-xs text-[#64748b]">Followers</p>
+                  <p className="text-lg font-semibold text-white">{formatNumber(item.totalFollowers)}</p>
+                  <p className="text-xs text-[#64748b]">{t('talent.followers')}</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-lg font-semibold text-emerald-400">{t.avgEngagement}%</p>
-                  <p className="text-xs text-[#64748b]">Engagement</p>
+                  <p className="text-lg font-semibold text-emerald-400">{item.avgEngagement}%</p>
+                  <p className="text-xs text-[#64748b]">{t('talent.engagement')}</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-lg font-semibold text-white">{t.currentContracts.length}</p>
-                  <p className="text-xs text-[#64748b]">Contracts</p>
+                  <p className="text-lg font-semibold text-white">{item.currentContracts.length}</p>
+                  <p className="text-xs text-[#64748b]">{t('talent.contracts')}</p>
                 </div>
               </div>
 
               {/* Rate */}
               <div className="flex items-center justify-between mb-4">
-                <span className="text-[#64748b] text-sm">Rate per post</span>
+                <span className="text-[#64748b] text-sm">{t('talent.ratePerPost')}</span>
                 <span className="text-white font-semibold">
-                  {typeof t.rate.instagramPost === 'number'
-                    ? formatCurrency(t.rate.instagramPost)
-                    : t.rate.instagramPost || 'Negotiable'}
+                  {typeof item.rate.instagramPost === 'number'
+                    ? formatCurrency(item.rate.instagramPost)
+                    : item.rate.instagramPost || t('talent.negotiable')}
                 </span>
               </div>
 
               {/* Status */}
               <div className="flex items-center justify-between mb-4">
-                <span className="text-[#64748b] text-sm">Status</span>
+                <span className="text-[#64748b] text-sm">{t('talent.status')}</span>
                 <span className={`text-xs font-medium px-2 py-1 rounded-full ${
-                  t.status === 'active'
+                  item.status === 'active'
                     ? 'bg-emerald-500/20 text-emerald-400'
-                    : t.status === 'prospect'
+                    : item.status === 'prospect'
                     ? 'bg-amber-500/20 text-amber-400'
                     : 'bg-red-500/20 text-red-400'
                 }`}>
-                  {t.status.charAt(0).toUpperCase() + t.status.slice(1)}
+                  {item.status.charAt(0).toUpperCase() + item.status.slice(1)}
                 </span>
               </div>
 
@@ -283,14 +283,14 @@ export const Talent = () => {
       {/* Pagination */}
       <div className="flex items-center justify-between">
         <p className="text-sm text-[#64748b]">
-          Showing {filteredTalent.length} of {talent.length} talent
+          {t('talent.showing', { filtered: filteredTalent.length, total: talent.length })}
         </p>
         <div className="flex gap-2">
           <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
-            Previous
+            {t('talent.previous')}
           </button>
           <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
-            Next
+            {t('talent.next')}
           </button>
         </div>
       </div>

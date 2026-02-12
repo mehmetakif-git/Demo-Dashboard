@@ -25,7 +25,7 @@ import { getCreativeThumbnail } from '@/utils/creativeImages';
 import { useTranslation } from 'react-i18next';
 
 export const Creatives = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('agency');
   const [searchTerm, setSearchTerm] = useState('');
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -87,12 +87,12 @@ export const Creatives = () => {
       className="space-y-6"
     >
       <PageHeader
-        title={t('agency.creatives', 'Creatives')}
-        subtitle="Manage creative assets and design materials"
+        title={t('creatives.title')}
+        subtitle={t('creatives.subtitle')}
         actions={
           <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
             <Plus className="h-4 w-4" />
-            Upload Asset
+            {t('creatives.uploadAsset')}
           </button>
         }
       />
@@ -100,28 +100,28 @@ export const Creatives = () => {
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Assets"
+          title={t('creatives.totalAssets')}
           value={totalAssets.toString()}
           icon={Palette}
           trend={{ value: '+12 this month', type: 'up' }}
         />
         <StatsCard
-          title="Approved"
+          title={t('creatives.approved')}
           value={approvedAssets.toString()}
           icon={CheckCircle}
           trend={{ value: `${((approvedAssets / totalAssets) * 100).toFixed(0)}%`, type: 'up' }}
         />
         <StatsCard
-          title="Draft"
+          title={t('creatives.draft')}
           value={draftAssets.toString()}
           icon={Clock}
-          trend={{ value: 'In progress', type: 'neutral' }}
+          trend={{ value: t('creatives.inProgress'), type: 'neutral' }}
         />
         <StatsCard
-          title="In Review"
+          title={t('creatives.inReview')}
           value={inReviewAssets.toString()}
           icon={Eye}
-          trend={{ value: 'Being reviewed', type: 'neutral' }}
+          trend={{ value: t('creatives.beingReviewed'), type: 'neutral' }}
         />
       </div>
 
@@ -131,7 +131,7 @@ export const Creatives = () => {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#64748b]" />
           <input
             type="text"
-            placeholder="Search assets..."
+            placeholder={t('creatives.searchAssets')}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#547792] focus:outline-none"
@@ -143,7 +143,7 @@ export const Creatives = () => {
             onChange={(e) => setTypeFilter(e.target.value)}
             className="rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
-            <option value="all">All Types</option>
+            <option value="all">{t('creatives.allTypes')}</option>
             {types.map((type) => (
               <option key={type} value={type}>
                 {type.charAt(0).toUpperCase() + type.slice(1)}
@@ -155,7 +155,7 @@ export const Creatives = () => {
             onChange={(e) => setStatusFilter(e.target.value)}
             className="rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
-            <option value="all">All Status</option>
+            <option value="all">{t('creatives.allStatus')}</option>
             {statuses.map((status) => (
               <option key={status} value={status}>
                 {status.charAt(0).toUpperCase() + status.slice(1).replace('-', ' ')}
@@ -164,7 +164,7 @@ export const Creatives = () => {
           </select>
           <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
             <Filter className="h-4 w-4" />
-            More Filters
+            {t('creatives.moreFilters')}
           </button>
         </div>
       </div>
@@ -260,14 +260,14 @@ export const Creatives = () => {
       {/* Pagination */}
       <div className="flex items-center justify-between">
         <p className="text-sm text-[#64748b]">
-          Showing {filteredAssets.length} of {creativeAssets.length} assets
+          {t('creatives.showing', { filtered: filteredAssets.length, total: creativeAssets.length })}
         </p>
         <div className="flex gap-2">
           <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
-            Previous
+            {t('creatives.previous')}
           </button>
           <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
-            Next
+            {t('creatives.next')}
           </button>
         </div>
       </div>

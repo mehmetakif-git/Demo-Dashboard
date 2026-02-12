@@ -23,7 +23,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const MediaPlanning = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('agency');
   const [searchTerm, setSearchTerm] = useState('');
   const [channelFilter, setChannelFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -84,12 +84,12 @@ export const MediaPlanning = () => {
       className="space-y-6"
     >
       <PageHeader
-        title={t('agency.mediaPlanning', 'Media Planning')}
-        subtitle="Plan and manage media placements across channels"
+        title={t('mediaPlanning.title')}
+        subtitle={t('mediaPlanning.subtitle')}
         actions={
           <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
             <Plus className="h-4 w-4" />
-            New Media Plan
+            {t('mediaPlanning.newMediaPlan')}
           </button>
         }
       />
@@ -97,28 +97,28 @@ export const MediaPlanning = () => {
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Budget"
+          title={t('mediaPlanning.totalBudget')}
           value={formatCurrency(totalBudget)}
           icon={DollarSign}
           trend={{ value: '+18%', type: 'up' }}
         />
         <StatsCard
-          title="Total Spent"
+          title={t('mediaPlanning.totalSpent')}
           value={formatCurrency(totalSpent)}
           icon={TrendingUp}
-          trend={{ value: `${((totalSpent / totalBudget) * 100).toFixed(0)}% utilized`, type: 'neutral' }}
+          trend={{ value: t('mediaPlanning.utilized', { percent: ((totalSpent / totalBudget) * 100).toFixed(0) }), type: 'neutral' }}
         />
         <StatsCard
-          title="Total Impressions"
+          title={t('mediaPlanning.totalImpressions')}
           value={`${(totalImpressions / 1000000).toFixed(1)}M`}
           icon={Eye}
-          trend={{ value: '+25% reach', type: 'up' }}
+          trend={{ value: t('mediaPlanning.reach'), type: 'up' }}
         />
         <StatsCard
-          title="Avg CPM"
+          title={t('mediaPlanning.avgCPM')}
           value={`$${avgCPM.toFixed(2)}`}
           icon={BarChart3}
-          trend={{ value: 'Industry avg: $12', type: 'up' }}
+          trend={{ value: t('mediaPlanning.industryAvg'), type: 'up' }}
         />
       </div>
 
@@ -128,7 +128,7 @@ export const MediaPlanning = () => {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#64748b]" />
           <input
             type="text"
-            placeholder="Search media plans..."
+            placeholder={t('mediaPlanning.searchMediaPlans')}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#547792] focus:outline-none"
@@ -140,7 +140,7 @@ export const MediaPlanning = () => {
             onChange={(e) => setChannelFilter(e.target.value)}
             className="rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
-            <option value="all">All Channels</option>
+            <option value="all">{t('mediaPlanning.allChannels')}</option>
             {channels.map((channel) => (
               <option key={channel} value={channel}>
                 {channel}
@@ -152,7 +152,7 @@ export const MediaPlanning = () => {
             onChange={(e) => setStatusFilter(e.target.value)}
             className="rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
-            <option value="all">All Status</option>
+            <option value="all">{t('mediaPlanning.allStatus')}</option>
             {statuses.map((status) => (
               <option key={status} value={status}>
                 {status.charAt(0).toUpperCase() + status.slice(1)}
@@ -161,7 +161,7 @@ export const MediaPlanning = () => {
           </select>
           <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
             <Filter className="h-4 w-4" />
-            More Filters
+            {t('mediaPlanning.moreFilters')}
           </button>
         </div>
       </div>
@@ -198,24 +198,24 @@ export const MediaPlanning = () => {
 
               <div className="space-y-3 mb-4">
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-[#64748b]">Channels</span>
+                  <span className="text-[#64748b]">{t('mediaPlanning.channels')}</span>
                   <span className="text-white flex items-center gap-1.5">
-                    {plan.channels.length} channels
+                    {t('mediaPlanning.channelsCount', { count: plan.channels.length })}
                   </span>
                 </div>
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-[#64748b]">Client</span>
+                  <span className="text-[#64748b]">{t('mediaPlanning.client')}</span>
                   <span className="text-white">{plan.client}</span>
                 </div>
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-[#64748b]">Period</span>
+                  <span className="text-[#64748b]">{t('mediaPlanning.period')}</span>
                   <span className="text-white">{plan.flightDates.start} - {plan.flightDates.end}</span>
                 </div>
               </div>
 
               <div className="pt-4 border-t border-white/[0.08]">
                 <div className="flex justify-between mb-2">
-                  <span className="text-xs text-[#64748b]">Budget Usage</span>
+                  <span className="text-xs text-[#64748b]">{t('mediaPlanning.budgetUsage')}</span>
                   <span className="text-xs text-white">{budgetProgress.toFixed(0)}%</span>
                 </div>
                 <div className="h-2 rounded-full bg-[#1e1e2e] mb-3">
@@ -226,11 +226,11 @@ export const MediaPlanning = () => {
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <p className="text-xs text-[#64748b]">Budget</p>
+                    <p className="text-xs text-[#64748b]">{t('mediaPlanning.budget')}</p>
                     <p className="text-sm font-semibold text-white">{formatCurrency(plan.totalBudget)}</p>
                   </div>
                   <div>
-                    <p className="text-xs text-[#64748b]">Impressions</p>
+                    <p className="text-xs text-[#64748b]">{t('mediaPlanning.impressions')}</p>
                     <p className="text-sm font-semibold text-white">{(planImpressions / 1000).toFixed(0)}K</p>
                   </div>
                 </div>
@@ -255,14 +255,14 @@ export const MediaPlanning = () => {
       {/* Pagination */}
       <div className="flex items-center justify-between">
         <p className="text-sm text-[#64748b]">
-          Showing {filteredPlans.length} of {mediaPlans.length} media plans
+          {t('mediaPlanning.showing', { filtered: filteredPlans.length, total: mediaPlans.length })}
         </p>
         <div className="flex gap-2">
           <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
-            Previous
+            {t('mediaPlanning.previous')}
           </button>
           <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
-            Next
+            {t('mediaPlanning.next')}
           </button>
         </div>
       </div>

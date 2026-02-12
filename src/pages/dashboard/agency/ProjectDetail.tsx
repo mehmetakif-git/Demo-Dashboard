@@ -24,7 +24,7 @@ import { getProfileImage } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const ProjectDetail = () => {
-  const { t: _t } = useTranslation('common');
+  const { t } = useTranslation('agency');
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -35,12 +35,12 @@ export const ProjectDetail = () => {
   if (!project) {
     return (
       <div className="flex flex-col items-center justify-center h-96">
-        <p className="text-[#64748b] mb-4">Project not found</p>
+        <p className="text-[#64748b] mb-4">{t('projectDetail.projectNotFound')}</p>
         <button
           onClick={() => navigate('/dashboard/agency/projects')}
           className="text-[#547792] hover:underline"
         >
-          Back to Projects
+          {t('projectDetail.backToProjects')}
         </button>
       </div>
     );
@@ -82,13 +82,13 @@ export const ProjectDetail = () => {
           className="flex items-center gap-2 text-[#64748b] hover:text-white transition-colors"
         >
           <ArrowLeft className="h-5 w-5" />
-          Back to Projects
+          {t('projectDetail.backToProjects')}
         </button>
       </div>
 
       <PageHeader
         title={project.name}
-        subtitle={`${project.type} Project for ${project.client}`}
+        subtitle={t('projectDetail.projectFor', { type: project.type, client: project.client })}
         actions={
           <div className="flex items-center gap-3">
             <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-medium ${statusColor}`}>
@@ -97,7 +97,7 @@ export const ProjectDetail = () => {
             </span>
             <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-4 py-2 text-sm font-medium text-[#94a3b8] hover:bg-[#1a1a24]">
               <Edit2 className="h-4 w-4" />
-              Edit Project
+              {t('projectDetail.editProject')}
             </button>
           </div>
         }
@@ -106,28 +106,28 @@ export const ProjectDetail = () => {
       {/* Project Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Progress"
+          title={t('projectDetail.progressLabel')}
           value={`${progress}%`}
           icon={CheckCircle}
-          trend={{ value: progress >= 50 ? 'On track' : 'Behind schedule', type: progress >= 50 ? 'up' : 'down' }}
+          trend={{ value: progress >= 50 ? t('projectDetail.onTrack') : t('projectDetail.behindSchedule'), type: progress >= 50 ? 'up' : 'down' }}
         />
         <StatsCard
-          title="Budget"
+          title={t('projectDetail.budget')}
           value={formatCurrency(project.budget)}
           icon={DollarSign}
-          trend={{ value: formatCurrency(project.spent) + ' spent', type: 'neutral' }}
+          trend={{ value: t('projectDetail.spent', { amount: formatCurrency(project.spent) }), type: 'neutral' }}
         />
         <StatsCard
-          title="Team Size"
+          title={t('projectDetail.teamSize')}
           value={project.team.length.toString()}
           icon={Users}
-          trend={{ value: `${project.team.length} members`, type: 'neutral' }}
+          trend={{ value: t('projectDetail.members', { count: project.team.length }), type: 'neutral' }}
         />
         <StatsCard
-          title="Days Remaining"
+          title={t('projectDetail.daysRemaining')}
           value={daysRemaining > 0 ? daysRemaining.toString() : '0'}
           icon={Calendar}
-          trend={{ value: daysRemaining > 0 ? `Due ${project.dueDate}` : 'Overdue', type: daysRemaining > 7 ? 'neutral' : 'down' }}
+          trend={{ value: daysRemaining > 0 ? t('projectDetail.due', { date: project.dueDate }) : t('projectDetail.overdue'), type: daysRemaining > 7 ? 'neutral' : 'down' }}
         />
       </div>
 
@@ -137,30 +137,30 @@ export const ProjectDetail = () => {
         <div className="space-y-6">
           {/* Project Details */}
           <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
-            <h3 className="text-lg font-semibold text-white mb-4">Project Details</h3>
+            <h3 className="text-lg font-semibold text-white mb-4">{t('projectDetail.projectDetails')}</h3>
             <div className="space-y-4">
               <div className="flex justify-between">
-                <span className="text-[#64748b]">Client</span>
+                <span className="text-[#64748b]">{t('projectDetail.client')}</span>
                 <span className="text-white">{project.client}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#64748b]">Project Type</span>
+                <span className="text-[#64748b]">{t('projectDetail.projectType')}</span>
                 <span className="text-white">{project.type}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#64748b]">Project Manager</span>
+                <span className="text-[#64748b]">{t('projectDetail.projectManager')}</span>
                 <span className="text-white">{project.projectManager}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#64748b]">Start Date</span>
+                <span className="text-[#64748b]">{t('projectDetail.startDate')}</span>
                 <span className="text-white">{project.startDate}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#64748b]">Due Date</span>
+                <span className="text-[#64748b]">{t('projectDetail.dueDate')}</span>
                 <span className="text-white">{project.dueDate}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#64748b]">Priority</span>
+                <span className="text-[#64748b]">{t('projectDetail.priority')}</span>
                 <span className={`text-xs font-medium px-2 py-1 rounded-full ${
                   project.priority === 'high'
                     ? 'bg-red-500/20 text-red-400'
@@ -176,11 +176,11 @@ export const ProjectDetail = () => {
 
           {/* Progress Overview */}
           <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
-            <h3 className="text-lg font-semibold text-white mb-4">Progress Overview</h3>
+            <h3 className="text-lg font-semibold text-white mb-4">{t('projectDetail.progressOverview')}</h3>
             <div className="space-y-4">
               <div>
                 <div className="flex justify-between mb-2">
-                  <span className="text-[#64748b]">Overall Progress</span>
+                  <span className="text-[#64748b]">{t('projectDetail.overallProgress')}</span>
                   <span className="text-white">{progress}%</span>
                 </div>
                 <div className="h-3 rounded-full bg-[#1e1e2e]">
@@ -198,11 +198,11 @@ export const ProjectDetail = () => {
               </div>
               <div className="grid grid-cols-2 gap-4 pt-4">
                 <div className="rounded-lg bg-[#1a1a24] p-4">
-                  <p className="text-xs text-[#64748b] mb-1">Deliverables</p>
+                  <p className="text-xs text-[#64748b] mb-1">{t('projectDetail.deliverables')}</p>
                   <p className="text-xl font-semibold text-white">{project.deliverables.length}</p>
                 </div>
                 <div className="rounded-lg bg-[#1a1a24] p-4">
-                  <p className="text-xs text-[#64748b] mb-1">Completed</p>
+                  <p className="text-xs text-[#64748b] mb-1">{t('projectDetail.completedLabel')}</p>
                   <p className="text-xl font-semibold text-emerald-400">{completedDeliverables}</p>
                 </div>
               </div>
@@ -214,7 +214,7 @@ export const ProjectDetail = () => {
         <div className="space-y-6">
           {/* Team Members */}
           <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
-            <h3 className="text-lg font-semibold text-white mb-4">Team Members</h3>
+            <h3 className="text-lg font-semibold text-white mb-4">{t('projectDetail.teamMembers')}</h3>
             <div className="space-y-3">
               {project.team.map((member) => {
                 const profileImg = getProfileImage(member.name);
@@ -245,7 +245,7 @@ export const ProjectDetail = () => {
 
           {/* Deliverables */}
           <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
-            <h3 className="text-lg font-semibold text-white mb-4">Deliverables</h3>
+            <h3 className="text-lg font-semibold text-white mb-4">{t('projectDetail.deliverables')}</h3>
             <div className="space-y-3">
               {project.deliverables.map((deliverable) => (
                 <div key={deliverable.name} className="flex items-center gap-3 p-3 rounded-lg bg-[#1a1a24]">
@@ -289,36 +289,36 @@ export const ProjectDetail = () => {
         <div className="space-y-6">
           {/* Quick Actions */}
           <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
-            <h3 className="text-lg font-semibold text-white mb-4">Quick Actions</h3>
+            <h3 className="text-lg font-semibold text-white mb-4">{t('projectDetail.quickActions')}</h3>
             <div className="grid grid-cols-2 gap-3">
               <button className="flex flex-col items-center gap-2 rounded-lg bg-[#1a1a24] p-4 hover:bg-[#1e1e2e] transition-colors">
                 <FileText className="h-6 w-6 text-[#547792]" />
-                <span className="text-xs text-[#94a3b8]">View Files</span>
+                <span className="text-xs text-[#94a3b8]">{t('projectDetail.viewFiles')}</span>
               </button>
               <button className="flex flex-col items-center gap-2 rounded-lg bg-[#1a1a24] p-4 hover:bg-[#1e1e2e] transition-colors">
                 <MessageSquare className="h-6 w-6 text-[#94B4C1]" />
-                <span className="text-xs text-[#94a3b8]">Messages</span>
+                <span className="text-xs text-[#94a3b8]">{t('projectDetail.messages')}</span>
               </button>
               <button className="flex flex-col items-center gap-2 rounded-lg bg-[#1a1a24] p-4 hover:bg-[#1e1e2e] transition-colors">
                 <Paperclip className="h-6 w-6 text-emerald-400" />
-                <span className="text-xs text-[#94a3b8]">Attachments</span>
+                <span className="text-xs text-[#94a3b8]">{t('projectDetail.attachments')}</span>
               </button>
               <button className="flex flex-col items-center gap-2 rounded-lg bg-[#1a1a24] p-4 hover:bg-[#1e1e2e] transition-colors">
                 <Calendar className="h-6 w-6 text-amber-400" />
-                <span className="text-xs text-[#94a3b8]">Schedule</span>
+                <span className="text-xs text-[#94a3b8]">{t('projectDetail.schedule')}</span>
               </button>
             </div>
           </div>
 
           {/* Recent Activity */}
           <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
-            <h3 className="text-lg font-semibold text-white mb-4">Recent Activity</h3>
+            <h3 className="text-lg font-semibold text-white mb-4">{t('projectDetail.recentActivity')}</h3>
             <div className="space-y-4">
               {[
-                { action: 'Updated project status', user: project.projectManager, time: '2 hours ago' },
-                { action: 'Added new deliverable', user: project.team[1]?.name || project.projectManager, time: '5 hours ago' },
-                { action: 'Completed milestone', user: project.team[0]?.name || project.projectManager, time: '1 day ago' },
-                { action: 'Budget approved', user: 'Finance Team', time: '2 days ago' },
+                { action: t('projectDetail.updatedProjectStatus'), user: project.projectManager, time: t('projectDetail.hoursAgo', { count: 2 }) },
+                { action: t('projectDetail.addedNewDeliverable'), user: project.team[1]?.name || project.projectManager, time: t('projectDetail.hoursAgo', { count: 5 }) },
+                { action: t('projectDetail.completedMilestone'), user: project.team[0]?.name || project.projectManager, time: t('projectDetail.dayAgo') },
+                { action: t('projectDetail.budgetApproved'), user: t('projectDetail.financeTeam'), time: t('projectDetail.daysAgo', { count: 2 }) },
               ].map((activity, index) => (
                 <div key={index} className="flex items-start gap-3">
                   <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#1a1a24] mt-0.5">

@@ -23,7 +23,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const Invoicing = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('agency');
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
@@ -66,12 +66,12 @@ export const Invoicing = () => {
       className="space-y-6"
     >
       <PageHeader
-        title={t('agency.invoicing', 'Invoicing')}
-        subtitle="Manage invoices and billing"
+        title={t('invoicing.title')}
+        subtitle={t('invoicing.subtitle')}
         actions={
           <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
             <Plus className="h-4 w-4" />
-            Create Invoice
+            {t('invoicing.createInvoice')}
           </button>
         }
       />
@@ -79,28 +79,28 @@ export const Invoicing = () => {
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Invoiced"
+          title={t('invoicing.totalInvoiced')}
           value={formatCurrency(totalAmount)}
           icon={DollarSign}
           trend={{ value: '+18% this month', type: 'up' }}
         />
         <StatsCard
-          title="Paid"
+          title={t('invoicing.paid')}
           value={formatCurrency(paidAmount)}
           icon={CheckCircle}
-          trend={{ value: `${invoices.filter((i) => i.status === 'paid').length} invoices`, type: 'up' }}
+          trend={{ value: t('invoicing.invoices', { count: invoices.filter((i) => i.status === 'paid').length }), type: 'up' }}
         />
         <StatsCard
-          title="Pending"
+          title={t('invoicing.pending')}
           value={formatCurrency(pendingAmount)}
           icon={Clock}
-          trend={{ value: `${invoices.filter((i) => i.status === 'pending').length} awaiting`, type: 'neutral' }}
+          trend={{ value: t('invoicing.awaiting', { count: invoices.filter((i) => i.status === 'pending').length }), type: 'neutral' }}
         />
         <StatsCard
-          title="Overdue"
+          title={t('invoicing.overdue')}
           value={formatCurrency(overdueAmount)}
           icon={AlertCircle}
-          trend={{ value: `${invoices.filter((i) => i.status === 'overdue').length} need attention`, type: 'down' }}
+          trend={{ value: t('invoicing.needAttention', { count: invoices.filter((i) => i.status === 'overdue').length }), type: 'down' }}
         />
       </div>
 
@@ -110,7 +110,7 @@ export const Invoicing = () => {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#64748b]" />
           <input
             type="text"
-            placeholder="Search invoices..."
+            placeholder={t('invoicing.searchInvoices')}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#547792] focus:outline-none"
@@ -122,7 +122,7 @@ export const Invoicing = () => {
             onChange={(e) => setStatusFilter(e.target.value)}
             className="rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
-            <option value="all">All Status</option>
+            <option value="all">{t('invoicing.allStatus')}</option>
             {statuses.map((status) => (
               <option key={status} value={status}>
                 {status.charAt(0).toUpperCase() + status.slice(1)}
@@ -131,7 +131,7 @@ export const Invoicing = () => {
           </select>
           <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
             <Filter className="h-4 w-4" />
-            More Filters
+            {t('invoicing.moreFilters')}
           </button>
         </div>
       </div>
@@ -143,28 +143,28 @@ export const Invoicing = () => {
             <thead>
               <tr className="border-b border-white/[0.08]">
                 <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-[#64748b]">
-                  Invoice
+                  {t('invoicing.invoice')}
                 </th>
                 <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-[#64748b]">
-                  Client
+                  {t('invoicing.client')}
                 </th>
                 <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-[#64748b]">
-                  Campaign
+                  {t('invoicing.campaign')}
                 </th>
                 <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-[#64748b]">
-                  Amount
+                  {t('invoicing.amount')}
                 </th>
                 <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-[#64748b]">
-                  Status
+                  {t('invoicing.status')}
                 </th>
                 <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-[#64748b]">
-                  Issue Date
+                  {t('invoicing.issueDate')}
                 </th>
                 <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-[#64748b]">
-                  Due Date
+                  {t('invoicing.dueDate')}
                 </th>
                 <th className="px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider text-[#64748b]">
-                  Actions
+                  {t('invoicing.actions')}
                 </th>
               </tr>
             </thead>
@@ -240,14 +240,14 @@ export const Invoicing = () => {
         {/* Pagination */}
         <div className="flex items-center justify-between border-t border-white/[0.08] px-6 py-4">
           <p className="text-sm text-[#64748b]">
-            Showing {filteredInvoices.length} of {invoices.length} invoices
+            {t('invoicing.showing', { filtered: filteredInvoices.length, total: invoices.length })}
           </p>
           <div className="flex gap-2">
             <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
-              Previous
+              {t('invoicing.previous')}
             </button>
             <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
-              Next
+              {t('invoicing.next')}
             </button>
           </div>
         </div>
@@ -257,26 +257,26 @@ export const Invoicing = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Revenue Breakdown */}
         <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
-          <h3 className="text-lg font-semibold text-white mb-4">Revenue Breakdown</h3>
+          <h3 className="text-lg font-semibold text-white mb-4">{t('invoicing.revenueBreakdown')}</h3>
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <div className="h-3 w-3 rounded-full bg-emerald-500" />
-                <span className="text-[#94a3b8]">Paid</span>
+                <span className="text-[#94a3b8]">{t('invoicing.paid')}</span>
               </div>
               <span className="text-white font-medium">{formatCurrency(paidAmount)}</span>
             </div>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <div className="h-3 w-3 rounded-full bg-amber-500" />
-                <span className="text-[#94a3b8]">Pending</span>
+                <span className="text-[#94a3b8]">{t('invoicing.pending')}</span>
               </div>
               <span className="text-white font-medium">{formatCurrency(pendingAmount)}</span>
             </div>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <div className="h-3 w-3 rounded-full bg-red-500" />
-                <span className="text-[#94a3b8]">Overdue</span>
+                <span className="text-[#94a3b8]">{t('invoicing.overdue')}</span>
               </div>
               <span className="text-white font-medium">{formatCurrency(overdueAmount)}</span>
             </div>
@@ -285,11 +285,11 @@ export const Invoicing = () => {
 
         {/* Payment Trend */}
         <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
-          <h3 className="text-lg font-semibold text-white mb-4">Payment Statistics</h3>
+          <h3 className="text-lg font-semibold text-white mb-4">{t('invoicing.paymentStatistics')}</h3>
           <div className="space-y-4">
             <div className="rounded-lg bg-[#1a1a24] p-4">
               <div className="flex items-center justify-between">
-                <span className="text-[#64748b]">Collection Rate</span>
+                <span className="text-[#64748b]">{t('invoicing.collectionRate')}</span>
                 <span className="text-emerald-400 font-semibold">
                   {((paidAmount / totalAmount) * 100).toFixed(0)}%
                 </span>
@@ -303,13 +303,13 @@ export const Invoicing = () => {
             </div>
             <div className="rounded-lg bg-[#1a1a24] p-4">
               <div className="flex items-center justify-between">
-                <span className="text-[#64748b]">Avg Payment Time</span>
-                <span className="text-white font-semibold">12 days</span>
+                <span className="text-[#64748b]">{t('invoicing.avgPaymentTime')}</span>
+                <span className="text-white font-semibold">{t('invoicing.days', { count: 12 })}</span>
               </div>
             </div>
             <div className="rounded-lg bg-[#1a1a24] p-4">
               <div className="flex items-center justify-between">
-                <span className="text-[#64748b]">On-time Payments</span>
+                <span className="text-[#64748b]">{t('invoicing.onTimePayments')}</span>
                 <span className="text-emerald-400 font-semibold">85%</span>
               </div>
             </div>
@@ -318,7 +318,7 @@ export const Invoicing = () => {
 
         {/* Upcoming Due */}
         <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6">
-          <h3 className="text-lg font-semibold text-white mb-4">Upcoming Due</h3>
+          <h3 className="text-lg font-semibold text-white mb-4">{t('invoicing.upcomingDue')}</h3>
           <div className="space-y-3">
             {invoices
               .filter((i) => i.status === 'pending')
@@ -334,7 +334,7 @@ export const Invoicing = () => {
                   </div>
                   <div className="text-right">
                     <p className="text-white text-sm font-medium">{formatCurrency(invoice.total)}</p>
-                    <p className="text-xs text-[#64748b]">Due {invoice.dueDate}</p>
+                    <p className="text-xs text-[#64748b]">{t('invoicing.due', { date: invoice.dueDate })}</p>
                   </div>
                 </div>
               ))}

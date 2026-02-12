@@ -26,7 +26,7 @@ import { getCompanyLogo } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const ClientList = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('agency');
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [tierFilter, setTierFilter] = useState<string>('all');
@@ -70,12 +70,12 @@ export const ClientList = () => {
       className="space-y-6"
     >
       <PageHeader
-        title={t('agency.clients', 'Clients')}
-        subtitle="Manage your agency's client portfolio"
+        title={t('clientList.title')}
+        subtitle={t('clientList.subtitle')}
         actions={
           <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#547792] to-[#94B4C1] px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-opacity">
             <Plus className="h-4 w-4" />
-            Add Client
+            {t('clientList.addClient')}
           </button>
         }
       />
@@ -83,28 +83,28 @@ export const ClientList = () => {
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Clients"
+          title={t('clientList.totalClients')}
           value={agencyStats.activeClients.toString()}
           icon={Building2}
           trend={{ value: '+2 this quarter', type: 'up' }}
         />
         <StatsCard
-          title="YTD Revenue"
+          title={t('clientList.ytdRevenue')}
           value={formatCurrency(totalRevenue)}
           icon={DollarSign}
           trend={{ value: '+12%', type: 'up' }}
         />
         <StatsCard
-          title="Avg Rating"
+          title={t('clientList.avgRating')}
           value={avgRating.toFixed(1)}
           icon={Star}
-          trend={{ value: 'Out of 5', type: 'up' }}
+          trend={{ value: t('clientList.outOf5'), type: 'up' }}
         />
         <StatsCard
-          title="Active Campaigns"
+          title={t('clientList.activeCampaigns')}
           value={agencyStats.activeCampaigns.toString()}
           icon={Building2}
-          trend={{ value: 'Across all clients', type: 'neutral' }}
+          trend={{ value: t('clientList.acrossAllClients'), type: 'neutral' }}
         />
       </div>
 
@@ -114,7 +114,7 @@ export const ClientList = () => {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#64748b]" />
           <input
             type="text"
-            placeholder="Search clients..."
+            placeholder={t('clientList.searchClients')}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl py-2 pl-10 pr-4 text-sm text-white placeholder-[#64748b] focus:border-[#547792] focus:outline-none"
@@ -126,7 +126,7 @@ export const ClientList = () => {
             onChange={(e) => setTierFilter(e.target.value)}
             className="rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
-            <option value="all">All Tiers</option>
+            <option value="all">{t('clientList.allTiers')}</option>
             {tiers.map((tier) => (
               <option key={tier} value={tier}>
                 {tier.charAt(0).toUpperCase() + tier.slice(1)}
@@ -138,7 +138,7 @@ export const ClientList = () => {
             onChange={(e) => setIndustryFilter(e.target.value)}
             className="rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-white focus:border-[#547792] focus:outline-none"
           >
-            <option value="all">All Industries</option>
+            <option value="all">{t('clientList.allIndustries')}</option>
             {industries.map((industry) => (
               <option key={industry} value={industry}>
                 {industry}
@@ -147,7 +147,7 @@ export const ClientList = () => {
           </select>
           <button className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
             <Filter className="h-4 w-4" />
-            More Filters
+            {t('clientList.moreFilters')}
           </button>
         </div>
       </div>
@@ -207,19 +207,19 @@ export const ClientList = () => {
 
               <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/[0.08]">
                 <div>
-                  <p className="text-xs text-[#64748b]">YTD Revenue</p>
+                  <p className="text-xs text-[#64748b]">{t('clientList.ytdRevenue')}</p>
                   <p className="text-sm font-semibold text-white">{formatCurrency(client.ytdRevenue)}</p>
                 </div>
                 <div>
-                  <p className="text-xs text-[#64748b]">Active Campaigns</p>
+                  <p className="text-xs text-[#64748b]">{t('clientList.activeCampaigns')}</p>
                   <p className="text-sm font-semibold text-white">{client.activeCampaigns}</p>
                 </div>
                 <div>
-                  <p className="text-xs text-[#64748b]">Rating</p>
+                  <p className="text-xs text-[#64748b]">{t('clientList.rating')}</p>
                   <p className="text-sm font-semibold text-emerald-400">{client.rating}/5</p>
                 </div>
                 <div>
-                  <p className="text-xs text-[#64748b]">Contract</p>
+                  <p className="text-xs text-[#64748b]">{t('clientList.contract')}</p>
                   <p className="text-sm font-semibold text-white">{client.contractType.charAt(0).toUpperCase() + client.contractType.slice(1)}</p>
                 </div>
               </div>
@@ -255,14 +255,14 @@ export const ClientList = () => {
       {/* Pagination */}
       <div className="flex items-center justify-between">
         <p className="text-sm text-[#64748b]">
-          Showing {filteredClients.length} of {agencyClients.length} clients
+          {t('clientList.showing', { filtered: filteredClients.length, total: agencyClients.length })}
         </p>
         <div className="flex gap-2">
           <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
-            Previous
+            {t('clientList.previous')}
           </button>
           <button className="rounded-lg border border-white/[0.08] px-3 py-1.5 text-sm text-[#94a3b8] hover:bg-[#1a1a24]">
-            Next
+            {t('clientList.next')}
           </button>
         </div>
       </div>
