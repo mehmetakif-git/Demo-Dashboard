@@ -16,7 +16,7 @@ import { customerFeedback } from '@/data/restaurant/restaurantData';
 import { useTranslation } from 'react-i18next';
 
 export const Feedback = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('restaurant');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [ratingFilter, setRatingFilter] = useState<number | null>(null);
@@ -66,19 +66,19 @@ export const Feedback = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('restaurant.customerFeedback', 'Customer Feedback')}
-        subtitle="Manage reviews and ratings"
+        title={t('feedback.title')}
+        subtitle={t('feedback.subtitle')}
         icon={MessageSquare}
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         {[
-          { label: 'Total Reviews', value: stats.totalFeedback, icon: MessageSquare, color: '#f97316' },
-          { label: 'Avg Rating', value: stats.avgRating, icon: Star, color: '#f59e0b' },
-          { label: 'Food Rating', value: stats.avgFood, icon: ThumbsUp, color: '#10b981' },
-          { label: 'Service Rating', value: stats.avgService, icon: TrendingUp, color: '#6366f1' },
-          { label: 'Pending', value: stats.pending, icon: Clock, color: '#ef4444' },
+          { label: t('feedback.totalReviews'), value: stats.totalFeedback, icon: MessageSquare, color: '#f97316' },
+          { label: t('feedback.avgRating'), value: stats.avgRating, icon: Star, color: '#f59e0b' },
+          { label: t('feedback.foodRating'), value: stats.avgFood, icon: ThumbsUp, color: '#10b981' },
+          { label: t('feedback.serviceRating'), value: stats.avgService, icon: TrendingUp, color: '#6366f1' },
+          { label: t('feedback.pending'), value: stats.pending, icon: Clock, color: '#ef4444' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -109,7 +109,7 @@ export const Feedback = () => {
 
       {/* Rating Distribution */}
       <Card className="p-4">
-        <h3 className="font-semibold text-text-primary mb-4">Rating Distribution</h3>
+        <h3 className="font-semibold text-text-primary mb-4">{t('feedback.ratingDistribution')}</h3>
         <div className="space-y-2">
           {[5, 4, 3, 2, 1].map((rating) => {
             const count = customerFeedback.filter(f => f.rating === rating).length;
@@ -132,7 +132,7 @@ export const Feedback = () => {
                     style={{ width: `${percentage}%` }}
                   />
                 </div>
-                <span className="text-sm text-text-secondary w-16 text-right">{count} reviews</span>
+                <span className="text-sm text-text-secondary w-16 text-right">{t('feedback.reviews', { count })}</span>
               </div>
             );
           })}
@@ -145,7 +145,7 @@ export const Feedback = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search feedback..."
+              placeholder={t('feedback.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -159,7 +159,7 @@ export const Feedback = () => {
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status.charAt(0).toUpperCase() + status.slice(1)}
+                {status === 'all' ? t('feedback.all') : status === 'pending' ? t('feedback.pending') : status === 'reviewed' ? t('feedback.reviewed') : t('feedback.responded')}
               </Button>
             ))}
           </div>
@@ -192,20 +192,20 @@ export const Feedback = () => {
                 <div className="flex-1">
                   <div className="flex flex-wrap items-center gap-4 mb-3">
                     <div className="flex items-center gap-2">
-                      <span className="text-sm text-text-muted">Overall:</span>
+                      <span className="text-sm text-text-muted">{t('feedback.overall')}</span>
                       {renderStars(feedback.rating)}
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-sm text-text-muted">Food:</span>
+                      <span className="text-sm text-text-muted">{t('feedback.food')}</span>
                       {renderStars(feedback.foodRating, 14)}
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-sm text-text-muted">Service:</span>
+                      <span className="text-sm text-text-muted">{t('feedback.service')}</span>
                       {renderStars(feedback.serviceRating, 14)}
                     </div>
                     {feedback.ambienceRating && (
                       <div className="flex items-center gap-2">
-                        <span className="text-sm text-text-muted">Ambience:</span>
+                        <span className="text-sm text-text-muted">{t('feedback.ambience')}</span>
                         {renderStars(feedback.ambienceRating, 14)}
                       </div>
                     )}
@@ -219,7 +219,7 @@ export const Feedback = () => {
                     <div className="bg-background-secondary rounded-lg p-3 mt-3">
                       <div className="flex items-center gap-2 mb-2">
                         <Reply size={14} className="text-[#f97316]" />
-                        <span className="text-sm font-medium text-text-primary">Restaurant Reply</span>
+                        <span className="text-sm font-medium text-text-primary">{t('feedback.restaurantReply')}</span>
                         {feedback.replyDate && (
                           <span className="text-xs text-text-muted">
                             {new Date(feedback.replyDate).toLocaleDateString()}
@@ -241,9 +241,9 @@ export const Feedback = () => {
                       </Button>
                     }
                     items={[
-                      { id: 'reply', label: feedback.reply ? 'Edit Reply' : 'Reply', onClick: () => {} },
-                      { id: 'mark', label: 'Mark as Reviewed', onClick: () => {} },
-                      { id: 'view', label: 'View Order', onClick: () => {} },
+                      { id: 'reply', label: feedback.reply ? t('feedback.editReply') : t('feedback.reply'), onClick: () => {} },
+                      { id: 'mark', label: t('feedback.markAsReviewed'), onClick: () => {} },
+                      { id: 'view', label: t('feedback.viewOrder'), onClick: () => {} },
                     ]}
                   />
                 </div>
@@ -254,11 +254,11 @@ export const Feedback = () => {
                 <div className="mt-4 pt-4 border-t border-border-default flex gap-2">
                   <Button variant="primary" size="sm">
                     <Reply size={14} className="mr-1" />
-                    Reply
+                    {t('feedback.reply')}
                   </Button>
                   <Button variant="secondary" size="sm">
                     <CheckCircle size={14} className="mr-1" />
-                    Mark Reviewed
+                    {t('feedback.markReviewed')}
                   </Button>
                 </div>
               )}
@@ -270,7 +270,7 @@ export const Feedback = () => {
       {filteredFeedback.length === 0 && (
         <Card className="p-12 text-center">
           <MessageSquare size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No feedback found</p>
+          <p className="text-text-secondary">{t('feedback.noFeedbackFound')}</p>
         </Card>
       )}
     </div>

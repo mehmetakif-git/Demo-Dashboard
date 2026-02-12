@@ -18,7 +18,7 @@ import { getMenuImage } from '@/utils/menuImages';
 import { useTranslation } from 'react-i18next';
 
 export const Menu = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('restaurant');
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [showUnavailable, setShowUnavailable] = useState(true);
@@ -46,13 +46,13 @@ export const Menu = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('restaurant.menuManagement', 'Menu Management')}
-        subtitle="Manage your restaurant menu items"
+        title={t('menu.title')}
+        subtitle={t('menu.subtitle')}
         icon={UtensilsCrossed}
         actions={
           <Button>
             <Plus size={18} />
-            Add Item
+            {t('menu.addItem')}
           </Button>
         }
       />
@@ -60,10 +60,10 @@ export const Menu = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Items', value: stats.totalItems, icon: UtensilsCrossed, color: '#f97316' },
-          { label: 'Available', value: stats.available, icon: Eye, color: '#10b981' },
-          { label: 'Popular', value: stats.popular, icon: Star, color: '#f59e0b' },
-          { label: 'Vegetarian', value: stats.vegetarian, icon: Leaf, color: '#22c55e' },
+          { label: t('menu.totalItems'), value: stats.totalItems, icon: UtensilsCrossed, color: '#f97316' },
+          { label: t('menu.available'), value: stats.available, icon: Eye, color: '#10b981' },
+          { label: t('menu.popular'), value: stats.popular, icon: Star, color: '#f59e0b' },
+          { label: t('menu.vegetarian'), value: stats.vegetarian, icon: Leaf, color: '#22c55e' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -100,7 +100,7 @@ export const Menu = () => {
             size="sm"
             onClick={() => setCategoryFilter('all')}
           >
-            All Categories
+            {t('menu.allCategories')}
           </Button>
           {menuCategories.map((cat) => (
             <Button
@@ -122,7 +122,7 @@ export const Menu = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search menu items..."
+              placeholder={t('menu.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -134,7 +134,7 @@ export const Menu = () => {
             onClick={() => setShowUnavailable(!showUnavailable)}
           >
             {showUnavailable ? <Eye size={16} className="mr-2" /> : <EyeOff size={16} className="mr-2" />}
-            {showUnavailable ? 'Showing All' : 'Available Only'}
+            {showUnavailable ? t('menu.showingAll') : t('menu.availableOnly')}
           </Button>
         </div>
       </Card>
@@ -168,7 +168,7 @@ export const Menu = () => {
                   <div className="absolute top-2 left-2">
                     <span className="px-2 py-1 bg-warning text-warning-foreground text-xs font-medium rounded-full flex items-center gap-1">
                       <Star size={12} fill="currentColor" />
-                      Popular
+                      {t('menu.popular')}
                     </span>
                   </div>
                 )}
@@ -193,29 +193,29 @@ export const Menu = () => {
                   {item.isVegetarian && (
                     <span className="px-2 py-1 bg-success/20 text-success text-xs rounded-full flex items-center gap-1">
                       <Leaf size={12} />
-                      Vegetarian
+                      {t('menu.vegetarian')}
                     </span>
                   )}
                   {item.isSpicy && (
                     <span className="px-2 py-1 bg-error/20 text-error text-xs rounded-full flex items-center gap-1">
                       <Flame size={12} />
-                      Spicy
+                      {t('menu.spicy')}
                     </span>
                   )}
                   <span className="px-2 py-1 bg-background-secondary text-text-muted text-xs rounded-full flex items-center gap-1">
                     <Clock size={12} />
-                    {item.preparationTime} min
+                    {item.preparationTime} {t('menu.min')}
                   </span>
                 </div>
 
                 {item.calories && (
-                  <p className="text-xs text-text-muted mb-3">{item.calories} calories</p>
+                  <p className="text-xs text-text-muted mb-3">{item.calories} {t('menu.calories')}</p>
                 )}
 
                 <div className="flex gap-2">
                   <Button variant="secondary" size="sm" className="flex-1">
                     <Edit size={14} className="mr-1" />
-                    Edit
+                    {t('menu.edit')}
                   </Button>
                   <Button
                     variant={item.isAvailable ? 'ghost' : 'primary'}
@@ -233,7 +233,7 @@ export const Menu = () => {
       {filteredItems.length === 0 && (
         <Card className="p-12 text-center">
           <UtensilsCrossed size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No menu items found</p>
+          <p className="text-text-secondary">{t('menu.noItemsFound')}</p>
         </Card>
       )}
     </div>

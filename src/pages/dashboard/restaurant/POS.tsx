@@ -27,7 +27,7 @@ interface CartItem {
 }
 
 export const POS = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('restaurant');
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -103,8 +103,8 @@ export const POS = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('restaurant.pointOfSale', 'Point of Sale')}
-        subtitle="Process orders and payments"
+        title={t('pos.title')}
+        subtitle={t('pos.subtitle')}
         icon={CreditCard}
       />
 
@@ -115,9 +115,9 @@ export const POS = () => {
           <Card className="p-4">
             <div className="flex gap-2">
               {[
-                { type: 'dine-in' as const, label: 'Dine In', icon: Users },
-                { type: 'takeaway' as const, label: 'Takeaway', icon: ShoppingBag },
-                { type: 'delivery' as const, label: 'Delivery', icon: Bike },
+                { type: 'dine-in' as const, label: t('pos.dineIn'), icon: Users },
+                { type: 'takeaway' as const, label: t('pos.takeaway'), icon: ShoppingBag },
+                { type: 'delivery' as const, label: t('pos.delivery'), icon: Bike },
               ].map((opt) => {
                 const Icon = opt.icon;
                 return (
@@ -135,7 +135,7 @@ export const POS = () => {
             </div>
             {orderType === 'dine-in' && (
               <div className="mt-4">
-                <p className="text-sm text-text-secondary mb-2">Select Table</p>
+                <p className="text-sm text-text-secondary mb-2">{t('pos.selectTable')}</p>
                 <div className="flex flex-wrap gap-2">
                   {availableTables.map((table) => (
                     <Button
@@ -144,7 +144,7 @@ export const POS = () => {
                       size="sm"
                       onClick={() => setSelectedTable(table.id)}
                     >
-                      Table {table.number} ({table.capacity})
+                      {t('pos.table', { number: table.number, capacity: table.capacity })}
                     </Button>
                   ))}
                 </div>
@@ -157,7 +157,7 @@ export const POS = () => {
             <div className="relative mb-4">
               <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
               <Input
-                placeholder="Search menu..."
+                placeholder={t('pos.searchPlaceholder')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10"
@@ -169,7 +169,7 @@ export const POS = () => {
                 size="sm"
                 onClick={() => setCategoryFilter('all')}
               >
-                All
+                {t('pos.all')}
               </Button>
               {menuCategories.map((cat) => (
                 <Button
@@ -216,11 +216,11 @@ export const POS = () => {
         <div className="space-y-4">
           <Card className="p-4">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold text-text-primary">Current Order</h3>
+              <h3 className="font-semibold text-text-primary">{t('pos.currentOrder')}</h3>
               {cart.length > 0 && (
                 <Button variant="ghost" size="sm" onClick={clearCart}>
                   <Trash2 size={14} className="mr-1" />
-                  Clear
+                  {t('pos.clear')}
                 </Button>
               )}
             </div>
@@ -228,7 +228,7 @@ export const POS = () => {
             {cart.length === 0 ? (
               <div className="text-center py-8">
                 <Receipt size={48} className="mx-auto text-text-muted mb-2" />
-                <p className="text-text-muted text-sm">Cart is empty</p>
+                <p className="text-text-muted text-sm">{t('pos.cartEmpty')}</p>
               </div>
             ) : (
               <div className="space-y-3 max-h-[400px] overflow-y-auto">
@@ -236,7 +236,7 @@ export const POS = () => {
                   <div key={item.menuItemId} className="flex items-center gap-3 p-2 bg-background-secondary rounded-lg">
                     <div className="flex-1">
                       <p className="text-sm font-medium text-text-primary">{item.name}</p>
-                      <p className="text-xs text-text-muted">{item.price} QAR each</p>
+                      <p className="text-xs text-text-muted">{item.price} QAR {t('pos.each')}</p>
                     </div>
                     <div className="flex items-center gap-2">
                       <Button
@@ -277,7 +277,7 @@ export const POS = () => {
               <Percent size={18} className="text-text-muted" />
               <Input
                 type="number"
-                placeholder="Discount %"
+                placeholder={t('pos.discountPercent')}
                 value={discount || ''}
                 onChange={(e) => setDiscount(Math.min(100, Math.max(0, Number(e.target.value))))}
                 className="flex-1"
@@ -289,21 +289,21 @@ export const POS = () => {
           <Card className="p-4">
             <div className="space-y-2">
               <div className="flex justify-between text-sm">
-                <span className="text-text-muted">Subtotal</span>
+                <span className="text-text-muted">{t('pos.subtotal')}</span>
                 <span className="text-text-primary">{subtotal.toFixed(2)} QAR</span>
               </div>
               {discount > 0 && (
                 <div className="flex justify-between text-sm">
-                  <span className="text-text-muted">Discount ({discount}%)</span>
+                  <span className="text-text-muted">{t('pos.discount', { percent: discount })}</span>
                   <span className="text-success">-{discountAmount.toFixed(2)} QAR</span>
                 </div>
               )}
               <div className="flex justify-between text-sm">
-                <span className="text-text-muted">Tax (5%)</span>
+                <span className="text-text-muted">{t('pos.tax')}</span>
                 <span className="text-text-primary">{tax.toFixed(2)} QAR</span>
               </div>
               <div className="flex justify-between text-lg font-bold pt-2 border-t border-border-default">
-                <span className="text-text-primary">Total</span>
+                <span className="text-text-primary">{t('pos.total')}</span>
                 <span className="text-[#f97316]">{total.toFixed(2)} QAR</span>
               </div>
             </div>
@@ -316,14 +316,14 @@ export const POS = () => {
               disabled={cart.length === 0}
             >
               <Banknote size={18} className="mr-2" />
-              Pay with Cash
+              {t('pos.payWithCash')}
             </Button>
             <Button
               className="w-full"
               disabled={cart.length === 0}
             >
               <CreditCard size={18} className="mr-2" />
-              Pay with Card
+              {t('pos.payWithCard')}
             </Button>
             <Button
               variant="secondary"
@@ -331,7 +331,7 @@ export const POS = () => {
               disabled={cart.length === 0}
             >
               <Smartphone size={18} className="mr-2" />
-              Digital Payment
+              {t('pos.digitalPayment')}
             </Button>
           </div>
         </div>

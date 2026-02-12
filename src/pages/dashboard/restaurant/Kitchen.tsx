@@ -16,7 +16,7 @@ import { restaurantOrders } from '@/data/restaurant/restaurantData';
 import { useTranslation } from 'react-i18next';
 
 export const Kitchen = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('restaurant');
   const [viewMode, setViewMode] = useState<'all' | 'pending' | 'preparing' | 'ready'>('all');
 
   // Get all order items that need kitchen attention
@@ -95,13 +95,13 @@ export const Kitchen = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('restaurant.kitchenDisplay', 'Kitchen Display')}
-        subtitle="Real-time kitchen order management"
+        title={t('kitchen.title')}
+        subtitle={t('kitchen.subtitle')}
         icon={ChefHat}
         actions={
           <Button variant="secondary">
             <Bell size={18} />
-            Sound Alerts
+            {t('kitchen.soundAlerts')}
           </Button>
         }
       />
@@ -109,10 +109,10 @@ export const Kitchen = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Pending', value: stats.pending, icon: Clock, color: '#f59e0b', filter: 'pending' as const },
-          { label: 'Preparing', value: stats.preparing, icon: ChefHat, color: '#6366f1', filter: 'preparing' as const },
-          { label: 'Ready', value: stats.ready, icon: CheckCircle, color: '#10b981', filter: 'ready' as const },
-          { label: 'Served', value: stats.served, icon: Utensils, color: '#8b5cf6', filter: 'all' as const },
+          { label: t('kitchen.pending'), value: stats.pending, icon: Clock, color: '#f59e0b', filter: 'pending' as const },
+          { label: t('kitchen.preparing'), value: stats.preparing, icon: ChefHat, color: '#6366f1', filter: 'preparing' as const },
+          { label: t('kitchen.ready'), value: stats.ready, icon: CheckCircle, color: '#10b981', filter: 'ready' as const },
+          { label: t('kitchen.served'), value: stats.served, icon: Utensils, color: '#8b5cf6', filter: 'all' as const },
         ].map((stat, index) => {
           const Icon = stat.icon;
           const isActive = viewMode === stat.filter;
@@ -149,10 +149,10 @@ export const Kitchen = () => {
       <Card className="p-4">
         <div className="flex gap-2">
           {[
-            { key: 'all', label: 'All Items' },
-            { key: 'pending', label: 'Pending' },
-            { key: 'preparing', label: 'Preparing' },
-            { key: 'ready', label: 'Ready to Serve' },
+            { key: 'all', label: t('kitchen.allItems') },
+            { key: 'pending', label: t('kitchen.pending') },
+            { key: 'preparing', label: t('kitchen.preparing') },
+            { key: 'ready', label: t('kitchen.readyToServe') },
           ].map((tab) => (
             <Button
               key={tab.key}
@@ -196,14 +196,14 @@ export const Kitchen = () => {
                 {kitchenItem.tableNumber ? (
                   <div className="inline-flex items-center gap-1 px-2 py-1 bg-[#f97316]/20 text-[#f97316] rounded text-sm mb-3">
                     <Utensils size={14} />
-                    Table {kitchenItem.tableNumber}
+                    {t('kitchen.table', { number: kitchenItem.tableNumber })}
                   </div>
                 ) : (
                   <div className={`inline-flex items-center gap-1 px-2 py-1 rounded text-sm mb-3 ${
                     kitchenItem.orderType === 'takeaway' ? 'bg-accent-primary/20 text-accent-primary' : 'bg-success/20 text-success'
                   }`}>
                     <TypeIcon size={14} />
-                    {kitchenItem.orderType === 'takeaway' ? 'Takeaway' : 'Delivery'}
+                    {kitchenItem.orderType === 'takeaway' ? t('kitchen.takeaway') : t('kitchen.delivery')}
                   </div>
                 )}
 
@@ -235,7 +235,7 @@ export const Kitchen = () => {
 
                 {/* Waiter */}
                 {kitchenItem.waiter && (
-                  <p className="text-xs text-text-muted mb-3">Waiter: {kitchenItem.waiter}</p>
+                  <p className="text-xs text-text-muted mb-3">{t('kitchen.waiter', { name: kitchenItem.waiter })}</p>
                 )}
 
                 {/* Action Buttons */}
@@ -243,19 +243,19 @@ export const Kitchen = () => {
                   {kitchenItem.item.status === 'pending' && (
                     <Button variant="primary" size="sm" className="flex-1">
                       <ChefHat size={14} className="mr-1" />
-                      Start
+                      {t('kitchen.start')}
                     </Button>
                   )}
                   {kitchenItem.item.status === 'preparing' && (
                     <Button variant="primary" size="sm" className="flex-1 bg-success hover:bg-success/90">
                       <CheckCircle size={14} className="mr-1" />
-                      Ready
+                      {t('kitchen.readyBtn')}
                     </Button>
                   )}
                   {kitchenItem.item.status === 'ready' && (
                     <Button variant="secondary" size="sm" className="flex-1">
                       <Bell size={14} className="mr-1" />
-                      Bump
+                      {t('kitchen.bump')}
                     </Button>
                   )}
                 </div>
@@ -268,8 +268,8 @@ export const Kitchen = () => {
       {filteredItems.length === 0 && (
         <Card className="p-12 text-center">
           <ChefHat size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No items to display</p>
-          <p className="text-sm text-text-muted mt-2">All caught up!</p>
+          <p className="text-text-secondary">{t('kitchen.noItems')}</p>
+          <p className="text-sm text-text-muted mt-2">{t('kitchen.allCaughtUp')}</p>
         </Card>
       )}
     </div>

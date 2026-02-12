@@ -17,7 +17,7 @@ import { restaurantOrders } from '@/data/restaurant/restaurantData';
 import { useTranslation } from 'react-i18next';
 
 export const RestaurantOrders = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('restaurant');
   const [searchQuery, setSearchQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -54,19 +54,19 @@ export const RestaurantOrders = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('restaurant.orders', 'Orders')}
-        subtitle="Manage restaurant orders"
+        title={t('orders.title')}
+        subtitle={t('orders.subtitle')}
         icon={ClipboardList}
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         {[
-          { label: 'Total Orders', value: stats.total, icon: ClipboardList, color: '#f97316', filter: 'all' },
-          { label: 'Pending', value: stats.pending, icon: Clock, color: '#f59e0b', filter: 'pending' },
-          { label: 'Preparing', value: stats.preparing, icon: ChefHat, color: '#0ea5e9', filter: 'preparing' },
-          { label: 'Ready', value: stats.ready, icon: CheckCircle, color: '#10b981', filter: 'ready' },
-          { label: 'Completed', value: stats.completed, icon: CheckCircle, color: '#8b5cf6', filter: 'completed' },
+          { label: t('orders.totalOrders'), value: stats.total, icon: ClipboardList, color: '#f97316', filter: 'all' },
+          { label: t('orders.pending'), value: stats.pending, icon: Clock, color: '#f59e0b', filter: 'pending' },
+          { label: t('orders.preparing'), value: stats.preparing, icon: ChefHat, color: '#0ea5e9', filter: 'preparing' },
+          { label: t('orders.ready'), value: stats.ready, icon: CheckCircle, color: '#10b981', filter: 'ready' },
+          { label: t('orders.completed'), value: stats.completed, icon: CheckCircle, color: '#8b5cf6', filter: 'completed' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           const isActive = statusFilter === stat.filter;
@@ -105,7 +105,7 @@ export const RestaurantOrders = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by order # or customer..."
+              placeholder={t('orders.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -119,7 +119,7 @@ export const RestaurantOrders = () => {
                 size="sm"
                 onClick={() => setTypeFilter(type)}
               >
-                {type === 'all' ? 'All Types' : type.charAt(0).toUpperCase() + type.slice(1)}
+                {type === 'all' ? t('orders.allTypes') : type === 'dine-in' ? t('orders.dineIn') : type === 'takeaway' ? t('orders.takeaway') : t('orders.delivery')}
               </Button>
             ))}
           </div>
@@ -159,7 +159,7 @@ export const RestaurantOrders = () => {
                       <p className="text-sm text-text-secondary">{order.customerName}</p>
                       <p className="text-xs text-text-muted">{order.customerPhone}</p>
                       {order.tableNumber && (
-                        <p className="text-xs text-[#f97316] mt-1">Table {order.tableNumber}</p>
+                        <p className="text-xs text-[#f97316] mt-1">{t('orders.table', { number: order.tableNumber })}</p>
                       )}
                     </div>
                   </div>
@@ -167,7 +167,7 @@ export const RestaurantOrders = () => {
                   {/* Order Items Summary */}
                   <div className="flex-1">
                     <p className="text-sm text-text-secondary mb-2">
-                      {order.items.length} items
+                      {order.items.length} {t('orders.items')}
                     </p>
                     <div className="space-y-1">
                       {order.items.slice(0, 2).map((item) => (
@@ -180,7 +180,7 @@ export const RestaurantOrders = () => {
                       ))}
                       {order.items.length > 2 && (
                         <p className="text-xs text-text-muted">
-                          +{order.items.length - 2} more items
+                          {t('orders.moreItems', { count: order.items.length - 2 })}
                         </p>
                       )}
                     </div>
@@ -193,7 +193,7 @@ export const RestaurantOrders = () => {
                       {new Date(order.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     </p>
                     {order.waiter && (
-                      <p className="text-xs text-text-secondary mt-1">Waiter: {order.waiter}</p>
+                      <p className="text-xs text-text-secondary mt-1">{t('orders.waiter', { name: order.waiter })}</p>
                     )}
                   </div>
 
@@ -209,10 +209,10 @@ export const RestaurantOrders = () => {
                         </Button>
                       }
                       items={[
-                        { id: 'view', label: 'View Details', onClick: () => {} },
-                        { id: 'print', label: 'Print Receipt', onClick: () => {} },
-                        { id: 'status', label: 'Update Status', onClick: () => {} },
-                        { id: 'cancel', label: 'Cancel Order', onClick: () => {} },
+                        { id: 'view', label: t('orders.viewDetails'), onClick: () => {} },
+                        { id: 'print', label: t('orders.printReceipt'), onClick: () => {} },
+                        { id: 'status', label: t('orders.updateStatus'), onClick: () => {} },
+                        { id: 'cancel', label: t('orders.cancelOrder'), onClick: () => {} },
                       ]}
                     />
                   </div>
@@ -221,7 +221,7 @@ export const RestaurantOrders = () => {
                 {order.notes && (
                   <div className="mt-3 pt-3 border-t border-border-default">
                     <p className="text-xs text-text-muted">
-                      <span className="font-medium">Note:</span> {order.notes}
+                      <span className="font-medium">{t('orders.note')}</span> {order.notes}
                     </p>
                   </div>
                 )}
@@ -234,7 +234,7 @@ export const RestaurantOrders = () => {
       {filteredOrders.length === 0 && (
         <Card className="p-12 text-center">
           <ClipboardList size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No orders found</p>
+          <p className="text-text-secondary">{t('orders.noOrdersFound')}</p>
         </Card>
       )}
     </div>

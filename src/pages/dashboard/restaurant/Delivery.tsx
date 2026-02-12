@@ -17,7 +17,7 @@ import { deliveryOrders, staffMembers } from '@/data/restaurant/restaurantData';
 import { useTranslation } from 'react-i18next';
 
 export const Delivery = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('restaurant');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
@@ -59,18 +59,18 @@ export const Delivery = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('restaurant.deliveryManagement', 'Delivery Management')}
-        subtitle="Track and manage delivery orders"
+        title={t('delivery.title')}
+        subtitle={t('delivery.subtitle')}
         icon={Bike}
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Deliveries', value: stats.total, icon: Bike, color: '#f97316', filter: 'all' },
-          { label: 'Pending', value: stats.pending, icon: Clock, color: '#f59e0b', filter: 'pending' },
-          { label: 'In Transit', value: stats.inTransit, icon: Truck, color: '#6366f1', filter: 'in-transit' },
-          { label: 'Delivered', value: stats.delivered, icon: CheckCircle, color: '#10b981', filter: 'delivered' },
+          { label: t('delivery.totalDeliveries'), value: stats.total, icon: Bike, color: '#f97316', filter: 'all' },
+          { label: t('delivery.pending'), value: stats.pending, icon: Clock, color: '#f59e0b', filter: 'pending' },
+          { label: t('delivery.inTransit'), value: stats.inTransit, icon: Truck, color: '#6366f1', filter: 'in-transit' },
+          { label: t('delivery.delivered'), value: stats.delivered, icon: CheckCircle, color: '#10b981', filter: 'delivered' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           const isActive = statusFilter === stat.filter;
@@ -105,7 +105,7 @@ export const Delivery = () => {
 
       {/* Active Drivers */}
       <Card className="p-4">
-        <h3 className="font-semibold text-text-primary mb-3">Active Drivers</h3>
+        <h3 className="font-semibold text-text-primary mb-3">{t('delivery.activeDrivers')}</h3>
         <div className="flex flex-wrap gap-3">
           {drivers.map((driver) => {
             const activeDeliveries = deliveryOrders.filter(d =>
@@ -122,7 +122,7 @@ export const Delivery = () => {
                 <div>
                   <p className="text-sm font-medium text-text-primary">{driver.name}</p>
                   <p className="text-xs text-text-muted">
-                    {activeDeliveries > 0 ? `${activeDeliveries} active` : 'Available'}
+                    {activeDeliveries > 0 ? t('delivery.active', { count: activeDeliveries }) : t('delivery.availableDriver')}
                   </p>
                 </div>
               </div>
@@ -136,7 +136,7 @@ export const Delivery = () => {
         <div className="relative">
           <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
           <Input
-            placeholder="Search by order #, customer, or address..."
+            placeholder={t('delivery.searchPlaceholder')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-10"
@@ -195,11 +195,11 @@ export const Delivery = () => {
                       </div>
                       <div className="text-left">
                         <p className="text-sm font-medium text-text-primary">{order.driverName}</p>
-                        <p className="text-xs text-text-muted">Driver</p>
+                        <p className="text-xs text-text-muted">{t('delivery.driver')}</p>
                       </div>
                     </div>
                   ) : (
-                    <span className="text-sm text-warning">Unassigned</span>
+                    <span className="text-sm text-warning">{t('delivery.unassigned')}</span>
                   )}
                 </div>
 
@@ -211,10 +211,10 @@ export const Delivery = () => {
                       {new Date(order.estimatedDelivery).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     </span>
                   </div>
-                  <p className="text-xs text-text-muted">Est. Delivery</p>
+                  <p className="text-xs text-text-muted">{t('delivery.estDelivery')}</p>
                   {order.actualDelivery && (
                     <p className="text-xs text-success mt-1">
-                      Delivered: {new Date(order.actualDelivery).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                      {t('delivery.deliveredAt', { time: new Date(order.actualDelivery).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) })}
                     </p>
                   )}
                 </div>
@@ -222,7 +222,7 @@ export const Delivery = () => {
                 {/* Fee */}
                 <div className="text-center">
                   <p className="text-lg font-bold text-[#f97316]">{order.deliveryFee} QAR</p>
-                  <p className="text-xs text-text-muted">Delivery Fee</p>
+                  <p className="text-xs text-text-muted">{t('delivery.deliveryFee')}</p>
                 </div>
 
                 {/* Actions */}
@@ -237,10 +237,10 @@ export const Delivery = () => {
                       </Button>
                     }
                     items={[
-                      { id: 'assign', label: 'Assign Driver', onClick: () => {} },
-                      { id: 'track', label: 'Track Order', onClick: () => {} },
-                      { id: 'contact', label: 'Contact Customer', onClick: () => {} },
-                      { id: 'mark', label: 'Mark Delivered', onClick: () => {} },
+                      { id: 'assign', label: t('delivery.assignDriver'), onClick: () => {} },
+                      { id: 'track', label: t('delivery.trackOrder'), onClick: () => {} },
+                      { id: 'contact', label: t('delivery.contactCustomer'), onClick: () => {} },
+                      { id: 'mark', label: t('delivery.markDelivered'), onClick: () => {} },
                     ]}
                   />
                 </div>
@@ -248,7 +248,7 @@ export const Delivery = () => {
 
               {order.notes && (
                 <div className="mt-3 pt-3 border-t border-current/20">
-                  <p className="text-xs text-text-muted">Note: {order.notes}</p>
+                  <p className="text-xs text-text-muted">{t('delivery.note', { text: order.notes })}</p>
                 </div>
               )}
             </Card>
@@ -259,7 +259,7 @@ export const Delivery = () => {
       {filteredOrders.length === 0 && (
         <Card className="p-12 text-center">
           <Bike size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No delivery orders found</p>
+          <p className="text-text-secondary">{t('delivery.noDeliveryOrders')}</p>
         </Card>
       )}
     </div>

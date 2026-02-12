@@ -15,7 +15,7 @@ import { tables } from '@/data/restaurant/restaurantData';
 import { useTranslation } from 'react-i18next';
 
 export const TableQRCodes = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('restaurant');
   const [selectedTables, setSelectedTables] = useState<string[]>([]);
   const [sectionFilter, setSectionFilter] = useState<string>('all');
 
@@ -52,8 +52,8 @@ export const TableQRCodes = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('restaurant.tableQrCodes', 'Table QR Codes')}
-        subtitle="Generate and manage QR codes for table ordering"
+        title={t('tableQrCodes.title')}
+        subtitle={t('tableQrCodes.subtitle')}
         icon={QrCode}
         actions={
           <div className="flex gap-2">
@@ -61,17 +61,17 @@ export const TableQRCodes = () => {
               <>
                 <Button variant="secondary">
                   <Download size={18} />
-                  Download ({selectedTables.length})
+                  {t('tableQrCodes.download', { count: selectedTables.length })}
                 </Button>
                 <Button variant="secondary">
                   <Printer size={18} />
-                  Print ({selectedTables.length})
+                  {t('tableQrCodes.print', { count: selectedTables.length })}
                 </Button>
               </>
             )}
             <Button>
               <RefreshCw size={18} />
-              Regenerate All
+              {t('tableQrCodes.regenerateAll')}
             </Button>
           </div>
         }
@@ -88,7 +88,7 @@ export const TableQRCodes = () => {
                 size="sm"
                 onClick={() => setSectionFilter(section)}
               >
-                {section === 'all' ? 'All Sections' : section}
+                {section === 'all' ? t('tableQrCodes.allSections') : section}
               </Button>
             ))}
           </div>
@@ -97,7 +97,7 @@ export const TableQRCodes = () => {
             size="sm"
             onClick={selectAll}
           >
-            {selectedTables.length === filteredTables.length ? 'Deselect All' : 'Select All'}
+            {selectedTables.length === filteredTables.length ? t('tableQrCodes.deselectAll') : t('tableQrCodes.selectAll')}
           </Button>
         </div>
       </Card>
@@ -139,9 +139,9 @@ export const TableQRCodes = () => {
                   </div>
 
                   {/* Table Info */}
-                  <h3 className="font-bold text-text-primary text-lg">Table {table.number}</h3>
+                  <h3 className="font-bold text-text-primary text-lg">{t('tableQrCodes.table', { number: table.number })}</h3>
                   <p className="text-xs text-text-muted mb-2">{table.section}</p>
-                  <p className="text-xs text-text-secondary">{table.capacity} seats</p>
+                  <p className="text-xs text-text-secondary">{t('tableQrCodes.seats', { count: table.capacity })}</p>
 
                   {/* URL Preview */}
                   <div className="mt-3 p-2 bg-background-secondary rounded text-xs font-mono text-text-muted truncate">
@@ -172,23 +172,23 @@ export const TableQRCodes = () => {
 
       {/* Instructions */}
       <Card className="p-6">
-        <h3 className="font-semibold text-text-primary mb-4">How to use QR Codes</h3>
+        <h3 className="font-semibold text-text-primary mb-4">{t('tableQrCodes.howToUse')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
             {
               step: 1,
-              title: 'Print QR Codes',
-              description: 'Select tables and print their QR codes. Place them on each table for easy access.',
+              title: t('tableQrCodes.step1Title'),
+              description: t('tableQrCodes.step1Desc'),
             },
             {
               step: 2,
-              title: 'Customers Scan',
-              description: 'Customers scan the QR code with their phone camera to access the digital menu.',
+              title: t('tableQrCodes.step2Title'),
+              description: t('tableQrCodes.step2Desc'),
             },
             {
               step: 3,
-              title: 'Order Directly',
-              description: 'Customers can browse the menu and place orders directly from their devices.',
+              title: t('tableQrCodes.step3Title'),
+              description: t('tableQrCodes.step3Desc'),
             },
           ].map((item) => (
             <div key={item.step} className="text-center">
@@ -204,15 +204,15 @@ export const TableQRCodes = () => {
 
       {/* QR Code Settings */}
       <Card className="p-4">
-        <h3 className="font-semibold text-text-primary mb-4">QR Code Settings</h3>
+        <h3 className="font-semibold text-text-primary mb-4">{t('tableQrCodes.qrSettings')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="p-4 bg-background-secondary rounded-lg">
-            <p className="text-sm font-medium text-text-primary mb-2">Menu URL Base</p>
+            <p className="text-sm font-medium text-text-primary mb-2">{t('tableQrCodes.menuUrlBase')}</p>
             <p className="text-xs text-text-muted font-mono">https://restaurant.app/menu</p>
           </div>
           <div className="p-4 bg-background-secondary rounded-lg">
-            <p className="text-sm font-medium text-text-primary mb-2">QR Code Format</p>
-            <p className="text-xs text-text-muted">PNG with logo (300x300px)</p>
+            <p className="text-sm font-medium text-text-primary mb-2">{t('tableQrCodes.qrFormat')}</p>
+            <p className="text-xs text-text-muted">{t('tableQrCodes.qrFormatValue')}</p>
           </div>
         </div>
       </Card>

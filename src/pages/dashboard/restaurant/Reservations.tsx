@@ -18,7 +18,7 @@ import { reservations, tables } from '@/data/restaurant/restaurantData';
 import { useTranslation } from 'react-i18next';
 
 export const Reservations = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('restaurant');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [dateFilter, setDateFilter] = useState<string>('today');
@@ -64,13 +64,13 @@ export const Reservations = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('restaurant.reservations', 'Reservations')}
-        subtitle="Manage table reservations"
+        title={t('reservations.title')}
+        subtitle={t('reservations.subtitle')}
         icon={CalendarClock}
         actions={
           <Button>
             <Plus size={18} />
-            New Reservation
+            {t('reservations.newReservation')}
           </Button>
         }
       />
@@ -78,10 +78,10 @@ export const Reservations = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total', value: stats.total, icon: CalendarClock, color: '#f97316' },
-          { label: 'Pending', value: stats.pending, icon: Clock, color: '#f59e0b' },
-          { label: 'Confirmed', value: stats.confirmed, icon: CheckCircle, color: '#10b981' },
-          { label: 'Seated', value: stats.seated, icon: Users, color: '#6366f1' },
+          { label: t('reservations.total'), value: stats.total, icon: CalendarClock, color: '#f97316' },
+          { label: t('reservations.pending'), value: stats.pending, icon: Clock, color: '#f59e0b' },
+          { label: t('reservations.confirmed'), value: stats.confirmed, icon: CheckCircle, color: '#10b981' },
+          { label: t('reservations.seated'), value: stats.seated, icon: Users, color: '#6366f1' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -116,7 +116,7 @@ export const Reservations = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search by name or phone..."
+              placeholder={t('reservations.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -130,7 +130,7 @@ export const Reservations = () => {
                 size="sm"
                 onClick={() => setDateFilter(date)}
               >
-                {date.charAt(0).toUpperCase() + date.slice(1)}
+                {date === 'today' ? t('reservations.today') : date === 'tomorrow' ? t('reservations.tomorrow') : t('reservations.all')}
               </Button>
             ))}
           </div>
@@ -142,7 +142,7 @@ export const Reservations = () => {
                 size="sm"
                 onClick={() => setStatusFilter(status)}
               >
-                {status.charAt(0).toUpperCase() + status.slice(1)}
+                {status === 'all' ? t('reservations.all') : status === 'pending' ? t('reservations.pending') : status === 'confirmed' ? t('reservations.confirmed') : t('reservations.seated')}
               </Button>
             ))}
           </div>
@@ -193,26 +193,26 @@ export const Reservations = () => {
                         {new Date(reservation.date).toLocaleDateString()}
                       </span>
                     </div>
-                    <p className="text-xs text-text-muted">Date</p>
+                    <p className="text-xs text-text-muted">{t('reservations.date')}</p>
                   </div>
                   <div className="text-center">
                     <div className="flex items-center gap-1 text-text-primary">
                       <Clock size={14} />
                       <span className="text-sm font-medium">{reservation.time}</span>
                     </div>
-                    <p className="text-xs text-text-muted">Time</p>
+                    <p className="text-xs text-text-muted">{t('reservations.time')}</p>
                   </div>
                   <div className="text-center">
                     <div className="flex items-center gap-1 text-text-primary">
                       <Users size={14} />
                       <span className="text-sm font-medium">{reservation.partySize}</span>
                     </div>
-                    <p className="text-xs text-text-muted">Guests</p>
+                    <p className="text-xs text-text-muted">{t('reservations.guests')}</p>
                   </div>
                   {reservation.tableNumber && (
                     <div className="text-center">
-                      <span className="text-sm font-medium text-[#f97316]">Table {reservation.tableNumber}</span>
-                      <p className="text-xs text-text-muted">Assigned</p>
+                      <span className="text-sm font-medium text-[#f97316]">{t('reservations.table', { number: reservation.tableNumber })}</span>
+                      <p className="text-xs text-text-muted">{t('reservations.assigned')}</p>
                     </div>
                   )}
                 </div>
@@ -230,10 +230,10 @@ export const Reservations = () => {
                       </Button>
                     }
                     items={[
-                      { id: 'confirm', label: 'Confirm', onClick: () => {} },
-                      { id: 'assign', label: 'Assign Table', onClick: () => {} },
-                      { id: 'seat', label: 'Mark as Seated', onClick: () => {} },
-                      { id: 'cancel', label: 'Cancel', onClick: () => {} },
+                      { id: 'confirm', label: t('reservations.confirm'), onClick: () => {} },
+                      { id: 'assign', label: t('reservations.assignTable'), onClick: () => {} },
+                      { id: 'seat', label: t('reservations.markAsSeated'), onClick: () => {} },
+                      { id: 'cancel', label: t('reservations.cancel'), onClick: () => {} },
                     ]}
                   />
                 </div>
@@ -249,7 +249,7 @@ export const Reservations = () => {
                     </div>
                   )}
                   {reservation.notes && (
-                    <p className="text-xs text-text-muted mt-1">Note: {reservation.notes}</p>
+                    <p className="text-xs text-text-muted mt-1">{t('reservations.note', { text: reservation.notes })}</p>
                   )}
                 </div>
               )}
@@ -261,21 +261,21 @@ export const Reservations = () => {
       {filteredReservations.length === 0 && (
         <Card className="p-12 text-center">
           <CalendarClock size={48} className="mx-auto text-text-muted mb-4" />
-          <p className="text-text-secondary">No reservations found</p>
+          <p className="text-text-secondary">{t('reservations.noReservationsFound')}</p>
         </Card>
       )}
 
       {/* Available Tables */}
       <Card className="p-4">
-        <h3 className="font-semibold text-text-primary mb-4">Available Tables</h3>
+        <h3 className="font-semibold text-text-primary mb-4">{t('reservations.availableTables')}</h3>
         <div className="flex flex-wrap gap-2">
           {tables.filter(t => t.status === 'available').map((table) => (
             <div
               key={table.id}
               className="px-3 py-2 bg-success/20 border border-success rounded-lg text-center"
             >
-              <p className="font-medium text-success">Table {table.number}</p>
-              <p className="text-xs text-success/80">{table.capacity} seats</p>
+              <p className="font-medium text-success">{t('reservations.table', { number: table.number })}</p>
+              <p className="text-xs text-success/80">{t('reservations.seats', { count: table.capacity })}</p>
             </div>
           ))}
         </div>

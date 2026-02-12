@@ -19,7 +19,7 @@ import { getProfileImage } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const StaffSchedule = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('restaurant');
   const [searchQuery, setSearchQuery] = useState('');
   const [roleFilter, setRoleFilter] = useState<string>('all');
   const [dateFilter, setDateFilter] = useState<string>('today');
@@ -82,13 +82,13 @@ export const StaffSchedule = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('restaurant.staffSchedule', 'Staff Schedule')}
-        subtitle="Manage staff shifts and schedules"
+        title={t('staffSchedule.title')}
+        subtitle={t('staffSchedule.subtitle')}
         icon={Users}
         actions={
           <Button>
             <Plus size={18} />
-            Add Shift
+            {t('staffSchedule.addShift')}
           </Button>
         }
       />
@@ -96,10 +96,10 @@ export const StaffSchedule = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Staff', value: stats.totalStaff, icon: Users, color: '#f97316' },
-          { label: 'On Duty', value: stats.onDuty, icon: CheckCircle, color: '#10b981' },
-          { label: 'Scheduled', value: stats.scheduled, icon: Calendar, color: '#6366f1' },
-          { label: 'Completed', value: stats.completed, icon: Clock, color: '#8b5cf6' },
+          { label: t('staffSchedule.totalStaff'), value: stats.totalStaff, icon: Users, color: '#f97316' },
+          { label: t('staffSchedule.onDuty'), value: stats.onDuty, icon: CheckCircle, color: '#10b981' },
+          { label: t('staffSchedule.scheduled'), value: stats.scheduled, icon: Calendar, color: '#6366f1' },
+          { label: t('staffSchedule.completed'), value: stats.completed, icon: Clock, color: '#8b5cf6' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -134,7 +134,7 @@ export const StaffSchedule = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search staff..."
+              placeholder={t('staffSchedule.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -148,7 +148,7 @@ export const StaffSchedule = () => {
                 size="sm"
                 onClick={() => setDateFilter(date)}
               >
-                {date.charAt(0).toUpperCase() + date.slice(1)}
+                {date === 'today' ? t('staffSchedule.today') : date === 'tomorrow' ? t('staffSchedule.tomorrow') : t('staffSchedule.all')}
               </Button>
             ))}
           </div>
@@ -160,7 +160,7 @@ export const StaffSchedule = () => {
                 size="sm"
                 onClick={() => setRoleFilter(role)}
               >
-                {role === 'all' ? 'All Roles' : role.charAt(0).toUpperCase() + role.slice(1).replace('-', ' ')}
+                {role === 'all' ? t('staffSchedule.allRoles') : role.charAt(0).toUpperCase() + role.slice(1).replace('-', ' ')}
               </Button>
             ))}
           </div>
@@ -238,7 +238,7 @@ export const StaffSchedule = () => {
 
       {/* Schedule Timeline */}
       <Card className="p-4">
-        <h3 className="font-semibold text-text-primary mb-4">Schedule Timeline</h3>
+        <h3 className="font-semibold text-text-primary mb-4">{t('staffSchedule.scheduleTimeline')}</h3>
         <div className="space-y-3">
           {filteredSchedule.map((shift, index) => {
             const RoleIcon = getRoleIcon(shift.role);
@@ -289,9 +289,9 @@ export const StaffSchedule = () => {
                     </Button>
                   }
                   items={[
-                    { id: 'edit', label: 'Edit Shift', onClick: () => {} },
-                    { id: 'swap', label: 'Swap Shift', onClick: () => {} },
-                    { id: 'cancel', label: 'Cancel Shift', onClick: () => {} },
+                    { id: 'edit', label: t('staffSchedule.editShift'), onClick: () => {} },
+                    { id: 'swap', label: t('staffSchedule.swapShift'), onClick: () => {} },
+                    { id: 'cancel', label: t('staffSchedule.cancelShift'), onClick: () => {} },
                   ]}
                 />
               </motion.div>
@@ -302,7 +302,7 @@ export const StaffSchedule = () => {
         {filteredSchedule.length === 0 && (
           <div className="text-center py-8">
             <Calendar size={48} className="mx-auto text-text-muted mb-4" />
-            <p className="text-text-secondary">No shifts scheduled</p>
+            <p className="text-text-secondary">{t('staffSchedule.noShifts')}</p>
           </div>
         )}
       </Card>

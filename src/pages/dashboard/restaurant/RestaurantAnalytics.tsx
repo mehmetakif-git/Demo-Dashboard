@@ -31,7 +31,7 @@ import { restaurantOrders, menuItems, customerFeedback } from '@/data/restaurant
 import { useTranslation } from 'react-i18next';
 
 export const RestaurantAnalytics = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('restaurant');
   const [period, setPeriod] = useState<'today' | 'week' | 'month'>('week');
 
   // Calculate stats from mock data
@@ -65,9 +65,9 @@ export const RestaurantAnalytics = () => {
 
   // Order type distribution
   const orderTypeData = [
-    { name: 'Dine-in', value: restaurantOrders.filter(o => o.type === 'dine-in').length, color: '#f97316' },
-    { name: 'Takeaway', value: restaurantOrders.filter(o => o.type === 'takeaway').length, color: '#6366f1' },
-    { name: 'Delivery', value: restaurantOrders.filter(o => o.type === 'delivery').length, color: '#10b981' },
+    { name: t('analytics.dineIn'), value: restaurantOrders.filter(o => o.type === 'dine-in').length, color: '#f97316' },
+    { name: t('analytics.takeaway'), value: restaurantOrders.filter(o => o.type === 'takeaway').length, color: '#6366f1' },
+    { name: t('analytics.delivery'), value: restaurantOrders.filter(o => o.type === 'delivery').length, color: '#10b981' },
   ];
 
   // Popular items
@@ -92,8 +92,8 @@ export const RestaurantAnalytics = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('restaurant.analytics', 'Analytics')}
-        subtitle="Restaurant performance insights"
+        title={t('analytics.title')}
+        subtitle={t('analytics.subtitle')}
         icon={BarChart3}
         actions={
           <div className="flex gap-2">
@@ -104,7 +104,7 @@ export const RestaurantAnalytics = () => {
                 size="sm"
                 onClick={() => setPeriod(p)}
               >
-                {p.charAt(0).toUpperCase() + p.slice(1)}
+                {p === 'today' ? t('analytics.today') : p === 'week' ? t('analytics.week') : t('analytics.month')}
               </Button>
             ))}
           </div>
@@ -114,10 +114,10 @@ export const RestaurantAnalytics = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Revenue', value: `${stats.totalRevenue} QAR`, icon: DollarSign, color: '#10b981', change: '+12.5%' },
-          { label: 'Total Orders', value: stats.totalOrders, icon: ShoppingBag, color: '#f97316', change: '+8.2%' },
-          { label: 'Avg Order Value', value: `${stats.avgOrderValue} QAR`, icon: TrendingUp, color: '#6366f1', change: '+5.1%' },
-          { label: 'Avg Rating', value: stats.avgRating, icon: Star, color: '#f59e0b', change: '+0.2' },
+          { label: t('analytics.totalRevenue'), value: `${stats.totalRevenue} QAR`, icon: DollarSign, color: '#10b981', change: '+12.5%' },
+          { label: t('analytics.totalOrders'), value: stats.totalOrders, icon: ShoppingBag, color: '#f97316', change: '+8.2%' },
+          { label: t('analytics.avgOrderValue'), value: `${stats.avgOrderValue} QAR`, icon: TrendingUp, color: '#6366f1', change: '+5.1%' },
+          { label: t('analytics.avgRating'), value: stats.avgRating, icon: Star, color: '#f59e0b', change: '+0.2' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -153,7 +153,7 @@ export const RestaurantAnalytics = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Revenue Chart */}
         <Card className="p-4 lg:col-span-2">
-          <h3 className="font-semibold text-text-primary mb-4">Revenue & Orders</h3>
+          <h3 className="font-semibold text-text-primary mb-4">{t('analytics.revenueAndOrders')}</h3>
           <div className="h-80">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={revenueData}>
@@ -179,7 +179,7 @@ export const RestaurantAnalytics = () => {
                   dataKey="revenue"
                   stroke="#f97316"
                   fill="url(#revenueGradient)"
-                  name="Revenue (QAR)"
+                  name={t('analytics.revenueQAR')}
                 />
               </AreaChart>
             </ResponsiveContainer>
@@ -188,7 +188,7 @@ export const RestaurantAnalytics = () => {
 
         {/* Order Type Distribution */}
         <Card className="p-4">
-          <h3 className="font-semibold text-text-primary mb-4">Order Types</h3>
+          <h3 className="font-semibold text-text-primary mb-4">{t('analytics.orderTypes')}</h3>
           <div className="h-80">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
@@ -230,7 +230,7 @@ export const RestaurantAnalytics = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Peak Hours */}
         <Card className="p-4">
-          <h3 className="font-semibold text-text-primary mb-4">Peak Hours</h3>
+          <h3 className="font-semibold text-text-primary mb-4">{t('analytics.peakHours')}</h3>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={hourlyData}>
@@ -252,7 +252,7 @@ export const RestaurantAnalytics = () => {
 
         {/* Popular Items */}
         <Card className="p-4">
-          <h3 className="font-semibold text-text-primary mb-4">Top Selling Items</h3>
+          <h3 className="font-semibold text-text-primary mb-4">{t('analytics.topSellingItems')}</h3>
           <div className="space-y-4">
             {popularItems.map((item, index) => (
               <motion.div
@@ -269,7 +269,7 @@ export const RestaurantAnalytics = () => {
                 </div>
                 <div className="text-right">
                   <p className="font-bold text-[#f97316]">{item.price} QAR</p>
-                  <p className="text-xs text-text-muted">{Math.floor(Math.random() * 50) + 20} sold</p>
+                  <p className="text-xs text-text-muted">{Math.floor(Math.random() * 50) + 20} {t('analytics.sold')}</p>
                 </div>
               </motion.div>
             ))}
@@ -280,10 +280,10 @@ export const RestaurantAnalytics = () => {
       {/* Additional Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Tables Served', value: 45, icon: Utensils, color: '#f97316' },
-          { label: 'Deliveries', value: 28, icon: Bike, color: '#10b981' },
-          { label: 'Avg Wait Time', value: '12 min', icon: Clock, color: '#6366f1' },
-          { label: 'Reservations', value: 18, icon: Calendar, color: '#8b5cf6' },
+          { label: t('analytics.tablesServed'), value: 45, icon: Utensils, color: '#f97316' },
+          { label: t('analytics.deliveries'), value: 28, icon: Bike, color: '#10b981' },
+          { label: t('analytics.avgWaitTime'), value: '12 min', icon: Clock, color: '#6366f1' },
+          { label: t('analytics.reservations'), value: 18, icon: Calendar, color: '#8b5cf6' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (

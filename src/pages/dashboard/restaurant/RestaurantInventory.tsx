@@ -17,7 +17,7 @@ import { ingredients } from '@/data/restaurant/restaurantData';
 import { useTranslation } from 'react-i18next';
 
 export const RestaurantInventory = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('restaurant');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
@@ -67,18 +67,18 @@ export const RestaurantInventory = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('restaurant.inventory', 'Inventory')}
-        subtitle="Manage ingredients and supplies"
+        title={t('inventory.title')}
+        subtitle={t('inventory.subtitle')}
         icon={Package}
         actions={
           <div className="flex gap-2">
             <Button variant="secondary">
               <ShoppingCart size={18} />
-              Purchase Order
+              {t('inventory.purchaseOrder')}
             </Button>
             <Button>
               <Plus size={18} />
-              Add Item
+              {t('inventory.addItem')}
             </Button>
           </div>
         }
@@ -87,10 +87,10 @@ export const RestaurantInventory = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Items', value: stats.totalItems, icon: Package, color: '#f97316', filter: 'all' },
-          { label: 'In Stock', value: stats.inStock, icon: CheckCircle, color: '#10b981', filter: 'in-stock' },
-          { label: 'Low Stock', value: stats.lowStock, icon: AlertTriangle, color: '#f59e0b', filter: 'low-stock' },
-          { label: 'Out of Stock', value: stats.outOfStock, icon: XCircle, color: '#ef4444', filter: 'out-of-stock' },
+          { label: t('inventory.totalItems'), value: stats.totalItems, icon: Package, color: '#f97316', filter: 'all' },
+          { label: t('inventory.inStock'), value: stats.inStock, icon: CheckCircle, color: '#10b981', filter: 'in-stock' },
+          { label: t('inventory.lowStock'), value: stats.lowStock, icon: AlertTriangle, color: '#f59e0b', filter: 'low-stock' },
+          { label: t('inventory.outOfStock'), value: stats.outOfStock, icon: XCircle, color: '#ef4444', filter: 'out-of-stock' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           const isActive = statusFilter === stat.filter;
@@ -129,7 +129,7 @@ export const RestaurantInventory = () => {
           <div className="relative flex-1">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
             <Input
-              placeholder="Search ingredients or suppliers..."
+              placeholder={t('inventory.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -143,7 +143,7 @@ export const RestaurantInventory = () => {
                 size="sm"
                 onClick={() => setCategoryFilter(cat)}
               >
-                {cat === 'all' ? 'All Categories' : cat}
+                {cat === 'all' ? t('inventory.allCategories') : cat}
               </Button>
             ))}
           </div>
@@ -156,14 +156,14 @@ export const RestaurantInventory = () => {
           <table className="w-full">
             <thead className="bg-background-secondary">
               <tr>
-                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">Item</th>
-                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">Category</th>
-                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">Stock</th>
-                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">Min Stock</th>
-                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">Unit Cost</th>
-                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">Supplier</th>
-                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">Status</th>
-                <th className="text-right py-4 px-6 text-sm font-medium text-text-secondary">Actions</th>
+                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">{t('inventory.item')}</th>
+                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">{t('inventory.category')}</th>
+                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">{t('inventory.stock')}</th>
+                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">{t('inventory.minStock')}</th>
+                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">{t('inventory.unitCost')}</th>
+                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">{t('inventory.supplier')}</th>
+                <th className="text-left py-4 px-6 text-sm font-medium text-text-secondary">{t('inventory.status')}</th>
+                <th className="text-right py-4 px-6 text-sm font-medium text-text-secondary">{t('inventory.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -192,7 +192,7 @@ export const RestaurantInventory = () => {
                           {item.expiryDate && (
                             <p className="text-xs text-text-muted flex items-center gap-1">
                               <Calendar size={10} />
-                              Exp: {new Date(item.expiryDate).toLocaleDateString()}
+                              {t('inventory.exp', { date: new Date(item.expiryDate).toLocaleDateString() })}
                             </p>
                           )}
                         </div>
@@ -237,10 +237,10 @@ export const RestaurantInventory = () => {
                           </Button>
                         }
                         items={[
-                          { id: 'edit', label: 'Edit Item', onClick: () => {} },
-                          { id: 'restock', label: 'Restock', onClick: () => {} },
-                          { id: 'adjust', label: 'Adjust Stock', onClick: () => {} },
-                          { id: 'history', label: 'View History', onClick: () => {} },
+                          { id: 'edit', label: t('inventory.editItem'), onClick: () => {} },
+                          { id: 'restock', label: t('inventory.restock'), onClick: () => {} },
+                          { id: 'adjust', label: t('inventory.adjustStock'), onClick: () => {} },
+                          { id: 'history', label: t('inventory.viewHistory'), onClick: () => {} },
                         ]}
                       />
                     </td>
@@ -254,7 +254,7 @@ export const RestaurantInventory = () => {
         {filteredIngredients.length === 0 && (
           <div className="text-center py-12">
             <Package size={48} className="mx-auto text-text-muted mb-4" />
-            <p className="text-text-secondary">No items found</p>
+            <p className="text-text-secondary">{t('inventory.noItemsFound')}</p>
           </div>
         )}
       </Card>
@@ -264,7 +264,7 @@ export const RestaurantInventory = () => {
         <Card className="p-4 border-2 border-warning">
           <div className="flex items-center gap-3 mb-4">
             <AlertTriangle size={24} className="text-warning" />
-            <h3 className="font-semibold text-text-primary">Stock Alerts</h3>
+            <h3 className="font-semibold text-text-primary">{t('inventory.stockAlerts')}</h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {ingredients
@@ -281,7 +281,7 @@ export const RestaurantInventory = () => {
                     </div>
                   </div>
                   <Button variant="secondary" size="sm">
-                    Reorder
+                    {t('inventory.reorder')}
                   </Button>
                 </div>
               ))}

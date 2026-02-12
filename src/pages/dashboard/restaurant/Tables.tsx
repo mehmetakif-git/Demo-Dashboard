@@ -15,7 +15,7 @@ import { tables } from '@/data/restaurant/restaurantData';
 import { useTranslation } from 'react-i18next';
 
 export const Tables = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('restaurant');
   const [sectionFilter, setSectionFilter] = useState<string>('all');
 
   const sections = useMemo(() => {
@@ -59,13 +59,13 @@ export const Tables = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('restaurant.tableManagement', 'Table Management')}
-        subtitle="Monitor and manage restaurant tables"
+        title={t('tables.title')}
+        subtitle={t('tables.subtitle')}
         icon={LayoutGrid}
         actions={
           <Button>
             <Plus size={18} />
-            Add Table
+            {t('tables.addTable')}
           </Button>
         }
       />
@@ -73,11 +73,11 @@ export const Tables = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         {[
-          { label: 'Total Tables', value: stats.total, icon: LayoutGrid, color: '#f97316' },
-          { label: 'Available', value: stats.available, icon: CheckCircle, color: '#10b981' },
-          { label: 'Occupied', value: stats.occupied, icon: Users, color: '#ef4444' },
-          { label: 'Reserved', value: stats.reserved, icon: Clock, color: '#f59e0b' },
-          { label: 'Cleaning', value: stats.cleaning, icon: Sparkles, color: '#8b5cf6' },
+          { label: t('tables.totalTables'), value: stats.total, icon: LayoutGrid, color: '#f97316' },
+          { label: t('tables.available'), value: stats.available, icon: CheckCircle, color: '#10b981' },
+          { label: t('tables.occupied'), value: stats.occupied, icon: Users, color: '#ef4444' },
+          { label: t('tables.reserved'), value: stats.reserved, icon: Clock, color: '#f59e0b' },
+          { label: t('tables.cleaning'), value: stats.cleaning, icon: Sparkles, color: '#8b5cf6' },
         ].map((stat, index) => {
           const Icon = stat.icon;
           return (
@@ -116,7 +116,7 @@ export const Tables = () => {
               size="sm"
               onClick={() => setSectionFilter(section)}
             >
-              {section === 'all' ? 'All Sections' : section}
+              {section === 'all' ? t('tables.allSections') : section}
             </Button>
           ))}
         </div>
@@ -149,7 +149,7 @@ export const Tables = () => {
 
                   <div className="flex items-center justify-center gap-1 mb-2">
                     <Users size={14} />
-                    <span className="text-sm">{table.capacity} seats</span>
+                    <span className="text-sm">{table.capacity} {t('tables.seats')}</span>
                   </div>
 
                   <div className="flex items-center justify-center gap-1 mb-3">
@@ -161,7 +161,7 @@ export const Tables = () => {
 
                   {table.waiter && (
                     <p className="text-xs text-text-secondary mb-2">
-                      Waiter: {table.waiter}
+                      {t('tables.waiter')}: {table.waiter}
                     </p>
                   )}
 
@@ -174,7 +174,7 @@ export const Tables = () => {
                   <div className="mt-3 pt-3 border-t border-current/20">
                     <Button variant="ghost" size="sm" className="w-full">
                       <Eye size={14} className="mr-1" />
-                      View
+                      {t('tables.view')}
                     </Button>
                   </div>
                 </div>
@@ -186,13 +186,13 @@ export const Tables = () => {
 
       {/* Legend */}
       <Card className="p-4">
-        <p className="text-sm text-text-secondary mb-3">Table Status Legend</p>
+        <p className="text-sm text-text-secondary mb-3">{t('tables.statusLegend')}</p>
         <div className="flex flex-wrap gap-4">
           {[
-            { status: 'available', label: 'Available', color: '#10b981' },
-            { status: 'occupied', label: 'Occupied', color: '#ef4444' },
-            { status: 'reserved', label: 'Reserved', color: '#f59e0b' },
-            { status: 'cleaning', label: 'Cleaning', color: '#8b5cf6' },
+            { status: 'available', label: t('tables.available'), color: '#10b981' },
+            { status: 'occupied', label: t('tables.occupied'), color: '#ef4444' },
+            { status: 'reserved', label: t('tables.reserved'), color: '#f59e0b' },
+            { status: 'cleaning', label: t('tables.cleaning'), color: '#8b5cf6' },
           ].map((item) => (
             <div key={item.status} className="flex items-center gap-2">
               <div
