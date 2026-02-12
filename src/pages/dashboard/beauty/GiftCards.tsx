@@ -18,7 +18,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const GiftCards = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('beauty');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
 
@@ -72,33 +72,33 @@ export const GiftCards = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('beauty.giftCards', 'Gift Cards')}
-        subtitle="Manage gift cards and vouchers"
-        actions={<Button leftIcon={<Plus size={16} />}>Create Gift Card</Button>}
+        title={t('giftCards.title')}
+        subtitle={t('giftCards.subtitle')}
+        actions={<Button leftIcon={<Plus size={16} />}>{t('giftCards.createGiftCard')}</Button>}
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Cards"
+          title={t('giftCards.totalCards')}
           value={stats.totalCards.toString()}
           icon={Gift}
           iconColor="#ef4444"
         />
         <StatsCard
-          title="Active Cards"
+          title={t('giftCards.activeCards')}
           value={stats.activeCards.toString()}
           icon={CreditCard}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Total Value"
+          title={t('giftCards.totalValue')}
           value={formatCurrency(stats.totalValue)}
           icon={DollarSign}
           iconColor="#8b5cf6"
         />
         <StatsCard
-          title="Remaining Value"
+          title={t('giftCards.remainingValue')}
           value={formatCurrency(stats.remainingValue)}
           icon={DollarSign}
           iconColor="#f59e0b"
@@ -110,7 +110,7 @@ export const GiftCards = () => {
         <div className="flex flex-wrap gap-4 items-center">
           <div className="flex-1 min-w-[200px] max-w-md">
             <Input
-              placeholder="Search by code, purchaser, or recipient..."
+              placeholder={t('giftCards.searchGiftCards')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               leftIcon={<Search size={16} />}
@@ -122,10 +122,10 @@ export const GiftCards = () => {
             onChange={(e) => setSelectedStatus(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary cursor-pointer"
           >
-            <option value="all">All Status</option>
-            <option value="active">Active</option>
-            <option value="redeemed">Redeemed</option>
-            <option value="expired">Expired</option>
+            <option value="all">{t('giftCards.allStatus')}</option>
+            <option value="active">{t('giftCards.active')}</option>
+            <option value="redeemed">{t('giftCards.redeemed')}</option>
+            <option value="expired">{t('giftCards.expired')}</option>
           </select>
         </div>
       </Card>
@@ -148,7 +148,7 @@ export const GiftCards = () => {
                       <Gift size={24} className="text-rose-400" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-text-primary">Gift Card</h3>
+                      <h3 className="font-semibold text-text-primary">{t('giftCards.giftCard')}</h3>
                       <span className={`px-2 py-0.5 text-xs rounded ${getStatusColor(giftCard.status)}`}>
                         {giftCard.status.charAt(0).toUpperCase() + giftCard.status.slice(1)}
                       </span>
@@ -178,13 +178,13 @@ export const GiftCards = () => {
                 {/* Amounts */}
                 <div className="flex items-center justify-between mb-4">
                   <div>
-                    <p className="text-sm text-text-muted">Original Value</p>
+                    <p className="text-sm text-text-muted">{t('giftCards.originalValue')}</p>
                     <p className="text-xl font-bold text-text-primary">
                       {formatCurrency(giftCard.initialValue)}
                     </p>
                   </div>
                   <div className="text-right">
-                    <p className="text-sm text-text-muted">Remaining</p>
+                    <p className="text-sm text-text-muted">{t('giftCards.remaining')}</p>
                     <p className="text-xl font-bold text-emerald-400">
                       {formatCurrency(giftCard.currentBalance)}
                     </p>
@@ -202,26 +202,26 @@ export const GiftCards = () => {
                     />
                   </div>
                   <p className="text-xs text-text-muted mt-1 text-right">
-                    {Math.round((giftCard.currentBalance / giftCard.initialValue) * 100)}% remaining
+                    {t('giftCards.percentRemaining', { percent: Math.round((giftCard.currentBalance / giftCard.initialValue) * 100) })}
                   </p>
                 </div>
 
                 {/* Details */}
                 <div className="space-y-3 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-text-muted">Purchased by</span>
+                    <span className="text-text-muted">{t('giftCards.purchasedBy')}</span>
                     <span className="text-text-primary">{giftCard.purchasedByName}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-text-muted">Recipient</span>
+                    <span className="text-text-muted">{t('giftCards.recipient')}</span>
                     <span className="text-text-primary">{giftCard.recipientName}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-text-muted">Purchase Date</span>
+                    <span className="text-text-muted">{t('giftCards.purchaseDate')}</span>
                     <span className="text-text-secondary">{formatDate(giftCard.purchaseDate)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-text-muted">Expires</span>
+                    <span className="text-text-muted">{t('giftCards.expires')}</span>
                     <span className="text-text-secondary">{formatDate(giftCard.expiryDate)}</span>
                   </div>
                 </div>
@@ -229,11 +229,11 @@ export const GiftCards = () => {
                 {/* Actions */}
                 <div className="flex gap-2 mt-4 pt-4 border-t border-white/[0.08]">
                   <Button variant="secondary" size="sm" className="flex-1">
-                    View History
+                    {t('giftCards.viewHistory')}
                   </Button>
                   {giftCard.status === 'active' && (
                     <Button size="sm" className="flex-1">
-                      Redeem
+                      {t('giftCards.redeem')}
                     </Button>
                   )}
                 </div>
@@ -246,7 +246,7 @@ export const GiftCards = () => {
       {filteredGiftCards.length === 0 && (
         <Card className="p-12 text-center">
           <Gift size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No gift cards found matching your filters</p>
+          <p className="text-text-secondary">{t('giftCards.noGiftCardsFound')}</p>
         </Card>
       )}
     </div>

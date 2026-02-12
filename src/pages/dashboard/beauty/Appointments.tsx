@@ -29,7 +29,7 @@ import { getProfileImage } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const Appointments = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('beauty');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
@@ -80,12 +80,12 @@ export const Appointments = () => {
 
   const getStatusBadge = (status: Appointment['status']) => {
     const config = {
-      scheduled: { bg: 'bg-indigo-500/20', text: 'text-indigo-400', label: 'Scheduled' },
-      confirmed: { bg: 'bg-sky-500/20', text: 'text-sky-400', label: 'Confirmed' },
-      'in-progress': { bg: 'bg-amber-500/20', text: 'text-amber-400', label: 'In Progress' },
-      completed: { bg: 'bg-emerald-500/20', text: 'text-emerald-400', label: 'Completed' },
-      cancelled: { bg: 'bg-red-500/20', text: 'text-red-400', label: 'Cancelled' },
-      'no-show': { bg: 'bg-gray-500/20', text: 'text-gray-400', label: 'No Show' },
+      scheduled: { bg: 'bg-indigo-500/20', text: 'text-indigo-400', label: t('appointments.scheduled') },
+      confirmed: { bg: 'bg-sky-500/20', text: 'text-sky-400', label: t('appointments.confirmed') },
+      'in-progress': { bg: 'bg-amber-500/20', text: 'text-amber-400', label: t('appointments.inProgress') },
+      completed: { bg: 'bg-emerald-500/20', text: 'text-emerald-400', label: t('appointments.completed') },
+      cancelled: { bg: 'bg-red-500/20', text: 'text-red-400', label: t('appointments.cancelled') },
+      'no-show': { bg: 'bg-gray-500/20', text: 'text-gray-400', label: t('appointments.noShow') },
     };
     const c = config[status];
     return (
@@ -100,14 +100,14 @@ export const Appointments = () => {
       return (
         <span className="flex items-center gap-1 text-xs text-emerald-400">
           <CheckCircle size={12} />
-          Paid
+          {t('appointments.paid')}
         </span>
       );
     }
     return (
       <span className="flex items-center gap-1 text-xs text-amber-400">
         <Clock size={12} />
-        Pending
+        {t('appointments.pending')}
       </span>
     );
   };
@@ -115,35 +115,35 @@ export const Appointments = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('beauty.appointments', 'Appointments')}
-        subtitle="Manage salon appointments and schedules"
+        title={t('appointments.title')}
+        subtitle={t('appointments.subtitle')}
         actions={
-          <Button leftIcon={<Plus size={16} />}>New Appointment</Button>
+          <Button leftIcon={<Plus size={16} />}>{t('appointments.newAppointment')}</Button>
         }
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <StatsCard
-          title="Today's Appointments"
+          title={t('appointments.todaysAppointments')}
           value={stats.total.toString()}
           icon={Calendar}
           iconColor="#ec4899"
         />
         <StatsCard
-          title="Today's Revenue"
+          title={t('appointments.todaysRevenue')}
           value={formatCurrency(stats.todayRevenue)}
           icon={DollarSign}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Pending Confirmation"
+          title={t('appointments.pendingConfirmation')}
           value={stats.pending.toString()}
           icon={Clock}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="No Shows (This Week)"
+          title={t('appointments.noShowsThisWeek')}
           value={stats.noShows.toString()}
           icon={AlertCircle}
           iconColor="#ef4444"
@@ -156,7 +156,7 @@ export const Appointments = () => {
           <div className="flex flex-wrap gap-4 items-center flex-1">
             <div className="flex-1 min-w-[200px] max-w-md">
               <Input
-                placeholder="Search appointments..."
+                placeholder={t('appointments.searchAppointments')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 leftIcon={<Search size={16} />}
@@ -168,13 +168,13 @@ export const Appointments = () => {
               onChange={(e) => setSelectedStatus(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary cursor-pointer"
             >
-              <option value="all">All Status</option>
-              <option value="scheduled">Scheduled</option>
-              <option value="confirmed">Confirmed</option>
-              <option value="in-progress">In Progress</option>
-              <option value="completed">Completed</option>
-              <option value="cancelled">Cancelled</option>
-              <option value="no-show">No Show</option>
+              <option value="all">{t('appointments.allStatus')}</option>
+              <option value="scheduled">{t('appointments.scheduled')}</option>
+              <option value="confirmed">{t('appointments.confirmed')}</option>
+              <option value="in-progress">{t('appointments.inProgress')}</option>
+              <option value="completed">{t('appointments.completed')}</option>
+              <option value="cancelled">{t('appointments.cancelled')}</option>
+              <option value="no-show">{t('appointments.noShow')}</option>
             </select>
 
             <select
@@ -182,7 +182,7 @@ export const Appointments = () => {
               onChange={(e) => setSelectedStylist(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary cursor-pointer"
             >
-              <option value="all">All Stylists</option>
+              <option value="all">{t('appointments.allStylists')}</option>
               {staff.map((s) => (
                 <option key={s.id} value={s.id}>
                   {s.name}
@@ -268,7 +268,7 @@ export const Appointments = () => {
                           {getStatusBadge(appointment.status)}
                         </div>
                         <p className="text-sm text-text-secondary">
-                          with {appointment.stylistName}
+                          {t('appointments.with', { name: appointment.stylistName })}
                         </p>
                       </div>
                       <ChevronRight
@@ -343,7 +343,7 @@ export const Appointments = () => {
       {filteredAppointments.length === 0 && (
         <Card className="p-12 text-center">
           <Calendar size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No appointments found matching your filters</p>
+          <p className="text-text-secondary">{t('appointments.noAppointmentsFound')}</p>
         </Card>
       )}
     </div>

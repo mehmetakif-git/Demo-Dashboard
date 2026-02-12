@@ -22,7 +22,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const Memberships = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('beauty');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedPlan, setSelectedPlan] = useState<string>('all');
   const [activeTab, setActiveTab] = useState<'plans' | 'members'>('plans');
@@ -95,33 +95,33 @@ export const Memberships = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('beauty.memberships', 'Memberships')}
-        subtitle="Manage membership plans and subscribers"
-        actions={<Button leftIcon={<Plus size={16} />}>Create Plan</Button>}
+        title={t('memberships.title')}
+        subtitle={t('memberships.subtitle')}
+        actions={<Button leftIcon={<Plus size={16} />}>{t('memberships.createPlan')}</Button>}
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Plans"
+          title={t('memberships.totalPlans')}
           value={stats.totalPlans.toString()}
           icon={CreditCard}
           iconColor="#6366f1"
         />
         <StatsCard
-          title="Active Members"
+          title={t('memberships.activeMembers')}
           value={stats.activeMembers.toString()}
           icon={Users}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Monthly Revenue"
+          title={t('memberships.monthlyRevenue')}
           value={formatCurrency(stats.monthlyRevenue)}
           icon={DollarSign}
           iconColor="#ec4899"
         />
         <StatsCard
-          title="Avg. Discount"
+          title={t('memberships.avgDiscount')}
           value={`${stats.avgDiscount}%`}
           icon={Star}
           iconColor="#f59e0b"
@@ -138,7 +138,7 @@ export const Memberships = () => {
               : 'text-text-secondary hover:text-text-primary'
           }`}
         >
-          Membership Plans
+          {t('memberships.membershipPlans')}
         </button>
         <button
           onClick={() => setActiveTab('members')}
@@ -148,7 +148,7 @@ export const Memberships = () => {
               : 'text-text-secondary hover:text-text-primary'
           }`}
         >
-          Active Members ({stats.activeMembers})
+          {t('memberships.activeMembersTab', { count: stats.activeMembers })}
         </button>
       </div>
 
@@ -187,7 +187,7 @@ export const Memberships = () => {
                     const discountPercent = match ? parseInt(match[1]) : 0;
                     return discountPercent > 0 ? (
                       <span className="inline-block mt-2 px-2 py-0.5 bg-emerald-500/20 text-emerald-400 text-xs rounded">
-                        {discountPercent}% off services
+                        {t('memberships.offServices', { percent: discountPercent })}
                       </span>
                     ) : null;
                   })()}
@@ -195,7 +195,7 @@ export const Memberships = () => {
 
                 {/* Benefits */}
                 <div className="p-6">
-                  <h4 className="text-sm font-medium text-text-muted mb-3">Benefits:</h4>
+                  <h4 className="text-sm font-medium text-text-muted mb-3">{t('memberships.benefits')}</h4>
                   <ul className="space-y-2">
                     {plan.benefits.map((benefit, i) => (
                       <li key={i} className="flex items-start gap-2 text-sm">
@@ -208,7 +208,7 @@ export const Memberships = () => {
                   {/* Subscribers Count */}
                   <div className="mt-6 pt-4 border-t border-white/[0.08]">
                     <div className="flex items-center justify-between text-sm">
-                      <span className="text-text-muted">Active Subscribers</span>
+                      <span className="text-text-muted">{t('memberships.activeSubscribers')}</span>
                       <span className="text-text-primary font-medium">
                         {memberships.filter((m) => m.planId === plan.id && m.status === 'active').length}
                       </span>
@@ -217,7 +217,7 @@ export const Memberships = () => {
 
                   {/* Action */}
                   <Button variant="secondary" className="w-full mt-4">
-                    Edit Plan
+                    {t('memberships.editPlan')}
                   </Button>
                 </div>
               </Card>
@@ -231,7 +231,7 @@ export const Memberships = () => {
             <div className="flex flex-wrap gap-4 items-center">
               <div className="flex-1 min-w-[200px] max-w-md">
                 <Input
-                  placeholder="Search members..."
+                  placeholder={t('memberships.searchMembers')}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   leftIcon={<Search size={16} />}
@@ -243,7 +243,7 @@ export const Memberships = () => {
                 onChange={(e) => setSelectedPlan(e.target.value)}
                 className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary cursor-pointer"
               >
-                <option value="all">All Plans</option>
+                <option value="all">{t('memberships.allPlans')}</option>
                 {membershipPlans.map((plan) => (
                   <option key={plan.id} value={plan.id}>
                     {plan.name}
@@ -259,25 +259,25 @@ export const Memberships = () => {
                 <thead>
                   <tr className="border-b border-white/[0.08]">
                     <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">
-                      Member
+                      {t('memberships.member')}
                     </th>
                     <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">
-                      Plan
+                      {t('memberships.plan')}
                     </th>
                     <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">
-                      Start Date
+                      {t('memberships.startDate')}
                     </th>
                     <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">
-                      End Date
+                      {t('memberships.endDate')}
                     </th>
                     <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">
-                      Auto Renew
+                      {t('memberships.autoRenew')}
                     </th>
                     <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">
-                      Status
+                      {t('memberships.status')}
                     </th>
                     <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">
-                      Actions
+                      {t('memberships.actions')}
                     </th>
                   </tr>
                 </thead>
@@ -331,7 +331,7 @@ export const Memberships = () => {
                                 : 'bg-gray-500/20 text-gray-400'
                             }`}
                           >
-                            {membership.autoRenew ? 'Yes' : 'No'}
+                            {membership.autoRenew ? t('memberships.yes') : t('memberships.no')}
                           </span>
                         </td>
                         <td className="py-3 px-4">
@@ -341,7 +341,7 @@ export const Memberships = () => {
                         </td>
                         <td className="py-3 px-4">
                           <Button variant="ghost" size="sm" rightIcon={<ChevronRight size={14} />}>
-                            View
+                            {t('memberships.view')}
                           </Button>
                         </td>
                       </motion.tr>
@@ -357,7 +357,7 @@ export const Memberships = () => {
       {activeTab === 'members' && filteredMemberships.length === 0 && (
         <Card className="p-12 text-center">
           <Users size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No members found matching your filters</p>
+          <p className="text-text-secondary">{t('memberships.noMembersFound')}</p>
         </Card>
       )}
     </div>

@@ -22,7 +22,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const ClientDetail = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('beauty');
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
@@ -34,11 +34,11 @@ export const ClientDetail = () => {
     return (
       <div className="space-y-6">
         <PageHeader
-          title={t('beauty.clientNotFound', 'Client Not Found')}
-          subtitle="The requested client could not be found"
+          title={t('clientDetail.clientNotFound')}
+          subtitle={t('clientDetail.notFoundSubtitle')}
           actions={
             <Button variant="secondary" leftIcon={<ArrowLeft size={16} />} onClick={() => navigate(-1)}>
-              Go Back
+              {t('clientDetail.goBack')}
             </Button>
           }
         />
@@ -50,16 +50,16 @@ export const ClientDetail = () => {
     <div className="space-y-6">
       <PageHeader
         title={`${client.firstName} ${client.lastName}`}
-        subtitle={client.vipStatus ? 'VIP Client' : 'Regular Client'}
+        subtitle={client.vipStatus ? t('clientDetail.vipClient') : t('clientDetail.regularClient')}
         actions={
           <div className="flex items-center gap-2">
             <Button variant="secondary" leftIcon={<ArrowLeft size={16} />} onClick={() => navigate(-1)}>
-              Back
+              {t('clientDetail.back')}
             </Button>
             <Button variant="secondary" leftIcon={<Edit size={16} />}>
-              Edit
+              {t('clientDetail.edit')}
             </Button>
-            <Button leftIcon={<Calendar size={16} />}>Book Appointment</Button>
+            <Button leftIcon={<Calendar size={16} />}>{t('clientDetail.bookAppointment')}</Button>
           </div>
         }
       />
@@ -119,43 +119,43 @@ export const ClientDetail = () => {
             <Card className="p-4 text-center">
               <Calendar size={20} className="mx-auto mb-2 text-purple-400" />
               <p className="text-2xl font-bold text-text-primary">{client.visitCount}</p>
-              <p className="text-xs text-text-muted">Total Visits</p>
+              <p className="text-xs text-text-muted">{t('clientDetail.totalVisits')}</p>
             </Card>
             <Card className="p-4 text-center">
               <DollarSign size={20} className="mx-auto mb-2 text-emerald-400" />
               <p className="text-2xl font-bold text-text-primary">{formatCurrency(client.totalSpent)}</p>
-              <p className="text-xs text-text-muted">Total Spent</p>
+              <p className="text-xs text-text-muted">{t('clientDetail.totalSpent')}</p>
             </Card>
             <Card className="p-4 text-center">
               <Clock size={20} className="mx-auto mb-2 text-blue-400" />
               <p className="text-lg font-bold text-text-primary">{formatDate(client.lastVisit)}</p>
-              <p className="text-xs text-text-muted">Last Visit</p>
+              <p className="text-xs text-text-muted">{t('clientDetail.lastVisit')}</p>
             </Card>
             <Card className="p-4 text-center">
               <Calendar size={20} className="mx-auto mb-2 text-pink-400" />
               <p className="text-lg font-bold text-text-primary">{formatDate(client.createdAt)}</p>
-              <p className="text-xs text-text-muted">Client Since</p>
+              <p className="text-xs text-text-muted">{t('clientDetail.clientSince')}</p>
             </Card>
           </div>
 
           {/* Preferences */}
           <Card className="p-6">
-            <h3 className="text-lg font-semibold text-text-primary mb-4">Preferences & Details</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-4">{t('clientDetail.preferencesAndDetails')}</h3>
             <div className="grid grid-cols-2 gap-6">
               <div>
-                <h4 className="text-sm font-medium text-text-muted mb-2">Hair Type</h4>
-                <p className="text-text-primary">{client.hairType || 'Not specified'}</p>
+                <h4 className="text-sm font-medium text-text-muted mb-2">{t('clientDetail.hairType')}</h4>
+                <p className="text-text-primary">{client.hairType || t('clientDetail.notSpecified')}</p>
               </div>
               <div>
-                <h4 className="text-sm font-medium text-text-muted mb-2">Skin Type</h4>
-                <p className="text-text-primary">{client.skinType || 'Not specified'}</p>
+                <h4 className="text-sm font-medium text-text-muted mb-2">{t('clientDetail.skinType')}</h4>
+                <p className="text-text-primary">{client.skinType || t('clientDetail.notSpecified')}</p>
               </div>
               <div>
-                <h4 className="text-sm font-medium text-text-muted mb-2">Date of Birth</h4>
+                <h4 className="text-sm font-medium text-text-muted mb-2">{t('clientDetail.dateOfBirth')}</h4>
                 <p className="text-text-primary">{formatDate(client.dateOfBirth)}</p>
               </div>
               <div>
-                <h4 className="text-sm font-medium text-text-muted mb-2">Gender</h4>
+                <h4 className="text-sm font-medium text-text-muted mb-2">{t('clientDetail.gender')}</h4>
                 <p className="text-text-primary capitalize">{client.gender}</p>
               </div>
             </div>
@@ -165,7 +165,7 @@ export const ClientDetail = () => {
               <div className="mt-6 p-4 bg-red-500/10 border border-red-500/20 rounded-lg">
                 <div className="flex items-center gap-2 text-red-400 mb-2">
                   <AlertTriangle size={16} />
-                  <h4 className="font-medium">Allergies</h4>
+                  <h4 className="font-medium">{t('clientDetail.allergies')}</h4>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {client.allergies.map((allergy) => (
@@ -183,7 +183,7 @@ export const ClientDetail = () => {
             {/* Notes */}
             {client.notes && (
               <div className="mt-6">
-                <h4 className="text-sm font-medium text-text-muted mb-2">Notes</h4>
+                <h4 className="text-sm font-medium text-text-muted mb-2">{t('clientDetail.notes')}</h4>
                 <p className="text-text-secondary">{client.notes}</p>
               </div>
             )}
@@ -191,7 +191,7 @@ export const ClientDetail = () => {
 
           {/* Appointment History */}
           <Card className="p-6">
-            <h3 className="text-lg font-semibold text-text-primary mb-4">Recent Appointments</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-4">{t('clientDetail.recentAppointments')}</h3>
             {clientAppointments.length > 0 ? (
               <div className="space-y-3">
                 {clientAppointments.slice(0, 5).map((apt) => (
@@ -213,7 +213,7 @@ export const ClientDetail = () => {
                         <p className="font-medium text-text-primary">
                           {apt.services.map((s) => s.name).join(', ')}
                         </p>
-                        <p className="text-sm text-text-secondary">with {apt.stylistName}</p>
+                        <p className="text-sm text-text-secondary">{t('appointments.with', { name: apt.stylistName })}</p>
                       </div>
                     </div>
                     <div className="text-right">
@@ -234,7 +234,7 @@ export const ClientDetail = () => {
                 ))}
               </div>
             ) : (
-              <p className="text-text-muted text-center py-4">No appointments yet</p>
+              <p className="text-text-muted text-center py-4">{t('clientDetail.noAppointmentsYet')}</p>
             )}
           </Card>
         </div>
@@ -244,7 +244,7 @@ export const ClientDetail = () => {
           {/* Preferred Stylist */}
           {preferredStylist && (
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-text-primary mb-4">Preferred Stylist</h3>
+              <h3 className="text-lg font-semibold text-text-primary mb-4">{t('clientDetail.preferredStylist')}</h3>
               <div className="flex items-center gap-4">
                 <div className="w-14 h-14 rounded-full bg-emerald-500/20 flex items-center justify-center">
                   <span className="text-lg font-bold text-emerald-400">
@@ -268,17 +268,17 @@ export const ClientDetail = () => {
 
           {/* Membership */}
           <Card className="p-6">
-            <h3 className="text-lg font-semibold text-text-primary mb-4">Membership</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-4">{t('clientDetail.membership')}</h3>
             {client.membershipId ? (
               <div className="p-4 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-lg">
-                <p className="font-semibold text-text-primary mb-2">Active Member</p>
+                <p className="font-semibold text-text-primary mb-2">{t('clientDetail.activeMember')}</p>
                 <p className="text-sm text-text-secondary">ID: {client.membershipId}</p>
               </div>
             ) : (
               <div className="text-center py-4">
-                <p className="text-text-muted mb-4">Not a member yet</p>
+                <p className="text-text-muted mb-4">{t('clientDetail.notMemberYet')}</p>
                 <Button variant="secondary" className="w-full">
-                  Upgrade to Member
+                  {t('clientDetail.upgradeToMember')}
                 </Button>
               </div>
             )}
@@ -286,16 +286,16 @@ export const ClientDetail = () => {
 
           {/* Quick Actions */}
           <Card className="p-6">
-            <h3 className="text-lg font-semibold text-text-primary mb-4">Quick Actions</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-4">{t('clientDetail.quickActions')}</h3>
             <div className="space-y-2">
               <Button variant="secondary" className="w-full justify-start" leftIcon={<Calendar size={16} />}>
-                Book Appointment
+                {t('clientDetail.bookAppointment')}
               </Button>
               <Button variant="secondary" className="w-full justify-start" leftIcon={<Phone size={16} />}>
-                Call Client
+                {t('clientDetail.callClient')}
               </Button>
               <Button variant="secondary" className="w-full justify-start" leftIcon={<Mail size={16} />}>
-                Send Email
+                {t('clientDetail.sendEmail')}
               </Button>
             </div>
           </Card>

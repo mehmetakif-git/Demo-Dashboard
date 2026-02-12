@@ -19,7 +19,7 @@ import { getProfileImage } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const Reviews = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('beauty');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedRating, setSelectedRating] = useState<string>('all');
@@ -80,32 +80,32 @@ export const Reviews = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('beauty.reviews', 'Reviews')}
-        subtitle="Customer feedback and ratings"
+        title={t('reviews.title')}
+        subtitle={t('reviews.subtitle')}
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Reviews"
+          title={t('reviews.totalReviews')}
           value={stats.totalReviews.toString()}
           icon={MessageSquare}
           iconColor="#8b5cf6"
         />
         <StatsCard
-          title="Average Rating"
+          title={t('reviews.averageRating')}
           value={stats.avgRating.toString()}
           icon={Star}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="5-Star Reviews"
+          title={t('reviews.fiveStarReviews')}
           value={`${stats.fiveStarPercent}%`}
           icon={ThumbsUp}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Response Rate"
+          title={t('reviews.responseRate')}
           value={`${stats.responseRate}%`}
           icon={TrendingUp}
           iconColor="#ec4899"
@@ -116,7 +116,7 @@ export const Reviews = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Rating Distribution */}
         <Card className="p-6">
-          <h3 className="text-lg font-semibold text-text-primary mb-4">Rating Distribution</h3>
+          <h3 className="text-lg font-semibold text-text-primary mb-4">{t('reviews.ratingDistribution')}</h3>
           <div className="space-y-3">
             {[5, 4, 3, 2, 1].map((rating, index) => {
               const count = ratingDistribution[index];
@@ -147,7 +147,7 @@ export const Reviews = () => {
             <div className="flex flex-wrap gap-4 items-center">
               <div className="flex-1 min-w-[200px]">
                 <Input
-                  placeholder="Search reviews..."
+                  placeholder={t('reviews.searchReviews')}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   leftIcon={<Search size={16} />}
@@ -159,12 +159,12 @@ export const Reviews = () => {
                 onChange={(e) => setSelectedRating(e.target.value)}
                 className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary cursor-pointer"
               >
-                <option value="all">All Ratings</option>
-                <option value="5">5 Stars</option>
-                <option value="4">4 Stars</option>
-                <option value="3">3 Stars</option>
-                <option value="2">2 Stars</option>
-                <option value="1">1 Star</option>
+                <option value="all">{t('reviews.allRatings')}</option>
+                <option value="5">{t('reviews.stars', { count: 5 })}</option>
+                <option value="4">{t('reviews.stars', { count: 4 })}</option>
+                <option value="3">{t('reviews.stars', { count: 3 })}</option>
+                <option value="2">{t('reviews.stars', { count: 2 })}</option>
+                <option value="1">{t('reviews.star')}</option>
               </select>
 
               <select
@@ -172,7 +172,7 @@ export const Reviews = () => {
                 onChange={(e) => setSelectedStaff(e.target.value)}
                 className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary cursor-pointer"
               >
-                <option value="all">All Staff</option>
+                <option value="all">{t('reviews.allStaff')}</option>
                 {staffList.map((s) =>
                   s ? (
                     <option key={s.id} value={s.id}>
@@ -266,7 +266,7 @@ export const Reviews = () => {
                     {/* Response */}
                     {review.reply && (
                       <div className="mt-4 p-4 bg-white/[0.03] rounded-lg border-l-2 border-accent-primary">
-                        <p className="text-xs text-text-muted mb-1">Salon Response:</p>
+                        <p className="text-xs text-text-muted mb-1">{t('reviews.salonResponse')}</p>
                         <p className="text-sm text-text-secondary">{review.reply}</p>
                       </div>
                     )}
@@ -275,7 +275,7 @@ export const Reviews = () => {
                     {!review.reply && (
                       <div className="mt-4 flex gap-2">
                         <Button variant="secondary" size="sm" leftIcon={<MessageSquare size={14} />}>
-                          Reply
+                          {t('reviews.reply')}
                         </Button>
                       </div>
                     )}
@@ -290,7 +290,7 @@ export const Reviews = () => {
       {filteredReviews.length === 0 && (
         <Card className="p-12 text-center">
           <Star size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No reviews found matching your filters</p>
+          <p className="text-text-secondary">{t('reviews.noReviewsFound')}</p>
         </Card>
       )}
     </div>

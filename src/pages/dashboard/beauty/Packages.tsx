@@ -21,7 +21,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const Packages = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('beauty');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
 
@@ -70,33 +70,33 @@ export const Packages = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('beauty.packages', 'Packages')}
-        subtitle="Manage service packages and bundles"
-        actions={<Button leftIcon={<Plus size={16} />}>Create Package</Button>}
+        title={t('packages.title')}
+        subtitle={t('packages.subtitle')}
+        actions={<Button leftIcon={<Plus size={16} />}>{t('packages.createPackage')}</Button>}
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Packages"
+          title={t('packages.totalPackages')}
           value={stats.totalPackages.toString()}
           icon={Gift}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Active"
+          title={t('packages.active')}
           value={stats.activePackages.toString()}
           icon={Gift}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Avg. Discount"
+          title={t('packages.avgDiscount')}
           value={`${stats.avgDiscount}%`}
           icon={Tag}
           iconColor="#ec4899"
         />
         <StatsCard
-          title="Avg. Value"
+          title={t('packages.avgValue')}
           value={formatCurrency(stats.avgValue)}
           icon={DollarSign}
           iconColor="#8b5cf6"
@@ -108,7 +108,7 @@ export const Packages = () => {
         <div className="flex flex-wrap gap-4 items-center">
           <div className="flex-1 min-w-[200px] max-w-md">
             <Input
-              placeholder="Search packages..."
+              placeholder={t('packages.searchPackages')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               leftIcon={<Search size={16} />}
@@ -120,9 +120,9 @@ export const Packages = () => {
             onChange={(e) => setSelectedStatus(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary cursor-pointer"
           >
-            <option value="all">All Status</option>
-            <option value="active">Active</option>
-            <option value="inactive">Inactive</option>
+            <option value="all">{t('packages.allStatus')}</option>
+            <option value="active">{t('packages.activeStatus')}</option>
+            <option value="inactive">{t('packages.inactive')}</option>
           </select>
         </div>
       </Card>
@@ -148,7 +148,7 @@ export const Packages = () => {
                         <h3 className="text-xl font-bold text-text-primary">{pkg.name}</h3>
                         {pkg.status === 'inactive' && (
                           <span className="px-2 py-0.5 bg-gray-500/20 text-gray-400 text-xs rounded">
-                            Inactive
+                            {t('packages.inactive')}
                           </span>
                         )}
                       </div>
@@ -169,7 +169,7 @@ export const Packages = () => {
                         {formatCurrency(pkg.regularPrice)}
                       </p>
                       <span className="px-2 py-0.5 bg-emerald-500/20 text-emerald-400 text-xs rounded">
-                        Save {Math.round((pkg.savings / pkg.regularPrice) * 100)}%
+                        {t('packages.save', { percent: Math.round((pkg.savings / pkg.regularPrice) * 100) })}
                       </span>
                     </div>
                   </div>
@@ -185,13 +185,13 @@ export const Packages = () => {
                     </div>
                     <div className="flex items-center gap-2 text-text-secondary">
                       <Tag size={14} className="text-text-muted" />
-                      Valid {pkg.validityDays} days
+                      {t('packages.validDays', { days: pkg.validityDays })}
                     </div>
                   </div>
 
                   {/* Included Services */}
                   <div className="mb-4">
-                    <h4 className="text-sm font-medium text-text-muted mb-2">Included Services:</h4>
+                    <h4 className="text-sm font-medium text-text-muted mb-2">{t('packages.includedServices')}</h4>
                     <div className="space-y-2">
                       {pkgServices.map((service) =>
                         service ? (
@@ -213,10 +213,10 @@ export const Packages = () => {
                   {/* Actions */}
                   <div className="flex gap-2 pt-4 border-t border-white/[0.08]">
                     <Button variant="secondary" size="sm" className="flex-1" leftIcon={<Edit size={14} />}>
-                      Edit
+                      {t('staffDetail.edit')}
                     </Button>
                     <Button size="sm" className="flex-1">
-                      {pkg.status === 'active' ? 'Deactivate' : 'Activate'}
+                      {pkg.status === 'active' ? t('packages.deactivate') : t('packages.activate')}
                     </Button>
                   </div>
                 </div>
@@ -229,7 +229,7 @@ export const Packages = () => {
       {filteredPackages.length === 0 && (
         <Card className="p-12 text-center">
           <Gift size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No packages found matching your filters</p>
+          <p className="text-text-secondary">{t('packages.noPackagesFound')}</p>
         </Card>
       )}
     </div>

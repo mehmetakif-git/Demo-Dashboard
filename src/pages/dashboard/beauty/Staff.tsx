@@ -20,7 +20,7 @@ import { getProfileImage } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const Staff = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('beauty');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedRole, setSelectedRole] = useState<string>('all');
@@ -84,33 +84,33 @@ export const Staff = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('beauty.staff', 'Staff')}
-        subtitle="Manage your salon team"
-        actions={<Button leftIcon={<Plus size={16} />}>Add Staff</Button>}
+        title={t('staff.title')}
+        subtitle={t('staff.subtitle')}
+        actions={<Button leftIcon={<Plus size={16} />}>{t('staff.addStaff')}</Button>}
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Staff"
+          title={t('staff.totalStaff')}
           value={stats.total.toString()}
           icon={Users}
           iconColor="#8b5cf6"
         />
         <StatsCard
-          title="Active"
+          title={t('staff.active')}
           value={stats.active.toString()}
           icon={Users}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Avg. Rating"
+          title={t('staff.avgRating')}
           value={stats.avgRating.toString()}
           icon={Star}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Total Revenue"
+          title={t('staff.totalRevenue')}
           value={formatCurrency(stats.totalRevenue)}
           icon={DollarSign}
           iconColor="#ec4899"
@@ -123,7 +123,7 @@ export const Staff = () => {
           <div className="flex flex-wrap gap-4 items-center flex-1">
             <div className="flex-1 min-w-[200px] max-w-md">
               <Input
-                placeholder="Search staff..."
+                placeholder={t('staff.searchStaff')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 leftIcon={<Search size={16} />}
@@ -135,7 +135,7 @@ export const Staff = () => {
               onChange={(e) => setSelectedRole(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary cursor-pointer"
             >
-              <option value="all">All Roles</option>
+              <option value="all">{t('staff.allRoles')}</option>
               {roles.map((role) => (
                 <option key={role} value={role}>
                   {role}
@@ -235,7 +235,7 @@ export const Staff = () => {
                     ))}
                   </div>
                   <span className="text-sm text-text-secondary">
-                    {member.rating} ({member.reviewCount} reviews)
+                    {member.rating} ({t('appointmentDetail.reviews', { count: member.reviewCount })})
                   </span>
                 </div>
 
@@ -257,13 +257,13 @@ export const Staff = () => {
                     <p className="text-lg font-semibold text-text-primary">
                       {member.appointmentsToday}
                     </p>
-                    <p className="text-xs text-text-muted">Today</p>
+                    <p className="text-xs text-text-muted">{t('staff.today')}</p>
                   </div>
                   <div className="text-center">
                     <p className="text-lg font-semibold text-text-primary">
                       {formatCurrency(member.monthlySales)}
                     </p>
-                    <p className="text-xs text-text-muted">Monthly Sales</p>
+                    <p className="text-xs text-text-muted">{t('staff.monthlySales')}</p>
                   </div>
                 </div>
 
@@ -285,22 +285,22 @@ export const Staff = () => {
               <thead>
                 <tr className="border-b border-white/[0.08]">
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">
-                    Staff Member
+                    {t('staff.staffMember')}
                   </th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">
-                    Contact
+                    {t('staff.contact')}
                   </th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">
-                    Rating
+                    {t('staff.rating')}
                   </th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">
-                    Appointments
+                    {t('staff.appointmentsLabel')}
                   </th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">
-                    Revenue
+                    {t('staff.revenue')}
                   </th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">
-                    Status
+                    {t('staff.statusLabel')}
                   </th>
                 </tr>
               </thead>
@@ -379,7 +379,7 @@ export const Staff = () => {
       {filteredStaff.length === 0 && (
         <Card className="p-12 text-center">
           <Users size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No staff members found matching your filters</p>
+          <p className="text-text-secondary">{t('staff.noStaffFound')}</p>
         </Card>
       )}
     </div>

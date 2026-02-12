@@ -23,7 +23,7 @@ import { getProfileImage } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const StaffDetail = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('beauty');
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
@@ -37,11 +37,11 @@ export const StaffDetail = () => {
     return (
       <div className="space-y-6">
         <PageHeader
-          title={t('beauty.staffNotFound', 'Staff Not Found')}
-          subtitle="The requested staff member could not be found"
+          title={t('staffDetail.staffNotFound')}
+          subtitle={t('staffDetail.notFoundSubtitle')}
           actions={
             <Button variant="secondary" leftIcon={<ArrowLeft size={16} />} onClick={() => navigate(-1)}>
-              Go Back
+              {t('staffDetail.goBack')}
             </Button>
           }
         />
@@ -70,12 +70,12 @@ export const StaffDetail = () => {
         actions={
           <div className="flex items-center gap-2">
             <Button variant="secondary" leftIcon={<ArrowLeft size={16} />} onClick={() => navigate(-1)}>
-              Back
+              {t('staffDetail.back')}
             </Button>
             <Button variant="secondary" leftIcon={<Edit size={16} />}>
-              Edit
+              {t('staffDetail.edit')}
             </Button>
-            <Button leftIcon={<Calendar size={16} />}>View Schedule</Button>
+            <Button leftIcon={<Calendar size={16} />}>{t('staffDetail.viewSchedule')}</Button>
           </div>
         }
       />
@@ -145,7 +145,7 @@ export const StaffDetail = () => {
                     ))}
                   </div>
                   <span className="text-text-secondary">
-                    {member.rating} ({member.reviewCount} reviews)
+                    {member.rating} ({t('appointmentDetail.reviews', { count: member.reviewCount })})
                   </span>
                 </div>
               </div>
@@ -159,34 +159,34 @@ export const StaffDetail = () => {
               <p className="text-2xl font-bold text-text-primary">
                 {member.appointmentsToday}
               </p>
-              <p className="text-xs text-text-muted">Today</p>
+              <p className="text-xs text-text-muted">{t('staff.today')}</p>
             </Card>
             <Card className="p-4 text-center">
               <DollarSign size={20} className="mx-auto mb-2 text-emerald-400" />
               <p className="text-2xl font-bold text-text-primary">
                 {formatCurrency(member.monthlySales)}
               </p>
-              <p className="text-xs text-text-muted">Monthly Sales</p>
+              <p className="text-xs text-text-muted">{t('staffDetail.monthlySales')}</p>
             </Card>
             <Card className="p-4 text-center">
               <TrendingUp size={20} className="mx-auto mb-2 text-blue-400" />
               <p className="text-2xl font-bold text-text-primary">
                 {member.commissionRate}%
               </p>
-              <p className="text-xs text-text-muted">Commission</p>
+              <p className="text-xs text-text-muted">{t('staffDetail.commission')}</p>
             </Card>
             <Card className="p-4 text-center">
               <Award size={20} className="mx-auto mb-2 text-pink-400" />
               <p className="text-2xl font-bold text-text-primary">
                 {member.rating}
               </p>
-              <p className="text-xs text-text-muted">Rating</p>
+              <p className="text-xs text-text-muted">{t('staff.rating')}</p>
             </Card>
           </div>
 
           {/* Specializations */}
           <Card className="p-6">
-            <h3 className="text-lg font-semibold text-text-primary mb-4">Specializations</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-4">{t('staffDetail.specializations')}</h3>
             <div className="flex flex-wrap gap-2">
               {member.specializations.map((spec) => (
                 <span
@@ -201,7 +201,7 @@ export const StaffDetail = () => {
 
           {/* Recent Reviews */}
           <Card className="p-6">
-            <h3 className="text-lg font-semibold text-text-primary mb-4">Recent Reviews</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-4">{t('staffDetail.recentReviews')}</h3>
             {staffReviews.length > 0 ? (
               <div className="space-y-4">
                 {staffReviews.slice(0, 3).map((review) => (
@@ -243,13 +243,13 @@ export const StaffDetail = () => {
                 ))}
               </div>
             ) : (
-              <p className="text-text-muted text-center py-4">No reviews yet</p>
+              <p className="text-text-muted text-center py-4">{t('staffDetail.noReviewsYet')}</p>
             )}
           </Card>
 
           {/* Recent Appointments */}
           <Card className="p-6">
-            <h3 className="text-lg font-semibold text-text-primary mb-4">Recent Appointments</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-4">{t('staffDetail.recentAppointments')}</h3>
             {staffAppointments.length > 0 ? (
               <div className="space-y-3">
                 {staffAppointments.slice(0, 5).map((apt) => (
@@ -292,7 +292,7 @@ export const StaffDetail = () => {
                 ))}
               </div>
             ) : (
-              <p className="text-text-muted text-center py-4">No appointments yet</p>
+              <p className="text-text-muted text-center py-4">{t('staffDetail.noAppointmentsYet')}</p>
             )}
           </Card>
         </div>
@@ -301,7 +301,7 @@ export const StaffDetail = () => {
         <div className="space-y-6">
           {/* Schedule Info */}
           <Card className="p-6">
-            <h3 className="text-lg font-semibold text-text-primary mb-4">Working Hours</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-4">{t('staffDetail.workingHours')}</h3>
             <div className="space-y-3">
               {Object.entries(member.workingHours).map(([day, hours]) => (
                 <div key={day} className="flex justify-between text-sm">
@@ -311,7 +311,7 @@ export const StaffDetail = () => {
                       {hours.start} - {hours.end}
                     </span>
                   ) : (
-                    <span className="text-text-muted">Off</span>
+                    <span className="text-text-muted">{t('staffDetail.off')}</span>
                   )}
                 </div>
               ))}
@@ -320,39 +320,39 @@ export const StaffDetail = () => {
 
           {/* Commission */}
           <Card className="p-6">
-            <h3 className="text-lg font-semibold text-text-primary mb-4">Commission</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-4">{t('staffDetail.commission')}</h3>
             <div className="p-4 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 rounded-lg text-center">
               <p className="text-4xl font-bold text-emerald-400">{member.commissionRate}%</p>
-              <p className="text-sm text-text-secondary mt-1">per service</p>
+              <p className="text-sm text-text-secondary mt-1">{t('staffDetail.perService')}</p>
             </div>
           </Card>
 
           {/* Quick Actions */}
           <Card className="p-6">
-            <h3 className="text-lg font-semibold text-text-primary mb-4">Quick Actions</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-4">{t('staffDetail.quickActions')}</h3>
             <div className="space-y-2">
               <Button variant="secondary" className="w-full justify-start" leftIcon={<Calendar size={16} />}>
-                View Schedule
+                {t('staffDetail.viewSchedule')}
               </Button>
               <Button variant="secondary" className="w-full justify-start" leftIcon={<Phone size={16} />}>
-                Call Staff
+                {t('staffDetail.callStaff')}
               </Button>
               <Button variant="secondary" className="w-full justify-start" leftIcon={<Mail size={16} />}>
-                Send Email
+                {t('staffDetail.sendEmail')}
               </Button>
             </div>
           </Card>
 
           {/* Employment Info */}
           <Card className="p-6">
-            <h3 className="text-lg font-semibold text-text-primary mb-4">Employment Info</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-4">{t('staffDetail.employmentInfo')}</h3>
             <div className="space-y-3 text-sm">
               <div className="flex justify-between">
-                <span className="text-text-muted">Experience</span>
-                <span className="text-text-primary">{member.yearsExperience} years</span>
+                <span className="text-text-muted">{t('staffDetail.experience')}</span>
+                <span className="text-text-primary">{t('staffDetail.yearsExperience', { count: member.yearsExperience })}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-text-muted">Role</span>
+                <span className="text-text-muted">{t('staffDetail.role')}</span>
                 <span className="text-text-primary">{member.role}</span>
               </div>
             </div>

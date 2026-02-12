@@ -21,7 +21,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const Services = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('beauty');
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedCategories, setExpandedCategories] = useState<string[]>(
     serviceCategories.map((c) => c.id)
@@ -62,33 +62,33 @@ export const Services = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('beauty.services', 'Services')}
-        subtitle="Manage your salon services"
-        actions={<Button leftIcon={<Plus size={16} />}>Add Service</Button>}
+        title={t('services.title')}
+        subtitle={t('services.subtitle')}
+        actions={<Button leftIcon={<Plus size={16} />}>{t('services.addService')}</Button>}
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Services"
+          title={t('services.totalServices')}
           value={stats.totalServices.toString()}
           icon={Scissors}
           iconColor="#ec4899"
         />
         <StatsCard
-          title="Categories"
+          title={t('services.categories')}
           value={stats.categories.toString()}
           icon={Scissors}
           iconColor="#8b5cf6"
         />
         <StatsCard
-          title="Avg. Price"
+          title={t('services.avgPrice')}
           value={formatCurrency(stats.avgPrice)}
           icon={DollarSign}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Avg. Duration"
+          title={t('services.avgDuration')}
           value={formatDuration(stats.avgDuration)}
           icon={Clock}
           iconColor="#f59e0b"
@@ -100,14 +100,14 @@ export const Services = () => {
         <div className="flex flex-wrap gap-4 items-center">
           <div className="flex-1 min-w-[200px] max-w-md">
             <Input
-              placeholder="Search services..."
+              placeholder={t('services.searchServices')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               leftIcon={<Search size={16} />}
             />
           </div>
           <Button variant="secondary" leftIcon={<Plus size={16} />}>
-            Add Category
+            {t('services.addCategory')}
           </Button>
         </div>
       </Card>
@@ -146,7 +146,7 @@ export const Services = () => {
                   </div>
                   <div className="flex items-center gap-4">
                     <span className="text-sm text-text-muted">
-                      {categoryServices.length} services
+                      {t('services.servicesCount', { count: categoryServices.length })}
                     </span>
                     {isExpanded ? (
                       <ChevronDown size={20} className="text-text-muted" />
@@ -175,7 +175,7 @@ export const Services = () => {
                               <h4 className="font-medium text-text-primary">{service.name}</h4>
                               {service.popularityScore >= 85 && (
                                 <span className="px-2 py-0.5 bg-amber-500/20 text-amber-400 text-xs rounded">
-                                  Popular
+                                  {t('services.popular')}
                                 </span>
                               )}
                             </div>
@@ -193,7 +193,7 @@ export const Services = () => {
                           </div>
                           <div className="flex items-center gap-2">
                             <Button variant="ghost" size="sm" leftIcon={<Edit size={14} />}>
-                              Edit
+                              {t('staffDetail.edit')}
                             </Button>
                             <button className="p-2 rounded hover:bg-white/[0.05] text-text-muted cursor-pointer">
                               <MoreVertical size={16} />
@@ -213,7 +213,7 @@ export const Services = () => {
       {filteredServices.length === 0 && searchQuery && (
         <Card className="p-12 text-center">
           <Scissors size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No services found matching "{searchQuery}"</p>
+          <p className="text-text-secondary">{t('services.noServicesFound', { query: searchQuery })}</p>
         </Card>
       )}
     </div>

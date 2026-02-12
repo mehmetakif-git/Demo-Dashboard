@@ -23,7 +23,7 @@ import { getProfileImage } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const Clients = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('beauty');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFilter, setSelectedFilter] = useState<string>('all');
@@ -78,35 +78,35 @@ export const Clients = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('beauty.clients', 'Clients')}
-        subtitle="Manage your salon clients"
+        title={t('clients.title')}
+        subtitle={t('clients.subtitle')}
         actions={
-          <Button leftIcon={<Plus size={16} />}>Add Client</Button>
+          <Button leftIcon={<Plus size={16} />}>{t('clients.addClient')}</Button>
         }
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Clients"
+          title={t('clients.totalClients')}
           value={stats.total.toString()}
           icon={Users}
           iconColor="#8b5cf6"
         />
         <StatsCard
-          title="VIP Clients"
+          title={t('clients.vipClients')}
           value={stats.vip.toString()}
           icon={Crown}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="New This Month"
+          title={t('clients.newThisMonth')}
           value={stats.newThisMonth.toString()}
           icon={Calendar}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Avg. Spend"
+          title={t('clients.avgSpend')}
           value={formatCurrency(stats.avgSpend)}
           icon={DollarSign}
           iconColor="#ec4899"
@@ -119,7 +119,7 @@ export const Clients = () => {
           <div className="flex flex-wrap gap-4 items-center flex-1">
             <div className="flex-1 min-w-[200px] max-w-md">
               <Input
-                placeholder="Search clients..."
+                placeholder={t('clients.searchClients')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 leftIcon={<Search size={16} />}
@@ -131,9 +131,9 @@ export const Clients = () => {
               onChange={(e) => setSelectedFilter(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary cursor-pointer"
             >
-              <option value="all">All Clients</option>
-              <option value="vip">VIP Only</option>
-              <option value="members">Members Only</option>
+              <option value="all">{t('clients.allClients')}</option>
+              <option value="vip">{t('clients.vipOnly')}</option>
+              <option value="members">{t('clients.membersOnly')}</option>
             </select>
           </div>
 
@@ -227,26 +227,26 @@ export const Clients = () => {
                 <div className="grid grid-cols-3 gap-3 pt-4 border-t border-white/[0.08]">
                   <div className="text-center">
                     <p className="text-lg font-semibold text-text-primary">{client.visitCount}</p>
-                    <p className="text-xs text-text-muted">Visits</p>
+                    <p className="text-xs text-text-muted">{t('clients.visits')}</p>
                   </div>
                   <div className="text-center">
                     <p className="text-lg font-semibold text-text-primary">
                       {formatCurrency(client.totalSpent)}
                     </p>
-                    <p className="text-xs text-text-muted">Spent</p>
+                    <p className="text-xs text-text-muted">{t('clients.spent')}</p>
                   </div>
                   <div className="text-center">
                     <p className="text-sm font-medium text-text-primary">
                       {formatDate(client.lastVisit)}
                     </p>
-                    <p className="text-xs text-text-muted">Last Visit</p>
+                    <p className="text-xs text-text-muted">{t('clients.lastVisit')}</p>
                   </div>
                 </div>
 
                 {/* Preferred Stylist */}
                 {client.preferredStylist && (
                   <div className="mt-4 pt-4 border-t border-white/[0.08] text-sm">
-                    <span className="text-text-muted">Preferred: </span>
+                    <span className="text-text-muted">{t('clients.preferred')}</span>
                     <span className="text-text-secondary">
                       {getPreferredStylistName(client.preferredStylist)}
                     </span>

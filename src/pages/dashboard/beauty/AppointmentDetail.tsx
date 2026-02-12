@@ -28,7 +28,7 @@ import { getProfileImage } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const AppointmentDetail = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('beauty');
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
@@ -40,11 +40,11 @@ export const AppointmentDetail = () => {
     return (
       <div className="space-y-6">
         <PageHeader
-          title={t('beauty.appointmentNotFound', 'Appointment Not Found')}
-          subtitle="The requested appointment could not be found"
+          title={t('appointmentDetail.appointmentNotFound')}
+          subtitle={t('appointmentDetail.notFoundSubtitle')}
           actions={
             <Button variant="secondary" leftIcon={<ArrowLeft size={16} />} onClick={() => navigate(-1)}>
-              Go Back
+              {t('appointmentDetail.goBack')}
             </Button>
           }
         />
@@ -54,12 +54,12 @@ export const AppointmentDetail = () => {
 
   const getStatusBadge = (status: Appointment['status']) => {
     const config = {
-      scheduled: { bg: 'bg-indigo-500/20', text: 'text-indigo-400', label: 'Scheduled' },
-      confirmed: { bg: 'bg-sky-500/20', text: 'text-sky-400', label: 'Confirmed' },
-      'in-progress': { bg: 'bg-amber-500/20', text: 'text-amber-400', label: 'In Progress' },
-      completed: { bg: 'bg-emerald-500/20', text: 'text-emerald-400', label: 'Completed' },
-      cancelled: { bg: 'bg-red-500/20', text: 'text-red-400', label: 'Cancelled' },
-      'no-show': { bg: 'bg-gray-500/20', text: 'text-gray-400', label: 'No Show' },
+      scheduled: { bg: 'bg-indigo-500/20', text: 'text-indigo-400', label: t('appointments.scheduled') },
+      confirmed: { bg: 'bg-sky-500/20', text: 'text-sky-400', label: t('appointments.confirmed') },
+      'in-progress': { bg: 'bg-amber-500/20', text: 'text-amber-400', label: t('appointments.inProgress') },
+      completed: { bg: 'bg-emerald-500/20', text: 'text-emerald-400', label: t('appointments.completed') },
+      cancelled: { bg: 'bg-red-500/20', text: 'text-red-400', label: t('appointments.cancelled') },
+      'no-show': { bg: 'bg-gray-500/20', text: 'text-gray-400', label: t('appointments.noShow') },
     };
     const c = config[status];
     return (
@@ -72,21 +72,21 @@ export const AppointmentDetail = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={`Appointment with ${appointment.clientName}`}
+        title={t('appointmentDetail.appointmentWith', { name: appointment.clientName })}
         subtitle={`${formatDate(appointment.date)} at ${formatTime(appointment.startTime)}`}
         actions={
           <div className="flex items-center gap-2">
             <Button variant="secondary" leftIcon={<ArrowLeft size={16} />} onClick={() => navigate(-1)}>
-              Back
+              {t('appointmentDetail.back')}
             </Button>
             <Button variant="secondary" leftIcon={<Edit size={16} />}>
-              Edit
+              {t('appointmentDetail.edit')}
             </Button>
             {appointment.status === 'scheduled' && (
-              <Button leftIcon={<CheckCircle size={16} />}>Confirm</Button>
+              <Button leftIcon={<CheckCircle size={16} />}>{t('appointmentDetail.confirm')}</Button>
             )}
             {appointment.status === 'confirmed' && (
-              <Button leftIcon={<Play size={16} />}>Start</Button>
+              <Button leftIcon={<Play size={16} />}>{t('appointmentDetail.start')}</Button>
             )}
           </div>
         }
@@ -104,7 +104,7 @@ export const AppointmentDetail = () => {
                   style={{ backgroundColor: getAppointmentStatusColor(appointment.status) }}
                 />
                 <div>
-                  <h2 className="text-xl font-semibold text-text-primary">Appointment Details</h2>
+                  <h2 className="text-xl font-semibold text-text-primary">{t('appointmentDetail.appointmentDetails')}</h2>
                   <p className="text-text-secondary">ID: {appointment.id}</p>
                 </div>
               </div>
@@ -115,14 +115,14 @@ export const AppointmentDetail = () => {
               <div className="p-4 bg-white/[0.03] rounded-lg">
                 <div className="flex items-center gap-2 text-text-muted mb-1">
                   <Calendar size={14} />
-                  <span className="text-xs">Date</span>
+                  <span className="text-xs">{t('appointmentDetail.date')}</span>
                 </div>
                 <p className="font-medium text-text-primary">{formatDate(appointment.date)}</p>
               </div>
               <div className="p-4 bg-white/[0.03] rounded-lg">
                 <div className="flex items-center gap-2 text-text-muted mb-1">
                   <Clock size={14} />
-                  <span className="text-xs">Time</span>
+                  <span className="text-xs">{t('appointmentDetail.time')}</span>
                 </div>
                 <p className="font-medium text-text-primary">
                   {formatTime(appointment.startTime)} - {formatTime(appointment.endTime)}
@@ -131,14 +131,14 @@ export const AppointmentDetail = () => {
               <div className="p-4 bg-white/[0.03] rounded-lg">
                 <div className="flex items-center gap-2 text-text-muted mb-1">
                   <Clock size={14} />
-                  <span className="text-xs">Duration</span>
+                  <span className="text-xs">{t('appointmentDetail.duration')}</span>
                 </div>
                 <p className="font-medium text-text-primary">{formatDuration(appointment.totalDuration)}</p>
               </div>
               <div className="p-4 bg-white/[0.03] rounded-lg">
                 <div className="flex items-center gap-2 text-text-muted mb-1">
                   <DollarSign size={14} />
-                  <span className="text-xs">Total</span>
+                  <span className="text-xs">{t('appointmentDetail.total')}</span>
                 </div>
                 <p className="font-medium text-text-primary">{formatCurrency(appointment.totalPrice)}</p>
               </div>
@@ -147,7 +147,7 @@ export const AppointmentDetail = () => {
 
           {/* Services */}
           <Card className="p-6">
-            <h3 className="text-lg font-semibold text-text-primary mb-4">Services</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-4">{t('appointmentDetail.services')}</h3>
             <div className="space-y-3">
               {appointment.services.map((service) => (
                 <div
@@ -168,7 +168,7 @@ export const AppointmentDetail = () => {
               ))}
             </div>
             <div className="mt-4 pt-4 border-t border-white/[0.08] flex justify-between">
-              <span className="text-text-secondary">Total</span>
+              <span className="text-text-secondary">{t('appointmentDetail.total')}</span>
               <span className="text-xl font-bold text-text-primary">
                 {formatCurrency(appointment.totalPrice)}
               </span>
@@ -178,7 +178,7 @@ export const AppointmentDetail = () => {
           {/* Notes */}
           {appointment.notes && (
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-text-primary mb-4">Notes</h3>
+              <h3 className="text-lg font-semibold text-text-primary mb-4">{t('appointmentDetail.notes')}</h3>
               <p className="text-text-secondary">{appointment.notes}</p>
             </Card>
           )}
@@ -188,7 +188,7 @@ export const AppointmentDetail = () => {
         <div className="space-y-6">
           {/* Client Info */}
           <Card className="p-6">
-            <h3 className="text-lg font-semibold text-text-primary mb-4">Client</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-4">{t('appointmentDetail.client')}</h3>
             <div className="flex items-center gap-4 mb-4">
               {getProfileImage(appointment.clientName) ? (
                 <img
@@ -233,13 +233,13 @@ export const AppointmentDetail = () => {
               leftIcon={<User size={16} />}
               onClick={() => client && navigate(`/dashboard/beauty/clients/${client.id}`)}
             >
-              View Profile
+              {t('appointmentDetail.viewProfile')}
             </Button>
           </Card>
 
           {/* Stylist Info */}
           <Card className="p-6">
-            <h3 className="text-lg font-semibold text-text-primary mb-4">Stylist</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-4">{t('appointmentDetail.stylist')}</h3>
             <div className="flex items-center gap-4 mb-4">
               {getProfileImage(appointment.stylistName) ? (
                 <img
@@ -277,7 +277,7 @@ export const AppointmentDetail = () => {
                   ))}
                 </div>
                 <span className="text-sm text-text-secondary">
-                  {stylist.rating} ({stylist.reviewCount} reviews)
+                  {stylist.rating} ({t('appointmentDetail.reviews', { count: stylist.reviewCount })})
                 </span>
               </div>
             )}
@@ -287,15 +287,15 @@ export const AppointmentDetail = () => {
               leftIcon={<User size={16} />}
               onClick={() => stylist && navigate(`/dashboard/beauty/staff/${stylist.id}`)}
             >
-              View Profile
+              {t('appointmentDetail.viewProfile')}
             </Button>
           </Card>
 
           {/* Payment Status */}
           <Card className="p-6">
-            <h3 className="text-lg font-semibold text-text-primary mb-4">Payment</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-4">{t('appointmentDetail.payment')}</h3>
             <div className="flex items-center justify-between p-4 bg-white/[0.03] rounded-lg">
-              <span className="text-text-secondary">Status</span>
+              <span className="text-text-secondary">{t('appointmentDetail.status')}</span>
               <span
                 className={`px-3 py-1 rounded-full text-sm font-medium ${
                   appointment.paymentStatus === 'paid'
@@ -303,12 +303,12 @@ export const AppointmentDetail = () => {
                     : 'bg-amber-500/20 text-amber-400'
                 }`}
               >
-                {appointment.paymentStatus === 'paid' ? 'Paid' : 'Pending'}
+                {appointment.paymentStatus === 'paid' ? t('appointments.paid') : t('appointments.pending')}
               </span>
             </div>
             {appointment.paymentStatus === 'pending' && (
               <Button className="w-full mt-4" leftIcon={<DollarSign size={16} />}>
-                Process Payment
+                {t('appointmentDetail.processPayment')}
               </Button>
             )}
           </Card>

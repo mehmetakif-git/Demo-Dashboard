@@ -20,7 +20,7 @@ import { getProductImage } from '@/utils/productImages';
 import { useTranslation } from 'react-i18next';
 
 export const Products = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('beauty');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
@@ -62,44 +62,44 @@ export const Products = () => {
 
   const getStockStatus = (product: BeautyProduct) => {
     if (product.stock === 0) {
-      return { label: 'Out of Stock', color: 'bg-red-500/20 text-red-400' };
+      return { label: t('products.outOfStock'), color: 'bg-red-500/20 text-red-400' };
     }
     if (product.stock <= product.lowStockThreshold) {
-      return { label: 'Low Stock', color: 'bg-amber-500/20 text-amber-400' };
+      return { label: t('products.lowStock'), color: 'bg-amber-500/20 text-amber-400' };
     }
-    return { label: 'In Stock', color: 'bg-emerald-500/20 text-emerald-400' };
+    return { label: t('products.inStock'), color: 'bg-emerald-500/20 text-emerald-400' };
   };
 
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('beauty.products', 'Products')}
-        subtitle="Manage your salon inventory"
-        actions={<Button leftIcon={<Plus size={16} />}>Add Product</Button>}
+        title={t('products.title')}
+        subtitle={t('products.subtitle')}
+        actions={<Button leftIcon={<Plus size={16} />}>{t('products.addProduct')}</Button>}
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Products"
+          title={t('products.totalProducts')}
           value={stats.totalProducts.toString()}
           icon={Package}
           iconColor="#8b5cf6"
         />
         <StatsCard
-          title="In Stock"
+          title={t('products.inStock')}
           value={stats.inStock.toString()}
           icon={Package}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Low Stock"
+          title={t('products.lowStock')}
           value={stats.lowStock.toString()}
           icon={AlertTriangle}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Out of Stock"
+          title={t('products.outOfStock')}
           value={stats.outOfStock.toString()}
           icon={AlertTriangle}
           iconColor="#ef4444"
@@ -112,7 +112,7 @@ export const Products = () => {
           <div className="flex flex-wrap gap-4 items-center flex-1">
             <div className="flex-1 min-w-[200px] max-w-md">
               <Input
-                placeholder="Search products..."
+                placeholder={t('products.searchProducts')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 leftIcon={<Search size={16} />}
@@ -124,7 +124,7 @@ export const Products = () => {
               onChange={(e) => setSelectedCategory(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary cursor-pointer"
             >
-              <option value="all">All Categories</option>
+              <option value="all">{t('products.allCategories')}</option>
               {categories.map((cat) => (
                 <option key={cat} value={cat}>
                   {cat}
@@ -199,7 +199,7 @@ export const Products = () => {
                       </button>
                     </div>
 
-                    <p className="text-xs text-text-muted">SKU: {product.sku}</p>
+                    <p className="text-xs text-text-muted">{t('products.sku')}: {product.sku}</p>
 
                     <div className="flex items-center justify-between">
                       <p className="text-lg font-semibold text-text-primary">
@@ -212,8 +212,8 @@ export const Products = () => {
 
                     <div className="pt-2 border-t border-white/[0.08] text-sm">
                       <div className="flex justify-between">
-                        <span className="text-text-muted">Stock:</span>
-                        <span className="text-text-primary">{product.stock} units</span>
+                        <span className="text-text-muted">{t('products.stock')}:</span>
+                        <span className="text-text-primary">{t('products.stockUnits', { count: product.stock })}</span>
                       </div>
                     </div>
                   </div>
@@ -230,28 +230,27 @@ export const Products = () => {
               <thead>
                 <tr className="border-b border-white/[0.08]">
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">
-                    Product
+                    {t('products.product')}
                   </th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">
-                    SKU
+                    {t('products.sku')}
                   </th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">
-                    Category
+                    {t('products.category')}
                   </th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">
-                    Cost
+                    {t('products.cost')}
                   </th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">
-                    Price
+                    {t('products.price')}
                   </th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">
-                    Stock
+                    {t('products.stock')}
                   </th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">
-                    Status
+                    {t('products.statusLabel')}
                   </th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">
-                    Actions
                   </th>
                 </tr>
               </thead>
@@ -302,7 +301,7 @@ export const Products = () => {
                       <td className="py-3 px-4">
                         <div className="flex items-center gap-2">
                           <Button variant="ghost" size="sm" leftIcon={<Edit size={14} />}>
-                            Edit
+                            {t('staffDetail.edit')}
                           </Button>
                         </div>
                       </td>
@@ -318,7 +317,7 @@ export const Products = () => {
       {filteredProducts.length === 0 && (
         <Card className="p-12 text-center">
           <Package size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No products found matching your filters</p>
+          <p className="text-text-secondary">{t('products.noProductsFound')}</p>
         </Card>
       )}
     </div>
