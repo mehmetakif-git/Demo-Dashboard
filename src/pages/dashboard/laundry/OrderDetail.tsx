@@ -24,7 +24,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const OrderDetail = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('laundry');
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
@@ -36,11 +36,11 @@ export const OrderDetail = () => {
     return (
       <div className="space-y-6">
         <PageHeader
-          title={t('laundry.orderNotFound', 'Order Not Found')}
-          subtitle="The requested order could not be found"
+          title={t('orderDetail.orderNotFound')}
+          subtitle={t('orderDetail.orderNotFoundSubtitle')}
           actions={
             <Button variant="secondary" leftIcon={<ArrowLeft size={16} />} onClick={() => navigate(-1)}>
-              Go Back
+              {t('orderDetail.goBack')}
             </Button>
           }
         />
@@ -76,17 +76,17 @@ export const OrderDetail = () => {
     <div className="space-y-6">
       <PageHeader
         title={order.orderNumber}
-        subtitle={`Created on ${formatDateTime(order.createdAt)}`}
+        subtitle={t('orderDetail.createdOn', { date: formatDateTime(order.createdAt) })}
         actions={
           <div className="flex items-center gap-2">
             <Button variant="secondary" leftIcon={<ArrowLeft size={16} />} onClick={() => navigate(-1)}>
-              Back
+              {t('orderDetail.back')}
             </Button>
             <Button variant="secondary" leftIcon={<Printer size={16} />}>
-              Print
+              {t('orderDetail.print')}
             </Button>
             <Button leftIcon={<Edit size={16} />}>
-              Edit Order
+              {t('orderDetail.editOrder')}
             </Button>
           </div>
         }
@@ -95,7 +95,7 @@ export const OrderDetail = () => {
       {/* Status Tracker */}
       <Card className="p-6">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-text-primary">Order Status</h3>
+          <h3 className="text-lg font-semibold text-text-primary">{t('orderDetail.orderStatus')}</h3>
           <span className={`px-3 py-1 rounded-full text-sm ${getStatusColor(order.status)}`}>
             {order.status.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
           </span>
@@ -141,7 +141,7 @@ export const OrderDetail = () => {
         <div className="lg:col-span-2 space-y-6">
           {/* Items */}
           <Card className="p-6">
-            <h3 className="text-lg font-semibold text-text-primary mb-4">Order Items</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-4">{t('orderDetail.orderItems')}</h3>
             <div className="space-y-3">
               {order.items.map((item, index) => (
                 <div
@@ -156,7 +156,7 @@ export const OrderDetail = () => {
                       <p className="font-medium text-text-primary">{item.garmentName}</p>
                       <p className="text-sm text-text-muted">{item.serviceName}</p>
                       {item.specialInstructions && (
-                        <p className="text-xs text-amber-400 mt-1">Note: {item.specialInstructions}</p>
+                        <p className="text-xs text-amber-400 mt-1">{t('orderDetail.note')} {item.specialInstructions}</p>
                       )}
                     </div>
                   </div>
@@ -172,7 +172,7 @@ export const OrderDetail = () => {
           {/* Customer Info */}
           {customer && (
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-text-primary mb-4">Customer Information</h3>
+              <h3 className="text-lg font-semibold text-text-primary mb-4">{t('orderDetail.customerInformation')}</h3>
               <div className="flex items-start gap-6">
                 <div className="w-16 h-16 rounded-full bg-sky-500/20 flex items-center justify-center flex-shrink-0">
                   <span className="text-xl font-bold text-sky-400">
@@ -207,7 +207,7 @@ export const OrderDetail = () => {
           {/* Driver Info */}
           {driver && (
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-text-primary mb-4">Assigned Driver</h3>
+              <h3 className="text-lg font-semibold text-text-primary mb-4">{t('orderDetail.assignedDriver')}</h3>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <div className="w-14 h-14 rounded-full bg-cyan-500/20 flex items-center justify-center">
@@ -221,7 +221,7 @@ export const OrderDetail = () => {
                 </div>
                 <div className="flex gap-2">
                   <Button variant="secondary" size="sm" leftIcon={<Phone size={14} />}>
-                    Call
+                    {t('orderDetail.call')}
                   </Button>
                 </div>
               </div>
@@ -233,36 +233,36 @@ export const OrderDetail = () => {
         <div className="space-y-6">
           {/* Order Summary */}
           <Card className="p-6">
-            <h3 className="text-lg font-semibold text-text-primary mb-4">Order Summary</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-4">{t('orderDetail.orderSummary')}</h3>
 
             {order.isExpress && (
               <div className="mb-4 p-3 bg-amber-500/10 border border-amber-500/30 rounded-lg">
-                <p className="text-sm font-medium text-amber-400">Express Order</p>
+                <p className="text-sm font-medium text-amber-400">{t('orderDetail.expressOrder')}</p>
               </div>
             )}
 
             <div className="space-y-3">
               <div className="flex justify-between text-sm">
-                <span className="text-text-muted">Subtotal</span>
+                <span className="text-text-muted">{t('orderDetail.subtotal')}</span>
                 <span className="text-text-primary">{formatCurrency(order.subtotal)}</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-text-muted">Tax</span>
+                <span className="text-text-muted">{t('orderDetail.tax')}</span>
                 <span className="text-text-primary">{formatCurrency(order.taxAmount)}</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-text-muted">Delivery</span>
+                <span className="text-text-muted">{t('orderDetail.deliveryLabel')}</span>
                 <span className="text-text-primary">{formatCurrency(order.deliveryFee)}</span>
               </div>
               {order.discount > 0 && (
                 <div className="flex justify-between text-sm">
-                  <span className="text-text-muted">Discount</span>
+                  <span className="text-text-muted">{t('orderDetail.discount')}</span>
                   <span className="text-emerald-400">-{formatCurrency(order.discount)}</span>
                 </div>
               )}
               <div className="pt-3 border-t border-white/[0.08]">
                 <div className="flex justify-between">
-                  <span className="font-semibold text-text-primary">Total</span>
+                  <span className="font-semibold text-text-primary">{t('orderDetail.total')}</span>
                   <span className="font-bold text-xl text-sky-400">{formatCurrency(order.totalAmount)}</span>
                 </div>
               </div>
@@ -271,7 +271,7 @@ export const OrderDetail = () => {
 
           {/* Payment Info */}
           <Card className="p-6">
-            <h3 className="text-lg font-semibold text-text-primary mb-4">Payment</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-4">{t('orderDetail.payment')}</h3>
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
@@ -289,14 +289,14 @@ export const OrderDetail = () => {
 
           {/* Schedule */}
           <Card className="p-6">
-            <h3 className="text-lg font-semibold text-text-primary mb-4">Schedule</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-4">{t('orderDetail.schedule')}</h3>
             <div className="space-y-4">
               <div className="flex items-start gap-3">
                 <div className="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center">
                   <Package size={16} className="text-purple-400" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-text-primary">Pickup</p>
+                  <p className="text-sm font-medium text-text-primary">{t('orderDetail.pickupLabel')}</p>
                   <p className="text-sm text-text-secondary">{formatDate(order.pickupDate)}</p>
                   <p className="text-xs text-text-muted">{order.pickupTime}</p>
                 </div>
@@ -306,10 +306,10 @@ export const OrderDetail = () => {
                   <Truck size={16} className="text-sky-400" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-text-primary">Expected Delivery</p>
+                  <p className="text-sm font-medium text-text-primary">{t('orderDetail.expectedDelivery')}</p>
                   <p className="text-sm text-text-secondary">{formatDate(order.expectedDeliveryDate)}</p>
                   {order.actualDeliveryDate && (
-                    <p className="text-xs text-emerald-400">Delivered: {formatDate(order.actualDeliveryDate)}</p>
+                    <p className="text-xs text-emerald-400">{t('orderDetail.deliveredDate', { date: formatDate(order.actualDeliveryDate) })}</p>
                   )}
                 </div>
               </div>
@@ -319,7 +319,7 @@ export const OrderDetail = () => {
           {/* Notes */}
           {order.notes && (
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-text-primary mb-4">Notes</h3>
+              <h3 className="text-lg font-semibold text-text-primary mb-4">{t('orderDetail.notes')}</h3>
               <p className="text-sm text-text-secondary">{order.notes}</p>
             </Card>
           )}

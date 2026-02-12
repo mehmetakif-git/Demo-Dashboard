@@ -20,7 +20,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const Reports = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('laundry');
   const [dateRange, setDateRange] = useState('month');
   const stats = dashboardStats;
 
@@ -33,47 +33,47 @@ export const Reports = () => {
 
   const reportCards = [
     {
-      title: 'Revenue Report',
-      description: 'Sales and revenue analytics',
+      title: t('reports.revenueReport'),
+      description: t('reports.revenueReportDesc'),
       icon: DollarSign,
       color: '#10b981',
       metrics: [
-        { label: 'Today', value: formatCurrency(stats.todayRevenue), change: '+12%', positive: true },
-        { label: 'This Week', value: formatCurrency(stats.weeklyRevenue), change: '+8%', positive: true },
-        { label: 'This Month', value: formatCurrency(stats.monthlyRevenue), change: '+15%', positive: true },
+        { label: t('reports.todayLabel'), value: formatCurrency(stats.todayRevenue), change: '+12%', positive: true },
+        { label: t('reports.thisWeekLabel'), value: formatCurrency(stats.weeklyRevenue), change: '+8%', positive: true },
+        { label: t('reports.thisMonthLabel'), value: formatCurrency(stats.monthlyRevenue), change: '+15%', positive: true },
       ],
     },
     {
-      title: 'Order Analytics',
-      description: 'Order volume and status',
+      title: t('reports.orderAnalytics'),
+      description: t('reports.orderAnalyticsDesc'),
       icon: Package,
       color: '#0ea5e9',
       metrics: [
-        { label: 'Total Orders', value: stats.totalOrders.toString(), change: '+23%', positive: true },
-        { label: 'Completed Today', value: stats.completedToday.toString(), change: '+5%', positive: true },
-        { label: 'Avg. Order Value', value: formatCurrency(avgOrderValue), change: '+3%', positive: true },
+        { label: t('reports.totalOrdersLabel'), value: stats.totalOrders.toString(), change: '+23%', positive: true },
+        { label: t('reports.completedToday'), value: stats.completedToday.toString(), change: '+5%', positive: true },
+        { label: t('reports.avgOrderValue'), value: formatCurrency(avgOrderValue), change: '+3%', positive: true },
       ],
     },
     {
-      title: 'Customer Insights',
-      description: 'Customer behavior and retention',
+      title: t('reports.customerInsights'),
+      description: t('reports.customerInsightsDesc'),
       icon: Users,
       color: '#8b5cf6',
       metrics: [
-        { label: 'Active Customers', value: stats.activeCustomers.toString(), change: '+18%', positive: true },
-        { label: 'Retention Rate', value: `${customerRetentionRate}%`, change: '+2%', positive: true },
-        { label: 'VIP Customers', value: customers.filter(c => c.vipStatus).length.toString(), change: '+5%', positive: true },
+        { label: t('reports.activeCustomersLabel'), value: stats.activeCustomers.toString(), change: '+18%', positive: true },
+        { label: t('reports.retentionRate'), value: `${customerRetentionRate}%`, change: '+2%', positive: true },
+        { label: t('reports.vipCustomers'), value: customers.filter(c => c.vipStatus).length.toString(), change: '+5%', positive: true },
       ],
     },
     {
-      title: 'Operations Report',
-      description: 'Delivery and turnaround metrics',
+      title: t('reports.operationsReport'),
+      description: t('reports.operationsReportDesc'),
       icon: Truck,
       color: '#f59e0b',
       metrics: [
-        { label: 'Avg. Turnaround', value: `${stats.avgTurnaroundHours}h`, change: '-4h', positive: true },
-        { label: 'Delivery Success', value: `${deliverySuccessRate}%`, change: '+2%', positive: true },
-        { label: 'Pending Deliveries', value: stats.pendingDeliveries.toString(), change: '-3', positive: true },
+        { label: t('reports.avgTurnaround'), value: `${stats.avgTurnaroundHours}h`, change: '-4h', positive: true },
+        { label: t('reports.deliverySuccess'), value: `${deliverySuccessRate}%`, change: '+2%', positive: true },
+        { label: t('reports.pendingDeliveries'), value: stats.pendingDeliveries.toString(), change: '-3', positive: true },
       ],
     },
   ];
@@ -103,8 +103,8 @@ export const Reports = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('laundry.reports', 'Reports')}
-        subtitle="Analytics and business insights"
+        title={t('reports.title')}
+        subtitle={t('reports.subtitle')}
         actions={
           <div className="flex gap-2">
             <select
@@ -112,14 +112,14 @@ export const Reports = () => {
               onChange={(e) => setDateRange(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary cursor-pointer"
             >
-              <option value="today">Today</option>
-              <option value="week">This Week</option>
-              <option value="month">This Month</option>
-              <option value="quarter">This Quarter</option>
-              <option value="year">This Year</option>
+              <option value="today">{t('reports.today')}</option>
+              <option value="week">{t('reports.thisWeek')}</option>
+              <option value="month">{t('reports.thisMonth')}</option>
+              <option value="quarter">{t('reports.thisQuarter')}</option>
+              <option value="year">{t('reports.thisYear')}</option>
             </select>
             <Button variant="secondary" leftIcon={<Download size={16} />}>
-              Export
+              {t('reports.export')}
             </Button>
           </div>
         }
@@ -128,25 +128,25 @@ export const Reports = () => {
       {/* Quick Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <StatsCard
-          title="Monthly Revenue"
+          title={t('reports.monthlyRevenue')}
           value={formatCurrency(stats.monthlyRevenue)}
           icon={DollarSign}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Total Orders"
+          title={t('reports.totalOrders')}
           value={stats.totalOrders.toString()}
           icon={Package}
           iconColor="#0ea5e9"
         />
         <StatsCard
-          title="Active Customers"
+          title={t('reports.activeCustomers')}
           value={stats.activeCustomers.toString()}
           icon={Users}
           iconColor="#8b5cf6"
         />
         <StatsCard
-          title="Complaints"
+          title={t('reports.complaints')}
           value={stats.openComplaints.toString()}
           icon={BarChart3}
           iconColor="#ef4444"
@@ -196,7 +196,7 @@ export const Reports = () => {
                 </div>
 
                 <Button variant="secondary" className="w-full mt-6" leftIcon={<BarChart3 size={16} />}>
-                  View Full Report
+                  {t('reports.viewFullReport')}
                 </Button>
               </Card>
             </motion.div>
@@ -208,7 +208,7 @@ export const Reports = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Revenue Chart */}
         <Card className="p-6">
-          <h3 className="text-lg font-semibold text-text-primary mb-6">Weekly Revenue</h3>
+          <h3 className="text-lg font-semibold text-text-primary mb-6">{t('reports.weeklyRevenue')}</h3>
           <div className="flex items-end justify-between h-48 gap-2">
             {revenueData.map((data, index) => (
               <motion.div
@@ -234,7 +234,7 @@ export const Reports = () => {
 
         {/* Service Breakdown */}
         <Card className="p-6">
-          <h3 className="text-lg font-semibold text-text-primary mb-6">Service Breakdown</h3>
+          <h3 className="text-lg font-semibold text-text-primary mb-6">{t('reports.serviceBreakdown')}</h3>
           <div className="space-y-4">
             {serviceBreakdown.map((service, index) => (
               <motion.div
@@ -264,13 +264,13 @@ export const Reports = () => {
 
       {/* Quick Actions */}
       <Card className="p-6">
-        <h3 className="text-lg font-semibold text-text-primary mb-4">Generate Reports</h3>
+        <h3 className="text-lg font-semibold text-text-primary mb-4">{t('reports.generateReports')}</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
-            { name: 'Revenue Report', icon: DollarSign },
-            { name: 'Order Summary', icon: Package },
-            { name: 'Customer Analysis', icon: Users },
-            { name: 'Operations Report', icon: Truck },
+            { name: t('reports.revenueReportBtn'), icon: DollarSign },
+            { name: t('reports.orderSummary'), icon: Package },
+            { name: t('reports.customerAnalysis'), icon: Users },
+            { name: t('reports.operationsReportBtn'), icon: Truck },
           ].map((item) => {
             const Icon = item.icon;
             return (

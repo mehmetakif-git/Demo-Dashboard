@@ -18,7 +18,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const Delivery = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('laundry');
   const [selectedDriver, setSelectedDriver] = useState<string>('all');
   const [selectedType, setSelectedType] = useState<'all' | 'pickup' | 'delivery'>('all');
   const [selectedDate, setSelectedDate] = useState<string>(new Date().toISOString().split('T')[0]);
@@ -74,32 +74,32 @@ export const Delivery = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('laundry.pickupDelivery', 'Pickup & Delivery')}
-        subtitle="Manage pickups, deliveries, and drivers"
+        title={t('delivery.title')}
+        subtitle={t('delivery.subtitle')}
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <StatsCard
-          title="Pending Pickups"
+          title={t('delivery.pendingPickups')}
           value={stats.pendingPickups.toString()}
           icon={Package}
           iconColor="#8b5cf6"
         />
         <StatsCard
-          title="Pending Deliveries"
+          title={t('delivery.pendingDeliveries')}
           value={stats.pendingDeliveries.toString()}
           icon={Truck}
           iconColor="#0ea5e9"
         />
         <StatsCard
-          title="Active Drivers"
+          title={t('delivery.activeDrivers')}
           value={drivers.filter((d) => d.status !== 'off-duty').length.toString()}
           icon={User}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Avg. Turnaround"
+          title={t('delivery.avgTurnaround')}
           value={`${stats.avgTurnaroundHours}h`}
           icon={Clock}
           iconColor="#f59e0b"
@@ -108,7 +108,7 @@ export const Delivery = () => {
 
       {/* Drivers Section */}
       <Card className="p-6">
-        <h3 className="text-lg font-semibold text-text-primary mb-4">Drivers</h3>
+        <h3 className="text-lg font-semibold text-text-primary mb-4">{t('delivery.drivers')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {drivers.map((driver) => (
             <motion.div
@@ -139,11 +139,11 @@ export const Delivery = () => {
 
               <div className="grid grid-cols-2 gap-3 text-sm">
                 <div>
-                  <p className="text-text-muted">Pickups</p>
+                  <p className="text-text-muted">{t('delivery.pickups')}</p>
                   <p className="font-medium text-text-primary">{driver.todayPickups}</p>
                 </div>
                 <div>
-                  <p className="text-text-muted">Deliveries</p>
+                  <p className="text-text-muted">{t('delivery.deliveries')}</p>
                   <p className="font-medium text-text-primary">{driver.todayDeliveries}</p>
                 </div>
               </div>
@@ -162,7 +162,7 @@ export const Delivery = () => {
       {/* Schedule Section */}
       <Card className="p-6">
         <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-          <h3 className="text-lg font-semibold text-text-primary">Today's Schedule</h3>
+          <h3 className="text-lg font-semibold text-text-primary">{t('delivery.todaysSchedule')}</h3>
 
           <div className="flex gap-3">
             <input
@@ -243,11 +243,11 @@ export const Delivery = () => {
 
                 <div className="flex gap-2">
                   <Button variant="secondary" size="sm" leftIcon={<Phone size={14} />}>
-                    Call
+                    {t('delivery.call')}
                   </Button>
                   {schedule.status === 'scheduled' && (
                     <Button size="sm" leftIcon={<CheckCircle size={14} />}>
-                      Start
+                      {t('delivery.start')}
                     </Button>
                   )}
                 </div>
@@ -258,7 +258,7 @@ export const Delivery = () => {
           {filteredSchedule.length === 0 && (
             <div className="text-center py-8">
               <Truck size={48} className="mx-auto mb-4 text-text-muted" />
-              <p className="text-text-secondary">No scheduled pickups or deliveries</p>
+              <p className="text-text-secondary">{t('delivery.noScheduled')}</p>
             </div>
           )}
         </div>

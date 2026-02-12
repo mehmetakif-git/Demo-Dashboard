@@ -18,7 +18,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const Inventory = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('laundry');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
@@ -76,14 +76,14 @@ export const Inventory = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('laundry.inventory', 'Inventory')}
-        subtitle="Manage supplies and inventory levels"
+        title={t('inventory.title')}
+        subtitle={t('inventory.subtitle')}
         actions={
           <div className="flex gap-2">
             <Button variant="secondary" leftIcon={<ShoppingCart size={16} />}>
-              Purchase Order
+              {t('inventory.purchaseOrder')}
             </Button>
-            <Button leftIcon={<Plus size={16} />}>Add Item</Button>
+            <Button leftIcon={<Plus size={16} />}>{t('inventory.addItem')}</Button>
           </div>
         }
       />
@@ -91,25 +91,25 @@ export const Inventory = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Items"
+          title={t('inventory.totalItems')}
           value={stats.totalItems.toString()}
           icon={Package}
           iconColor="#0ea5e9"
         />
         <StatsCard
-          title="Low Stock"
+          title={t('inventory.lowStock')}
           value={stats.lowStock.toString()}
           icon={TrendingDown}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Out of Stock"
+          title={t('inventory.outOfStock')}
           value={stats.outOfStock.toString()}
           icon={AlertTriangle}
           iconColor="#ef4444"
         />
         <StatsCard
-          title="Total Value"
+          title={t('inventory.totalValue')}
           value={formatCurrency(stats.totalValue)}
           icon={DollarSign}
           iconColor="#10b981"
@@ -122,13 +122,13 @@ export const Inventory = () => {
           <div className="flex items-center gap-3">
             <AlertTriangle size={20} className="text-amber-400" />
             <div>
-              <p className="font-medium text-text-primary">Inventory Alert</p>
+              <p className="font-medium text-text-primary">{t('inventory.inventoryAlert')}</p>
               <p className="text-sm text-text-secondary">
-                {stats.lowStock} items are running low and {stats.outOfStock} items are out of stock.
+                {t('inventory.inventoryAlertDesc', { lowStock: stats.lowStock, outOfStock: stats.outOfStock })}
               </p>
             </div>
             <Button variant="secondary" size="sm" className="ml-auto">
-              View All
+              {t('inventory.viewAll')}
             </Button>
           </div>
         </Card>
@@ -139,7 +139,7 @@ export const Inventory = () => {
         <div className="flex flex-wrap gap-4 items-center">
           <div className="flex-1 min-w-[200px] max-w-md">
             <Input
-              placeholder="Search inventory..."
+              placeholder={t('inventory.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               leftIcon={<Search size={16} />}
@@ -151,7 +151,7 @@ export const Inventory = () => {
             onChange={(e) => setSelectedCategory(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary cursor-pointer"
           >
-            <option value="all">All Categories</option>
+            <option value="all">{t('inventory.allCategories')}</option>
             {categories.map((cat) => (
               <option key={cat} value={cat}>
                 {cat.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
@@ -164,10 +164,10 @@ export const Inventory = () => {
             onChange={(e) => setSelectedStatus(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary cursor-pointer"
           >
-            <option value="all">All Status</option>
-            <option value="in-stock">In Stock</option>
-            <option value="low-stock">Low Stock</option>
-            <option value="out-of-stock">Out of Stock</option>
+            <option value="all">{t('inventory.allStatus')}</option>
+            <option value="in-stock">{t('inventory.statusInStock')}</option>
+            <option value="low-stock">{t('inventory.statusLowStock')}</option>
+            <option value="out-of-stock">{t('inventory.statusOutOfStock')}</option>
           </select>
         </div>
       </Card>
@@ -178,14 +178,14 @@ export const Inventory = () => {
           <table className="w-full">
             <thead>
               <tr className="border-b border-white/[0.08]">
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Item</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">SKU</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Category</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Stock Level</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Unit Cost</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Supplier</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Status</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Actions</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('inventory.item')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('inventory.sku')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('inventory.category')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('inventory.stockLevel')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('inventory.unitCost')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('inventory.supplier')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('inventory.status')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('inventory.actions')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border-default">
@@ -245,10 +245,10 @@ export const Inventory = () => {
                     <td className="py-3 px-4">
                       <div className="flex gap-2">
                         <Button variant="ghost" size="sm" leftIcon={<Edit size={14} />}>
-                          Edit
+                          {t('inventory.edit')}
                         </Button>
                         <Button variant="secondary" size="sm" leftIcon={<ShoppingCart size={14} />}>
-                          Reorder
+                          {t('inventory.reorder')}
                         </Button>
                       </div>
                     </td>
@@ -263,7 +263,7 @@ export const Inventory = () => {
       {filteredInventory.length === 0 && (
         <Card className="p-12 text-center">
           <Package size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No inventory items found matching your filters</p>
+          <p className="text-text-secondary">{t('inventory.noItemsFound')}</p>
         </Card>
       )}
     </div>

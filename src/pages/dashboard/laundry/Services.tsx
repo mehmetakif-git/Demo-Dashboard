@@ -20,7 +20,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const Services = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('laundry');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [activeTab, setActiveTab] = useState<'services' | 'garments'>('services');
@@ -50,33 +50,33 @@ export const Services = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('laundry.servicesPricing', 'Services & Pricing')}
-        subtitle="Manage your service catalog and pricing"
-        actions={<Button leftIcon={<Plus size={16} />}>Add Service</Button>}
+        title={t('services.title')}
+        subtitle={t('services.subtitle')}
+        actions={<Button leftIcon={<Plus size={16} />}>{t('services.addService')}</Button>}
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Services"
+          title={t('services.totalServices')}
           value={stats.totalServices.toString()}
           icon={Shirt}
           iconColor="#0ea5e9"
         />
         <StatsCard
-          title="Active Services"
+          title={t('services.activeServices')}
           value={stats.activeServices.toString()}
           icon={Shirt}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Categories"
+          title={t('services.categories')}
           value={stats.categories.toString()}
           icon={Clock}
           iconColor="#8b5cf6"
         />
         <StatsCard
-          title="Avg. Price"
+          title={t('services.avgPrice')}
           value={formatCurrency(stats.avgPrice)}
           icon={DollarSign}
           iconColor="#f59e0b"
@@ -93,7 +93,7 @@ export const Services = () => {
               : 'text-text-secondary hover:text-text-primary'
           }`}
         >
-          Services
+          {t('services.servicesTab')}
         </button>
         <button
           onClick={() => setActiveTab('garments')}
@@ -103,7 +103,7 @@ export const Services = () => {
               : 'text-text-secondary hover:text-text-primary'
           }`}
         >
-          Garment Types
+          {t('services.garmentTypesTab')}
         </button>
       </div>
 
@@ -114,7 +114,7 @@ export const Services = () => {
             <div className="flex flex-wrap gap-4 items-center">
               <div className="flex-1 min-w-[200px] max-w-md">
                 <Input
-                  placeholder="Search services..."
+                  placeholder={t('services.searchPlaceholder')}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   leftIcon={<Search size={16} />}
@@ -126,7 +126,7 @@ export const Services = () => {
                 onChange={(e) => setSelectedCategory(e.target.value)}
                 className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary cursor-pointer"
               >
-                <option value="all">All Categories</option>
+                <option value="all">{t('services.allCategories')}</option>
                 {serviceCategories.map((cat) => (
                   <option key={cat.id} value={cat.id}>{cat.name}</option>
                 ))}
@@ -150,7 +150,7 @@ export const Services = () => {
                     <Shirt size={18} />
                   </div>
                   <h3 className="text-lg font-semibold text-text-primary">{category.name}</h3>
-                  <span className="text-sm text-text-muted">({categoryServices.length} services)</span>
+                  <span className="text-sm text-text-muted">({t('services.servicesCount', { count: categoryServices.length })})</span>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -168,7 +168,7 @@ export const Services = () => {
                               <h4 className="font-semibold text-text-primary">{service.name}</h4>
                               {service.status === 'inactive' && (
                                 <span className="px-2 py-0.5 bg-gray-500/20 text-gray-400 text-xs rounded">
-                                  Inactive
+                                  {t('services.inactive')}
                                 </span>
                               )}
                             </div>
@@ -181,14 +181,14 @@ export const Services = () => {
 
                         <div className="grid grid-cols-2 gap-4 mb-4">
                           <div>
-                            <p className="text-xs text-text-muted mb-1">Regular</p>
+                            <p className="text-xs text-text-muted mb-1">{t('services.regular')}</p>
                             <p className="text-lg font-bold text-text-primary">{formatCurrency(service.price)}</p>
-                            <p className="text-xs text-text-muted">{service.turnaroundDays} days</p>
+                            <p className="text-xs text-text-muted">{t('services.days', { count: service.turnaroundDays })}</p>
                           </div>
                           <div>
                             <p className="text-xs text-text-muted mb-1 flex items-center gap-1">
                               <Zap size={12} className="text-amber-400" />
-                              Express
+                              {t('services.express')}
                             </p>
                             <p className="text-lg font-bold text-amber-400">{formatCurrency(service.expressPrice)}</p>
                             <p className="text-xs text-text-muted">{service.expressTurnaroundHours}h</p>
@@ -196,7 +196,7 @@ export const Services = () => {
                         </div>
 
                         <Button variant="secondary" size="sm" className="w-full" leftIcon={<Edit size={14} />}>
-                          Edit Service
+                          {t('services.editService')}
                         </Button>
                       </Card>
                     </motion.div>
@@ -213,10 +213,10 @@ export const Services = () => {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-white/[0.08]">
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Garment</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Category</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Default Price</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Actions</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('services.garment')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('services.category')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('services.defaultPrice')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('services.actions')}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border-default">
@@ -246,7 +246,7 @@ export const Services = () => {
                     </td>
                     <td className="py-3 px-4">
                       <Button variant="ghost" size="sm" leftIcon={<Edit size={14} />}>
-                        Edit
+                        {t('services.editButton')}
                       </Button>
                     </td>
                   </motion.tr>

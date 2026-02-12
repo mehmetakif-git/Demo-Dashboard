@@ -20,7 +20,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const Complaints = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('laundry');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
   const [selectedPriority, setSelectedPriority] = useState<string>('all');
@@ -118,33 +118,33 @@ export const Complaints = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('laundry.complaints', 'Complaints')}
-        subtitle="Manage customer complaints and issues"
-        actions={<Button leftIcon={<Plus size={16} />}>New Complaint</Button>}
+        title={t('complaints.title')}
+        subtitle={t('complaints.subtitle')}
+        actions={<Button leftIcon={<Plus size={16} />}>{t('complaints.newComplaint')}</Button>}
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Complaints"
+          title={t('complaints.totalComplaints')}
           value={stats.total.toString()}
           icon={MessageSquare}
           iconColor="#8b5cf6"
         />
         <StatsCard
-          title="Open"
+          title={t('complaints.open')}
           value={stats.open.toString()}
           icon={AlertTriangle}
           iconColor="#ef4444"
         />
         <StatsCard
-          title="Investigating"
+          title={t('complaints.investigating')}
           value={stats.investigating.toString()}
           icon={Clock}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Compensation Paid"
+          title={t('complaints.compensationPaid')}
           value={formatCurrency(stats.totalCompensation)}
           icon={DollarSign}
           iconColor="#10b981"
@@ -156,7 +156,7 @@ export const Complaints = () => {
         <div className="flex flex-wrap gap-4 items-center">
           <div className="flex-1 min-w-[200px] max-w-md">
             <Input
-              placeholder="Search complaints..."
+              placeholder={t('complaints.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               leftIcon={<Search size={16} />}
@@ -168,11 +168,11 @@ export const Complaints = () => {
             onChange={(e) => setSelectedStatus(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary cursor-pointer"
           >
-            <option value="all">All Status</option>
-            <option value="open">Open</option>
-            <option value="investigating">Investigating</option>
-            <option value="resolved">Resolved</option>
-            <option value="closed">Closed</option>
+            <option value="all">{t('complaints.allStatus')}</option>
+            <option value="open">{t('complaints.statusOpen')}</option>
+            <option value="investigating">{t('complaints.statusInvestigating')}</option>
+            <option value="resolved">{t('complaints.statusResolved')}</option>
+            <option value="closed">{t('complaints.statusClosed')}</option>
           </select>
 
           <select
@@ -180,11 +180,11 @@ export const Complaints = () => {
             onChange={(e) => setSelectedPriority(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary cursor-pointer"
           >
-            <option value="all">All Priority</option>
-            <option value="urgent">Urgent</option>
-            <option value="high">High</option>
-            <option value="medium">Medium</option>
-            <option value="low">Low</option>
+            <option value="all">{t('complaints.allPriority')}</option>
+            <option value="urgent">{t('complaints.priorityUrgent')}</option>
+            <option value="high">{t('complaints.priorityHigh')}</option>
+            <option value="medium">{t('complaints.priorityMedium')}</option>
+            <option value="low">{t('complaints.priorityLow')}</option>
           </select>
 
           <select
@@ -192,14 +192,14 @@ export const Complaints = () => {
             onChange={(e) => setSelectedType(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary cursor-pointer"
           >
-            <option value="all">All Types</option>
-            <option value="damage">Damage</option>
-            <option value="lost">Lost Item</option>
-            <option value="delay">Delay</option>
-            <option value="quality">Quality</option>
-            <option value="billing">Billing</option>
-            <option value="service">Service</option>
-            <option value="other">Other</option>
+            <option value="all">{t('complaints.allTypes')}</option>
+            <option value="damage">{t('complaints.typeDamage')}</option>
+            <option value="lost">{t('complaints.typeLostItem')}</option>
+            <option value="delay">{t('complaints.typeDelay')}</option>
+            <option value="quality">{t('complaints.typeQuality')}</option>
+            <option value="billing">{t('complaints.typeBilling')}</option>
+            <option value="service">{t('complaints.typeService')}</option>
+            <option value="other">{t('complaints.typeOther')}</option>
           </select>
         </div>
       </Card>
@@ -233,7 +233,7 @@ export const Complaints = () => {
                     <div>
                       <div className="flex items-center gap-3 mb-1">
                         <h3 className="font-semibold text-text-primary">
-                          {complaint.type.charAt(0).toUpperCase() + complaint.type.slice(1)} Issue
+                          {t('complaints.issue', { type: complaint.type.charAt(0).toUpperCase() + complaint.type.slice(1) })}
                         </h3>
                         <span className={`px-2 py-0.5 rounded text-xs border ${getPriorityColor(complaint.priority)}`}>
                           {complaint.priority.toUpperCase()}
@@ -262,12 +262,12 @@ export const Complaints = () => {
                   <div className="flex items-center gap-3">
                     {complaint.compensationAmount > 0 && (
                       <div className="text-right">
-                        <p className="text-xs text-text-muted">Compensation</p>
+                        <p className="text-xs text-text-muted">{t('complaints.compensation')}</p>
                         <p className="font-medium text-emerald-400">{formatCurrency(complaint.compensationAmount)}</p>
                       </div>
                     )}
                     <Button variant="secondary" size="sm">
-                      View Details
+                      {t('complaints.viewDetails')}
                     </Button>
                   </div>
                 </div>
@@ -278,11 +278,11 @@ export const Complaints = () => {
                   <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-lg">
                     <div className="flex items-center gap-2 mb-2">
                       <CheckCircle size={16} className="text-emerald-400" />
-                      <span className="text-sm font-medium text-emerald-400">Resolution</span>
+                      <span className="text-sm font-medium text-emerald-400">{t('complaints.resolution')}</span>
                     </div>
                     <p className="text-sm text-text-secondary">{complaint.resolution}</p>
                     {complaint.resolvedAt && (
-                      <p className="text-xs text-text-muted mt-2">Resolved on {formatDate(complaint.resolvedAt)}</p>
+                      <p className="text-xs text-text-muted mt-2">{t('complaints.resolvedOn', { date: formatDate(complaint.resolvedAt) })}</p>
                     )}
                   </div>
                 )}
@@ -290,7 +290,7 @@ export const Complaints = () => {
                 {complaint.assignedTo && (
                   <div className="mt-4 pt-4 border-t border-white/[0.08] flex items-center gap-2 text-sm text-text-muted">
                     <User size={14} />
-                    Assigned to: <span className="text-text-secondary">{complaint.assignedTo}</span>
+                    {t('complaints.assignedTo')} <span className="text-text-secondary">{complaint.assignedTo}</span>
                   </div>
                 )}
               </Card>
@@ -302,7 +302,7 @@ export const Complaints = () => {
       {filteredComplaints.length === 0 && (
         <Card className="p-12 text-center">
           <CheckCircle size={48} className="mx-auto mb-4 text-emerald-400" />
-          <p className="text-text-secondary">No complaints found matching your filters</p>
+          <p className="text-text-secondary">{t('complaints.noComplaintsFound')}</p>
         </Card>
       )}
     </div>

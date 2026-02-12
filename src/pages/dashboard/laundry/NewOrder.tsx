@@ -30,7 +30,7 @@ interface OrderItem {
 }
 
 export const NewOrder = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('laundry');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCustomer, setSelectedCustomer] = useState<string | null>(null);
@@ -97,11 +97,11 @@ export const NewOrder = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('laundry.newOrder', 'New Order')}
-        subtitle="Create a new laundry order"
+        title={t('newOrder.title')}
+        subtitle={t('newOrder.subtitle')}
         actions={
           <Button variant="secondary" leftIcon={<ArrowLeft size={16} />} onClick={() => navigate(-1)}>
-            Back
+            {t('newOrder.back')}
           </Button>
         }
       />
@@ -111,11 +111,11 @@ export const NewOrder = () => {
         <div className="lg:col-span-2 space-y-6">
           {/* Customer Selection */}
           <Card className="p-6">
-            <h3 className="text-lg font-semibold text-text-primary mb-4">Customer</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-4">{t('newOrder.customer')}</h3>
             {!selectedCustomer ? (
               <div className="space-y-4">
                 <Input
-                  placeholder="Search customer by name, phone, or email..."
+                  placeholder={t('newOrder.searchCustomerPlaceholder')}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   leftIcon={<Search size={16} />}
@@ -150,12 +150,12 @@ export const NewOrder = () => {
                       </div>
                     ))}
                     {filteredCustomers.length === 0 && (
-                      <p className="text-center text-text-muted py-4">No customers found</p>
+                      <p className="text-center text-text-muted py-4">{t('newOrder.noCustomersFound')}</p>
                     )}
                   </div>
                 )}
                 <Button variant="secondary" leftIcon={<User size={16} />} className="w-full">
-                  Add New Customer
+                  {t('newOrder.addNewCustomer')}
                 </Button>
               </div>
             ) : (
@@ -173,7 +173,7 @@ export const NewOrder = () => {
                   </div>
                 </div>
                 <Button variant="ghost" size="sm" onClick={() => setSelectedCustomer(null)}>
-                  Change
+                  {t('newOrder.change')}
                 </Button>
               </div>
             )}
@@ -182,7 +182,7 @@ export const NewOrder = () => {
           {/* Add Items */}
           <Card className="p-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-text-primary">Add Items</h3>
+              <h3 className="text-lg font-semibold text-text-primary">{t('newOrder.addItems')}</h3>
               <label className="flex items-center gap-2 cursor-pointer">
                 <input
                   type="checkbox"
@@ -192,7 +192,7 @@ export const NewOrder = () => {
                 />
                 <Zap size={16} className={isExpress ? 'text-amber-400' : 'text-text-muted'} />
                 <span className={`text-sm ${isExpress ? 'text-amber-400' : 'text-text-secondary'}`}>
-                  Express Service
+                  {t('newOrder.expressService')}
                 </span>
               </label>
             </div>
@@ -221,7 +221,7 @@ export const NewOrder = () => {
                 onChange={(e) => setSelectedGarment(e.target.value)}
                 className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary cursor-pointer"
               >
-                <option value="">Select Garment</option>
+                <option value="">{t('newOrder.selectGarment')}</option>
                 {garmentTypes.map((g) => (
                   <option key={g.id} value={g.id}>{g.name}</option>
                 ))}
@@ -232,7 +232,7 @@ export const NewOrder = () => {
                 onChange={(e) => setSelectedService(e.target.value)}
                 className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary cursor-pointer"
               >
-                <option value="">Select Service</option>
+                <option value="">{t('newOrder.selectService')}</option>
                 {categoryServices.map((s) => (
                   <option key={s.id} value={s.id}>
                     {s.name} - {formatCurrency(isExpress ? s.expressPrice : s.price)}
@@ -261,12 +261,12 @@ export const NewOrder = () => {
                 disabled={!selectedGarment || !selectedService}
                 leftIcon={<Plus size={16} />}
               >
-                Add
+                {t('newOrder.add')}
               </Button>
             </div>
 
             <Input
-              placeholder="Special instructions (optional)"
+              placeholder={t('newOrder.specialInstructionsPlaceholder')}
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
             />
@@ -275,7 +275,7 @@ export const NewOrder = () => {
           {/* Order Items */}
           {orderItems.length > 0 && (
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-text-primary mb-4">Order Items</h3>
+              <h3 className="text-lg font-semibold text-text-primary mb-4">{t('newOrder.orderItems')}</h3>
               <div className="space-y-3">
                 {orderItems.map((item, index) => (
                   <div
@@ -290,7 +290,7 @@ export const NewOrder = () => {
                         <p className="font-medium text-text-primary">{item.garmentName}</p>
                         <p className="text-sm text-text-muted">{item.serviceName}</p>
                         {item.specialInstructions && (
-                          <p className="text-xs text-text-muted mt-1">Note: {item.specialInstructions}</p>
+                          <p className="text-xs text-text-muted mt-1">{t('newOrder.note')} {item.specialInstructions}</p>
                         )}
                       </div>
                     </div>
@@ -317,7 +317,7 @@ export const NewOrder = () => {
                         onClick={() => removeItem(index)}
                         className="text-red-400 hover:text-red-300 cursor-pointer"
                       >
-                        Remove
+                        {t('newOrder.remove')}
                       </button>
                     </div>
                   </div>
@@ -330,34 +330,34 @@ export const NewOrder = () => {
         {/* Right Column - Order Summary */}
         <div className="space-y-6">
           <Card className="p-6 sticky top-6">
-            <h3 className="text-lg font-semibold text-text-primary mb-4">Order Summary</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-4">{t('newOrder.orderSummary')}</h3>
 
             {isExpress && (
               <div className="mb-4 p-3 bg-amber-500/10 border border-amber-500/30 rounded-lg">
                 <div className="flex items-center gap-2 text-amber-400">
                   <Zap size={16} />
-                  <span className="text-sm font-medium">Express Service</span>
+                  <span className="text-sm font-medium">{t('newOrder.expressService')}</span>
                 </div>
-                <p className="text-xs text-amber-400/70 mt-1">24-hour turnaround</p>
+                <p className="text-xs text-amber-400/70 mt-1">{t('newOrder.24hourTurnaround')}</p>
               </div>
             )}
 
             <div className="space-y-3 mb-6">
               <div className="flex justify-between text-sm">
-                <span className="text-text-muted">Items ({orderItems.length})</span>
+                <span className="text-text-muted">{t('newOrder.itemsCount', { count: orderItems.length })}</span>
                 <span className="text-text-primary">{formatCurrency(subtotal)}</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-text-muted">Tax (9%)</span>
+                <span className="text-text-muted">{t('newOrder.tax')}</span>
                 <span className="text-text-primary">{formatCurrency(taxAmount)}</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-text-muted">Delivery Fee</span>
+                <span className="text-text-muted">{t('newOrder.deliveryFee')}</span>
                 <span className="text-text-primary">{formatCurrency(deliveryFee)}</span>
               </div>
               <div className="pt-3 border-t border-white/[0.08]">
                 <div className="flex justify-between">
-                  <span className="font-semibold text-text-primary">Total</span>
+                  <span className="font-semibold text-text-primary">{t('newOrder.totalLabel')}</span>
                   <span className="font-bold text-xl text-sky-400">{formatCurrency(total)}</span>
                 </div>
               </div>
@@ -365,10 +365,10 @@ export const NewOrder = () => {
 
             <div className="space-y-3">
               <Button className="w-full" disabled={!selectedCustomer || orderItems.length === 0}>
-                Create Order
+                {t('newOrder.createOrder')}
               </Button>
               <Button variant="secondary" className="w-full" onClick={() => navigate(-1)}>
-                Cancel
+                {t('newOrder.cancel')}
               </Button>
             </div>
           </Card>

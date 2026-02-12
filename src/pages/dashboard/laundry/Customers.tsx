@@ -22,7 +22,7 @@ import { getProfileImage } from '@/utils/profileImages';
 import { useTranslation } from 'react-i18next';
 
 export const Customers = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('laundry');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFilter, setSelectedFilter] = useState<string>('all');
@@ -68,33 +68,33 @@ export const Customers = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('laundry.customers', 'Customers')}
-        subtitle="Manage your customer database"
-        actions={<Button leftIcon={<Plus size={16} />}>Add Customer</Button>}
+        title={t('customers.title')}
+        subtitle={t('customers.subtitle')}
+        actions={<Button leftIcon={<Plus size={16} />}>{t('customers.addCustomer')}</Button>}
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Customers"
+          title={t('customers.totalCustomers')}
           value={stats.total.toString()}
           icon={Users}
           iconColor="#0ea5e9"
         />
         <StatsCard
-          title="VIP Customers"
+          title={t('customers.vipCustomers')}
           value={stats.vip.toString()}
           icon={Star}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Total Revenue"
+          title={t('customers.totalRevenue')}
           value={formatCurrency(stats.totalRevenue)}
           icon={DollarSign}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Avg. Order Value"
+          title={t('customers.avgOrderValue')}
           value={formatCurrency(stats.avgOrderValue)}
           icon={ShoppingBag}
           iconColor="#8b5cf6"
@@ -106,7 +106,7 @@ export const Customers = () => {
         <div className="flex flex-wrap gap-4 items-center">
           <div className="flex-1 min-w-[200px] max-w-md">
             <Input
-              placeholder="Search customers..."
+              placeholder={t('customers.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               leftIcon={<Search size={16} />}
@@ -191,17 +191,17 @@ export const Customers = () => {
               <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/[0.08]">
                 <div className="text-center">
                   <p className="text-lg font-semibold text-text-primary">{customer.totalOrders}</p>
-                  <p className="text-xs text-text-muted">Orders</p>
+                  <p className="text-xs text-text-muted">{t('customers.orders')}</p>
                 </div>
                 <div className="text-center">
                   <p className="text-lg font-semibold text-text-primary">{formatCurrency(customer.totalSpent)}</p>
-                  <p className="text-xs text-text-muted">Total Spent</p>
+                  <p className="text-xs text-text-muted">{t('customers.totalSpent')}</p>
                 </div>
               </div>
 
               {customer.lastOrderDate && (
                 <p className="text-xs text-text-muted text-center mt-3">
-                  Last order: {formatDate(customer.lastOrderDate)}
+                  {t('customers.lastOrder', { date: formatDate(customer.lastOrderDate) })}
                 </p>
               )}
 
@@ -225,7 +225,7 @@ export const Customers = () => {
       {filteredCustomers.length === 0 && (
         <Card className="p-12 text-center">
           <Users size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No customers found matching your filters</p>
+          <p className="text-text-secondary">{t('customers.noCustomersFound')}</p>
         </Card>
       )}
     </div>

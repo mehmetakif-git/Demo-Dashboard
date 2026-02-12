@@ -19,7 +19,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const GarmentTracking = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('laundry');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
 
@@ -87,11 +87,11 @@ export const GarmentTracking = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('laundry.garmentTracking', 'Garment Tracking')}
-        subtitle="Track individual garments through the cleaning process"
+        title={t('garmentTracking.title')}
+        subtitle={t('garmentTracking.subtitle')}
         actions={
           <Button variant="secondary" leftIcon={<QrCode size={16} />}>
-            Scan Barcode
+            {t('garmentTracking.scanBarcode')}
           </Button>
         }
       />
@@ -99,25 +99,25 @@ export const GarmentTracking = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Garments"
+          title={t('garmentTracking.totalGarments')}
           value={stats.total.toString()}
           icon={Shirt}
           iconColor="#0ea5e9"
         />
         <StatsCard
-          title="Received"
+          title={t('garmentTracking.received')}
           value={stats.received.toString()}
           icon={Package}
           iconColor="#8b5cf6"
         />
         <StatsCard
-          title="Processing"
+          title={t('garmentTracking.processing')}
           value={stats.processing.toString()}
           icon={RefreshCw}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Ready"
+          title={t('garmentTracking.ready')}
           value={stats.ready.toString()}
           icon={CheckCircle}
           iconColor="#10b981"
@@ -129,7 +129,7 @@ export const GarmentTracking = () => {
         <div className="flex flex-wrap gap-4 items-center">
           <div className="flex-1 min-w-[200px] max-w-md">
             <Input
-              placeholder="Search by barcode, order #, or garment..."
+              placeholder={t('garmentTracking.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               leftIcon={<Search size={16} />}
@@ -145,7 +145,7 @@ export const GarmentTracking = () => {
                   : 'bg-white/[0.05] text-text-secondary hover:bg-white/[0.08] border border-transparent'
               }`}
             >
-              All
+              {t('garmentTracking.all')}
             </button>
             {statusSteps.map((status) => (
               <button
@@ -270,7 +270,7 @@ export const GarmentTracking = () => {
       {filteredGarments.length === 0 && (
         <Card className="p-12 text-center">
           <Shirt size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No garments found matching your search</p>
+          <p className="text-text-secondary">{t('garmentTracking.noGarmentsFound')}</p>
         </Card>
       )}
     </div>

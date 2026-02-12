@@ -21,7 +21,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const Orders = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('laundry');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
@@ -75,11 +75,11 @@ export const Orders = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('laundry.orders', 'Orders')}
-        subtitle="Manage laundry and dry cleaning orders"
+        title={t('orders.title')}
+        subtitle={t('orders.subtitle')}
         actions={
           <Button leftIcon={<Plus size={16} />} onClick={() => navigate('/dashboard/laundry/orders/new')}>
-            New Order
+            {t('orders.newOrder')}
           </Button>
         }
       />
@@ -87,25 +87,25 @@ export const Orders = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Orders"
+          title={t('orders.totalOrders')}
           value={stats.totalOrders.toString()}
           icon={Package}
           iconColor="#0ea5e9"
         />
         <StatsCard
-          title="Pending"
+          title={t('orders.pending')}
           value={stats.pendingOrders.toString()}
           icon={Clock}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="In Process"
+          title={t('orders.inProcess')}
           value={stats.inProcessOrders.toString()}
           icon={Truck}
           iconColor="#8b5cf6"
         />
         <StatsCard
-          title="Today's Revenue"
+          title={t('orders.todaysRevenue')}
           value={formatCurrency(stats.todayRevenue)}
           icon={DollarSign}
           iconColor="#10b981"
@@ -117,7 +117,7 @@ export const Orders = () => {
         <div className="flex flex-wrap gap-4 items-center">
           <div className="flex-1 min-w-[200px] max-w-md">
             <Input
-              placeholder="Search orders..."
+              placeholder={t('orders.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               leftIcon={<Search size={16} />}
@@ -129,18 +129,18 @@ export const Orders = () => {
             onChange={(e) => setSelectedStatus(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary cursor-pointer"
           >
-            <option value="all">All Status</option>
-            <option value="pending">Pending</option>
-            <option value="picked-up">Picked Up</option>
-            <option value="processing">Processing</option>
-            <option value="ready">Ready</option>
-            <option value="out-for-delivery">Out for Delivery</option>
-            <option value="delivered">Delivered</option>
-            <option value="cancelled">Cancelled</option>
+            <option value="all">{t('orders.allStatus')}</option>
+            <option value="pending">{t('orders.statusPending')}</option>
+            <option value="picked-up">{t('orders.statusPickedUp')}</option>
+            <option value="processing">{t('orders.statusProcessing')}</option>
+            <option value="ready">{t('orders.statusReady')}</option>
+            <option value="out-for-delivery">{t('orders.statusOutForDelivery')}</option>
+            <option value="delivered">{t('orders.statusDelivered')}</option>
+            <option value="cancelled">{t('orders.statusCancelled')}</option>
           </select>
 
           <Button variant="secondary" leftIcon={<Filter size={16} />}>
-            More Filters
+            {t('orders.moreFilters')}
           </Button>
         </div>
       </Card>
@@ -151,14 +151,14 @@ export const Orders = () => {
           <table className="w-full">
             <thead>
               <tr className="border-b border-white/[0.08]">
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Order #</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Customer</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Items</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Total</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Pickup</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Delivery</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Status</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Actions</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('orders.orderNumber')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('orders.customer')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('orders.items')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('orders.total')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('orders.pickup')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('orders.delivery')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('orders.status')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('orders.actions')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border-default">
@@ -175,7 +175,7 @@ export const Orders = () => {
                       <span className="font-medium text-text-primary">{order.orderNumber}</span>
                       {order.isExpress && (
                         <span className="px-1.5 py-0.5 bg-amber-500/20 text-amber-400 text-xs rounded">
-                          Express
+                          {t('orders.express')}
                         </span>
                       )}
                     </div>
@@ -187,7 +187,7 @@ export const Orders = () => {
                     </div>
                   </td>
                   <td className="py-3 px-4 text-text-secondary">
-                    {order.items.reduce((sum, item) => sum + item.quantity, 0)} items
+                    {t('orders.itemsCount', { count: order.items.reduce((sum, item) => sum + item.quantity, 0) })}
                   </td>
                   <td className="py-3 px-4">
                     <div>
@@ -218,7 +218,7 @@ export const Orders = () => {
                       leftIcon={<Eye size={14} />}
                       onClick={() => navigate(`/dashboard/laundry/orders/${order.id}`)}
                     >
-                      View
+                      {t('orders.view')}
                     </Button>
                   </td>
                 </motion.tr>
@@ -231,7 +231,7 @@ export const Orders = () => {
       {filteredOrders.length === 0 && (
         <Card className="p-12 text-center">
           <Package size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No orders found matching your filters</p>
+          <p className="text-text-secondary">{t('orders.noOrdersFound')}</p>
         </Card>
       )}
     </div>
