@@ -32,7 +32,7 @@ const iconMap: Record<string, React.ElementType> = {
 };
 
 export const Categories = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('hardware');
   const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
 
   const toggleCategory = (categoryId: string) => {
@@ -46,31 +46,31 @@ export const Categories = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('hardware.categories', 'Categories')}
-        subtitle="Manage product categories and hierarchy"
-        actions={<Button leftIcon={<Plus size={16} />}>Add Category</Button>}
+        title={t('categories.title')}
+        subtitle={t('categories.subtitle')}
+        actions={<Button leftIcon={<Plus size={16} />}>{t('categories.addCategory')}</Button>}
       />
 
       {/* Category Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <Card className="p-4">
-          <p className="text-sm text-text-muted mb-1">Main Categories</p>
+          <p className="text-sm text-text-muted mb-1">{t('categories.mainCategories')}</p>
           <p className="text-2xl font-semibold text-text-primary">{categories.length}</p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-text-muted mb-1">Subcategories</p>
+          <p className="text-sm text-text-muted mb-1">{t('categories.subcategories')}</p>
           <p className="text-2xl font-semibold text-text-primary">
             {categories.reduce((sum, cat) => sum + (cat.children?.length || 0), 0)}
           </p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-text-muted mb-1">Total Products</p>
+          <p className="text-sm text-text-muted mb-1">{t('categories.totalProducts')}</p>
           <p className="text-2xl font-semibold text-amber-400">
             {categories.reduce((sum, cat) => sum + cat.productCount, 0)}
           </p>
         </Card>
         <Card className="p-4">
-          <p className="text-sm text-text-muted mb-1">Avg Products/Category</p>
+          <p className="text-sm text-text-muted mb-1">{t('categories.avgProductsPerCategory')}</p>
           <p className="text-2xl font-semibold text-text-primary">
             {Math.round(categories.reduce((sum, cat) => sum + cat.productCount, 0) / categories.length)}
           </p>
@@ -122,20 +122,20 @@ export const Categories = () => {
                     <div>
                       <p className="font-medium text-text-primary">{category.name}</p>
                       <p className="text-sm text-text-muted">
-                        {category.productCount} products
-                        {hasChildren && ` · ${category.children?.length} subcategories`}
+                        {category.productCount} {t('categories.products')}
+                        {hasChildren && ` · ${category.children?.length} ${t('categories.subcategoriesLabel')}`}
                       </p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
                     <Button variant="ghost" size="sm" leftIcon={<Plus size={14} />}>
-                      Add Sub
+                      {t('categories.addSub')}
                     </Button>
                     <Button variant="ghost" size="sm" leftIcon={<Edit size={14} />}>
-                      Edit
+                      {t('categories.edit')}
                     </Button>
                     <Button variant="ghost" size="sm" leftIcon={<Trash2 size={14} />} className="text-red-400 hover:text-red-300">
-                      Delete
+                      {t('categories.delete')}
                     </Button>
                   </div>
                 </div>
@@ -159,7 +159,7 @@ export const Categories = () => {
                           </div>
                           <div>
                             <p className="text-sm font-medium text-text-primary">{subcat.name}</p>
-                            <p className="text-xs text-text-muted">{subcat.productCount} products</p>
+                            <p className="text-xs text-text-muted">{subcat.productCount} {t('categories.products')}</p>
                           </div>
                         </div>
                         <div className="flex items-center gap-2">

@@ -23,7 +23,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const SalesHistory = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('hardware');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedPayment, setSelectedPayment] = useState<string>('all');
   const [selectedSale, setSelectedSale] = useState<string | null>(null);
@@ -67,11 +67,11 @@ export const SalesHistory = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('hardware.salesHistory', 'Sales History')}
-        subtitle="View all completed transactions"
+        title={t('salesHistory.title')}
+        subtitle={t('salesHistory.subtitle')}
         actions={
           <Button variant="secondary" leftIcon={<Download size={16} />}>
-            Export
+            {t('salesHistory.export')}
           </Button>
         }
       />
@@ -79,25 +79,25 @@ export const SalesHistory = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Transactions"
+          title={t('salesHistory.totalTransactions')}
           value={stats.totalSales.toString()}
           icon={ShoppingCart}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Today's Revenue"
+          title={t('salesHistory.todaysRevenue')}
           value={formatCurrency(stats.todayRevenue)}
           icon={DollarSign}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Total Revenue"
+          title={t('salesHistory.totalRevenue')}
           value={formatCurrency(stats.totalRevenue)}
           icon={TrendingUp}
           iconColor="#6366f1"
         />
         <StatsCard
-          title="Avg. Transaction"
+          title={t('salesHistory.avgTransaction')}
           value={formatCurrency(stats.avgTransaction)}
           icon={Receipt}
           iconColor="#0ea5e9"
@@ -112,7 +112,7 @@ export const SalesHistory = () => {
             <div className="flex flex-wrap gap-4 items-center">
               <div className="flex-1 min-w-[200px] max-w-md">
                 <Input
-                  placeholder="Search by receipt # or customer..."
+                  placeholder={t('salesHistory.searchPlaceholder')}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   leftIcon={<Search size={16} />}
@@ -145,13 +145,13 @@ export const SalesHistory = () => {
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-white/[0.08]">
-                    <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Receipt #</th>
-                    <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Date/Time</th>
-                    <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Customer</th>
-                    <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Items</th>
-                    <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Payment</th>
-                    <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Total</th>
-                    <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Actions</th>
+                    <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('salesHistory.receiptNumber')}</th>
+                    <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('salesHistory.dateTime')}</th>
+                    <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('salesHistory.customer')}</th>
+                    <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('salesHistory.items')}</th>
+                    <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('salesHistory.payment')}</th>
+                    <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('salesHistory.total')}</th>
+                    <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('salesHistory.actions')}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border-default">
@@ -173,7 +173,7 @@ export const SalesHistory = () => {
                         {formatDateTime(sale.createdAt)}
                       </td>
                       <td className="py-3 px-4 text-text-primary">
-                        {sale.customerName || 'Walk-in'}
+                        {sale.customerName || t('salesHistory.walkIn')}
                       </td>
                       <td className="py-3 px-4 text-text-muted">
                         {sale.items.reduce((sum, i) => sum + i.quantity, 0)} items
@@ -195,7 +195,7 @@ export const SalesHistory = () => {
                       </td>
                       <td className="py-3 px-4">
                         <Button variant="ghost" size="sm" leftIcon={<Eye size={14} />}>
-                          View
+                          {t('salesHistory.view')}
                         </Button>
                       </td>
                     </motion.tr>
@@ -208,7 +208,7 @@ export const SalesHistory = () => {
           {filteredSales.length === 0 && (
             <Card className="p-12 text-center">
               <Receipt size={48} className="mx-auto mb-4 text-text-muted" />
-              <p className="text-text-secondary">No sales found</p>
+              <p className="text-text-secondary">{t('salesHistory.noSales')}</p>
             </Card>
           )}
         </div>
@@ -219,7 +219,7 @@ export const SalesHistory = () => {
             {selectedSaleData ? (
               <>
                 <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-lg font-semibold text-text-primary">Receipt Details</h3>
+                  <h3 className="text-lg font-semibold text-text-primary">{t('salesHistory.receiptDetails')}</h3>
                   <span className="font-mono text-amber-400">{selectedSaleData.id}</span>
                 </div>
 
@@ -230,18 +230,18 @@ export const SalesHistory = () => {
                   </div>
                   {selectedSaleData.customerName && (
                     <div className="flex items-center gap-2 text-sm">
-                      <span className="text-text-muted">Customer:</span>
+                      <span className="text-text-muted">{t('salesHistory.customer')}:</span>
                       <span className="text-text-primary">{selectedSaleData.customerName}</span>
                     </div>
                   )}
                   <div className="flex items-center gap-2 text-sm">
-                    <span className="text-text-muted">Sales Person:</span>
+                    <span className="text-text-muted">{t('salesHistory.salesPerson')}:</span>
                     <span className="text-text-primary">{selectedSaleData.salesPerson}</span>
                   </div>
                 </div>
 
                 <div className="border-t border-white/[0.08] pt-4 mb-4">
-                  <h4 className="text-sm font-medium text-text-secondary mb-3">Items</h4>
+                  <h4 className="text-sm font-medium text-text-secondary mb-3">{t('salesHistory.itemsLabel')}</h4>
                   <div className="space-y-3">
                     {selectedSaleData.items.map((item) => {
                       const product = getProductById(item.productId);
@@ -264,21 +264,21 @@ export const SalesHistory = () => {
 
                 <div className="border-t border-white/[0.08] pt-4 space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span className="text-text-muted">Subtotal</span>
+                    <span className="text-text-muted">{t('salesHistory.subtotal')}</span>
                     <span className="text-text-primary">{formatCurrency(selectedSaleData.subtotal)}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-text-muted">Tax</span>
+                    <span className="text-text-muted">{t('salesHistory.tax')}</span>
                     <span className="text-text-primary">{formatCurrency(selectedSaleData.tax)}</span>
                   </div>
                   {selectedSaleData.discount > 0 && (
                     <div className="flex justify-between text-sm">
-                      <span className="text-text-muted">Discount</span>
+                      <span className="text-text-muted">{t('salesHistory.discount')}</span>
                       <span className="text-emerald-400">-{formatCurrency(selectedSaleData.discount)}</span>
                     </div>
                   )}
                   <div className="flex justify-between pt-2 border-t border-white/[0.08]">
-                    <span className="font-semibold text-text-primary">Total</span>
+                    <span className="font-semibold text-text-primary">{t('salesHistory.total')}</span>
                     <span className="font-bold text-lg text-amber-400">
                       {formatCurrency(selectedSaleData.total)}
                     </span>
@@ -287,17 +287,17 @@ export const SalesHistory = () => {
 
                 <div className="mt-6 grid grid-cols-2 gap-3">
                   <Button variant="secondary" size="sm" leftIcon={<Receipt size={14} />}>
-                    Print
+                    {t('salesHistory.print')}
                   </Button>
                   <Button variant="secondary" size="sm" leftIcon={<Download size={14} />}>
-                    Export
+                    {t('salesHistory.export')}
                   </Button>
                 </div>
               </>
             ) : (
               <div className="text-center py-12">
                 <Receipt size={48} className="mx-auto mb-4 text-text-muted" />
-                <p className="text-text-secondary">Select a sale to view details</p>
+                <p className="text-text-secondary">{t('salesHistory.selectSale')}</p>
               </div>
             )}
           </Card>

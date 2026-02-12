@@ -23,7 +23,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const PurchaseOrders = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('hardware');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
@@ -64,14 +64,14 @@ export const PurchaseOrders = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('hardware.purchaseOrders', 'Purchase Orders')}
-        subtitle="Manage supplier purchase orders"
+        title={t('purchaseOrders.title')}
+        subtitle={t('purchaseOrders.subtitle')}
         actions={
           <div className="flex gap-2">
             <Button variant="secondary" leftIcon={<Download size={16} />}>
-              Export
+              {t('purchaseOrders.export')}
             </Button>
-            <Button leftIcon={<Plus size={16} />}>New Order</Button>
+            <Button leftIcon={<Plus size={16} />}>{t('purchaseOrders.newOrder')}</Button>
           </div>
         }
       />
@@ -79,25 +79,25 @@ export const PurchaseOrders = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Orders"
+          title={t('purchaseOrders.totalOrders')}
           value={stats.totalOrders.toString()}
           icon={FileText}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Pending Orders"
+          title={t('purchaseOrders.pendingOrders')}
           value={stats.pendingOrders.toString()}
           icon={Clock}
           iconColor="#6366f1"
         />
         <StatsCard
-          title="Total Value"
+          title={t('purchaseOrders.totalValue')}
           value={formatCurrency(stats.totalValue)}
           icon={DollarSign}
           iconColor="#0ea5e9"
         />
         <StatsCard
-          title="Received Value"
+          title={t('purchaseOrders.receivedValue')}
           value={formatCurrency(stats.receivedValue)}
           icon={Package}
           iconColor="#10b981"
@@ -109,7 +109,7 @@ export const PurchaseOrders = () => {
         <div className="flex flex-wrap gap-4 items-center">
           <div className="flex-1 min-w-[200px] max-w-md">
             <Input
-              placeholder="Search by PO number or supplier..."
+              placeholder={t('purchaseOrders.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               leftIcon={<Search size={16} />}
@@ -143,14 +143,14 @@ export const PurchaseOrders = () => {
           <table className="w-full">
             <thead>
               <tr className="border-b border-white/[0.08]">
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">PO Number</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Supplier</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Order Date</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Expected</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Items</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Total</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Status</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Actions</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('purchaseOrders.poNumber')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('purchaseOrders.supplier')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('purchaseOrders.orderDate')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('purchaseOrders.expected')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('purchaseOrders.items')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('purchaseOrders.total')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('purchaseOrders.status')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('purchaseOrders.actions')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border-default">
@@ -198,7 +198,7 @@ export const PurchaseOrders = () => {
                           navigate(`/dashboard/hardware/purchase-orders/${order.id}`);
                         }}
                       >
-                        View
+                        {t('purchaseOrders.view')}
                       </Button>
                     </td>
                   </motion.tr>
@@ -212,7 +212,7 @@ export const PurchaseOrders = () => {
       {filteredOrders.length === 0 && (
         <Card className="p-12 text-center">
           <FileText size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No purchase orders found</p>
+          <p className="text-text-secondary">{t('purchaseOrders.noOrders')}</p>
         </Card>
       )}
     </div>

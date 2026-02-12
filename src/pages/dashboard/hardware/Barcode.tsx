@@ -23,7 +23,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const Barcode = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('hardware');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
@@ -108,14 +108,14 @@ export const Barcode = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('hardware.barcodeManagement', 'Barcode Management')}
-        subtitle="Generate and print product barcodes"
+        title={t('barcode.title')}
+        subtitle={t('barcode.subtitle')}
         actions={
           <div className="flex gap-2">
             <Button variant="secondary" leftIcon={<Settings size={16} />}>
-              Settings
+              {t('barcode.settings')}
             </Button>
-            <Button leftIcon={<Plus size={16} />}>Generate Barcodes</Button>
+            <Button leftIcon={<Plus size={16} />}>{t('barcode.generateBarcodes')}</Button>
           </div>
         }
       />
@@ -123,25 +123,25 @@ export const Barcode = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Products"
+          title={t('barcode.totalProducts')}
           value={stats.totalProducts.toString()}
           icon={Package}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="With Barcode"
+          title={t('barcode.withBarcode')}
           value={stats.withBarcode.toString()}
           icon={QrCode}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Without Barcode"
+          title={t('barcode.withoutBarcode')}
           value={stats.withoutBarcode.toString()}
           icon={Tag}
           iconColor="#ef4444"
         />
         <StatsCard
-          title="Selected"
+          title={t('barcode.selected')}
           value={stats.selectedCount.toString()}
           icon={CheckCircle}
           iconColor="#6366f1"
@@ -159,18 +159,18 @@ export const Barcode = () => {
               <div className="flex items-center gap-3">
                 <CheckCircle size={20} className="text-amber-400" />
                 <span className="text-text-primary">
-                  {selectedProducts.length} product{selectedProducts.length !== 1 ? 's' : ''} selected
+                  {selectedProducts.length} {t('barcode.productsSelected')}
                 </span>
               </div>
               <div className="flex gap-2">
                 <Button variant="secondary" size="sm" onClick={clearSelection}>
-                  Clear Selection
+                  {t('barcode.clearSelection')}
                 </Button>
                 <Button variant="secondary" size="sm" leftIcon={<Download size={14} />}>
-                  Export Labels
+                  {t('barcode.exportLabels')}
                 </Button>
                 <Button size="sm" leftIcon={<Printer size={14} />}>
-                  Print Labels
+                  {t('barcode.printLabels')}
                 </Button>
               </div>
             </div>
@@ -184,7 +184,7 @@ export const Barcode = () => {
           <div className="flex flex-wrap gap-4 items-center flex-1">
             <div className="flex-1 min-w-[200px] max-w-md">
               <Input
-                placeholder="Search by name, SKU, or barcode..."
+                placeholder={t('barcode.searchPlaceholder')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 leftIcon={<Search size={16} />}
@@ -196,14 +196,14 @@ export const Barcode = () => {
               onChange={(e) => setSelectedCategory(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary cursor-pointer"
             >
-              <option value="all">All Categories</option>
+              <option value="all">{t('barcode.allCategories')}</option>
               {mainCategories.map((cat) => (
                 <option key={cat.id} value={cat.id}>{cat.name}</option>
               ))}
             </select>
 
             <Button variant="secondary" size="sm" onClick={selectAll}>
-              Select All ({filteredProducts.length})
+              {t('barcode.selectAll')} ({filteredProducts.length})
             </Button>
           </div>
 
@@ -281,7 +281,7 @@ export const Barcode = () => {
                   ) : (
                     <div className="text-center py-4">
                       <QrCode size={24} className="mx-auto mb-2 text-gray-400" />
-                      <p className="text-gray-500 text-xs">No barcode</p>
+                      <p className="text-gray-500 text-xs">{t('barcode.noBarcode')}</p>
                     </div>
                   )}
                 </div>
@@ -324,11 +324,11 @@ export const Barcode = () => {
                       className="cursor-pointer"
                     />
                   </th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Product</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">SKU</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Barcode</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Price</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Actions</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('barcode.product')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('barcode.sku')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('barcode.barcodeLabel')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('barcode.price')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('barcode.actions')}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border-default">
@@ -375,7 +375,7 @@ export const Barcode = () => {
                           </button>
                         </div>
                       ) : (
-                        <span className="text-text-muted text-sm">No barcode</span>
+                        <span className="text-text-muted text-sm">{t('barcode.noBarcode')}</span>
                       )}
                     </td>
                     <td className="py-3 px-4 text-amber-400 font-medium">
@@ -384,7 +384,7 @@ export const Barcode = () => {
                     <td className="py-3 px-4">
                       <div className="flex gap-1">
                         <Button variant="ghost" size="sm" leftIcon={<Printer size={14} />}>
-                          Print
+                          {t('barcode.print')}
                         </Button>
                       </div>
                     </td>
@@ -399,7 +399,7 @@ export const Barcode = () => {
       {filteredProducts.length === 0 && (
         <Card className="p-12 text-center">
           <Package size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No products found</p>
+          <p className="text-text-secondary">{t('barcode.noProducts')}</p>
         </Card>
       )}
     </div>

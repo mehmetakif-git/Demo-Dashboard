@@ -23,7 +23,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const Products = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('hardware');
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -66,33 +66,33 @@ export const Products = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('hardware.products', 'Products')}
-        subtitle="Manage your product catalog"
-        actions={<Button leftIcon={<Plus size={16} />}>Add Product</Button>}
+        title={t('products.title')}
+        subtitle={t('products.subtitle')}
+        actions={<Button leftIcon={<Plus size={16} />}>{t('products.addProduct')}</Button>}
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Products"
+          title={t('products.totalProducts')}
           value={stats.totalProducts.toString()}
           icon={Package}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Low Stock"
+          title={t('products.lowStock')}
           value={stats.lowStockItems.toString()}
           icon={AlertTriangle}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Critical Stock"
+          title={t('products.criticalStock')}
           value={stats.criticalStockItems.toString()}
           icon={AlertTriangle}
           iconColor="#ef4444"
         />
         <StatsCard
-          title="Inventory Value"
+          title={t('products.inventoryValue')}
           value={formatCurrency(stats.totalInventoryValue)}
           icon={DollarSign}
           iconColor="#10b981"
@@ -105,7 +105,7 @@ export const Products = () => {
           <div className="flex flex-wrap gap-4 items-center flex-1">
             <div className="flex-1 min-w-[200px] max-w-md">
               <Input
-                placeholder="Search by name, SKU, barcode..."
+                placeholder={t('products.searchPlaceholder')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 leftIcon={<Search size={16} />}
@@ -117,7 +117,7 @@ export const Products = () => {
               onChange={(e) => setSelectedCategory(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary cursor-pointer"
             >
-              <option value="all">All Categories</option>
+              <option value="all">{t('products.allCategories')}</option>
               {categories.map((cat) => (
                 <option key={cat.id} value={cat.id}>
                   {cat.name}
@@ -130,11 +130,11 @@ export const Products = () => {
               onChange={(e) => setSelectedStatus(e.target.value)}
               className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary cursor-pointer"
             >
-              <option value="all">All Status</option>
-              <option value="active">In Stock</option>
-              <option value="low-stock">Low Stock</option>
-              <option value="critical">Critical</option>
-              <option value="out-of-stock">Out of Stock</option>
+              <option value="all">{t('products.allStatus')}</option>
+              <option value="active">{t('products.inStock')}</option>
+              <option value="low-stock">{t('products.lowStock')}</option>
+              <option value="critical">{t('products.critical')}</option>
+              <option value="out-of-stock">{t('products.outOfStock')}</option>
             </select>
           </div>
 
@@ -166,14 +166,14 @@ export const Products = () => {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-white/[0.08]">
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Product</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">SKU</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Category</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Stock</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Cost</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Retail</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Status</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Actions</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('products.product')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('products.sku')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('products.category')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('products.stock')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('products.cost')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('products.retail')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('products.status')}</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('products.actions')}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border-default">
@@ -232,10 +232,10 @@ export const Products = () => {
                             leftIcon={<Eye size={14} />}
                             onClick={() => navigate(`/dashboard/hardware/products/${product.id}`)}
                           >
-                            View
+                            {t('products.view')}
                           </Button>
                           <Button variant="ghost" size="sm" leftIcon={<Edit size={14} />}>
-                            Edit
+                            {t('products.edit')}
                           </Button>
                         </div>
                       </td>
@@ -267,7 +267,7 @@ export const Products = () => {
                     <span className="text-lg font-semibold text-amber-400">{formatCurrency(product.retailPrice)}</span>
                     <div className="flex items-center gap-1">
                       <div className={`w-2 h-2 rounded-full ${stockIndicator.color}`} />
-                      <span className="text-sm text-text-secondary">{product.currentStock} in stock</span>
+                      <span className="text-sm text-text-secondary">{product.currentStock} {t('products.inStockLabel')}</span>
                     </div>
                   </div>
                   <Button
@@ -275,7 +275,7 @@ export const Products = () => {
                     className="w-full"
                     onClick={() => navigate(`/dashboard/hardware/products/${product.id}`)}
                   >
-                    View Details
+                    {t('products.viewDetails')}
                   </Button>
                 </Card>
               </motion.div>
@@ -287,7 +287,7 @@ export const Products = () => {
       {filteredProducts.length === 0 && (
         <Card className="p-12 text-center">
           <Package size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No products found matching your filters</p>
+          <p className="text-text-secondary">{t('products.noProducts')}</p>
         </Card>
       )}
     </div>

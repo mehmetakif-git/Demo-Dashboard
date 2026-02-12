@@ -21,7 +21,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const PriceLists = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('hardware');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<'all' | 'active' | 'inactive'>('all');
   const [selectedList, setSelectedList] = useState<string | null>(null);
@@ -71,33 +71,33 @@ export const PriceLists = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('hardware.priceLists', 'Price Lists')}
-        subtitle="Manage custom pricing for different customer groups"
-        actions={<Button leftIcon={<Plus size={16} />}>New Price List</Button>}
+        title={t('priceLists.title')}
+        subtitle={t('priceLists.subtitle')}
+        actions={<Button leftIcon={<Plus size={16} />}>{t('priceLists.newPriceList')}</Button>}
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Price Lists"
+          title={t('priceLists.totalPriceLists')}
           value={stats.totalLists.toString()}
           icon={Tag}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Active Lists"
+          title={t('priceLists.activeLists')}
           value={stats.activeLists.toString()}
           icon={CheckCircle}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Avg. Discount"
+          title={t('priceLists.avgDiscount')}
           value={`${stats.avgDiscount}%`}
           icon={DollarSign}
           iconColor="#6366f1"
         />
         <StatsCard
-          title="Total Products"
+          title={t('priceLists.totalProducts')}
           value={stats.totalProducts.toString()}
           icon={Package}
           iconColor="#0ea5e9"
@@ -110,7 +110,7 @@ export const PriceLists = () => {
           {/* Filter Bar */}
           <Card className="p-4">
             <Input
-              placeholder="Search price lists..."
+              placeholder={t('priceLists.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               leftIcon={<Search size={16} />}
@@ -173,13 +173,13 @@ export const PriceLists = () => {
                       {activeDropdown === priceList.id && (
                         <div className="absolute right-0 top-full mt-1 w-36 bg-background-secondary border border-white/[0.08] rounded-lg shadow-lg z-10">
                           <button className="w-full px-3 py-2 text-left text-sm text-text-secondary hover:bg-white/[0.05] flex items-center gap-2 cursor-pointer">
-                            <Edit size={14} /> Edit
+                            <Edit size={14} /> {t('priceLists.edit')}
                           </button>
                           <button className="w-full px-3 py-2 text-left text-sm text-text-secondary hover:bg-white/[0.05] flex items-center gap-2 cursor-pointer">
-                            <Copy size={14} /> Duplicate
+                            <Copy size={14} /> {t('priceLists.duplicate')}
                           </button>
                           <button className="w-full px-3 py-2 text-left text-sm text-red-400 hover:bg-white/[0.05] flex items-center gap-2 cursor-pointer">
-                            <Trash2 size={14} /> Delete
+                            <Trash2 size={14} /> {t('priceLists.delete')}
                           </button>
                         </div>
                       )}
@@ -190,9 +190,9 @@ export const PriceLists = () => {
 
                   <div className="flex items-center justify-between text-sm">
                     <div className="flex items-center gap-2">
-                      <span className="text-amber-400 font-semibold">{priceList.discountPercent}% off</span>
+                      <span className="text-amber-400 font-semibold">{priceList.discountPercent}% {t('priceLists.off')}</span>
                       {priceList.minOrderValue && (
-                        <span className="text-text-muted">Min: {formatCurrency(priceList.minOrderValue)}</span>
+                        <span className="text-text-muted">{t('priceLists.min')}: {formatCurrency(priceList.minOrderValue)}</span>
                       )}
                     </div>
                     <span
@@ -208,7 +208,7 @@ export const PriceLists = () => {
 
                   {priceList.isDefault && (
                     <div className="mt-3 pt-3 border-t border-white/[0.08]">
-                      <span className="text-xs px-2 py-1 bg-blue-500/20 text-blue-400 rounded">Default Price List</span>
+                      <span className="text-xs px-2 py-1 bg-blue-500/20 text-blue-400 rounded">{t('priceLists.defaultPriceList')}</span>
                     </div>
                   )}
                 </Card>
@@ -218,7 +218,7 @@ export const PriceLists = () => {
             {filteredLists.length === 0 && (
               <Card className="p-8 text-center">
                 <Tag size={32} className="mx-auto mb-3 text-text-muted" />
-                <p className="text-text-secondary">No price lists found</p>
+                <p className="text-text-secondary">{t('priceLists.noPriceLists')}</p>
               </Card>
             )}
           </div>
@@ -238,7 +238,7 @@ export const PriceLists = () => {
                   </div>
                   <div className="flex gap-2">
                     <Button variant="secondary" size="sm" leftIcon={<Edit size={14} />}>
-                      Edit
+                      {t('priceLists.edit')}
                     </Button>
                   </div>
                 </div>
@@ -246,21 +246,21 @@ export const PriceLists = () => {
                 {/* Price List Info */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                   <div className="p-3 bg-white/[0.03] rounded-lg">
-                    <p className="text-xs text-text-muted mb-1">Code</p>
+                    <p className="text-xs text-text-muted mb-1">{t('priceLists.code')}</p>
                     <p className="font-medium text-text-primary">{selectedListData.code}</p>
                   </div>
                   <div className="p-3 bg-white/[0.03] rounded-lg">
-                    <p className="text-xs text-text-muted mb-1">Discount</p>
+                    <p className="text-xs text-text-muted mb-1">{t('priceLists.discount')}</p>
                     <p className="font-medium text-amber-400">{selectedListData.discountPercent}%</p>
                   </div>
                   <div className="p-3 bg-white/[0.03] rounded-lg">
-                    <p className="text-xs text-text-muted mb-1">Min Order</p>
+                    <p className="text-xs text-text-muted mb-1">{t('priceLists.minOrder')}</p>
                     <p className="font-medium text-text-primary">
                       {selectedListData.minOrderValue ? formatCurrency(selectedListData.minOrderValue) : 'None'}
                     </p>
                   </div>
                   <div className="p-3 bg-white/[0.03] rounded-lg">
-                    <p className="text-xs text-text-muted mb-1">Status</p>
+                    <p className="text-xs text-text-muted mb-1">{t('priceLists.statusLabel')}</p>
                     <span
                       className={`px-2 py-0.5 rounded text-xs capitalize ${
                         selectedListData.status === 'active'
@@ -275,16 +275,16 @@ export const PriceLists = () => {
 
                 {/* Sample Products with Discount Applied */}
                 <div className="border-t border-white/[0.08] pt-4">
-                  <h4 className="font-semibold text-text-primary mb-4">Sample Product Pricing</h4>
+                  <h4 className="font-semibold text-text-primary mb-4">{t('priceLists.sampleProductPricing')}</h4>
                   <div className="overflow-x-auto">
                     <table className="w-full">
                       <thead>
                         <tr className="border-b border-white/[0.08]">
-                          <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Product</th>
-                          <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">SKU</th>
-                          <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">Original</th>
-                          <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">List Price</th>
-                          <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">Savings</th>
+                          <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('priceLists.product')}</th>
+                          <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('priceLists.sku')}</th>
+                          <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">{t('priceLists.original')}</th>
+                          <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">{t('priceLists.listPrice')}</th>
+                          <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">{t('priceLists.savings')}</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-border-default">
@@ -331,7 +331,7 @@ export const PriceLists = () => {
             ) : (
               <div className="text-center py-16">
                 <Tag size={48} className="mx-auto mb-4 text-text-muted" />
-                <p className="text-text-secondary">Select a price list to view details</p>
+                <p className="text-text-secondary">{t('priceLists.selectPriceList')}</p>
               </div>
             )}
           </Card>

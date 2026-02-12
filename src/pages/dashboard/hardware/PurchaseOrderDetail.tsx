@@ -25,7 +25,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const PurchaseOrderDetail = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('hardware');
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
@@ -36,14 +36,14 @@ export const PurchaseOrderDetail = () => {
     return (
       <div className="space-y-6">
         <PageHeader
-          title={t('hardware.purchaseOrderNotFound', 'Purchase Order Not Found')}
-          subtitle="The requested purchase order does not exist"
+          title={t('purchaseOrderDetail.notFoundTitle')}
+          subtitle={t('purchaseOrderDetail.notFoundSubtitle')}
         />
         <Card className="p-12 text-center">
           <FileText size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary mb-4">Purchase order not found</p>
+          <p className="text-text-secondary mb-4">{t('purchaseOrderDetail.notFoundMessage')}</p>
           <Button onClick={() => navigate('/dashboard/hardware/purchase-orders')}>
-            Back to Orders
+            {t('purchaseOrderDetail.backToOrders')}
           </Button>
         </Card>
       </div>
@@ -77,15 +77,15 @@ export const PurchaseOrderDetail = () => {
               leftIcon={<ArrowLeft size={16} />}
               onClick={() => navigate('/dashboard/hardware/purchase-orders')}
             >
-              Back
+              {t('purchaseOrderDetail.back')}
             </Button>
             <Button variant="secondary" leftIcon={<Printer size={16} />}>
-              Print
+              {t('purchaseOrderDetail.print')}
             </Button>
             <Button variant="secondary" leftIcon={<Download size={16} />}>
-              Export
+              {t('purchaseOrderDetail.export')}
             </Button>
-            <Button leftIcon={<Edit size={16} />}>Edit Order</Button>
+            <Button leftIcon={<Edit size={16} />}>{t('purchaseOrderDetail.editOrder')}</Button>
           </div>
         }
       />
@@ -100,7 +100,7 @@ export const PurchaseOrderDetail = () => {
             <div className="flex items-center gap-4">
               {getStatusIcon()}
               <div>
-                <p className="text-text-muted text-sm">Order Status</p>
+                <p className="text-text-muted text-sm">{t('purchaseOrderDetail.orderStatus')}</p>
                 <span className={`px-3 py-1 rounded text-sm font-medium capitalize ${statusColor}`}>
                   {order.status}
                 </span>
@@ -108,16 +108,16 @@ export const PurchaseOrderDetail = () => {
             </div>
             <div className="flex gap-6">
               <div className="text-center">
-                <p className="text-text-muted text-sm">Order Date</p>
+                <p className="text-text-muted text-sm">{t('purchaseOrderDetail.orderDate')}</p>
                 <p className="font-medium text-text-primary">{formatDate(order.orderDate)}</p>
               </div>
               <div className="text-center">
-                <p className="text-text-muted text-sm">Expected Date</p>
+                <p className="text-text-muted text-sm">{t('purchaseOrderDetail.expectedDate')}</p>
                 <p className="font-medium text-text-primary">{order.expectedDelivery ? formatDate(order.expectedDelivery) : '-'}</p>
               </div>
               {order.deliveredDate && (
                 <div className="text-center">
-                  <p className="text-text-muted text-sm">Delivered Date</p>
+                  <p className="text-text-muted text-sm">{t('purchaseOrderDetail.deliveredDate')}</p>
                   <p className="font-medium text-emerald-400">{formatDate(order.deliveredDate)}</p>
                 </div>
               )}
@@ -134,18 +134,18 @@ export const PurchaseOrderDetail = () => {
             <div className="p-4 border-b border-white/[0.08]">
               <h3 className="text-lg font-semibold text-text-primary flex items-center gap-2">
                 <Package size={20} className="text-amber-400" />
-                Order Items
+                {t('purchaseOrderDetail.orderItems')}
               </h3>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-white/[0.08]">
-                    <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Product</th>
-                    <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">SKU</th>
-                    <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">Qty</th>
-                    <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">Unit Price</th>
-                    <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">Total</th>
+                    <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('purchaseOrderDetail.product')}</th>
+                    <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('purchaseOrderDetail.sku')}</th>
+                    <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">{t('purchaseOrderDetail.qty')}</th>
+                    <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">{t('purchaseOrderDetail.unitPrice')}</th>
+                    <th className="text-right py-3 px-4 text-sm font-medium text-text-secondary">{t('purchaseOrderDetail.total')}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border-default">
@@ -192,7 +192,7 @@ export const PurchaseOrderDetail = () => {
           {/* Notes */}
           {order.notes && (
             <Card className="p-5">
-              <h3 className="text-lg font-semibold text-text-primary mb-3">Notes</h3>
+              <h3 className="text-lg font-semibold text-text-primary mb-3">{t('purchaseOrderDetail.notes')}</h3>
               <p className="text-text-secondary">{order.notes}</p>
             </Card>
           )}
@@ -204,24 +204,24 @@ export const PurchaseOrderDetail = () => {
           <Card className="p-5">
             <h3 className="text-lg font-semibold text-text-primary mb-4 flex items-center gap-2">
               <DollarSign size={20} className="text-amber-400" />
-              Order Summary
+              {t('purchaseOrderDetail.orderSummary')}
             </h3>
             <div className="space-y-3">
               <div className="flex justify-between text-sm">
-                <span className="text-text-muted">Subtotal</span>
+                <span className="text-text-muted">{t('purchaseOrderDetail.subtotal')}</span>
                 <span className="text-text-primary">{formatCurrency(order.subtotal)}</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-text-muted">Tax</span>
+                <span className="text-text-muted">{t('purchaseOrderDetail.tax')}</span>
                 <span className="text-text-primary">{formatCurrency(order.tax)}</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-text-muted">Shipping</span>
+                <span className="text-text-muted">{t('purchaseOrderDetail.shipping')}</span>
                 <span className="text-text-primary">{formatCurrency(order.shipping)}</span>
               </div>
               <div className="border-t border-white/[0.08] pt-3 mt-3">
                 <div className="flex justify-between">
-                  <span className="font-semibold text-text-primary">Total</span>
+                  <span className="font-semibold text-text-primary">{t('purchaseOrderDetail.total')}</span>
                   <span className="font-bold text-xl text-amber-400">{formatCurrency(order.total)}</span>
                 </div>
               </div>
@@ -233,7 +233,7 @@ export const PurchaseOrderDetail = () => {
             <Card className="p-5">
               <h3 className="text-lg font-semibold text-text-primary mb-4 flex items-center gap-2">
                 <Truck size={20} className="text-amber-400" />
-                Supplier
+                {t('purchaseOrderDetail.supplier')}
               </h3>
               <div className="space-y-3">
                 <div>
@@ -249,7 +249,7 @@ export const PurchaseOrderDetail = () => {
                 </div>
                 <div className="pt-3 border-t border-white/[0.08]">
                   <p className="text-sm">
-                    <span className="text-text-muted">Payment Terms: </span>
+                    <span className="text-text-muted">{t('purchaseOrderDetail.paymentTerms')}: </span>
                     <span className="text-text-primary font-medium">{supplier.paymentTerms}</span>
                   </p>
                 </div>
@@ -261,13 +261,13 @@ export const PurchaseOrderDetail = () => {
           <Card className="p-5">
             <h3 className="text-lg font-semibold text-text-primary mb-4 flex items-center gap-2">
               <Calendar size={20} className="text-amber-400" />
-              Timeline
+              {t('purchaseOrderDetail.timeline')}
             </h3>
             <div className="space-y-4">
               <div className="flex gap-3">
                 <div className="w-2 h-2 rounded-full bg-emerald-400 mt-2" />
                 <div>
-                  <p className="text-sm font-medium text-text-primary">Order Created</p>
+                  <p className="text-sm font-medium text-text-primary">{t('purchaseOrderDetail.orderCreated')}</p>
                   <p className="text-xs text-text-muted">{formatDate(order.orderDate)}</p>
                 </div>
               </div>
@@ -275,8 +275,8 @@ export const PurchaseOrderDetail = () => {
                 <div className="flex gap-3">
                   <div className="w-2 h-2 rounded-full bg-blue-400 mt-2" />
                   <div>
-                    <p className="text-sm font-medium text-text-primary">Order Sent</p>
-                    <p className="text-xs text-text-muted">Sent to supplier</p>
+                    <p className="text-sm font-medium text-text-primary">{t('purchaseOrderDetail.orderSent')}</p>
+                    <p className="text-xs text-text-muted">{t('purchaseOrderDetail.sentToSupplier')}</p>
                   </div>
                 </div>
               )}
@@ -284,7 +284,7 @@ export const PurchaseOrderDetail = () => {
                 <div className="flex gap-3">
                   <div className="w-2 h-2 rounded-full bg-emerald-400 mt-2" />
                   <div>
-                    <p className="text-sm font-medium text-text-primary">Items Delivered</p>
+                    <p className="text-sm font-medium text-text-primary">{t('purchaseOrderDetail.itemsDelivered')}</p>
                     <p className="text-xs text-text-muted">{formatDate(order.deliveredDate)}</p>
                   </div>
                 </div>

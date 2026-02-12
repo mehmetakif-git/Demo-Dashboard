@@ -22,7 +22,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const Alerts = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('hardware');
   const navigate = useNavigate();
   const [selectedPriority, setSelectedPriority] = useState<string>('all');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
@@ -78,11 +78,11 @@ export const Alerts = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('hardware.lowStockAlerts', 'Low Stock Alerts')}
-        subtitle="Monitor and manage inventory alerts"
+        title={t('alerts.title')}
+        subtitle={t('alerts.subtitle')}
         actions={
           <Button variant="secondary" leftIcon={<Bell size={16} />}>
-            Alert Settings
+            {t('alerts.alertSettings')}
           </Button>
         }
       />
@@ -90,25 +90,25 @@ export const Alerts = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Alerts"
+          title={t('alerts.totalAlerts')}
           value={stats.totalAlerts.toString()}
           icon={Bell}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Critical Alerts"
+          title={t('alerts.criticalAlerts')}
           value={stats.criticalAlerts.toString()}
           icon={AlertTriangle}
           iconColor="#ef4444"
         />
         <StatsCard
-          title="Out of Stock"
+          title={t('alerts.outOfStock')}
           value={stats.outOfStock.toString()}
           icon={XCircle}
           iconColor="#dc2626"
         />
         <StatsCard
-          title="Low Stock Items"
+          title={t('alerts.lowStockItems')}
           value={stats.lowStock.toString()}
           icon={TrendingDown}
           iconColor="#f97316"
@@ -123,8 +123,8 @@ export const Alerts = () => {
               <AlertTriangle size={24} className="text-red-400" />
             </div>
             <div>
-              <h4 className="font-semibold text-text-primary">Critical Items</h4>
-              <p className="text-sm text-text-muted">{stats.criticalAlerts} items need immediate attention</p>
+              <h4 className="font-semibold text-text-primary">{t('alerts.criticalItems')}</h4>
+              <p className="text-sm text-text-muted">{stats.criticalAlerts} {t('alerts.needsAttention')}</p>
             </div>
           </div>
         </Card>
@@ -134,8 +134,8 @@ export const Alerts = () => {
               <ShoppingCart size={24} className="text-amber-400" />
             </div>
             <div>
-              <h4 className="font-semibold text-text-primary">Create Purchase Order</h4>
-              <p className="text-sm text-text-muted">Order stock for low items</p>
+              <h4 className="font-semibold text-text-primary">{t('alerts.createPurchaseOrder')}</h4>
+              <p className="text-sm text-text-muted">{t('alerts.orderStockForLow')}</p>
             </div>
           </div>
         </Card>
@@ -145,8 +145,8 @@ export const Alerts = () => {
               <CheckCircle size={24} className="text-emerald-400" />
             </div>
             <div>
-              <h4 className="font-semibold text-text-primary">Resolve All</h4>
-              <p className="text-sm text-text-muted">Mark all alerts as resolved</p>
+              <h4 className="font-semibold text-text-primary">{t('alerts.resolveAll')}</h4>
+              <p className="text-sm text-text-muted">{t('alerts.markAllResolved')}</p>
             </div>
           </div>
         </Card>
@@ -156,7 +156,7 @@ export const Alerts = () => {
       <Card className="p-4">
         <div className="flex flex-wrap gap-4 items-center">
           <div>
-            <p className="text-xs text-text-muted mb-2">Priority</p>
+            <p className="text-xs text-text-muted mb-2">{t('alerts.priority')}</p>
             <div className="flex gap-2">
               {['all', 'critical', 'high', 'medium', 'low'].map((priority) => (
                 <button
@@ -179,7 +179,7 @@ export const Alerts = () => {
           </div>
 
           <div>
-            <p className="text-xs text-text-muted mb-2">Status</p>
+            <p className="text-xs text-text-muted mb-2">{t('alerts.status')}</p>
             <div className="flex gap-2">
               {['all', 'pending', 'acknowledged', 'resolved'].map((status) => (
                 <button
@@ -247,12 +247,12 @@ export const Alerts = () => {
                         </span>
                       </div>
                       <p className="text-sm text-text-muted mb-2">
-                        SKU: {product?.sku || '-'} | Current Stock: <span className="text-red-400 font-semibold">{alert.currentStock}</span> | Min: {alert.minStock}
+                        SKU: {product?.sku || '-'} | {t('alerts.currentStock')}: <span className="text-red-400 font-semibold">{alert.currentStock}</span> | {t('alerts.minStock')}: {alert.minStock}
                       </p>
                       <p className="text-sm text-text-secondary">
-                        Suggested reorder: <span className="text-amber-400 font-medium">{alert.suggestedOrder} units</span>
+                        {t('alerts.suggestedReorder')}: <span className="text-amber-400 font-medium">{alert.suggestedOrder} {t('alerts.units')}</span>
                       </p>
-                      <p className="text-xs text-text-muted mt-2">Created: {formatDate(alert.createdAt)}</p>
+                      <p className="text-xs text-text-muted mt-2">{t('alerts.created')}: {formatDate(alert.createdAt)}</p>
                     </div>
                   </div>
 
@@ -263,13 +263,13 @@ export const Alerts = () => {
                       leftIcon={<Eye size={14} />}
                       onClick={() => navigate(`/dashboard/hardware/products/${alert.productId}`)}
                     >
-                      View Product
+                      {t('alerts.viewProduct')}
                     </Button>
                     <Button
                       size="sm"
                       leftIcon={<ShoppingCart size={14} />}
                     >
-                      Order
+                      {t('alerts.order')}
                     </Button>
                   </div>
                 </div>
@@ -281,8 +281,8 @@ export const Alerts = () => {
         {filteredAlerts.length === 0 && (
           <Card className="p-12 text-center">
             <CheckCircle size={48} className="mx-auto mb-4 text-emerald-400" />
-            <p className="text-text-primary font-medium">No alerts found</p>
-            <p className="text-text-muted text-sm mt-1">All inventory levels are within acceptable ranges</p>
+            <p className="text-text-primary font-medium">{t('alerts.noAlerts')}</p>
+            <p className="text-text-muted text-sm mt-1">{t('alerts.allGood')}</p>
           </Card>
         )}
       </div>

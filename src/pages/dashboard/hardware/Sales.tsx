@@ -30,7 +30,7 @@ interface CartItem {
 }
 
 export const Sales = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('hardware');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -124,8 +124,8 @@ export const Sales = () => {
       {/* Products Section */}
       <div className="flex-1 flex flex-col min-w-0">
         <PageHeader
-          title={t('hardware.pointOfSale', 'Point of Sale')}
-          subtitle="Quick sales and checkout"
+          title={t('sales.title')}
+          subtitle={t('sales.subtitle')}
         />
 
         {/* Search & Filters */}
@@ -133,7 +133,7 @@ export const Sales = () => {
           <div className="flex gap-4 items-center">
             <div className="flex-1">
               <Input
-                placeholder="Search products by name, SKU..."
+                placeholder={t('sales.searchPlaceholder')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 leftIcon={<Search size={16} />}
@@ -141,7 +141,7 @@ export const Sales = () => {
             </div>
             <div className="w-64">
               <Input
-                placeholder="Scan barcode..."
+                placeholder={t('sales.scanBarcode')}
                 value={barcodeInput}
                 onChange={(e) => setBarcodeInput(e.target.value)}
                 onKeyDown={handleBarcodeInput}
@@ -160,7 +160,7 @@ export const Sales = () => {
                   : 'bg-white/[0.05] text-text-secondary hover:bg-white/[0.08] border border-transparent'
               }`}
             >
-              All Products
+              {t('sales.allProducts')}
             </button>
             {mainCategories.map((cat) => (
               <button
@@ -204,7 +204,7 @@ export const Sales = () => {
                       {formatCurrency(product.retailPrice)}
                     </span>
                     <span className="text-xs text-text-muted">
-                      Stock: {product.currentStock}
+                      {t('sales.stockLabel')}: {product.currentStock}
                     </span>
                   </div>
                 </Card>
@@ -215,7 +215,7 @@ export const Sales = () => {
           {filteredProducts.length === 0 && (
             <Card className="p-12 text-center mt-4">
               <Package size={48} className="mx-auto mb-4 text-text-muted" />
-              <p className="text-text-secondary">No products found</p>
+              <p className="text-text-secondary">{t('sales.noProducts')}</p>
             </Card>
           )}
         </div>
@@ -229,19 +229,19 @@ export const Sales = () => {
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-semibold text-text-primary flex items-center gap-2">
                 <ShoppingCart size={20} className="text-amber-400" />
-                Current Sale
+                {t('sales.currentSale')}
               </h3>
               {cart.length > 0 && (
                 <button
                   onClick={clearCart}
                   className="text-sm text-red-400 hover:text-red-300 cursor-pointer"
                 >
-                  Clear
+                  {t('sales.clear')}
                 </button>
               )}
             </div>
             <Input
-              placeholder="Customer name (optional)"
+              placeholder={t('sales.customerName')}
               value={customerName}
               onChange={(e) => setCustomerName(e.target.value)}
               leftIcon={<User size={16} />}
@@ -254,9 +254,9 @@ export const Sales = () => {
               <div className="h-full flex items-center justify-center text-center">
                 <div>
                   <ShoppingCart size={48} className="mx-auto mb-4 text-text-muted" />
-                  <p className="text-text-secondary">Cart is empty</p>
+                  <p className="text-text-secondary">{t('sales.cartEmpty')}</p>
                   <p className="text-xs text-text-muted mt-1">
-                    Click products or scan barcode to add
+                    {t('sales.cartEmptyHint')}
                   </p>
                 </div>
               </div>
@@ -277,7 +277,7 @@ export const Sales = () => {
                         {item.name}
                       </p>
                       <p className="text-xs text-text-muted">
-                        {formatCurrency(item.price)} each
+                        {formatCurrency(item.price)} {t('sales.each')}
                       </p>
                     </div>
                     <div className="flex items-center gap-2">
@@ -311,15 +311,15 @@ export const Sales = () => {
           <div className="p-4 border-t border-white/[0.08] bg-white/[0.02]">
             <div className="space-y-2 mb-4">
               <div className="flex justify-between text-sm">
-                <span className="text-text-muted">Subtotal ({cart.reduce((sum, i) => sum + i.quantity, 0)} items)</span>
+                <span className="text-text-muted">{t('sales.subtotal')} ({cart.reduce((sum, i) => sum + i.quantity, 0)} items)</span>
                 <span className="text-text-primary">{formatCurrency(subtotal)}</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-text-muted">Tax (8%)</span>
+                <span className="text-text-muted">{t('sales.tax')}</span>
                 <span className="text-text-primary">{formatCurrency(tax)}</span>
               </div>
               <div className="flex justify-between pt-2 border-t border-white/[0.08]">
-                <span className="font-semibold text-text-primary">Total</span>
+                <span className="font-semibold text-text-primary">{t('sales.total')}</span>
                 <span className="font-bold text-xl text-amber-400">{formatCurrency(total)}</span>
               </div>
             </div>
@@ -331,14 +331,14 @@ export const Sales = () => {
                 leftIcon={<Banknote size={16} />}
                 disabled={cart.length === 0}
               >
-                Cash
+                {t('sales.cash')}
               </Button>
               <Button
                 className="w-full"
                 leftIcon={<CreditCard size={16} />}
                 disabled={cart.length === 0}
               >
-                Card
+                {t('sales.card')}
               </Button>
             </div>
 
@@ -348,7 +348,7 @@ export const Sales = () => {
               leftIcon={<Calculator size={16} />}
               disabled={cart.length === 0}
             >
-              Split Payment
+              {t('sales.splitPayment')}
             </Button>
           </div>
         </Card>

@@ -24,7 +24,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const Suppliers = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('hardware');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<'all' | 'active' | 'inactive'>('all');
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -66,33 +66,33 @@ export const Suppliers = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('hardware.suppliers', 'Suppliers')}
-        subtitle="Manage your supplier relationships"
-        actions={<Button leftIcon={<Plus size={16} />}>Add Supplier</Button>}
+        title={t('suppliers.title')}
+        subtitle={t('suppliers.subtitle')}
+        actions={<Button leftIcon={<Plus size={16} />}>{t('suppliers.addSupplier')}</Button>}
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Suppliers"
+          title={t('suppliers.totalSuppliers')}
           value={stats.totalSuppliers.toString()}
           icon={Users}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Active Suppliers"
+          title={t('suppliers.activeSuppliers')}
           value={stats.activeSuppliers.toString()}
           icon={Users}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Total Products"
+          title={t('suppliers.totalProducts')}
           value={stats.totalProducts.toString()}
           icon={Package}
           iconColor="#6366f1"
         />
         <StatsCard
-          title="Total Order Value"
+          title={t('suppliers.totalOrderValue')}
           value={formatCurrency(stats.totalOrderValue)}
           icon={DollarSign}
           iconColor="#0ea5e9"
@@ -104,7 +104,7 @@ export const Suppliers = () => {
         <div className="flex flex-wrap gap-4 items-center">
           <div className="flex-1 min-w-[200px] max-w-md">
             <Input
-              placeholder="Search suppliers..."
+              placeholder={t('suppliers.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               leftIcon={<Search size={16} />}
@@ -159,13 +159,13 @@ export const Suppliers = () => {
                   {activeDropdown === supplier.id && (
                     <div className="absolute right-0 top-full mt-1 w-40 bg-background-secondary border border-white/[0.08] rounded-lg shadow-lg z-10">
                       <button className="w-full px-3 py-2 text-left text-sm text-text-secondary hover:bg-white/[0.05] flex items-center gap-2 cursor-pointer">
-                        <Eye size={14} /> View Details
+                        <Eye size={14} /> {t('suppliers.viewDetails')}
                       </button>
                       <button className="w-full px-3 py-2 text-left text-sm text-text-secondary hover:bg-white/[0.05] flex items-center gap-2 cursor-pointer">
-                        <Edit size={14} /> Edit
+                        <Edit size={14} /> {t('suppliers.edit')}
                       </button>
                       <button className="w-full px-3 py-2 text-left text-sm text-red-400 hover:bg-white/[0.05] flex items-center gap-2 cursor-pointer">
-                        <Trash2 size={14} /> Delete
+                        <Trash2 size={14} /> {t('suppliers.delete')}
                       </button>
                     </div>
                   )}
@@ -190,11 +190,11 @@ export const Suppliers = () => {
               <div className="flex items-center justify-between pt-4 border-t border-white/[0.08]">
                 <div className="text-center">
                   <p className="text-lg font-bold text-text-primary">{getProductCount(supplier.id)}</p>
-                  <p className="text-xs text-text-muted">Products</p>
+                  <p className="text-xs text-text-muted">{t('suppliers.products')}</p>
                 </div>
                 <div className="text-center">
                   <p className="text-lg font-bold text-text-primary">{supplier.paymentTerms}</p>
-                  <p className="text-xs text-text-muted">Payment Terms</p>
+                  <p className="text-xs text-text-muted">{t('suppliers.paymentTerms')}</p>
                 </div>
                 <div className="text-center">
                   <span
@@ -211,7 +211,7 @@ export const Suppliers = () => {
 
               <div className="mt-4 pt-4 border-t border-white/[0.08]">
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-text-muted">Total Orders</span>
+                  <span className="text-text-muted">{t('suppliers.totalOrders')}</span>
                   <span className="font-semibold text-amber-400">{formatCurrency(supplier.totalPurchases)}</span>
                 </div>
               </div>
@@ -223,7 +223,7 @@ export const Suppliers = () => {
       {filteredSuppliers.length === 0 && (
         <Card className="p-12 text-center">
           <Users size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No suppliers found</p>
+          <p className="text-text-secondary">{t('suppliers.noSuppliers')}</p>
         </Card>
       )}
     </div>

@@ -16,7 +16,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const Inventory = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('hardware');
   const [selectedFilter, setSelectedFilter] = useState<'all' | 'low' | 'critical' | 'out'>('all');
 
   const stats = hardwareStats;
@@ -48,35 +48,35 @@ export const Inventory = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('hardware.inventoryOverview', 'Inventory Overview')}
-        subtitle="Monitor stock levels and inventory value"
+        title={t('inventory.title')}
+        subtitle={t('inventory.subtitle')}
         actions={
-          <Button leftIcon={<ClipboardList size={16} />}>Start Stock Count</Button>
+          <Button leftIcon={<ClipboardList size={16} />}>{t('inventory.startStockCount')}</Button>
         }
       />
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Inventory Value"
+          title={t('inventory.totalInventoryValue')}
           value={formatCurrency(stats.totalInventoryValue)}
           icon={DollarSign}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Total Products"
+          title={t('inventory.totalProducts')}
           value={stats.totalProducts.toString()}
           icon={Package}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Low Stock Items"
+          title={t('inventory.lowStockItems')}
           value={stats.lowStockItems.toString()}
           icon={AlertTriangle}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Critical Stock"
+          title={t('inventory.criticalStock')}
           value={stats.criticalStockItems.toString()}
           icon={AlertTriangle}
           iconColor="#ef4444"
@@ -86,7 +86,7 @@ export const Inventory = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Inventory Value by Category */}
         <Card className="p-6">
-          <h3 className="text-lg font-semibold text-text-primary mb-6">Inventory Value by Category</h3>
+          <h3 className="text-lg font-semibold text-text-primary mb-6">{t('inventory.inventoryValueByCategory')}</h3>
           <div className="space-y-4">
             {categoryValues.slice(0, 8).map((category, index) => (
               <motion.div
@@ -114,7 +114,7 @@ export const Inventory = () => {
 
         {/* Quick Filters */}
         <Card className="p-6">
-          <h3 className="text-lg font-semibold text-text-primary mb-4">Stock Status Summary</h3>
+          <h3 className="text-lg font-semibold text-text-primary mb-4">{t('inventory.stockStatusSummary')}</h3>
           <div className="grid grid-cols-2 gap-4 mb-6">
             <button
               onClick={() => setSelectedFilter('all')}
@@ -125,7 +125,7 @@ export const Inventory = () => {
               }`}
             >
               <p className="text-2xl font-semibold text-text-primary">{products.length}</p>
-              <p className="text-sm text-text-muted">All Products</p>
+              <p className="text-sm text-text-muted">{t('inventory.allProducts')}</p>
             </button>
             <button
               onClick={() => setSelectedFilter('low')}
@@ -138,7 +138,7 @@ export const Inventory = () => {
               <p className="text-2xl font-semibold text-amber-400">
                 {products.filter((p) => p.status === 'low-stock').length}
               </p>
-              <p className="text-sm text-text-muted">Low Stock</p>
+              <p className="text-sm text-text-muted">{t('inventory.lowStock')}</p>
             </button>
             <button
               onClick={() => setSelectedFilter('critical')}
@@ -151,7 +151,7 @@ export const Inventory = () => {
               <p className="text-2xl font-semibold text-red-400">
                 {products.filter((p) => p.status === 'critical').length}
               </p>
-              <p className="text-sm text-text-muted">Critical Stock</p>
+              <p className="text-sm text-text-muted">{t('inventory.criticalStockLabel')}</p>
             </button>
             <button
               onClick={() => setSelectedFilter('out')}
@@ -164,7 +164,7 @@ export const Inventory = () => {
               <p className="text-2xl font-semibold text-gray-400">
                 {products.filter((p) => p.currentStock === 0).length}
               </p>
-              <p className="text-sm text-text-muted">Out of Stock</p>
+              <p className="text-sm text-text-muted">{t('inventory.outOfStock')}</p>
             </button>
           </div>
 
@@ -203,18 +203,18 @@ export const Inventory = () => {
       {/* Inventory Table */}
       <Card>
         <div className="p-4 border-b border-white/[0.08]">
-          <h3 className="font-semibold text-text-primary">Inventory Details</h3>
+          <h3 className="font-semibold text-text-primary">{t('inventory.inventoryDetails')}</h3>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className="border-b border-white/[0.08]">
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Product</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">SKU</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Category</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Stock</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Value</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Location</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('inventory.product')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('inventory.sku')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('inventory.category')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('inventory.stock')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('inventory.value')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('inventory.location')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border-default">

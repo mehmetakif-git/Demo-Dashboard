@@ -21,7 +21,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const ProductDetail = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('hardware');
   const { id } = useParams();
   const navigate = useNavigate();
   const product = getProductById(id || '');
@@ -32,11 +32,11 @@ export const ProductDetail = () => {
     return (
       <div className="space-y-6">
         <PageHeader
-          title={t('hardware.productNotFound', 'Product Not Found')}
-          subtitle="The requested product could not be found"
+          title={t('productDetail.notFoundTitle')}
+          subtitle={t('productDetail.notFoundSubtitle')}
           actions={
             <Button variant="secondary" leftIcon={<ArrowLeft size={16} />} onClick={() => navigate(-1)}>
-              Go Back
+              {t('productDetail.goBack')}
             </Button>
           }
         />
@@ -55,12 +55,12 @@ export const ProductDetail = () => {
         actions={
           <div className="flex gap-2">
             <Button variant="secondary" leftIcon={<ArrowLeft size={16} />} onClick={() => navigate(-1)}>
-              Back
+              {t('productDetail.back')}
             </Button>
             <Button variant="secondary" leftIcon={<QrCode size={16} />}>
-              Print Barcode
+              {t('productDetail.printBarcode')}
             </Button>
-            <Button leftIcon={<Edit size={16} />}>Edit Product</Button>
+            <Button leftIcon={<Edit size={16} />}>{t('productDetail.editProduct')}</Button>
           </div>
         }
       />
@@ -100,11 +100,11 @@ export const ProductDetail = () => {
                   </div>
                   <div className="flex items-center gap-2 text-text-muted">
                     <MapPin size={14} />
-                    <span>Location: {product.location}</span>
+                    <span>{t('productDetail.location')}: {product.location}</span>
                   </div>
                   <div className="flex items-center gap-2 text-text-muted">
                     <QrCode size={14} />
-                    <span>Barcode: {product.barcode}</span>
+                    <span>{t('productDetail.barcodeLabel')}: {product.barcode}</span>
                   </div>
                 </div>
               </div>
@@ -113,23 +113,23 @@ export const ProductDetail = () => {
 
           {/* Stock Information */}
           <Card className="p-6">
-            <h3 className="text-lg font-semibold text-text-primary mb-4">Stock Information</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-4">{t('productDetail.stockInformation')}</h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
               <div className="p-4 bg-white/[0.03] rounded-lg">
-                <p className="text-sm text-text-muted mb-1">Current Stock</p>
+                <p className="text-sm text-text-muted mb-1">{t('productDetail.currentStock')}</p>
                 <p className="text-2xl font-semibold text-text-primary">{product.currentStock}</p>
                 <p className="text-xs text-text-muted">{product.unit}</p>
               </div>
               <div className="p-4 bg-white/[0.03] rounded-lg">
-                <p className="text-sm text-text-muted mb-1">Min Stock</p>
+                <p className="text-sm text-text-muted mb-1">{t('productDetail.minStock')}</p>
                 <p className="text-2xl font-semibold text-amber-400">{product.minStock}</p>
               </div>
               <div className="p-4 bg-white/[0.03] rounded-lg">
-                <p className="text-sm text-text-muted mb-1">Reorder Point</p>
+                <p className="text-sm text-text-muted mb-1">{t('productDetail.reorderPoint')}</p>
                 <p className="text-2xl font-semibold text-text-primary">{product.reorderPoint}</p>
               </div>
               <div className="p-4 bg-white/[0.03] rounded-lg">
-                <p className="text-sm text-text-muted mb-1">Max Stock</p>
+                <p className="text-sm text-text-muted mb-1">{t('productDetail.maxStock')}</p>
                 <p className="text-2xl font-semibold text-text-primary">{product.maxStock}</p>
               </div>
             </div>
@@ -137,7 +137,7 @@ export const ProductDetail = () => {
             {/* Stock Level Bar */}
             <div className="mb-4">
               <div className="flex justify-between text-sm mb-2">
-                <span className="text-text-muted">Stock Level</span>
+                <span className="text-text-muted">{t('productDetail.stockLevel')}</span>
                 <span className="text-text-primary">{stockPercentage.toFixed(0)}%</span>
               </div>
               <div className="h-3 bg-white/[0.1] rounded-full overflow-hidden">
@@ -156,13 +156,13 @@ export const ProductDetail = () => {
               <div className="p-4 bg-amber-500/10 border border-amber-500/20 rounded-lg flex items-center gap-3">
                 <AlertTriangle className="text-amber-400" size={20} />
                 <div>
-                  <p className="font-medium text-amber-400">Low Stock Alert</p>
+                  <p className="font-medium text-amber-400">{t('productDetail.lowStockAlert')}</p>
                   <p className="text-sm text-text-secondary">
-                    Stock is below reorder point. Consider creating a purchase order.
+                    {t('productDetail.lowStockMessage')}
                   </p>
                 </div>
                 <Button size="sm" className="ml-auto">
-                  Create PO
+                  {t('productDetail.createPO')}
                 </Button>
               </div>
             )}
@@ -171,9 +171,9 @@ export const ProductDetail = () => {
           {/* Recent Stock Movements */}
           <Card className="p-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-text-primary">Recent Stock Movements</h3>
+              <h3 className="text-lg font-semibold text-text-primary">{t('productDetail.recentStockMovements')}</h3>
               <Button variant="secondary" size="sm">
-                View All
+                {t('productDetail.viewAll')}
               </Button>
             </div>
             <div className="space-y-3">
@@ -210,7 +210,7 @@ export const ProductDetail = () => {
                   </div>
                 ))
               ) : (
-                <p className="text-center text-text-muted py-4">No recent movements</p>
+                <p className="text-center text-text-muted py-4">{t('productDetail.noRecentMovements')}</p>
               )}
             </div>
           </Card>
@@ -220,23 +220,23 @@ export const ProductDetail = () => {
         <div className="space-y-6">
           {/* Pricing */}
           <Card className="p-6">
-            <h3 className="text-lg font-semibold text-text-primary mb-4">Pricing</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-4">{t('productDetail.pricing')}</h3>
             <div className="space-y-4">
               <div className="flex justify-between items-center">
-                <span className="text-text-muted">Cost Price</span>
+                <span className="text-text-muted">{t('productDetail.costPrice')}</span>
                 <span className="font-medium text-text-primary">{formatCurrency(product.costPrice)}</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-text-muted">Retail Price</span>
+                <span className="text-text-muted">{t('productDetail.retailPrice')}</span>
                 <span className="font-semibold text-amber-400 text-lg">{formatCurrency(product.retailPrice)}</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-text-muted">Wholesale Price</span>
+                <span className="text-text-muted">{t('productDetail.wholesalePrice')}</span>
                 <span className="font-medium text-text-primary">{formatCurrency(product.wholesalePrice)}</span>
               </div>
               <div className="border-t border-white/[0.08] pt-4">
                 <div className="flex justify-between items-center">
-                  <span className="text-text-muted">Margin</span>
+                  <span className="text-text-muted">{t('productDetail.margin')}</span>
                   <span className="font-semibold text-emerald-400">{margin.toFixed(1)}%</span>
                 </div>
               </div>
@@ -248,7 +248,7 @@ export const ProductDetail = () => {
             <Card className="p-6">
               <div className="flex items-center gap-2 mb-4">
                 <Truck size={18} className="text-amber-400" />
-                <h3 className="text-lg font-semibold text-text-primary">Supplier</h3>
+                <h3 className="text-lg font-semibold text-text-primary">{t('productDetail.supplier')}</h3>
               </div>
               <div className="space-y-3">
                 <div>
@@ -260,7 +260,7 @@ export const ProductDetail = () => {
                   <p>{supplier.email}</p>
                 </div>
                 <Button variant="secondary" className="w-full" size="sm">
-                  Contact Supplier
+                  {t('productDetail.contactSupplier')}
                 </Button>
               </div>
             </Card>
@@ -268,26 +268,26 @@ export const ProductDetail = () => {
 
           {/* Product Details */}
           <Card className="p-6">
-            <h3 className="text-lg font-semibold text-text-primary mb-4">Details</h3>
+            <h3 className="text-lg font-semibold text-text-primary mb-4">{t('productDetail.details')}</h3>
             <div className="space-y-3 text-sm">
               <div className="flex justify-between">
-                <span className="text-text-muted">Unit</span>
+                <span className="text-text-muted">{t('productDetail.unit')}</span>
                 <span className="text-text-primary">{product.unit}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-text-muted">Weight</span>
+                <span className="text-text-muted">{t('productDetail.weight')}</span>
                 <span className="text-text-primary">{product.weight} kg</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-text-muted">Dimensions</span>
+                <span className="text-text-muted">{t('productDetail.dimensions')}</span>
                 <span className="text-text-primary">{product.dimensions}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-text-muted">Warranty</span>
+                <span className="text-text-muted">{t('productDetail.warranty')}</span>
                 <span className="text-text-primary">{product.warranty}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-text-muted">Last Restocked</span>
+                <span className="text-text-muted">{t('productDetail.lastRestocked')}</span>
                 <span className="text-text-primary">{formatDate(product.lastRestocked)}</span>
               </div>
             </div>

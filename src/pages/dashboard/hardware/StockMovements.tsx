@@ -17,7 +17,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export const StockMovements = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('hardware');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedType, setSelectedType] = useState<'all' | 'in' | 'out'>('all');
   const [selectedReason, setSelectedReason] = useState<string>('all');
@@ -60,14 +60,14 @@ export const StockMovements = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title={t('hardware.stockMovements', 'Stock Movements')}
-        subtitle="Track all inventory changes"
+        title={t('stockMovements.title')}
+        subtitle={t('stockMovements.subtitle')}
         actions={
           <div className="flex gap-2">
             <Button variant="secondary" leftIcon={<Download size={16} />}>
-              Export
+              {t('stockMovements.export')}
             </Button>
-            <Button leftIcon={<Plus size={16} />}>New Movement</Button>
+            <Button leftIcon={<Plus size={16} />}>{t('stockMovements.newMovement')}</Button>
           </div>
         }
       />
@@ -75,25 +75,25 @@ export const StockMovements = () => {
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Stock In"
+          title={t('stockMovements.totalStockIn')}
           value={stats.totalIn.toString()}
           icon={ArrowDown}
           iconColor="#10b981"
         />
         <StatsCard
-          title="Total Stock Out"
+          title={t('stockMovements.totalStockOut')}
           value={stats.totalOut.toString()}
           icon={ArrowUp}
           iconColor="#ef4444"
         />
         <StatsCard
-          title="Today's Movements"
+          title={t('stockMovements.todaysMovements')}
           value={stats.todayMovements.toString()}
           icon={Package}
           iconColor="#f59e0b"
         />
         <StatsCard
-          title="Total Movements"
+          title={t('stockMovements.totalMovements')}
           value={stats.totalMovements.toString()}
           icon={Package}
           iconColor="#6366f1"
@@ -105,7 +105,7 @@ export const StockMovements = () => {
         <div className="flex flex-wrap gap-4 items-center">
           <div className="flex-1 min-w-[200px] max-w-md">
             <Input
-              placeholder="Search by product or reference..."
+              placeholder={t('stockMovements.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               leftIcon={<Search size={16} />}
@@ -121,7 +121,7 @@ export const StockMovements = () => {
                   : 'bg-white/[0.05] text-text-secondary hover:bg-white/[0.08] border border-transparent'
               }`}
             >
-              All
+              {t('stockMovements.all')}
             </button>
             <button
               onClick={() => setSelectedType('in')}
@@ -131,7 +131,7 @@ export const StockMovements = () => {
                   : 'bg-white/[0.05] text-text-secondary hover:bg-white/[0.08] border border-transparent'
               }`}
             >
-              <ArrowDown size={14} /> Stock In
+              <ArrowDown size={14} /> {t('stockMovements.stockIn')}
             </button>
             <button
               onClick={() => setSelectedType('out')}
@@ -141,7 +141,7 @@ export const StockMovements = () => {
                   : 'bg-white/[0.05] text-text-secondary hover:bg-white/[0.08] border border-transparent'
               }`}
             >
-              <ArrowUp size={14} /> Stock Out
+              <ArrowUp size={14} /> {t('stockMovements.stockOut')}
             </button>
           </div>
 
@@ -150,7 +150,7 @@ export const StockMovements = () => {
             onChange={(e) => setSelectedReason(e.target.value)}
             className="px-3 py-2 bg-white/[0.05] border border-white/[0.08] rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-primary cursor-pointer"
           >
-            <option value="all">All Reasons</option>
+            <option value="all">{t('stockMovements.allReasons')}</option>
             {movementReasons.map((reason) => (
               <option key={reason.id} value={reason.id}>
                 {reason.name}
@@ -166,15 +166,15 @@ export const StockMovements = () => {
           <table className="w-full">
             <thead>
               <tr className="border-b border-white/[0.08]">
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Date/Time</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Type</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Product</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Reason</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Quantity</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Before</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">After</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">Reference</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">By</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('stockMovements.dateTime')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('stockMovements.type')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('stockMovements.product')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('stockMovements.reason')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('stockMovements.quantity')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('stockMovements.before')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('stockMovements.after')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('stockMovements.reference')}</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-secondary">{t('stockMovements.by')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border-default">
@@ -237,7 +237,7 @@ export const StockMovements = () => {
       {filteredMovements.length === 0 && (
         <Card className="p-12 text-center">
           <Package size={48} className="mx-auto mb-4 text-text-muted" />
-          <p className="text-text-secondary">No stock movements found</p>
+          <p className="text-text-secondary">{t('stockMovements.noMovements')}</p>
         </Card>
       )}
     </div>
